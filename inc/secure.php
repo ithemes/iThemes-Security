@@ -68,12 +68,17 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				//ban extra-long urls if turned on
 				if ( $bwpsoptions['st_longurl'] == 1 && ! is_admin() ) {
 				
-					if ( strlen( $_SERVER['REQUEST_URI'] ) > 255 ||
-					
-						strpos( $_SERVER['REQUEST_URI'], "eval(" ) ||
-						strpos( $_SERVER['REQUEST_URI'], "CONCAT" ) ||
-						strpos( $_SERVER['REQUEST_URI'], "UNION+SELECT" ) ||
-						strpos( $_SERVER['REQUEST_URI'], "base64" ) ) {
+					if ( 
+						! strpos( $_SERVER['REQUEST_URI'], 'infinity=scrolling&action=infinite_scroll' ) &&
+						(
+							strlen( $_SERVER['REQUEST_URI'] ) > 255 ||
+							strpos( $_SERVER['REQUEST_URI'], 'eval(' ) ||
+							strpos( $_SERVER['REQUEST_URI'], 'CONCAT' ) ||
+							strpos( $_SERVER['REQUEST_URI'], 'UNION+SELECT' ) ||
+							strpos( $_SERVER['REQUEST_URI'], 'base64' ) 
+						) 
+
+					) {
 						@header( 'HTTP/1.1 414 Request-URI Too Long' );
 						@header( 'Status: 414 Request-URI Too Long' );
 						@header( 'Cache-Control: no-cache, must-revalidate' );
