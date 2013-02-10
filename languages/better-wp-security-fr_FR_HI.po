@@ -1,0 +1,1425 @@
+# Copyright (C) 2010 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: better-wp-security\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
+"POT-Creation-Date: 2011-07-21 07:42+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2012-05-23 15:38+0530\n"
+"Last-Translator: shivangi <shivangi@outshinesolutions.com>\n"
+"Language-Team: Claude ALTAYRAC <klystron@laposte.net>\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+
+#: pages/banusers.php:92
+#: pages/hta.php:46
+#: pages/away.php:43
+#: pages/hidebe.php:42
+#: pages/idetect.php:18
+#: pages/tweaks.php:77
+#: pages/ll.php:52
+msgid "Settings Saved"
+msgstr "सेटिंग्स सहेजे गए"
+
+#: pages/banusers.php:113
+#: plugin.php:79
+msgid "Ban Users Options"
+msgstr "प्रतिबंध उपयोगकर्ता विकल्प"
+
+#: pages/banusers.php:119
+msgid "Ban User Options"
+msgstr "प्रतिबंध उपयोगकर्ता विकल्प"
+
+#: pages/banusers.php:121
+msgid "List below the addresses of users you would like to ban from your site."
+msgstr "उपयोगकर्ताओं के पतों के नीचे सूची आप अपनी साइट से प्रतिबंध चाहते हैं."
+
+#: pages/banusers.php:128
+msgid "Enable Ban Users"
+msgstr "रतिबंध उपयोगकर्ता सक्षम"
+
+#: pages/banusers.php:131
+#: pages/away.php:123
+#: pages/hidebe.php:68
+#: pages/status.php:139
+#: pages/status.php:147
+#: pages/status.php:155
+#: pages/status.php:163
+#: pages/status.php:171
+#: pages/status.php:179
+#: pages/status.php:187
+#: pages/status.php:203
+#: pages/status.php:211
+#: pages/idetect.php:56
+#: pages/idetect.php:65
+#: pages/ll.php:110
+#: pages/ll.php:168
+#: pages/ll.php:181
+msgid "On"
+msgstr "पर"
+
+#: pages/banusers.php:132
+#: pages/away.php:124
+#: pages/hidebe.php:69
+#: pages/status.php:92
+#: pages/status.php:141
+#: pages/status.php:149
+#: pages/status.php:157
+#: pages/status.php:165
+#: pages/status.php:173
+#: pages/status.php:181
+#: pages/status.php:189
+#: pages/status.php:205
+#: pages/status.php:213
+#: pages/idetect.php:57
+#: pages/idetect.php:66
+#: pages/ll.php:111
+#: pages/ll.php:169
+#: pages/ll.php:182
+msgid "Off"
+msgstr "बंद"
+
+#: pages/banusers.php:138
+msgid "User List"
+msgstr "उपयोक्ता सूची"
+
+#: pages/banusers.php:143
+msgid "You may ban users by individual IP address, IP address range, or hostname."
+msgstr "आप व्यक्तिगत आईपी पता, आईपी पता रेंज, या मेजबाननाम से उपयोगकर्ताओं प्रतिबंध लगा सकता है."
+
+#: pages/banusers.php:144
+msgid "Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses."
+msgstr "व्यक्तिगत आईपी addesses IPv4 मानक प्रारूप (i.e. ###.###.###.###) में होना चाहिए. (*) वाइल्डकार्ड आईपी पतों की एक श्रेणी निर्दिष्ट करने के लिए अनुमति दी जाती है."
+
+#: pages/banusers.php:145
+msgid "IP Address ranges may also be specified using the format ###.###.###.### - ###.###.###.###. Wildcards cannot be used in addresses specified like this."
+msgstr "आईपी पता पर्वतमाला भी प्रारूप का उपयोग कर###.###.###.### - ###.###.###.###.  निर्दिष्ट किया जा सकता है. इस तरह निर्दिष्ट पते में वाइल्डकार्ड नहीं किया जा सकता है."
+
+#: pages/banusers.php:146
+msgid "Hostnames may be specified individually do NOT include slashes (/), http://, or any other extra information."
+msgstr "मेजबाननाम में व्यक्तिगत रूप से स्लैश (/), जो http://, या किसी भी अन्य अतिरिक्त जानकारी शामिल नहीं करने के लिए निर्दिष्ट किया जा सकता है."
+
+#: pages/banusers.php:147
+msgid "Lookup IP Address."
+msgstr "लुकअप आईपी पता."
+
+#: pages/banusers.php:148
+msgid "Enter only 1 IP address per line."
+msgstr "प्रति पंक्ति केवल एक IP पता दर्ज करें."
+
+#: pages/banusers.php:149
+msgid "You may NOT ban your own IP address"
+msgstr "आपको अपने स्वयं के आईपी पते के प्रतिबंध नहीं हो सकता"
+
+#: pages/banusers.php:155
+#: pages/hta.php:97
+#: pages/admin.php:76
+#: pages/away.php:302
+#: pages/hidebe.php:104
+#: pages/idetect.php:74
+#: pages/content.php:37
+#: pages/tweaks.php:189
+#: pages/ll.php:190
+msgid "save"
+msgstr "बचाना"
+
+#: pages/hta.php:20
+#: pages/hidebe.php:22
+msgid "Unable to update htaccess rules"
+msgstr "Htaccess नियमों को अद्यतन करने में असमर्थ"
+
+#: pages/hta.php:53
+#: pages/hta.php:106
+#: plugin.php:83
+msgid ".htaccess Protection"
+msgstr "htaccess संरक्षण"
+
+#: pages/hta.php:60
+msgid "htaccess Protection"
+msgstr "htaccess संरक्षण"
+
+#: pages/hta.php:68
+msgid "Protect .htaccess"
+msgstr "Htaccess को सुरक्षित रखें. ."
+
+#: pages/hta.php:69
+msgid "Add extra protection to the .htaccess file."
+msgstr "Htaccess फ़ाइल करने के लिए अतिरिक्त सुरक्षा जोड़ें."
+
+#: pages/hta.php:72
+msgid "Protect Readme.html"
+msgstr "Readme.html को सुरक्षित रखें"
+
+#: pages/hta.php:73
+#: pages/hta.php:77
+msgid "Remove access to"
+msgstr "एक्सेस हटाएँ"
+
+#: pages/hta.php:73
+msgid "which can give away your Wordpress version."
+msgstr "आपके WordPress संस्करण दे सकते हैं."
+
+#: pages/hta.php:76
+msgid "Protect Wordpress installer script"
+msgstr "WordPress के इंस्टॉलर स्क्रिप्ट को सुरक्षित रखें"
+
+#: pages/hta.php:80
+msgid "Protect wp-config.php"
+msgstr "WordPress के इंस्टॉलर स्क्रिप्ट को सुरक्षित रखें.."
+
+#: pages/hta.php:81
+msgid "Prevents access to the wp-config.php file"
+msgstr "Wp-config.php फाइल करने के लिए उपयोग रोकता है"
+
+#: pages/hta.php:84
+msgid "Disable directory browsing"
+msgstr "निर्देशिका ब्राउज़िंग को अक्षम करें"
+
+#: pages/hta.php:85
+msgid "Prevents users from seeing a list of files in a directory when no index file is present"
+msgstr "एक निर्देशिका में फ़ाइलों की एक सूची देखने से उपयोगकर्ताओं को रोकता है जब कोई अनुक्रमणिका फ़ाइल मौजूद है"
+
+#: pages/hta.php:88
+msgid "Filter Request Methods"
+msgstr "फ़िल्टर अनुरोध तरीके"
+
+#: pages/hta.php:89
+msgid "Filter out hits with the head, trace, delete, or track request methods."
+msgstr "बाहर सिर, का पता लगाने, हटाने, या ट्रैक अनुरोध तरीकों के साथ हिट फ़िल्टर."
+
+#: pages/hta.php:92
+msgid "Filter suspicious query strings"
+msgstr "फ़िल्टर संदिग्ध क्वेरी स्ट्रिंग"
+
+#: pages/hta.php:93
+msgid "Filter out suspicious query strings in the URL."
+msgstr "URL में संदिग्ध क्वेरी तार फ़िल्टर."
+
+#: pages/hta.php:108
+#: pages/hidebe.php:115
+msgid "Warning: Better WP Security cannot write to your <em>.htaccess</em> file. You must fix this error before continuing."
+msgstr "चेतावनी: आपके <em> बेहतर WP सुरक्षा नहीं लिखना. Htaccess </ em> फ़ाइल कर सकते हैं. आप जारी रखने से पहले इस त्रुटि को ठीक करना चाहिए."
+
+#: pages/admin.php:16
+msgid " already exists. Please try again"
+msgstr "पहले से मौजूद है. कृपया पुन: प्रयास करें"
+
+#: pages/admin.php:30
+msgid " is not a valid username. Please try again"
+msgstr "कोई मान्य उपयोगकर्ता नाम नहीं है. कृपया पुन: प्रयास करें"
+
+#: pages/admin.php:36
+msgid "username changed"
+msgstr "उपयोगकर्तानाम बदल दिया"
+
+#: pages/admin.php:56
+#: plugin.php:77
+msgid "Admin User"
+msgstr "व्यवस्थापक उपयोगकर्ता"
+
+#: pages/admin.php:69
+msgid "Rename Admin User"
+msgstr "व्यवस्थापक उपयोगकर्ता का नाम बदलें"
+
+#: pages/admin.php:72
+msgid "Select a new name to use instead of <em>admin</em>"
+msgstr "एक नया <em> व्यवस्थापक </em> के बजाय का उपयोग करने के लिए नाम का चयन करें"
+
+#: pages/admin.php:75
+msgid "Username:"
+msgstr "प्रयोक्ता नाम"
+
+#: pages/admin.php:80
+msgid "Congratulations, the <em>admin</em> user has already been removed. You do not need to take further action on this page."
+msgstr "बधाई, <em> व्यवस्थापक </em> के उपयोगकर्ता पहले से ही हटा दिया गया है. आपको इस पृष्ठ पर आगे कार्रवाई करने की जरूरत नहीं है."
+
+#: pages/away.php:31
+msgid "<strong>You MUST enter a valid date for start time."
+msgstr "<strong>आपको प्रारंभ समय के लिए एक मान्य दिनांक दर्ज करना होगा."
+
+#: pages/away.php:35
+msgid "<strong>You MUST enter a valid date for end time."
+msgstr "<strong>आपको अंत समय के लिए एक मान्य दिनांक दर्ज करना होगा."
+
+#: pages/away.php:104
+msgid "Away Options"
+msgstr "दूर विकल्प"
+
+#: pages/away.php:110
+msgid "Away Mode Options"
+msgstr "दूर मोड विकल्प"
+
+#: pages/away.php:112
+msgid "As many of us update our sites on a general schedule it is not always necessary to permit site access all of the time. The options below will disable the backend of the site for the specified period."
+msgstr "जैसा कि हम में से कई सामान्य समय पर हमारे साइटों को अद्यतन हमेशा जरूरी नहीं है साइट का उपयोग समय के सभी परमिट. नीचे दिए विकल्पों को निर्दिष्ट अवधि के लिए साइट के बैकेंड निष्क्रिय कर देगा."
+
+#: pages/away.php:113
+msgid "Please note that according to your"
+msgstr "कृपया ध्यान दें कि आपका अनुसार"
+
+#: pages/away.php:113
+msgid "Wordpress timezone settings"
+msgstr "WordPress के समयक्षेत्र सेटिंग्स"
+
+#: pages/away.php:113
+msgid "your local time is"
+msgstr "आपका स्थानीय समय है"
+
+#: pages/away.php:113
+msgid "If this is incorrect please correct it on the"
+msgstr "यदि यह गलत है तो सही करो "
+
+#: pages/away.php:113
+msgid "Wordpress general settings page"
+msgstr "WordPress के सामान्य सेटिंग्स पृष्ठ"
+
+#: pages/away.php:113
+msgid "by setting the appropriate time zone. Failure to do so may result in unintended lockouts."
+msgstr "उचित समय क्षेत्र सेटिंग के द्वारा. ऐसा करने में विफलता अनायास तालाबंदी में परिणाम कर सकते हैं."
+
+#: pages/away.php:120
+msgid "Enable Away Mode"
+msgstr "मोड सक्रिय करें"
+
+#: pages/away.php:130
+msgid "Type of Restriction"
+msgstr "प्रतिबंध के प्रकार"
+
+#: pages/away.php:133
+msgid "Daily"
+msgstr "दैनिक"
+
+#: pages/away.php:134
+msgid "One Time"
+msgstr "एक बार"
+
+#: pages/away.php:136
+msgid "Selecting <em>\"One Time\"</em> will lock out the backend of your site from the start date and time to the end date and time. Selecting <em>\"Daily\"</em> will ignore the start and and dates and will disable your site backend from the start time to the end time."
+msgstr "चयन <em> \"एक समय \" </em> अंत तारीख और समय के लिए आपकी साइट के बैकेंड ताला प्रारंभ दिनांक और समय से. चयन <em>\"दैनिक \" </em> शुरू और दिनांक और उपेक्षा और अंत समय से शुरू करने का समय के लिए अपनी साइट बैकेंड अक्षम जाएगा."
+
+#: pages/away.php:143
+msgid "Start Date and Time"
+msgstr "प्रारंभ दिनांक और समय"
+
+#: pages/away.php:216
+msgid "Select the date and time at which access to the backend of this site will be disabled. Note that if <em>\"Daily\"</em> mode is selected the date will be ignored and access will be banned each day at the specified time."
+msgstr "दिनांक और समय का चयन करें जो इस साइट के बैकेंड पर एक्सेस को निष्क्रिय किया जाएगा. नोट करें कि अगर <em> \"दैनिक \" </em> मोड का चयन किया जाता है तारीख नजरअंदाज कर दिया जाएगा और हर दिन का उपयोग निर्दिष्ट समय पर प्रतिबंध लगा दिया जाएगा."
+
+#: pages/away.php:223
+msgid "End Date and Time"
+msgstr "समाप्ति दिनांक और समय"
+
+#: pages/away.php:296
+msgid "Select the date and time at which access to the backend of this site will be restored. Note that if <em>\"Daily\"</em> mode is selected the date will be ignored and access will be restored each day at the specified time."
+msgstr "तारीख और समय का चयन करें जो इस साइट के बैकेंड पर एक्सेस बहाल हो जाएगा. नोट करें कि अगर <em>\"दैनिक \" </ em> मोड का चयन किया जाता है तारीख नजरअंदाज कर दिया जाएगा और हर दिन का एक्सेस निर्दिष्ट समय पर बहाल होगा."
+
+#: pages/away.php:314
+msgid "Access time rules."
+msgstr "समय नियमों पर पहुँचें."
+
+#: pages/away.php:318
+msgid "every day"
+msgstr "प्रतिदिन"
+
+#: pages/away.php:327
+msgid "The backend (administrative section) of this site will be unavailable"
+msgstr "इस साइट के बैकेंड प्रशासनिक खंड अनुपलब्ध हो जाएगा"
+
+#: pages/away.php:327
+msgid "from"
+msgstr "से"
+
+#: pages/away.php:327
+#: functions/bwps.php:445
+#: functions/bwps.php:587
+#: functions/bwps.php:595
+msgid "until"
+msgstr "जब तक"
+
+#: pages/hidebe.php:50
+#: pages/hidebe.php:56
+#: pages/hidebe.php:113
+#: plugin.php:82
+msgid "Hide Backend Options"
+msgstr "बैकएण्ड विकल्प छिपाएँ"
+
+#: pages/hidebe.php:58
+msgid "The options below allow you to \"hide\" the backed of Wordpress replacing known URLs of important areas with ones of your choosing. This is useful if slowing bots and keeping away other nosy users especially on closed or private systems."
+msgstr "नीचे दिए विकल्पों में आप \"छिपाने \" WordPress के लोगों के साथ अपने को चुनने के महत्वपूर्ण क्षेत्रों के ज्ञात यूआरएल की जगह का समर्थन. अनुमति देते हैं यह उपयोगी है अगर बॉट धीमा और दूर बंद या निजी सिस्टम पर विशेष रूप से अन्य सुगंधित उपयोगकर्ताओं"
+
+#: pages/hidebe.php:65
+msgid "Enable Hide Backend"
+msgstr "छुपाएंबैकेंड सक्रिय करें"
+
+#: pages/hidebe.php:75
+msgid "Login Slug"
+msgstr "स्लग लॉगिन"
+
+#: pages/hidebe.php:79
+msgid "Login URL:"
+msgstr "यूआरएल लॉगिन:"
+
+#: pages/hidebe.php:85
+msgid "Register Slug"
+msgstr "स्लग पंजीकरण"
+
+#: pages/hidebe.php:89
+msgid "Register URL:"
+msgstr "यूआरएल पंजीकरण"
+
+#: pages/hidebe.php:95
+msgid "Admin Slug"
+msgstr "व्यवस्थापक स्लग"
+
+#: pages/hidebe.php:99
+msgid "Admin URL:"
+msgstr "व्यवस्थापक यूआरएल:"
+
+#: pages/status.php:7
+msgid "System Status"
+msgstr "व्यवस्था की स्थिति"
+
+#: pages/status.php:13
+msgid "Better WP Security System Status"
+msgstr "बेहतर WP सुरक्षा प्रणाली स्थिति"
+
+#: pages/status.php:26
+msgid "System Information"
+msgstr "सिस्टम जानकारी"
+
+#: pages/status.php:30
+msgid "User Information"
+msgstr "उपयोगकर्ता जानकारी"
+
+#: pages/status.php:32
+msgid "Public IP Address"
+msgstr "सार्वजनिक आईपी पता"
+
+#: pages/status.php:32
+#: pages/status.php:101
+msgid "Get more information on this address"
+msgstr "इस पते पर और अधिक जानकारी प्राप्त करें"
+
+#: pages/status.php:33
+msgid "User Agent"
+msgstr "प्रयोक्ता एजेंट"
+
+#: pages/status.php:38
+msgid "File System Information"
+msgstr "फाइल सिस्टम सूचना"
+
+#: pages/status.php:40
+msgid "Website Root Folder"
+msgstr "वेबसाइट रूट फ़ोल्डर"
+
+#: pages/status.php:41
+msgid "Document Root Path"
+msgstr "दस्तावेज़ रूट पथ"
+
+#: pages/status.php:46
+#: pages/status.php:58
+#: pages/status.php:70
+#: pages/status.php:219
+#: pages/status.php:227
+#: pages/status.php:235
+msgid "Yes"
+msgstr "हां"
+
+#: pages/status.php:50
+#: pages/status.php:62
+msgid "No. Better WP Security will be severely limited in it's ability to secure your site"
+msgstr "नहीं बेहतर WP सुरक्षा को गंभीर रूप से यह करने के लिए अपनी साइट को सुरक्षित करने की क्षमता में सीमित हो जाएगा"
+
+#: pages/status.php:53
+msgid ".htaccess File is Writable"
+msgstr "Htaccess फ़ाइल लिखने योग्य है"
+
+#: pages/status.php:65
+msgid "wp-config.php File is Writable"
+msgstr "wp-config.php फाइल लिखने योग्य है"
+
+#: pages/status.php:74
+msgid "No. Better WP Security will be limited in it's ability to secure your site"
+msgstr "नहीं बेहतर WP सुरक्षा यह करने के लिए अपनी साइट को सुरक्षित करने की क्षमता में सीमित हो जाएगा"
+
+#: pages/status.php:77
+msgid "Content directory can be renamed"
+msgstr "सामग्री निर्देशिका का नाम दिया जा सकता है"
+
+#: pages/status.php:82
+msgid "Database Information"
+msgstr "डाटाबेस सूचना"
+
+#: pages/status.php:84
+msgid "MySQL Database Version"
+msgstr "डाटाबेस संस्करण"
+
+#: pages/status.php:85
+msgid "MySQL Client Version"
+msgstr "MySQL ग्राहक संस्करण"
+
+#: pages/status.php:86
+msgid "Database Host"
+msgstr "डेटाबेस अन्य होस्ट"
+
+#: pages/status.php:87
+msgid "Database Name"
+msgstr "डेटाबेस नाम"
+
+#: pages/status.php:88
+msgid "Database User"
+msgstr "डाटाबेस प्रयोक्ता"
+
+#: pages/status.php:91
+msgid "Not Set"
+msgstr "सेट नहीं"
+
+#: pages/status.php:94
+msgid "SQL Mode"
+msgstr "एसक्यूएल मोड"
+
+#: pages/status.php:99
+msgid "Server Information"
+msgstr "सर्वर जानकारी"
+
+#: pages/status.php:101
+msgid "Server / Website IP Address"
+msgstr "सर्वर / वेबसाइट आईपी पता"
+
+#: pages/status.php:102
+msgid "Server Type"
+msgstr "सर्वर के प्रकार"
+
+#: pages/status.php:103
+msgid "Operating System"
+msgstr "ऑपरेटिंग सिस्टम"
+
+#: pages/status.php:104
+msgid "Browser Compression Supported"
+msgstr "ब्राउज़र कम्प्रेशन का समर्थन किया"
+
+#: pages/status.php:109
+msgid "PHP Information"
+msgstr "PHP सूचना"
+
+#: pages/status.php:111
+msgid "PHP Version"
+msgstr "PHP संस्करण"
+
+#: pages/status.php:112
+msgid "PHP Memory Usage"
+msgstr "PHP मेमोरी उपयोग"
+
+#: pages/status.php:112
+msgid " MB"
+msgstr "एमबी"
+
+#: pages/status.php:117
+#: pages/status.php:125
+#: pages/status.php:133
+#: pages/status.php:197
+msgid "N/A"
+msgstr "N/A"
+
+#: pages/status.php:120
+msgid "PHP Memory Limit"
+msgstr "PHP मेमोरी सीमा"
+
+#: pages/status.php:128
+msgid "PHP Max Upload Size"
+msgstr "PHP अधिकतम अपलोड आकार"
+
+#: pages/status.php:136
+msgid "PHP Max Post Size"
+msgstr "PHP अधिकतम पोस्ट का आकार"
+
+#: pages/status.php:144
+msgid "PHP Safe Mode"
+msgstr "PHP सुरक्षित मोड"
+
+#: pages/status.php:152
+msgid "PHP Allow URL fopen"
+msgstr "PHP यूआरएल fopen की अनुमति दें"
+
+#: pages/status.php:160
+msgid "PHP Allow URL Include"
+msgstr "PHP को अनुमति दें यूआरएल शामिल करें"
+
+#: pages/status.php:168
+msgid "PHP Display Errors"
+msgstr "PHP प्रदर्शन त्रुटियाँ"
+
+#: pages/status.php:176
+msgid "PHP Display Startup Errors"
+msgstr "PHP के प्रदर्शन Startup त्रुटियाँ"
+
+#: pages/status.php:184
+msgid "PHP Expose PHP"
+msgstr "PHP बेनकाब PHP"
+
+#: pages/status.php:192
+msgid "PHP Register Globals"
+msgstr "PHP रजिस्टर वैश्विक"
+
+#: pages/status.php:200
+msgid "PHP Max Script Execution Time"
+msgstr "PHP अधिकतम स्क्रिप्ट निष्पादन समय"
+
+#: pages/status.php:200
+msgid "Seconds"
+msgstr "सेकंड"
+
+#: pages/status.php:208
+msgid "PHP Magic Quotes GPC"
+msgstr "PHP जादू उद्धरण GPC"
+
+#: pages/status.php:216
+msgid "PHP open_basedir"
+msgstr "PHP open_basedir"
+
+#: pages/status.php:221
+#: pages/status.php:229
+#: pages/status.php:237
+msgid "No"
+msgstr "नहीं"
+
+#: pages/status.php:224
+msgid "PHP XML Support"
+msgstr "PHP एक्सएमएल समर्थन"
+
+#: pages/status.php:232
+msgid "PHP IPTC Support"
+msgstr "PHP आईपीटीसी समर्थन"
+
+#: pages/status.php:240
+msgid "PHP Exif Support"
+msgstr "PHP के Exif समर्थन"
+
+#: pages/status.php:245
+msgid "Wordpress Configuration"
+msgstr "WordPress के विन्यास"
+
+#: pages/status.php:249
+msgid "Multisite is enabled"
+msgstr "एकाधिक साइट सक्षम है"
+
+#: pages/status.php:251
+msgid "Multisite is NOT enabled"
+msgstr "एकाधिक साइट सक्षम नहीं है"
+
+#: pages/status.php:254
+msgid "\tMultisite"
+msgstr "\tMultisite"
+
+#: pages/status.php:259
+msgid "Enabled"
+msgstr "सक्रिय"
+
+#: pages/status.php:263
+msgid "WARNING! Permalinks are NOT Enabled. Permalinks MUST be enabled for Better WP Security to function correctly"
+msgstr "चेतावनी! Permalinks सक्षम नहीं हैं. Permalinks के लिए बेहतर WP सुरक्षा सही ढंग से कार्य करने के लिए सक्षम किया जाना चाहिए"
+
+#: pages/status.php:266
+msgid "WP Permalink Structure"
+msgstr "WP Permalink संरचना"
+
+#: pages/status.php:278
+msgid "Current .htaccess Contents"
+msgstr "वर्तमान htaccess. सामग्री"
+
+#: pages/status.php:312
+msgid "Support"
+msgstr "समर्थन"
+
+#: pages/status.php:314
+msgid "Please visit the"
+msgstr "कृपया यहाँ जाएँ"
+
+#: pages/status.php:314
+msgid "homepage for support and change-log"
+msgstr "समर्थन और परिवर्तन लॉग मुखपृष्ठ"
+
+#: pages/idetect.php:38
+#: plugin.php:84
+msgid "Intrusion Detection"
+msgstr "घुसपैठ जांच"
+
+#: pages/idetect.php:44
+msgid "Detect 404s"
+msgstr "404s का पता लगाने"
+
+#: pages/idetect.php:46
+msgid "Use the options below to enable 404 detection."
+msgstr "नीचे दिए विकल्पों के प्रयोग के लिए 404 पता लगाने के लिए सक्षम."
+
+#: pages/idetect.php:53
+msgid "Enable 404 Detection"
+msgstr "404 डिटेक्शन सक्रिय करें"
+
+#: pages/idetect.php:62
+#: pages/ll.php:178
+msgid "Enable Email Notifications."
+msgstr "ईमेल अधिसूचना सक्रिय करें."
+
+#: pages/idetect.php:68
+#: pages/ll.php:184
+msgid "Enabling this feature will trigger an email to be sent to the website administrator whenever a host or user is locked out of the system."
+msgstr "इस सुविधा को सक्षम करने से एक ईमेल ट्रिगर वेबसाइट प्रशासक को भेजा जा सकता है जब भी एक मेजबान या उपयोगकर्ता प्रणाली के बाहर बंद है."
+
+#: pages/idetect.php:88
+#: pages/ll.php:204
+msgid "Active Lockouts"
+msgstr "सक्रिय तालाबंदी"
+
+#: pages/idetect.php:90
+msgid "Select a host and click remove to release the lockout and allow them to log into the system."
+msgstr "एक मेजबान का चयन करें और तालाबंदी जारी है और उन्हें प्रणाली में प्रवेश करने की अनुमति हटा दें क्लिक करें."
+
+#: pages/idetect.php:99
+msgid "Expires in"
+msgstr "समाप्त हो"
+
+#: pages/idetect.php:101
+#: pages/ll.php:226
+#: pages/ll.php:240
+msgid "Release Selected Lockouts"
+msgstr "चयनित तालाबंदी रिलीज"
+
+#: pages/idetect.php:103
+#: pages/ll.php:228
+#: pages/ll.php:242
+msgid "There are no hosts currently locked out."
+msgstr "मेजबान वर्तमान में बंद हैं."
+
+#: pages/clean.php:27
+msgid "Old Data Has Been Cleared From The Database"
+msgstr "पुरानी डेटा डेटाबेस से मंजूरी दे दी गई"
+
+#: pages/clean.php:70
+#: plugin.php:87
+msgid "Clean Database"
+msgstr "साफ़ धन्यवाद"
+
+#: pages/clean.php:75
+msgid "Old Data"
+msgstr "पुराने डेटा"
+
+#: pages/clean.php:77
+msgid "Below is old security data still in your Wordpress database. Data is considered old when the lockout has expired or the attempt will no longer be used to generate a lockout."
+msgstr "नीचे पुराने सुरक्षा डेटा अभी भी अपने WordPress डेटाबेस में. डेटा पुराना माना जाता है जब तालाबंदी समाप्त हो गया है या करने का प्रयास नहीं रह तालाबंदी उत्पन्न किया जाएगा."
+
+#: pages/clean.php:78
+msgid "This data is not automatically deleted so that it may be used for analysis. You may delete this data with the form below. To see the actual data you will need to access your database directly."
+msgstr "इस डेटा को स्वचालित रूप से इतना है कि यह विश्लेषण के लिए इस्तेमाल किया जा सकता है नष्ट नहीं है. आप नीचे दिए गए फॉर्म के साथ इस डेटा को हटा सकते हैं. वास्तविक डेटा को देखने के लिए आप सीधे आपका डेटाबेस का एक्सेस करने की आवश्यकता होगी."
+
+#: pages/clean.php:81
+msgid "Check the box next to the data you would like to clear and then press the \"Remove Old Data\" button."
+msgstr "आप खाली करने के लिए और फिर  प्रेस पुराने डेटा निकालें \"बटन चाहते हैं डेटा के बगल में बॉक्स की जाँच करें."
+
+#: pages/clean.php:83
+#: pages/clean.php:84
+#: pages/clean.php:85
+msgid "Your database contains"
+msgstr "आपके डाटाबेस में होता है"
+
+#: pages/clean.php:83
+msgid "404 (page not found) errors."
+msgstr "404 त्रुटियों (पृष्ठ नहीं मिला)."
+
+#: pages/clean.php:84
+msgid "bad login attempts."
+msgstr "बुरा लॉगिन प्रयास."
+
+#: pages/clean.php:85
+msgid "old lockouts."
+msgstr "पुराने तालाबंदी."
+
+#: pages/clean.php:88
+msgid "Remove Old Data"
+msgstr "पुराने डेटा निकालें"
+
+#: pages/content.php:15
+msgid "directory successfully changed."
+msgstr "निर्देशिका सफलतापूर्वक बदल दिया है."
+
+#: pages/content.php:24
+#: pages/content.php:61
+#: plugin.php:80
+msgid "Content Directory"
+msgstr "सामग्री निर्देशिका"
+
+#: pages/content.php:30
+#: pages/content.php:46
+#: pages/content.php:66
+msgid "Change Content Directory"
+msgstr "सामग्री निर्देशिका बदलें"
+
+#: pages/content.php:32
+msgid "Select a new name for the content directory."
+msgstr "सामग्री निर्देशिका के लिए एक नया नाम चुनें."
+
+#: pages/content.php:33
+msgid "NOTICE: Use this only on new installs. Using this on sites with existing content will break links!"
+msgstr "सूचना: नए स्थापित पर ही इस का प्रयोग करें. मौजूदा सामग्री के साथ साइटों पर इस का उपयोग कर लिंक टूट जाएगा!"
+
+#: pages/content.php:36
+msgid "Directory Name:"
+msgstr "निर्देशिका का नाम:"
+
+#: pages/content.php:48
+#: pages/tweaks.php:200
+#: pages/database.php:211
+msgid "Warning: Better WP Security cannot write to your <em>wp-config.php</em> file. You must fix this error before continuing."
+msgstr "चेतावनी: बेहतर WP सुरक्षा आपका wp-config.php <em> </ em> फ़ाइल नहीं लिख सकते हैं. आप जारी रखने से पहले इस त्रुटि को ठीक करना चाहिए."
+
+#: pages/content.php:68
+msgid "The directory has been changed please reload this page if you wish to change it again."
+msgstr "निर्देशिका बदल गया है कृपया इस पृष्ठ पुनः लोड यदि आप इसे फिर बदलना चाहते हैं."
+
+#: pages/tweaks.php:107
+#: pages/tweaks.php:198
+msgid "Security Tweaks"
+msgstr "सुरक्षा बदलाव"
+
+#: pages/tweaks.php:114
+msgid "tweaks Options"
+msgstr "tweaks के विकल्प"
+
+#: pages/tweaks.php:129
+msgid "Header Tweaks"
+msgstr "हैडर बदलाव"
+
+#: pages/tweaks.php:131
+msgid "Remove Wordpress Generator Meta Tag"
+msgstr "WordPress के जेनरेटर मेटा टैग निकालें"
+
+#: pages/tweaks.php:132
+msgid "Removes the"
+msgstr "निकालता है"
+
+#: pages/tweaks.php:132
+msgid "meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities."
+msgstr "आपका साइट शीर्षक से मेटा टैग. यह प्रक्रिया इसे और अधिक कठिन कमजोरियों को निर्धारित करने के लिए एक संभावित हमलावर से खाल के संस्करण जानकारी."
+
+#: pages/tweaks.php:135
+#: pages/tweaks.php:139
+msgid "Remove"
+msgstr "हटाना"
+
+#: pages/tweaks.php:135
+#: pages/tweaks.php:139
+msgid "header"
+msgstr "हैडर"
+
+#: pages/tweaks.php:136
+msgid "Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer."
+msgstr "विंडोज लाइव लेखक हैडर निकालता है. यह अगर आप विंडोज लाइव लेखक का उपयोग नहीं करते की जरूरत नहीं है."
+
+#: pages/tweaks.php:140
+msgid "Removes the RSD (Really Simple Discovery) header. If you don't integrate your blog with external XML-RPC services such as Flickr then the \"RSD\" function is pretty much useless to you."
+msgstr "RSD हैडर (सच सरल डिस्कवरी) निकालता है. यदि आप फ़्लिकर के रूप में बाहरी XML-RPC सेवाओं के साथ अपने ब्लॉग को एकीकृत नहीं है तो \"RSD \" फंक्शन बहुत ज्यादा आप के लिए बेकार है."
+
+#: pages/tweaks.php:142
+msgid "Dashboard Tweaks"
+msgstr "डैशबोर्ड बदलाव"
+
+#: pages/tweaks.php:144
+msgid "Hide Theme Update Notifications"
+msgstr "थीम अपडेट सूचनाएँ छुपाएं"
+
+#: pages/tweaks.php:145
+msgid "Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations."
+msgstr "उपयोगकर्ता जो विषयों अद्यतन नहीं कर सकता से खाल विषय अद्यतन अधिसूचना. कृपया ध्यान दें कि यह केवल बहु - स्थल प्रतिष्ठानों में एक फर्क पड़ता है."
+
+#: pages/tweaks.php:148
+msgid "Hide Plugin Update Notifications"
+msgstr "प्लगइन अपडेट सूचनाएँ छुपाएं"
+
+#: pages/tweaks.php:149
+msgid "Hides plugin update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations."
+msgstr "खाल उपयोगकर्ताओं को जो विषयों अद्यतन नहीं कर सकता से अद्यतन अधिसूचना प्लगइन. कृपया ध्यान दें कि यह केवल बहु - स्थल प्रतिष्ठानों में एक फर्क पड़ता है."
+
+#: pages/tweaks.php:152
+msgid "Hide Core Update Notifications"
+msgstr "कोर अपडेट सूचनाएँ छुपाएं"
+
+#: pages/tweaks.php:153
+msgid "Hides core update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations."
+msgstr "उपयोगकर्ता जो विषयों अद्यतन नहीं कर सकता से कोर अद्यतन अधिसूचना खाल. कृपया ध्यान दें कि यह केवल बहु - स्थल प्रतिष्ठानों में एक फर्क पड़ता है."
+
+#: pages/tweaks.php:155
+msgid "Strong Password Tweaks"
+msgstr "मजबूत पासवर्ड tweaks"
+
+#: pages/tweaks.php:157
+msgid "Enable strong password enforcement"
+msgstr "मजबूत पासवर्ड प्रवर्तन सक्रिय करें"
+
+#: pages/tweaks.php:158
+msgid "Enforce strong passwords for all users with at least the role specified below."
+msgstr "कम से कम नीचे निर्दिष्ट भूमिका के साथ सभी उपयोगकर्ताओं के लिए मजबूत पासवर्ड लागू."
+
+#: pages/tweaks.php:161
+msgid "Strong Password Role"
+msgstr "मजबूत पासवर्ड भूमिका"
+
+#: pages/tweaks.php:162
+msgid "Minimum role at which a user must choose a strong password. For more information on Wordpress roles and capabilities please see"
+msgstr "न्यूनतम भूमिका पर जो उपयोगकर्ता एक मजबूत पासवर्ड चुनना होगा. WordPress की भूमिकाओं और क्षमताओं के बारे में अधिक जानकारी के लिए कृपया देखें"
+
+#: pages/tweaks.php:164
+msgid "Other Tweaks"
+msgstr "अन्य बदलाव"
+
+#: pages/tweaks.php:166
+msgid "Remove Wordpress Login Error Messages"
+msgstr "WordPress के आपके त्रुटि संदेश को हटाएँ"
+
+#: pages/tweaks.php:167
+#: pages/tweaks.php:185
+msgid "Prevents error messages from being displayed to a user upon a failed login attempt."
+msgstr "त्रुटि संदेश से विफल लॉगिन प्रयास के पर एक उपयोगकर्ता के लिए प्रदर्शित किया जा रहा रोकता है."
+
+#: pages/tweaks.php:170
+msgid "Display random version number to all non-administrative users"
+msgstr "सभी गैर - प्रशासनिक उपयोगकर्ताओं के लिए यादृच्छिक संस्करण संख्या प्रदर्शित"
+
+#: pages/tweaks.php:171
+msgid "Displays a random version number to non-administrator users in all places where version number must be used and removes the version completely from where it can."
+msgstr "सभी स्थानों पर जहां संस्करण संख्या का इस्तेमाल किया जाना चाहिए में गैर - व्यवस्थापक उपयोगकर्ताओं के लिए एक यादृच्छिक संस्करण संख्या दिखाता है और यह कर सकते हैं जहां से पूरी तरह से संस्करण को हटा."
+
+#: pages/tweaks.php:174
+msgid "Prevent long URL strings."
+msgstr "लंबे यूआरएल तार रोकें."
+
+#: pages/tweaks.php:175
+msgid "Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database."
+msgstr "अक्षर है कि URL में भेजा जा सकता है की संख्या को सीमित करता है. हैकर्स अक्सर लंबे यूआरएल का लाभ लेने के लिए अपने डेटाबेस में जानकारी इंजेक्षन की प्रयास करें."
+
+#: pages/tweaks.php:178
+msgid "Turn of file editor in Wordpress Back-end."
+msgstr "अंत WordPress में फ़ाइल संपादक की बारी .."
+
+#: pages/tweaks.php:179
+msgid "Disables the file editor for plugins and themes requiring users to have access to the file system to modify files."
+msgstr "प्लगिन और विषयों उपयोगकर्ताओं को फाइल सिस्टम एक्सेस फ़ाइलों को संशोधित करने की आवश्यकता के लिए फ़ाइल संपादक अक्षम करता है."
+
+#: pages/tweaks.php:181
+msgid "SSL Tweaks"
+msgstr "एसएसएल बदलाव"
+
+#: pages/tweaks.php:183
+msgid "WARNING: You're server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable."
+msgstr "चेतावनी: आप सर्वर इस सुविधा का उपयोग करने के लिए SSL का समर्थन जरूरी है. SSL का समर्थन के बिना इस सुविधा का उपयोग आपकी साइट के बैकेंड के कारण उपलब्ध नहीं हो जाएगा."
+
+#: pages/tweaks.php:184
+msgid "Enforce SSL"
+msgstr "एसएसएल लागू करो अन्यथा"
+
+#: pages/database.php:41
+msgid "Could not create table."
+msgstr "तालिका बनाने के लिए नहीं किया सकता है"
+
+#: pages/database.php:53
+msgid "Could not copy table."
+msgstr "तालिका को कॉपी नहीं किया जा सका."
+
+#: pages/database.php:82
+msgid "Could not update prefix refences in options table."
+msgstr "विकल्प तालिका उपसर्ग refences में अद्यतन नहीं किया जा सका."
+
+#: pages/database.php:102
+msgid "Could not update prefix refences in usermeta table."
+msgstr " usermeta तालिका उपसर्ग refences में अद्यतन नहीं किया जा सका."
+
+#: pages/database.php:121
+msgid "Could not drop table."
+msgstr "टैब ड्रॉप नहीं किया सकता है "
+
+#: pages/database.php:150
+msgid "Database Prefix Changed."
+msgstr "डेटाबेस उपसर्ग बदल."
+
+#: pages/database.php:168
+#: pages/database.php:182
+#: pages/database.php:209
+#: plugin.php:81
+msgid "Database Prefix"
+msgstr "डेटाबेस उपसर्ग"
+
+#: pages/database.php:184
+msgid "Use the form below to change the table prefix for your Wordpress Database."
+msgstr "नीचे के फार्म का उपयोग करने के लिए अपने WordPress डाटाबेस के लिये तालिका उपसर्ग बदल."
+
+#: pages/database.php:185
+msgid "WARNING: BACKUP YOUR DATABASE BEFORE USING THIS TOOL!"
+msgstr "चेतावनी: इस उपकरण का उपयोग करने से पहले अपने डेटाबेस बैकअप!"
+
+#: pages/database.php:187
+msgid "Your database is using the default table prefix"
+msgstr "आपका डेटाबेस डिफ़ॉल्ट तालिका उपसर्ग का उपयोग कर रहा है"
+
+#: pages/database.php:187
+msgid "You should change this."
+msgstr "आप इस बदलना चाहिए."
+
+#: pages/database.php:196
+msgid "Your current database table prefix is"
+msgstr "आपके मौजूदा डेटाबेस तालिका उपसर्ग है"
+
+#: pages/database.php:200
+msgid "Press the button below to generate a random database prefix value and update all of your tables accordingly."
+msgstr "नीचे दिए गए बटन प्रेस करने के लिए एक यादृच्छिक डेटाबेस उपसर्ग मूल्य पैदा करते हैं और आपका टेबल के सभी तदनुसार अद्यतन."
+
+#: pages/database.php:201
+msgid "Change Database Table Prefix"
+msgstr "डेटाबेस तालिका उपसर्ग बदलें"
+
+#: pages/donate.php:3
+msgid "Please Donate"
+msgstr " कृपया दान"
+
+#: pages/donate.php:6
+msgid "If you find this plugin useful please consider a small donation."
+msgstr "यदि आप इस प्लगइन का उपयोगी पाते हैं एक छोटा सा दान पर विचार करें."
+
+#: pages/donate.php:14
+msgid "PayPal - The safer, easier way to pay online!"
+msgstr "सुरक्षित आसान ऑनलाइन भुगतान करते हैं पेपल!"
+
+#: pages/donate.php:16
+msgid "Users who have made a donation will receive priority for both support and feature requests."
+msgstr "उपयोगकर्ताओं को, जो एक दान कर दिया है दोनों का समर्थन है और सुविधा का अनुरोध के लिए प्राथमिकता दी जाएगी."
+
+#: pages/ll.php:24
+msgid "<strong>Max Login Attempts Per Host</strong> MUST be a positive integer."
+msgstr "अन्य होस्ट के प्रति <strong> अधिकतम लॉगइन प्रयास </strong> एक सकारात्मक पूर्णांक होना जरूरी है."
+
+#: pages/ll.php:28
+msgid "<strong>Max Login Attempts Per User</strong> MUST be a positive integer."
+msgstr "उपयोगकर्ता के प्रति <strong> अधिकतम लॉगइन प्रयास </strong> एक सकारात्मक पूर्णांक होना जरूरी है."
+
+#: pages/ll.php:32
+msgid "<strong>Login Time Period (minutes)</strong> MUST be a positive integer."
+msgstr "<strong> लॉगइन समय (मिनट में) अवधि </strong> एक सकारात्मक पूर्णांक होना जरूरी है."
+
+#: pages/ll.php:36
+msgid "<strong>Lockout Time Period (minutes)</strong> MUST be a positive integer."
+msgstr "<strong> तालाबंदी समय अवधि (मिनट) </strong> एक सकारात्मक पूर्णांक होना जरूरी है .."
+
+#: pages/ll.php:92
+#: pages/ll.php:98
+#: plugin.php:85
+msgid "Limit Logins Options"
+msgstr "सीमा लॉगिन विकल्प"
+
+#: pages/ll.php:100
+msgid "Set options below to limit the number of bad login attempts. Once this limit is reached, the host or computer attempting to login will be banned from the site for the specified \"lockout length\" period."
+msgstr "विकल्प नीचे सेट बुरा लॉगिन प्रयास की संख्या को सीमित करने के लिए. एक बार इस सीमा तक पहुँच जाता है, मेजबान या कंप्यूटर लॉग इन करने के लिये प्रयास करने से निर्दिष्ट \"तालाबंदी लंबाई \" अवधि के लिए साइट से प्रतिबंध लगा दिया"
+
+#: pages/ll.php:107
+msgid "Enable Limit Bad Login Attempts"
+msgstr "सीमित खराब लॉगइन प्रयास सक्रिय करें"
+
+#: pages/ll.php:117
+msgid "Max Login Attempts Per Host"
+msgstr "अधिकतम लॉगिन मेजबान के प्रति प्रयास"
+
+#: pages/ll.php:122
+msgid "The number of login attempts a user has before their host or computer is locked out of the system."
+msgstr "लॉगिन की संख्या करने का प्रयास एक उपयोगकर्ता से पहले अपने मेजबान या कंप्यूटर प्रणाली के बाहर बंद है."
+
+#: pages/ll.php:129
+msgid "Max Login Attempts Per User"
+msgstr "अधिकतम लॉगइन प्रयास प्रति उपयोगकर्ता"
+
+#: pages/ll.php:134
+msgid "The number of login attempts a user has before their username is locked out of the system."
+msgstr "लॉगिन की संख्या का प्रयास एक उपयोगकर्ता से पहले अपने उपयोगकर्ता नाम प्रणाली के बाहर बंद है."
+
+#: pages/ll.php:141
+msgid "Login Time Period (minutes)"
+msgstr "लॉगइन समय अवधि (मिनट)"
+
+#: pages/ll.php:146
+msgid "The number of minutes in which bad logins should be remembered."
+msgstr "पहले जो बुरा लॉगिन याद किया जाना चाहिए की संख्या."
+
+#: pages/ll.php:153
+msgid "Lockout Time Period (minutes)"
+msgstr "लॉकआउट समय अवधि (मिनट)"
+
+#: pages/ll.php:158
+msgid "The length of time a host or computer will be banned from this site after hitting the limit of bad logins."
+msgstr "समय की लंबाई एक मेजबान या कंप्यूटर बुरा लॉगिन सीमा से टकराने के बाद इस साइट से प्रतिबंध लगा दिया जाएगा."
+
+#: pages/ll.php:165
+msgid "Deny All Site Access To Locked Out Hosts."
+msgstr "बंद बाहर होस्ट करने के लिए सभी साइट उपयोग करने से इनकार."
+
+#: pages/ll.php:171
+msgid "If the host is locked out it will be completely banned from the site and unable to access either content or the backend for the duration of the logout."
+msgstr "अगर मेजबान बाहर बंद कर दिया है यह पूरी तरह से साइट से प्रतिबंध लगा दिया किया जाएगा और या लॉगआउट की अवधि के लिए बैकेंड सामग्री का उपयोग करने में असमर्थ है."
+
+#: pages/ll.php:206
+msgid "Select a host or computer and click remove to release the lockout and allow them to log into the system."
+msgstr "एक मेजबान या कंप्यूटर का चयन करें और तालाबंदी जारी है और उन्हें प्रणाली में प्रवेश करने की अनुमति हटा दें क्लिक करें."
+
+#: pages/ll.php:211
+msgid "Locked Out Hosts"
+msgstr "मेजबान बाहर बंद"
+
+#: pages/ll.php:212
+msgid "Locked Out Users"
+msgstr "LockedOut उपयोगकर्ता"
+
+#: pages/ll.php:224
+#: pages/ll.php:238
+msgid "Expires in:"
+msgstr "समय सीमा समाप्ति:"
+
+#: functions/bwps.php:102
+#: functions/bwps.php:487
+#: functions/bwps.php:1086
+msgid "error"
+msgstr "त्रुटि"
+
+#: functions/bwps.php:246
+msgid "Due to changes in the latest Better WP Security release you must update your "
+msgstr "नवीनतम बेहतर WP सुरक्षा रिलीज में परिवर्तन के कारण आपको अद्यतन करना चाहिए"
+
+#: functions/bwps.php:248
+msgid "Better WP Security settings."
+msgstr "बेहतर WP सुरक्षा सेटिंग्स."
+
+#: functions/bwps.php:445
+#: functions/bwps.php:595
+msgid "A computer"
+msgstr "एक कंप्यूटर"
+
+#: functions/bwps.php:445
+#: functions/bwps.php:587
+#: functions/bwps.php:595
+msgid "has been locked out of the Wordpress site at"
+msgstr "Wordpress साइट के बाहर बंद किया गया"
+
+#: functions/bwps.php:445
+msgid "due to too attempts to open a page that doesn't exist. You may login to the site to manually release the lock if necessary."
+msgstr "एक पृष्ठ है कि अस्तित्व में नहीं खोलने का प्रयास करता है. आप साइट में प्रवेश करने के लिए मैन्युअल रूप से ताला जारी यदि आवश्यक हो सकता है."
+
+#: functions/bwps.php:447
+#: functions/bwps.php:601
+msgid "Site Lockout Notification"
+msgstr "साइट लॉकआउट अधिसूचना"
+
+#: functions/bwps.php:587
+msgid "A Wordpress user"
+msgstr "एक WordPress के उपयोगकर्ता"
+
+#: functions/bwps.php:587
+#: functions/bwps.php:595
+msgid "due to too many failed login attempts. You may login to the site to manually release the lock if necessary."
+msgstr "बहुत सारे असफल लॉगिन का प्रयास के कारण. आप साइट में प्रवेश करने के लिए मैन्युअल रूप से ताला जारी यदि आवश्यक हो सकता है."
+
+#: functions/bwps.php:781
+msgid "<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved."
+msgstr "<strong> </ strong> त्रुटि: तुम एक पासवर्ड का चयन करना होगा कि कम से कम दर मजबूत <em> </em> के मीटर पर. अपनी सेटिंग को सहेजा नहीं गया है."
+
+#: functions/bwps.php:1116
+msgid "You have renamed the wp-content directory of your site."
+msgstr "आपको अपनी साइट के निर्देशिका wp-सामग्री नाम है."
+
+#: functions/bwps.php:1118
+msgid "You should rename the wp-content directory of your site."
+msgstr "आपको अपनी साइट के निर्देशिका wp-सामग्री का नाम परिवर्तित करना चाहिए."
+
+#: functions/bwps.php:1118
+msgid "Click here to do so"
+msgstr "यहाँ ऐसा करने के लिए क्लिक करें"
+
+#: functions/bwps.php:1144
+msgid "You are not allowing users to edit theme and plugin files from the Wordpress backend."
+msgstr "आपको उपयोगकर्ताओं को विषय और प्लगइन WordPress के बैकेंड से फ़ाइलों को संपादित करने के लिए अनुमति नहीं दे रहे हैं .."
+
+#: functions/bwps.php:1146
+msgid "You are allowing users to edit theme and plugin files from the Wordpress backend."
+msgstr "आपको उपयोगकर्ताओं को विषय और प्लगइन WordPress के बैकेंड से फ़ाइलों को संपादित करने के लिए अनुमति दे रहे हैं."
+
+#: functions/bwps.php:1146
+#: functions/bwps.php:1159
+#: functions/bwps.php:1174
+#: functions/bwps.php:1191
+#: functions/bwps.php:1208
+msgid "Click here to fix this"
+msgstr "इसे ठीक करने के लिए यहाँ क्लिक करें"
+
+#: functions/bwps.php:1157
+msgid "You are requiring a secure connection for logins and the admin area."
+msgstr "आपको लॉगिन और व्यवस्थापक क्षेत्र के लिए एक सुरक्षित कनेक्शन की आवश्यकता है."
+
+#: functions/bwps.php:1159
+msgid "You are not requiring a secure connection for logins or for the admin area."
+msgstr "आपको लॉगिन के लिए या व्यवस्थापक क्षेत्र के लिए एक सुरक्षित कनेक्शन की आवश्यकता नहीं कर रहे हैं."
+
+#: functions/bwps.php:1172
+msgid "Your site is secured from attacks by XSS."
+msgstr "आपकी साइट XSS के द्वारा हमलों से सुरक्षित है."
+
+#: functions/bwps.php:1174
+msgid "Your site is still vulnerable to some XSS attacks."
+msgstr "आपकी साइट अभी भी कुछ XSS हमलों की चपेट में है."
+
+#: functions/bwps.php:1189
+msgid "Version information is obscured to all non admin users."
+msgstr "संस्करण जानकारी सभी गैर व्यवस्थापक उपयोगकर्ताओं के लिए अस्पष्ट है."
+
+#: functions/bwps.php:1191
+msgid "Users may still be able to get version information from various plugins and themes."
+msgstr "उपयोगकर्ताओं को अब भी विभिन्न plugins और विषयों से संस्करण जानकारी प्राप्त करने में सक्षम हो सकता है."
+
+#: functions/bwps.php:1206
+msgid "Your installation does not accept long URLs."
+msgstr "आपका स्थापना लंबे यूआरएल को स्वीकार नहीं करता है."
+
+#: functions/bwps.php:1208
+msgid "Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities."
+msgstr "आपका स्थापना लंबा यूआरएलों (255 से अधिक वर्ण) स्वीकार करता है. यह कमजोरियों के लिए नेतृत्व कर सकते हैं."
+
+#: functions/bwps.php:1223
+msgid "No error messages are displayed on failed login."
+msgstr "कोई त्रुटि संदेश विफल लॉगिन पर प्रदर्शित कर रहे हैं."
+
+#: functions/bwps.php:1225
+msgid "Error messages are displayed to users on failed login."
+msgstr "त्रुटि संदेश असफल लॉगिन पर उपयोगकर्ताओं के लिए प्रदर्शित कर रहे हैं."
+
+#: functions/bwps.php:1225
+msgid "Click here to remove them"
+msgstr "उन्हें हटाने के लिए यहाँ क्लिक करें"
+
+#: functions/bwps.php:1242
+msgid "Non-administrators cannot see available updates."
+msgstr "गैर व्यवस्थापक उपलब्ध updates.Click का यहाँ नहीं देखने के लिए उन्हें हटा सकते हैं"
+
+#: functions/bwps.php:1244
+msgid "Non-administrators can see some updates."
+msgstr "गैर प्रशासकों से कुछ अद्यतन देख सकते हैं."
+
+#: functions/bwps.php:1244
+#: functions/bwps.php:1265
+msgid "Click here to fully fix it"
+msgstr "पूरी तरह से इसे ठीक करने के लिए यहाँ क्लिक करें"
+
+#: functions/bwps.php:1246
+msgid "Non-administrators can see all updates."
+msgstr "गैर प्रशासकों सभी अद्यतन देख सकते हैं."
+
+#: functions/bwps.php:1246
+#: functions/bwps.php:1267
+msgid "Click here to fix it"
+msgstr "इसे ठीक करने के लिए  क्लिक करें."
+
+#: functions/bwps.php:1263
+msgid "Your Wordpress header is revealing as little information as possible."
+msgstr "आपके WordPress शीर्षक में संभव के रूप में कम जानकारी के रूप में खुलासा है."
+
+#: functions/bwps.php:1265
+msgid "Your Wordpress header is still revealing some information to users."
+msgstr "आपके WordPress हेडर अभी भी उपयोगकर्ताओं के लिए से कुछ जानकारी का खुलासा."
+
+#: functions/bwps.php:1267
+msgid "Your Wordpress header is showing too much information to users."
+msgstr "अपने WordPress हैडर उपयोगकर्ताओं के लिए बहुत अधिक जानकारी दिखा रहा है."
+
+#: functions/bwps.php:1285
+msgid "You are enforcing strong passwords for all users"
+msgstr "आप सभी उपयोगकर्ताओं के लिए मजबूत पासवर्ड को लागू कर रहे हैं"
+
+#: functions/bwps.php:1287
+msgid "You are enforcing strong passwords, but not for all users."
+msgstr "आप मजबूत पासवर्ड को लागू कर रहे हैं, लेकिन सभी उपयोगकर्ताओं के लिए नहीं किया ."
+
+#: functions/bwps.php:1287
+msgid "Click here to fix"
+msgstr "तय करने के लिए यहाँ क्लिक करें"
+
+#: functions/bwps.php:1289
+msgid "You are not enforcing strong passwords."
+msgstr "आप मजबूत पासवर्ड लागू नहीं कर रहे हैं."
+
+#: functions/bwps.php:1289
+msgid "Click here to enforce strong passwords."
+msgstr "यहाँ क्लिक करें के मजबूत पासवर्ड लागू कर सकते हैं."
+
+#: functions/bwps.php:1304
+msgid "Your Wordpress admin area is hidden."
+msgstr "अपने WordPress व्यवस्थापक क्षेत्र में छिपा हुआ है."
+
+#: functions/bwps.php:1306
+msgid "Your Wordpress admin area  file is NOT hidden."
+msgstr "अपने WordPress व्यवस्थापक क्षेत्र फ़ाइल नहीं छिपा है"
+
+#: functions/bwps.php:1306
+#: functions/bwps.php:1364
+#: functions/bwps.php:1382
+msgid "Click here to secure it"
+msgstr "यह सुरक्षित करने के लिए यहाँ क्लिक करें"
+
+#: functions/bwps.php:1322
+msgid "Your table prefix should not be <em>wp_</em>."
+msgstr "आपका तालिका उपसर्ग नहीं होना चाहिए <em> wp_ </em>."
+
+#: functions/bwps.php:1322
+msgid "Click here to change it"
+msgstr "इसे बदलने के लिए यहाँ क्लिक करें"
+
+#: functions/bwps.php:1324
+msgid "Your table prefix is"
+msgstr "आपका तालिका उपसर्ग है"
+
+#: functions/bwps.php:1341
+msgid "The <em>admin</em> user still exists."
+msgstr "<em> व्यवस्थापक </em> उपयोगकर्ता अभी भी मौजूद है."
+
+#: functions/bwps.php:1341
+msgid "Click here to rename it"
+msgstr "यह नाम बदलने के लिए यहाँ क्लिक करें"
+
+#: functions/bwps.php:1343
+msgid "The <em>admin</em> user has been removed."
+msgstr "<em> व्यवस्थापक </em> के उपयोगकर्ता हटा दिया गया है."
+
+#: functions/bwps.php:1360
+msgid "Your .htaccess file is fully secured."
+msgstr "आपका htaccess फ़ाइल पूरी तरह से सुरक्षित है."
+
+#: functions/bwps.php:1362
+msgid "Your .htaccess file is partially secured."
+msgstr "आपका htaccess फ़ाइल आंशिक रूप से सुरक्षित है."
+
+#: functions/bwps.php:1362
+msgid "Click here to fully secure it"
+msgstr "यहाँ क्लिक करें पूरी तरह से सुरक्षित"
+
+#: functions/bwps.php:1364
+msgid "Your .htaccess file is NOT secured."
+msgstr "आपका. Htaccess फ़ाइल सुरक्षित नहीं है ."
+
+#: functions/bwps.php:1380
+msgid "Your site is not vulnerable to brute force attacks."
+msgstr "आपकी साइट ब्रूट फोर्स हमलों की चपेट में नहीं है."
+
+#: functions/bwps.php:1382
+msgid "Your site is vulnerable to brute force attacks."
+msgstr "आपकी साइट ब्रूट फोर्स हमलों की चपेट में है."
+
+#: functions/bwps.php:1399
+msgid "Your Wordpress admin area is not available when you will not be needing it."
+msgstr "अपने WordPress व्यवस्थापक क्षेत्र में उपलब्ध नहीं है जब आप इसे ज़रूरत नहीं होगी."
+
+#: functions/bwps.php:1401
+msgid "Your Wordpress admin area is available 24/7. Do you really update 24 hours a day?"
+msgstr "अपने WordPress व्यवस्थापक क्षेत्र 24/7 उपलब्ध है. क्या आप वास्तव में 24 घंटे एक दिन अद्यतन?"
+
+#: functions/bwps.php:1401
+msgid "Click here to limit admin availability"
+msgstr "व्यवस्थापक उपलब्धता को सीमित करने के लिए यहाँ क्लिक करें"
+
+#: functions/meta.php:6
+msgid "Log in/out, admin, feed and WordPress links"
+msgstr "लिंक में / बाहर प्रवेश करें व्यवस्थापक,, फ़ीड और WordPress "
+
+#: functions/meta.php:7
+#: functions/meta.php:16
+msgid "Meta"
+msgstr "मेटा"
+
+#: functions/meta.php:26
+msgid "Register"
+msgstr "रजिस्टर"
+
+#: functions/meta.php:30
+msgid "Site Admin"
+msgstr "साइट व्यवस्थापक"
+
+#: functions/meta.php:35
+msgid "Log in"
+msgstr "लॉगिन"
+
+#: functions/meta.php:37
+msgid "Log out"
+msgstr "बाहर प्रवेश करें"
+
+#: functions/meta.php:41
+msgid "Syndicate this site using RSS 2.0"
+msgstr "सिंडीकेट यह साइट का उपयोग कर आरएसएस 2.0"
+
+#: functions/meta.php:41
+msgid "Entries <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+msgstr "प्रविष्टियाँ  <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+
+#: functions/meta.php:42
+msgid "The latest comments to all posts in RSS"
+msgstr "आरएसएस के सभी पदों के लिए नवीनतम टिप्पणी"
+
+#: functions/meta.php:42
+msgid "Comments <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+msgstr "टिप्पणियां <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+
+#: functions/meta.php:43
+msgid "Powered by WordPress, state-of-the-art semantic personal publishing platform."
+msgstr "WordPress, राज्य के-the-कला अर्थ निजी प्रकाशन मंच द्वारा संचालित है."
+
+#: functions/meta.php:61
+msgid "Title:"
+msgstr "Title:"
+
+#: functions/auth.php:20
+#: functions/auth.php:56
+#: functions/auth.php:81
+msgid "<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."
+msgstr "<strong> </ strong> त्रुटि: हमें खेद है, लेकिन इस कंप्यूटर भी कई हाल ही में विफल लॉगिन का प्रयास के कारण अवरुद्ध कर दिया गया <br /> <br /> कृपया बाद में पुन: प्रयास करें."
+
+#: functions/auth.php:27
+msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
+msgstr "<strong> त्रुटि </strong>: अमान्य उपयोगकर्ता नाम या पासवर्ड गलत है."
+
+#: plugin.php:73
+msgid "Better Security - System Status and Support"
+msgstr "व्यवस्था की स्थिति और सहायता - बेहतर सुरक्षा"
+
+#: plugin.php:73
+msgid "Security"
+msgstr "सुरक्षा"
+
+#: plugin.php:76
+msgid "System Status and Support"
+msgstr "व्यवस्था की स्थिति और सहायता"
+
+#: plugin.php:78
+msgid "Away Mode"
+msgstr "दूर मोड"
+
+#: plugin.php:79
+msgid "Ban Users"
+msgstr "प्रतिबंध उपयोगकर्ता"
+
+#: plugin.php:82
+msgid "Hide Backend"
+msgstr "बैकेंड छुपाएं"
+
+#: plugin.php:85
+msgid "Limit Logins"
+msgstr "सीमित लॉगिन"
+
+#: plugin.php:86
+msgid "System Tweaks"
+msgstr "सिस्टम tweaks"
+
+#: plugin.php:208
+msgid "Settings"
+msgstr "सेटिंग्स"
+

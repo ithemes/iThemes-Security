@@ -1,0 +1,1819 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Better WP Security 2.7.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
+"POT-Creation-Date: 2011-09-07 14:33:41+00:00\n"
+"PO-Revision-Date: 2012-04-23 22:03+0200\n"
+"Last-Translator: \n"
+"Language-Team: Stefan Meier <post@smeier.biz>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ better-wp-security
+#: functions/auth.php:20
+#: functions/auth.php:56
+#: functions/auth.php:81
+msgid "<strong>ERROR</strong>: We're sorry , but this computer has been blocked due to too many recent failed login attempts.<br /><br />Please try again later."
+msgstr "<strong>KLAIDA</strong>: Mes apgailestaujame, bet šis kompiuteris buvo blokuotas dėl didelio nesėkmingų prisijungimų skaičiaus. <br /><br /> Prašome pabandyti vėliau."
+
+# @ better-wp-security
+#: functions/auth.php:27
+msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
+msgstr "<strong>KLAIDA</strong>: Neteisingas vartotojo vardas arba slaptažodis."
+
+# @ default
+#: functions/meta.php:6
+msgid "Log in/out, admin, feed and WordPress links"
+msgstr "Prisijungimo/atsijungimo, administratoriaus, padavimo ir WordPress nuorodos"
+
+# @ default
+#: functions/meta.php:7
+#: functions/meta.php:16
+msgid "Meta"
+msgstr "Meta"
+
+# @ default
+#: functions/meta.php:26
+msgid "Register"
+msgstr "Registruotis"
+
+# @ default
+#: functions/meta.php:30
+msgid "Site Admin"
+msgstr "Puslapio Administratorius"
+
+# @ default
+#: functions/meta.php:35
+msgid "Log in"
+msgstr "Prisijungti"
+
+# @ default
+#: functions/meta.php:37
+msgid "Log out"
+msgstr "Atsijungti"
+
+# @ default
+#: functions/meta.php:41
+msgid "Syndicate this site using RSS 2.0"
+msgstr "Sindikuoti šį puslapį naudojant RSS 2.0"
+
+# @ default
+#: functions/meta.php:41
+msgid "Entries <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+msgstr "Įrašai <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+
+# @ default
+#: functions/meta.php:42
+msgid "The latest comments to all posts in RSS"
+msgstr "Naujausi įrašų komentarai RSS padavime"
+
+# @ default
+#: functions/meta.php:42
+msgid "Comments <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+msgstr "Komentarai <abbr title=\"Really Simple Syndication\">RSS</abbr>"
+
+# @ default
+#: functions/meta.php:43
+msgid "Powered by WordPress, state-of-the-art semantic personal publishing platform."
+msgstr "Varomas WordPress - meninės vertės semantinės asmeninio publikavimo platformos."
+
+# @ default
+#: functions/meta.php:61
+msgid "Title:"
+msgstr "Antraštė:"
+
+# @ better-wp-security
+#: functions/bwps.php:260
+msgid "Due to changes in the latest Better WP Security release you must update your "
+msgstr "Dėl pasikeitimų paskutinėje Better WP Security laidoje Jūs privalote atnaujinti savo"
+
+# @ better-wp-security
+#: functions/bwps.php:262
+msgid "Better WP Security settings."
+msgstr "Better WP Security nuostatas."
+
+# @ better-wp-security
+#: functions/bwps.php:461
+#: functions/bwps.php:613
+msgid "A computer"
+msgstr "Kompiuteris"
+
+# @ better-wp-security
+#: functions/bwps.php:461
+#: functions/bwps.php:605
+#: functions/bwps.php:613
+msgid "has been locked out of the Wordpress site at"
+msgstr "buvo užblokuotas WordPress tinklalapyje"
+
+# @ better-wp-security
+#: functions/bwps.php:461
+#: functions/bwps.php:605
+#: functions/bwps.php:613
+#: pages/away.php:327
+msgid "until"
+msgstr "iki"
+
+# @ better-wp-security
+#: functions/bwps.php:461
+msgid "due to too attempts to open a page that doesn't exist. You may login to the site to manually release the lock if necessary."
+msgstr "dėl dažnų puslapio, kuris neegzistuoja, atvėrimo bandymų. Jūs galite prisijungti į puslapį, kad rankiniu būdu atleistumėte užraktą, jeigu to reikia."
+
+# @ better-wp-security
+#: functions/bwps.php:463
+#: functions/bwps.php:619
+msgid "Site Lockout Notification"
+msgstr "Tinklapio Blokavimo Įspėjimas"
+
+# @ better-wp-security
+#: functions/bwps.php:605
+msgid "A Wordpress user"
+msgstr "WordPress vartotojas"
+
+# @ better-wp-security
+#: functions/bwps.php:605
+#: functions/bwps.php:613
+msgid "due to too many failed login attempts. You may login to the site to manually release the lock if necessary."
+msgstr "dėl per daug nepavykusių prisijungimo bandymų. Jūs galite prisijungti į puslapį, kad rankiniu būdu atleistumėte užraktą, jeigu to reikia."
+
+# @ better-wp-security
+#: functions/bwps.php:801
+msgid "<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved."
+msgstr "<strong>KLAIDA</strong>: Jūs PRIVALOTE pasirinkti slaptaždoį, kuris įvertintas bent kaip <em>Stiprus</em> slaptažodžio tinkamumo matuoklyje. Jūsų nuostata NEĮRAŠYTA."
+
+# @ default
+#: functions/bwps.php:1107
+msgid "error"
+msgstr "klaida"
+
+# @ better-wp-security
+#: functions/bwps.php:1137
+msgid "You have renamed the wp-content directory of your site."
+msgstr "Jūs pervadinote savo tinklalapio wp-content katalogą."
+
+# @ better-wp-security
+#: functions/bwps.php:1139
+msgid "You should rename the wp-content directory of your site."
+msgstr "Jūs turėtumėte pervadinti savo tinklalapio wp-content katalogą."
+
+# @ better-wp-security
+#: functions/bwps.php:1139
+msgid "Click here to do so"
+msgstr "Paspauskite čia, kad tą ir padarytumėte"
+
+# @ better-wp-security
+#: functions/bwps.php:1165
+msgid "You are not allowing users to edit theme and plugin files from the Wordpress backend."
+msgstr "Jūs neleidžiate vartotojams redaguoti apipavidalinimo bei papildinio rinkmenų iš WordPress vidinės pusės."
+
+# @ better-wp-security
+#: functions/bwps.php:1167
+msgid "You are allowing users to edit theme and plugin files from the Wordpress backend."
+msgstr "Jūs leidžiate vartotojams redaguoti apipavidalinimo bei papildinio rinkmenų iš WordPress vidinės pusės."
+
+# @ better-wp-security
+#: functions/bwps.php:1167
+#: functions/bwps.php:1180
+#: functions/bwps.php:1195
+#: functions/bwps.php:1212
+#: functions/bwps.php:1229
+msgid "Click here to fix this"
+msgstr "Paspauskite čia, kad tai ištaisytumėte"
+
+# @ better-wp-security
+#: functions/bwps.php:1178
+msgid "You are requiring a secure connection for logins and the admin area."
+msgstr "Jūs reikalaujate saugaus vartotojų jungimosi ir administratoriaus sričiai."
+
+# @ better-wp-security
+#: functions/bwps.php:1180
+msgid "You are not requiring a secure connection for logins or for the admin area."
+msgstr "Jūs nereikalaujate saugaus vartotojų jungimosi ir administratoriaus sričiai."
+
+# @ better-wp-security
+#: functions/bwps.php:1193
+msgid "Your site is secured from attacks by XSS."
+msgstr "Jūsų tinklapis apsaugotas nuo XSS atakų."
+
+# @ better-wp-security
+#: functions/bwps.php:1195
+msgid "Your site is still vulnerable to some XSS attacks."
+msgstr "Jūsų tinklapis vis dar įveikiamas XSS atakų."
+
+# @ better-wp-security
+#: functions/bwps.php:1210
+msgid "Version information is obscured to all non admin users."
+msgstr "Versijos informacija miglota visiems vartotojams - ne administratoriams."
+
+# @ better-wp-security
+#: functions/bwps.php:1212
+msgid "Users may still be able to get version information from various plugins and themes."
+msgstr "Vartotojai vis dar gali gauti versijos infromaciją iš įvairių papildinių ir apipavidalinimų."
+
+# @ better-wp-security
+#: functions/bwps.php:1227
+msgid "Your installation does not accept long URLs."
+msgstr "Jūsų įdiegimas nepriima ilgų universaliųjų nuorodų."
+
+# @ better-wp-security
+#: functions/bwps.php:1229
+msgid "Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities."
+msgstr "Jūsų įdiegimas priima ilgas (virš 255 simbolių) universaliasias nuorodas. Tai gali sukelti tinklapio pažeidžiamumų."
+
+# @ better-wp-security
+#: functions/bwps.php:1244
+msgid "No error messages are displayed on failed login."
+msgstr "Nepavykusio prisijungimo metu nerodomi jokie klaidų pranešimai."
+
+# @ better-wp-security
+#: functions/bwps.php:1246
+msgid "Error messages are displayed to users on failed login."
+msgstr "Nepavykusio prisijungimo metu rodomi klaidų pranešimai."
+
+# @ better-wp-security
+#: functions/bwps.php:1246
+msgid "Click here to remove them"
+msgstr "Paspauskite čia, norėdamas pašalinti juos"
+
+# @ better-wp-security
+#: functions/bwps.php:1263
+msgid "Non-administrators cannot see available updates."
+msgstr "Ne administratoriai negali matyti prieinamų atnaujinimų."
+
+# @ better-wp-security
+#: functions/bwps.php:1265
+msgid "Non-administrators can see some updates."
+msgstr "Ne administratoriai gali matyti kai kuriuos atnaujinimus."
+
+# @ better-wp-security
+#: functions/bwps.php:1265
+#: functions/bwps.php:1286
+msgid "Click here to fully fix it"
+msgstr "Paspauskite čia, norėdamas pilnai tai pataisyti"
+
+# @ better-wp-security
+#: functions/bwps.php:1267
+msgid "Non-administrators can see all updates."
+msgstr "Ne administratoriai gali matyti visus atnaujinimus."
+
+# @ better-wp-security
+#: functions/bwps.php:1267
+#: functions/bwps.php:1288
+msgid "Click here to fix it"
+msgstr "Paspauskite čia, norėdamas tai pataisyti"
+
+# @ better-wp-security
+#: functions/bwps.php:1284
+msgid "Your Wordpress header is revealing as little information as possible."
+msgstr "Jūsų WordPress puslapinė antraštė atskleidžia kiek įmanoma mažiau informacijos."
+
+# @ better-wp-security
+#: functions/bwps.php:1286
+msgid "Your Wordpress header is still revealing some information to users."
+msgstr "Jūsų WordPress puslapinė antraštė vis dar atskleidžia vartotojams šiek tiek informacijos."
+
+# @ better-wp-security
+#: functions/bwps.php:1288
+msgid "Your Wordpress header is showing too much information to users."
+msgstr "Jūsų WordPress puslapinė antraštė atskleidžia vartotojams per daug infroamcijos."
+
+# @ better-wp-security
+#: functions/bwps.php:1306
+msgid "You are enforcing strong passwords for all users"
+msgstr "Jūs priverčiate visus vartotojus susikurti stiprius slaptažodžius"
+
+# @ better-wp-security
+#: functions/bwps.php:1308
+msgid "You are enforcing strong passwords, but not for all users."
+msgstr "Jūs verčiate kurtis stiprius slaptažodžius, bet ne visus vartotojus."
+
+# @ better-wp-security
+#: functions/bwps.php:1308
+msgid "Click here to fix"
+msgstr "Paspauskite čia, norėdamas tai  pataisyti"
+
+# @ better-wp-security
+#: functions/bwps.php:1310
+msgid "You are not enforcing strong passwords."
+msgstr "Jūs neverčiate vartotojų kurtis stiprių slaptažodžių."
+
+# @ better-wp-security
+#: functions/bwps.php:1310
+msgid "Click here to enforce strong passwords."
+msgstr "Paspauskite čia, kad pradėtumėte versti vartotojus kurtis stiprius slaptažodžius."
+
+# @ better-wp-security
+#: functions/bwps.php:1325
+msgid "Your Wordpress admin area is hidden."
+msgstr "Jūsų WordPress administratoriaus sritis yra paslpėta."
+
+# @ better-wp-security
+#: functions/bwps.php:1327
+msgid "Your Wordpress admin area  file is NOT hidden."
+msgstr "Jūsų WordPress administratoriaus sritis NĖRA paslpėta."
+
+# @ better-wp-security
+#: functions/bwps.php:1327
+#: functions/bwps.php:1385
+#: functions/bwps.php:1403
+msgid "Click here to secure it"
+msgstr "Paspauskite čia, kad apsaugotumėte ją"
+
+# @ better-wp-security
+#: functions/bwps.php:1343
+msgid "Your table prefix should not be <em>wp_</em>."
+msgstr "Jūsų lentelės priešdėlis neturėtų būti <em>wp_</em>."
+
+# @ better-wp-security
+#: functions/bwps.php:1343
+msgid "Click here to change it"
+msgstr "Paspauskite čia, kad pakeistumėte jį"
+
+# @ better-wp-security
+#: functions/bwps.php:1345
+msgid "Your table prefix is"
+msgstr "Jūsų lentelės priešdėlis yra"
+
+# @ better-wp-security
+#: functions/bwps.php:1362
+msgid "The <em>admin</em> user still exists."
+msgstr "<em>Administruojantis</em> vartotojas vis dar egzistuoja."
+
+# @ better-wp-security
+#: functions/bwps.php:1362
+msgid "Click here to rename it"
+msgstr "Paspauskite čia, norėdamas jį pervadinti"
+
+# @ better-wp-security
+#: functions/bwps.php:1364
+msgid "The <em>admin</em> user has been removed."
+msgstr "em>Administruojantis</em> varototojas pašalintas."
+
+# @ better-wp-security
+#: functions/bwps.php:1381
+msgid "Your .htaccess file is fully secured."
+msgstr "Jūsų .htaccess rinkmena yra pilnai apsaugota."
+
+# @ better-wp-security
+#: functions/bwps.php:1383
+msgid "Your .htaccess file is partially secured."
+msgstr "Jūsų .htaccess rinkmena apsaugota dalinai."
+
+# @ better-wp-security
+#: functions/bwps.php:1383
+msgid "Click here to fully secure it"
+msgstr "Paspauskite čia, norėdamas pilnai ją apsaugoti"
+
+# @ better-wp-security
+#: functions/bwps.php:1385
+msgid "Your .htaccess file is NOT secured."
+msgstr "Jūsų .htaccess NEAPSAUGOTA."
+
+# @ better-wp-security
+#: functions/bwps.php:1401
+msgid "Your site is not vulnerable to brute force attacks."
+msgstr "Jūsų puslapis nepažeidžiamas brutalios jėgos atakų. "
+
+# @ better-wp-security
+#: functions/bwps.php:1403
+msgid "Your site is vulnerable to brute force attacks."
+msgstr "Jūsų puslapis pažeidžiamas brutalios jėgos atakų."
+
+# @ better-wp-security
+#: functions/bwps.php:1420
+msgid "Your Wordpress admin area is not available when you will not be needing it."
+msgstr "Jūsų WordPress administratoriaus sritis neprieinama, kuomet Jums to nereikia."
+
+# @ better-wp-security
+#: functions/bwps.php:1422
+msgid "Your Wordpress admin area is available 24/7. Do you really update 24 hours a day?"
+msgstr "Jūsų WordPress administratoriaus sritis prieinama 24/7. Ar Jūs tikrai vykdote atnaujinimus 24 valandas per parą?"
+
+# @ better-wp-security
+#: functions/bwps.php:1422
+msgid "Click here to limit admin availability"
+msgstr "Paspauskite čia, norėdami apriboti administravimo galimybes"
+
+# @ better-wp-security
+#: pages/admin.php:16
+msgid " already exists. Please try again"
+msgstr "jau egzistuoja. Pabandykite dar kartą"
+
+# @ better-wp-security
+#: pages/admin.php:30
+msgid " is not a valid username. Please try again"
+msgstr "nėra teisingas vartotojo vardas. Pabandykite dar kartą"
+
+# @ better-wp-security
+#: pages/admin.php:36
+msgid "username changed"
+msgstr "Vartotojo vardas pakeistas"
+
+# @ better-wp-security
+#: pages/admin.php:56
+#: plugin.php:77
+msgid "Admin User"
+msgstr "Administracinis Vartotojas"
+
+# @ better-wp-security
+#: pages/admin.php:69
+msgid "Rename Admin User"
+msgstr "Pervadinti Administracinį Vartotoją"
+
+# @ better-wp-security
+#: pages/admin.php:72
+msgid "Select a new name to use instead of <em>admin</em>"
+msgstr "Pasirinkite naują vardą, kurį naudosite vietoje <em>admin</em>"
+
+# @ default
+#: pages/admin.php:75
+msgid "Username:"
+msgstr "Vartotojo vardas:"
+
+# @ better-wp-security
+#: pages/admin.php:76
+#: pages/away.php:302
+#: pages/hidebe.php:114
+#: pages/hta.php:97
+#: pages/banusers.php:155
+#: pages/ll.php:203
+#: pages/idetect.php:113
+#: pages/content.php:40
+#: pages/tweaks.php:189
+msgid "save"
+msgstr "įrašyti"
+
+# @ better-wp-security
+#: pages/admin.php:80
+msgid "Congratulations, the <em>admin</em> user has already been removed. You do not need to take further action on this page."
+msgstr "Sveikiname, <em>admin</em> vartotojas buvo pašalintas. Šiame puslapyje Jums nebereikia imtis jokių veiksmų."
+
+# @ better-wp-security
+#: pages/clean.php:27
+msgid "Old Data Has Been Cleared From The Database"
+msgstr "Seni Duomenys Buvo Išvalyti Iš Duomenų bazės"
+
+# @ better-wp-security
+#: pages/clean.php:70
+#: plugin.php:80
+msgid "Clean Database"
+msgstr "Valyti Duomenų bazę"
+
+# @ better-wp-security
+#: pages/clean.php:75
+msgid "Old Data"
+msgstr "Seni Duomenys"
+
+# @ better-wp-security
+#: pages/clean.php:77
+msgid "Below is old security data still in your Wordpress database. Data is considered old when the lockout has expired or the attempt will no longer be used to generate a lockout."
+msgstr "Seni saugumo duomenys vis dar yra Jūsų WordPress duomenų bazėje. Duomenys laikomi senais, kuomet užblokavimas baigėsi arba nebėra bandoma sukurti blokavimo."
+
+# @ better-wp-security
+#: pages/clean.php:78
+msgid "This data is not automatically deleted so that it may be used for analysis. You may delete this data with the form below. To see the actual data you will need to access your database directly."
+msgstr "Šie duomenys nėra automatiškai ištrinami, todėl jie gali būti naudojami analizei. Jūs galite ištrinti šiuos duomenis, naudodami formą, pateiktą žemiau. Norėdami pamatyti dabartinius duomenis, Jūs turite tiesiogiai pasiekti savo duomenų bazę."
+
+# @ better-wp-security
+#: pages/clean.php:81
+msgid "Check the box next to the data you would like to clear and then press the \"Remove Old Data\" button."
+msgstr "Patikrinkite laukelį esantį šalia duomenų, kuriuos norėtumėte išvalyti, o tada paspauskite \"Pašalinti Senus Duomenis\" mygtuką."
+
+# @ better-wp-security
+#: pages/clean.php:83
+#: pages/clean.php:84
+#: pages/clean.php:85
+msgid "Your database contains"
+msgstr "Jūsų duomenų bazėje yra"
+
+# @ better-wp-security
+#: pages/clean.php:83
+msgid "404 (page not found) errors."
+msgstr "404 (puslapis nerastas) klaidų."
+
+# @ better-wp-security
+#: pages/clean.php:84
+msgid "bad login attempts."
+msgstr "neteisingų prisijungimų bandymų."
+
+# @ better-wp-security
+#: pages/clean.php:85
+msgid "old lockouts."
+msgstr "senų užblokavimų."
+
+# @ better-wp-security
+#: pages/clean.php:88
+msgid "Remove Old Data"
+msgstr "Pašalinti Senus Duomenis"
+
+# @ better-wp-security
+#: pages/away.php:31
+msgid "<strong>You MUST enter a valid date for start time."
+msgstr "<strong> Jūs privalote įvesti teisingą datą pradžios laikui."
+
+# @ better-wp-security
+#: pages/away.php:35
+msgid "<strong>You MUST enter a valid date for end time."
+msgstr "<strong> Jūs privalote įvesti teisingą datą pabaigos laikui."
+
+# @ better-wp-security
+#: pages/away.php:43
+#: pages/hidebe.php:42
+#: pages/hta.php:46
+#: pages/banusers.php:92
+#: pages/ll.php:53
+#: pages/idetect.php:22
+#: pages/tweaks.php:77
+msgid "Settings Saved"
+msgstr "Nuostatos Įrašytos"
+
+# @ better-wp-security
+#: pages/away.php:104
+msgid "Away Options"
+msgstr "Pasitraukimo Parinktys"
+
+# @ better-wp-security
+#: pages/away.php:110
+msgid "Away Mode Options"
+msgstr "Pasitraukimo Būsenos Parinktys"
+
+# @ better-wp-security
+#: pages/away.php:112
+msgid "As many of us update our sites on a general schedule it is not always necessary to permit site access all of the time. The options below will disable the backend of the site for the specified period."
+msgstr "Kadangi dauguma mūsų atnaujina savo svetaines pagal bendrą planą, priėjimas prie puslapio nėra reikalingas visą laiką. Parinktys apačioje panaikins vidinę puslapio pusę nustatytam periodui."
+
+# @ better-wp-security
+#: pages/away.php:113
+msgid "Please note that according to your"
+msgstr "Turėkite omenyje Jūsų"
+
+# @ better-wp-security
+#: pages/away.php:113
+msgid "Wordpress timezone settings"
+msgstr "WordPress laiko juostos nuostatas"
+
+# @ better-wp-security
+#: pages/away.php:113
+msgid "your local time is"
+msgstr "Jūsų vietinis laikas yra"
+
+# @ better-wp-security
+#: pages/away.php:113
+msgid "If this is incorrect please correct it on the"
+msgstr "Jeigu tai neteisinga, prašome pataisyti tai"
+
+# @ better-wp-security
+#: pages/away.php:113
+msgid "Wordpress general settings page"
+msgstr "WordPress bendrųjų nuostatų puslapyje"
+
+# @ better-wp-security
+#: pages/away.php:113
+msgid "by setting the appropriate time zone. Failure to do so may result in unintended lockouts."
+msgstr "nurodant tinkamą laiko juostą. Klaidingas laiko juostos nustatymas gali įtakoti neplanuotus užblokavimus."
+
+# @ better-wp-security
+#: pages/away.php:120
+msgid "Enable Away Mode"
+msgstr "Suaktyvinti Pasitraukimo Būseną"
+
+# @ better-wp-security
+#: pages/away.php:123
+#: pages/status.php:140
+#: pages/status.php:148
+#: pages/status.php:156
+#: pages/status.php:164
+#: pages/status.php:172
+#: pages/status.php:180
+#: pages/status.php:188
+#: pages/status.php:204
+#: pages/status.php:212
+#: pages/hidebe.php:78
+#: pages/banusers.php:131
+#: pages/ll.php:113
+#: pages/ll.php:171
+#: pages/ll.php:184
+#: pages/idetect.php:62
+#: pages/idetect.php:71
+msgid "On"
+msgstr "Įjungti"
+
+# @ better-wp-security
+#: pages/away.php:124
+#: pages/status.php:93
+#: pages/status.php:142
+#: pages/status.php:150
+#: pages/status.php:158
+#: pages/status.php:166
+#: pages/status.php:174
+#: pages/status.php:182
+#: pages/status.php:190
+#: pages/status.php:206
+#: pages/status.php:214
+#: pages/hidebe.php:79
+#: pages/banusers.php:132
+#: pages/ll.php:114
+#: pages/ll.php:172
+#: pages/ll.php:185
+#: pages/idetect.php:63
+#: pages/idetect.php:72
+msgid "Off"
+msgstr "Išjungti"
+
+# @ better-wp-security
+#: pages/away.php:130
+msgid "Type of Restriction"
+msgstr "Apribojimo Tipas"
+
+# @ better-wp-security
+#: pages/away.php:133
+msgid "Daily"
+msgstr "Dieninis"
+
+# @ better-wp-security
+#: pages/away.php:134
+msgid "One Time"
+msgstr "Vienkartinis"
+
+# @ better-wp-security
+#: pages/away.php:136
+msgid "Selecting <em>\"One Time\"</em> will lock out the backend of your site from the start date and time to the end date and time. Selecting <em>\"Daily\"</em> will ignore the start and and dates and will disable your site backend from the start time to the end time."
+msgstr "<em>\"Vienkartinis\"</em> pasirinkimas užblokuos Jūsų puslapio vidinę pusę nuo pradžios laiko iki pabaigos datos (laiko).  <em>\"Dieninis\"</em> pasirinkimas ignoruos pradžios ir pabaigos datas ir deaktyvins Jūsų tinklapio vidinę pusę nuo pradžios laiko iki pabaigos laiko."
+
+# @ better-wp-security
+#: pages/away.php:143
+msgid "Start Date and Time"
+msgstr "Pradžios Data ir Laikas"
+
+# @ better-wp-security
+#: pages/away.php:216
+msgid "Select the date and time at which access to the backend of this site will be disabled. Note that if <em>\"Daily\"</em> mode is selected the date will be ignored and access will be banned each day at the specified time."
+msgstr "Pasirinkite datą ir laiką, kuriuo priėjimas prie tinklapio vidinės pusės bus išjungtas. Atminkite, jog jeigu pasirinkus <em>\"Dieninę\"</em> būseną, data bus ignoruojama ir priėjimas bus uždraustas kiekvieną dieną nurodytu laiku."
+
+# @ better-wp-security
+#: pages/away.php:223
+msgid "End Date and Time"
+msgstr "Pabaigos Data ir Laikas"
+
+# @ better-wp-security
+#: pages/away.php:296
+msgid "Select the date and time at which access to the backend of this site will be restored. Note that if <em>\"Daily\"</em> mode is selected the date will be ignored and access will be restored each day at the specified time."
+msgstr "Pasirinkite datą ir laiką, kuriuo priėjimas prie puslapio vidinės pusės bus atkurtas. Atminkite, jog pasirinkus <em>\"Dieninę\"</em> būseną, data bus ignoruojama ir priėjimas bus atkurtas kiekvieną dieną nustatytu laiku."
+
+# @ better-wp-security
+#: pages/away.php:314
+msgid "Access time rules."
+msgstr "Priėjimo laiko taisyklės."
+
+# @ default
+#: pages/away.php:318
+msgid "every day"
+msgstr "kiekvieną dieną"
+
+# @ better-wp-security
+#: pages/away.php:327
+msgid "The backend (administrative section) of this site will be unavailable"
+msgstr "Tinklapio vidinė pusė (administracinė sritis) bus neprieinama"
+
+# @ better-wp-security
+#: pages/away.php:327
+msgid "from"
+msgstr "nuo"
+
+# @ better-wp-security
+#: pages/status.php:8
+#: pages/support.php:8
+msgid "System Status"
+msgstr "Sistemos Būsena"
+
+# @ better-wp-security
+#: pages/status.php:14
+msgid "Better WP Security System Status"
+msgstr "Better WP Security Sistemos Būsena"
+
+# @ better-wp-security
+#: pages/status.php:27
+msgid "System Information"
+msgstr "Sistemos Informacija"
+
+# @ better-wp-security
+#: pages/status.php:31
+msgid "User Information"
+msgstr "Vartotojo Informacija"
+
+# @ better-wp-security
+#: pages/status.php:33
+msgid "Public IP Address"
+msgstr "Viešas IP Adresas"
+
+# @ better-wp-security
+#: pages/status.php:33
+#: pages/status.php:102
+msgid "Get more information on this address"
+msgstr "Sužinokite daugiau apie šį adresą"
+
+# @ better-wp-security
+#: pages/status.php:34
+msgid "User Agent"
+msgstr "Vartotojo Agentas"
+
+# @ better-wp-security
+#: pages/status.php:39
+msgid "File System Information"
+msgstr "Rinkmenų Sistemos Informacija"
+
+# @ better-wp-security
+#: pages/status.php:41
+msgid "Website Root Folder"
+msgstr "Svetainės Šaknies Aplankas"
+
+# @ better-wp-security
+#: pages/status.php:42
+msgid "Document Root Path"
+msgstr "Dokumento Šaknies Adresas"
+
+# @ better-wp-security
+#: pages/status.php:47
+#: pages/status.php:59
+#: pages/status.php:71
+#: pages/status.php:220
+#: pages/status.php:228
+#: pages/status.php:236
+msgid "Yes"
+msgstr "Taip"
+
+# @ better-wp-security
+#: pages/status.php:51
+#: pages/status.php:63
+msgid "No. Better WP Security will be severely limited in it's ability to secure your site"
+msgstr "Ne. Better WP Security galimybės apsaugoti Jūsų tinklapį bus griežtai apribotos"
+
+# @ better-wp-security
+#: pages/status.php:54
+msgid ".htaccess File is Writable"
+msgstr ".htaccess Rinkmena yra Įrašytina"
+
+# @ better-wp-security
+#: pages/status.php:66
+msgid "wp-config.php File is Writable"
+msgstr "wp-config.php Rinkmena yra Įrašytina"
+
+# @ better-wp-security
+#: pages/status.php:75
+msgid "No. Better WP Security will be limited in it's ability to secure your site"
+msgstr "Ne. Geriau WP Security galimybės apsaugoti Jūsų tinklapį bus apribotos"
+
+# @ better-wp-security
+#: pages/status.php:78
+msgid "Content directory can be renamed"
+msgstr "Turinio katalogas negali būti pervadintas"
+
+# @ better-wp-security
+#: pages/status.php:83
+msgid "Database Information"
+msgstr "Duomenų bazės Informacija"
+
+# @ better-wp-security
+#: pages/status.php:85
+msgid "MySQL Database Version"
+msgstr "MySQL Duomenų bazės Versija"
+
+# @ better-wp-security
+#: pages/status.php:86
+msgid "MySQL Client Version"
+msgstr "MySQL Kliento Versija"
+
+# @ better-wp-security
+#: pages/status.php:87
+msgid "Database Host"
+msgstr "Duomenų bazės Serveris"
+
+# @ better-wp-security
+#: pages/status.php:88
+msgid "Database Name"
+msgstr "Duomenų bazės Pavadinimas"
+
+# @ better-wp-security
+#: pages/status.php:89
+msgid "Database User"
+msgstr "Duomenų bazės Vartotojas"
+
+# @ better-wp-security
+#: pages/status.php:92
+msgid "Not Set"
+msgstr "Nenustatyta(-s)"
+
+# @ better-wp-security
+#: pages/status.php:95
+msgid "SQL Mode"
+msgstr "SQL Būsena"
+
+# @ better-wp-security
+#: pages/status.php:100
+msgid "Server Information"
+msgstr "Serverio Informacija"
+
+# @ better-wp-security
+#: pages/status.php:102
+msgid "Server / Website IP Address"
+msgstr "Serverio / Svetainės IP Adresas"
+
+# @ better-wp-security
+#: pages/status.php:103
+msgid "Server Type"
+msgstr "Serverio Tipas"
+
+# @ better-wp-security
+#: pages/status.php:104
+msgid "Operating System"
+msgstr "Operacinė Sistema"
+
+# @ better-wp-security
+#: pages/status.php:105
+msgid "Browser Compression Supported"
+msgstr "Naršyklės Glaudinimas Palaikomas"
+
+# @ better-wp-security
+#: pages/status.php:110
+msgid "PHP Information"
+msgstr "PHP Informacija"
+
+# @ better-wp-security
+#: pages/status.php:112
+msgid "PHP Version"
+msgstr "PHP Versija"
+
+# @ better-wp-security
+#: pages/status.php:113
+msgid "PHP Memory Usage"
+msgstr "PHP Atminties Naudojimas"
+
+# @ better-wp-security
+#: pages/status.php:113
+msgid " MB"
+msgstr " MB"
+
+# @ better-wp-security
+#: pages/status.php:118
+#: pages/status.php:126
+#: pages/status.php:134
+#: pages/status.php:198
+msgid "N/A"
+msgstr "Neprieinama"
+
+# @ better-wp-security
+#: pages/status.php:121
+msgid "PHP Memory Limit"
+msgstr "PHP Atminties Limitas"
+
+# @ better-wp-security
+#: pages/status.php:129
+msgid "PHP Max Upload Size"
+msgstr "PHP Didžiausias Įkėlimo Dydis"
+
+# @ better-wp-security
+#: pages/status.php:137
+msgid "PHP Max Post Size"
+msgstr "PHP Didžiausias Įrašo Dydis"
+
+# @ better-wp-security
+#: pages/status.php:145
+msgid "PHP Safe Mode"
+msgstr "PHP Ribotoji Veiksena"
+
+# @ better-wp-security
+#: pages/status.php:153
+msgid "PHP Allow URL fopen"
+msgstr "PHP Leisti Universaliosios nuorodos atidarymą"
+
+# @ default
+#: pages/status.php:161
+msgid "PHP Allow URL Include"
+msgstr "PHP Leisti Universaliosios nuorodos Įtraukimą"
+
+# @ better-wp-security
+#: pages/status.php:169
+msgid "PHP Display Errors"
+msgstr "PHP Rodyti  Klaidas"
+
+# @ better-wp-security
+#: pages/status.php:177
+msgid "PHP Display Startup Errors"
+msgstr "PHP Rodyti Paleidimo Klaidas"
+
+# @ better-wp-security
+#: pages/status.php:185
+msgid "PHP Expose PHP"
+msgstr "PHP Atskleisti PHP"
+
+# @ better-wp-security
+#: pages/status.php:193
+msgid "PHP Register Globals"
+msgstr "PHP Registruoti Globalus"
+
+# @ default
+#: pages/status.php:201
+msgid "PHP Max Script Execution Time"
+msgstr "PHP Ilgiausias Skripto Apdorojimo Laikas"
+
+# @ default
+#: pages/status.php:201
+msgid "Seconds"
+msgstr "Sekundėmis"
+
+# @ better-wp-security
+#: pages/status.php:209
+msgid "PHP Magic Quotes GPC"
+msgstr "PHP Magic Quotes GPC"
+
+# @ better-wp-security
+#: pages/status.php:217
+msgid "PHP open_basedir"
+msgstr "PHP open_basedir "
+
+# @ better-wp-security
+#: pages/status.php:222
+#: pages/status.php:230
+#: pages/status.php:238
+msgid "No"
+msgstr "Ne"
+
+# @ better-wp-security
+#: pages/status.php:225
+msgid "PHP XML Support"
+msgstr "PHP XML Palaikymas"
+
+# @ better-wp-security
+#: pages/status.php:233
+msgid "PHP IPTC Support"
+msgstr "PHP IPTC Palaikymas"
+
+# @ better-wp-security
+#: pages/status.php:241
+msgid "PHP Exif Support"
+msgstr "PHP Exif Palaikymas"
+
+# @ better-wp-security
+#: pages/status.php:246
+msgid "Wordpress Configuration"
+msgstr "WordPress Konfigūracija"
+
+# @ better-wp-security
+#: pages/status.php:250
+msgid "Multisite is enabled"
+msgstr "Daugiapuslapinis rėžimas suaktyvintas"
+
+# @ better-wp-security
+#: pages/status.php:252
+msgid "Multisite is NOT enabled"
+msgstr "Multi-Site NESUAKTYVINTAS"
+
+# @ better-wp-security
+#: pages/status.php:255
+msgid "\tMultisite"
+msgstr "\tMulti-Site"
+
+# @ better-wp-security
+#: pages/status.php:260
+msgid "Enabled"
+msgstr "Suaktyvintas"
+
+# @ better-wp-security
+#: pages/status.php:264
+msgid "WARNING! Permalinks are NOT Enabled. Permalinks MUST be enabled for Better WP Security to function correctly"
+msgstr "DĖMESIO! Permanuorodos NESUAKTYVINTOS. Permanuorodos PRIVALO būti suaktyvintos, kad WP Security galėų teisingai funkcionuoti"
+
+# @ better-wp-security
+#: pages/status.php:267
+msgid "WP Permalink Structure"
+msgstr "WP Permanuorodų Struktūra"
+
+# @ better-wp-security
+#: pages/status.php:268
+msgid "Wp-config Location"
+msgstr "wp-config Adresas"
+
+# @ better-wp-security
+#: pages/status.php:272
+msgid "Better WP Security variables"
+msgstr "Better WP Security Kintamieji"
+
+# @ better-wp-security
+#: pages/status.php:274
+msgid "Hide Backend Key"
+msgstr "Paslėpti Vidinės Pusės Kodą"
+
+# @ better-wp-security
+#: pages/status.php:286
+msgid "Current .htaccess Contents"
+msgstr "Dabartinis .htaccess Turinys"
+
+# @ better-wp-security
+#: pages/hidebe.php:22
+#: pages/hta.php:20
+msgid "Unable to update htaccess rules"
+msgstr "Leisti atnaujinti htaccess taisykles"
+
+# @ better-wp-security
+#: pages/hidebe.php:50
+#: pages/hidebe.php:56
+#: pages/hidebe.php:123
+#: plugin.php:83
+msgid "Hide Backend Options"
+msgstr "Paslėpti Vidinės pusės Parinktis"
+
+# @ better-wp-security
+#: pages/hidebe.php:58
+msgid "The options below allow you to \"hide\" the backed of Wordpress replacing known URLs of important areas with ones of your choosing. This is useful if slowing bots and keeping away other nosy users especially on closed or private systems."
+msgstr "Parinktys, matomos žemiau, leidžia Jums \"paslėpti\" WordPress vidinę pusę, pakeičiant žinomas svarbių sričių universaliasias nuorodas Jūsų pasirinktomis. Tai yra naudinga pristabdant robotus ir pagarbiu atstumu išlaikant triukšmingus klientus uždarose ar privačiose sistemose."
+
+# @ better-wp-security
+#: pages/hidebe.php:65
+msgid "Hide Backend Secret Key"
+msgstr "Paslėpti Vidinės pusės Slaptą Raktą"
+
+# @ better-wp-security
+#: pages/hidebe.php:69
+msgid "Keep this key in a safe place. You can use it to manually fix plugins that link to wp-login.php. Once turning on this feature and plugins linking to wp-login.php will fail without adding ?[the key]& after wp-login.php"
+msgstr "Laikykite šį raktą saugioje vietoje. Jūs galite jį naudoti, norėdamas rankiniu būdu taisyti papildinius, kurie susieti su wp-login.php. Iškart kai suaktyvinsite šią funkciją, papildinių susiejimas su wp-login.php nutrūks be ?[rakto]& pridėjimo po wp-login.php"
+
+# @ better-wp-security
+#: pages/hidebe.php:75
+msgid "Enable Hide Backend"
+msgstr "Suaktyvinti Vidinės pusės Paslpėpimą"
+
+# @ better-wp-security
+#: pages/hidebe.php:85
+msgid "Login Slug"
+msgstr "Prisijungimo Sekiklis"
+
+# @ better-wp-security
+#: pages/hidebe.php:89
+msgid "Login URL:"
+msgstr "Prisijungimo Universalioji nuoroda:"
+
+# @ better-wp-security
+#: pages/hidebe.php:95
+msgid "Register Slug"
+msgstr "Registracijos Sekiklis"
+
+# @ better-wp-security
+#: pages/hidebe.php:99
+msgid "Register URL:"
+msgstr "Registracijos Universalioji nuoroda:"
+
+# @ better-wp-security
+#: pages/hidebe.php:105
+msgid "Admin Slug"
+msgstr "Administratoriaus Sekiklis"
+
+# @ better-wp-security
+#: pages/hidebe.php:109
+msgid "Admin URL:"
+msgstr "Administratoriaus Universalioji nuoroda:"
+
+# @ better-wp-security
+#: pages/hidebe.php:125
+#: pages/hta.php:108
+msgid "Warning: Better WP Security cannot write to your <em>.htaccess</em> file. You must fix this error before continuing."
+msgstr "Dėmesio: Better WP Security negali įrašyti į Jūsų <em>.htaccess</em> rinkmeną. Jūs privalote pataisyti šią klaidą prieš tęsdamas."
+
+# @ better-wp-security
+#: pages/database.php:41
+msgid "Could not create table."
+msgstr "Nepavyko sukurti lentelės."
+
+# @ better-wp-security
+#: pages/database.php:53
+msgid "Could not copy table."
+msgstr "Nepavyko nukopijuoti lentelės."
+
+# @ better-wp-security
+#: pages/database.php:82
+msgid "Could not update prefix refences in options table."
+msgstr "Nepavyko atnaujinti priešdėlio rodyklės parinkčių lentelėje."
+
+# @ better-wp-security
+#: pages/database.php:102
+msgid "Could not update prefix refences in usermeta table."
+msgstr "Nepavyko atnaujinti priešdėlio rodyklės vartotojo meta lentelėje."
+
+# @ better-wp-security
+#: pages/database.php:121
+msgid "Could not drop table."
+msgstr "Nepavyko pašalinti lentelės."
+
+# @ better-wp-security
+#: pages/database.php:150
+msgid "Database Prefix Changed."
+msgstr "Duomenų bazės Priešdėlis Pakeistas."
+
+# @ better-wp-security
+#: pages/database.php:168
+#: pages/database.php:182
+#: pages/database.php:209
+#: plugin.php:82
+msgid "Database Prefix"
+msgstr "Duomenų bazės Priešdėlis"
+
+# @ better-wp-security
+#: pages/database.php:184
+msgid "Use the form below to change the table prefix for your Wordpress Database."
+msgstr "Naudokite formą apačioje, norėdamas pakeisti lentelės priešdėlį Jūsų WordPress Duomenų bazei."
+
+# @ better-wp-security
+#: pages/database.php:185
+msgid "WARNING: BACKUP YOUR DATABASE BEFORE USING THIS TOOL!"
+msgstr "DĖMESIO: PASIDARYKITE SAVO DUOMENŲ BAZĖS ATSARGINĘ KOPIJĄ PRIEŠ NAUDOJANT ŠĮ ĮRANKĮ!"
+
+# @ better-wp-security
+#: pages/database.php:187
+msgid "Your database is using the default table prefix"
+msgstr "Jūsų duomenų bazė naudoja numatytąjį lentelės priešdėlį"
+
+# @ better-wp-security
+#: pages/database.php:187
+msgid "You should change this."
+msgstr "Jūs turėtumėte tai pakeisti."
+
+# @ better-wp-security
+#: pages/database.php:196
+msgid "Your current database table prefix is"
+msgstr "Jūsų dabartinis duomenų bazės lentelės priešdėlis yra"
+
+# @ better-wp-security
+#: pages/database.php:200
+msgid "Press the button below to generate a random database prefix value and update all of your tables accordingly."
+msgstr "Paspauskite mygtuką žemiau, norėdamas sukurti atsitiktinę duomenų bazės priešdėlio reikšmę ir atitinkamai atnaujinti visas Jūsų lenteles."
+
+# @ better-wp-security
+#: pages/database.php:201
+msgid "Change Database Table Prefix"
+msgstr "Keisti Duomenų Bazės Lentelės Priešdėlį"
+
+# @ better-wp-security
+#: pages/database.php:211
+#: pages/content.php:51
+#: pages/tweaks.php:200
+msgid "Warning: Better WP Security cannot write to your <em>wp-config.php</em> file. You must fix this error before continuing."
+msgstr "Dėmesio: Better WP Security negali įrašyti į Jūsų <em>wp-config.php</em> rinkmeną. Jūs turite ištaisyti šią klaidą prieš tęsdamas."
+
+# @ better-wp-security
+#: pages/hta.php:53
+#: pages/hta.php:106
+#: plugin.php:84
+msgid ".htaccess Protection"
+msgstr ".htaccess Apsauga"
+
+# @ better-wp-security
+#: pages/hta.php:60
+msgid "htaccess Protection"
+msgstr "htaccess Saugumas"
+
+# @ better-wp-security
+#: pages/hta.php:68
+msgid "Protect .htaccess"
+msgstr "Apsaugoti .htaccess"
+
+# @ better-wp-security
+#: pages/hta.php:69
+msgid "Add extra protection to the .htaccess file."
+msgstr "Papildomai apsaugoti .htaccess rinkmeną."
+
+# @ better-wp-security
+#: pages/hta.php:72
+msgid "Protect Readme.html"
+msgstr "Apsaugoti Readme.html"
+
+# @ better-wp-security
+#: pages/hta.php:73
+#: pages/hta.php:77
+msgid "Remove access to"
+msgstr "Šalinti priėjimą prie"
+
+# @ better-wp-security
+#: pages/hta.php:73
+msgid "which can give away your Wordpress version."
+msgstr "visko, kas gali išduoti Jūsų WordPress versiją."
+
+# @ better-wp-security
+#: pages/hta.php:76
+msgid "Protect Wordpress installer script"
+msgstr "Apsaugoti WordPress diegiklio skriptą"
+
+# @ better-wp-security
+#: pages/hta.php:80
+msgid "Protect wp-config.php"
+msgstr "Apsaugoti wp-config.php"
+
+# @ better-wp-security
+#: pages/hta.php:81
+msgid "Prevents access to the wp-config.php file"
+msgstr "Uždraudžia priėjimą prie wp-config.php rinkmenos"
+
+# @ better-wp-security
+#: pages/hta.php:84
+msgid "Disable directory browsing"
+msgstr "Uždraudžia katalogų naršymą"
+
+# @ better-wp-security
+#: pages/hta.php:85
+msgid "Prevents users from seeing a list of files in a directory when no index file is present"
+msgstr "Uždraudžia vartotojams matyti katalogo rinkmenų sąrašą, kuomet indekso rinkmena nepateikta"
+
+# @ better-wp-security
+#: pages/hta.php:88
+msgid "Filter Request Methods"
+msgstr "Filtruoti Užklausų Metodus"
+
+# @ better-wp-security
+#: pages/hta.php:89
+msgid "Filter out hits with the head, trace, delete, or track request methods."
+msgstr "Išfiltruoti bandymus su head, trace, delete ar track užklausų metodais."
+
+# @ better-wp-security
+#: pages/hta.php:92
+msgid "Filter suspicious query strings"
+msgstr "Filtruoti įtartinas užklausos eilutes"
+
+# @ better-wp-security
+#: pages/hta.php:93
+msgid "Filter out suspicious query strings in the URL."
+msgstr "Išfiltruoti įtartinas užklausos eilutes Universaliojoje nuorodoje"
+
+# @ better-wp-security
+#: pages/donate.php:3
+msgid "Please Donate"
+msgstr "Prašome paaukoti"
+
+# @ better-wp-security
+#: pages/donate.php:6
+msgid "If you find this plugin useful please consider a small donation."
+msgstr "Jeigu manote, kad šis papildinys yra Jums naudingas, apsvarstykite mažą auką."
+
+# @ default
+#: pages/donate.php:10
+msgid "PayPal - The safer, easier way to pay online!"
+msgstr "PayPal - saugiausias ir lengviausias būdas internetiniams atsiskaitymams!"
+
+# @ better-wp-security
+#: pages/donate.php:13
+msgid "Users who have made a donation will receive priority for both support and feature requests."
+msgstr "Paaukoję vartotojai turės pirmenybę abejose srityse - techninėje pagalboje ir ateities funkcijų prašyme."
+
+# @ better-wp-security
+#: pages/banusers.php:113
+#: plugin.php:79
+msgid "Ban Users Options"
+msgstr "Vartotojų Uždraudimo Parinktys"
+
+# @ better-wp-security
+#: pages/banusers.php:119
+msgid "Ban User Options"
+msgstr "Vartotojo Uždraudimo Parinktys"
+
+# @ better-wp-security
+#: pages/banusers.php:121
+msgid "List below the addresses of users you would like to ban from your site."
+msgstr "Parodo vartotojų, kurių veiklą savo puslapyje norėtumėte uždrausti, sąrašą"
+
+# @ better-wp-security
+#: pages/banusers.php:128
+msgid "Enable Ban Users"
+msgstr "Suaktyvinti Vartotojų Uždraudimą"
+
+# @ better-wp-security
+#: pages/banusers.php:138
+msgid "User List"
+msgstr "Vartotojų Sąrašas"
+
+# @ better-wp-security
+#: pages/banusers.php:143
+msgid "You may ban users by individual IP address, IP address range, or hostname."
+msgstr "Jus galite uždrausti vartotojų veiklą pagal pavienius IP adresus, IP adresų diapazoną, arba pagrindinio kompiuterio vardą."
+
+# @ better-wp-security
+#: pages/banusers.php:144
+msgid "Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses."
+msgstr "Individualūs IP adresai turi būti IPV4 standarto formato (pvz. ###.###.###.###). Pakaitos simboliai (*) yra leidžiami nurodant IP adresų diapazoną."
+
+# @ better-wp-security
+#: pages/banusers.php:145
+msgid "IP Address ranges may also be specified using the format ###.###.###.### - ###.###.###.###. Wildcards cannot be used in addresses specified like this."
+msgstr "IP adresų diapazonai taip gali būti nurodyti naudojant formatą  ###.###.###.### - ###.###.###.###. Pakaitos simboliai šiuo atveju negali būti naudojami."
+
+# @ better-wp-security
+#: pages/banusers.php:146
+msgid "Hostnames may be specified individually do NOT include slashes (/), http://, or any other extra information."
+msgstr "Pagridinių kompiuterių vardai gali būti nurodyti individualiai, neįtraukiant pasvyrųjų brūkšnių (/), http://,  ar jokios kitos pridėtinės informacijos."
+
+# @ better-wp-security
+#: pages/banusers.php:147
+msgid "Lookup IP Address."
+msgstr "Ieškoti IP Adreso."
+
+# @ better-wp-security
+#: pages/banusers.php:148
+msgid "Enter only 1 IP address per line."
+msgstr "Į eilutę įrašykite tik 1 IP adresą."
+
+# @ better-wp-security
+#: pages/banusers.php:149
+msgid "You may NOT ban your own IP address"
+msgstr "Jūs negalite uždrausti savo paties IP adreso"
+
+# @ better-wp-security
+#: pages/support.php:14
+#: plugin.php:87
+msgid "Support"
+msgstr "Pagalba"
+
+# @ better-wp-security
+#: pages/support.php:16
+msgid "Please visit the"
+msgstr "Prašome aplankyti"
+
+# @ better-wp-security
+#: pages/support.php:16
+msgid "homepage for support and change-log"
+msgstr "namų puslapį dėl pagalbos ir pasikeitimų žurnalo"
+
+# @ better-wp-security
+#: pages/support.php:17
+msgid "Support Articles"
+msgstr "Pagalbos Straipsniai"
+
+# @ better-wp-security
+#: pages/support.php:19
+msgid "What is Changed By Better WP Security"
+msgstr "Kas yra Pakeista Better WP Security"
+
+# @ better-wp-security
+#: pages/support.php:20
+msgid "Fixing Better WP Security Lockouts"
+msgstr "Taisomi Better WP Security Užblokavimai"
+
+# @ better-wp-security
+#: pages/ll.php:24
+msgid "<strong>Max Login Attempts Per Host</strong> MUST be a positive integer."
+msgstr "<strong>Maksimalus Prisijungimo Bandymų Skaičius Serveriui</strong> TURI būti teigiamas skaičius."
+
+# @ better-wp-security
+#: pages/ll.php:28
+msgid "<strong>Max Login Attempts Per User</strong> MUST be a positive integer."
+msgstr "<strong>Maksimalus Prisijungimo Bandymų Skaičius Vartotojui</strong> TURI būti teigiamas skaičius."
+
+# @ better-wp-security
+#: pages/ll.php:32
+msgid "<strong>Login Time Period (minutes)</strong> MUST be a positive integer."
+msgstr "<strong>Prisijungimo Laiko Periodas (minutėmis)</strong> TURI būti teigiamas skaičius."
+
+# @ better-wp-security
+#: pages/ll.php:36
+msgid "<strong>Lockout Time Period (minutes)</strong> MUST be a positive integer."
+msgstr "<strong>Užblokavimo laiko periodas (minutėmis)</strong> TURI būti teigiamas skaičius."
+
+# @ better-wp-security
+#: pages/ll.php:95
+#: pages/ll.php:101
+#: plugin.php:86
+msgid "Limit Logins Options"
+msgstr "Prisijungimų Apribojimų Parinktys"
+
+# @ better-wp-security
+#: pages/ll.php:103
+msgid "Set options below to limit the number of bad login attempts. Once this limit is reached, the host or computer attempting to login will be banned from the site for the specified \"lockout length\" period."
+msgstr "Nustatykite parinktis žemiau, norėdamas apriboti nepavykusių prisijungimų skaičių. Kai riba pasiekta, serveris arba kompiuteris, bandantis prisijungti, bus užblokuotas nustatytam \"blokavimo trukmės\" periodui."
+
+# @ better-wp-security
+#: pages/ll.php:110
+msgid "Enable Limit Bad Login Attempts"
+msgstr "Suaktyvinti Nepavykusių Prisijungimo Bandymų Apribojimą"
+
+# @ better-wp-security
+#: pages/ll.php:120
+msgid "Max Login Attempts Per Host"
+msgstr "Maksimaliai Prisijungimų Bandymų Serveriui"
+
+# @ better-wp-security
+#: pages/ll.php:125
+msgid "The number of login attempts a user has before their host or computer is locked out of the system."
+msgstr "Prisijungimų bandymų , kuriuos vartotojas jau įvykdė, skaičius, kol jo serveris ar kompiuteris buvo sistemiškai užblokuotas."
+
+# @ better-wp-security
+#: pages/ll.php:132
+msgid "Max Login Attempts Per User"
+msgstr "Maksimaliai Prisijungimų Bandymų Vartotojui"
+
+# @ better-wp-security
+#: pages/ll.php:137
+msgid "The number of login attempts a user has before their username is locked out of the system."
+msgstr "Prisijungimų bandymų , kuriuos vartotojas jau įvykdė, skaičius, kol vartotojo vardas buvo sistemiškai užblokuotas."
+
+# @ better-wp-security
+#: pages/ll.php:144
+msgid "Login Time Period (minutes)"
+msgstr "Prisijungimo laiko periodas (minutėmis)"
+
+# @ better-wp-security
+#: pages/ll.php:149
+msgid "The number of minutes in which bad logins should be remembered."
+msgstr "Minučių skaičius, per kurias nepavykę prisijungimai turėtų būti prisiminti."
+
+# @ better-wp-security
+#: pages/ll.php:156
+msgid "Lockout Time Period (minutes)"
+msgstr "Užblokavimo Laiko Periodas (minutėmis)"
+
+# @ better-wp-security
+#: pages/ll.php:161
+msgid "The length of time a host or computer will be banned from this site after hitting the limit of bad logins."
+msgstr "Laiko trukmė, kurią serveris ar kompiuteris bus užblokuotas šiame puslapyje, peržengus nesėkmingų prisijungimų limitą."
+
+# @ better-wp-security
+#: pages/ll.php:168
+msgid "Deny All Site Access To Locked Out Hosts."
+msgstr "Uždrausti Viso Puslapio Priėjimą Užblokuotiems Serveriams."
+
+# @ better-wp-security
+#: pages/ll.php:174
+msgid "If the host is locked out it will be completely banned from the site and unable to access either content or the backend for the duration of the logout."
+msgstr "Jeigu serveris užblokuotas, priėjimas prie serverio jam bus visiškai uždraustas ir jis negalės pasiekti nei turinio nei vidinės pusės, kol nesibaigs blokavimas."
+
+# @ better-wp-security
+#: pages/ll.php:181
+#: pages/idetect.php:68
+msgid "Enable Email Notifications."
+msgstr "Suaktyvini Elektroninio Pašto Įspėjimus."
+
+# @ better-wp-security
+#: pages/ll.php:187
+#: pages/idetect.php:74
+msgid "Enabling this feature will trigger an email to be sent to the website administrator whenever a host or user is locked out of the system."
+msgstr "Suaktyvinus šią funkciją, svetainės administratoriui bus išsiųstas elektroninis laiškas, kuomet serveris arba vartotojas yra sistemiškai blokuojamas."
+
+# @ better-wp-security
+#: pages/ll.php:194
+#: pages/idetect.php:104
+msgid "Default Error Message"
+msgstr "Numatytasis Klaidos Pranešimas"
+
+# @ default
+#: pages/ll.php:198
+#: pages/idetect.php:108
+msgid "The message that will display when someone has been locked out."
+msgstr "Šis pranešimas bus rodomas kuomet kas nors bus užblokuojamas."
+
+# @ better-wp-security
+#: pages/ll.php:217
+#: pages/idetect.php:127
+msgid "Active Lockouts"
+msgstr "Aktyvūs Užblokavimai"
+
+# @ better-wp-security
+#: pages/ll.php:219
+msgid "Select a host or computer and click remove to release the lockout and allow them to log into the system."
+msgstr "Pasirinkite serverį arba kompiuterį ir paspauskite pašalinimo mygtuką, kad nutraukti užblokavimą ir leisti vartotojams prisijungti prie sistemos."
+
+# @ better-wp-security
+#: pages/ll.php:224
+msgid "Locked Out Hosts"
+msgstr "Užblokuoti Serveriai"
+
+# @ better-wp-security
+#: pages/ll.php:225
+msgid "Locked Out Users"
+msgstr "Užblokuoti Vartotojai"
+
+# @ better-wp-security
+#: pages/ll.php:237
+#: pages/ll.php:251
+msgid "Expires in:"
+msgstr "Baigiasi po:"
+
+# @ better-wp-security
+#: pages/ll.php:239
+#: pages/ll.php:253
+#: pages/idetect.php:141
+msgid "Release Selected Lockouts"
+msgstr "Nutraukti Pažymėtus Užblokavimus"
+
+# @ better-wp-security
+#: pages/ll.php:241
+#: pages/ll.php:255
+#: pages/idetect.php:143
+msgid "There are no hosts currently locked out."
+msgstr "Šiuo metu jokie serveriai neužblokuoti."
+
+# @ better-wp-security
+#: pages/idetect.php:44
+#: plugin.php:85
+msgid "Intrusion Detection"
+msgstr "Įsibrovimo Aptikimas"
+
+# @ better-wp-security
+#: pages/idetect.php:50
+msgid "Detect 404s"
+msgstr "404 Aptikimas"
+
+# @ better-wp-security
+#: pages/idetect.php:52
+msgid "Use the options below to enable 404 detection."
+msgstr "Naudokite parinktis žemiau, kad suaktyvintumėte 404 aptikimą."
+
+# @ better-wp-security
+#: pages/idetect.php:59
+msgid "Enable 404 Detection"
+msgstr "Suaktyvinti 404 Aptikimą"
+
+# @ better-wp-security
+#: pages/idetect.php:80
+msgid "How many minutes should Better WP Security remember a bad page?"
+msgstr "Kiek minučių Better WP Security turėtų įsimintį blogą puslapį?"
+
+# @ better-wp-security
+#: pages/idetect.php:88
+msgid "How many 404 errors (bad pages) should trigger a lockout?"
+msgstr "Kiek 404 klaidų (blogų puslapių) turėtų iššaukti užblokavimą?"
+
+# @ better-wp-security
+#: pages/idetect.php:96
+msgid "For how many minutes should an offending host be locked out?"
+msgstr "Kelioms minutėms prasikaltęs serveris turėtų būti užblokuotas?"
+
+# @ better-wp-security
+#: pages/idetect.php:129
+msgid "Select a host and click remove to release the lockout and allow them to log into the system."
+msgstr "Pasirinkite serverį ir paspauskite pašalinti, kad nutraukti užblokavimą ir leisti jam prisijungti prie sistemos."
+
+# @ better-wp-security
+#: pages/idetect.php:138
+msgid "Expires in"
+msgstr "Baigiasi po"
+
+# @ default
+#: pages/content.php:18
+msgid "directory successfully changed."
+msgstr "katalogas sėkmingai pakeistas."
+
+# @ better-wp-security
+#: pages/content.php:27
+#: pages/content.php:64
+#: plugin.php:81
+msgid "Content Directory"
+msgstr "Turinio Katalogas"
+
+# @ better-wp-security
+#: pages/content.php:33
+#: pages/content.php:49
+#: pages/content.php:69
+msgid "Change Content Directory"
+msgstr "Pakeisti Turinio Katalogą"
+
+# @ better-wp-security
+#: pages/content.php:35
+msgid "Select a new name for the content directory."
+msgstr "Pasirinkite naują pavadinimą turinio katalogui."
+
+# @ better-wp-security
+#: pages/content.php:36
+msgid "NOTICE: Use this only on new installs. Using this on sites with existing content will break links!"
+msgstr "ĮSPĖJIMAS: Naudokite tai tik naujiems diegimams. To naudojimas senoms svetaimės įtakos sąsajų nutraukimą!"
+
+# @ better-wp-security
+#: pages/content.php:39
+msgid "Directory Name:"
+msgstr "Katalogo Pavadinimas:"
+
+# @ better-wp-security
+#: pages/content.php:71
+msgid "The directory has been changed please reload this page if you wish to change it again."
+msgstr "Katalogas pakeistas, prašome atnaujinti šį puslapį, jeigu norite pakeisti jį dar kartą."
+
+# @ better-wp-security
+#: pages/tweaks.php:107
+#: pages/tweaks.php:198
+msgid "Security Tweaks"
+msgstr "Saugumo Optimizavimas"
+
+# @ better-wp-security
+#: pages/tweaks.php:114
+msgid "tweaks Options"
+msgstr "optimizavimo Parinktys"
+
+# @ better-wp-security
+#: pages/tweaks.php:129
+msgid "Header Tweaks"
+msgstr "Puslapinės antraštės Optimizavimas"
+
+# @ better-wp-security
+#: pages/tweaks.php:131
+msgid "Remove Wordpress Generator Meta Tag"
+msgstr "Pašalinti WordPress Generatoriaus Meta Gairę"
+
+# @ better-wp-security
+#: pages/tweaks.php:132
+msgid "Removes the"
+msgstr "pašalina"
+
+# @ better-wp-security
+#: pages/tweaks.php:132
+msgid "meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities."
+msgstr "meta gairę iš Jūsų svetainių puslapinės antraštės. Procesas paslepia versijos informaciją nuo potencialaus užpuoliko, padarydamas silpnybių nustatymą daug sudėtingesniu."
+
+# @ better-wp-security
+#: pages/tweaks.php:135
+#: pages/tweaks.php:139
+msgid "Remove"
+msgstr "Pašalinti"
+
+# @ better-wp-security
+#: pages/tweaks.php:135
+#: pages/tweaks.php:139
+msgid "header"
+msgstr "puslapinė antraštė"
+
+# @ better-wp-security
+#: pages/tweaks.php:136
+msgid "Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer."
+msgstr "Pašalina Windows Live Write puslapinę antraštę. Tai nesvarbu, jeigu neturi Windows Live Writer."
+
+# @ better-wp-security
+#: pages/tweaks.php:140
+msgid "Removes the RSD (Really Simple Discovery) header. If you don't integrate your blog with external XML-RPC services such as Flickr then the \"RSD\" function is pretty much useless to you."
+msgstr "Pašalina RSD (Really Simply Discovery) puslapinę antraštę. Jeigu Jūs neintegruojate savo tinklaraščio su išorinėmis XML-RPC paslaugomis, tokiomis kaip Flickr, tuomet  \"RSD\" funkcija jums neaktuali."
+
+# @ better-wp-security
+#: pages/tweaks.php:142
+msgid "Dashboard Tweaks"
+msgstr "Prietaisų skydelio Optimizacija"
+
+# @ better-wp-security
+#: pages/tweaks.php:144
+msgid "Hide Theme Update Notifications"
+msgstr "Paslėpti Apipavidalinimo Atnaujinimo Įspėjimus"
+
+# @ better-wp-security
+#: pages/tweaks.php:145
+msgid "Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations."
+msgstr "Paslepia apipavidalinimo atnaujinimo įspėjimus nuo vartotojų, kurie negali atnaujinti apipavidalinimų. Prašome atkreipti dėmesį, jog tai veikia tik daugiapuslapiniame diegime."
+
+# @ better-wp-security
+#: pages/tweaks.php:148
+msgid "Hide Plugin Update Notifications"
+msgstr "Paslėpti Papildinio Atnaujinimo Įspėjimus"
+
+# @ better-wp-security
+#: pages/tweaks.php:149
+msgid "Hides plugin update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations."
+msgstr "Paslepia papildinio atnaujinimo įspėjimus nuo vartotojų, kurie negali atnaujinti papildinių. Prašome atkreipti dėmesį, jog tai veikia tik daugiapuslapiniame diegime."
+
+# @ better-wp-security
+#: pages/tweaks.php:152
+msgid "Hide Core Update Notifications"
+msgstr "Paslėpti Branduolio Atnaujinimo Įspėjimus"
+
+# @ better-wp-security
+#: pages/tweaks.php:153
+msgid "Hides core update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations."
+msgstr "Paslėpia branduolio atnaujinimo įspėjimus nuo vartotojų, kurie negali atnaujinti apipavidalinimų. Prašome atkreipti dėmesį, jog tai veikia tik daugiapuslapiniame diegime."
+
+# @ better-wp-security
+#: pages/tweaks.php:155
+msgid "Strong Password Tweaks"
+msgstr "Stipraus Slaptažodžio Optimizavimas"
+
+# @ better-wp-security
+#: pages/tweaks.php:157
+msgid "Enable strong password enforcement"
+msgstr "Suaktyvinti stipraus slaptažodžio privertimą"
+
+# @ better-wp-security
+#: pages/tweaks.php:158
+msgid "Enforce strong passwords for all users with at least the role specified below."
+msgstr "Priverčia visus vartotojus su role, bent jau tokia, kaip nurodyta žemiau, naudoti stiprius slaptažodžius."
+
+# @ better-wp-security
+#: pages/tweaks.php:161
+msgid "Strong Password Role"
+msgstr "Stipraus Slaptažodžio Lygmuo"
+
+# @ better-wp-security
+#: pages/tweaks.php:162
+msgid "Minimum role at which a user must choose a strong password. For more information on Wordpress roles and capabilities please see"
+msgstr "Mažiausias lygmuo, kurio vartotojui bus liepta naudoti stiprų slaptažodį. Norėdami sužinoti daugiau apie WordPress lygmenis ir galimybes, prašome žiūrėti"
+
+# @ better-wp-security
+#: pages/tweaks.php:164
+msgid "Other Tweaks"
+msgstr "Kiti Optimizavimai"
+
+# @ better-wp-security
+#: pages/tweaks.php:166
+msgid "Remove Wordpress Login Error Messages"
+msgstr "Pašalinti WordPress Prisijungimo Klaidų Pranešimus"
+
+# @ better-wp-security
+#: pages/tweaks.php:167
+#: pages/tweaks.php:185
+msgid "Prevents error messages from being displayed to a user upon a failed login attempt."
+msgstr "Nerodo klaidų žinučių nesėkmingai bandantiems prisijungti vartotojams."
+
+# @ better-wp-security
+#: pages/tweaks.php:170
+msgid "Display random version number to all non-administrative users"
+msgstr "Rodo atsitiktinį versijos numerį visiems neadministraciniams vartotojams"
+
+# @ better-wp-security
+#: pages/tweaks.php:171
+msgid "Displays a random version number to non-administrator users in all places where version number must be used and removes the version completely from where it can."
+msgstr "Rodo atsitiktinį versijos numerį neadministraciniams vartotojams visose vietose, kur versijos numeris turi būti naudojamas ir pilnai pašalina versijos rodymą iš kur tik įmanoma."
+
+# @ better-wp-security
+#: pages/tweaks.php:174
+msgid "Prevent long URL strings."
+msgstr "Uždrausti ilgas universaliųjų nuorodų eilutes."
+
+# @ better-wp-security
+#: pages/tweaks.php:175
+msgid "Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database."
+msgstr "Apriboja simbolių skaičių, kurie gali būti siunčiami į universaliąją nuorodą. Programišiai dažnai bando pasinaudoti ilgomis unviersaliosiomis nuorodomis, bandydami įterpti informaciją į Jūsų duomenų bazę."
+
+# @ better-wp-security
+#: pages/tweaks.php:178
+msgid "Turn off file editor in Wordpress Back-end."
+msgstr "Išjungti rinkmenų redaktorių WordPress Vidinėje pusėje."
+
+# @ better-wp-security
+#: pages/tweaks.php:179
+msgid "Disables the file editor for plugins and themes requiring users to have access to the file system to modify files."
+msgstr "Panaikina rinkmenų redaktorių papildiniams ir apipavidalinimams, reikalaujant vartotojų turėti prieigą prie rinkmenų sistemos, kad šie galėtų modifikuoti rinkmenas."
+
+# @ default
+#: pages/tweaks.php:181
+msgid "SSL Tweaks"
+msgstr "SSL Optimizacija"
+
+# @ better-wp-security
+#: pages/tweaks.php:183
+msgid "WARNING: You're server MUST support SSL to use this feature. Using this feature without SSL support will cause the backend of your site to become unavailable."
+msgstr "DĖMESIO: Jūsų serveris PRIVALO palaikyti SSL protokolą, kad galėtumėte naudotis šia fiunkcija. Šios funkcijos naudojimas be SSL palaikymo padarys vidinę Jūsų svetainės pusę neprieinama."
+
+# @ better-wp-security
+#: pages/tweaks.php:184
+msgid "Enforce SSL"
+msgstr "Iššaukti SSl"
+
+# @ better-wp-security
+#: plugin.php:73
+msgid "Better Security - System Status and Support"
+msgstr "Better Security - Sistemos Būsena ir Pagalba"
+
+# @ better-wp-security
+#: plugin.php:73
+msgid "Security"
+msgstr "Apsauga"
+
+# @ better-wp-security
+#: plugin.php:76
+msgid "System Status and Support"
+msgstr "Sistemos Būsena ir Pagalba"
+
+# @ better-wp-security
+#: plugin.php:78
+msgid "Away Mode"
+msgstr "Pasitraukimo Būsena"
+
+# @ better-wp-security
+#: plugin.php:79
+msgid "Ban Users"
+msgstr "Uždrausti Vartotojus"
+
+# @ better-wp-security
+#: plugin.php:83
+msgid "Hide Backend"
+msgstr "Paslėpti Vidinę pusę"
+
+# @ better-wp-security
+#: plugin.php:86
+msgid "Limit Logins"
+msgstr "Apriboti Prisijungimus"
+
+# @ better-wp-security
+#: plugin.php:88
+msgid "System Tweaks"
+msgstr "Sistemos Optimizavimas"
+
+# @ better-wp-security
+#: plugin.php:218
+msgid "Settings"
+msgstr "Nuostatos"
+

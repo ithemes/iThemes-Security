@@ -1,0 +1,48 @@
+.log_content_6_items .column-time,
+.log_content_6_item .column-time { 
+	width: 25%;
+}
+
+.form-table tr, 
+.form-table td,
+.form-table th {
+	padding: 2px 0 2px 5px;
+}
+
+.form-table tr {
+	border-bottom: 1px solid #ccc;
+}
+
+tr.warning {
+	background-color: #ffff99;
+}
+
+tr.strongwarning {
+	background-color: #ffcccc;
+}
+
+th.settinglabel {
+	font-weight: bold;
+	width: 20%;
+}
+
+td.settingfield p {
+	font-size: 11px;
+	line-height: 14px;
+	color: #333;
+	font-style: italic;
+}
+
+td.settingsection {
+	font-size: 150%;
+	font-style: italic;
+	color: #000060;
+}
+
+p.warningtext {
+	font-weight: bold;
+}
+
+li.securecheck {
+	line-height: 140%;
+}
