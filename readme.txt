@@ -77,6 +77,7 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * Some features can be problematic if you don't have enough RAM to support them. All my testing servers allocate 128MB to WordPress and usually don't have any other plugins installed. I have seen issues with file check and database backups failing on servers with 64MB or less of RAM, particularly if there are many other plugins being used.
 
 = Translations =
+* French by 
 * Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
 * Russian
@@ -150,6 +151,10 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= 2.4.9 =
+* Added: French translation
+* Fixed: bug preventing Jetpack's Infinite Scroll from working with long URL protection
 
 = 3.4.8 =
 * Fixed error message that may occur if InfiniteWP is not installed.
