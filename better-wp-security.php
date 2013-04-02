@@ -6,7 +6,7 @@
 	Version: Dev
 	Text Domain: better-wp-security
 	Domain Path: /languages
-	Author: Bit51.com
+	Author: Bit51
 	Author URI: http://bit51.com
 	License: GPLv2
 	Copyright 2012 Bit51.com  (email : info@bit51.com)
