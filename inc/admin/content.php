@@ -1212,7 +1212,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function awaymode_content_1() {
 			?>
 			<p><?php _e( 'As many of us update our sites on a general schedule it is not always necessary to permit site access all of the time. The options below will disable the backend of the site for the specified period. This could also be useful to disable site access based on a schedule for classroom or other reasons.', $this->hook ); ?></p>
-			<p><?php _e( 'Please note that according to your', $this->hook ); ?> <a href="options-general.php"><?php _e( 'WordPress timezone settings', $this->hook ); ?></a> <?php _e( 'your local time is', $this->hook ); ?> <strong><em><?php echo date( 'l, F jS, Y \a\\t g:i a', current_time( 'timestamp' ) ); ?></em></strong>. <?php _e( 'If this is incorrect please correct it on the', $this->hook ); ?> <a href="options-general.php"><?php _e( 'WordPress general settings page', $this->hook ); ?></a> <?php _e( 'by setting the appropriate time zone. Failure to do so may result in unintended lockouts.', $this->hook ); ?></p>
+			<?php
+				if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) { 
+					$currdate = date_i18n( 'l, d F Y' . ' ' . get_option( 'time_format' ) , current_time( 'timestamp' ) );
+				} else {
+					$currdate = date( 'l, F jS, Y \a\\t g:i a', current_time( 'timestamp' ) );
+				}
+			?>
+			<p><?php _e( 'Please note that according to your', $this->hook ); ?> <a href="options-general.php"><?php _e( 'WordPress timezone settings', $this->hook ); ?></a> <?php _e( 'your local time is', $this->hook ); ?> <strong><em><?php echo $currdate ?></em></strong>. <?php _e( 'If this is incorrect please correct it on the', $this->hook ); ?> <a href="options-general.php"><?php _e( 'WordPress general settings page', $this->hook ); ?></a> <?php _e( 'by setting the appropriate time zone. Failure to do so may result in unintended lockouts.', $this->hook ); ?></p>
+
 			<?php
 		}
 		
@@ -1241,9 +1249,11 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				$sDate = $bwpsoptions['am_startdate'];
 				$eDate = $bwpsoptions['am_enddate'];
 				$shdisplay = date( 'g', $sTime );
+				$shdisplay24 = date( 'G', $sTime );	// 24Hours
 				$sidisplay = date( 'i', $sTime );
 				$ssdisplay = date( 'a', $sTime );
 				$ehdisplay = date( 'g', $eTime );
+				$ehdisplay24 = date( 'G', $eTime );	// 24Hours
 				$eidisplay = date( 'i', $eTime );
 				$esdisplay = date( 'a', $eTime );
 				
@@ -1296,6 +1306,20 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for="am_startdate"><?php _e( 'Start Date', $this->hook ); ?></label>
 						</th>
 						<td class="settingfield">
+							<?php if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) { ?>
+								<select name="am_startday">
+									<?php
+										for ( $i = 1; $i <= 31; $i++ ) { //determine default
+											if ( $sddisplay == $i ) {
+												$selected = ' selected';
+											} else {
+												$selected = '';
+											}
+											echo '<option value="' . $i . '"' . $selected . '>' . date( 'j', strtotime( '1/' . $i . '/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
+										}
+									?>
+								</select>							
+							<?php } ?>
 							<select name="am_startmonth" id="am_startdate">
 								<?php
 									for ( $i = 1; $i <= 12; $i++ ) { //determine default
@@ -1304,22 +1328,30 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 										} else {
 											$selected = '';
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . date( 'F', strtotime( $i . '/1/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
+										echo '<option value="' . $i . '"' . $selected . '>' . date_i18n( 'F', strtotime( $i . '/1/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
 									}
 								?>
 							</select> 
-							<select name="am_startday">
-								<?php
-									for ( $i = 1; $i <= 31; $i++ ) { //determine default
-										if ( $sddisplay == $i ) {
-											$selected = ' selected';
-										} else {
-											$selected = '';
+							<?php if ( ! preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) { ?>
+								<select name="am_startday">
+									<?php
+										for ( $i = 1; $i <= 31; $i++ ) { //determine default
+											if ( $sddisplay == $i ) {
+												$selected = ' selected';
+											} else {
+												$selected = '';
+											}
+											echo '<option value="' . $i . '"' . $selected . '>' . date_i18n( 'j', strtotime( '1/' . $i . '/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . date( 'jS', strtotime( '1/' . $i . '/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
-									}
-								?>
-							</select>, 
+									?>
+								</select>, 
+							<?php 
+
+							} else {
+								echo ' ';
+							}
+
+							?>
 							<select name="am_startyear">
 								<?php
 									for ( $i = date( 'Y', current_time( 'timestamp' ) ); $i < ( date( 'Y', current_time( 'timestamp' ) ) + 2 ); $i++ ) { //determine default
@@ -1341,6 +1373,20 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for="am_enddate"><?php _e( 'End Date', $this->hook ); ?></label>
 						</th>
 						<td class="settingfield">
+							<?php if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) { ?>					
+								<select name="am_endday">
+									<?php
+										for ( $i = 1; $i <= 31; $i++ ) { //determine default
+											if ( $eddisplay == $i ) {
+												$selected = ' selected';
+											} else {
+												$selected = '';
+											}
+											echo '<option value="' . $i . '"' . $selected . '>' . date( 'j', strtotime( '1/' . $i . '/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
+										}
+									?>
+								</select> 
+							<?php } ?>
 							<select name="am_endmonth" id="am_enddate">
 								<?php
 									for ( $i = 1; $i <= 12; $i++ ) { //determine default
@@ -1349,22 +1395,24 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 										} else {
 											$selected = '';
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . date( 'F', strtotime( $i . '/1/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
+										echo '<option value="' . $i . '"' . $selected . '>' . date_i18n( 'F', strtotime( $i . '/1/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
 									}
 								?>
 							</select> 
-							<select name="am_endday">
-								<?php
-									for ( $i = 1; $i <= 31; $i++ ) { //determine default
-										if ( $eddisplay == $i ) {
-											$selected = ' selected';
-										} else {
-											$selected = '';
+							<?php if ( ! preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) { ?>
+								<select name="am_endday">
+									<?php
+										for ( $i = 1; $i <= 31; $i++ ) { //determine default
+											if ( $eddisplay == $i ) {
+												$selected = ' selected';
+											} else {
+												$selected = '';
+											}
+											echo '<option value="' . $i . '"' . $selected . '>' . date( 'j', strtotime( '1/' . $i . '/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . date( 'jS', strtotime( '1/' . $i . '/' . date( 'Y', current_time( 'timestamp' ) ) ) ) . '</option>';
-									}
-								?>
-							</select>, 
+									?>
+								</select>, 
+							<?php } ?>
 							<select name="am_endyear">
 								<?php
 									for ( $i = date( 'Y', current_time( 'timestamp' ) ); $i < ( date( 'Y', current_time( 'timestamp' ) ) + 2 ); $i++ ) { //determine default
@@ -1388,13 +1436,29 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<td class="settingfield">
 							<select name="am_starthour" id="am_starttime">
 								<?php
-									for ( $i = 1; $i <= 12; $i++ ) { //determine default
-										if ( $shdisplay == $i ) {
-											$selected = ' selected';
-										} else {
-											$selected = '';
+									if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) {
+										for ( $i = 0; $i <= 23; $i++ ) { //determine default
+											if ( $shdisplay24 == $i ) {
+												$selected = ' selected';
+											} else {
+												$selected = '';
+											}
+											if ( $i < 10 ) {
+												$val = "0" . $i;
+											} else {
+												$val = $i;
+											}
+											echo '<option value="' . $val  . '"' . $selected . '>' . $val . '</option>';	
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . $i . '</option>';
+									} else {
+										for ( $i = 1; $i <= 12; $i++ ) { //determine default
+											if ( $shdisplay == $i ) {
+												$selected = ' selected';
+											} else {
+												$selected = '';
+											}
+											echo '<option value="' . $i . '"' . $selected . '>' . $i . '</option>';
+										}
 									}
 								?>
 							</select> : 
@@ -1415,12 +1479,16 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 									}
 								?>
 							</select> 
-							<select name="am_starthalf">											
-								<option value="am"<?php if ( $ssdisplay == 'am' ) echo ' selected'; ?>>am</option>
-								<option value="pm"<?php if ( $ssdisplay == 'pm' ) echo ' selected'; ?>>pm</option>
-							</select>
-							<p><?php _e( 'Select the time at which access to the backend of this site will be disabled. Note that if <em>"Daily"</em> mode is selected access will be banned every day at the specified time.', $this->hook ); ?>
-							</p>
+							
+							<?php if ( ! preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) { ?>
+								<select name="am_starthalf">											
+									<option value="am"<?php if ( $ssdisplay == 'am' ) echo ' selected'; ?>>am</option>
+									<option value="pm"<?php if ( $ssdisplay == 'pm' ) echo ' selected'; ?>>pm</option>
+								</select>
+							<?php } ?>
+
+							<p><?php _e( 'Select the time at which access to the backend of this site will be disabled. Note that if <em>"Daily"</em> mode is selected access will be banned every day at the specified time.', $this->hook ); ?></p>
+
 						</td>
 					</tr>
 					<tr valign="top">
@@ -1429,14 +1497,25 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						</th>
 						<td class="settingfield">
 							<select name="am_endhour" id="am_endtime">
-								<?php
-									for ( $i = 1; $i <= 12; $i++ ) {//determine default
-										if ( $ehdisplay == $i ) {
-											$selected = ' selected';
-										} else {
-											$selected = '';
+								<?php 
+									if ( preg_match("/^(G|H)(:| \\h)/", get_option('time_format') ) ) {
+										for ( $i = 0; $i <= 24; $i++ ) {//determine default
+											if ( $ehdisplay24 == $i ) {
+												$selected = ' selected';
+											} else {
+												$selected = '';
+											}
+											echo '<option value="' . $i . '"' . $selected . '>' . $i . '</option>';
 										}
-										echo '<option value="' . $i . '"' . $selected . '>' . $i . '</option>';
+									} else {
+										for ( $i = 1; $i <= 12; $i++ ) {//determine default
+											if ( $ehdisplay == $i ) {
+												$selected = ' selected';
+											} else {
+												$selected = '';
+											}
+											echo '<option value="' . $i . '"' . $selected . '>' . $i . '</option>';
+										}								
 									}
 								?>
 							</select> : 
@@ -1457,12 +1536,15 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 									}
 								?>
 							</select> 
-							<select name="am_endhalf">											
-								<option value="am"<?php if ( $esdisplay == 'am' ) echo ' selected'; ?>>am</option>
-								<option value="pm"<?php if ( $esdisplay == 'pm' ) echo ' selected'; ?>>pm</option>
-							</select>
-							<p><?php _e( 'Select the time at which access to the backend of this site will be re-enabled. Note that if <em>"Daily"</em> mode is selected access will be banned every day at the specified time.', $this->hook ); ?>
-							</p>
+							
+							<?php if ( ! preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) { ?>
+								<select name="am_endhalf">											
+									<option value="am"<?php if ( $esdisplay == 'am' ) echo ' selected'; ?>>am</option>
+									<option value="pm"<?php if ( $esdisplay == 'pm' ) echo ' selected'; ?>>pm</option>
+								</select>
+							<?php }?>
+							<p><?php _e( 'Select the time at which access to the backend of this site will be re-enabled. Note that if <em>"Daily"</em> mode is selected access will be banned every day at the specified time.', $this->hook ); ?></p>
+
 						</td>
 					</tr>
 				</table>
@@ -1483,15 +1565,27 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			if ( $bwpsoptions['am_type'] == 1 ) {
 			
 				$freq = ' <strong><em>' . __( 'every day' ) . '</em></strong>';
-				$stime = '<strong><em>' . date( 'g:i a', $bwpsoptions['am_starttime'] ) . '</em></strong>';
-				$etime = '<strong><em>' . date( 'g:i a', $bwpsoptions['am_endtime'] ) . '</em></strong>';
-				
+				//$stime = '<strong><em>' . date( 'g:i a', $bwpsoptions['am_starttime'] ) . '</em></strong>';
+				//$etime = '<strong><em>' . date( 'g:i a', $bwpsoptions['am_endtime'] ) . '</em></strong>';
+				$stime = '<strong><em>' . date_i18n( get_option('time_format', 'g:i a'), $bwpsoptions['am_starttime'] ) . '</em></strong>';
+				$etime = '<strong><em>' . date_i18n( get_option('time_format', 'g:i a'), $bwpsoptions['am_endtime'] ) . '</em></strong>';				
+
 			} else {
 			
 				$freq = '';
-				$stime = '<strong><em>' . date( 'l, F jS, Y', $bwpsoptions['am_startdate'] ) . __( ' at ', $this->hook ) . date( 'g:i a', $bwpsoptions['am_starttime'] ) . '</em></strong>';
-				$etime = '<strong><em>' . date( 'l, F jS, Y', $bwpsoptions['am_enddate'] ) . __( ' at ', $this->hook ) . date( 'g:i a', $bwpsoptions['am_endtime'] ) . '</em></strong>';
-				
+				//$stime = '<strong><em>' . date( 'l, F jS, Y', $bwpsoptions['am_startdate'] ) . __( ' at ', $this->hook ) . date( 'g:i a', $bwpsoptions['am_starttime'] ) . '</em></strong>';
+				//$etime = '<strong><em>' . date( 'l, F jS, Y', $bwpsoptions['am_enddate'] ) . __( ' at ', $this->hook ) . date( 'g:i a', $bwpsoptions['am_endtime'] ) . '</em></strong>';
+		
+				if ( ! preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) {
+					// 12Hours Format
+					$stime = '<strong><em>' . date( 'l, F jS, Y', $bwpsoptions['am_startdate'] ) . __( ' at ', $this->hook ) . date( 'g:i a', $bwpsoptions['am_starttime'] ) . '</em></strong>';
+					$etime = '<strong><em>' . date( 'l, F jS, Y', $bwpsoptions['am_enddate'] )   . __( ' at ', $this->hook ) . date( 'g:i a', $bwpsoptions['am_endtime'] ) . '</em></strong>';
+
+				} else {
+					// 24Hours Format
+					$stime = '<strong><em>' . date_i18n( 'l, d F Y', $bwpsoptions['am_startdate'] ) . __( ' at ', $this->hook ) . date_i18n( get_option( 'time_format', 'g:i a' ) , $bwpsoptions['am_starttime'] ) . '</em></strong>';
+					$etime = '<strong><em>' . date_i18n( 'l, d F Y', $bwpsoptions['am_enddate'] )   . __( ' at ', $this->hook ) . date_i18n( get_option( 'time_format', 'g:i a' ) , $bwpsoptions['am_endtime'] ). '</em></strong>';				
+				}
 			}
 			
 			if ( $bwpsoptions['am_enabled'] == 1 ) {
@@ -1758,13 +1852,25 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			}
 			if ( $bwpsoptions['backup_enabled'] == 1 ) { //get backup times
 				if ( $bwpsoptions['backup_last'] == '' ) {
-					$lastbackup = 'Never';
+					$lastbackup = __('Never');
 				} else {
-					$lastbackup = date( 'l F jS, Y \a\t g:i a', $bwpsoptions['backup_last'] );
+					if ( preg_match("/^(G|H)(:| \\h)/", get_option('time_format') ) )	{
+						$lastbackup = date_i18n( 'l, d F Y ' . get_option( 'time_format' ), $bwpsoptions['backup_last'] );	// 24Hours Format
+					} else {
+						$lastbackup = date( 'l, F jS, Y \a\t g:i a', $bwpsoptions['backup_last'] );		// 12Hours Format
+					}
 				}
 				?>
 				<p><strong><?php _e( 'Last Scheduled Backup:', $this->hook ); ?></strong> <?php echo $lastbackup; ?></p>
-				<p><strong><?php _e( 'Next Scheduled Backup:', $this->hook ); ?></strong> <?php echo date( 'l F jS, Y \a\t g:i a', $bwpsoptions['backup_next'] ); ?></p>
+				<p><strong><?php _e( 'Next Scheduled Backup:', $this->hook ); ?></strong> 
+					<?php
+						if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) {
+							echo date_i18n( 'l, d F Y ' . get_option( 'time_format' ), $bwpsoptions['backup_next'] );
+						} else {
+							echo date( 'l, F jS, Y \a\t g:i a', $bwpsoptions['backup_next'] );
+						}
+					?>
+				</p>
 				<?php if ( file_exists( BWPS_PP . '/backups/lock' ) ) { ?>
 					<p style="color: #ff0000;"><?php _e( 'It looks like a scheduled backup is in progress please reload this page for more accurate times.', $this->hook ); ?></p>
 				<?php } ?>
@@ -2637,14 +2743,14 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 						<tr valign="top" class="warning">
 							<th scope="row" class="settinglabel">
 								<label for "st_passrole"><?php _e( 'Strong Password Role', $this->hook ); ?></label>
-							</th>
+							</th>				
 							<td class="settingfield">
 								<select name="st_passrole" id="st_passrole">
-									<option value="administrator" <?php if ( $bwpsoptions['st_passrole'] == "administrator" ) echo "selected"; ?>>Administrator</option>
-									<option value="editor" <?php if ( $bwpsoptions['st_passrole'] == "editor" ) echo "selected"; ?>>Editor</option>
-									<option value="author" <?php if ( $bwpsoptions['st_passrole'] == "author" ) echo "selected"; ?>>Author</option>
-									<option value="contributor" <?php if ( $bwpsoptions['st_passrole'] == "contributor" ) echo "selected"; ?>>Contributor</option>
-									<option value="subscriber" <?php if ( $bwpsoptions['st_passrole'] == "subscriber" ) echo "selected"; ?>>Subscriber</option>
+									<option value="administrator" <?php if ( $bwpsoptions['st_passrole'] == "administrator" ) echo "selected"; ?>><? echo translate_user_role("Administrator"); ?></option>
+									<option value="editor" <?php if ( $bwpsoptions['st_passrole'] == "editor" ) echo "selected"; ?>><? echo translate_user_role("Editor"); ?></option>
+									<option value="author" <?php if ( $bwpsoptions['st_passrole'] == "author" ) echo "selected"; ?>><? echo translate_user_role("Author"); ?></option>
+									<option value="contributor" <?php if ( $bwpsoptions['st_passrole'] == "contributor" ) echo "selected"; ?>><? echo translate_user_role("Contributor"); ?></option>
+									<option value="subscriber" <?php if ( $bwpsoptions['st_passrole'] == "subscriber" ) echo "selected"; ?>><? echo translate_user_role("Subscriber"); ?></option>
 								</select>
 								<p><?php _e( 'Minimum role at which a user must choose a strong password. For more information on WordPress roles and capabilities please see', $this->hook ); ?> <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>
 								<p class="warningtext"><?php _e( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', $this->hook ); ?></p>
@@ -2742,3 +2848,4 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 	}
 
 }
+

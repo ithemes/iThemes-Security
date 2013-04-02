@@ -8,8 +8,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2013-02-06 02:57+0100\n"
-"Last-Translator: ScEric <eric@sceric.net>\n"
+"PO-Revision-Date: 2013-02-19 03:27+0100\n"
+"Last-Translator: SCUDELLER Eric <eric@sceric.net>\n"
 "Language-Team: Eric <eric@sceric.net>\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -43,7 +43,7 @@ msgstr "Bannir des Utilisateurs"
 
 #: inc/admin/content.php:108
 msgid "Change Content Directory"
-msgstr "Changer le répertoire de contenu"
+msgstr "Modifier le répertoire de contenu"
 
 #: inc/admin/content.php:109
 msgid "Content Directory"
@@ -59,7 +59,7 @@ msgstr "Sauvegarde de la Base de données"
 
 #: inc/admin/content.php:130 inc/admin/content.php:388
 msgid "Change Database Prefix"
-msgstr "Changer le préfixe de base de données"
+msgstr "Modifier le préfixe de base de données"
 
 #: inc/admin/content.php:131
 msgid "Database Prefix"
@@ -108,7 +108,7 @@ msgstr "Afficher les journaux"
 #: inc/admin/content.php:230 inc/admin/content.php:241
 #: inc/admin/content.php:252
 msgid "System Status"
-msgstr "Etat du Système"
+msgstr "Etude Système"
 
 #: inc/admin/content.php:219
 msgid "System Information"
@@ -146,11 +146,11 @@ msgstr "Avant de commencer"
 
 #: inc/admin/content.php:277 inc/admin/content.php:288
 msgid "Change The Admin User Name"
-msgstr "Changer le Nom de l'Administrateur"
+msgstr "Modifier le Nom de l'Administrateur"
 
 #: inc/admin/content.php:278
 msgid "Change The Admin User ID"
-msgstr "Changer le Numéro d'identifiant de l'Utilisateur d'Administration"
+msgstr "Modifier le Numéro d'identifiant de l'Utilisateur d'Administration"
 
 #: inc/admin/content.php:307
 msgid "Administor Away Mode"
@@ -202,7 +202,7 @@ msgstr "Cacher l'Espace d'Administration"
 
 #: inc/admin/content.php:410
 msgid "Hide Backend Options"
-msgstr "Paramètres de cacher l'Espace d'Administration"
+msgstr "Paramètres de cacher les Zones d'Administration"
 
 #: inc/admin/content.php:411
 msgid "Secret Key"
@@ -230,7 +230,7 @@ msgstr "Nettoyer la Base de données"
 
 #: inc/admin/content.php:527
 msgid "Current Lockouts"
-msgstr "Blocage en cours"
+msgstr "Verrous actifs"
 
 #: inc/admin/content.php:528
 msgid "404 Errors"
@@ -242,7 +242,7 @@ msgstr "Tentative de Connexion échouée"
 
 #: inc/admin/content.php:530
 msgid "All Lockouts"
-msgstr "Tous les Blocages"
+msgstr "Tous les Verrous"
 
 #: inc/admin/content.php:531
 msgid "Changed Files"
@@ -328,7 +328,8 @@ msgstr ""
 #: inc/admin/content.php:578
 msgid "Do not allow this plugin to change WordPress core files."
 msgstr ""
-"Ne pas Authoriser ce extension à modifier les fichiers système de Wordpress."
+"Ne pas Authoriser cette extension à modifier les fichiers système de "
+"Wordpress."
 
 #: inc/admin/content.php:595
 msgid ""
@@ -443,7 +444,7 @@ msgstr "Un Utilisateur avec un Numéro d'identifiant  1 existe encore."
 #: inc/admin/content.php:658
 msgid "Click here to change user 1's ID."
 msgstr ""
-"Cliquez ici pour changer l'utilisateur avec le Numéro d'identifiant  1."
+"Cliquez ici pour modifier l'utilisateur avec le Numéro d'identifiant  1."
 
 #: inc/admin/content.php:660
 msgid "The user with id 1 has been removed."
@@ -464,7 +465,7 @@ msgstr "Votre préfixe de table est"
 #: inc/admin/content.php:674
 msgid "You have scheduled regular backups of your WordPress database."
 msgstr ""
-"Vous avez planifié des sauvegardes régulières de votre base de données "
+"Vous avez planifié des sauvegardes automatiques de votre base de données "
 "WordPress."
 
 #: inc/admin/content.php:676
@@ -492,15 +493,15 @@ msgstr ""
 msgid ""
 "You are blocking known bad hosts and agents with HackRepair.com's blacklist."
 msgstr ""
-"Vous n'interdisez pas les hôtes et User-Agents connus de la liste noire de "
-"HackRepair.com."
+"Vous bloquez les hôtes et Navigateurs connus de la liste noire de HackRepair."
+"com."
 
 #: inc/admin/content.php:690
 msgid ""
 "You are not blocking known bad hosts and agents with HackRepair.com's "
 "blacklist?"
 msgstr ""
-"Vous n'interdisez pas les hôtes et User-Agents connus de la liste noire de "
+"Vous n'interdisez pas les hôtes et Navigateurs connus de la liste noire de "
 "HackRepair.com."
 
 #: inc/admin/content.php:695
@@ -658,7 +659,7 @@ msgid ""
 "to core files."
 msgstr ""
 "NOTA: Certains éléments sont cachés car vous n'autorisez pas cette extension "
-"à modifier les fichiers du système Wordpress."
+"à modifier les fichiers du système WordPress."
 
 #: inc/admin/content.php:799
 msgid "Items in green are fully secured. Good Job!"
@@ -716,7 +717,7 @@ msgstr "Obtenez plus d'informations sur cette adresse"
 
 #: inc/admin/content.php:878
 msgid "User Agent"
-msgstr "User Agent"
+msgstr "Navigateur"
 
 #: inc/admin/content.php:883
 msgid "File System Information"
@@ -942,11 +943,11 @@ msgstr ""
 
 #: inc/admin/content.php:1121
 msgid "WP Permalink Structure"
-msgstr "Structure des permaliens Wordpress"
+msgstr "Structure des permaliens WordPress"
 
 #: inc/admin/content.php:1122
 msgid "Wp-config Location"
-msgstr "localisation de Wp-config"
+msgstr "localisation de wp-config"
 
 #: inc/admin/content.php:1126
 msgid "Better WP Security variables"
@@ -954,7 +955,9 @@ msgstr "Paramètres de Better WP Security "
 
 #: inc/admin/content.php:1130
 msgid "Not Yet Available. Enable Hide Backend mode to generate key."
-msgstr "indisponible. Activer \"Cacher l'espace admin\" pour générer la clé."
+msgstr ""
+"pas possible. Vous devez activer \"Cacher l'espace admin\" pour générer la "
+"clé."
 
 #: inc/admin/content.php:1135
 msgid "Hide Backend Key"
@@ -962,7 +965,7 @@ msgstr "Cacher la clef de l'espace d'Admin"
 
 #: inc/admin/content.php:1136
 msgid "Better WP Build Version"
-msgstr "Version de Base Better WP"
+msgstr "Numéro de suivi de Better WP"
 
 #: inc/admin/content.php:1137
 msgid ""
@@ -970,7 +973,7 @@ msgid ""
 "instead used for support."
 msgstr ""
 "Remarque: ce n'est pas le même numéro de version sur la page des extensions "
-"et celui utilisé pour le support."
+"et celui utilisé pour le suivi."
 
 #: inc/admin/content.php:1150
 msgid ""
@@ -984,9 +987,9 @@ msgstr ""
 "Par défaut, WordPress crée un Identifiant nommé \"admin\". Cela n'est pas "
 "sûr, puisque cet utilisateur a un accès total à votre Système WordPress, et "
 "n'importe quel hacker connait son existence. Tout ce qu'un attaquant aura à "
-"faire, est de deviner le mot de passe. Une fois modifié, vous obligez "
-"n'importe quel Attaquant à deviner l'Identifiant et son Mot de passe, ce qui "
-"lui complique la tâche."
+"faire, est de deviner le mot de passe de ce compte. Une fois modifié, vous "
+"obligez n'importe quel Attaquant à deviner l'Identifiant et son Mot de "
+"passe, ce qui lui complique la tâche."
 
 #: inc/admin/content.php:1151
 msgid ""
@@ -994,7 +997,7 @@ msgid ""
 "\"admin\" when installing WordPress."
 msgstr ""
 "Notez que cette fonctionnalité ne fonctionne que si vous choisissez un nom "
-"d'utilisateur différent de \"admin \" lors de l'installation de WordPress. "
+"d'utilisateur différent de \" admin \" lors de l'installation de WordPress. "
 
 #: inc/admin/content.php:1168
 msgid "Enter Username"
@@ -1011,7 +1014,7 @@ msgstr ""
 
 #: inc/admin/content.php:1177
 msgid "Chage Admin Username"
-msgstr "Changer le Nom d'utilisateur Admin"
+msgstr "Modifier le Nom d'utilisateur Admin"
 
 #: inc/admin/content.php:1182
 msgid ""
@@ -1019,7 +1022,7 @@ msgid ""
 "installation. No further action is available on this page."
 msgstr ""
 "Félicitation! vous n avez plus d'Utilisateur nommé \"admin\" dans votre "
-"installation Wordpress. Aucune autre action n est disponible sur cette page."
+"installation WordPress. Aucune autre action n est disponible sur cette page."
 
 #: inc/admin/content.php:1194
 msgid ""
@@ -1031,7 +1034,7 @@ msgstr ""
 
 #: inc/admin/content.php:1198
 msgid "Change User 1 ID"
-msgstr "Changer le Numéro d'Identifiant (ID 1)"
+msgstr "Modifier le Numéro d'Identifiant (ID 1)"
 
 #: inc/admin/content.php:1203
 msgid ""
@@ -1039,8 +1042,7 @@ msgid ""
 "installation. No further action is available on this page."
 msgstr ""
 "Félicitations! Vous n'avez plus d'Utilisateur avec le numéro d'identifiant 1 "
-"dans votre installation de WordPress. Aucune autre action n'est disponible "
-"sur cette page."
+"dans votre installation de WordPress. Aucune autre action n'est disponible ."
 
 #: inc/admin/content.php:1214
 msgid ""
@@ -1075,7 +1077,7 @@ msgstr "Si cela est inexact, corrigez depuis"
 
 #: inc/admin/content.php:1215
 msgid "WordPress general settings page"
-msgstr "Réglages généraux de Wordpress"
+msgstr "Réglages généraux de WordPress"
 
 #: inc/admin/content.php:1215
 msgid ""
@@ -1083,7 +1085,7 @@ msgid ""
 "unintended lockouts."
 msgstr ""
 "en réglant le fuseau horaire approprié. Ne pas le faire peut entraîner des "
-"Blocages non désirés."
+"Verrous inattendus."
 
 #: inc/admin/content.php:1230
 msgid ""
@@ -1224,12 +1226,11 @@ msgid ""
 "without having to manage any configuration of your server. Any IP or user "
 "agent found in the lists below will not be allowed any access to your site."
 msgstr ""
-"Cette fonctionnalité vous permet de bannir complètement des Hôtes et des "
-"Clients (user agents) de votre site à partir de leur adresse IP , d'un "
-"groupe d'adresses IP , ainsi que du Client (user agents) ,  sans modifier "
-"votre configuration de Serveur Web. Toute adresse IP ou Client (user "
-"agents), défini dans les listes ci-dessous, ne sera plus autorisé à accéder "
-"à votre site."
+"Cette fonctionnalité vous permet de bannir de votre site :  des Hôtes et des "
+"Navigateurs à partir de leur adresse IP , d'un groupe d'adresses IP , ainsi "
+"que du Navigateur ,  sans avoir à modifier la configuration de votre Serveur "
+"Web. Toute adresse IP ou Navigateur défini dans les listes ci-dessous, ne "
+"sera plus autorisé à accéder à votre site."
 
 #: inc/admin/content.php:1526
 msgid ""
@@ -1313,19 +1314,19 @@ msgstr "Entrer seulement une adresse IP ou une plage d'adresses IP par ligne."
 
 #: inc/admin/content.php:1581
 msgid "Ban User Agents"
-msgstr "User-Agents Bannis"
+msgstr "Navigateurs Bannis"
 
 #: inc/admin/content.php:1585
 msgid ""
 "Use the guidelines below to enter user agents that will not be allowed "
 "access to your site."
 msgstr ""
-"Utilisez les directives ci-dessous pour définir les User-Agent qui ne seront "
-"plus autorisés à accéder à votre site."
+"Utilisez les directives ci-dessous pour définir les Navigateurs qui ne "
+"seront plus autorisés à accéder à votre site."
 
 #: inc/admin/content.php:1587
 msgid "Enter only 1 user agent per line."
-msgstr "Entrez seulement 1 User-Agent par ligne."
+msgstr "Entrez seulement 1 Navigateur par ligne."
 
 #: inc/admin/content.php:1603
 msgid ""
@@ -1356,13 +1357,13 @@ msgid ""
 "to avoid accidently breaking a site later on. This includes uninstalling "
 "this plugin which will not revert the changes made by this page."
 msgstr ""
-"Notez que lorsque vous modifiez le nom du répertoire wp-content sur un site "
-"qui contient deja des images et du contenu référencés, cela  cassera votre "
-"site. Pour cette raison je vous recommande de seulement utiliser cela sur un "
-"site nouvellement installé. En outre, cet outil ne vous laissera pas "
+"Notez que lorsque vous modifiez le nom du répertoire \"wp-content\" sur un "
+"site qui contient deja des images et du contenu référencés, cela va casser "
+"votre site. Pour cette raison, je vous recommande de seulement utiliser cela "
+"sur un site nouvellement installé. En outre, cet outil ne vous laissera pas "
 "remodifier à nouveau votre dossier wp-content une fois celui renommé, afin "
-"d'éviter de casser plutard votre site. La désinstallation de cette "
-"Extension  n'annulera pas les modifications apportées par cette page."
+"d'éviter de re-casser votre site. La désinstallation de cette Extension "
+"n'annulera pas les modifications apportées par cette page."
 
 #: inc/admin/content.php:1605
 msgid ""
@@ -1461,19 +1462,21 @@ msgstr "Intervalle de sauvegarde"
 
 #: inc/admin/content.php:1702
 msgid "Hours"
-msgstr "par Heures"
+msgstr "Heures"
 
 #: inc/admin/content.php:1703
 msgid "Days"
-msgstr "par Jours"
+msgstr "Jours"
 
 #: inc/admin/content.php:1704
 msgid "Weeks"
-msgstr "par Semaines"
+msgstr "Semaines"
 
 #: inc/admin/content.php:1706
 msgid "Select the frequency of automated backups."
-msgstr "Sélectionnez la fréquence des Sauvegardes Automatiques."
+msgstr ""
+"Sélectionnez la fréquence (délai entre chaque sauvegarde) des Sauvegardes "
+"Automatiques "
 
 #: inc/admin/content.php:1711
 msgid "Send Backups by Email"
@@ -1524,8 +1527,8 @@ msgid ""
 "Please note that for security backups are not available for direct download. "
 "You will need to go to "
 msgstr ""
-"Note: les Sauvegardes de Sécurité ne sont pas disponibles en téléchargement "
-"direct. Vous aurez besoin d'aller ici: "
+"Nota: Par Sécurité, les Sauvegardes de votre Base de données ne sont pas "
+"accessibles en téléchargement direct. Vous devez aller ici: "
 
 #: inc/admin/content.php:1756
 msgid ""
@@ -1533,9 +1536,9 @@ msgid ""
 "sensative information in the backup files and you do not want anyone just "
 "stumbling upon them."
 msgstr ""
-"via FTP ou SSH pour télécharger les fichiers. C'est parce qu'il y a beaucoup "
-"trop d'informations sensibles dans ces fichiers de Sauvegarde et que vous ne "
-"souhaitez pas qu'on puisse y accéder."
+"en utilisant un client FTP ou SSH pour télécharger ces fichiers. Cette "
+"mesure est nécessaire car ces fichiers contiennent  beaucoup trop "
+"d'informations sensibles et cela évite que n'importe qui puisse y accéder."
 
 #: inc/admin/content.php:1766
 msgid "Last Scheduled Backup:"
@@ -1563,13 +1566,12 @@ msgid ""
 "trying to take advantage of vulnerabilites in other places to affect the "
 "database of your site."
 msgstr ""
-"Par défaut WordPress définit le préfixe de toutes les tables de la base de "
-"données par \"wp_\"  where your content, users, and objects live. For "
-"potential attackers this means it is easier to write scripts that can target "
-"WordPress databases as all the important table names for 95% or so of sites "
-"are already known. Changing this makes it more difficult for tools that are "
-"trying to take advantage of vulnerabilites in other places to affect the "
-"database of your site."
+"Par défaut WordPress attribue le préfixe \"wp_\" aux tables de sa base de "
+"données. Pour un Attaquant potientiel, cela signifique qu'il lui sera facile "
+"d'écrire des scripts pour accéder aux Objets, Utilisateurs et Contenus de "
+"cette base de données, sachant que plus de 95% des noms de tables sont "
+"connus. En modifiant ce préfixe, votre base de données sera moins sensible à "
+"d'éventuelles vulnérabilités."
 
 #: inc/admin/content.php:1782
 msgid ""
@@ -1615,7 +1617,7 @@ msgstr ""
 
 #: inc/admin/content.php:1803
 msgid "Change Database Table Prefix"
-msgstr "Changer le préfixe des tables de la base de données"
+msgstr "Modifier le préfixe des tables de la base de données"
 
 #: inc/admin/content.php:1814
 msgid ""
@@ -1797,7 +1799,9 @@ msgstr ""
 
 #: inc/admin/content.php:1971 inc/admin/content.php:2210
 msgid "The email address lockout notifications will be sent to."
-msgstr "L'Adresse e-mail où les notifications de Blocage seront envoyées ."
+msgstr ""
+"Les Notifications de déclenchement d'un Verrou seront envoyés à cette "
+"adresse e-mail."
 
 #: inc/admin/content.php:1976
 msgid "Check Period"
@@ -1821,7 +1825,7 @@ msgid ""
 "The numbers of errors (within the check period timeframe) that will trigger "
 "a lockout."
 msgstr ""
-"Le Nombre d'Erreurs (durant le délai de contrôle) qui déclenchera un blocage."
+"Le Nombre d'Erreurs (durant le délai de contrôle) qui déclenchera un Verrou."
 
 #: inc/admin/content.php:1994
 msgid "Lockout Period"
@@ -1833,7 +1837,7 @@ msgid ""
 "lockout."
 msgstr ""
 "Le nombre de minutes qu'un hôte sera banni du site, après déclenchement d'un "
-"blocage."
+"Verrou."
 
 #: inc/admin/content.php:2004 inc/admin/content.php:2178
 msgid "Blacklist Repeat Offender"
@@ -1869,7 +1873,7 @@ msgid ""
 "The number of lockouts per IP before the user is banned permanently from "
 "this site"
 msgstr ""
-"Le nombre de Blocage par adresse IP avant qu'un utilisateur soit banni de "
+"Le nombre de Verrou par adresse IP avant qu'un utilisateur soit banni de "
 "façon définitive de ce site"
 
 #: inc/admin/content.php:2024
@@ -1897,7 +1901,7 @@ msgid ""
 "will be prevented"
 msgstr ""
 "les erreurs 404 seront encore enregistrées pour les utilisateurs de la liste "
-"blanche. Cela évite seulement le Blocage"
+"blanche. Cela évite seulement les Verrous"
 
 #: inc/admin/content.php:2041
 msgid "File Change Detection"
@@ -2074,7 +2078,7 @@ msgstr ""
 
 #: inc/admin/content.php:2168
 msgid "Lockout Time Period (minutes)"
-msgstr "Délai de Blocage (en minutes)"
+msgstr "Durée d'un Verrou (en minutes)"
 
 #: inc/admin/content.php:2172
 msgid ""
@@ -2106,10 +2110,10 @@ msgid ""
 "do so regularly to improve performance which can otherwise be slowed if the "
 "system has to search through large log-files on a regular basis."
 msgstr ""
-"Cette Page contient les Journaux générés par Better WP Security, les "
-"Blocages en cours (qui peuvent être effacées ici) ainsi qu'un moyen pour "
-"effacer les Journaux afin de réduire l'occupation disque et la Charge CPU du "
-"serveur. Nota: vous devrez manuellement effacer ces Journaux, cela n'est pas "
+"Cette Page contient les Journaux générés par Better WP Security, les Verrous "
+"en cours (qui peuvent être effacées ici) ainsi qu'un moyen pour effacer les "
+"Journaux afin de réduire l'occupation disque et la Charge CPU du serveur. "
+"Nota: vous devrez manuellement effacer ces Journaux, cela n'est pas "
 "automatique. Je vous recommande de le faire régulièrement afin de conserver "
 "les performances qui pourrait être ralenties si le système devait traiter de "
 "trop volumineux Journaux systèmes."
@@ -2126,7 +2130,7 @@ msgid ""
 msgstr ""
 "Ci-dessous les anciennes données de sécurité encore présentes dans votre "
 "base de données WordPress. Les Données sont considérées comme anciennes "
-"quand un Blocage a expiré ou a été annulé manuellement, ou lorsque l'entrée "
+"quand un Verrou a expiré ou a été annulé manuellement, ou lorsque l'entrée "
 "du journal n'est plus utilisée pour générer une Interdiction."
 
 #: inc/admin/content.php:2252
@@ -2148,7 +2152,7 @@ msgid ""
 msgstr ""
 "Cochez la case à coté des données que vous souhaitez effacer et ensuite "
 "appuyez le bouton \"Supprimer les données\" . (Nota:  Ceci ne supprime pas "
-"les entrées qui peuvent encore être utilisées pour des Blocages)"
+"les entrées qui peuvent encore être utilisées pour des Verrous)"
 
 #: inc/admin/content.php:2255 inc/admin/content.php:2256
 #: inc/admin/content.php:2258 inc/admin/content.php:2259
@@ -2169,11 +2173,11 @@ msgstr "Cela effacera le journal des Erreurs 404 ci-dessous."
 
 #: inc/admin/content.php:2258
 msgid "old lockouts."
-msgstr "Blocage(s) passé(s)"
+msgstr "Verrou(s) passé(s)"
 
 #: inc/admin/content.php:2259
 msgid "changed file records."
-msgstr "enregistrement(s) des fichiers modifiés."
+msgstr "enregistrement(s) pour fichiers modifiés."
 
 #: inc/admin/content.php:2264
 msgid "Remove Data"
@@ -2197,7 +2201,7 @@ msgstr "Actuellement aucun utilisateur n'est bloqué."
 
 #: inc/admin/content.php:2318
 msgid "Release Lockout"
-msgstr "Annuler les Blocages"
+msgstr "Annuler les Verrous"
 
 #: inc/admin/content.php:2382
 msgid "Return to Log"
@@ -2291,13 +2295,12 @@ msgid ""
 "(not recommended unless you have a really good reason to use it)."
 msgstr ""
 "Active la connexion sécurisée SSL pour le front-end (partie publique de "
-"votre site). En désactivant cette option vous désactiverez le contrôle SSL "
-"sur le Front-End, en sélectionnant l'option  \"Par Contenu\", cela ajoutera "
-"une case à cocher sur la Page d'édition des Articles et Pages (près des "
-"paramètres de publication) vous permettant d'activer SSL pour les Pages ou "
-"Articles sélectionnés, et en sélectionnant  \"Tout le site \" va forcer "
-"l'ensemble du site à utiliser SSL (pas recommandé sauf si vous avez une très "
-"bonne raison de l'utiliser)."
+"votre site).  l'option \"Arrêt\" va désactiver le contrôle SSL sur le Front-"
+"End. l'option  \"Par Contenu\" va ajouter une case à cocher sur la Page "
+"d'édition des Articles et Pages (près des paramètres de publication) vous "
+"permettant d'activer SSL pour les Pages ou Articles sélectionnés. l'option  "
+"\"Tout le site \" va forcer l'utilisation de SSL pour l'ensemble du site "
+"(pas recommandé sauf si vous avez une très bonne raison de l'utiliser). "
 
 #: inc/admin/content.php:2441
 msgid "Enforce Login SSL"
@@ -2316,7 +2319,7 @@ msgid ""
 "Forces all of the WordPress backend to be served only over a secure SSL "
 "connection."
 msgstr ""
-"Forcer l'accès à l'Espace d'Administration via une connexion sécurisée SSL."
+"Force l'accès à l'Espace d'Administration via une connexion sécurisée SSL."
 
 #: inc/admin/content.php:2469
 msgid ""
@@ -2546,14 +2549,14 @@ msgstr "Optimisation des mots de passe complexes"
 
 #: inc/admin/content.php:2624
 msgid "Enable strong password enforcement"
-msgstr "Activer l'utilisation de mots de passe complexes"
+msgstr "Obliger l'utilisation de mots de passe complexes"
 
 #: inc/admin/content.php:2628
 msgid ""
 "Enforce strong passwords for all users with at least the role specified "
 "below."
 msgstr ""
-"Force les utilisateurs ayant au moins le rôle spécifié ci-dessous à définir "
+"Forcer tous les utilisateurs à partir du rôle spécifié ci-dessous à utiliser "
 "des mots de passe complexes."
 
 #: inc/admin/content.php:2633
@@ -2574,8 +2577,8 @@ msgid ""
 "Warning: If your site invites public registrations setting the role too low "
 "may annoy your members."
 msgstr ""
-"Attention: Si votre site invite les enregistrements publics, le choix d'un "
-"Rôle trop faible peut perturber vos membres."
+"Attention: si votre site accepte les inscriptions publiques, choisir un Rôle "
+"trop faible peut perturber vos autres membres."
 
 #: inc/admin/content.php:2654
 msgid "Other Tweaks"
@@ -2590,8 +2593,8 @@ msgid ""
 "Prevents error messages from being displayed to a user upon a failed login "
 "attempt."
 msgstr ""
-"Empêche les messages d'erreur d'être affichés à un Utilisateur lors d'une "
-"tentative d'authentification infructueuse."
+"Empêcher l'affichage du message d'erreur de connexion lors de tentatives "
+"d'authentification infructueuses."
 
 #: inc/admin/content.php:2668
 msgid "Write to WordPress core files"
@@ -2640,7 +2643,7 @@ msgid ""
 "no referrer or without a user-agent identified."
 msgstr ""
 "Cette option permettra de réduire le spam dans les commentaires en bloquant "
-"les Robots (Bots) sans référent ou sans client (User-Agent) identifié."
+"les Robots (Bots) sans référent ou Navigateur identifié."
 
 #: inc/admin/content.php:2684 inc/admin/content.php:2695
 msgid ""
@@ -2814,7 +2817,7 @@ msgstr ""
 
 #: inc/admin/process.php:537
 msgid " is not a valid user agent. Please try again."
-msgstr " n'est pas un Client valide. S'il vous plaît essayez de nouveau."
+msgstr " n'est pas un Navigateur valide. S'il vous plaît essayez de nouveau."
 
 #: inc/admin/process.php:555 inc/admin/process.php:594
 #: inc/admin/process.php:1018 inc/admin/process.php:1496
@@ -2861,14 +2864,11 @@ msgstr ". Vous pourriez avoir manuellement à renommer la table ."
 
 #: inc/admin/process.php:890
 msgid "Could not update prefix refences in options tables."
-msgstr ""
-"Impossible de mettre à jour le préfixe de référence pour le  tableau options."
+msgstr "Impossible de mettre à jour le préfixe de la table options."
 
 #: inc/admin/process.php:911
 msgid "Could not update prefix refences in usermeta table."
-msgstr ""
-"Impossible de mettre à jour le préfixe de référence pour le  tableau "
-"usermeta."
+msgstr "Impossible de mettre à jour le préfixe de la table usermeta."
 
 #: inc/admin/process.php:995
 msgid ""
@@ -2900,7 +2900,7 @@ msgstr ""
 
 #: inc/admin/process.php:1129 inc/admin/process.php:1328
 msgid "Lockout time period needs to be aan integer greater than 0."
-msgstr "le délai de blocage doit être un entier supérieur à 0."
+msgstr "la Durée d'un Verrou doit être un entier supérieur à 0."
 
 #: inc/admin/process.php:1140 inc/admin/process.php:1339
 msgid "Login time period needs to be aan integer greater than 0."
@@ -2915,7 +2915,7 @@ msgid ""
 "The email address you entered for lockout notifications is not a valid email "
 "address. You must enter a valid email address."
 msgstr ""
-"L'adresse email que vous avez saisi pour les notifications de blocage n'est "
+"L'adresse email que vous avez saisi pour les notifications d'un Verrou n'est "
 "pas une adresse email valide. Vous devez saisir une adresse email valide."
 
 #: inc/admin/process.php:1350
@@ -2935,7 +2935,7 @@ msgstr "Les enregistrements sélectionnés ont été effacés."
 
 #: inc/admin/process.php:1412
 msgid "The selected lockouts have been cleared."
-msgstr "Les Blocages sélectionnés ont été effacés."
+msgstr "Les Verrous sélectionnés ont été effacés."
 
 #: inc/admin/process.php:1483 inc/admin/process.php:1575
 msgid ""
@@ -2979,7 +2979,7 @@ msgstr "Total"
 
 #: inc/admin/tables.php:284
 msgid "The following is a log of all lockouts in the system."
-msgstr "ci-dessous le journal système de tous les Blocages."
+msgstr "ci-dessous le journal de tous les Verrous du système ."
 
 #: inc/admin/tables.php:300 inc/admin/tables.php:470 inc/admin/tables.php:674
 msgid "Time"
@@ -2996,8 +2996,8 @@ msgstr "Utilisateur"
 #: inc/admin/tables.php:454
 msgid "The following is a log of all file changes seen by the system."
 msgstr ""
-"ci-dessous le journal de toutes les modifications de fichiers vues par le "
-"système."
+"ci-dessous le journal de toutes les modifications de fichiers détectées par "
+"le système."
 
 #: inc/admin/tables.php:471
 msgid "Added"
@@ -3355,3 +3355,4 @@ msgstr "Bit51.com"
 #. Author URI of the plugin/theme
 msgid "http://bit51.com"
 msgstr "http://bit51.com"
+
