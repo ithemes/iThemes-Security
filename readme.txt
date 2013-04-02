@@ -153,6 +153,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 == Changelog ==
 
 = 3.4.9 =
+* More secure user query thanks to John Cave
 * Greatly improved intl date handling by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
 * Added: French translation by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
 * Fixed: bug preventing Jetpack's Infinite Scroll from working with long URL protection

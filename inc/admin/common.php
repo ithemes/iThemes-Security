@@ -920,8 +920,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//queary the user table to see if the user is there
-			$user = $wpdb->get_var( "SELECT user_login FROM `" . $wpdb->users . "` WHERE user_login='" . sanitize_text_field( $username ) . "';" );
-			$userid = $wpdb->get_var( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='" . sanitize_text_field( $username ) . "';" );
+			$user = $wpdb->get_var( $wpdb->prepare( "SELECT user_login FROM `" . $wpdb->users . "` WHERE user_login = '%s';", sanitize_text_field( $username ) ) );
+			$userid = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='%s';", sanitize_text_field( $username ) ) );
 			
 			if ( $user == $username || $userid == $username ) {
 				return true;
