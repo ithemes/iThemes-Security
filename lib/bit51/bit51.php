@@ -384,7 +384,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 **/
 		function donate() {
 		
-			$content = __( 'Have you found this plugin useful? Please help support it\'s continued development with a donation of $20, $50, or $100!', $this->hook );
+			$content = __( 'Have you found this plugin useful? Please help support it\'s continued development with a donation of $20, $50, or even $100.', $this->hook );
 			
 			$content .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="' . $this->paypalcode . '"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
 			
