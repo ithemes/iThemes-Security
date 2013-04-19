@@ -10,7 +10,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 
 	abstract class Bit51 {
 	
-		var $feed = 'http://feeds.feedburner.com/Bit51'; //current address of Bit51.com feed
+		var $feed = 'http://bit51.com/feed'; //current address of Bit51.com feed
 	
 		/**
 		 * Register admin javascripts (only for plugin admin page)
@@ -349,28 +349,34 @@ if ( ! class_exists( 'Bit51' ) ) {
 			include_once( ABSPATH . WPINC . '/feed.php' ); //load WordPress feed info
 			
 			$feed = fetch_feed( $this->feed ); //get the feed
+
+			if ( ! isset( $feed->errors ) ) {
+
+				$feeditems = $feed->get_items( 0, $feed->get_item_quantity( 5 ) ); //narrow feed to last 5 items
 			
-			$feeditems = $feed->get_items( 0, $feed->get_item_quantity( 5 ) ); //narrow feed to last 5 items
+				$content = '<ul>'; //start list
 			
-			$content = '<ul>'; //start list
+				if ( ! $feeditems ) {
 			
-			if ( ! $feeditems ) {
-			
-			    $content .= '<li class="bit51">' . __( 'No news items, feed might be broken...', $this->hook ) . '</li>';
+			    	$content .= '<li class="bit51">' . __( 'No news items, feed might be broken...', $this->hook ) . '</li>';
 			    
-			} else {
+				} else {
 			
-				foreach ( $feeditems as $item ) {
+					foreach ( $feeditems as $item ) {
+						
+						$url = preg_replace( '/#.*/', '', esc_url( $item->get_permalink(), $protocolls = null, 'display' ) );
+						
+						$content .= '<li class="bit51"><a class="rsswidget" href="' . $url . '" target="_blank">'. esc_html( $item->get_title() ) .'</a></li>';
+						
+					}
 					
-					$url = preg_replace( '/#.*/', '', esc_url( $item->get_permalink(), $protocolls = null, 'display' ) );
-					
-					$content .= '<li class="bit51"><a class="rsswidget" href="' . $url . '" target="_blank">'. esc_html( $item->get_title() ) .'</a></li>';
-					
-				}
-				
-			}	
-								
-			$content .= '</ul>'; //end list
+				}	
+									
+				$content .= '</ul>'; //end list
+
+			} else {
+				$content = __( 'It appears as if the feed is currently down. Please try again later', $this->hook );
+			}
 			
 			$this->postbox( 'bit51posts' , __( 'The Latest from Bit51', $this->hook ), $content ); //set up postbox
 			
