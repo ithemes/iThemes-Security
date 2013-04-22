@@ -152,6 +152,9 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 == Changelog ==
 
+= Dev =
+* Fixed role translation call for Strong password enforcement
+
 = 3.4.10 =
 * Replaced feed with standard WordPress feed
 * Added better error checking for feed should Feedburner (or any other provider) kill it again
