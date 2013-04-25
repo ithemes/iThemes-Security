@@ -893,15 +893,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 *
 		 **/
 		function remove_script_version( $src ){
-		
-			
-			$parts = explode( '?', $src );
 
-			//check if the URL is a google font and act accordingly
-			if ( strpos( $parts[0], 'fonts.googleapis.com' ) === false ) {
-				return $parts[0];
+			if ( strpos( $src, 'ver=' ) ) {
+				return substr( $src, 0, strpos( $src, 'ver=' ) - 1 );
 			} else {
-				return $parts[0] . '?' . substr( $parts[1], 0, strpos( $parts[1], '&ver' ) );
+				return $src;
 			}
 			
 		}
