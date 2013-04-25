@@ -15,24 +15,29 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 *
 		 **/
 		function __construct( $case = false ) {
+
+			if ( ! file_exists( ABSPATH . '.maintenance' ) ) {
 	
-			if ( ! $case ) {
-				die( 'error' );
-			}
+				if ( ! $case ) {
+					die( 'error' );
+				}
 
-			switch($case) {
-				case 'activate': //active plugin
-					$this->activate_execute();
-					break;
+				switch($case) {
+					case 'activate': //active plugin
+						$this->activate_execute();
+						break;
 
-				case 'deactivate': //deactivate plugin
-					$this->deactivate_execute();
-					break;
+					case 'deactivate': //deactivate plugin
+						$this->deactivate_execute();
+						break;
 
-				case 'uninstall': //uninstall plugin
-					$this->uninstall_execute();
-					break;
-			}
+					case 'uninstall': //uninstall plugin
+						$this->uninstall_execute();
+						break;
+				}
+
+			}	
+
 		}
 		
 		/**
