@@ -162,7 +162,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			require_once( BWPS_PP . 'inc/secure.php' );
 			$bwps = new bwps_secure();
 		
-			if ( $bwpsdata['version'] != $this->pluginversion ) {
+			if ( $bwpsdata['version'] != $this->pluginversion || get_option( 'BWPS_options' ) != false ) {
 				new bwps_setup( 'activate', true );
 			}
 			

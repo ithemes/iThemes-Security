@@ -113,7 +113,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			update_option( $this->plugindata, $bwpsdata ); //save new plugin data
 			
 			//update if version numbers don't match
-			if ( $updating === true || get_option( 'BWPS_options' === false ) ) {
+			if ( $updating === true ) {
 				$this->update_execute( $oldversion );
 			}
 			
