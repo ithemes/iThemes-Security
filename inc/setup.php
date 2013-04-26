@@ -6,6 +6,8 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 
 	class bwps_setup extends bwps_admin_common {
 
+		private $update;
+
 		/**
 		 * Establish setup object
 		 *
@@ -14,29 +16,25 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 * @param bool $case[optional] Appropriate execution module to call
 		 *
 		 **/
-		function __construct( $case = false ) {
-
-			if ( ! file_exists( ABSPATH . '.maintenance' ) ) {
+		function __construct( $case = false, $updating = false ) {
 	
-				if ( ! $case ) {
-					die( 'error' );
-				}
+			if ( ! $case ) {
+				die( 'error' );
+			}
 
-				switch($case) {
-					case 'activate': //active plugin
-						$this->activate_execute();
-						break;
+			switch($case) {
+				case 'activate': //active plugin
+					$this->activate_execute( $updating );
+					break;
 
-					case 'deactivate': //deactivate plugin
-						$this->deactivate_execute();
-						break;
+				case 'deactivate': //deactivate plugin
+					$this->deactivate_execute( $updating );
+					break;
 
-					case 'uninstall': //uninstall plugin
-						$this->uninstall_execute();
-						break;
-				}
-
-			}	
+				case 'uninstall': //uninstall plugin
+					$this->uninstall_execute();
+					break;
+			}
 
 		}
 		
@@ -79,10 +77,12 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		}
 		
 		/**
-		 * Activate execution
-		 *
-		 **/
-		function activate_execute() {
+		 * Execute activation
+		 * 
+		 * @param  boolean $updating true if the plugin is updating
+		 * @return void
+		 */
+		function activate_execute( $updating = false ) {
 			global $wpdb;
 			
 			$bwpsoptions = get_option( $this->primarysettings );
@@ -94,8 +94,8 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', 'better-wp-security' ) );	
 			
 			}	
-					
-			$oldversion = $bwpsdata['version']; //set new version number
+				
+			$oldversion = $bwpsdata['version']; //get old version number
 			$bwpsdata['version'] = $this->pluginversion; //set new version number
 			
 			//remove no support nag if it's been more than six months
@@ -113,7 +113,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 			update_option( $this->plugindata, $bwpsdata ); //save new plugin data
 			
 			//update if version numbers don't match
-			if ( ( $oldversion != '' && $oldversion != $this->pluginversion ) || get_option( 'BWPS_options' ) != false ) {
+			if ( $updating === true || get_option( 'BWPS_options' === false ) ) {
 				$this->update_execute( $oldversion );
 			}
 			
@@ -189,26 +189,32 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				update_option( $this->primarysettings, $bwpsoptions ); //save new options data
 				
 			}
-			
-			if ( ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) || strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
-				
-				$this->writehtaccess();
+
+			if ( $updating  === false ) {
+
+				if ( ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) || strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
 					
-			}
+					$this->writehtaccess();
+						
+				}
 			
-			if ( $bwpsoptions['st_writefiles'] == 1 ) {
-			
-				$this->writewpconfig(); //write appropriate options to wp-config.php
+				if ( $bwpsoptions['st_writefiles'] == 1 ) {
 				
+					$this->writewpconfig(); //write appropriate options to wp-config.php
+					
+				}
+
 			}
 			
 		}
 
 		/**
-		 * Update execution
-		 *
-		 **/
-		function update_execute($oldversion = '') {
+		 * Update Execution
+		 * 
+		 * @param  string $oldversion Old version number
+		 * @return void
+		 */
+		function update_execute( $oldversion = '' ) {
 			global $wpdb, $bwpsoptions;
 			
 			if ( get_option( 'BWPS_options' ) != false ) {
@@ -376,7 +382,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					
 					if ( wp_next_scheduled( 'bwps_backup' ) ) {
 						wp_clear_scheduled_hook( 'bwps_backup' );
-					}	
+					}
 					
 				}
 				
@@ -456,19 +462,20 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					delete_option( 'bwps_filecheck' );
 				
 				}
-			
-			}
 
-			if ( ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) || strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
-				
-				$this->writehtaccess();
-					
-			}
+				if ( str_replace( '.', '', $oldversion ) < 3059 ) {
+
+
+					$this->writehtaccess();
 			
-			if ( $bwpsoptions['st_writefiles'] == 1 ) {
+					if ( $bwpsoptions['st_writefiles'] == 1 ) {
 			
-				$this->writewpconfig(); //write appropriate options to wp-config.php
+						$this->writewpconfig(); //write appropriate options to wp-config.php
 				
+					}
+
+				}
+			
 			}
 		
 		}
@@ -477,7 +484,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 * Deactivate execution
 		 *
 		 **/
-		function deactivate_execute() {
+		function deactivate_execute( $updating = false ) {
 		
 			if ( wp_next_scheduled( 'bwps_backup' ) ) {
 				wp_clear_scheduled_hook( 'bwps_backup' );
