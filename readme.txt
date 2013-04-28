@@ -84,6 +84,7 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * Slovak by <a href="http://www.nawebik.sk">Erich Szabó</a>
 * Spanish by <a href="http://pabloromero.org">Pablo Romero</a>
 * Tagalog by <a href="http://pointen.dk/">Hanne</a>
+* Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
 
 Note I have removed all translations that were not compatible with version 3+. Please let me know if you would like to add a translation.
 
@@ -154,6 +155,9 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 = Dev =
 * Fixed role translation call for Strong password enforcement
+* Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
+* Random version number no longer strips unrelated GET variables for better compatibility
+* Upgrading no longer automatically rewrites .htaccess and wp-config resulting in much improved reliability
 
 = 3.4.10 =
 * Replaced feed with standard WordPress feed

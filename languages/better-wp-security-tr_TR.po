@@ -1,0 +1,3302 @@
+# Copyright (C) 2012 Better WP Security
+# This file is distributed under the same license as the Better WP Security package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Better WP Security Dev\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
+"POT-Creation-Date: 2012-12-04 01:21:56+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-04-24 14:51+0200\n"
+"Last-Translator: HakanEr <hakanerwptr@gmail.com>\n"
+"Language-Team: hakaner <hakanerwptr@gmail.com>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: turkish\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: inc/admin/content.php:67 inc/admin/content.php:197
+msgid "Dashboard"
+msgstr "Pano"
+
+#: inc/admin/content.php:68
+msgid "Security"
+msgstr "Güvenlik"
+
+#: inc/admin/content.php:79 inc/admin/content.php:274
+#: inc/admin/content.php:285
+msgid "Change Admin User"
+msgstr "Yöneticiyi Değiştir"
+
+#: inc/admin/content.php:80
+msgid "Admin User"
+msgstr "Yönetici"
+
+#: inc/admin/content.php:88 inc/admin/content.php:89
+msgid "Away Mode"
+msgstr "Uzakta Modu"
+
+#: inc/admin/content.php:97 inc/admin/content.php:98 inc/admin/content.php:327
+msgid "Ban Users"
+msgstr "Kullanıcıları Yasakla"
+
+#: inc/admin/content.php:108
+msgid "Change Content Directory"
+msgstr "İçerik Dizinini Değiştir"
+
+#: inc/admin/content.php:109
+msgid "Content Directory"
+msgstr "İçerik Dizini"
+
+#: inc/admin/content.php:119 inc/admin/content.php:367
+msgid "Backup WordPress Database"
+msgstr "WordPress Veritabanını Yedekle"
+
+#: inc/admin/content.php:120
+msgid "Database Backup"
+msgstr "Veritabanı Yedeği"
+
+#: inc/admin/content.php:130 inc/admin/content.php:388
+msgid "Change Database Prefix"
+msgstr "Veritabanı Önekini Değiştir"
+
+#: inc/admin/content.php:131
+msgid "Database Prefix"
+msgstr "Veritabanı Öneki"
+
+#: inc/admin/content.php:141 inc/admin/content.php:142
+msgid "Hide Backend"
+msgstr "Arka Alanı Gizle"
+
+#: inc/admin/content.php:150 inc/admin/content.php:151
+#: inc/admin/content.php:429 inc/admin/content.php:433
+#: inc/admin/content.php:442 inc/admin/content.php:445
+msgid "Intrusion Detection"
+msgstr "İhlal Tespiti"
+
+#: inc/admin/content.php:159 inc/admin/content.php:464
+#: inc/admin/content.php:467
+msgid "Limit Login Attempts"
+msgstr "Oturum Açma Girişimlerini Sınırla"
+
+#: inc/admin/content.php:160
+msgid "Login Limits"
+msgstr "Giriş Sınırları"
+
+#: inc/admin/content.php:168
+msgid "Secure Communications With SSL"
+msgstr "SSL ile Güvenli İletişim"
+
+#: inc/admin/content.php:169 inc/admin/content.php:483
+msgid "SSL"
+msgstr "SSL"
+
+#: inc/admin/content.php:177
+msgid "WordPress System Tweaks"
+msgstr "WordPress Sistem İnce Ayarları"
+
+#: inc/admin/content.php:178 inc/admin/content.php:506
+msgid "System Tweaks"
+msgstr "Sistem İnce Ayarları"
+
+#: inc/admin/content.php:186 inc/admin/content.php:187 inc/filecheck.php:545
+msgid "View Logs"
+msgstr "Günlüklere Bak"
+
+#: inc/admin/content.php:216 inc/admin/content.php:218
+#: inc/admin/content.php:230 inc/admin/content.php:241
+#: inc/admin/content.php:252
+msgid "System Status"
+msgstr "Sistem Durumu"
+
+#: inc/admin/content.php:219
+msgid "System Information"
+msgstr "Sistem Bilgisi"
+
+#: inc/admin/content.php:220
+msgid "Rewrite Rules"
+msgstr "Yeniden yazma Kuralları"
+
+#: inc/admin/content.php:221
+msgid "Wp-config.php Code"
+msgstr "Wp-config.php Kodu"
+
+#: inc/admin/content.php:232
+msgid "One-Click Protection"
+msgstr "Tek-Tık Koruma"
+
+#: inc/admin/content.php:243
+msgid "Important"
+msgstr "Önemli"
+
+#: inc/admin/content.php:254
+msgid "Welcome!"
+msgstr "Hoşgeldiniz!"
+
+#: inc/admin/content.php:276 inc/admin/content.php:287
+#: inc/admin/content.php:309 inc/admin/content.php:329
+#: inc/admin/content.php:350 inc/admin/content.php:369
+#: inc/admin/content.php:390 inc/admin/content.php:409
+#: inc/admin/content.php:431 inc/admin/content.php:444
+#: inc/admin/content.php:466 inc/admin/content.php:485
+#: inc/admin/content.php:505 inc/admin/content.php:525
+msgid "Before You Begin"
+msgstr "Başlamadan Önce"
+
+#: inc/admin/content.php:277 inc/admin/content.php:288
+msgid "Change The Admin User Name"
+msgstr "Yönetici Adını Değiştir"
+
+#: inc/admin/content.php:278
+msgid "Change The Admin User ID"
+msgstr "Yönetici ID Kimliğini Değiştir"
+
+#: inc/admin/content.php:307
+msgid "Administor Away Mode"
+msgstr "Yönetici Uzakta Modu"
+
+#: inc/admin/content.php:310
+msgid "Away Mode Options"
+msgstr "Uzakta Modu Seçenekleri"
+
+#: inc/admin/content.php:311
+msgid "Away Mode Rules"
+msgstr "Uzakta Modu Kuralları"
+
+#: inc/admin/content.php:330
+msgid "User and Bot Blacklist"
+msgstr "Kullanıcı ve Bot Kara Listesi"
+
+#: inc/admin/content.php:331
+msgid "Banned Users Configuration"
+msgstr "Yasaklı Üyeler Yapılandırması"
+
+#: inc/admin/content.php:348
+msgid "Change wp-content Directory"
+msgstr "Wp-content Dizinini Değiştir"
+
+#: inc/admin/content.php:351
+msgid "Change The wp-content Directory"
+msgstr "Wp-content Dizinini Değiştir"
+
+#: inc/admin/content.php:370
+msgid "Backup Your WordPress Database"
+msgstr "WordPress Veritabanını Yedekle"
+
+#: inc/admin/content.php:371
+msgid "Schedule Automated Backups"
+msgstr "Otomatik Yedeklemeyi Zamanla"
+
+#: inc/admin/content.php:372
+msgid "Backup Information"
+msgstr "Yedekleme Bilgisi"
+
+#: inc/admin/content.php:391
+msgid "Change The Database Prefix"
+msgstr "Veritabanı Önekini Değiştir"
+
+#: inc/admin/content.php:407
+msgid "Hide WordPress Backend"
+msgstr "WordPress Arka Alanı Gizle"
+
+#: inc/admin/content.php:410
+msgid "Hide Backend Options"
+msgstr "Arka Alanı Gizleme Seçenekleri"
+
+#: inc/admin/content.php:411
+msgid "Secret Key"
+msgstr "Gizli Anahtar"
+
+#: inc/admin/content.php:432
+msgid "Check For File Changes"
+msgstr "Dosya Değişikliklerini Kontrol Et"
+
+#: inc/admin/content.php:486
+msgid "SSL Options"
+msgstr "SSL Seçenekleri"
+
+#: inc/admin/content.php:503
+msgid "Various Security Tweaks"
+msgstr "Çeşitli Güvenlik İnce Ayarları"
+
+#: inc/admin/content.php:523
+msgid "Better WP Security Logs"
+msgstr "Better WP Security Günlükleri"
+
+#: inc/admin/content.php:526
+msgid "Clean Database"
+msgstr "Veritabanını Temizle"
+
+#: inc/admin/content.php:527
+msgid "Current Lockouts"
+msgstr "Mevcut Kilitlenmeler"
+
+#: inc/admin/content.php:528
+msgid "404 Errors"
+msgstr "404 Hataları"
+
+#: inc/admin/content.php:529
+msgid "Bad Login Attempts"
+msgstr "Kötü Oturum Açma Girişimleri"
+
+#: inc/admin/content.php:530
+msgid "All Lockouts"
+msgstr "Tüm Kilitlenmeler"
+
+#: inc/admin/content.php:531
+msgid "Changed Files"
+msgstr "Değişen Dosyalar"
+
+#: inc/admin/content.php:545
+msgid "Welcome to Better WP Security!"
+msgstr "Better WP Security'ye Hoşgeldiniz!"
+
+#: inc/admin/content.php:546
+msgid ""
+"Before we begin it is extremely important that you make a backup of your "
+"database. This will make sure you can get your site back to the way it is "
+"right now should something go wrong. Click the button below to make a backup "
+"which will be emailed to the website administrator at "
+msgstr ""
+"Başlamadan önce, veritabanınızın bir yedeğini almanız son derece önemlidir. "
+"Bu, bir şeyler yanlış gittiğinde, şu anda olduğu haliyle sitenizi geri "
+"alabileceğinize emin olmanızı sağlayacaktır. Takip eden adresteki web site "
+"yöneticisine gönderilecek bir yedekleme oluşturmak için aşağıdaki butona "
+"tıklayın "
+
+#: inc/admin/content.php:550 inc/admin/content.php:1670
+msgid "Create Database Backup"
+msgstr "Veritabanı Yedeği Oluştur"
+
+#: inc/admin/content.php:555
+msgid "No, thanks. I already have a backup"
+msgstr "Hayır, teşekkürler. Zaten bir yedeğim var"
+
+#: inc/admin/content.php:566
+msgid "Just one more question:"
+msgstr "Sadece bir soru daha:"
+
+#: inc/admin/content.php:567
+msgid ""
+"Better WP Security can automatically write to WordPress core files for you "
+"(wp-config.php and .htaccess). This saves time and prevents you from having "
+"to edit code yourself. While this is safe to do in nearly all systems it "
+"can, on some server configurations, cause problems. For this reason, before "
+"continuing, you have the option to allow this plugin to write to wp-config."
+"php and .htaccess or not."
+msgstr ""
+"Better WP Security sizin yerinize otomatik olarak WordPress çekirdek "
+"dosyalarına yazabilir (wp-config.php ve .htaccess). Bu, zaman kazandırır ve "
+"kodu düzenlemek zorunda kalmanızı önler. Bunu yapmak neredeyse tüm "
+"sistemlerde güvenli olsa da, bazı sunucu yapılandırmalarında sorunlara neden "
+"olabilir. Bu nedenle, devam etmeden önce, bu eklenti için wp-config.php ve ."
+"htaccess dosyalarına yazma hakkı verip vermeme seçeneğine sahipsiniz."
+
+#: inc/admin/content.php:568
+msgid ""
+"Note, that this option can be changed later in the \"System Tweaks\" menu of "
+"this plugin. In addition, disabling file writes here will prevent this "
+"plugin from activation features such as changing the wp-content directory "
+"and changing the database prefix."
+msgstr ""
+"Bu seçeneğin eklenti \"Sistem İnce Ayarları\" menüsünden daha sonra "
+"değiştirilebileceğini unutmayın. Buna ek olarak, bu eklentinin dosya yazma "
+"izninin devre dışı bırakılması, wp-content dizininin değiştirilmesi ve "
+"veritabanı öneki değiştirme gibi özelliklerinin etkinleştirilmesini "
+"engelleyecektir."
+
+#: inc/admin/content.php:569
+msgid ""
+"Finally, please remember that in nearly all cases there is no issue with "
+"allowing this plugin to edit your files. However if you know your have a "
+"unique server setup or simply would rather edit these files yourself I would "
+"recommend selecting \"Do not allow this plugin to change WordPress core "
+"files.\""
+msgstr ""
+"Son olarak, hemen hemen tüm vakalarda, bu eklentinin dosyaların "
+"düzenlemesine izin verilmesi ile hiçbir sorun yaşanmadığını unutmayın. "
+"Bununla birlikte, eğer benzersiz bir sunucu kurulumuna sahip olduğunuzu "
+"düşünüyor ya da bunun yerine bu dosyaları kendiniz düzenlemek istiyorsanız "
+"\"Eklentinin WordPress çekirdek dosyalarını değiştirmesine izin verme.\" "
+"seçmenizi tavsiye ederim."
+
+#: inc/admin/content.php:573
+msgid "Allow this plugin to change WordPress core files"
+msgstr "Eklentinin WordPress çekirdek dosyalarını değiştirmesine izin ver"
+
+#: inc/admin/content.php:578
+msgid "Do not allow this plugin to change WordPress core files."
+msgstr "Eklentinin WordPress çekirdek dosyalarını değiştirmesine izin verme."
+
+#: inc/admin/content.php:595
+msgid ""
+"The button below will turn on all the basic features of Better WP Security "
+"which will help automatically protect your site from potential attacks. "
+"Please note that it will NOT automatically activate any features which may "
+"interfere with other plugins, themes, or content on your site. As such, not "
+"all the items in the status will turn green by using the \"Secure My Site "
+"From Basic Attacks\" button. The idea is to activate basic features in one-"
+"click so you don't have to worry about it."
+msgstr ""
+"Aşağıdaki buton olası saldırılara karşı sitenizin otomatik olarak "
+"korunmasına yardımcı olacak tüm Better WP Security temel özelliklerini "
+"açacaktır. Bunun, sitenizdeki diğer eklentilere, temalara veya içeriğe "
+"otomatik olarak müdahale edecek herhangi bir özelliği etkinleştirmeyeceğini "
+"unutmayın. Bu nedenle, \"Sitemi Temel Saldırılardan Koru\" butonunu "
+"kullandığınızda, durum bölümündeki tüm öğeler yeşile dönmeyectir. Amaç, tek "
+"tıklamayla temel özellikleri etkinleştirmektir, böylece bu konuda "
+"endişelenmenize gerek kalmaz."
+
+#: inc/admin/content.php:596
+msgid ""
+"Please note this will not make any changes to any files on your site "
+"including .htaccess and wp-config.php."
+msgstr ""
+"Bunun, .htaccess ve wp-config.php de dahil olmak üzere, sitenizdeki herhangi "
+"bir dosyada herhangi bir değişiklik yapmayacağını unutmayın."
+
+#: inc/admin/content.php:597
+msgid "Secure My Site From Basic Attacks"
+msgstr "Sitemi Temel Saldırılardan Koru"
+
+#: inc/admin/content.php:603
+msgid "No thanks, I prefer to do configure everything myself."
+msgstr "Hayır teşekkürler, ben her şeyi kendim yapmayı tercih ederim."
+
+#: inc/admin/content.php:622
+msgid "You are enforcing strong passwords for all users."
+msgstr "Tüm kullanıcıları güçlü şifreler için zorluyorsunuz."
+
+#: inc/admin/content.php:624
+msgid "You are enforcing strong passwords, but not for all users."
+msgstr "Güçlü şifreler için zorluyorsunuz, ancak tüm kullanıcıları değil."
+
+#: inc/admin/content.php:624 inc/admin/content.php:626
+#: inc/admin/content.php:634 inc/admin/content.php:636
+#: inc/admin/content.php:644 inc/admin/content.php:646
+#: inc/admin/content.php:676 inc/admin/content.php:683
+#: inc/admin/content.php:690 inc/admin/content.php:697
+#: inc/admin/content.php:704 inc/admin/content.php:712
+#: inc/admin/content.php:714 inc/admin/content.php:721
+#: inc/admin/content.php:735 inc/admin/content.php:742
+#: inc/admin/content.php:749 inc/admin/content.php:756
+#: inc/admin/content.php:763 inc/admin/content.php:770
+#: inc/admin/content.php:786 inc/admin/content.php:788
+#: inc/admin/content.php:793
+msgid "Click here to fix."
+msgstr "Düzeltmek için tıklayın."
+
+#: inc/admin/content.php:626
+msgid "You are not enforcing strong passwords."
+msgstr "Güçlü şifrelere zorlamıyorsun."
+
+#: inc/admin/content.php:632
+msgid "Your WordPress header is revealing as little information as possible."
+msgstr "WordPress başlığınız mümkün olduğunca az bilgi açığa vurmaktadır."
+
+#: inc/admin/content.php:634
+msgid "Your WordPress header is still revealing some information to users."
+msgstr ""
+"WordPress başlığınız hala kullanıcılar için bazı bilgiler açığa vurmaktadır."
+
+#: inc/admin/content.php:636
+msgid "Your WordPress header is showing too much information to users."
+msgstr "WordPress başlığınız kullanıcılara çok fazla bilgi gösteriyor."
+
+#: inc/admin/content.php:642
+msgid "Non-administrators cannot see available updates."
+msgstr "Yönetici olmayanlar mevcut güncellemeleri göremez."
+
+#: inc/admin/content.php:644
+msgid "Non-administrators can see some updates."
+msgstr "Yönetici olmayanlar bazı güncellemeleri görebilir."
+
+#: inc/admin/content.php:646
+msgid "Non-administrators can see all updates."
+msgstr "Yönetici olmayanlar tüm güncellemeleri görebilir."
+
+#: inc/admin/content.php:651
+msgid "The <em>admin</em> user still exists."
+msgstr "<em>admin</em> kullanıcısı hala var."
+
+#: inc/admin/content.php:651
+msgid "Click here to rename admin."
+msgstr "Admin'i yeniden adlandırmak için tıklayın."
+
+#: inc/admin/content.php:653
+msgid "The <em>admin</em> user has been removed."
+msgstr "<em>admin</em> kullanıcısı kaldırıldı."
+
+#: inc/admin/content.php:658
+msgid "A user with id 1 still exists."
+msgstr "ID 1 olan kullanıcı hala var."
+
+#: inc/admin/content.php:658
+msgid "Click here to change user 1's ID."
+msgstr "Kullanıcı 1 ID'sini değiştirmek için tıklayın."
+
+#: inc/admin/content.php:660
+msgid "The user with id 1 has been removed."
+msgstr "ID 1 kullanıcısı kaldırıldı."
+
+#: inc/admin/content.php:666
+msgid "Your table prefix should not be "
+msgstr "Tablo önekiniz bu olmamalı "
+
+#: inc/admin/content.php:666
+msgid "Click here to rename it."
+msgstr "Yeniden adlandırmak için tıklayın."
+
+#: inc/admin/content.php:668
+msgid "Your table prefix is"
+msgstr "Tablo önekiniz"
+
+#: inc/admin/content.php:674
+msgid "You have scheduled regular backups of your WordPress database."
+msgstr "WordPress veritabanınız için düzenli yedekleme planladınız."
+
+#: inc/admin/content.php:676
+msgid "You are not scheduling regular backups of your WordPress database."
+msgstr "WordPress veritabanınız için düzenli bir yedekleme planlamadınız."
+
+#: inc/admin/content.php:681
+msgid ""
+"Your WordPress admin area is not available when you will not be needing it."
+msgstr "İhtiyacınız olmadığı zaman WordPress admin alanınız kullanılamaz."
+
+#: inc/admin/content.php:683
+msgid ""
+"Your WordPress admin area is available 24/7. Do you really update 24 hours a "
+"day?"
+msgstr ""
+"WordPress yönetici alanınız 7/24 kullanılabilir. Sitenizi gerçekten 24 saat "
+"boyunca günceller misiniz?"
+
+#: inc/admin/content.php:688
+msgid ""
+"You are blocking known bad hosts and agents with HackRepair.com's blacklist."
+msgstr ""
+"HackRepair.com'un kara listesi ile bilinen kötü ana bilgisayar ve tarayıcı "
+"kimliklerini engelliyorsunuz."
+
+#: inc/admin/content.php:690
+msgid ""
+"You are not blocking known bad hosts and agents with HackRepair.com's "
+"blacklist?"
+msgstr ""
+"HackRepair.com'un kara listesi ile bilinen kötü ana bilgisayar ve tarayıcı "
+"kimliklerini engellemiyor sunuz?"
+
+#: inc/admin/content.php:695
+msgid "Your login area is protected from brute force attacks."
+msgstr "Giriş alanınız brute force saldırılarına karşı korunmaktadır."
+
+#: inc/admin/content.php:697
+msgid "Your login area is not protected from brute force attacks."
+msgstr "Giriş alanınız brute force saldırılarına karşı korunmamaktadır."
+
+#: inc/admin/content.php:702
+msgid "Your WordPress admin area is hidden."
+msgstr "WordPress yönetici alanınız gizlidir."
+
+#: inc/admin/content.php:704
+msgid "Your WordPress admin area is not hidden."
+msgstr "WordPress yönetici alanınız gizli değildir."
+
+#: inc/admin/content.php:710
+msgid "Your .htaccess file is fully secured."
+msgstr ".htaccess dosyanız tam güvence altına alınmıştır."
+
+#: inc/admin/content.php:712
+msgid "Your .htaccess file is partially secured."
+msgstr ".htaccess dosyanız kısmen güvence altına alınmıştır."
+
+#: inc/admin/content.php:714
+msgid "Your .htaccess file is NOT secured."
+msgstr ".htaccess dosyanız güvenli DEĞİLDİR."
+
+#: inc/admin/content.php:719
+msgid ""
+"Your installation is actively blocking attackers trying to scan your site "
+"for vulnerabilities."
+msgstr ""
+"Kurulumunuz, güvenlik açıkları için sitenizi taramaya çalışan saldırganları "
+"aktif olarak engelliyor."
+
+#: inc/admin/content.php:721
+msgid ""
+"Your installation is not actively blocking attackers trying to scan your "
+"site for vulnerabilities."
+msgstr ""
+"Kurulumunuz, güvenlik açıkları için sitenizi taramaya çalışan saldırganları "
+"aktif olarak engellemiyor."
+
+#: inc/admin/content.php:726
+msgid "Your installation is actively looking for changed files."
+msgstr "Kurulumunuz, aktif olarak değiştirilmiş dosyaları arıyor."
+
+#: inc/admin/content.php:735
+msgid "Your installation is not actively looking for changed files."
+msgstr "Kurulumunuz, aktif olarak değiştirilmiş dosyaları aramıyor."
+
+#: inc/admin/content.php:740
+msgid "Your installation does not accept long URLs."
+msgstr "Kurulumunuz, uzun URL'leri kabul etmemektedir."
+
+#: inc/admin/content.php:742
+msgid ""
+"Your installation accepts long (over 255 character) URLS. This can lead to "
+"vulnerabilities."
+msgstr ""
+"Kurulumunuz, uzun URL'leri (255 karakter üzeri) kabul etmektedir. Bu, "
+"güvenlik açıklarına yol açabilir."
+
+#: inc/admin/content.php:747
+msgid ""
+"You are not allowing users to edit theme and plugin files from the WordPress "
+"backend."
+msgstr ""
+"Kullanıcıların WordPress arka alanında tema ve eklenti dosyalarını "
+"düzenlemelerine izin vermiyorsunuz."
+
+#: inc/admin/content.php:749
+msgid ""
+"You are allowing users to edit theme and plugin files from the WordPress "
+"backend."
+msgstr ""
+"Kullanıcıların WordPress arka alanında tema ve eklenti dosyalarını "
+"düzenlemelerine izin veriyorsunuz."
+
+#: inc/admin/content.php:754
+msgid "Better WP Security is allowed to write to wp-config.php and .htaccess."
+msgstr ""
+" Better WP Security wp-config.php ve .htaccess için yazma hakkına sahip."
+
+#: inc/admin/content.php:756
+msgid ""
+"Better WP Security is not allowed to write to wp-config.php and .htaccess."
+msgstr ""
+" Better WP Security wp-config.php ve .htaccess için yazma hakkına sahip "
+"değil."
+
+#: inc/admin/content.php:761
+msgid "wp-config.php and .htacess are not writeable."
+msgstr "wp-config.php ve .htacess yazılabilir değil."
+
+#: inc/admin/content.php:763
+msgid "wp-config.php and .htacess are writeable."
+msgstr "wp-config.php ve .htacess yazılabilir."
+
+#: inc/admin/content.php:768
+msgid "Version information is obscured to all non admin users."
+msgstr "Sürüm bilgisi, yönetici olmayan tüm kullanıcılara gizlidir."
+
+#: inc/admin/content.php:770
+msgid ""
+"Users may still be able to get version information from various plugins and "
+"themes."
+msgstr ""
+"Kullanıcılar hala çeşitli eklentiler ve temalardan sürüm bilgilerini elde "
+"edebilirler."
+
+#: inc/admin/content.php:776
+msgid "You have renamed the wp-content directory of your site."
+msgstr "Sitenizin wp-content dizinini yeniden adlandırdınız."
+
+#: inc/admin/content.php:778
+msgid "You should rename the wp-content directory of your site."
+msgstr "Sitenizin wp-content dizinini yeniden adlandırmalısınız."
+
+#: inc/admin/content.php:778
+msgid "Click here to do so."
+msgstr "Bunu yapmak için tıklayın."
+
+#: inc/admin/content.php:784
+msgid "You are requiring a secure connection for logins and the admin area."
+msgstr ""
+"Girişler ve yönetici alanı için güvenli bir bağlantı talep ediyorsunuz."
+
+#: inc/admin/content.php:786
+msgid ""
+"You are requiring a secure connection for logins or the admin area but not "
+"both."
+msgstr ""
+"Girişler veya yönetici alanı için güvenli bir bağlantı talep ediyorsunuz "
+"fakat aynı anda ikisini değil."
+
+#: inc/admin/content.php:788
+msgid ""
+"You are not requiring a secure connection for logins or for the admin area."
+msgstr ""
+"Girişler veya yönetici alanı için güvenli bir bağlantı talep etmiyorsunuz."
+
+#: inc/admin/content.php:793
+msgid ""
+"Notice: Some items are hidden as you are not allowing this plugin to write "
+"to core files."
+msgstr ""
+"Not: Bu eklenti için çekirdek dosyalarına yazma hakkı vermediğinizden dolayı "
+"bazı öğeler gizlidir."
+
+#: inc/admin/content.php:799
+msgid "Items in green are fully secured. Good Job!"
+msgstr "Yeşil öğeler tamamen güvenlik altına alınmıştır. İyi İş!"
+
+#: inc/admin/content.php:800
+msgid ""
+"Items in orange are partially secured. Turn on more options to fully secure "
+"these areas."
+msgstr ""
+"Turuncu öğeler kısmen güvenlik altına alınmıştır. Bu alanların tam "
+"güvenliğini sağlamak için daha fazla seçenek etkinleştirin."
+
+#: inc/admin/content.php:801
+msgid "Items in red are not secured. You should secure these items immediately"
+msgstr ""
+"Kırmızı öğeler güvenli değildir. Bu öğeleri derhal güvenlik altına "
+"almalısınız."
+
+#: inc/admin/content.php:802
+msgid ""
+"Items in blue are not fully secured but may conflict with other themes, "
+"plugins, or the other operation of your site. Secure them if you can but if "
+"you cannot do not worry about them."
+msgstr ""
+"Mavi öğeler tam güvenli değildir ancak temalar, eklentiler ya da sitenin "
+"diğer işlemleri ile çakışabilir. Eğer yapabilirseniz bunları güvenlik altına "
+"alın fakat yapamazsınız onlar hakkında endişelenmeyin."
+
+#: inc/admin/content.php:819
+msgid ""
+"No rules have been generated. Turn on more features to see rewrite rules."
+msgstr ""
+"Herhangi bir kural oluşturulmadı. Yeniden yazma kurallarını görmek için daha "
+"fazla özellik etkinleştirin."
+
+#: inc/admin/content.php:854
+msgid ""
+"No rules have been generated. Turn on more features to see wp-content rules."
+msgstr ""
+"Herhangi bir kural oluşturulmadı. wp-content kurallarını görmek için daha "
+"fazla özellik etkinleştirin."
+
+#: inc/admin/content.php:875
+msgid "User Information"
+msgstr "Kullanıcı Bilgisi"
+
+#: inc/admin/content.php:877
+msgid "Public IP Address"
+msgstr "Açık IP Adresi"
+
+#: inc/admin/content.php:877 inc/admin/content.php:956
+msgid "Get more information on this address"
+msgstr "Bu adres hakkında daha fazla bilgi alın"
+
+#: inc/admin/content.php:878
+msgid "User Agent"
+msgstr "Tarayıcı Kimliği"
+
+#: inc/admin/content.php:883
+msgid "File System Information"
+msgstr "Dosya Sistem Bilgisi"
+
+#: inc/admin/content.php:885
+msgid "Website Root Folder"
+msgstr "Web Site Kök Klasörü"
+
+#: inc/admin/content.php:886
+msgid "Document Root Path"
+msgstr "Belge Kök Yolu"
+
+#: inc/admin/content.php:895 inc/admin/content.php:918
+#: inc/admin/content.php:1074 inc/admin/content.php:1082
+#: inc/admin/content.php:1090
+msgid "Yes"
+msgstr "Evet"
+
+#: inc/admin/content.php:901 inc/admin/content.php:924
+msgid "No."
+msgstr "Hayır."
+
+#: inc/admin/content.php:909
+msgid ".htaccess File is Writable"
+msgstr ".htaccess Dosyası Yazılabilir"
+
+#: inc/admin/content.php:932
+msgid "wp-config.php File is Writable"
+msgstr "wp-config.php Dosyası Yazılabilir"
+
+#: inc/admin/content.php:937
+msgid "Database Information"
+msgstr "Veritabanı Bilgisi"
+
+#: inc/admin/content.php:939
+msgid "MySQL Database Version"
+msgstr "MySQL Veritabanı Sürümü"
+
+#: inc/admin/content.php:940
+msgid "MySQL Client Version"
+msgstr "MySQL İstemci Sürümü"
+
+#: inc/admin/content.php:941
+msgid "Database Host"
+msgstr "Veritabanı Sunucusu"
+
+#: inc/admin/content.php:942
+msgid "Database Name"
+msgstr "Veritabanı Adı"
+
+#: inc/admin/content.php:943
+msgid "Database User"
+msgstr "Veritabanı Kullanıcısı"
+
+#: inc/admin/content.php:946
+msgid "Not Set"
+msgstr "Ayarlı Değil"
+
+#: inc/admin/content.php:947 inc/admin/content.php:996
+#: inc/admin/content.php:1004 inc/admin/content.php:1012
+#: inc/admin/content.php:1020 inc/admin/content.php:1028
+#: inc/admin/content.php:1036 inc/admin/content.php:1044
+#: inc/admin/content.php:1060 inc/admin/content.php:1068
+#: inc/admin/content.php:2432
+msgid "Off"
+msgstr "Kapalı"
+
+#: inc/admin/content.php:949
+msgid "SQL Mode"
+msgstr "SQL Modu"
+
+#: inc/admin/content.php:954
+msgid "Server Information"
+msgstr "Sunucu Bilgisi"
+
+#: inc/admin/content.php:956
+msgid "Server / Website IP Address"
+msgstr "Sunucu / Web Site IP Adresi"
+
+#: inc/admin/content.php:957
+msgid "Server Type"
+msgstr "Sunucu Türü"
+
+#: inc/admin/content.php:958
+msgid "Operating System"
+msgstr "İşletim Sistemi"
+
+#: inc/admin/content.php:959
+msgid "Browser Compression Supported"
+msgstr "Tarayıcı Sıkıştırma Desteği"
+
+#: inc/admin/content.php:964
+msgid "PHP Information"
+msgstr "PHP Bilgisi"
+
+#: inc/admin/content.php:966
+msgid "PHP Version"
+msgstr "PHP Sürümü"
+
+#: inc/admin/content.php:967
+msgid "PHP Memory Usage"
+msgstr "PHP Bellek Kullanımı"
+
+#: inc/admin/content.php:967
+msgid " MB"
+msgstr " MB"
+
+#: inc/admin/content.php:972 inc/admin/content.php:980
+#: inc/admin/content.php:988 inc/admin/content.php:1052
+#: inc/admin/tables.php:560
+msgid "N/A"
+msgstr "Yok"
+
+#: inc/admin/content.php:975
+msgid "PHP Memory Limit"
+msgstr "PHP Bellek Sınırı"
+
+#: inc/admin/content.php:983
+msgid "PHP Max Upload Size"
+msgstr "PHP Maks. Yükleme Boyutu"
+
+#: inc/admin/content.php:991
+msgid "PHP Max Post Size"
+msgstr "PHP Maks. Yazı Boyutu"
+
+#: inc/admin/content.php:994 inc/admin/content.php:1002
+#: inc/admin/content.php:1010 inc/admin/content.php:1018
+#: inc/admin/content.php:1026 inc/admin/content.php:1034
+#: inc/admin/content.php:1042 inc/admin/content.php:1058
+#: inc/admin/content.php:1066
+msgid "On"
+msgstr "Açık"
+
+#: inc/admin/content.php:999
+msgid "PHP Safe Mode"
+msgstr "PHP Güvenli Mod"
+
+#: inc/admin/content.php:1007
+msgid "PHP Allow URL fopen"
+msgstr "PHP Allow URL fopen"
+
+#: inc/admin/content.php:1015
+msgid "PHP Allow URL Include"
+msgstr "PHP Allow URL Include"
+
+#: inc/admin/content.php:1023
+msgid "PHP Display Errors"
+msgstr "PHP Görüntü Hataları"
+
+#: inc/admin/content.php:1031
+msgid "PHP Display Startup Errors"
+msgstr "PHP Görüntü Başlangıç Hataları"
+
+#: inc/admin/content.php:1039
+msgid "PHP Expose PHP"
+msgstr "PHP Expose PHP"
+
+#: inc/admin/content.php:1047
+msgid "PHP Register Globals"
+msgstr "PHP Register Globals"
+
+#: inc/admin/content.php:1055
+msgid "PHP Max Script Execution Time"
+msgstr "PHP Maks. Script Derleme Süresi"
+
+#: inc/admin/content.php:1055
+msgid "Seconds"
+msgstr "Saniye"
+
+#: inc/admin/content.php:1063
+msgid "PHP Magic Quotes GPC"
+msgstr "PHP Magic Quotes GPC"
+
+#: inc/admin/content.php:1071
+msgid "PHP open_basedir"
+msgstr "PHP open_basedir"
+
+#: inc/admin/content.php:1076 inc/admin/content.php:1084
+#: inc/admin/content.php:1092
+msgid "No"
+msgstr "Hayır"
+
+#: inc/admin/content.php:1079
+msgid "PHP XML Support"
+msgstr "PHP XML Desteği"
+
+#: inc/admin/content.php:1087
+msgid "PHP IPTC Support"
+msgstr "PHP IPTC Desteği"
+
+#: inc/admin/content.php:1095
+msgid "PHP Exif Support"
+msgstr "PHP Exif Desteği"
+
+#: inc/admin/content.php:1100
+msgid "WordPress Configuration"
+msgstr "WordPress Yapılandırması"
+
+#: inc/admin/content.php:1104
+msgid "Multisite is enabled"
+msgstr "Multisite etkin"
+
+#: inc/admin/content.php:1106
+msgid "Multisite is NOT enabled"
+msgstr "Multisite etkin DEĞİL"
+
+#: inc/admin/content.php:1109
+msgid "\tMultisite"
+msgstr "\tMultisite"
+
+#: inc/admin/content.php:1114
+msgid "Enabled"
+msgstr "Etkin"
+
+#: inc/admin/content.php:1118
+msgid ""
+"WARNING! Permalinks are NOT Enabled. Permalinks MUST be enabled for Better "
+"WP Security to function correctly"
+msgstr ""
+"UYARI! Kalıcı bağlantılar Etkin DEĞİL. Better WP Security'nin düzgün "
+"çalışabilmesi için kalıcı bağlantıların etkin olması GEREKİR"
+
+#: inc/admin/content.php:1121
+msgid "WP Permalink Structure"
+msgstr "WP Kalıcı bağlantı Yapısı"
+
+#: inc/admin/content.php:1122
+msgid "Wp-config Location"
+msgstr "Wp-config Konumu"
+
+#: inc/admin/content.php:1126
+msgid "Better WP Security variables"
+msgstr "Better WP Security değişkenleri"
+
+#: inc/admin/content.php:1130
+msgid "Not Yet Available. Enable Hide Backend mode to generate key."
+msgstr ""
+"Henüz Kullanılabilir Değil. Anahtar oluşturmak için Arka alanı Gizle modunu "
+"etkinleştirin."
+
+#: inc/admin/content.php:1135
+msgid "Hide Backend Key"
+msgstr "Arka alanı Gizle Anahtarı"
+
+#: inc/admin/content.php:1136
+msgid "Better WP Build Version"
+msgstr "Better WP Yapı Sürümü"
+
+#: inc/admin/content.php:1137
+msgid ""
+"Note: this is NOT the same as the version number on the plugins page and is "
+"instead used for support."
+msgstr ""
+"Not: Bu, eklentiler sayfasındaki sürüm numarası ile aynı değildir ve onun "
+"yerine destek için kullanılır."
+
+#: inc/admin/content.php:1150
+msgid ""
+"By default WordPress initially creates a username with the username of "
+"\"admin.\" This is insecure as this user has full rights to your WordPress "
+"system and a potential hacker already knows that it is there. All an "
+"attacker would need to do at that point is guess the password. Changing this "
+"username will force a potential attacker to have to guess both your username "
+"and your password which makes some attacks significantly more difficult."
+msgstr ""
+"Varsayılan olarak, WordPress ilk önce \"admin\" kullanıcı adı ile bir "
+"kullanıcı adı oluşturur. Bu kullanıcının WordPress sisteminde tüm haklara "
+"sahip olması güvenli değildir ve potansiyel bir korsan zaten onun var "
+"olduğunu bilir. Bu noktada, saldırganların tamamının yapması gereken şey "
+"şifreyi tahmin etmektir. Bu kullanıcı adını değiştirmek, bazı saldırıları "
+"önemli ölçüde zorlaştırarak potansiyel bir saldırganın kullanıcı adınız ve "
+"parolanızın ikisini birden tahmin etmesini zorunlu kılmaya zorlar."
+
+#: inc/admin/content.php:1151
+msgid ""
+"Note that this function will only work if you chose a username other than "
+"\"admin\" when installing WordPress."
+msgstr ""
+"Bu fonksiyonun sadece WordPress yüklerken \"admin\" dışında bir kullanıcı "
+"adı seçtiyseniz çalışacağını unutmayın."
+
+#: inc/admin/content.php:1168
+msgid "Enter Username"
+msgstr "Kullanıcı adı Gir"
+
+#: inc/admin/content.php:1173
+msgid ""
+"Enter a new username to replace \"admin.\" Please note that if you are "
+"logged in as admin you will have to log in again."
+msgstr ""
+"\"admin\"yerine yeni bir kullanıcı adı girin. Eğer admin olarak oturum "
+"açtıysanız, tekrar oturum açmanız gerekeceğini lütfen unutmayın."
+
+#: inc/admin/content.php:1177
+msgid "Chage Admin Username"
+msgstr "Admin Kullanıcı adını Değiştir"
+
+#: inc/admin/content.php:1182
+msgid ""
+"Congratulations! You do not have a user named \"admin\" in your WordPress "
+"installation. No further action is available on this page."
+msgstr ""
+"Tebrikler! WordPress kurulumunuzda \"admin\" adlı bir kullanıcı yok. Bu "
+"sayfada başka bir işlem bulunmaktadır."
+
+#: inc/admin/content.php:1194
+msgid ""
+"If your admin user has and ID of \"1\" it is vulnerable to some attacks. You "
+"should change the ID of your admin user."
+msgstr ""
+"Eğer yönetici ID kimliği  \"1\" ise bazı saldırılara karşı zayıftır. "
+"Yönetici ID kimliğini değiştirmeniz gerekir."
+
+#: inc/admin/content.php:1198
+msgid "Change User 1 ID"
+msgstr "Kullanıcı 1 ID Değiştir"
+
+#: inc/admin/content.php:1203
+msgid ""
+"Congratulations! You do not have a user with ID 1 in your WordPress "
+"installation. No further action is available on this page."
+msgstr ""
+"Tebrikler! WordPress kurulumunuzda ID 1 olan bir kullanıcı yok. Bu sayfada "
+"başka bir işlem bulunmaktadır."
+
+#: inc/admin/content.php:1214
+msgid ""
+"As many of us update our sites on a general schedule it is not always "
+"necessary to permit site access all of the time. The options below will "
+"disable the backend of the site for the specified period. This could also be "
+"useful to disable site access based on a schedule for classroom or other "
+"reasons."
+msgstr ""
+"Çoğumuz genel bir zamanlamaya göre sitemizi güncellemediğimiz için sürekli "
+"olarak site erişimine izin vermek gerekmez. Aşağıdaki seçenekler belirli bir "
+"süre için sitenin arka alanını devre dışı bırakır. Bu aynı zamanda, ders "
+"saati ya da başka nedenler için bir zamanlamaya göre site erişimini devre "
+"dışı bırakmak için de yararlı olabilir."
+
+#: inc/admin/content.php:1215
+msgid "Please note that according to your"
+msgstr "Lütfen unutmayın,"
+
+#: inc/admin/content.php:1215
+msgid "WordPress timezone settings"
+msgstr "WordPress zaman dilimi ayarları"
+
+#: inc/admin/content.php:1215
+msgid "your local time is"
+msgstr "'na göre yerel zamanınız"
+
+#: inc/admin/content.php:1215
+msgid "If this is incorrect please correct it on the"
+msgstr "Eğer bu doğru değilse, lütfen"
+
+#: inc/admin/content.php:1215
+msgid "WordPress general settings page"
+msgstr "WordPress ayarlar sayfasından"
+
+#: inc/admin/content.php:1215
+msgid ""
+"by setting the appropriate time zone. Failure to do so may result in "
+"unintended lockouts."
+msgstr ""
+"uygun saat dilimini ayarlayarak düzeltin. Aksi takdirde, istenmeyen "
+"kilitlenmelere neden olabilir."
+
+#: inc/admin/content.php:1230
+msgid ""
+"Are you sure you want to enable away mode? Please check the local time "
+"(located at the top of this page) and verify the times set are correct to "
+"avoid locking yourself out of this site."
+msgstr ""
+"Uzakta modunu etkinleştirmek istediğinize emin misiniz? Lütfen yerel zamanı "
+"kontrol edin (Bu sayfanın üst kısmında yer alır) ve belirlenen zamanlarda bu "
+"sitenin sizi kilitlemesini önlemek için onun doğru olduğunu onaylayın."
+
+#: inc/admin/content.php:1277
+msgid "Enable Away Mode"
+msgstr "Uzakta Modunu Etkinleştir"
+
+#: inc/admin/content.php:1281
+msgid "Check this box to enable away mode."
+msgstr "Uzakta modunu etkinleştirmek için bu kutuyu işaretleyin."
+
+#: inc/admin/content.php:1286
+msgid "Type of Restriction"
+msgstr "Kısıtlama Türü"
+
+#: inc/admin/content.php:1289
+msgid "Daily"
+msgstr "Günlük"
+
+#: inc/admin/content.php:1290
+msgid "One Time"
+msgstr "Bir Kez"
+
+#: inc/admin/content.php:1291
+msgid ""
+"Selecting <em>\"One Time\"</em> will lock out the backend of your site from "
+"the start date and time to the end date and time. Selecting <em>\"Daily\"</"
+"em> will ignore the start and and dates and will disable your site backend "
+"from the start time to the end time."
+msgstr ""
+"<em>\"Bir Kez\"</em> seçildiğinde başlangıç tarih ve saati ile bitiş tarih "
+"ve saati kadar sitenizin arka alanını kilitler. <em>\"Günlük\"</em> "
+"seçildiğinde başlangıç ve bitiş tarihlerini göz ardı eder ve başlangıç "
+"saatinden bitiş saatine kadar sitenizin arka alanını devre dışı bırakır."
+
+#: inc/admin/content.php:1296
+msgid "Start Date"
+msgstr "Başlangıç Tarihi"
+
+#: inc/admin/content.php:1335
+msgid ""
+"Select the date at which access to the backend of this site will be "
+"disabled. Note that if <em>\"Daily\"</em> mode is selected this field will "
+"be ignored and access will be banned every day at the specified time."
+msgstr ""
+"Bu sitenin arka alanına erişimin devre dışı bırakılacağı tarihi seçin. <em>"
+"\"Günlük\"</em> modu seçildiğinde, bu alanın dikkate alınmayacağı ve her gün "
+"belirtilen zamanda erişimin yasaklanacağını unutmayın."
+
+#: inc/admin/content.php:1341
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+#: inc/admin/content.php:1380
+msgid ""
+"Select the date at which access to the backend of this site will be re-"
+"enabled. Note that if <em>\"Daily\"</em> mode is selected this field will be "
+"ignored and access will be banned every day at the specified time."
+msgstr ""
+"Bu sitenin arka alanına erişimin yeniden aktif olacağı tarihi seçin. <em>"
+"\"Günlük\"</em> modu seçildiğinde, bu alanın dikkate alınmayacağı ve her gün "
+"belirtilen zamanda erişimin yasaklanacağını unutmayın."
+
+#: inc/admin/content.php:1386
+msgid "Start Time"
+msgstr "Başlangıç Saati"
+
+#: inc/admin/content.php:1422
+msgid ""
+"Select the time at which access to the backend of this site will be "
+"disabled. Note that if <em>\"Daily\"</em> mode is selected access will be "
+"banned every day at the specified time."
+msgstr ""
+"Bu sitenin arka alanına erişimin devre dışı bırakılacağı saati seçin. <em>"
+"\"Günlük\"</em> modu seçildiğinde, erişimin her gün belirtilen zamanda "
+"yasaklanacağını unutmayın."
+
+#: inc/admin/content.php:1428
+msgid "End Time"
+msgstr "Bitiş Saati"
+
+#: inc/admin/content.php:1464
+msgid ""
+"Select the time at which access to the backend of this site will be re-"
+"enabled. Note that if <em>\"Daily\"</em> mode is selected access will be "
+"banned every day at the specified time."
+msgstr ""
+"Bu sitenin arka alanına erişimin yeniden aktif olacağı saati seçin. <em>"
+"\"Günlük\"</em> modu seçildiğinde, erişimin her gün belirtilen zamanda "
+"yasaklanacağını unutmayın."
+
+#: inc/admin/content.php:1469 inc/admin/content.php:1592
+#: inc/admin/content.php:1633 inc/admin/content.php:1737
+#: inc/admin/content.php:1880 inc/admin/content.php:2214
+#: inc/admin/content.php:2458 inc/admin/content.php:2539
+#: inc/admin/content.php:2577 inc/admin/content.php:2614
+#: inc/admin/content.php:2649 inc/admin/content.php:2730
+msgid "Save Changes"
+msgstr "Değişiklikleri Kaydet"
+
+#: inc/admin/content.php:1485
+msgid "every day"
+msgstr "her gün"
+
+#: inc/admin/content.php:1492 inc/admin/content.php:1493
+msgid " at "
+msgstr "saat"
+
+#: inc/admin/content.php:1499
+msgid "The backend (administrative section) of this site will be unavailable"
+msgstr "Bu sitenin arka alanı (yönetim bölümü) kullanılamayacaktır"
+
+#: inc/admin/content.php:1499
+msgid "from"
+msgstr "Başlangıç"
+
+#: inc/admin/content.php:1499 inc/secure.php:619
+msgid "until"
+msgstr "Bitiş"
+
+#: inc/admin/content.php:1501
+msgid "Away mode is currently diabled"
+msgstr "Uzakta modu şu anda devre dışıdır"
+
+#: inc/admin/content.php:1512
+msgid ""
+"This feature allows you to ban hosts and user agents from your site "
+"completely using individual or groups of IP addresses as well as user agents "
+"without having to manage any configuration of your server. Any IP or user "
+"agent found in the lists below will not be allowed any access to your site."
+msgstr ""
+"Bu özellik, sunucunuzda herhangi bir yapılandırma yönetmek zorunda kalmadan, "
+"tekil veya IP adres gruplarının yanı sıra ana bilgisayar ve tarayıcı "
+"kimliklerini sitenizden tamamen yasaklamanıza olanak sağlar. Aşağıdaki "
+"listelerde bulunan herhangi bir IP veya tarayıcı kimliğinin hiç bir şekilde "
+"sitenize erişimine izin verilmeyecektir."
+
+#: inc/admin/content.php:1526
+msgid ""
+"As a getting-started point you can include the excellent blacklist developed "
+"by Jim Walker of <a href=\"http://hackrepair.com/blog/how-to-block-bots-from-"
+"seeing-your-website-bad-bots-and-drive-by-hacks-explained\" target=\"_blank"
+"\">HackRepair.com</a>."
+msgstr ""
+"Bir başlangıç noktası olarak, Jim Walker tarafından geliştirilen mükemmel "
+"kara liste <a href=\"http://hackrepair.com/blog/how-to-block-bots-from-"
+"seeing-your-website-bad-bots-and-drive-by-hacks-explained\" target=\"_blank"
+"\">HackRepair.com</a>'u ekleyebilirsiniz."
+
+#: inc/admin/content.php:1530
+msgid "Enable Default Banned List"
+msgstr "Varsayılan Yasaklı Listesini Etkinleştir"
+
+#: inc/admin/content.php:1534
+msgid "Check this box to enable HackRepair.com's blacklist feature."
+msgstr ""
+"HackRepair.com'un kara liste özelliğini etkinleştirmek için bu kutuyu "
+"işaretleyin."
+
+#: inc/admin/content.php:1538
+msgid "Add Host and Agent Blacklist"
+msgstr "Ana bilgisayar ve Tarayıcı kimliği Kara Listesi Ekle"
+
+#: inc/admin/content.php:1556
+msgid "Enable Banned Users"
+msgstr "Yasaklı Kullanıcıları Etkinleştir"
+
+#: inc/admin/content.php:1560
+msgid "Check this box to enable the banned users feature."
+msgstr ""
+"Yasaklı kullanıcılar özelliğini etkinleştirmek için bu kutuyu işaretleyin."
+
+#: inc/admin/content.php:1565
+msgid "Ban Hosts"
+msgstr "Ana bilgisayarları Yasakla"
+
+#: inc/admin/content.php:1569
+msgid ""
+"Use the guidelines below to enter hosts that will not be allowed access to "
+"your site. Note you cannot ban yourself."
+msgstr ""
+"Sitenize erişim izni verilmeyecek ana bilgisayarları girmek için aşağıdaki "
+"yönergeleri kullanın. Kendinizi yasaklayamayacağınızı unutmayın."
+
+#: inc/admin/content.php:1571
+msgid "You may ban users by individual IP address or IP address range."
+msgstr ""
+"Tekil IP adresi veya IP adres aralığındaki kullanıcıları yasaklayabilirsiniz."
+
+#: inc/admin/content.php:1572 inc/admin/content.php:2031
+msgid ""
+"Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###."
+"###). Wildcards (*) are allowed to specify a range of ip addresses."
+msgstr ""
+"Tekil IP adresleri IPV4 standart formatında olmalıdır (örn. ###.###.###."
+"###). IP adres aralığını belirtmek için yıldız işaretlerine (*) izin verilir."
+
+#: inc/admin/content.php:1573 inc/admin/content.php:2032
+msgid ""
+"If using a wildcard (*) you must start with the right-most number in the ip "
+"field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*."
+"### is not."
+msgstr ""
+"Eğer bir yıldız işareti (*) kullanıyorsanız, ip alanında en sağdan "
+"başlamanız gerekir. Örneğin ###.###.###.* ve ###.###.*.* için izin verilir "
+"fakat ###.###.*.### olmaz."
+
+#: inc/admin/content.php:1574 inc/admin/content.php:2033
+msgid "Lookup IP Address."
+msgstr "IP Adresi Ara."
+
+#: inc/admin/content.php:1575 inc/admin/content.php:2034
+msgid "Enter only 1 IP address or 1 IP address range per line."
+msgstr "Her satıra sadece 1 IP adresi veya 1 IP adres aralığı girin."
+
+#: inc/admin/content.php:1581
+msgid "Ban User Agents"
+msgstr "Tarayıcı Kimliklerini Yasakla"
+
+#: inc/admin/content.php:1585
+msgid ""
+"Use the guidelines below to enter user agents that will not be allowed "
+"access to your site."
+msgstr ""
+"Sitenize erişim izni verilmeyecek tarayıcı kimliklerini girmek için "
+"aşağıdaki yönergeleri kullanın."
+
+#: inc/admin/content.php:1587
+msgid "Enter only 1 user agent per line."
+msgstr "Her satıra sadece 1 tarayıcı kimliği girin."
+
+#: inc/admin/content.php:1603
+msgid ""
+"By default WordPress puts all your content including images, plugins, "
+"themes, uploads, and more in a directory called \"wp-content\". This makes "
+"it easy to scan for vulnerable files on your WordPress installation as an "
+"attacker already knows where the vulnerable files will be at. As there are "
+"many plugins and themes with security vulnerabilities moving this folder can "
+"make it harder for an attacker to find problems with your site as scans of "
+"your site's file system will not produce any results."
+msgstr ""
+"Varsayılan olarak WordPress, resimleri, eklentileri, temaları, yüklenenleri "
+"ve daha pek çok şey de dahil tüm içeriğinizi \"wp-content\" adlı bir dizinde "
+"saklar. Saldırgan, savunmasız dosyaların nerede yer aldığını zaten bilir ve "
+"bu sayede WordPress kurulumunuzdaki güvenlik açığı olan dosyaları kolaylıkla "
+"tarar. Güvenlik açıkları bulunan pek çok eklenti ve tema bulunduğundan, bu "
+"klasörü taşımak ile sitenizin dosya sistemini taraması bir sonuç "
+"vermeyeceğinden dolayı saldırganın sitenizdeki sorunları bulmasını daha zor "
+"hale getirebilirsiniz."
+
+#: inc/admin/content.php:1604
+msgid ""
+"Please note that changing the name of your wp-content directory on a site "
+"that already has images and other content referencing it will break your "
+"site. For that reason I highly recommend you do not try this on anything but "
+"a fresh WordPress install. In addition, this tool will not allow further "
+"changes to your wp-content folder once it has already been renamed in order "
+"to avoid accidently breaking a site later on. This includes uninstalling "
+"this plugin which will not revert the changes made by this page."
+msgstr ""
+"Bu dizine önceden bağlantı verilmiş resim ve diğer içerikler varsa, bir "
+"sitede wp-content dizin adını değiştirmenin siteyi bozacağını unutmayın. Bu "
+"nedenle, bunu yeni bir WordPress kurulumu haricinde denemenizi kesinlikle "
+"tavsiye etmiyorum. Ayrıca, zaten bir kez yeniden adlandırılmışsa, sonradan "
+"yanlışlıkla bir siteyi bozmasını önlemek için bu aracın wp-content "
+"klasöründe başka değişiklikler yapmasına izin verilmeyecektir. Buna, bu "
+"eklentiyi kaldırmak ile bu sayfada yapılan değişikliklerin geri alınmayacağı "
+"da dahildir."
+
+#: inc/admin/content.php:1605
+msgid ""
+"Finally, changing the name of the wp-content directory may in fact break "
+"plugins and themes that have \"hard-coded\" it into their design rather than "
+"call it dynamically."
+msgstr ""
+"Son olarak, wp-content dizininin adını değiştirmek, onu dinamik yapıda "
+"çağırmak yerine kendi tasarımları içinde sabit olarak kodlanmış eklentileri "
+"ve temaları bozabilir."
+
+#: inc/admin/content.php:1606
+msgid "WARNING: BACKUP YOUR WORDPRESS INSTALLATION BEFORE USING THIS TOOL!"
+msgstr "UYARI: BU ARACI KULLANMADAN ÖNCE WORDPRESS KURULUMUNUZU YEDEKLEYİN!"
+
+#: inc/admin/content.php:1607
+msgid ""
+"RENAMING YOUR wp-content WILL BREAK LINKS ON A SITE WITH EXISTING CONTENT."
+msgstr ""
+"wp-content DİZİNİNİ YENİDEN ADLANDIRMAK, BİR SİTEDEKİ MEVCUT İÇERİK "
+"BAĞLANTILARINI BOZACAKTIR."
+
+#: inc/admin/content.php:1624
+msgid "Directory Name"
+msgstr "Dizin Adı"
+
+#: inc/admin/content.php:1629
+msgid ""
+"Enter a new directory name to replace \"wp-content.\" You may need to log in "
+"again after performing this operation."
+msgstr ""
+"\"wp-content\" yerine yeni bir dizin adı girin. Bu işlemi yaptıktan sonra "
+"tekrar giriş yapmanız gerekebilir."
+
+#: inc/admin/content.php:1643
+msgid ""
+"Congratulations! You have already renamed your \"wp-content\" directory."
+msgstr "Tebrikler! \"wp-content\" dizinini zaten yeniden adlandırmışsınız."
+
+#: inc/admin/content.php:1644
+msgid "Your current content directory is: "
+msgstr "Mevcut içerik dizininiz:"
+
+#: inc/admin/content.php:1645
+msgid "No further actions are available on this page."
+msgstr "Bu sayfada başka bir işlem bulunmamaktadır."
+
+#: inc/admin/content.php:1656
+msgid ""
+"While this plugin goes a long way to helping secure your website nothing can "
+"give you a 100% guarantee that your site won't be the victim of an attack. "
+"When something goes wrong one of the easiest ways of getting your site back "
+"is to restore the database from a backup and replace the files with fresh "
+"ones. Use the button below to create a full backup of your database for this "
+"purpose. You can also schedule automated backups and download or delete "
+"previous backups."
+msgstr ""
+"Bu eklenti, web sitenizin güvenliğine yardımcı olmak için uzun bir yol "
+"alırken, hiçbir şey sitenizin bir saldırı kurbanı olmayacağına %100 garanti "
+"veremez. Bir şeyler ters gittiğinde sitenizi geri almanın en kolay "
+"yollarından biri, bir yedekten veritabanını geri yüklemek ve yeni olanları "
+"ile dosyaları yer değiştirmektir. Bu amaçla veritabanınızın tam yedeğini "
+"oluşturmak için alttaki butonu kullanın. Ayrıca, otomatik yedekleme "
+"zamanlayabilir, önceki yedekleri indirebilir veya silebilirsiniz."
+
+#: inc/admin/content.php:1669
+msgid ""
+"Press the button below to create a backup of your WordPress database. If you "
+"have \"Send Backups By Email\" selected in automated backups you will "
+"receive an email containing the backup file."
+msgstr ""
+"WordPress veritabanınızın yedeğini oluşturmak için alttaki butonuna "
+"tıklayın. Eğer otomatik yedekleme içinde \"Yedekleri Epostayla Gönder\" "
+"seçeneğini işaretlediyseniz, yedek dosyasını içeren bir eposta alacaksınız."
+
+#: inc/admin/content.php:1688
+msgid "Enable Scheduled Backups"
+msgstr "Zamanlanmış Yedeklemeleri Etkinleştir"
+
+#: inc/admin/content.php:1692
+msgid ""
+"Check this box to enable scheduled backups which will be emailed to the "
+"address below."
+msgstr ""
+"Aşağıdaki adrese gönderilecek zamanlanmış yedeklemeyi etkinleştirmek için bu "
+"kutuyu işaretleyin."
+
+#: inc/admin/content.php:1697
+msgid "Backup Interval"
+msgstr "Yedekleme Aralığı"
+
+#: inc/admin/content.php:1702
+msgid "Hours"
+msgstr "Saat"
+
+#: inc/admin/content.php:1703
+msgid "Days"
+msgstr "Gün"
+
+#: inc/admin/content.php:1704
+msgid "Weeks"
+msgstr "Hafta"
+
+#: inc/admin/content.php:1706
+msgid "Select the frequency of automated backups."
+msgstr "Otomatik yedekleme sıklığını seçin."
+
+#: inc/admin/content.php:1711
+msgid "Send Backups by Email"
+msgstr "Yedekleri Epostayla Gönder"
+
+#: inc/admin/content.php:1715
+msgid "Email backups to the current site admin."
+msgstr "Yedekleri eposta ile mevcut site yöneticisine gönder."
+
+#: inc/admin/content.php:1720 inc/admin/content.php:1967
+#: inc/admin/content.php:2073 inc/admin/content.php:2206
+msgid "Email Address"
+msgstr "Eposta Adresi"
+
+#: inc/admin/content.php:1724
+msgid "The email address backups will be sent to."
+msgstr "Yedeklerin gönderileceği eposta adresi."
+
+#: inc/admin/content.php:1729
+msgid "Backups to Keep"
+msgstr "Saklanacak Yedekler"
+
+#: inc/admin/content.php:1733
+msgid ""
+"Number of backup files to retain. Enter 0 to keep all files. Please note "
+"that this setting only applies if \"Send Backups by Email\" is not selected."
+msgstr ""
+"Muhafaza edilecek yedekleme dosyaları sayısı. Tüm dosyaları saklamak için 0 "
+"girin. Bu ayarın sadece \"Yedekleri Epostayla Gönder\" seçili değilse "
+"geçerli olacağını lütfen unutmayın."
+
+#: inc/admin/content.php:1750
+msgid ""
+"Database backups are NOT saved to the server and instead will be emailed to"
+msgstr ""
+"Veritabanı yedekleri sunucuya KAYDEDİLMEZ ve onun yerine bu adrese gönderilir"
+
+#: inc/admin/content.php:1750
+msgid ""
+"To change this unset \"Send Backups by Email\" in the \"Scheduled Automated "
+"Backups\" section above."
+msgstr ""
+"Bunu değiştirmek için yukarıdaki \"Otomatik Yedeklemeyi Zamanla\" bölümünden "
+"\"Yedekleri Epostayla Gönder\" seçimini kaldırın."
+
+#: inc/admin/content.php:1754
+msgid ""
+"Please note that for security backups are not available for direct download. "
+"You will need to go to "
+msgstr ""
+"Güvenlik yedeklerinin doğrudan yüklenebilir olmadığını lütfen unutmayın. "
+"Dosyaları indirmek için "
+
+#: inc/admin/content.php:1756
+msgid ""
+" via FTP or SSH to download the files. This is because there is too much "
+"sensative information in the backup files and you do not want anyone just "
+"stumbling upon them."
+msgstr ""
+"FTP veya SSH kullanmanız gerekir. Bunun nedeni, yedekleme dosyalarında çok "
+"fazla hassas bilgi vardır ve siz birilerinin onları rastgele bulmasını "
+"istemezsiniz."
+
+#: inc/admin/content.php:1766
+msgid "Last Scheduled Backup:"
+msgstr "Son Zamanlanmış Yedekleme:"
+
+#: inc/admin/content.php:1767
+msgid "Next Scheduled Backup:"
+msgstr "Sonraki Zamanlanmış Yedekleme:"
+
+#: inc/admin/content.php:1769
+msgid ""
+"It looks like a scheduled backup is in progress please reload this page for "
+"more accurate times."
+msgstr ""
+"Zamanlanmış bir yedeklemenin devam ettiği görünüyor, daha kesin bir "
+"zamanlama için lütfen sayfayı tekrar yükleyin."
+
+#: inc/admin/content.php:1781
+msgid ""
+"By default WordPress assigns the prefix \"wp_\" to all the tables in the "
+"database where your content, users, and objects live. For potential "
+"attackers this means it is easier to write scripts that can target WordPress "
+"databases as all the important table names for 95% or so of sites are "
+"already known. Changing this makes it more difficult for tools that are "
+"trying to take advantage of vulnerabilites in other places to affect the "
+"database of your site."
+msgstr ""
+"Varsayılan olarak WordPress, içeriğiniz, kullanıcılar ve canlı nesneler gibi "
+"veritabanındaki tüm tablolara \"wp_\" öneki atar. Bu durum, potansiyel "
+"saldırganların, sitelerin %95 kadarını kapsayacak şekilde önemli tablo "
+"adlarının tamamını önceden bildikleri ve WordPress veritabanlarını "
+"hedefleyerek komut yazmalarının daha kolay olduğu anlamına gelir. Bunu "
+"değiştirmek, sitenizin veritabanını etkileyen diğer alanlardaki güvenlik "
+"açıklarından yararlanmayı deneyen araçların işini daha zor hale getirir."
+
+#: inc/admin/content.php:1782
+msgid ""
+"Please note that the use of this tool requires quite a bit of system memory "
+"which my be more than some hosts can handle. If you back your database up "
+"you can't do any permanent damage but without a proper backup you risk "
+"breaking your site and having to perform a rather difficult fix."
+msgstr ""
+"Bu aracın kullanımında bazı sunucuların işleyebileceğinden daha fazla sistem "
+"belleği gerekebileciğini lütfen unutmayın. Eğer veritabanınızı "
+"yedekliyorsanız herhangi bir kalıcı hasara neden olmazsınız fakat uygun bir "
+"yedek olmadan sitenizin bozulmasını ve oldukça zor bir düzeltme yapmak "
+"zorunda kalma riskini göze almış olursunuz."
+
+#: inc/admin/content.php:1783
+msgid ""
+"WARNING: <a href=\"?page=better-wp-security-databasebackup\">BACKUP YOUR "
+"DATABASE</a> BEFORE USING THIS TOOL!"
+msgstr ""
+"UYARI: BU ARACI KULLANMADAN ÖNCE <a href=\"?page=better-wp-security-"
+"databasebackup\">VERİTABANINIZI YEDEKLEYİN</a>!"
+
+#: inc/admin/content.php:1795
+msgid "Your database is using the default table prefix"
+msgstr "Veritabanınız varsayılan tablo öneki kullanıyor"
+
+#: inc/admin/content.php:1795
+msgid "You should change this."
+msgstr "Bunu değiştirmelisiniz."
+
+#: inc/admin/content.php:1797
+msgid "Your current database table prefix is"
+msgstr "Mevcut veritabanı tablo önekiniz"
+
+#: inc/admin/content.php:1802
+msgid ""
+"Press the button below to generate a random database prefix value and update "
+"all of your tables accordingly."
+msgstr ""
+"Rastgele bir veritabanı öneki değeri oluşturmak ve buna göre tüm tabloları "
+"güncellemek için aşağıdaki butona tıklayın."
+
+#: inc/admin/content.php:1803
+msgid "Change Database Table Prefix"
+msgstr "Veritabanı Tablo Önekini Değiştir"
+
+#: inc/admin/content.php:1814
+msgid ""
+"The \"hide backend\" feature changes the URL from which you can access your "
+"WordPress backend thereby further obscuring your site to potential attackers."
+msgstr ""
+"\"Arka alan gizleme\" özelliği, WordPress arka alanına eriştiğiniz URL'i "
+"değiştirir ve böylece daha fazla potansiyel saldırganın sitenize ulaşmasını "
+"engeller."
+
+#: inc/admin/content.php:1815
+msgid ""
+"This feature will need to modify your site's .htaccess file if you use the "
+"Apache webserver or, if you use NGINX you will need to add the rules "
+"manually to your virtualhost configuration. In both cases it requires "
+"permalinks to be turned on in your settings to function."
+msgstr ""
+"Eğer Apache web sunucusu kullanıyorsanız, bu özelliğin sitenizin .htaccess "
+"dosyasını değiştirmesi veya eğer NGINX kullanıyorsanız sanal sunucu "
+"yapılandırma kurallarını el ile eklemeniz gerekecektir. Her iki durumda da, "
+"bunun çalışması için kalıcı bağlantıların ayarlarınızdan açık olması "
+"gereklidir."
+
+#: inc/admin/content.php:1828
+msgid "You must turn on"
+msgstr "Bu özelliği kullanmak için"
+
+#: inc/admin/content.php:1828
+msgid "WordPress permalinks"
+msgstr "WordPress kalıcı bağlantılarını"
+
+#: inc/admin/content.php:1828
+msgid "to use this feature."
+msgstr "açmalısınız."
+
+#: inc/admin/content.php:1836
+msgid "Enable Hide Backend"
+msgstr "Arka Alanı Gizlemeyi Etkinleştir"
+
+#: inc/admin/content.php:1840
+msgid "Check this box to enable the hide backend."
+msgstr "Arka alanı gizlemeyi etkinleştirmek için bu kutuyu işaretleyin."
+
+#: inc/admin/content.php:1845
+msgid "Login Slug"
+msgstr "Giriş Kısaltması"
+
+#: inc/admin/content.php:1849
+msgid "Login URL:"
+msgstr "Giriş URL:"
+
+#: inc/admin/content.php:1854
+msgid "Register Slug"
+msgstr "Kayıt Kısaltması"
+
+#: inc/admin/content.php:1858
+msgid "Register URL:"
+msgstr "Kayıt URL:"
+
+#: inc/admin/content.php:1863
+msgid "Admin Slug"
+msgstr "Yönetici Kısaltması"
+
+#: inc/admin/content.php:1867
+msgid "Admin URL:"
+msgstr "Yönetici URL:"
+
+#: inc/admin/content.php:1872
+msgid "Generate new secret key"
+msgstr "Yeni gizli anahtar oluştur"
+
+#: inc/admin/content.php:1876
+msgid "Check this box to generate a new secret key."
+msgstr "Yeni bir gizli anahtar oluşturmak için bu kutuyu işaretleyin."
+
+#: inc/admin/content.php:1893
+msgid ""
+"Keep this key in a safe place. You can use it to manually fix plugins that "
+"link to wp-login.php. Once turning on this feature and plugins linking to wp-"
+"login.php will fail without adding ?[the key]& after wp-login.php. 99% of "
+"users will not need this key. The only place you would ever use it is to fix "
+"a bad login link in the code of a plugin or theme."
+msgstr ""
+"Bu anahtarı güvenli bir yerde tutun. Bunu, wp-login.php dosyasına bağlantı "
+"veren eklentileri el ile düzeltmek için kullanabilirsiniz. Bu özelliği bir "
+"kez açtıktan sonra, wp-login.php için ?[anahtar]& eklenmdeğinde wp-login.php "
+"dosyasına bağlantı veren eklentiler başarısızlığa uğrar. Kullanıcıların "
+"%99'u için bu anahtar gerekmez. Kullanacağınız tek yer, bir eklenti veya "
+"tema kodundaki kötü bir otourum açma bağlantısını düzeltmek içindir."
+
+#: inc/admin/content.php:1904
+msgid ""
+"404 detection looks at a user who is hitting a large number of non-existent "
+"pages, that is they are getting a large number of 404 errors. It assumes "
+"that a user who hits a lot of 404 errors in a short period of time is "
+"scanning for something (presumably a vulnerability) and locks them out "
+"accordingly (you can set the thresholds for this below). This also gives the "
+"added benefit of helping you find hidden problems causing 404 errors on "
+"unseen parts of your site as all errors will be logged in the \"View Logs\" "
+"page. You can set threshholds for this feature below."
+msgstr ""
+"404 algılaması, var olmayan sayfaları tıklayarak çok sayıda 404 hatası alan "
+"kullanıcılara bakar. Bu, kısa bir süre içinde 404 hatalarına çok fazla "
+"tıklayan bir kullanıcının bir şeyler için tarama yapdığını varsayar "
+"(muhtemelen bir güvenlik açığı için) ve buna göre onları kilitler (aşağıda "
+"bunun için alt sınırları ayarlayabilirsiniz). Bu aynı zamanda tüm hataları "
+"\"Günlükleri Görüntüle\" sayfasında günlüklenmiş olacağından dolayı "
+"sitenizin görünmeyen kısımlarında 404 hatalarına neden olan gizli sorunları "
+"bulmanıza yardımcı olur."
+
+#: inc/admin/content.php:1905
+msgid ""
+"File change detection looks at the files in your WordPress installation and "
+"reports changes to those files. This can help you determine if an attacker "
+"has compromised your system by changing files within WordPress. Note that it "
+"will only automatically check once per day to reduce server load and other "
+"insanity."
+msgstr ""
+"Dosya değişiklik algılaması WordPress kurulum dosyalarına bakar ve bu "
+"dosyalarda yapılan değişiklikleri bildirir. Bu, bir saldırganın WordPress "
+"içindeki dosyaları değiştirerek sisteminizin güvenliğini tehlikeye atıp "
+"atmadığını belirlemenize yardımcı olabilir. Sunucu yükünü ve diğer "
+"çılgınlıkları azaltmak için onun sadece günde bir kez otomatik olarak "
+"denetleme yapacağını unutmayın."
+
+#: inc/admin/content.php:1918
+msgid ""
+"Press the button below to manually check for changed files and folders on "
+"your site."
+msgstr ""
+"Sitenizde değiştirilmiş dosyaları ve klasörleri el ile kontrol etmek için "
+"aşağıdaki butona tıklayın."
+
+#: inc/admin/content.php:1919
+msgid "Check for file/folder changes"
+msgstr "Dosya/klasör değişikliklerini denetle"
+
+#: inc/admin/content.php:1933
+msgid ""
+"Warning: Your server has less than 128MB of RAM dedicated to PHP. If you "
+"have many files in your installation or a lot of active plugins activating "
+"this feature may result in your site becoming disabled with a memory error. "
+"See the plugin homepage for more information."
+msgstr ""
+"Uyarı: Sunucunuzda PHP için ayrılmış 128MB'dan daha az RAM bulunmaktadır. "
+"Eğer kurulumunuzda çok sayıda dosya veya etkin eklentiler varsa, bu özelliği "
+"etkinleştirmek sitenizin bellek hatası ile devre dışı kalmasına neden "
+"olabilir. Daha fazla bilgi için eklenti ana sayfasına bakın."
+
+#: inc/admin/content.php:1944
+msgid "404 Detection"
+msgstr "404 Algılama"
+
+#: inc/admin/content.php:1949
+msgid "Enable 404 Detection"
+msgstr "404 Algılamayı Etkinleştir"
+
+#: inc/admin/content.php:1953
+msgid "Check this box to enable 404 intrusion detection."
+msgstr "404 saldırı algılamasını etkinleştirmek için bu kutuyu işaretleyin."
+
+#: inc/admin/content.php:1958
+msgid "Email 404 Notifications"
+msgstr "404 Bildirimlerini Epostala"
+
+#: inc/admin/content.php:1962
+msgid ""
+"Enabling this feature will trigger an email to be sent to the specified "
+"email address whenever a host is locked out of the system."
+msgstr ""
+"Bu özellik etkinleştirildiğinde, bir ana bilgisayar sistemden kilitlendiği "
+"zaman belirtilen eposta adresine gönderilecek bir epostayı tetikler."
+
+#: inc/admin/content.php:1971 inc/admin/content.php:2210
+msgid "The email address lockout notifications will be sent to."
+msgstr "Kilitleme bildirimlerinin gönderileceği eposta adresi."
+
+#: inc/admin/content.php:1976
+msgid "Check Period"
+msgstr "Kontrol Etme Süreci"
+
+#: inc/admin/content.php:1980
+msgid ""
+"The number of minutes in which 404 errors should be remembered. Setting this "
+"too long can cause legitimate users to be banned."
+msgstr ""
+"404 hatalarının hatırlanması gereken dakika sayısı. Bu çok uzun "
+"ayarlandığında, normal kullanıcıların yasaklanmasına neden olabilir."
+
+#: inc/admin/content.php:1985
+msgid "Error Threshold"
+msgstr "Hata Alt Sınırı"
+
+#: inc/admin/content.php:1989
+msgid ""
+"The numbers of errors (within the check period timeframe) that will trigger "
+"a lockout."
+msgstr ""
+"Bir kilitleme tetikleyecek hataların sayısı (kontrol etme süreci zaman "
+"dilimi içinde)."
+
+#: inc/admin/content.php:1994
+msgid "Lockout Period"
+msgstr "Kilitleme Süreci"
+
+#: inc/admin/content.php:1998
+msgid ""
+"The number of minutes a host will be banned from the site after triggering a "
+"lockout."
+msgstr ""
+"Bir kilitleme tetikledikten sonra, bir ana bilgisayarın siteden "
+"yasaklanacağı dakika sayısı."
+
+#: inc/admin/content.php:2004 inc/admin/content.php:2178
+msgid "Blacklist Repeat Offender"
+msgstr "Tekrar Failini Kara listele"
+
+#: inc/admin/content.php:2008 inc/admin/content.php:2182
+msgid ""
+"If this box is checked the IP address of the offending computer will be "
+"added to the \"Ban Users\" blacklist after reaching the number of lockouts "
+"listed below."
+msgstr ""
+"Eğer bu kutu işaretlenirse, soruna neden olan bilgisayarın IP adresi aşağıda "
+"listelenen kilitlenme sayısına ulaştıktan sonra \"Kullanıcıları Yasakla\" "
+"kara listesine eklenecektir."
+
+#: inc/admin/content.php:2009
+msgid ""
+"Warning! If your site has a lot of missing files causing 404 errors using "
+"this feature can ban your own computer from your site. I would highly advice "
+"whitelisting your IP address below if this is the case."
+msgstr ""
+"Uyarı! Sitenizde 404 hatalarına neden olan eksik dosyalar çok fazla ise, bu "
+"özelliği kullanmak kendi bilgisayarınızın sitenizde yasaklanmasına neden "
+"olabilir. Eğer böyle bir durum varsa, IP adresinizi aşağıdaki beyaz listeye "
+"kesinlikle eklemenizi tavsiye ederim."
+
+#: inc/admin/content.php:2014 inc/admin/content.php:2187
+msgid "Blacklist Threshold"
+msgstr "Kara listele Alt Sınırı"
+
+#: inc/admin/content.php:2018 inc/admin/content.php:2191
+msgid ""
+"The number of lockouts per IP before the user is banned permanently from "
+"this site"
+msgstr ""
+"Kullanıcının bu siteden kalıcı olarak yasaklanmasından önceki IP başına "
+"kilitlenme sayısı"
+
+#: inc/admin/content.php:2024
+msgid "404 White List"
+msgstr "404 Beyaz Liste"
+
+#: inc/admin/content.php:2028
+msgid ""
+"Use the guidelines below to enter hosts that will never be locked out due to "
+"too many 404 errors. This could be useful for Google, etc."
+msgstr ""
+"Çok sayıda 404 hatası sebebi ile asla kilitlenmeyecek ana bilgisayarları "
+"girmek için aşağıdaki yönergeleri kullanın. Bu, Google vb. için yararlı "
+"olabilir."
+
+#: inc/admin/content.php:2030
+msgid "You may whitelist users by individual IP address or IP address range."
+msgstr ""
+"Tekil IP adresi veya IP adres aralığındaki kullanıcıları beyaz listeye "
+"ekleyebilirsiniz."
+
+#: inc/admin/content.php:2035
+msgid ""
+"404 errors will still be logged for users on the whitelist. Only the lockout "
+"will be prevented"
+msgstr ""
+"404 hataları için beyaz liste kullanıcıları yine de günlüklenecektir. Sadece "
+"kilitlenme önlenecek"
+
+#: inc/admin/content.php:2041
+msgid "File Change Detection"
+msgstr "Dosya Değişiklik Algılaması"
+
+#: inc/admin/content.php:2046
+msgid "Enable File Change Detection"
+msgstr "Dosya Değişiklik Algılamasını Etkinleştir"
+
+#: inc/admin/content.php:2050
+msgid "Check this box to enable file change detection."
+msgstr ""
+"Dosya değişiklik algılamasını etkinleştirmek için bu kutuyu işaretleyin."
+
+#: inc/admin/content.php:2055
+msgid "Display file change admin warning"
+msgstr "Dosya değişikliği yönetici uyarısını görüntüle"
+
+#: inc/admin/content.php:2059
+msgid ""
+"Disabling this feature will prevent the file change warning from displaying "
+"to the site administrator in the WordPress Dashboard. Not that disabling "
+"both the error message and the email address will result in no notifications "
+"of file changes. The only way you will be able to tell is by manually "
+"checking the log files."
+msgstr ""
+"Bu özelliğin devre dışı bırakılması, WordPress Yönetim Panelinde site "
+"yöneticisi için dosya değişikliği uyarısının görüntülenmesini önleyecektir. "
+"Hata mesajı ve eposta adresinin ikisini birden devre dışı bırakmak, dosya "
+"değişiklikleri hakkında hiçbir bildirim alınamamasına neden olur. "
+"Bildirmleri görebileceğiniz tek yol, el ile günlük dosyalarını kontrol etmek "
+"olacaktır."
+
+#: inc/admin/content.php:2064
+msgid "Email File Change Notifications"
+msgstr "Dosya Değişik Bildirimlerini Epostala"
+
+#: inc/admin/content.php:2068
+msgid ""
+"Enabling this feature will trigger an email to be sent to the specified "
+"email address whenever a file change is detected."
+msgstr ""
+"Bu özelliğin etkinleştirilmesi, bir dosya değişikliği algılandığında "
+"belirtilen eposta adresine gönderilecek bir epostayı tetikler."
+
+#: inc/admin/content.php:2077
+msgid "The email address filechange notifications will be sent to."
+msgstr "Dosya değişik bildirimlerinin gönderileceği eposta adresi."
+
+#: inc/admin/content.php:2082
+msgid "Include/Exclude List"
+msgstr "Listeyi Ekle/Dışla"
+
+#: inc/admin/content.php:2086
+msgid "Include"
+msgstr "Ekle"
+
+#: inc/admin/content.php:2087
+msgid "Exclude"
+msgstr "Dışla"
+
+#: inc/admin/content.php:2089
+msgid ""
+"If \"Include\" is selected only the contents of the list below will be "
+"checked. If exclude is selected all files and folders except those listed "
+"below will be checked."
+msgstr ""
+"Eğer Ekle seçilirse, sadece aşağıdaki listenin içerikleri kontrol "
+"edilecektir. Eğer dışla seçilirse, aşağıda listelenenler dışındaki tüm "
+"dosyalar ve klasörler kontrol edilecektir."
+
+#: inc/admin/content.php:2094
+msgid "File/Directory Check List"
+msgstr "Dosya/Dizin Kontrol Listesi"
+
+#: inc/admin/content.php:2098
+msgid ""
+"Enter directories or files you do not want to include in the check (i.e. "
+"cache folders, etc). Only 1 file or directory per line. You can specify all "
+"files of a given type by just entering the extension preceeded by a dot (.) "
+"for exampe, .jpg"
+msgstr ""
+"Kontrole dahil etmek istemediğiniz dizinleri veya dosyaları girin (örn. "
+"önbellek klasörleri vs.). Satır başına sadece 1 dosya ya da dizin girin. "
+"Örneğin .jpg gibi bir nokta (.) ile başlayan uzantıyı girerek, belirlenen "
+"bir türdeki tüm dosyaları belirtebilirsiniz"
+
+#: inc/admin/content.php:2099
+msgid ""
+"Directories should be entered in the from the root of the WordPress folder. "
+"For example, if you wish to enter the uploads directory you would enter it "
+"as \"wp-content/uploads\" (assuming you have not renamed wp-content). For "
+"files just enter the filename without directory information."
+msgstr ""
+"Dizinler, WordPress klasörünün kök dizininden girilmelidir. Örneğin, eğer "
+"yükleme klasörü dizinini girmek isterseniz \"wp-content/uploads\" olarak "
+"girersiniz (wp-content dizininin yeniden adlandırılmadığını varsayarsak). "
+"Dosyalar için, dizin bilgileri olmadan sadece dosya adını girin."
+
+#: inc/admin/content.php:2103
+msgid "Save Options"
+msgstr "Seçenekleri Kaydet"
+
+#: inc/admin/content.php:2115
+msgid ""
+"If one had unlimited time and wanted to try an unlimited number of password "
+"combimations to get into your site they eventually would, right? This method "
+"of attach, known as a brute force attack, is something that WordPress is "
+"acutely susceptible by default as the system doesn\\t care how many attempts "
+"a user makes to login. It will always let you try agin. Enabling login "
+"limits will ban the host user from attempting to login again after the "
+"specified bad login threshhold has been reached."
+msgstr ""
+"Eğer birileri sitenize sızmak için sınırsız zamana sahip olur ve sınırsız "
+"sayıda şifre kombinasyonları denemek isterse, sonunda bunu yapabilir, öyle "
+"değil mi? Bir brute force saldırısı olarak bilinen bu saldırı yöntemi, "
+"WordPress sisteminin varsayılan olarak yoğun bir şekilde bir kullanıcının ne "
+"kadar giriş denemesi yaptığını umursamaması ile ilgilidir. O her zaman "
+"yeniden denemenize izin verir. Giriş sınırlaması etkinleştirildiğinde, "
+"belirlenen kötü giriş yapma alt sınırına ulaşıldıktan sonra yeniden oturum "
+"açma girişiminde bulunan ana bilgisayar kullanıcısı yasaklanacaktır."
+
+#: inc/admin/content.php:2132
+msgid "Enable Login Limits"
+msgstr "Giriş Yapma Sınırlarını Etkinleştir"
+
+#: inc/admin/content.php:2136
+msgid "Check this box to enable login limits on this site."
+msgstr ""
+"Bu sitede giriş yapma sınırlarını etkinleştirmek için bu kutuyu işaretleyin."
+
+#: inc/admin/content.php:2141
+msgid "Max Login Attempts Per Host"
+msgstr "Ana bilgisayar Başına Maksimum Giriş Yapma Girişimi"
+
+#: inc/admin/content.php:2145
+msgid ""
+"The number of login attempts a user has before their host or computer is "
+"locked out of the system."
+msgstr ""
+"Ana bilgisayarı veya bilgisayarı sistemden kilitlenmeden önce, bir "
+"kullanıcının sahip olduğu giriş yapma girişimi sayısı."
+
+#: inc/admin/content.php:2150
+msgid "Max Login Attempts Per User"
+msgstr "Kullanıcı Başına Maksimum Giriş Yapma Girişimi"
+
+#: inc/admin/content.php:2154
+msgid ""
+"The number of login attempts a user has before their username is locked out "
+"of the system. Note that this is different from hosts in case an attacker is "
+"using multiple computers. In addition, if they are using your login name you "
+"could be locked out yourself."
+msgstr ""
+"Kullanıcı adı sistemden kilitlenmeden önce, bir kullanıcının sahip olduğu "
+"giriş yapma girişimi sayısı. Bir saldırganın birden çok bilgisayar "
+"kullanması durumda bunun ana bilgisayarlardan farklı olduğu unutmayın. Buna "
+"ek olarak, eğer onlar sizin giriş adınızı kullanırlarsa kendinizi de "
+"kilitleyebilirsiniz."
+
+#: inc/admin/content.php:2159
+msgid "Login Time Period (minutes)"
+msgstr "Giriş Yapma Zaman Aralığı (dakika)"
+
+#: inc/admin/content.php:2163
+msgid "The number of minutes in which bad logins should be remembered."
+msgstr "Kötü girişlerin hatırlanacağı dakika sayısı."
+
+#: inc/admin/content.php:2168
+msgid "Lockout Time Period (minutes)"
+msgstr "Kilitleme Zaman Aralığı (dakika)"
+
+#: inc/admin/content.php:2172
+msgid ""
+"The length of time a host or computer will be banned from this site after "
+"hitting the limit of bad logins."
+msgstr ""
+"Bir ana bilgisayar veya bilgisayarın, kötü giriş sınırlarına ulaşmasından "
+"sonra bu siteden yasaklanacağı sürenin uzunluğu."
+
+#: inc/admin/content.php:2197
+msgid "Email Notifications"
+msgstr "Eposta Bildirimleri"
+
+#: inc/admin/content.php:2201
+msgid ""
+"Enabling this feature will trigger an email to be sent to the specified "
+"email address whenever a host or user is locked out of the system."
+msgstr ""
+"Bu özelliğin etkinleştirilmesi, bir ana bilgisayar veya kullanıcı sistemden "
+"kilitlendiğinde belirtilen eposta adresine gönderilecek bir epostayı "
+"tetikleyecektir."
+
+#: inc/admin/content.php:2225
+msgid ""
+"This page contains the logs generated by Better WP Security, current "
+"lockouts (which can be cleared here) and a way to cleanup the logs to save "
+"space on the server and reduce CPU load. Please note, you must manually "
+"clear these logs, they will not do so automatically. I highly recommend you "
+"do so regularly to improve performance which can otherwise be slowed if the "
+"system has to search through large log-files on a regular basis."
+msgstr ""
+"Bu sayfa, Better WP Security tarafından oluşturulan günlükleri, mevcut "
+"kilitlemeleri (buradan temizlenebilir) ve sunucu üzerinde yer kazanmak ve "
+"CPU yükünü azaltmak için günlükleri temizleme imkanı sunar. Unutmayın, bu "
+"günlükleri el ile temizlemeniz gerekir, otomatik olarak yapılmaz. Sistem "
+"düzenli olarak büyük günlük dosyaları içinde arama yaparak yavaşlamaya sebep "
+"olabileceğinden dolayı, performansı artırmak için bunu kesinlikle düzenli "
+"olarak yapmanızı tavsiye ederim."
+
+#: inc/admin/content.php:2248
+msgid "Old Data"
+msgstr "Eski Veri"
+
+#: inc/admin/content.php:2251
+msgid ""
+"Below is old security data still in your WordPress database. Data is "
+"considered old when the lockout has expired, or been manually cancelled, or "
+"when the log entry will no longer be used to generate a lockout."
+msgstr ""
+"Aşağıdaki eski güvenlik verileri halen WordPress veritabanınızda yer "
+"almaktadır. Kilitleme sona erdiğinde, el ile iptal edildiğinde veya günlük "
+"girdisi artık bir kilit oluşturmak için kullanılmayacak olduğunda veri eski "
+"kabul edilir."
+
+#: inc/admin/content.php:2252
+msgid ""
+"This data is not automatically deleted so that it may be used for analysis. "
+"You may delete this data with the form below. To see the actual data you "
+"will need to access your database directly."
+msgstr ""
+"Bu veriler otomatik olarak silinmez, bu yüzden analiz için kullanılabilir. "
+"Aşağıdaki form ile bu verileri silebilirsiniz. Gerçek verileri görmek için "
+"doğrudan veritabanına erişmeniz gerekir."
+
+#: inc/admin/content.php:2253
+msgid ""
+"Check the box next to the data you would like to clear and then press the "
+"\"Remove Old Data\" button. (note this will not erase entries that may still "
+"be used for lockouts)."
+msgstr ""
+"Silmek istediğiniz veri yanındaki kutuyu işaretleyin ve sonra \"Verileri "
+"Kaldır\" butonuna tıklayın. (bunun, halen kilitleme için kullanılıyor "
+"olabilecek girişleri silmeyeceğeni unutmayın)"
+
+#: inc/admin/content.php:2255 inc/admin/content.php:2256
+#: inc/admin/content.php:2258 inc/admin/content.php:2259
+msgid "Your database contains"
+msgstr "Veritabanınız "
+
+#: inc/admin/content.php:2255
+msgid "bad login entries."
+msgstr "adet kötü giriş yapma kaydı içerir."
+
+#: inc/admin/content.php:2256
+msgid "404 errors."
+msgstr "adet 404 hatası içerir."
+
+#: inc/admin/content.php:2257
+msgid "This will clear the 404 log below."
+msgstr "Bu, aşağıdaki 404 günlüğünü temizleyecektir."
+
+#: inc/admin/content.php:2258
+msgid "old lockouts."
+msgstr "adet eski kilitleme içerir."
+
+#: inc/admin/content.php:2259
+msgid "changed file records."
+msgstr "adet değişen dosya kaydı içerir."
+
+#: inc/admin/content.php:2264
+msgid "Remove Data"
+msgstr "Verileri Kaldır"
+
+#: inc/admin/content.php:2286
+msgid "Locked out hosts"
+msgstr "Kilitli ana bilgisayarlar"
+
+#: inc/admin/content.php:2296
+msgid "Currently no hosts are locked out of this website."
+msgstr "Şu an bu web sitesinde kilitli herhangi bir ana bilgisayar yok."
+
+#: inc/admin/content.php:2302
+msgid "Locked out users"
+msgstr "Kilitli kullanıcılar"
+
+#: inc/admin/content.php:2313
+msgid "Currently no users are locked out of this website."
+msgstr "Şu an bu web sitesinde kilitli herhangi bir kullanıcı yok."
+
+#: inc/admin/content.php:2318
+msgid "Release Lockout"
+msgstr "Kilitleri Serbest Bırak"
+
+#: inc/admin/content.php:2382
+msgid "Return to Log"
+msgstr "Günlüğe Geri dön"
+
+#: inc/admin/content.php:2400
+msgid ""
+"Secure Socket Layers (aka SSL) is a technology that is used to encrypt the "
+"data sent between your server or host and the visitor to your web page. When "
+"activated it makes it almost impossible for an attacker to intercept data in "
+"transit therefore making the transmission of form, password, or other "
+"encrypted data much safer."
+msgstr ""
+"Secure Socket Layers (diğer adıyla SSL), sunucu veya ana bilgisayarınız ile "
+"web sayfanızın ziyaretçisi arasında gönderilen verileri şifrelemek için "
+"kullanılan bir teknolojidir. Bu etkinleştirildiğnde, bir saldırganın transit "
+"veri yolunu yakalamasını neredeyse imkansız hale getirir ve bu nedenle "
+"aktarım biçimini, şifre veya diğer şifreli veriyi çok daha güvenli hale "
+"getirir."
+
+#: inc/admin/content.php:2401
+msgid ""
+"Better WP Security gives you the option of turning on SSL (if your server or "
+"host support it) for all or part of your site. The options below allow you "
+"to automatically use SSL for major parts of your site, the login page, the "
+"admin dashboard, or the site as a whole. You can also turn on SSL for any "
+"post or page by editing the content you want to use SSL in and selecting "
+"\"Enable SSL\" in the publishing options of the content in question."
+msgstr ""
+"Better WP Security, sitenizin tamamı veya bir kısmı için SSL (eğer sunucu "
+"veya ana bilgisayarınız bunu destekliyorsa) açma seçeneği sunar. Aşağıdaki "
+"seçenekler otomatik olarak sitenizin ana bölümleri, giriş sayfası, yönetici "
+"kontrol paneli veya bir bütün olarak sitenin tamamı için SSL kullanmanıza "
+"izin verir. Ayrıca, SSL kullanmak istediğiniz içeriği düzenleyerek ve söz "
+"konusu içeriğin yayımlama seçeneklerinden \"SSL Etkinleştir\" seçerek "
+"herhangi bir yazı veya sayfa için SSL özelliğini açabilirsiniz."
+
+#: inc/admin/content.php:2402
+msgid ""
+"While this plugin does give you the option of encrypting everything please "
+"note this might not be for you. SSL does add overhead to your site which "
+"will increase download times slightly. Therefore we recommend you enable SSL "
+"at a minimum on the login page, then on the whole admin section, finally on "
+"individual pages or posts with forms that require sensitive information."
+msgstr ""
+"Bu eklenti size her şeyi şifreleme seçeneği sunarken, bunun sizin için "
+"olmayabileceğini lütfen unutmayın. SSL sitenizin yükleme sürelerini biraz "
+"daha artıracak ek yük ekler. Bu nedenle, en azından giriş sayfasında, sonra "
+"tüm yönetici bölümünde ve son olarak hassas bilgiler gerektiren formları ile "
+"birlikte tekil sayfalar veya yazılarda SSL etkinleştirmenizi tavsiye ederim."
+
+#: inc/admin/content.php:2403
+msgid ""
+"WARNING: Your server MUST support SSL to use these features. Using these "
+"features without SSL support on your server or host will cause some or all "
+"of your site to become unavailable."
+msgstr ""
+"UYARI: Sunucunuzun bu özellikleri kullanmak için SSL desteklemesi "
+"ZORUNLUDUR. Sunucu veya ana bilgisayarınızda SSL desteği olmadan bu "
+"özellikleri kullanmak, sitenizin bir kısmının veya tamamının kullanılamaz "
+"hale gelmesine neden olacaktır."
+
+#: inc/admin/content.php:2422
+msgid ""
+"Are you sure you want to enable SSL? If your server does not support SSL you "
+"will be locked out of your WordPress admin backend."
+msgstr ""
+"SSL etkinleştirmek istediğinize emin misiniz? Eğer sunucunuz SSL "
+"desteklemiyorsa, WordPress yönetici arka alanından kilitleneceksiniz."
+
+#: inc/admin/content.php:2428
+msgid "Enforce Front end SSL"
+msgstr "Ön taraf için SSL Zorla"
+
+#: inc/admin/content.php:2433
+msgid "Per Content"
+msgstr "İçerik Başına"
+
+#: inc/admin/content.php:2434
+msgid "Whole Site"
+msgstr "Tüm Site"
+
+#: inc/admin/content.php:2436
+msgid ""
+"Enables secure SSL connection for the front-end (public parts of your site). "
+"Turning this off will disable front-end SSL control, turning this on \"Per "
+"Content\" will place a checkbox on the edit page for all posts and pages "
+"(near the publish settings) allowing you turn to on SSL for selected pages "
+"or posts, and selecting \"Whole Site\" will force the whole site to use SSL "
+"(not recommended unless you have a really good reason to use it)."
+msgstr ""
+"Ön taraf için güvenli SSL bağlantısını etkinleştirir (sitenizin herkese açık "
+"kısımları). Bunun kapatılması, ön taraf SSL kontrolünü devre dışı bırakır, "
+"\"İçerik Başına\" olarak açılması, seçtiğiniz sayfa veya yazılar için SSL "
+"açmanızı sağlayan ve tüm yazılar ve sayfalar için düzenleme sayfasına onay "
+"kutusu (yayımlama ayarları yakınına) yerleştirir ve \"Tüm Site\" olarak "
+"seçilmesi, tüm sitede SSL kullanılmasını zorlar."
+
+#: inc/admin/content.php:2441
+msgid "Enforce Login SSL"
+msgstr "Giriş Yapmak için SSL Zorla"
+
+#: inc/admin/content.php:2445
+msgid "Forces all logins to be served only over a secure SSL connection."
+msgstr ""
+"Tüm girişlerin, sadece güvenli bir SSL bağlantısı üzerinden yapılmasını "
+"zorlar."
+
+#: inc/admin/content.php:2450
+msgid "Enforce Admin SSL"
+msgstr "Yönetim için SSL Zorla"
+
+#: inc/admin/content.php:2454
+msgid ""
+"Forces all of the WordPress backend to be served only over a secure SSL "
+"connection."
+msgstr ""
+"WordPress arka alanının tamamının sadece bir güvenli SSL bağlantısı "
+"üzerinden yapılmasını zorlar."
+
+#: inc/admin/content.php:2469
+msgid ""
+"This page contains a number of tweaks that can significantly improve the "
+"security of your system."
+msgstr ""
+"Bu sayfa, sistem güvenliğinizi önemli ölçüde artırabilecek bir dizi ince "
+"ayarlar içerir."
+
+#: inc/admin/content.php:2470
+msgid ""
+"Server tweaks make use of rewrite rules and, in the case of Apache or "
+"LiteSpeed, will write them to your .htaccess file. If you are however using "
+"NGINX you will need to manually copy the rules on the Better WP Security "
+"Dashboard and put them in your server configuration."
+msgstr ""
+"Sunucu ince ayarları yeniden yazma kurallarından yararlanabilir ve Apache "
+"veya LiteSpeed kullanımı durumunda .htaccess dosyanıza yazabilir. Eğer "
+"bununla birlikte NGINX kullanıyorsanız, Better WP Security  Yönetim "
+"panelinden kuralları el ile kopyalayıp sunucu yapılandırmanıza bunları "
+"eklemeniz gerekir."
+
+#: inc/admin/content.php:2471
+msgid ""
+"The other tweaks, in some cases, make use of editing your wp-config.php "
+"file. Those that do can be manually turned off by reverting the changes that "
+"file."
+msgstr ""
+"Diğer ince ayarlar bazı durumlarda, wp-config.php dosyanızı düzenleyebilir. "
+"Bunlar da, bu dosyadan el ile değişiklikleri geri alarak kapatılabilir."
+
+#: inc/admin/content.php:2472
+msgid ""
+"Be advsied, some of these tweaks may in fact break other plugins and themes "
+"that make use of techniques that are often seen in practice as suspicious. "
+"That said, I highly recommend turning these on one-by-one and don't worry if "
+"you cannot use them all."
+msgstr ""
+"Dikkatli olun, bu ince ayarların bazıları aslında çoğu zaman pratikte "
+"şüpheli olarak görülen tekniklerden yararlanan diğer eklentiler ve temaları "
+"bozabilir. Söylediğim gibi, bunları tek tek açmanızı ve eğer hepsini "
+"kullanamazsanız endişelenmemenizi tavsiye ederim."
+
+#: inc/admin/content.php:2484
+msgid ""
+"Your webserver is unsupported. You must use Apache, LiteSpeed or NGINX to "
+"make use of these rules."
+msgstr ""
+"Web sunucunuz desteklenmiyor. Bu kurallardan faydalanmak için Apache, "
+"LiteSpeed veya NGINX kullanmanız gerekmektedir."
+
+#: inc/admin/content.php:2492
+msgid "Server Tweaks"
+msgstr "Sunucu İnce Ayarları"
+
+#: inc/admin/content.php:2497
+msgid "Protect Files"
+msgstr "Dosyaları Koru"
+
+#: inc/admin/content.php:2501
+msgid ""
+"Prevent public access to readme.html, readme.txt, wp-config.php, install."
+"php, wp-includes, and .htaccess. These files can give away important "
+"information on your site and serve no purpose to the public once WordPress "
+"has been successfully installed."
+msgstr ""
+"readme.html, readme.txt, wp-config.php, install.php, wp-includes, ve ."
+"htaccess için herkese açık erişimi engelle. Bu dosyalar, sitenizde önemli "
+"bilgileri açığa çıkarabilir ve WordPress bir kez başarıyla kurulduktan sonra "
+"bu dosyaların diğier kullanıcılar için hiçbir önemi yoktur."
+
+#: inc/admin/content.php:2502 inc/admin/content.php:2524
+#: inc/admin/content.php:2534 inc/admin/content.php:2685
+#: inc/admin/content.php:2696 inc/admin/content.php:2706
+#: inc/admin/content.php:2716 inc/admin/content.php:2726
+msgid ""
+"Warning: This feature is known to cause conflicts with some plugins and "
+"themes."
+msgstr ""
+"Uyarı: Bu özelliğin, bazı eklenti ve temalar ile çakışmalara neden olduğu "
+"bilinmektedir."
+
+#: inc/admin/content.php:2508
+msgid "Disable Directory Browsing"
+msgstr "Dizin Taramayı Devre dışı bırak"
+
+#: inc/admin/content.php:2512
+msgid ""
+"Prevents users from seeing a list of files in a directory when no index file "
+"is present."
+msgstr ""
+"Herhangi bir indeks dosyası mevcut olmadığında, dizindeki dosya listesinin "
+"görünmesini engeller."
+
+#: inc/admin/content.php:2513
+msgid ""
+"Warning: This feature is known to cause conflicts with some server "
+"configurations in which this feature has already been enabled in Apache."
+msgstr ""
+"Uyarı:  Bu özellik Apache üzerinde önceden etkin edilmişse, bazı sunucu "
+"konfigürasyonları ile çakışmalara neden olduğu bilinmektedir."
+
+#: inc/admin/content.php:2519
+msgid "Filter Request Methods"
+msgstr "İstek Yöntemlerini Filtrele"
+
+#: inc/admin/content.php:2523
+msgid "Filter out hits with the trace, delete, or track request methods."
+msgstr ""
+"İzleri ile birlikte tıklamaları filtreleyin, silin veya istek yöntemlerini "
+"takip edin."
+
+#: inc/admin/content.php:2529
+msgid "Filter Suspicious Query Strings"
+msgstr "Şüpheli Sorgu Dizelerini Filtrele"
+
+#: inc/admin/content.php:2533
+msgid ""
+"Filter out suspicious query strings in the URL. These are very often signs "
+"of someone trying to gain access to your site but some plugins and themes "
+"can also be blocked."
+msgstr ""
+"URL içindeki şüpheli sorgu dizelerini filtreleyin. Bunlar çoğunlukla "
+"sitenize erişim elde etmeye çalışan birisinin işaretleridir fakat bazı "
+"eklentiler ve temalar da bloke edilebilir."
+
+#: inc/admin/content.php:2544
+msgid "Header Tweaks"
+msgstr "Header İnce Ayarları"
+
+#: inc/admin/content.php:2549
+msgid "Remove WordPress Generator Meta Tag"
+msgstr "WordPress Generator Meta Etiketini Kaldır"
+
+#: inc/admin/content.php:2553
+msgid ""
+"Removes the <meta name=\"generator\" content=\"WordPress [version]\" /> meta "
+"tag from your sites header. This process hides version information from a "
+"potential attacker making it more difficult to determine vulnerabilities."
+msgstr ""
+"Sitenizin üst alanından <meta name=\"generator\" content=\"WordPress "
+"[version]\" /> meta etiketini kaldırır. Bu işlem, sürüm bilgisini gizleyerek "
+"potansiyel bir saldırganın güvenlik açıklarını belirlemesini daha zor hale "
+"getirir."
+
+#: inc/admin/content.php:2558
+msgid "Remove wlwmanifest header"
+msgstr "wlwmanifest başlığını kaldır"
+
+#: inc/admin/content.php:2562
+msgid ""
+"Removes the Windows Live Writer header. This is not needed if you do not use "
+"Windows Live Writer or other blogging clients that rely on this file."
+msgstr ""
+"Windows Live Writer başlığını kaldırır. Eğer Windows Live Writer veya bu "
+"dosyayı kullanan diğer blog istemcilerini kullanmıyorsanız, bu gerekli "
+"değildir."
+
+#: inc/admin/content.php:2567
+msgid "Remove EditURI header"
+msgstr "EditURI başlığını kaldır"
+
+#: inc/admin/content.php:2571
+msgid ""
+"Removes the RSD (Really Simple Discovery) header. If you don't integrate "
+"your blog with external XML-RPC services such as Flickr then the \"RSD\" "
+"function is pretty much useless to you."
+msgstr ""
+"RSD (Really Simple Discovery) başlığını kaldırır. Eğer Flickr gibi harici "
+"XML-RPC hizmetlerini blogunuza entegre etmiyorsanız, o zaman \"RSD\" "
+"fonksiyonu sizin neredeyse hiçbir işinize yaramaz."
+
+#: inc/admin/content.php:2572
+msgid ""
+"Warning: This feature is known to cause conflicts with some 3rd party "
+"application and services that may want to interact with WordPress."
+msgstr ""
+"Uyarı: Bu özelliğin WordPress ile etkileşim içinde olan bazı  3. parti "
+"uygulama ve hizmetler ile çakışmalara neden olduğu bilinmektedir."
+
+#: inc/admin/content.php:2582
+msgid "Dashboard Tweaks"
+msgstr "Yönetici Paneli İnce Ayarları"
+
+#: inc/admin/content.php:2587
+msgid "Hide Theme Update Notifications"
+msgstr "Tema Güncelleme Bildirimlerini Gizle"
+
+#: inc/admin/content.php:2591
+msgid ""
+"Hides theme update notifications from users who cannot update themes. Please "
+"note that this only makes a difference in multi-site installations."
+msgstr ""
+"Temaları güncelleme yetkisi olmayan kullanıcılardan tema güncelleme "
+"bildirimlerini gizler. Bunun sadece çoklu site kurulumlarında bir fark "
+"oluşturacağını lütfen unutmayın."
+
+#: inc/admin/content.php:2596
+msgid "Hide Plugin Update Notifications"
+msgstr "Eklenti Güncelleme Bildirimlerini Gizle"
+
+#: inc/admin/content.php:2600
+msgid ""
+"Hides plugin update notifications from users who cannot update themes. "
+"Please note that this only makes a difference in multi-site installations."
+msgstr ""
+"Temaları güncelleme yetkisi olmayan kullanıcılardan eklenti güncelleme "
+"bildirimlerini gizler. Bunun sadece çoklu site kurulumlarında bir fark "
+"oluşturacağını lütfen unutmayın."
+
+#: inc/admin/content.php:2605
+msgid "Hide Core Update Notifications"
+msgstr "Çekirdek Güncelleme Bildirimlerini Gizle"
+
+#: inc/admin/content.php:2609
+msgid ""
+"Hides core update notifications from users who cannot update themes. Please "
+"note that this only makes a difference in multi-site installations."
+msgstr ""
+"Temaları güncelleme yetkisi olmayan kullanıcılardan çekirdek güncelleme "
+"bildirimlerini gizler. Bunun sadece çoklu site kurulumlarında bir fark "
+"oluşturacağını lütfen unutmayın."
+
+#: inc/admin/content.php:2619
+msgid "Strong Password Tweaks"
+msgstr "Güçlü Şifre İnce Ayarları"
+
+#: inc/admin/content.php:2624
+msgid "Enable strong password enforcement"
+msgstr "Güçlü şifre zorunluluğunu etkinleştir"
+
+#: inc/admin/content.php:2628
+msgid ""
+"Enforce strong passwords for all users with at least the role specified "
+"below."
+msgstr ""
+"Aşağıda belirtilen minimum yetkiye sahip tüm kullanıcıları güçlü şifre "
+"oluşturmaya zorla."
+
+#: inc/admin/content.php:2633
+msgid "Strong Password Role"
+msgstr "Güçlü Şifre Yetkisi"
+
+#: inc/admin/content.php:2643
+msgid ""
+"Minimum role at which a user must choose a strong password. For more "
+"information on WordPress roles and capabilities please see"
+msgstr ""
+"Güçlü bir şifre seçmesi gereken minimum kullanıcı yetkisi. WordPress "
+"yetkileri ve özellikleri hakkında daha fazla bilgi için bu sayfaya gözatın"
+
+#: inc/admin/content.php:2644
+msgid ""
+"Warning: If your site invites public registrations setting the role too low "
+"may annoy your members."
+msgstr ""
+"Uyarı: Eğer sitenizin kayıt işlemi herkese açık şekilde ise, çok düşük yetki "
+"üyeleri rahatsız edebilir."
+
+#: inc/admin/content.php:2654
+msgid "Other Tweaks"
+msgstr "Diğer İnce Ayarlar"
+
+#: inc/admin/content.php:2659
+msgid "Remove WordPress Login Error Messages"
+msgstr "WordPress Giriş Hata İletilerini Kaldır"
+
+#: inc/admin/content.php:2663
+msgid ""
+"Prevents error messages from being displayed to a user upon a failed login "
+"attempt."
+msgstr ""
+"Başarısız oturum açma girişimine bağlı olarak kullanıcılara görüntülenmekte "
+"olan hata iletilerini engeller."
+
+#: inc/admin/content.php:2668
+msgid "Write to WordPress core files"
+msgstr "WordPress çekirdek dosyalarına yaz"
+
+#: inc/admin/content.php:2672
+msgid ""
+"Allow Better WP Security to write to .htaccess and wp-config.php. With this "
+"turned on this plugin will automatically write to your .htaccess and wp-"
+"config.php files. With it turned off you will need to manually make changes "
+"to these files and both the renaming of wp-content and the changing of the "
+"database table prefix will not be available."
+msgstr ""
+"Better WP Security için .htaccess ve wp-config.php dosyalarına yazma izni "
+"verir. Bu açıldığında, eklenti otomatik olarak .htaccess ve wp-config.php "
+"dosyalarınıza yazacaktır. Bu kapatıldığında, bu dosyalarda el ile değişiklik "
+"yapmanız gerekecektir ve wp-content dizininin yeniden adlandırılması ile "
+"veritabanı tablo önekinin değiştirilmesi özellikleri kullanılamayacaktır."
+
+#: inc/admin/content.php:2673
+msgid ""
+"This option is safe in nearly all instances however, if you know you have a "
+"server configuration that may conflict or simply want to make the changes "
+"yourself then uncheck this feature."
+msgstr ""
+"Bu seçenek, hemen hemen tüm durumlarda güvenlidir ama buna rağmen, eğer "
+"çakışma oluşturacak bir sunucu yapılandırmanız olduğunu biliyorsanız veya "
+"sadece değişiklikleri kendiniz yapmak istiyorsanız, bunun seçimini kaldırın."
+
+#: inc/admin/content.php:2674
+msgid ""
+"Warning: This feature is known to cause conflicts with some server "
+"configurations."
+msgstr ""
+"Uyarı: Bu özelliğin bazı sunucu konfigürasyonları ile çakışmalara neden "
+"olduğu bilinmektedir."
+
+#: inc/admin/content.php:2679
+msgid "Reduce comment spam"
+msgstr "Spam yorumları azalt"
+
+#: inc/admin/content.php:2683
+msgid ""
+"This option will cut down on comment spam by denying comments from bots with "
+"no referrer or without a user-agent identified."
+msgstr ""
+"Bu seçenek, herhangi bir yönlendirmeye ve tanımlanan bir tarayıcı kimliğine "
+"sahip olmayan botların yorumlarını reddederek spam yorumları azaltacaktır."
+
+#: inc/admin/content.php:2684 inc/admin/content.php:2695
+msgid ""
+"Note this feature only applies if \"Write to WordPress core files\" is "
+"enabled."
+msgstr ""
+"Bu özelliğin sadece \"WordPress çekirdek dosyalarına yaz\" etkinse geçerli "
+"olacağını unutmayın."
+
+#: inc/admin/content.php:2690
+msgid "Remove write permissions from .htaccess and wp-config.php"
+msgstr ".htaccess ve wp-config.php için yazma izinlerini kaldır"
+
+#: inc/admin/content.php:2694
+msgid ""
+"Prevents scripts and users from being able to write to the wp-config.php "
+"file and .htaccess file. Note that in the case of this and many plugins this "
+"can be overcome however it still does make the files more secure. Turning "
+"this on will set the unix file permissions to 0444 on these files and "
+"turning it off will set the permissions to 0644."
+msgstr ""
+"Komutlar ve kullanıcıların wp-config.php ve .htaccess dosyalarına "
+"yazabilmlerini engeller. Bu ve birçok eklenti  söz konusu olduğunda bunun "
+"aşabileceğini unutmayın ancak o yine de dosyaları daha güvenli hale getirir. "
+"Bu açıldığında, dosyaların unix dosya izinleri 0444 olarak ve kapatıldığında "
+"ise izinleri 0644 olarak ayarlayacaktır."
+
+#: inc/admin/content.php:2701
+msgid "Display random version number to all non-administrative users"
+msgstr "Yönetici olmayan tüm kullanıcılar için rastgele sürüm numarası göster"
+
+#: inc/admin/content.php:2705
+msgid ""
+"Displays a random version number to visitors who are not logged in at all "
+"points where version number must be used and removes the version completely "
+"from where it can."
+msgstr ""
+"Giriş yapmayan ziyaretçiler için sürüm numarasının kullanılması gereken tüm "
+"noktalarda rastgele bir sürüm numarası görüntüler ve mümkün olduğunca her "
+"yerden sürümü tamamen kaldırır."
+
+#: inc/admin/content.php:2711
+msgid "Prevent long URL strings"
+msgstr "Uzun URL dizelerini önle"
+
+#: inc/admin/content.php:2715
+msgid ""
+"Limits the number of characters that can be sent in the URL. Hackers often "
+"take advantage of long URLs to try to inject information into your database."
+msgstr ""
+"URL içinde gönderilebilecek karakter sayısını sınırlar. Hacker'lar "
+"genellikle veritabanına bilgi eklemeyi denemek için uzun URL'lerden "
+"yararlanırlar."
+
+#: inc/admin/content.php:2721
+msgid "Turn off file editor in WordPress Back-end"
+msgstr "WordPress Arka alanında dosya editörünü kapat"
+
+#: inc/admin/content.php:2725
+msgid ""
+"Disables the file editor for plugins and themes requiring users to have "
+"access to the file system to modify files. Once activated you will need to "
+"manually edit theme and other files using a tool other than WordPress."
+msgstr ""
+"Kullanıcıların dosya sistemine erişim sağlamak ve dosyaları değiştirmek için "
+"ihtiyaç duydukları, eklentiler ve temalar için dosya editörünü devre dışı "
+"bırakır. Bir kez etkinleştirildiğinde, tema ve diğer dosyaları el ile "
+"düzenlemek için WordPress dışında bir araç kullanmanız gerekir."
+
+#: inc/admin/process.php:105 inc/admin/process.php:709
+msgid "Database Backup Completed."
+msgstr "Veritabanı Yedekleme Tamamlandı."
+
+#: inc/admin/process.php:128
+msgid "Database Backup Ignored."
+msgstr "Veritabanı Yedekleme Yok Sayıldı."
+
+#: inc/admin/process.php:147
+msgid "WordPress Core File Writing confirmed."
+msgstr "WordPress Çekirdek Dosyasına Yazma doğrulandı."
+
+#: inc/admin/process.php:170
+msgid "WordPress Core File Writing ignored."
+msgstr "WordPress Çekirdek Dosyasına Yazma yok sayıldı."
+
+#: inc/admin/process.php:193
+msgid "Site Secured."
+msgstr "Site Güvenli."
+
+#: inc/admin/process.php:211
+msgid "Settings Saved. Your website is now protected from most attacks."
+msgstr ""
+"Ayarlar Kaydedildi. Web siteniz artık pek çok saldırıya karşı korunmaktadır."
+
+#: inc/admin/process.php:220
+msgid ""
+"Initial configuration complete. Use the checklist below to enable additional "
+"features."
+msgstr ""
+"Başlangıç yapılandırması tamamlandı. Ek özellikleri etkinleştirmek için "
+"aşağıdaki kontrol listesini kullanın."
+
+#: inc/admin/process.php:235
+msgid ""
+"Successfully Changed admin Username. If you are logged in as admin you will "
+"have to log in again before continuing."
+msgstr ""
+"Admin Kullanıcı adı başarıyla değiştirildi. Eğer admin olarak oturum "
+"açtıysanız, devam etmeden önce tekrar giriş yapmanız gerekir."
+
+#: inc/admin/process.php:243
+msgid "You must enter a valid username. Please try again"
+msgstr "Geçerli bir kullanıcı adı girmelisiniz. Lütfen tekrar deneyin"
+
+#: inc/admin/process.php:255
+msgid " already exists. Please try again"
+msgstr " zaten var. Lütfen tekrar deneyin"
+
+#: inc/admin/process.php:278
+msgid " is not a valid username. Please try again"
+msgstr " geçerli bir kullanıcı adı değil. Lütfen tekrar deneyin"
+
+#: inc/admin/process.php:297
+msgid "Successfully Changed user 1 ID."
+msgstr "Kullanıcı 1 ID kimliği başarıyla değiştirildi."
+
+#: inc/admin/process.php:305
+msgid "User 1's ID was not changed. Please try again"
+msgstr "Kullanıcı 1 ID kimliği değişmedi. Lütfen tekrar deneyin"
+
+#: inc/admin/process.php:322 inc/admin/process.php:394
+#: inc/admin/process.php:581 inc/admin/process.php:620
+#: inc/admin/process.php:729 inc/admin/process.php:986
+#: inc/admin/process.php:1067 inc/admin/process.php:1295
+#: inc/admin/process.php:1447 inc/admin/process.php:1515
+msgid "Settings Saved"
+msgstr "Ayarlar Kaydedildi"
+
+#: inc/admin/process.php:339
+msgid "The ending date must be after the current date."
+msgstr "Bitiş tarihi mevcut tarihden sonra gelmelidir."
+
+#: inc/admin/process.php:351
+msgid ""
+"Your current settings would lock you out 24 hours a day. Please make sure "
+"start and end times differ."
+msgstr ""
+"Geçerli ayarlarınız sizi 24 saat kilitleyebilir. Başlangıç ve bitiş saatleri "
+"farkından emin olun."
+
+#: inc/admin/process.php:373 inc/admin/process.php:1276
+#: inc/admin/process.php:1469 inc/admin/process.php:1561
+msgid ""
+"Settings Saved. You will have to manually add code to your wp-config.php "
+"file See the Better WP Security Dashboard for the code you will need."
+msgstr ""
+"Ayarlar Kaydedildi. wp-config.php dosyanıza kodu el ile eklemeniz "
+"gerekecektir. İhtiyacınız olan kod için Better WP Security Yönetim paneline "
+"bakın."
+
+#: inc/admin/process.php:512
+msgid "You cannot ban yourself. Please try again."
+msgstr "Kendinizi yasaklayamazsınız. Lütfen tekrar deneyin."
+
+#: inc/admin/process.php:537
+msgid " is not a valid user agent. Please try again."
+msgstr " geçerli bir tarayıcı kimliği değildir. Lütfen tekrar deneyin."
+
+#: inc/admin/process.php:555 inc/admin/process.php:594
+#: inc/admin/process.php:1018 inc/admin/process.php:1496
+#: inc/admin/process.php:1588
+msgid "Settings Saved."
+msgstr "Ayarlar Kaydedildi."
+
+#: inc/admin/process.php:561 inc/admin/process.php:600
+#: inc/admin/process.php:1024 inc/admin/process.php:1489
+#: inc/admin/process.php:1581
+msgid ""
+"Settings Saved. You will have to manually add rewrite rules to your "
+"configuration. See the Better WP Security Dashboard for a list of the "
+"rewrite rules you will need."
+msgstr ""
+"Ayarlar Kaydedildi. Yeniden yazma kurallarını yapılandırmanıza el ile "
+"eklemeniz gerekecektir. İhtiyacınız olan yeniden yazma kuralları listesi "
+"için Better WP Security Yönetim paneline bakın."
+
+#: inc/admin/process.php:633
+msgid "Unable to rename the wp-content folder. Operation cancelled."
+msgstr "wp-content klasörü yeniden adlandırılamıyor. İşlem iptal edildi."
+
+#: inc/admin/process.php:748
+msgid ""
+"The email address you entered is not a valid email address. You must enter a "
+"valid email address."
+msgstr ""
+"Girdiğiniz eposta adresi geçerli bir eposta adresi değil. Geçerli bir eposta "
+"adresi girmelisiniz."
+
+#: inc/admin/process.php:810
+msgid "Database Prefix Changed"
+msgstr "Veritabanı Öneki Değiştirildi"
+
+#: inc/admin/process.php:853
+msgid "Error: Could not rename table "
+msgstr "Hata: Tablo yeniden adlandırılamadı"
+
+#: inc/admin/process.php:853
+msgid ". You may have to rename the table manually."
+msgstr ". Tabloyu el ile yeniden adlandırmanız gerekebilir."
+
+#: inc/admin/process.php:890
+msgid "Could not update prefix refences in options tables."
+msgstr "options tablolarının öneki referansları güncellenemedi."
+
+#: inc/admin/process.php:911
+msgid "Could not update prefix refences in usermeta table."
+msgstr "usermeta tablolarının öneki referansları güncellenemedi."
+
+#: inc/admin/process.php:995
+msgid ""
+"You must enable permalinks in your WordPress settings for this feature to "
+"work."
+msgstr ""
+"Bu özelliğin çalışması için WordPress ayarlarından kalıcı bağlantıları "
+"etkinleştirmeniz gerekir."
+
+#: inc/admin/process.php:1045
+msgid "File Check Complete."
+msgstr "Dosya Kontrolü Tamamlandı."
+
+#: inc/admin/process.php:1093
+msgid ""
+"The email address you entered for the file check email is not a valid email "
+"address. You must enter a valid email address."
+msgstr ""
+"Dosya kontrol epostası için girdiğiniz eposta adresi geçerli bir eposta "
+"adresi değil. Geçerli bir eposta adresi girmelisiniz."
+
+#: inc/admin/process.php:1107
+msgid ""
+"The email address you entered for the detect 404 email is not a valid email "
+"address. You must enter a valid email address."
+msgstr ""
+"404 algılama epostası için girdiğiniz eposta adresi geçerli bir eposta "
+"adresi değil. Geçerli bir eposta adresi girmelisiniz."
+
+#: inc/admin/process.php:1129 inc/admin/process.php:1328
+msgid "Lockout time period needs to be aan integer greater than 0."
+msgstr "Kilitleme süresi 0'dan daha büyük bir tam sayı olmalıdır."
+
+#: inc/admin/process.php:1140 inc/admin/process.php:1339
+msgid "Login time period needs to be aan integer greater than 0."
+msgstr "Oturum açma süresi 0'dan daha büyük bir tam sayı olmalıdır."
+
+#: inc/admin/process.php:1151
+msgid "The error threshold needs to be aan integer greater than 0."
+msgstr "Hata alt sınırı 0'dan daha büyük bir tam sayı olmalıdır."
+
+#: inc/admin/process.php:1317
+msgid ""
+"The email address you entered for lockout notifications is not a valid email "
+"address. You must enter a valid email address."
+msgstr ""
+"Kilitlenme bildirimleri için girdiğiniz eposta adresi geçerli bir epostası "
+"adresi değil. Geçerli bir eposta adresi girmelisiniz."
+
+#: inc/admin/process.php:1350
+msgid "Max login attempts per host needs to be aan integer greater than 0."
+msgstr ""
+"Ana bilgisayar başına maksimum oturum açma girişimleri 0'dan daha büyük bir "
+"tam sayı olmalıdır."
+
+#: inc/admin/process.php:1361
+msgid "Max login attempts per user needs to be aan integer greater than 0."
+msgstr ""
+"Kullanıcı başına maksimum oturum açma girişimleri 0'dan daha büyük bir tam "
+"sayı olmalıdır."
+
+#: inc/admin/process.php:1383
+msgid "The selected records have been cleared."
+msgstr "Seçilen kayıtlar temizlendi."
+
+#: inc/admin/process.php:1412
+msgid "The selected lockouts have been cleared."
+msgstr "Seçilen kilitlenmeler temizlendi."
+
+#: inc/admin/process.php:1483 inc/admin/process.php:1575
+msgid ""
+"Settings Saved. You will have to manually add rewrite rules and wp-config."
+"php code to your configuration. See the Better WP Security Dashboard for a "
+"list of the rewrite rules  and wp-config.php code you will need."
+msgstr ""
+"Ayarlar Kaydedildi. Yapılandırmanıza yeniden yazma kuralları ve wp-config."
+"php kodunu el ile eklemeniz gerekecektir. İhtiyacınız olan yeniden yazma "
+"kuralları listesi ve wp-config.php kodu için Better WP Security Yönetim "
+"paneline bakın."
+
+#: inc/admin/tables.php:40
+msgid ""
+"The following is a list of 404 errors found on your site with the last time "
+"the error was encountered, the relative url, the referrer (if applicable), "
+"and the number of times the error was encountered given last."
+msgstr ""
+"Aşağıdakiler, hatanın en son saptandığı zaman, ilgili url, yönlendirme (eğer "
+"uygunsa) ve en son verildiğinden beri hataya kaç defa rastlandığı ile "
+"birlikte sitenizde bulunan 404 hatalarının bir listesidir."
+
+#: inc/admin/tables.php:56
+msgid "Last Found"
+msgstr "Son Bulunan"
+
+#: inc/admin/tables.php:57 inc/admin/tables.php:302
+msgid "Host"
+msgstr "Ana bilgisayar"
+
+#: inc/admin/tables.php:58
+msgid "URI"
+msgstr "URI"
+
+#: inc/admin/tables.php:59
+msgid "Referrer"
+msgstr "Referans"
+
+#: inc/admin/tables.php:60
+msgid "Count"
+msgstr "Sayım"
+
+#: inc/admin/tables.php:284
+msgid "The following is a log of all lockouts in the system."
+msgstr "Aşağıdaki, sistemdeki tüm kilitlenmelerin bir günlüğüdür."
+
+#: inc/admin/tables.php:300 inc/admin/tables.php:470 inc/admin/tables.php:674
+msgid "Time"
+msgstr "Zaman"
+
+#: inc/admin/tables.php:301
+msgid "Reason"
+msgstr "Sebep"
+
+#: inc/admin/tables.php:303
+msgid "User"
+msgstr "Kullanıcı"
+
+#: inc/admin/tables.php:454
+msgid "The following is a log of all file changes seen by the system."
+msgstr ""
+"Aşağıdaki, sistem tarafından görülen tüm dosya değişikliklerinin bir "
+"günlüğüdür."
+
+#: inc/admin/tables.php:471
+msgid "Added"
+msgstr "Eklenen"
+
+#: inc/admin/tables.php:472
+msgid "Deleted"
+msgstr "Silinen"
+
+#: inc/admin/tables.php:473 inc/filecheck.php:379 inc/filecheck.php:401
+#: inc/filecheck.php:423
+msgid "Modified"
+msgstr "Değiştirilen"
+
+#: inc/admin/tables.php:474
+msgid "Details"
+msgstr "Detaylar"
+
+#: inc/admin/tables.php:475
+msgid "Memory Used"
+msgstr "Kullanılan Bellek"
+
+#: inc/admin/tables.php:543
+msgid "View Details"
+msgstr "Detayları Görüntüle"
+
+#: inc/admin/tables.php:658
+msgid ""
+"The following is a list of all bad logins to your site along with the "
+"username attempted."
+msgstr ""
+"Aşağıdakiler, girişimde bulunan kullanıcı adı ile birlikte sitenize gelen "
+"tüm kötü girişlerin bir listesidir."
+
+#: inc/admin/tables.php:675
+msgid "Username Attempted"
+msgstr "Kullanıcı adı Girişimi"
+
+#: inc/admin/tables.php:819 inc/filecheck.php:375
+msgid "Files Added"
+msgstr "Eklenen Dosyalar"
+
+#: inc/admin/tables.php:835 inc/admin/tables.php:993 inc/admin/tables.php:1151
+#: inc/filecheck.php:378 inc/filecheck.php:400 inc/filecheck.php:422
+msgid "File"
+msgstr "Dosya"
+
+#: inc/admin/tables.php:836 inc/admin/tables.php:994 inc/admin/tables.php:1152
+msgid "modified"
+msgstr "değiştirilmiş"
+
+#: inc/admin/tables.php:837 inc/admin/tables.php:995 inc/admin/tables.php:1153
+msgid "hash"
+msgstr "hash"
+
+#: inc/admin/tables.php:977
+msgid "Files Removed"
+msgstr "Kaldırılan Dosyalar"
+
+#: inc/admin/tables.php:1135 inc/filecheck.php:419
+msgid "Files Modified"
+msgstr "Değiştirilen Dosyalar"
+
+#: inc/auth.php:39
+msgid ""
+"<strong>ERROR</strong>: We are sorry , your ability to login has been "
+"suspended due to too many recent failed login attempts. Please try again "
+"later."
+msgstr ""
+"<strong>HATA</strong>: Üzgünüz, giriş yapma izniniz çok fazla başarısız "
+"oturum açma girişimi nedeniyle askıya alındı. Lütfen daha sonra tekrar "
+"deneyin."
+
+#: inc/auth.php:49
+msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
+msgstr "<strong>HATA</strong>: Geçersiz kullanıcı adı veya yanlış şifre."
+
+#: inc/backup.php:155
+msgid "Site Database Backup"
+msgstr "Site Veritabanı Yedekleme"
+
+#: inc/backup.php:157
+msgid "Attached is the backup file for the database powering"
+msgstr "Ekteki, veritabanı içeriği için yedek dosyasıdır"
+
+#: inc/backup.php:157
+msgid " taken"
+msgstr " alınan"
+
+#: inc/filecheck.php:328
+msgid "WordPress File Change Warning"
+msgstr "WordPress Dosya Değiştirme Uyarısı"
+
+#: inc/filecheck.php:331
+msgid "<p>A file (or files) on your site at "
+msgstr "<p>Sitenizdeki bir dosya (veya dosyalar) "
+
+#: inc/filecheck.php:331
+msgid ""
+" have been changed. Please review the report below to verify changes are not "
+"the result of a compromise."
+msgstr ""
+" üzerinde değiştirildi. Değişikliklerin bir tehlike olmadığını doğrulamak "
+"için aşağıdaki raporu gözden geçirin."
+
+#: inc/filecheck.php:367
+msgid "Scan Time:"
+msgstr "Tarama Zamanı:"
+
+#: inc/filecheck.php:368
+msgid "Files Added:"
+msgstr "Eklenen Dosyalar:"
+
+#: inc/filecheck.php:369
+msgid "Files Deleted:"
+msgstr "Silinen Dosyalar:"
+
+#: inc/filecheck.php:370
+msgid "Files Modified:"
+msgstr "Değiştirilen Dosyalar:"
+
+#: inc/filecheck.php:371
+msgid "Memory Used:"
+msgstr "Kullanılan Bellek:"
+
+#: inc/filecheck.php:380 inc/filecheck.php:402 inc/filecheck.php:424
+msgid "File Hash"
+msgstr "Dosya Hash"
+
+#: inc/filecheck.php:392
+msgid "No files were added."
+msgstr "Hiçbir dosya eklenmedi."
+
+#: inc/filecheck.php:397
+msgid "Files Deleted"
+msgstr "Dosyalar Silindi"
+
+#: inc/filecheck.php:414
+msgid "No files were removed."
+msgstr "Hiçbir dosya kaldırılmadı."
+
+#: inc/filecheck.php:436
+msgid "No files were changed."
+msgstr "Hiçbir dosya değiştirilmedi."
+
+#: inc/filecheck.php:545
+msgid ""
+"Better WP Security has noticed a change to some files in your WordPress "
+"installation. Please review the logs to make sure your system has not been "
+"compromised."
+msgstr ""
+"Better WP Security WordPress kurulumunuzda bazı dosyalar için değişiklik "
+"fark etti. Sisteminizin tehlikede olmadığından emin olmak için günlükleri "
+"gözden geçirin."
+
+#: inc/filecheck.php:545
+msgid "Dismiss Warning"
+msgstr "Uyarıyı Yok say"
+
+#: inc/secure.php:593
+msgid "Site Lockout Notification"
+msgstr "Site Kilitleme Bildirimi"
+
+#: inc/secure.php:598
+msgid "too many login attempts."
+msgstr "çok fazla oturum açma girişimleri."
+
+#: inc/secure.php:602
+msgid "too many attempts to open a file that does not exist."
+msgstr "var olmayan bir dosyayı açmak için çok fazla deneme."
+
+#: inc/secure.php:609
+msgid "WordPress user"
+msgstr "WordPress kullanıcısı"
+
+#: inc/secure.php:609
+msgid "at host, "
+msgstr "ana bilgisayarı, "
+
+#: inc/secure.php:613
+msgid "host"
+msgstr "ana bilgisayar"
+
+#: inc/secure.php:613
+msgid "you can check the host at "
+msgstr "ana bilgisayarı buradan kontrol edebilirsiniz "
+
+#: inc/secure.php:623
+msgid "parmanently"
+msgstr "kalıcı olarak"
+
+#: inc/secure.php:627
+msgid "A "
+msgstr "Bir "
+
+#: inc/secure.php:627
+msgid "has been locked out of the WordPress site at"
+msgstr "WordPress sitesi üzerinden kilitlendi"
+
+#: inc/secure.php:627
+msgid "due to "
+msgstr "bu sebeple "
+
+#: inc/secure.php:627
+msgid " You may login to the site to manually release the lock if necessary."
+msgstr ""
+" Eğer gerekliyse, kilidi el ile açmak için siteye giriş yapabilirsiniz."
+
+#: inc/secure.php:857
+msgid "error"
+msgstr "hata"
+
+#: inc/secure.php:1034
+msgid ""
+"<strong>ERROR</strong>: You MUST Choose a password that rates at least "
+"<em>Strong</em> on the meter. Your setting have NOT been saved."
+msgstr ""
+"<strong>HATA</strong>: Mutlaka ölçüm bölümü üzerinde <em>Güçlü</em> "
+"seviyesinde bir şifre Seçmek ZORUNDASINIZ. Ayarlarınız KAYDEDİLMEDİ."
+
+#: inc/secure.php:1102
+msgid "Sorry, but you must enter a strong password"
+msgstr "Üzgünüz, ancak güçlü bir şifre girmelisiniz"
+
+#: inc/setup.php:89
+msgid ""
+"<strong>ERROR</strong>: You must activate this plugin from the network "
+"dashboard."
+msgstr ""
+"<strong>HATA</strong>: Bu eklentiyi ağ yönetim panelinden etkinleştirmeniz "
+"gerekir."
+
+#: lib/bit51/bit51.php:98
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: lib/bit51/bit51.php:337
+msgid "Need Help?"
+msgstr "Yardım?"
+
+#: lib/bit51/bit51.php:359
+msgid "No news items, feed might be broken..."
+msgstr "Herhangi bir haber öğesi yok, besleme bozuk olabilir..."
+
+#: lib/bit51/bit51.php:375
+msgid "The Latest from Bit51"
+msgstr "Bit51 üzerindeki son gelişmeler"
+
+#: lib/bit51/bit51.php:387
+msgid ""
+"Have you found this plugin useful? Please help support it's continued "
+"development with a donation of $20, $50, or $100!"
+msgstr ""
+"Bu eklentiyi yararlı buldunuz mu? Gelişiminin devam etmesini desteklemek "
+"için 20$, 50$ veya 100$ bağış ile yardım edin!"
+
+#: lib/bit51/bit51.php:391
+msgid "Short on funds?"
+msgstr "Paraya sıkışık mısınız?"
+
+#: lib/bit51/bit51.php:395
+msgid "Rate"
+msgstr "-"
+
+#: lib/bit51/bit51.php:395
+msgid " 5★'s on WordPress.org"
+msgstr " için WordPress.org üzerinde 5★ oy verin"
+
+#: lib/bit51/bit51.php:397
+msgid "Talk about it on your site and link back to the "
+msgstr "Sitenizde onun hakkında yazı yazın ve "
+
+#: lib/bit51/bit51.php:397
+msgid "plugin page."
+msgstr "eklenti sayfasına bağlantı verin."
+
+#: lib/bit51/bit51.php:399
+msgid "Tweet about it. "
+msgstr "Hakkında Tweetleyin."
+
+#: lib/bit51/bit51.php:403 lib/bit51/bit51.php:467
+msgid "Support This Plugin"
+msgstr "Bu Eklentiyi Destekleyin"
+
+#: lib/bit51/bit51.php:417
+msgid "Like Bit51 on Facebook"
+msgstr "Facebook'da Bit51'ı Beğenin"
+
+#: lib/bit51/bit51.php:419
+msgid "Follow Bit51 on Twitter"
+msgstr "Twitter'da Bit51'ı Takip edin"
+
+#: lib/bit51/bit51.php:421
+msgid "Circle Bit51 on Google+"
+msgstr "Google+'da Bit51'ı Ekleyin"
+
+#: lib/bit51/bit51.php:423
+msgid "Subscribe with RSS or Email"
+msgstr "RSS veya Eposta ile Abone olun"
+
+#: lib/bit51/bit51.php:427
+msgid "Bit51 on the Web"
+msgstr "Web üzerinde Bit51"
+
+#: lib/bit51/bit51.php:467
+msgid "It looks like you've been enjoying"
+msgstr "Keyif almış gibi görünüyorsunuz"
+
+#: lib/bit51/bit51.php:467
+msgid ""
+"for at least 30 days. Would you consider a small donation to help support "
+"continued development of the plugin?"
+msgstr ""
+"en az 30 gün süreyle. Eklentinin sürekli gelişimine yardımcı olmak için "
+"küçük bir bağış yapmayı düşünür müsünüz?"
+
+#: lib/bit51/bit51.php:467
+msgid "Rate it 5★'s"
+msgstr "Onu 5★ ile Oyla"
+
+#: lib/bit51/bit51.php:467
+msgid "Tell Your Followers"
+msgstr "Takipçilerine söyle"
+
+#: lib/bit51/bit51.php:467
+msgid "Don't Bug Me Again"
+msgstr "Beni Tekrar Rahatsız Etme"
+
+#. Plugin Name of the plugin/theme
+msgid "Better WP Security"
+msgstr "Better WP Security"
+
+#. Plugin URI of the plugin/theme
+msgid "http://bit51.com/software/better-wp-security/"
+msgstr "http://bit51.com/software/better-wp-security/"
+
+#. Description of the plugin/theme
+msgid ""
+"Helps protect your Wordpress installation from attackers. Hardens standard "
+"Wordpress security by hiding vital areas of your site, protecting access to "
+"important files via htaccess, preventing brute-force login attempts, "
+"detecting attack attempts, and more."
+msgstr ""
+"Saldırılara karşı Wordpress kurulumunuzun korunmasına yardımcı olur. "
+"Sitenizin hayati alanlarını gizleyerek, htaccess üzerinden önemli dosyalara "
+"erişimi güven altına alarak, brute-force oturum açma girişimlerini "
+"önleyerek, saldırı girişimlerini algılayarak ve diğer özellikleri ile "
+"birlikte standart Wordpress güvenliğini güçlendirir."
+
+#. Author of the plugin/theme
+msgid "Bit51.com"
+msgstr "Bit51.com"
+
+#. Author URI of the plugin/theme
+msgid "http://bit51.com"
+msgstr "http://bit51.com"
