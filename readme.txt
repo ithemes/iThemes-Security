@@ -154,6 +154,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 == Changelog ==
 
 = Dev =
+* Integrate with Foo Plugins support system
 * Fixed role translation call for Strong password enforcement
 * Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
 * Random version number no longer strips unrelated GET variables for better compatibility
