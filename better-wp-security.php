@@ -166,7 +166,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 				new bwps_setup( 'activate', true );
 			}
 			
-		}	
+		}
 		
 	}
 	

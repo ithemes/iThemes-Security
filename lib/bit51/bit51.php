@@ -6,6 +6,8 @@
  * Thanks to Yoast (http://www.yoast.com), W3 Total Cache and Ozh Richard (http://planetozh.com) for a lot of the inspiration and some code snipets used in the rewrite of this plugin. Many of the ideas for this class as well as some of the functions of it's functions and the associated CSS are borrowed from the work of these great developers (I don't think anything is verbatim but some is close as I didn't feel it necessary to reinvent the wheel, in particular with regards to admin page layout).
  */
 
+require_once( plugin_dir_path( __FILE__ ) . 'foolic_validation_v1_1.php' );
+
 if ( ! class_exists( 'Bit51' ) ) {
 
 	abstract class Bit51 {
@@ -312,6 +314,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 						<div class="metabox-holder">	
 							<div class="meta-box-sortables">
 								<?php
+									do_action( 'bit51_metaboxes', $this->hook );
 									$this->donate();
 									$this->support();
 									$this->news(); 
@@ -331,10 +334,45 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 *
 		 **/
 		function support() {
+
+			add_filter( 'foolic_validation_include_css-' . $this->hook, array( &$this, 'include_foolic_css' ) );
+			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', $this->hook );
 		
-			$content = __('If you need help getting this plugin or have found a bug please visit the <a href="' . $this->supportpage . '" target="_blank">support forums</a>.', $this->hook);
-			
-			$this->postbox( 'bit51support', __( 'Need Help?', $this->hook ), $content ); //execute as postbox
+			$purchase_url = 'http://fooplugins.com/plugins/better-wp-security/';
+
+			$data = apply_filters( 'foolic_get_validation_data-' . $this->hook, false );
+
+			if ( $data === false ) {
+				return;
+			}
+
+			if ( $data['valid'] === 'valid' ) {
+
+				$content = '<label for="support_subject">Subject:</label><input class="regular-text" id="support_subject" /><br />';
+				$content .= '<label for="support_body">Message:</label><textarea style="height:200px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_body"></textarea>';
+				$content .= '<label for="support_license">License:</label><input class="regular-text" id="support_license" /><br />';
+				$content .= '<label for="support_license">Other Info:</label><input class="regular-text" id="support_license" value="'. home_url() .'" /><br />';
+				$content .= '<input type="button" value="' . __( 'Submit Support Ticket', $this->hook ) . '" />';
+				$content .= '<br /><a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase priority support', $this->hook ) . '</a>';
+				$content .= ' | <a href="#newkey" class="foolic-clear-' . $this->hook . '">' . __( 'Enter License Key', $this->hook ) . '</a>';
+				$content .= $data['nonce'];
+
+			} else {
+
+				$content = '<strong>' . __( 'Need help urgently?', $this->hook ). ' <a target="_blank" href="' . $purchase_url .'">' . __( 'Purchase priority support', $this->hook ) . '</a>.</strong>';
+				$content .= $data['html'];
+
+			}
+
+			$content .= '<script type="text/javascript">
+							jQuery( function( $ ) {
+								$( document ).bind( "foolic-cleared-' . $this->hook . ' foolic-validated-' . $this->hook . '", function() {
+									window.location.reload();
+								} );
+							} );
+						</script>';
+
+			$this->postbox( 'prioritysupport', __( 'Priority Support' , $this->hook ), $content ); //setup the postbox
 			
 		}
 		
@@ -506,6 +544,10 @@ if ( ! class_exists( 'Bit51' ) ) {
 				
 			}
 			
+		}
+
+		function include_foolic_css( $screen ) {
+			return $screen->id === 'toplevel_page_better-wp-security';
 		}
 		
 	}
