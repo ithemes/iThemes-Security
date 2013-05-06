@@ -11,8 +11,17 @@ require_once( plugin_dir_path( __FILE__ ) . 'foolic_validation_v1_1.php' );
 if ( ! class_exists( 'Bit51' ) ) {
 
 	abstract class Bit51 {
-	
+
 		var $feed = 'http://bit51.com/feed'; //current address of Bit51.com feed
+
+		/**
+		 * Runs any init code needed
+		 *
+		 **/
+		function init() {
+			add_filter( 'foolic_validation_include_css-' . $this->hook, array( &$this, 'include_foolic_css' ) );
+			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', $this->hook );
+		}
 	
 		/**
 		 * Register admin javascripts (only for plugin admin page)
@@ -335,9 +344,6 @@ if ( ! class_exists( 'Bit51' ) ) {
 		 **/
 		function support() {
 
-			add_filter( 'foolic_validation_include_css-' . $this->hook, array( &$this, 'include_foolic_css' ) );
-			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', $this->hook );
-		
 			$purchase_url = 'http://fooplugins.com/plugins/better-wp-security/';
 
 			$data = apply_filters( 'foolic_get_validation_data-' . $this->hook, false );
@@ -350,7 +356,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 
 				$content = '<label for="support_subject">Subject:</label><input class="regular-text" id="support_subject" /><br />';
 				$content .= '<label for="support_body">Message:</label><textarea style="height:200px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_body"></textarea>';
-				$content .= '<label for="support_license">License:</label><input class="regular-text" id="support_license" /><br />';
+				$content .= '<label for="support_license">License:</label><input class="regular-text" id="support_license" value="' . $data['license'] . '" /><br />';
 				$content .= '<label for="support_license">Other Info:</label><input class="regular-text" id="support_license" value="'. home_url() .'" /><br />';
 				$content .= '<input type="button" value="' . __( 'Submit Support Ticket', $this->hook ) . '" />';
 				$content .= '<br /><a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase priority support', $this->hook ) . '</a>';
