@@ -165,7 +165,8 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			if ( $bwpsdata['version'] != $this->pluginversion || get_option( 'BWPS_options' ) != false ) {
 				new bwps_setup( 'activate', true );
 			}
-			
+
+			parent::init();
 		}
 		
 	}
