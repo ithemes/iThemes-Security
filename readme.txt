@@ -159,6 +159,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
 * Random version number no longer strips unrelated GET variables for better compatibility
 * Upgrading no longer automatically rewrites .htaccess and wp-config resulting in much improved reliability
+* Fixed possible error when login fails and PHP is set to report errors to screen
 
 = 3.4.10 =
 * Replaced feed with standard WordPress feed

@@ -17,7 +17,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			$data = base64_decode( $HTTP_RAW_POST_DATA );
 
 			if ( $data ) {
-				$unserialized_data = unserialize( $data );
+				$unserialized_data = @unserialize( $data );
 				if ( isset( $unserialized_data['iwp_action'] ) ) {
 					$iwp_action = $unserialized_data['iwp_action'];
 				}
