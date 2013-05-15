@@ -22,6 +22,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 		function init() {
 			add_filter( 'foolic_validation_include_css-' . $this->hook, array( &$this, 'include_foolic_css' ) );
 			add_filter( 'foolic_validation_input_type-' . $this->hook, array( &$this, 'change_foolic_input_type' ) );
+			add_filter( 'foolic_validation_input_size-' . $this->hook, array( &$this, 'change_foolic_input_size' ) );
 			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', $this->hook );
 			add_action('wp_ajax_' . $this->hook . '_support', array($this, 'ajax_submit_ticket'));
 		}
@@ -372,7 +373,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 
 			} else {
 
-				$content = '<strong>' . __( 'Need help urgently?', $this->hook ). ' <a target="_blank" href="' . $purchase_url .'">' . __( 'Purchase priority support', $this->hook ) . '</a>.</strong>';
+				$content = '<strong>' . __( 'Need professional support?', $this->hook ). '<br /><a target="_blank" href="' . $purchase_url .'">' . __( 'Purchase priority support', $this->hook ) . '</a>.</strong>';
 				$content .= $data['html'];
 
 			}
@@ -587,6 +588,10 @@ if ( ! class_exists( 'Bit51' ) ) {
 
 		function change_foolic_input_type() {
 			return 'text';
+		}
+
+		function change_foolic_input_size() {
+			return '29';
 		}
 
 		function ajax_submit_ticket() {
