@@ -43,7 +43,9 @@ if (!class_exists('foolic_validation_v1_1')) {
 				}
 			}
 			$input_id = $this->plugin_slug . '_licensekey';
-			$input = '<input class="foolic-input foolic-input-' . $this->plugin_slug . '' . ($valid !== false ? ($valid=='valid' ? ' foolic-valid' : ' foolic-invalid') : '') . '" type="password" id="' . $input_id . '" name="' . $this->plugin_slug . '[license]" value="' . $license . '" />';
+			$input_type = apply_filters('foolic_validation_input_type-'.$this->plugin_slug, 'password');
+			$input_size = apply_filters('foolic_validation_input_size-'.$this->plugin_slug, '40');
+			$input = '<input size="'. $input_size . '" class="foolic-input foolic-input-' . $this->plugin_slug . '' . ($valid !== false ? ($valid=='valid' ? ' foolic-valid' : ' foolic-invalid') : '') . '" type="' . $input_type . '" id="' . $input_id . '" name="' . $this->plugin_slug . '[license]" value="' . $license . '" />';
 			$button = '<input class="foolic-check foolic-check-' . $this->plugin_slug . '" type="button" name="foolic-check-' . $this->plugin_slug . '" value="' . __('Validate', $this->plugin_slug) . '" />';
 			$nonce = '<span style="display:none" class="foolic-nonce-' . $this->plugin_slug . '">' . wp_create_nonce($this->plugin_slug . '_foolic-ajax-nonce') . '</span>';
 			if ($valid == 'expired') {
@@ -78,7 +80,7 @@ if (!class_exists('foolic_validation_v1_1')) {
 		cursor: pointer;
 	}
 
-	input.foolic-input.foolic-loading {
+	.foolic-loading {
 		background-image: url(data:image/gif;base64,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);
 		background-repeat: no-repeat;
 		background-position: right center;
@@ -180,7 +182,9 @@ if (!class_exists('foolic_validation_v1_1')) {
 				$message.html(message).show();
 				$input.addClass(data.response.valid ? 'foolic-valid' : 'foolic-invalid');
 				<?php echo $namespace; ?>.set_validity(data.response.valid, data.expires, nonce);
-				$(document).trigger('foolic-validated-<?php echo $this->plugin_slug; ?>');
+				if (data.response.valid) {
+					$(document).trigger('foolic-validated-<?php echo $this->plugin_slug; ?>');
+				}
 			},
 			error: function (a, b, c) {
 				$message.html('Something went wrong when trying to validate your license. The error was : ' + a.responseText).show();
