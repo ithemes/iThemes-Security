@@ -612,12 +612,18 @@ if ( ! class_exists( 'Bit51' ) ) {
 				<tr><td>' . __('Name', $this->hook) . '</td><td>' . $current_user->display_name . '</td></tr>
 				</table>';
 
+				add_filter( 'wp_mail_content_type', array($this, 'set_html_content_type' ) );
 				wp_mail(
 					$this->support_email,
 					__('Better WP Security Support Ticket', $this->hook),
 					$message
 				);
+				remove_filter( 'wp_mail_content_type', array($this, 'set_html_content_type' ) ); // reset content-type to to avoid conflicts
 			}
+		}
+
+		function set_html_content_type() {
+			return 'text/html';
 		}
 	}
 	
