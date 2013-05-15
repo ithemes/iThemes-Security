@@ -89,7 +89,7 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 					for( $j=0; $j < $num_fields; $j++ ) {
 							
 						$row[$j] = addslashes( $row[$j] );
-						$row[$j] = ereg_replace( PHP_EOL, "\n", $row[$j] );
+						$row[$j] = preg_replace( PHP_EOL, "\n", $row[$j] );
 								
 						if ( isset( $row[$j] ) ) { 
 							$return .= '"' . $row[$j] . '"' ; 
