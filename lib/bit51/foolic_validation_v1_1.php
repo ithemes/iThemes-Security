@@ -34,7 +34,7 @@ if (!class_exists('foolic_validation_v1_1')) {
 		}
 
 		function get_validation_data() {
-			$default_text = __( 'Enter your license key here', $this->hook );
+			$default_text = __( 'Enter your license key here', $this->plugin_slug );
 			if ( get_option( $this->plugin_slug . '_licensekey' ) === false || get_option( $this->plugin_slug . '_licensekey' ) === $default_text ) {
 				$license = $default_text;
 				$onClick = ' onblur="if(this.value == \'\') { this.value=\'' . $default_text . '\'}" onfocus="if (this.value == \'' . $default_text . '\') {this.value=\'\'}"';
