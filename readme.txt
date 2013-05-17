@@ -2,10 +2,10 @@
 === Better WP Security ===
 Contributors: Bit51
 Donate link: http://bit51.com/software/better-wp-security/
-Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL
-Requires at least: 3.4
-Tested up to: 3.5.1
-Stable tag: 3.4.10
+Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
+Requires at least: 3.5
+Tested up to: 3.6
+Stable tag: 3.5
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -86,13 +86,15 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * Tagalog by <a href="http://pointen.dk/">Hanne</a>
 * Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
 
-Note I have removed all translations that were not compatible with version 3+. Please let me know if you would like to add a translation.
+Please <A href="http://bit51.com/contact" target="_blank">let us know</a> if you would like to contribute a translation.
 
 = Warning =
 
 Please read the installation instructions and FAQ before installing this plugin. It makes some significant changes to your database and other site files which, without a proper backup, can cause problems if something goes wrong. While problems are rare, most (not all) support requests I get for this plugin involve the users failure to make a proper backup before installing.
 
 == Installation ==
+
+Don't want to configure Better WP Security yourself but still want to make sure your site is secure as possible? <a href="http://fooplugins.com/plugins/better-wp-security/" target="_blank">Purchase premium installation and configuration for Better WP Security</a>
 
 1. Backup your Wordpress database, config file, and .htaccess file
 2. Upload the zip file to the `/wp-content/plugins/` directory
@@ -142,7 +144,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * define('FORCE_SSL_ADMIN', true);
 
 = Where can I get help if something goes wrong? =
-* As I do not have a support staff and this plugin is one of many projects I am involved with I do not guarantee support at all. There is no warranty and if something goes wrong I make no promise of assistance. That said, I do my best to check the WordPress.org support forums every 2 -3 days and  respond to all queries. I will not answer any support requests sent to me through any other method.
+* Free support is available by reading the <a href="http://bit51.com/software/better-wp-security/" target="_blank">plugin documentation</a> or may be available with the help of the community in the <a href="http://wordpress.org/support/plugin/better-wp-security" target="_blank">WordPress.org support forums</a> (this is community provided support as Bit51 does not monitor the WordPress.org support forums). If you need more formal support you can <a href="http://fooplugins.com/plugins/better-wp-security/" target="_blank">purchase a premium support ticket</a> on a per-incident basis.
 
 == Screenshots ==
 
@@ -153,7 +155,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 == Changelog ==
 
-= Dev =
+= 3.5 =
 * Integrate with Foo Plugins support system
 * Fixed role translation call for Strong password enforcement
 * Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>

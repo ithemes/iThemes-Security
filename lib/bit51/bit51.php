@@ -328,8 +328,8 @@ if ( ! class_exists( 'Bit51' ) ) {
 							<div class="meta-box-sortables">
 								<?php
 									do_action( 'bit51_metaboxes', $this->hook );
-									$this->donate();
 									$this->support();
+									$this->donate();
 									$this->news(); 
 									$this->social();
 								?>
@@ -373,7 +373,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 
 			} else {
 
-				$content = '<strong>' . __( 'Need professional support?', $this->hook ). '<br /><a target="_blank" href="' . $purchase_url .'">' . __( 'Purchase priority support', $this->hook ) . '</a>.</strong>';
+				$content = '<strong>' . __( 'Need premium support or configuration?', $this->hook ). '<br /><br /><a target="_blank" href="' . $purchase_url .'">' . __( 'Purchase one-time premium support or installation', $this->hook ) . '</a>.</strong><br /><br />';
 				$content .= $data['html'];
 
 			}
@@ -408,7 +408,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 							} );
 						</script>';
 
-			$this->postbox( 'prioritysupport', __( 'Priority Support' , $this->hook ), $content ); //setup the postbox
+			$this->postbox( 'prioritysupport', __( 'Premium Support' , $this->hook ), $content ); //setup the postbox
 			
 		}
 		
