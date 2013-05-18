@@ -13,7 +13,7 @@ if ( ! class_exists( 'Bit51' ) ) {
 	abstract class Bit51 {
 
 		var $feed = 'http://bit51.com/feed'; //current address of Bit51.com feed
-		var $support_email = 'support@bit51.com'; //current email address of Bit51.com support
+		var $support_email = 'support.bwps@fooplugins.com'; //current email address of Bit51.com support
 
 		/**
 		 * Runs any init code needed
