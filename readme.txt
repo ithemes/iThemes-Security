@@ -155,7 +155,10 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 == Changelog ==
 
-== 3.5.1 ==
+= Dev =
+* Correct Changelog not displaying correctly on WordPress.org after version 3.5.1
+
+= 3.5.1 =
 * Replaced Turkish language version lost in when tagging 3.5 in the WordPress.org repository
 * Solved a conflict with other Bit51 plugins that use the common Bit51 class
 
