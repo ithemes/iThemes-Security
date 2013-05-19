@@ -8,9 +8,9 @@
 
 require_once( plugin_dir_path( __FILE__ ) . 'foolic_validation_v1_1.php' );
 
-if ( ! class_exists( 'Bit51' ) ) {
+if ( ! class_exists( 'Bit51Foo' ) ) {
 
-	abstract class Bit51 {
+	abstract class Bit51Foo {
 
 		var $feed = 'http://bit51.com/feed'; //current address of Bit51.com feed
 		var $support_email = 'support.bwps@fooplugins.com'; //current email address of Bit51.com support
