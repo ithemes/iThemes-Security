@@ -1,0 +1,2561 @@
+# This file is distributed under the same license as the Better WP Security package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Better WP Security Dev\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
+"POT-Creation-Date: 2010-01-10 23:42+0330\n"
+"PO-Revision-Date: 2013-05-25 01:21+0330\n"
+"Last-Translator: SCUDELLER Eric <eric@sceric.net>\n"
+"Language-Team: Eric <eric@sceric.net>\n"
+"Language: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: C:\\wamp\\www\\wordpress\\wp-content\\plugins\\better-wp-security\n"
+"X-Poedit-SearchPath-0: C:\\wamp\\www\\wordpress\\wp-content\\plugins\\better-wp-security\n"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/auth.php:39
+msgid "<strong>ERROR</strong>: We are sorry , your ability to login has been suspended due to too many recent failed login attempts. Please try again later."
+msgstr "<strong>اخطار </strong>: متاسفیم، شما بیش از حد تلاش کردید تا وارد شوید، لطفا بعدا تلاش کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/auth.php:49
+msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
+msgstr "<strong>اخطار</strong>: رمز یا نام کاربری اشتباه است"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/backup.php:155
+msgid "Site Database Backup"
+msgstr "بک آپ پایگاه داده سایت "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/backup.php:157
+msgid "Attached is the backup file for the database powering"
+msgstr "نسخه پشتیبان تهیه فایل های پیوست شده برای پایگاه داده فعال"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/backup.php:157
+msgid " taken"
+msgstr "انجام شده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:328
+msgid "WordPress File Change Warning"
+msgstr "تغییر فایل های هشدار وردپرس"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:331
+msgid "<p>A file (or files) on your site at "
+msgstr "<p>یک فایل(فایل ها) در سایت شما در "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:331
+msgid " have been changed. Please review the report below to verify changes are not the result of a compromise."
+msgstr "تغییر کرده. لطفا بررسی کنید گزارش زیر را برای اصلاح تغییرات که با نتایج ناسازگارند. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:367
+msgid "Scan Time:"
+msgstr "زمان اسکن: "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:368
+msgid "Files Added:"
+msgstr "فایل های اضافه شده: "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:369
+msgid "Files Deleted:"
+msgstr "فایل های حذف شده: "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:370
+msgid "Files Modified:"
+msgstr "فایل های اصلاح شده:"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:371
+msgid "Memory Used:"
+msgstr "حافظه مورد استفاده: "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:375
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:820
+msgid "Files Added"
+msgstr "فایل های اضافه شده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:378
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:400
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:422
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:836
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:994
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:1152
+msgid "File"
+msgstr "فایل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:379
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:401
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:423
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:474
+msgid "Modified"
+msgstr "تغییر "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:380
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:402
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:424
+msgid "File Hash"
+msgstr "ردیابی فایل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:392
+msgid "No files were added."
+msgstr "فایلی اضافه نشد"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:397
+msgid "Files Deleted"
+msgstr "فایل ها حذف شد"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:414
+msgid "No files were removed."
+msgstr "فایلی حذف نشده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:419
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:1136
+msgid "Files Modified"
+msgstr "فایل های اصلاح شدند"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:436
+msgid "No files were changed."
+msgstr "فایلی تغییر نکرده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:545
+msgid "Better WP Security has noticed a change to some files in your WordPress installation. Please review the logs to make sure your system has not been compromised."
+msgstr "افزونه متوجه برخی تغییرات در برخی فایل ها در نصب وردپرس شما شده . لطفا بررسی کنید تا مطمئن شوید سیستم شما در خطر نیست."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:545
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:187
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:188
+msgid "View Logs"
+msgstr "مشاهده وقایع"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/filecheck.php:545
+msgid "Dismiss Warning"
+msgstr "چشمپوشی از هشدار"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:661
+msgid "Site Lockout Notification"
+msgstr "هشدار از طریق مسدود کردن سایت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:666
+msgid "too many login attempts."
+msgstr "تلاش های زیاد برای ورود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:670
+msgid "too many attempts to open a file that does not exist."
+msgstr "تلاش های زیاد برای از کردن فایل وجود ندارد"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:677
+msgid "WordPress user"
+msgstr "کاربر وردپرس "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:677
+msgid "at host, "
+msgstr "در میزبان، "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:681
+msgid "host"
+msgstr "میزبان"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:681
+msgid "you can check the host at "
+msgstr "شما می توانید میزبان را چک کنید در "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:687
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1594
+msgid "until"
+msgstr "au"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:691
+msgid "parmanently"
+msgstr "برای همیشه "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:695
+msgid "A "
+msgstr "A "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:695
+msgid "has been locked out of the WordPress site at"
+msgstr "وردپرس مسدود شده در "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:695
+msgid "due to "
+msgstr "به دلیل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:695
+msgid " You may login to the site to manually release the lock if necessary."
+msgstr "شما می توانید وارد مدیریت سایت شوید و بصورت دستی قفل را غیر فعال کنید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:927
+msgid "error"
+msgstr "خطا"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:1104
+msgid "<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved."
+msgstr "<strong>اخطار</strong>: شما باید رمزی انتخاب کنید که حداقل<em>پیچیده  باشد </em>.تنظیمات شما ذخیره نشد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/secure.php:1172
+msgid "Sorry, but you must enter a strong password"
+msgstr "متاسفیم، شما باید رمز قوی انتخاب کنید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/setup.php:89
+msgid "<strong>ERROR</strong>: You must activate this plugin from the network dashboard."
+msgstr "<strong>اخطار:</strong> شما باید این افزونه را در شبکه فعال کنید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:30
+msgid "Dashboard0"
+msgstr "پیشخوان "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:31
+msgid "User"
+msgstr "کاربران"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:32
+msgid "Away"
+msgstr "Away"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:33
+msgid "Ban"
+msgstr "مسدودسازی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:34
+msgid "Dir"
+msgstr "مسیر "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:35
+msgid "Backup"
+msgstr "بک آپ"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:36
+msgid "Prefix"
+msgstr "پیشوند جداول"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:37
+msgid "Hide"
+msgstr "مخفی سازی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:38
+msgid "Detect"
+msgstr "تشخیص ها"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:39
+msgid "Login"
+msgstr "ورودی ها"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:40
+msgid "SSL0"
+msgstr "SSL"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:41
+msgid "Tweaks"
+msgstr "بهینه سازی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:42
+msgid "Logs"
+msgstr "وقایع"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:68
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:198
+msgid "Dashboard"
+msgstr "پیشخوان"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:69
+msgid "Security"
+msgstr "امنیت برتر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:80
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:275
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:286
+msgid "Change Admin User"
+msgstr "تغییر مدیریت کاربر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:81
+msgid "Admin User"
+msgstr "مدیریت کاربر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:89
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:90
+msgid "Away Mode"
+msgstr "حالت مداوم"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:98
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:99
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:328
+msgid "Ban Users"
+msgstr "ممنوعیت کاربران"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:109
+msgid "Change Content Directory"
+msgstr "تغییر دایرکتوری مطالب و محتوا"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:110
+msgid "Content Directory"
+msgstr "دایرکتوری مطالب و محتوا"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:120
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:368
+msgid "Backup WordPress Database"
+msgstr "بک آپ گیری از داتابیس وردپرس"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:121
+msgid "Database Backup"
+msgstr "بک آپ گیری از پایگاه داده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:131
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:389
+msgid "Change Database Prefix"
+msgstr "تغییر پیشوند پایگاه داده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:132
+msgid "Database Prefix"
+msgstr "پیشوند پایگاه داده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:142
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:143
+msgid "Hide Backend"
+msgstr "پنهان کردن بخش مدیریت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:151
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:152
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:430
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:434
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:443
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:446
+msgid "Intrusion Detection"
+msgstr "تشخیص نفوذ به حریم"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:160
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:465
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:468
+msgid "Limit Login Attempts"
+msgstr "محدود کردن تلاش برای ورود به سایت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:161
+msgid "Login Limits"
+msgstr "محدودیت های ورود"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:169
+msgid "Secure Communications With SSL"
+msgstr "SSLارتباط امن با "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:170
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:484
+msgid "SSL"
+msgstr "SSL"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:178
+msgid "WordPress System Tweaks"
+msgstr "ترفندهای سیستم وردپرس"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:179
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:507
+msgid "System Tweaks"
+msgstr "ترفندهای سیستم"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:217
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:219
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:231
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:242
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:253
+msgid "System Status"
+msgstr "وضعیت سیستم"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:220
+msgid "System Information"
+msgstr "اطلاعات سیستم"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:221
+msgid "Rewrite Rules"
+msgstr "بازنویسی قوانین"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:222
+msgid "Wp-config.php Code"
+msgstr "کد Wp-config.php"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:233
+msgid "One-Click Protection"
+msgstr "حفاظت تنها با یک کلیک"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:244
+msgid "Important"
+msgstr "مهم"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:255
+msgid "Welcome!"
+msgstr "خوش آمدید!"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:277
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:288
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:310
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:330
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:351
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:370
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:391
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:410
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:432
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:445
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:467
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:486
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:506
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:526
+msgid "Before You Begin"
+msgstr "قبل از اینکه شروع کنید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:278
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:289
+msgid "Change The Admin User Name"
+msgstr "(admin)تغییر نام کاربری مدیر "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:279
+msgid "Change The Admin User ID"
+msgstr "تغییر شناسه کاربری مدیر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:308
+msgid "Administor Away Mode"
+msgstr "حالت مداوم مدیریت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:311
+msgid "Away Mode Options"
+msgstr "اختیارات حالت مداوم"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:312
+msgid "Away Mode Rules"
+msgstr "قانون عدم مدیریت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:331
+msgid "User and Bot Blacklist"
+msgstr "لیست سیاه برای کاربران و ربات ها"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:332
+msgid "Banned Users Configuration"
+msgstr "پیکربندی کاربران محروم شده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:349
+msgid "Change wp-content Directory"
+msgstr "تغییر دایرکتوری فایل wp-محتوا"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:352
+msgid "Change The wp-content Directory"
+msgstr "تغییر دایرکتوری فایل wp-محتوا"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:371
+msgid "Backup Your WordPress Database"
+msgstr "پشتیبان از پایگاه داده وردپرس شما"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:372
+msgid "Schedule Automated Backups"
+msgstr "برنامه زمانبندی پشتیبان گیری خودکار"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:373
+msgid "Backup Information"
+msgstr "اطلاعات پشتیبان گیری"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:392
+msgid "Change The Database Prefix"
+msgstr "تغییر پیشوند پایگاه داده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:408
+msgid "Hide WordPress Backend"
+msgstr "مخفی کردن بخش مدیریت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:411
+msgid "Hide Backend Options"
+msgstr "مخفی کردن گزینه های بخش مدیریت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:412
+msgid "Secret Key"
+msgstr "کلید امنیتی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:433
+msgid "Check For File Changes"
+msgstr "بررسی برای تغییرات فایل"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:487
+msgid "SSL Options"
+msgstr "SSLاختیارات "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:504
+msgid "Various Security Tweaks"
+msgstr "بهینه سازی های مختلف امنیتی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:524
+msgid "Better WP Security Logs"
+msgstr "وقایع امنیتی بهتر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:527
+msgid "Clean Database"
+msgstr "پاک کردن پایگاه داده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:528
+msgid "Current Lockouts"
+msgstr "تحریم های فعلی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:529
+msgid "404 Errors"
+msgstr "خطای404 "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:530
+msgid "Bad Login Attempts"
+msgstr "تلاش برای ورود ناموفق"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:531
+msgid "All Lockouts"
+msgstr "همه تحریم ها"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:532
+msgid "Changed Files"
+msgstr "فایل های تغییر یافته"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:546
+msgid "Welcome to Better WP Security!"
+msgstr "به  امنیت برتر وردپرس خوش آمدید!"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:547
+msgid "Before we begin it is extremely important that you make a backup of your database. This will make sure you can get your site back to the way it is right now should something go wrong. Click the button below to make a backup which will be emailed to the website administrator at "
+msgstr "قبل از اینکه شروع کنید حتما یک نسخه پشتیبان از پایگاه داده خود ذخیره کنید.با این کار شما قادر خواهید بود که اگر مشکلی برای سایت شما پیش آمد بتوانید آن را برگردانید. با کلیک بر روی گزینه زیر، از سایت خود پشتیبان بگیرید که به مدیر سایت ایمیل خواهد شد در "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:551
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1765
+msgid "Create Database Backup"
+msgstr "تهیه پشتیبان از پایگاه داده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:556
+msgid "No, thanks. I already have a backup"
+msgstr "نه ، متشکرم. من یک نسخه پشتیبان دارم"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:567
+msgid "Just one more question:"
+msgstr "فقط یک سوال دیگر:"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:568
+msgid "Better WP Security can automatically write to WordPress core files for you (wp-config.php and .htaccess). This saves time and prevents you from having to edit code yourself. While this is safe to do in nearly all systems it can, on some server configurations, cause problems. For this reason, before continuing, you have the option to allow this plugin to write to wp-config.php and .htaccess or not."
+msgstr "افزونه (امنیت برتر) بصورت خودکار فایل های هسته وردپرس را برای شما می نویسد. این باعث صرفه جویی در زمان و مانع ویرایش کد توسط شما است. در حالی که بیخطر است و در کلیه سیستم ها می تواند استفاده شود. شما باید اجازه نوشتن روی این فایل ها را به این افزونه بدهید: wp-config.php .htaccessتوجه داشته باشید که این اختیارات ممکن است باعث تغییرات بعدی در منوی سیستم ترفندها در این پلاگین شود.علاوه بر این ، غیر فعال کردن نوشتنی بودن فایل می تواند از ویژگی هایی مانند تغییر دایرکتوری و پیشوند پایگاه داده جلوگیری کند. در نهایت بیاد داشته باشید که هیچ مشکلی در اجازه دادن به این افزونه برای ویرایش فایل های شما در اکثر موارد وجود ندارد. با این حال اگر ترجیح می دهید فایل ها را خودتان ویرایش کنید این گزینه رو توصیه می کنیم انتخاب کنید \"اجازه ویرایش فایل های هسته وردپرس را به افزونه نمی دهم.\""
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:569
+msgid "Note, that this option can be changed later in the \"System Tweaks\" menu of this plugin. In addition, disabling file writes here will prevent this plugin from activation features such as changing the wp-content directory and changing the database prefix."
+msgstr "توجه داشته باشید که این اختیارات ممکن است باعث تغییرات بعدی در منوی سیستم ترفندها در این پلاگین شود.علاوه بر این ، غیر فعال کردن نوشتنی بودن فایل می تواند از ویژگی هایی مانند تغییر دایرکتوری و پیشوند پایگاه داده جلوگیری کند. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:570
+msgid "Finally, please remember that in nearly all cases there is no issue with allowing this plugin to edit your files. However if you know your have a unique server setup or simply would rather edit these files yourself I would recommend selecting \"Do not allow this plugin to change WordPress core files.\""
+msgstr "در نهایت بیاد داشته باشید که هیچ مشکلی در اجازه دادن به این افزونه برای ویرایش فایل های شما در اکثر موارد وجود ندارد.با این حال اگر ترجیح می دهید فایل ها را خودتان ویرایش کنید این گزینه رو توصیه می کنیم انتخاب کنید \"اجازه ویرایش فایل های هسته وردپرس را به افزونه نمی دهم.\""
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:574
+msgid "Allow this plugin to change WordPress core files"
+msgstr "اجازه دهید به این افزونه برای تغییر فایلهای هسته ی وردپرس "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:579
+msgid "Do not allow this plugin to change WordPress core files."
+msgstr "به این افزونه برای تغییر در فایل هسته وردپرس اجازه نمی دهید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:596
+msgid "The button below will turn on all the basic features of Better WP Security which will help automatically protect your site from potential attacks. Please note that it will NOT automatically activate any features which may interfere with other plugins, themes, or content on your site. As such, not all the items in the status will turn green by using the \"Secure My Site From Basic Attacks\" button. The idea is to activate basic features in one-click so you don't have to worry about it."
+msgstr "دکمه زیر تمام ویژگی های افزونه رو فعال میکند که بصورت خودکار از سایت شما محافظت می کند توجه داشته باشید که اگر بصورت خودکار آن را فعال کنید شاید با برخی افزونه ها تداخل داشته باشد . تمام گزینه هایی که برنگ سبز نیستند با کلیک بر روی  \"ایمن کن سایت من را از حملات عمومی\"تبدیل به سبز می شوند.پس تمام ویژگی های افزونه \"فقط با یک کلیک\", فعال می شوند و نیاز به نگرانی نیست."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:597
+msgid "Please note this will not make any changes to any files on your site including .htaccess and wp-config.php."
+msgstr "توجه داشته باشید که تغییری در این فایل ها در سایت شما لازم نیست [.htaccess] و [wp-config.php]."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:598
+msgid "Secure My Site From Basic Attacks"
+msgstr "سایت من را از حملات عمومی ایمن کن"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:604
+msgid "No thanks, I prefer to do configure everything myself."
+msgstr "نه ممنونم، من ترجیح می دهم انجام پیکربندی را خودم انجام دهم."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:623
+msgid "You are enforcing strong passwords for all users."
+msgstr "شما در حال ایجاد کلمات عبور قوی برای تمام کاربران هستید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:625
+msgid "You are enforcing strong passwords, but not for all users."
+msgstr "شما در حال ایجاد کلمات عبور قوی هستید اما نه برای تمام کاربران .."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:625
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:627
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:635
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:637
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:645
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:647
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:677
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:684
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:691
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:698
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:705
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:713
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:715
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:722
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:736
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:743
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:750
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:757
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:764
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:771
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:787
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:789
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:794
+msgid "Click here to fix."
+msgstr "برای تعمیر و ثبات اینجا را کلیک کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:627
+msgid "You are not enforcing strong passwords."
+msgstr "شما در حال ایجاد کلمات عبور قوی نیستید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:633
+msgid "Your WordPress header is revealing as little information as possible."
+msgstr "هدر وردپرس شما بعنوان اطلاعاتی کم ممکن است آشکار باشد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:635
+msgid "Your WordPress header is still revealing some information to users."
+msgstr "هدر وردپرس شما هنوز برخی از اطلاعات را برای کاربران شما آشکار می کند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:637
+msgid "Your WordPress header is showing too much information to users."
+msgstr "هدر وردپرس شما در حال نشان دادن اطلاعات بیش از حد به کاربران است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:643
+msgid "Non-administrators cannot see available updates."
+msgstr "افراد غیر از مدیر سایت نمی توانند بروزرسانی های در دسترس را مشاهده کنند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:645
+msgid "Non-administrators can see some updates."
+msgstr "افراد غیر از مدیر نمی توانند برخی از بروزرسانی ها را ببینند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:647
+msgid "Non-administrators can see all updates."
+msgstr "افراد غیر از مدیر می توانند همه بروزرسانی ها را مشاهده کنند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:652
+msgid "The <em>admin</em> user still exists."
+msgstr "<em> مدیر </em> کاربر هنوز هم وجود دارد. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:652
+msgid "Click here to rename admin."
+msgstr "برای تغییر نام  کاربری مدیر کلیک کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:654
+msgid "The <em>admin</em> user has been removed."
+msgstr " <em>مدیر </em> کاربر حذف شد. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:659
+msgid "A user with id 1 still exists."
+msgstr "کاربر با شناسه 1 هنوز هم وجود دارد. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:659
+msgid "Click here to change user 1's ID."
+msgstr "برای تغییر شناسه کاربر 1 اینجا را کلیک کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:661
+msgid "The user with id 1 has been removed."
+msgstr "کاربر با شناسه (آی دی) 1 حذف شده است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:667
+msgid "Your table prefix should not be "
+msgstr "پیشوند جدول شما نباید "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:667
+msgid "Click here to rename it."
+msgstr "برای تغییر نام آن کلیک کنید "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:669
+msgid "Your table prefix is"
+msgstr "پیشوند جدول شما "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:675
+msgid "You have scheduled regular backups of your WordPress database."
+msgstr "شما پشتیبان گیری از پایگاه داده وردپرس خود را بطور منظم برنامه ریزی کردید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:677
+msgid "You are not scheduling regular backups of your WordPress database."
+msgstr "شما پشتیبان گیری از پایگاه داده وردپرس خود را بطور منظم برنامه ریزی نمی کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:682
+msgid "Your WordPress admin area is not available when you will not be needing it."
+msgstr "ناحیه مدیر وردپرس شما در دسترس نیست زمانی که شما به آن نیاز ندارید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:684
+msgid "Your WordPress admin area is available 24/7. Do you really update 24 hours a day?"
+msgstr "ناحیه مدیر وردپرس شما در دسترس است 24/7.آیا واقعا می خواهید در 24 ساعت بروز باشد؟"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:689
+msgid "You are blocking known bad hosts and agents with HackRepair.com's blacklist."
+msgstr "HackRepair.com شما در حال مسدود کردن عوامل و میزبان ناشناخته هستید با لیست سیاه هک ریپر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:691
+msgid "You are not blocking known bad hosts and agents with HackRepair.com's blacklist?"
+msgstr "HackRepair.com شما در حال مسدود کردن عوامل و میزبان شناخته هستید با لیست سیاه هک ریپر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:696
+msgid "Your login area is protected from brute force attacks."
+msgstr "حوزه ورود به سیستم شما از حملات نیروهای مخرب محافظت می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:698
+msgid "Your login area is not protected from brute force attacks."
+msgstr "حوزه ورود به سیستم شما از حملات نیروهای مخرب محافظت نمی شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:703
+msgid "Your WordPress admin area is hidden."
+msgstr "حوزه مدیر وردپرس شما پنهان است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:705
+msgid "Your WordPress admin area is not hidden."
+msgstr "حوزه مدیر وردپرس شما پنهان نیست."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:711
+msgid "Your .htaccess file is fully secured."
+msgstr " شما بطور کامل ایمن شد..htaccess  فایل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:713
+msgid "Your .htaccess file is partially secured."
+msgstr " شما تا حدی ایمن شد..htaccess  فایل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:715
+msgid "Your .htaccess file is NOT secured."
+msgstr " شما ایمن نشد..htaccess  فایل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:720
+msgid "Your installation is actively blocking attackers trying to scan your site for vulnerabilities."
+msgstr "نصب و راه اندازی شما در برابر مسدود کردن هکر ها و اسکن سایت شما فعال است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:722
+msgid "Your installation is not actively blocking attackers trying to scan your site for vulnerabilities."
+msgstr "نصب و راه اندازی شما در برابر مسدود کردن هکر ها و اسکن سایت شما فعال نیست."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:727
+msgid "Your installation is actively looking for changed files."
+msgstr "نصب و راه اندازی شما برای تغییر فایل ها فعال است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:736
+msgid "Your installation is not actively looking for changed files."
+msgstr "نصب و راه اندازی شما برای تغییر فایل ها فعال نیست."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:741
+msgid "Your installation does not accept long URLs."
+msgstr "نصب و راه اندازی شما اختصاص آدرسهای طولانی را قبول نمی کند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:743
+msgid "Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities."
+msgstr "نصب و راه اندازی شما آدرس های طولانی (بیش از 255 کاراکتر) را می پذیرد. این می تواند منجر به آسیب پذیری شود.."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:748
+msgid "You are not allowing users to edit theme and plugin files from the WordPress backend."
+msgstr "شما به کاربران اجازه ویرایش تم و افزونه را از قسمت مدیریت وردپرس نمی دهید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:750
+msgid "You are allowing users to edit theme and plugin files from the WordPress backend."
+msgstr "شما به کاربران اجازه ویرایش تم و افزونه را از قسمت مدیریت وردپرس را می دهید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:755
+msgid "Better WP Security is allowed to write to wp-config.php and .htaccess."
+msgstr " wp-config.php    .htaccess. سیستم امنیت برتر وردپرس اجازه نوشتن در این فایل ها را می دهد"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:757
+msgid "Better WP Security is not allowed to write to wp-config.php and .htaccess."
+msgstr " wp-config.php    .htaccess. سیستم امنیت برتر وردپرس اجازه نوشتن در این فایل ها را نمی دهد"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:762
+msgid "wp-config.php and .htacess are not writeable."
+msgstr " قابل نوشتن نیستند.wp-config.php و .htacessفایل های "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:764
+msgid "wp-config.php and .htacess are writeable."
+msgstr " قابل نوشتن هستند.wp-config.php و .htacessفایل های "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:769
+msgid "Version information is obscured to all non admin users."
+msgstr "اطلاعات ورژن برای تمام کاربران بجز مدیر پنهان شده است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:771
+msgid "Users may still be able to get version information from various plugins and themes."
+msgstr "کاربران هنوز هم ممکن است قادر به گرفتن اطلاعات ورژن از پلاگین ها و تم های مختلف باشند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:777
+msgid "You have renamed the wp-content directory of your site."
+msgstr " سایت خود را تغییر دادید.wp-contentشما پوشه  "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:779
+msgid "You should rename the wp-content directory of your site."
+msgstr " سایت خود را تغییر دهید..wp-contentشما باید پوشه  "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:779
+msgid "Click here to do so."
+msgstr "برای انجام این کار اینجا را کلیک کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:785
+msgid "You are requiring a secure connection for logins and the admin area."
+msgstr "شما نیازمند ارتباط امن برای سطح مدیریت و ورود به سیستم هستید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:787
+msgid "You are requiring a secure connection for logins or the admin area but not both."
+msgstr "شما نیازمند ارتباط امن برای سطح مدیریت یا ورود  به سیستم اما نه هر دو هستید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:789
+msgid "You are not requiring a secure connection for logins or for the admin area."
+msgstr "شما نیازمند ارتباط امن برای سطح مدیریت یا ورود به سیستم نیستید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:794
+msgid "Notice: Some items are hidden as you are not allowing this plugin to write to core files."
+msgstr "توجه؛ برخی از موارد پنهان، به این سیستم امکان نوشتن روی فایل های هسته وردپرس را نمی دهند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:800
+msgid "Items in green are fully secured. Good Job!"
+msgstr "آیتم های به رنگ سبز بیانگر امنیت کامل است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:801
+msgid "Items in orange are partially secured. Turn on more options to fully secure these areas."
+msgstr "آیتم های به رنگ نارنجی بیانگر این است که تا حدی امنیت تامین شده. برای امنیت کامل اختبارات لازم مربوط به آنها را فعال کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:802
+msgid "Items in red are not secured. You should secure these items immediately"
+msgstr "آیتم های به رنگ قرمز یعنی امنیت نامناسب است. شما باید فوری نسبت به ایمن کردن آنها اقدام نمایید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:803
+msgid "Items in blue are not fully secured but may conflict with other themes, plugins, or the other operation of your site. Secure them if you can but if you cannot do not worry about them."
+msgstr "آیتم های آبی رنگ به معنای امنیت ناکافی است ولی ممکن است با برخی افزونه ها یا قالب های شما در تضاد باشد.اگر توانستید آنها را ایمن کنید و اگر نتوانستید، خیلی مهم نیست."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:820
+msgid "No rules have been generated. Turn on more features to see rewrite rules."
+msgstr "بدون قواعد ایجاد شده اند. فعال کردن ویژگی های بیشتر برای دیدن قوانین بازنویسی."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:855
+msgid "No rules have been generated. Turn on more features to see wp-content rules."
+msgstr "wp-contentبدون قواعد ایجاد شده اند. فعال کردن ویژگی های بیشتر برای دیدن قوانین ."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:876
+msgid "User Information"
+msgstr "اطلاعات کاربران"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:878
+msgid "Public IP Address"
+msgstr "آدرس های عمومی آی پی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:878
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:957
+msgid "Get more information on this address"
+msgstr "دریافت اطلاعات بیشتر در این آدرس"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:879
+msgid "User Agent"
+msgstr "عامل کاربر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:884
+msgid "File System Information"
+msgstr "سیستم اطلاعات فایل"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:886
+msgid "Website Root Folder"
+msgstr "Root پوشه ریشه وب سایت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:887
+msgid "Document Root Path"
+msgstr "Root مسیر پرونده ریشه"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:896
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:919
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1075
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1083
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1091
+msgid "Yes"
+msgstr "بله"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:902
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:925
+msgid "No."
+msgstr "خیر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:910
+msgid ".htaccess File is Writable"
+msgstr " قابل نوشتن است..htaccessفایل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:933
+msgid "wp-config.php File is Writable"
+msgstr " قابل نوشتن است.wp-config.phpفایل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:938
+msgid "Database Information"
+msgstr "اطلاعات پایگاه داده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:940
+msgid "MySQL Database Version"
+msgstr "نسخه پایگاه داده MySQL"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:941
+msgid "MySQL Client Version"
+msgstr "نسخه سفارش دهنده MySQL"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:942
+msgid "Database Host"
+msgstr "میزبان پایگاه داده "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:943
+msgid "Database Name"
+msgstr "نام پایگاه داده "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:944
+msgid "Database User"
+msgstr "نام کاربری پایگاه داده "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:947
+msgid "Not Set"
+msgstr "تنظیم نشده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:948
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:997
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1005
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1013
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1021
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1029
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1037
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1045
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1061
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1069
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2545
+msgid "Off"
+msgstr "خاموش "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:950
+msgid "SQL Mode"
+msgstr "SQL حالت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:955
+msgid "Server Information"
+msgstr "اطلاعات سرور"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:957
+msgid "Server / Website IP Address"
+msgstr "آدرس آی پی سرور یا سایت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:958
+msgid "Server Type"
+msgstr "نوع سرور"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:959
+msgid "Operating System"
+msgstr "سیستم عامل"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:960
+msgid "Browser Compression Supported"
+msgstr "پشتیبانی مرورگر "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:965
+msgid "PHP Information"
+msgstr "اطلاعات پی اچ پی "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:967
+msgid "PHP Version"
+msgstr "نسخه پی اچ پی "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:968
+msgid "PHP Memory Usage"
+msgstr "حافظه مورد استفاده پی اچ پی "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:968
+msgid " MB"
+msgstr "مگابایت "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:973
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:981
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:989
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1053
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:561
+msgid "N/A"
+msgstr "N / A"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:976
+msgid "PHP Memory Limit"
+msgstr "حد حافظه PHP"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:984
+msgid "PHP Max Upload Size"
+msgstr "حداکثر حجم آپلود پی اچ پی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:992
+msgid "PHP Max Post Size"
+msgstr "حداکثر حجم پست پی اچ پی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:995
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1003
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1011
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1019
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1027
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1035
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1043
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1059
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1067
+msgid "On"
+msgstr "روشن "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1000
+msgid "PHP Safe Mode"
+msgstr "حالت امن PHP"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1008
+msgid "PHP Allow URL fopen"
+msgstr "PHP allow_url_fopen"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1016
+msgid "PHP Allow URL Include"
+msgstr "PHP Allow URL Include"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1024
+msgid "PHP Display Errors"
+msgstr "نمایش خطاهای پی اچ پی "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1032
+msgid "PHP Display Startup Errors"
+msgstr "نمایش خطاهای راه اندازی پی اچ پی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1040
+msgid "PHP Expose PHP"
+msgstr "PHP Expose PHP"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1048
+msgid "PHP Register Globals"
+msgstr "PHP Register Globals"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1056
+msgid "PHP Max Script Execution Time"
+msgstr "PHP Max Script Execution time"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1056
+msgid "Seconds"
+msgstr "ثانیه "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1064
+msgid "PHP Magic Quotes GPC"
+msgstr "PHP magic_quotes_gpc"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1072
+msgid "PHP open_basedir"
+msgstr "PHP open_basedir"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1077
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1085
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1093
+msgid "No"
+msgstr "نه"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1080
+msgid "PHP XML Support"
+msgstr "PHP XML Support"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1088
+msgid "PHP IPTC Support"
+msgstr "PHP IPTC Support"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1096
+msgid "PHP Exif Support"
+msgstr "PHP Exif Support"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1101
+msgid "WordPress Configuration"
+msgstr "تنظیمات وردپرس"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1105
+msgid "Multisite is enabled"
+msgstr "حالت چند سایته فعال است "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1107
+msgid "Multisite is NOT enabled"
+msgstr "حالت چند سایته فعال نیست "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1110
+msgid "\tMultisite"
+msgstr "\t چند سایته"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1115
+msgid "Enabled"
+msgstr "فعال است"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1119
+msgid "WARNING! Permalinks are NOT Enabled. Permalinks MUST be enabled for Better WP Security to function correctly"
+msgstr "هشدار! یکتا فعال (پرملینک) فعال نیست.یکتا برای عملکرد صحیح سیستم امنیت برتر وردپرس باید فعال باشد"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1122
+msgid "WP Permalink Structure"
+msgstr "ساختار یکتا(پرملینک) وردپرس"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1123
+msgid "Wp-config Location"
+msgstr "Wp-configمحل قرار گیری "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1127
+msgid "Better WP Security variables"
+msgstr "متغیرهای بهتر امنیت وردپرس "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1131
+msgid "Not Yet Available. Enable Hide Backend mode to generate key."
+msgstr "امکانپذیر نیست.برای تولید کلید باید حالت پنهان کردن بخش مدیریت را فعال کنید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1136
+msgid "Hide Backend Key"
+msgstr "مخفی کردن کلید بخش مدیریت "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1137
+msgid "Better WP Build Version"
+msgstr "ساخت نسخه بهتر وردپرس "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1138
+msgid "Note: this is NOT the same as the version number on the plugins page and is instead used for support."
+msgstr "توجه: این همان تعداد نسخه در صفحه افزونه نیست و در عوض بجای پشتیبانی استفاده می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1151
+msgid "By default WordPress initially creates a username with the username of \"admin.\" This is insecure as this user has full rights to your WordPress system and a potential hacker already knows that it is there. All an attacker would need to do at that point is guess the password. Changing this username will force a potential attacker to have to guess both your username and your password which makes some attacks significantly more difficult."
+msgstr "وردپرس بطور پیش فرض یک نام کاربری با این نام ایجاد می کند \"admin\".این یک خطر برای سایت شما محسوب می شود چون هکران هم می دانند که نام کاربری ادمین است و فقط زحمت یافتن رمز را به خود می دهند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1152
+msgid "Note that this function will only work if you chose a username other than \"admin\" when installing WordPress."
+msgstr "توجه: این عمل زمانی کار می کند که شما موقع نصب وردپرس یک نام کاربری غیر از   ادمین(admin)   انتخاب کرده باشید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1169
+msgid "Enter Username"
+msgstr "نام کاربری را وارد نمایید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1174
+msgid "Enter a new username to replace \"admin.\" Please note that if you are logged in as admin you will have to log in again."
+msgstr "یک نام کاربری جدید وارد کنید تا جایگزین شود با  \"admin.\" توجه کنید که اگر بعنوان مدیر وارد شده اید نیاز دارید که بعد از اینکار دوباره وارد شوید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1178
+msgid "Chage Admin Username"
+msgstr "تغییر نام کاربری مدیر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1183
+msgid "Congratulations! You do not have a user named \"admin\" in your WordPress installation. No further action is available on this page."
+msgstr "تبریک ، شما نام کاربری با عنوان  \"admin\" ندارید. اقدامی دیگری در این صفحه وجود ندارد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1195
+msgid "If your admin user has and ID of \"1\" it is vulnerable to some attacks. You should change the ID of your admin user."
+msgstr "اگر کاربری مدیر آی دی  \"1\" دارد، آن را در برابر حملات آسیب پذیر می کند. شما باید آی دی مدیر را تغییر دهید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1199
+msgid "Change User 1 ID"
+msgstr "تغییر آی دی کاربر 1"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1204
+msgid "Congratulations! You do not have a user with ID 1 in your WordPress installation. No further action is available on this page."
+msgstr "تبریک، شما کاربری با آی دی 1 ندارید. اقدام دیگری برای انجام در این صفحه وجود ندارد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1215
+msgid "As many of us update our sites on a general schedule it is not always necessary to permit site access all of the time. The options below will disable the backend of the site for the specified period. This could also be useful to disable site access based on a schedule for classroom or other reasons."
+msgstr "همانطور که در بسیاری از زمانها ما برای بروزرسانی سایتمان با برنامه های عمومی هستیم نیاز به دسترسی به سایت همیشه نیست.اختیارات زیر اجازه دسترسی به سایت را برای دیگران برای مدت زمان خاص می گیرد.همچنین می تواند برای غیر فعال کردن دسترسی سایت را برای برنامه ای خاص مفید باشد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1223
+msgid "Please note that according to your"
+msgstr "لطفا توجه داشته باشید که با توجه به"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1223
+msgid "WordPress timezone settings"
+msgstr "تنظیمات ساعت وردپرس"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1223
+msgid "your local time is"
+msgstr "ساعت محلی شما "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1223
+msgid "If this is incorrect please correct it on the"
+msgstr "اگر این اشتباه است لطفا تصحیح آن را در"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1223
+msgid "WordPress general settings page"
+msgstr "تنظیمات عمومی صفحه "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1223
+msgid "by setting the appropriate time zone. Failure to do so may result in unintended lockouts."
+msgstr "تنظیم منطقه زمانی مناسب. عدم انجام این کار ممکن است باعث قفل ها و نتایج نامناسب شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1239
+msgid "Are you sure you want to enable away mode? Please check the local time (located at the top of this page) and verify the times set are correct to avoid locking yourself out of this site."
+msgstr "آیا مطمئن هستید می خواهید حالت away mode را فعال کنید؟.لطفا زمان محلی را بررسی کنید در بالای همین صفحه و بررسی کنید زمان صحیح برای جلوگیری از قفل سایت. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1288
+msgid "Enable Away Mode"
+msgstr "فعال کردن حالت Away Mode"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1292
+msgid "Check this box to enable away mode."
+msgstr "این گزینه را انتخاب کنید تا فعال شود حالت Away Mode"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1297
+msgid "Type of Restriction"
+msgstr "نوع محدودیت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1300
+msgid "Daily"
+msgstr "روزانه"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1301
+msgid "One Time"
+msgstr "در یک زمان "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1302
+msgid "Selecting <em>\"One Time\"</em> will lock out the backend of your site from the start date and time to the end date and time. Selecting <em>\"Daily\"</em> will ignore the start and and dates and will disable your site backend from the start time to the end time."
+msgstr "انتخاب  <em>\"در یک زمان \"</em>منع دسترسی را از زمان شروع تا پایان انتخاب کنید. انتخاب  <em>\"روزانه\"</em> تاریخ را نادیده می گیرد ولی از روز شروع تا پایان محاسبه می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1307
+msgid "Start Date"
+msgstr "تاریخ شروع"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1368
+msgid "Select the date at which access to the backend of this site will be disabled. Note that if <em>\"Daily\"</em> mode is selected this field will be ignored and access will be banned every day at the specified time."
+msgstr "تاریخی رو که از اون موقع سایت دسترسی سایت غیر فعال بشه رو انتخاب کنید. توجه داشته باشید که <em>\"روزانه \"</em> زمان رو نادیده می گیرد و فقط روز ها ی انتخابی رو مد نظر دارد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1374
+msgid "End Date"
+msgstr "تاریخ  پایان"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1429
+msgid "Select the date at which access to the backend of this site will be re-enabled. Note that if <em>\"Daily\"</em> mode is selected this field will be ignored and access will be banned every day at the specified time."
+msgstr "تاریخی رو که می خواهید در آن دسترسی به سایت دوباره فعال شود انتخاب کنید. توجه کنید که  \"روزانه \"  زمان رو نادیده می گیرد و فقط روز ها ی انتخابی رو مد نظر دارد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1435
+msgid "Start Time"
+msgstr "زمان شروع"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1491
+msgid "Select the time at which access to the backend of this site will be disabled. Note that if <em>\"Daily\"</em> mode is selected access will be banned every day at the specified time."
+msgstr "زمانی که می خواهید در آن دسترسی سایت غیر فعال شود را انتخاب کنید . توجه کنید که \"روزانه\"  زمان رو نادیده می گیرد و فقط روز ها ی انتخابی رو مد نظر دارد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1497
+msgid "End Time"
+msgstr "زمان پایان"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1547
+msgid "Select the time at which access to the backend of this site will be re-enabled. Note that if <em>\"Daily\"</em> mode is selected access will be banned every day at the specified time."
+msgstr "زمانی را که می خواهید در آن دسترسی سایت دوباره فعال شود را انتخاب کنید. توجه کنید که  \"روزانه \"  زمان رو نادیده می گیرد و فقط روز ها ی انتخابی رو مد نظر دارد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1552
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1687
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1728
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1832
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1987
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2321
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2571
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2652
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2690
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2727
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2762
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2843
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1568
+msgid "every day"
+msgstr "هر روز"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1582
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1583
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1587
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1588
+msgid " at "
+msgstr "در "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1594
+msgid "The backend (administrative section) of this site will be unavailable"
+msgstr "L'Espace d'Administration de ce site sera inaccessible"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1594
+msgid "from"
+msgstr "از "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1596
+msgid "Away mode is currently diabled"
+msgstr "حالت Away mode در حال حاضر غیرفعال است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1607
+msgid "This feature allows you to ban hosts and user agents from your site completely using individual or groups of IP addresses as well as user agents without having to manage any configuration of your server. Any IP or user agent found in the lists below will not be allowed any access to your site."
+msgstr "این قابلیت اجازه می دهید به شما برای ممنوعیت میزبان و کاربران سایت شما براساس آدرس آی پی بدون انجام هر گونه تغییر . "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1621
+msgid "As a getting-started point you can include the excellent blacklist developed by Jim Walker of <a href=\"http://hackrepair.com/blog/how-to-block-bots-from-seeing-your-website-bad-bots-and-drive-by-hacks-explained\" target=\"_blank\">HackRepair.com</a>."
+msgstr "برای شروع شما می توانید از لیست سیاه توسط جیم والکر در  <a href=\"http://hackrepair.com/blog/how-to-block-bots-from-seeing-your-website-bad-bots-and-drive-by-hacks-explained\" target=\"_blank\">HackRepair.com</a>.استفاده کنید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1625
+msgid "Enable Default Banned List"
+msgstr "فعال کردن پیش فرض لیست سیاه"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1629
+msgid "Check this box to enable HackRepair.com's blacklist feature."
+msgstr "برای فعال کردی لیست سیاه این گزینه را انتخاب کنید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1633
+msgid "Add Host and Agent Blacklist"
+msgstr "افزودن به لیست سیاه"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1651
+msgid "Enable Banned Users"
+msgstr "فعال کردن کاربران ممنوع شده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1655
+msgid "Check this box to enable the banned users feature."
+msgstr "برای فعال کردن ممنوعیت کاربران این گزینه را انتخاب کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1660
+msgid "Ban Hosts"
+msgstr "ممنوعیت میزبان"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1664
+msgid "Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself."
+msgstr "با استفاده از دستورالعمل های زیر برای وارد کردن میزبانی که می خواهید به سایت شما دسترسی نداشته باشد استفاده کنید. توجه کنید که شما خودتان را نمی توانید ممنوع کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1666
+msgid "You may ban users by individual IP address or IP address range."
+msgstr "شما می توانید کاربران با آدرس آی پی یا محدوده ای از آدرس های آی پی مسدود کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1667
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2138
+msgid "Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses."
+msgstr "آدرس های آی پی باید بشکل استاندارد IPV4 باشد (مثال. ###.###.###.###).از علامت  (*) برای مشخص کردن محدوده آی پی های خاص استفاده کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1668
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2139
+msgid "If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not."
+msgstr "اگر از علامت  (*)استفاده می کنید از سمت راست. مثال ، شما باید شروع کنید با تعداد  ###.###.###.* و ###.###.*.* درست است ولی نه این شکلی ###.###.*.### "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1669
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2140
+msgid "Lookup IP Address."
+msgstr "یافتن یک آدرس آی پی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1670
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2141
+msgid "Enter only 1 IP address or 1 IP address range per line."
+msgstr "در هر خط فقط یک آدرس آی پی وارد کنید "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1676
+msgid "Ban User Agents"
+msgstr "ممنوعیت مرورگرها "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1680
+msgid "Use the guidelines below to enter user agents that will not be allowed access to your site."
+msgstr "با استفاده از دستورالعمل های زیر برای ممنوع کردن دسترسی مرورگر کاربر به سایت شما."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1682
+msgid "Enter only 1 user agent per line."
+msgstr "در هر خط تنها یک مرورگر وارد کنید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1698
+msgid "By default WordPress puts all your content including images, plugins, themes, uploads, and more in a directory called \"wp-content\". This makes it easy to scan for vulnerable files on your WordPress installation as an attacker already knows where the vulnerable files will be at. As there are many plugins and themes with security vulnerabilities moving this folder can make it harder for an attacker to find problems with your site as scans of your site's file system will not produce any results."
+msgstr "وردپرس بصورت پیش فرض تمام افزونه ها، قالب ها و تصاویر را در پوشه پیش فرض  \"wp-content\" نگه داری میکند. این موجب آسیب پذیری سایت ما می شود چون هکرها می دانند که این اطلاعات در این پوشه است و کار خیلی سختی برای هک کردن ما نخواهند داشت. شما با تغییر این پوشه می توانید امکان هک سایت خود را به حداقل برسانید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1699
+msgid "Please note that changing the name of your wp-content directory on a site that already has images and other content referencing it will break your site. For that reason I highly recommend you do not try this on anything but a fresh WordPress install. In addition, this tool will not allow further changes to your wp-content folder once it has already been renamed in order to avoid accidently breaking a site later on. This includes uninstalling this plugin which will not revert the changes made by this page."
+msgstr "توجه داشته باشید که وقتی پوشه  \"wp-content\"  را تغییر نام می دهید، چون تصاویر و افزونه ها و قالب ها در این پوشه قرار داشته اند، ممکن است با مشکل روبرو شوید و مثلا تصاویری که در این پوشه بوده اند و هر جا از انها استفاده کرده اید نشان داده نخواهند شد چون آدرس پوشه تغییر کرده و باید با آدرس جدید آدرس دهی شود. و بیشتر این تغییر نام برای سایت هایی توصیه می شود که بتازگی نصب و افتتاح شده اند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1700
+msgid "Finally, changing the name of the wp-content directory may in fact break plugins and themes that have \"hard-coded\" it into their design rather than call it dynamically."
+msgstr "در نهایت تغییر نام پوشه  [wp-content] می تواند باعث توقف عملکرد افزونه ها ، قالب ها و تصاویر شود که\"hard-coded\" هستند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1701
+msgid "WARNING: BACKUP YOUR WORDPRESS INSTALLATION BEFORE USING THIS TOOL!"
+msgstr "هشدار: قبل از استفاده از این ابزار لطفا یک بک آپ از پایگاه داده خود تهیه کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1702
+msgid "RENAMING YOUR wp-content WILL BREAK LINKS ON A SITE WITH EXISTING CONTENT."
+msgstr "تغییر نام پوشه  wp-content ممکن است باعث مشکل در لینک ها که به فایل های موجود در این پوشه داده اید شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1719
+msgid "Directory Name"
+msgstr "نام مسیر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1724
+msgid "Enter a new directory name to replace \"wp-content.\" You may need to log in again after performing this operation."
+msgstr "یک مسیر جدید انتخاب کنید تا جایگزین شود با  \"wp-content.\" . بعد از این کار شما باید دوباره وارد سایت شوید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1738
+msgid "Congratulations! You have already renamed your \"wp-content\" directory."
+msgstr "تبریک، شما با موفقیت  \"wp-content\" .را تغییر نام دادید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1739
+msgid "Your current content directory is: "
+msgstr "مسیر فعلی شما : "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1740
+msgid "No further actions are available on this page."
+msgstr "هیچ اقدامی در این صفحه موجود نیست."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1751
+msgid "While this plugin goes a long way to helping secure your website nothing can give you a 100% guarantee that your site won't be the victim of an attack. When something goes wrong one of the easiest ways of getting your site back is to restore the database from a backup and replace the files with fresh ones. Use the button below to create a full backup of your database for this purpose. You can also schedule automated backups and download or delete previous backups."
+msgstr "اگر چه این افزونه به شما کمک می کند و تضمین 100%  برای جلوگیری از حملات به سایت شما ارائه می کند. . اگر مشکلی پیش آمد بهترین راه استفاده از نسخه پشتیبان و جایگزین کردن آن است.یا دکمه زیر می توانید یک نسخه پشتیبان از پایگاه داده خود تهیه کنید. همچنین می توانید با برنامه زمانبندی پشتیبان آنها را مدیریت کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1764
+msgid "Press the button below to create a backup of your WordPress database. If you have \"Send Backups By Email\" selected in automated backups you will receive an email containing the backup file."
+msgstr "دکمه زیر را برای ایجاد بک آپ از پایگاه داده خود فشار دهید. اگر انتخاب کنید \"ارسال بک آپ به ایمیل \" را ، بصورت خودکار نسخه ای از بک آپ به ایمیل شما ارسال می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1783
+msgid "Enable Scheduled Backups"
+msgstr "فعال کردن برنامه پشتیبان گیری"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1787
+msgid "Check this box to enable scheduled backups which will be emailed to the address below."
+msgstr "برای فعال کردن برنامه پشتیبانگیری ، این گزینه را انتخاب کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1792
+msgid "Backup Interval"
+msgstr "فاصله پشتیبان گیری"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1797
+msgid "Hours"
+msgstr "ساعت ها "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1798
+msgid "Days"
+msgstr "روزها "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1799
+msgid "Weeks"
+msgstr "هفته ها"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1801
+msgid "Select the frequency of automated backups."
+msgstr "انتخاب فرکانس (زمان بین پشتیبان گیری) پشتیبان گیری خودکار"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1806
+msgid "Send Backups by Email"
+msgstr "ارسال بک آپ به ایمیل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1810
+msgid "Email backups to the current site admin."
+msgstr "ایمیل برای ارسال بک آپ به مدیر فعلی سایت "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1815
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2074
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2180
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2313
+msgid "Email Address"
+msgstr "آدرس ایمیل"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1819
+msgid "The email address backups will be sent to."
+msgstr "بک آپ به این ایمیل ارسال می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1824
+msgid "Backups to Keep"
+msgstr "بک آپ برای نگهداری "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1828
+msgid "Number of backup files to retain. Enter 0 to keep all files. Please note that this setting only applies if \"Send Backups by Email\" is not selected."
+msgstr "تعداد بک آپ فایل ها. عدد صفر همه فایل ها را نگه می دارد. لطفا توجه کنید که این فقط زمانی اعمال می شود که گزینه  \"ارسال بک آپ به ایمیل \" انتخاب نشده باشد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1845
+msgid "Database backups are NOT saved to the server and instead will be emailed to"
+msgstr "بک آپ پایگاه داده در سرور ذخیره نمی شود و به این ایمیل ارسال می شود "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1845
+msgid "To change this unset \"Send Backups by Email\" in the \"Scheduled Automated Backups\" section above."
+msgstr "برای تغییر  \"ارسال بک آپ به ایمیل \" در  \"برنامه زمانبندی پشتیبان گیری به صورت خودکار\".در قسمت بالا"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1849
+msgid "Please note that for security backups are not available for direct download. You will need to go to "
+msgstr "توجه کنید که برای بک آپ گیری ایمن برای مسیر دانلود در دسترس نیست شما باید به این آدر بروید "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1851
+msgid " via FTP or SSH to download the files. This is because there is too much sensative information in the backup files and you do not want anyone just stumbling upon them."
+msgstr "با استفاده از سیستم FTP or SSH برای دانلود فایل ها.این کار لازم است چون این فایل حاوی اطلاعات حساس است که نباید در دسترس قرار بگیرد. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1856
+msgid "Never"
+msgstr "هرگز "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1865
+msgid "Last Scheduled Backup:"
+msgstr "آخرین زمان بندی پشتیبان گیری:"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1866
+msgid "Next Scheduled Backup:"
+msgstr "زمان بندی آینده پشتیبان گیری:"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1876
+msgid "It looks like a scheduled backup is in progress please reload this page for more accurate times."
+msgstr "بنظر میرسد تهیه نسخه پشتیبان در حال اجرا است لطفا دوباره این صفحه را برای کسب اطلاعات بیشتر بارگذاری کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1888
+#, php-format
+msgid "By default WordPress assigns the prefix \"wp_\" to all the tables in the database where your content, users, and objects live. For potential attackers this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% or so of sites are already known. Changing this makes it more difficult for tools that are trying to take advantage of vulnerabilites in other places to affect the database of your site."
+msgstr "بطور پیش فرض وردپرس پیشوند  \"wp_\" را برای جداول پایگاه داده اختصاص می دهد. و این آسیب پذیری سایت شما را بیشتر می کند.  for 95% or so of sites"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1889
+msgid "Please note that the use of this tool requires quite a bit of system memory which my be more than some hosts can handle. If you back your database up you can't do any permanent damage but without a proper backup you risk breaking your site and having to perform a rather difficult fix."
+msgstr "توجه داشته باشید که استفاده از این ابزار نیازمند استفاده کمی از حافظه سیستم است که برخی از میزبان ها ارائه می دهند. بدون یک نسخه پشتیبان کار شما سخت می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1890
+msgid "WARNING: <a href=\"?page=better-wp-security-databasebackup\">BACKUP YOUR DATABASE</a> BEFORE USING THIS TOOL!"
+msgstr "هشدار: <a href=\".page=better-wp-security-databasebackup\">بک آپ تهیه کنید  از پایگاه داده </a> قبل از استفاده از این ابزار"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1902
+msgid "Your database is using the default table prefix"
+msgstr "پایگاه داده شما از پیشوند پیش فرض جداول استفاده می کند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1902
+msgid "You should change this."
+msgstr "شما باید این را تغییر دهید "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1904
+msgid "Your current database table prefix is"
+msgstr "پیشوند فعلی جداول شما اینست"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1909
+msgid "Press the button below to generate a random database prefix value and update all of your tables accordingly."
+msgstr "دکمه زیر را برای ایجاد تصادفی پیشوند جداول کلیک کنید و بروز کنید همه جداول را."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1910
+msgid "Change Database Table Prefix"
+msgstr "تغییر پیشوند جداول در پایگاه داده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1921
+msgid "The \"hide backend\" feature changes the URL from which you can access your WordPress backend thereby further obscuring your site to potential attackers."
+msgstr "گزینه  \"مخفی کردن بخش مدیریت\" برای تغییر آدرس که شما دسترسی به سایت خود را از حملات بالقوه محدود کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1922
+msgid "This feature will need to modify your site's .htaccess file if you use the Apache webserver or, if you use NGINX you will need to add the rules manually to your virtualhost configuration. In both cases it requires permalinks to be turned on in your settings to function."
+msgstr "این ویژگی نیازمند اصلاح فایل  [.htaccess] سایت شما است. اگر شما از وبسرور آپاچی استفاده می کنید یا از  NGINX  استفاده می کنید ، شما نیاز دارید تا بصورت دستی پیکربندی را انجام دهید. در هر دو حالت نیازمند  (\"permalinks\"). برای فعال کردن تنظیمات برای عملیات هستید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1935
+msgid "You must turn on"
+msgstr "شما باید فعال کنید "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1935
+msgid "WordPress permalinks"
+msgstr "پیوندهای یکتای وردپرس"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1935
+msgid "to use this feature."
+msgstr "برای استفاده از این مورد "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1943
+msgid "Enable Hide Backend"
+msgstr "فعال کردن مخفی سازی بخش مدیریت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1947
+msgid "Check this box to enable the hide backend."
+msgstr "برای فعال کردن این گزینه را انتخاب کنید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1952
+msgid "Login Slug"
+msgstr "آدرس جدید مدیر "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1956
+msgid "Login URL:"
+msgstr "آدرس ورود: "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1961
+msgid "Register Slug"
+msgstr "URL ثبت نام جدید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1965
+msgid "Register URL:"
+msgstr "آدرس ثبت نام: "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1970
+msgid "Admin Slug"
+msgstr "آدرس جدید مدیر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1974
+msgid "Admin URL:"
+msgstr "آدرس مدیریت: "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1979
+msgid "Generate new secret key"
+msgstr "تولید کد امنیتی جدید "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:1983
+msgid "Check this box to generate a new secret key."
+msgstr "برای تولید کد امنیتی جدید این گزینه را انتخاب کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2000
+#, php-format
+msgid "Keep this key in a safe place. You can use it to manually fix plugins that link to wp-login.php. Once turning on this feature and plugins linking to wp-login.php will fail without adding ?[the key]& after wp-login.php. 99% of users will not need this key. The only place you would ever use it is to fix a bad login link in the code of a plugin or theme."
+msgstr "این کلید را در جای امنی نگهداری کنید. شما می توانید از آن برای تصحیح پسوند افزونه در لینک  [wp-login.php] استفاده کنید.  توجه داشته باشید که زمانی که این ویژگی فعال باشد افزونه به wp-login.php لینک می دهد بدون افزودن مشکل wp-login.php .   کاربران به این کلید نیاز ندارند.تنها مکانی که شما از آن استفاده می کنید برای برای اصلاح لینک اشتباه کد، افزونه یا قلب است. after wp-login.php. 99% of users will not need this key"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2011
+msgid "404 detection looks at a user who is hitting a large number of non-existent pages, that is they are getting a large number of 404 errors. It assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly (you can set the thresholds for this below). This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site as all errors will be logged in the \"View Logs\" page. You can set threshholds for this feature below."
+msgstr "تعداد زیاد کاربرانی که برای ورود به صفحاتی که وجود ندارد تلاش کرده اند را تشخیص داده شد.و باعث تعداد زیاد خطای 404 شده .با این امکان شما قادر به تشخیص عواملی هستید که باعث بروز خطاهای 404 می شوند در  \"View Logs\". شما می توانید این برنامه را در زیر تنظیم کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2012
+msgid "File change detection looks at the files in your WordPress installation and reports changes to those files. This can help you determine if an attacker has compromised your system by changing files within WordPress. Note that it will only automatically check once per day to reduce server load and other insanity."
+msgstr "بنظر می رسد تغییری در فایل نصب وردپرس شما وجود دارد و گزارش تغییر در همان فایل است. این می تواند به شما برای تعیین حمله روی سیستم شما برای تغییر فایل کمک کند. توجه داشته باشید که تایید بصورت خودکار در روز یکبار انجام می شود تا بار فشار بر سرور کاهش یابد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2025
+msgid "Press the button below to manually check for changed files and folders on your site."
+msgstr "دکمه زیر را برای بررسی دستی برای تغییر فایل ها و پوشه های سات خود انتتخاب کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2026
+msgid "Check for file/folder changes"
+msgstr "بررسی برای تغییرات فایل و پوشه "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2040
+msgid "Warning: Your server has less than 128MB of RAM dedicated to PHP. If you have many files in your installation or a lot of active plugins activating this feature may result in your site becoming disabled with a memory error. See the plugin homepage for more information."
+msgstr "هشدار: سرور شما حافظه کمتر از 128 مگابایت به پی اچ پی اختصاص داده است. اگر شما فایلهای زیاد یا افزونه های زیادی دارید که فعال هستند، این ویژگی ممکن است با بروز خطا غیر فعال شود.برای اطلاعات بیشتر خانه افزونه را ببینید. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2051
+msgid "404 Detection"
+msgstr "تشخیص خطاهای 404"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2056
+msgid "Enable 404 Detection"
+msgstr "فعال کردن تشخیص خطاهای 404"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2060
+msgid "Check this box to enable 404 intrusion detection."
+msgstr "برای فعال کردن تشخیص خطاها این گزینه را انتخاب کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2065
+msgid "Email 404 Notifications"
+msgstr "ایمیل خبرهای 404"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2069
+msgid "Enabling this feature will trigger an email to be sent to the specified email address whenever a host is locked out of the system."
+msgstr "فعال کردن این ویژگی یک ایمیل به آدرس ایمیل ارسال می کند هر وقت که میزبانی مسدود شد. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2078
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2317
+msgid "The email address lockout notifications will be sent to."
+msgstr "اطلاعیه هایی که  باعث قفل خواهد شد به این آدرس ایمیل فرستاده می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2083
+msgid "Check Period"
+msgstr "کنترل مدت زمان"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2087
+msgid "The number of minutes in which 404 errors should be remembered. Setting this too long can cause legitimate users to be banned."
+msgstr "تعداد دقیقه ها در خطاهای 404 که باید نگهداری شود. تنظیمات زمان زیاد ممکن است باعث مسدود شدن کاربران شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2092
+msgid "Error Threshold"
+msgstr "حد آستانه خطا"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2096
+msgid "The numbers of errors (within the check period timeframe) that will trigger a lockout."
+msgstr "تعداد خطاها (در طول دوره کنترل) که باعث ایجاد تحریم می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2101
+msgid "Lockout Period"
+msgstr "دوره ممنوعیت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2105
+msgid "The number of minutes a host will be banned from the site after triggering a lockout."
+msgstr "تعداد دقیقه هایی که بعد از آن یک میزبان مسدود می شود"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2111
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2285
+msgid "Blacklist Repeat Offender"
+msgstr "تکرار لیست سیاه "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2115
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2289
+msgid "If this box is checked the IP address of the offending computer will be added to the \"Ban Users\" blacklist after reaching the number of lockouts listed below."
+msgstr "اگر این کادر علامت زده شود، آدرس IP مهاجم به لیست سیاه اضافه خواهد شد \"کاربران محروم شده\" لیست سیاه پس از رسیدن به تعداد خاص مسدودها در زیر نشان داده شده."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2116
+msgid "Warning! If your site has a lot of missing files causing 404 errors using this feature can ban your own computer from your site. I would highly advice whitelisting your IP address below if this is the case."
+msgstr "هشدار: اگر سایت شما فایل های از دست رفته زیادی دارد که باعث خطای 404 شده اند، از این ویژگی استفاده کنید تا سیستم خود را از سایت خود مسدود کنید.من توصیه می کنم که آدرس آی پی خود را در لیست سفید زیر وارد کنید. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2121
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2294
+msgid "Blacklist Threshold"
+msgstr "آستانه لیست سیاه"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2125
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2298
+msgid "The number of lockouts per IP before the user is banned permanently from this site"
+msgstr "تعدادی از آی پی های ممنوع شده قبل از اینکه کاربر بطور دائم از سایت محروم شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2131
+msgid "404 White List"
+msgstr "لیست سفید 404"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2135
+msgid "Use the guidelines below to enter hosts that will never be locked out due to too many 404 errors. This could be useful for Google, etc."
+msgstr "استفاده از رهنمودهای زیر برای ورود میزبان هایی که هرگز بخاطر خطاهای 404 مسدود نمی شود. این می تواند برای گوگل و ... مفید باشد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2137
+msgid "You may whitelist users by individual IP address or IP address range."
+msgstr "شما می توانید کاربران را وارد لیست سفید کنید بوسیله آدرس آی پی فردی یا محدوده ای از آدرس ها "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2142
+msgid "404 errors will still be logged for users on the whitelist. Only the lockout will be prevented"
+msgstr "خطاهای 404 هنوز هم برای کاربران در لیست سفید ثبت می شود. فقط تحریم جلوگیری خواهد شد از  "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2148
+msgid "File Change Detection"
+msgstr "تشخیص تغییر فایل"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2153
+msgid "Enable File Change Detection"
+msgstr "فعال کردن تشخیص تغییر فایل"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2157
+msgid "Check this box to enable file change detection."
+msgstr "این گزینه را برای فعال کردن تشخیص تغییر فایل انتخاب کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2162
+msgid "Display file change admin warning"
+msgstr "نمایش هشدار مدیر برای تغییر فایل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2166
+msgid "Disabling this feature will prevent the file change warning from displaying to the site administrator in the WordPress Dashboard. Not that disabling both the error message and the email address will result in no notifications of file changes. The only way you will be able to tell is by manually checking the log files."
+msgstr "غیر فعال کردن این ویژگی از نمایش دادن هشدار در پیشخوان سایت مدیر جلوگیری میکند.توجه کنید که غیر فعال کردن هردو پیغام هشدار و آدرس ایمیل منجر به هیچ تغییر فایل نمی شود. تنها راه که شما می توانید انجام دهید بررسی فایل ها بصورت دستی است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2171
+msgid "Email File Change Notifications"
+msgstr "هشدار از تغییرات فایل از طریق ایمیل"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2175
+msgid "Enabling this feature will trigger an email to be sent to the specified email address whenever a file change is detected."
+msgstr "فعال کردن این ویژگی باعث ارسال ایمیل به آدرس ایمیل در هر زمان که فایل تغییر کرد می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2184
+msgid "The email address filechange notifications will be sent to."
+msgstr "ایمیل که هشدار تغییرات فایل به آن ارسال می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2189
+msgid "Include/Exclude List"
+msgstr "لیست محروم/شامل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2193
+msgid "Include"
+msgstr "شامل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2194
+msgid "Exclude"
+msgstr "محروم "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2196
+msgid "If \"Include\" is selected only the contents of the list below will be checked. If exclude is selected all files and folders except those listed below will be checked."
+msgstr "اگر  \"شامل \" انتخاب شده است، فقط محتویات از لیست زیر را بررسی خواهد کرد. اگر \"محروم کردن\" انتخاب شده باشد، تمام فایل ها و پوشه ها بجز اونهایی که در زیر لیست شده اند بررسی خواهند شد. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2201
+msgid "File/Directory Check List"
+msgstr "فهرست فایل ها / پوشه ها برای بررسی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2205
+msgid "Enter directories or files you do not want to include in the check (i.e. cache folders, etc). Only 1 file or directory per line. You can specify all files of a given type by just entering the extension preceeded by a dot (.) for exampe, .jpg"
+msgstr "دایرکتوری یا مسیر یا فایل هایی که شما نمی خواهید بررسی شود را وارد کنید  (مثال : cache folders, tmp,  و غیره...).  تنها یک فایل یا دایرکتوری در هر خط وارد کنید. شما می توانید . شما می توانید کلیه فایل ها از یک نوع را بسادگی با وارد کردن پسوند آن بعد از یک نقطه  (.) انجام دهید. بعنوان مثال  : . Jpg"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2206
+msgid "Directories should be entered in the from the root of the WordPress folder. For example, if you wish to enter the uploads directory you would enter it as \"wp-content/uploads\" (assuming you have not renamed wp-content). For files just enter the filename without directory information."
+msgstr "دایرکتوری باید از ریشه پوشه وردپرس وارد شود. برای مثال ، اگر شما می خواهید برای ورود به دایرکتوری یا مسیر  [uploads] شما وارد می کنید [\"wp-content/uploads\"] را  (فرض کنید که شما این پوشه را تغییر نام نداده اید[wp-content] ).  برای فایل ها فقط کافی است وارد کنید نام فایل را بدون اطلاعات دایرکتوری"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2210
+msgid "Save Options"
+msgstr "ذخیره تغییرات "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2222
+msgid "If one had unlimited time and wanted to try an unlimited number of password combimations to get into your site they eventually would, right? This method of attach, known as a brute force attack, is something that WordPress is acutely susceptible by default as the system doesn\\t care how many attempts a user makes to login. It will always let you try agin. Enabling login limits will ban the host user from attempting to login again after the specified bad login threshhold has been reached."
+msgstr "اگر کسی زمان نامحدودی داشت و می خواست سعی کند با  ترکیب شماره رمز شما را بدست آورد و به سایت شما وارد شود، این روش اتصال یک روش شناخته شده است\\t   اهمیت دارد که یک کاربر چگونه تلاش می کند وارد سایت شود.فعال کنید محدودیت تلاش مجدد کاربر برای ورود به سایت بعد از ورودهای ناموفقش."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2239
+msgid "Enable Login Limits"
+msgstr "فعال کردن محدودیت های ورود"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2243
+msgid "Check this box to enable login limits on this site."
+msgstr "برای فعال کردن محدودیت های ورود ، این گزینه را انتخاب کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2248
+msgid "Max Login Attempts Per Host"
+msgstr "حداکثر تلاش برای ورود برای هر میزبان "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2252
+msgid "The number of login attempts a user has before their host or computer is locked out of the system."
+msgstr "تعداد تلاش های کاربر برای ورود به سایت قبل از اینکه مسدود شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2257
+msgid "Max Login Attempts Per User"
+msgstr "حداکثر تلاش ورود به سایت برای هر کاربر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2261
+msgid "The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself."
+msgstr "تعداد تلاش برای ورود یک کاربر قبل از مسدود شدن نام کاربری. توجه داشته باشید که این متفاوت است از میزبان هایی که از کامپیوترهای مختلف استفاده  می کنند. علاوه براین اگر آنها استفاده کنند از نام ورود ، شما می توانید خود را مسدود کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2266
+msgid "Login Time Period (minutes)"
+msgstr "مدت زمان ورود(دقیقه) "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2270
+msgid "The number of minutes in which bad logins should be remembered."
+msgstr "تعداد دقیقه هایی که ورود ناموفق باید بخاطر بماند. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2275
+msgid "Lockout Time Period (minutes)"
+msgstr "مدت زمان قفل کردن(دقیقه)"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2279
+msgid "The length of time a host or computer will be banned from this site after hitting the limit of bad logins."
+msgstr "تاخیری که در طی آن یک کامپیوتر و یا میزبان از این سایت محروم خواهد شد بعد از تلاش های زیاد برای ورود به سایت."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2304
+msgid "Email Notifications"
+msgstr "ایمیل آگاه سازی "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2308
+msgid "Enabling this feature will trigger an email to be sent to the specified email address whenever a host or user is locked out of the system."
+msgstr "فعال کردن این ویژگی  یک ایمیل به آدرس ایمیل خواهد فرستادن هر زمان که یک میزبان یا کاربر توسط سیستم محروم یا قفل شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2332
+msgid "This page contains the logs generated by Better WP Security, current lockouts (which can be cleared here) and a way to cleanup the logs to save space on the server and reduce CPU load. Please note, you must manually clear these logs, they will not do so automatically. I highly recommend you do so regularly to improve performance which can otherwise be slowed if the system has to search through large log-files on a regular basis."
+msgstr "این صفحه حاوی لوگو های  تولید شده بوسیله افزونه است، قفل فعلی (که از اینجا می توان آن را حذف کرد) و روشی برای روشن شدن لوگوها برای فضای ذخیره سازی روی سرور و کاهش بار سی پی یو.توجه داشته باشید که شما باید بصورت دستی اون لوگوها رو پاک کنید آنها بصورت خودکار پاک نمی شوند.من توصیه می کنم که شما این کار را بطور منظم برای بهبود عملکرد در غیر اینصورت می تواند آهسته تر باشد اگر سیستم از طریق فایل های بزرگ جستجو کند. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2355
+msgid "Old Data"
+msgstr "داده ها قدیمی "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2358
+msgid "Below is old security data still in your WordPress database. Data is considered old when the lockout has expired, or been manually cancelled, or when the log entry will no longer be used to generate a lockout."
+msgstr "در زیر داده های امنیتی قدیمی هنوز در پایگاه داده وردپرس شما وجود دارد.داده ها زمانی که تحریم ها مقتضی شده باشد در نظر گرفته می شوند یا بصورت دستی کنسل شده باشند یا زمانیکه لوگوی ورود برای ایجاد قفل استفاده نشود. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2359
+msgid "This data is not automatically deleted so that it may be used for analysis. You may delete this data with the form below. To see the actual data you will need to access your database directly."
+msgstr "این داده ها به طور خودکار به منظور تجزیه و تحلیل حذف نمی شوند. شما می توانید این داده ها را با استفاده از فرم زیر حذف کنید. برای مشاهده داده های واقعی، شما باید به طور مستقیم به پایگاه داده خود وصل شوید.."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2360
+msgid "Check the box next to the data you would like to clear and then press the \"Remove Old Data\" button. (note this will not erase entries that may still be used for lockouts)."
+msgstr "کادر داده هایی که می خواهید پاک شوند را انتخاب کنید و سپس دکمه  \"حذف داده های قدیمی \" را فشار دهید. (توجه کنید که داده هایی که هنوز مورد استفاده قرار می گیرند را پاک نکنید.)"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2362
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2363
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2365
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2366
+msgid "Your database contains"
+msgstr "پایگاه داده شما حاوی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2362
+msgid "bad login entries."
+msgstr "اتصال (های) ناموفق (بازدید کنندگان)."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2363
+msgid "404 errors."
+msgstr "خطاهای 404."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2364
+msgid "This will clear the 404 log below."
+msgstr "این خطاهای 404 ورود را پاک کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2365
+msgid "old lockouts."
+msgstr "مسدود شده ها قدیمی."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2366
+msgid "changed file records."
+msgstr "رکوردها(پرونده) تغییر کرده است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2371
+msgid "Remove Data"
+msgstr "حذف داده ها"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2393
+msgid "Locked out hosts"
+msgstr "میزبان مسدود شده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2403
+msgid "Currently no hosts are locked out of this website."
+msgstr "در حال حاضر هیچ میزبان مسدود شده ای نیست."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2409
+msgid "Locked out users"
+msgstr "کاربران مسدود شده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2420
+msgid "Currently no users are locked out of this website."
+msgstr "در حال حاضر هیچ کاربر مسدود ی نیست."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2425
+msgid "Release Lockout"
+msgstr "انصراف از قفل "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2443
+msgid "Download 404 Log in .csv format"
+msgstr "دانلود خطاهای 404 در فرمت .csv"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2495
+msgid "Return to Log"
+msgstr "بازگشت به Log"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2513
+msgid "Secure Socket Layers (aka SSL) is a technology that is used to encrypt the data sent between your server or host and the visitor to your web page. When activated it makes it almost impossible for an attacker to intercept data in transit therefore making the transmission of form, password, or other encrypted data much safer."
+msgstr "لایه سوکت ایمن Secure Socket (نام مستعار SSL) یک فن آوری است که مورد استفاده برای رمزگذاری اطلاعات فرستاده شده بین سرور و یا میزبان شما و بازدید کننده به صفحه وب شما می باشد. هنگامی که فعال می شود تقریبا غیر ممکن است حمله به اطلاعات و بنابراین انتقال فرم، رمز عبور، و یا سایر داده های رمزگذاری بسیار امن تر است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2514
+msgid "Better WP Security gives you the option of turning on SSL (if your server or host support it) for all or part of your site. The options below allow you to automatically use SSL for major parts of your site, the login page, the admin dashboard, or the site as a whole. You can also turn on SSL for any post or page by editing the content you want to use SSL in and selecting \"Enable SSL\" in the publishing options of the content in question."
+msgstr "این افزونه به شما امکان می دهد که SSL  را (در صورت پشتیبان کردن سرور شما) فعال کنید برای همه یا بخشی از سایت خود. اختیارات زیر یه شما امکان می دهد که بصورت خودکار از SSL  استفاده کنید برای بخش های مختلف سایت خود، صفحه ورود، پشخوان مدیریت، یا کل سایت. شما همچنین می توانید SSL را برای هر پست یا صفحه فعال کنید بوسیله ویرایش محتوایی که می خواهید SSL استفاده شود و انتخاب کنید  \"فعال کردن SSL \" را در اختیارات یا تنظیمات انتشار ."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2515
+msgid "While this plugin does give you the option of encrypting everything please note this might not be for you. SSL does add overhead to your site which will increase download times slightly. Therefore we recommend you enable SSL at a minimum on the login page, then on the whole admin section, finally on individual pages or posts with forms that require sensitive information."
+msgstr "در حالی که این افزونه به شما اختیارات رمزنگاری می دهد لطفا توجه داشته باشید که این ممکن است فقط برای شما باشد.SSL  به سایت شما سربار اضافه می کند که کمی بار دانلود را افزایش می دهد.به شما توصیه می کنیم آن را در صفحه ورود فعال کنید و پس از آن در کل بخش سایت و در نهایت بر روی صفحات سا پست هاکه اطلاعات حساس دارند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2516
+msgid "WARNING: Your server MUST support SSL to use these features. Using these features without SSL support on your server or host will cause some or all of your site to become unavailable."
+msgstr "اخطار: سرور شما باید برای استفاده از این ویژگی از SSL پشتیبانی کند.استفاده بدون پشتیبانی از SSL کل یا بخشی از سایت شما را غیر قابل دسترس می کند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2535
+msgid "Are you sure you want to enable SSL? If your server does not support SSL you will be locked out of your WordPress admin backend."
+msgstr "آیا شما مطمئن هستید که میخواهید SSLرا فعال کنید ؟ . اگر وب سرور شما  SSL را پشتیبانی نمی کند، فضای مدیریت خود  وردپرس خود را غیر قابل دسترس کنید.."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2541
+msgid "Enforce Front end SSL"
+msgstr "پیاده سازی SSL در بخش جلویی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2546
+msgid "Per Content"
+msgstr "برای مطالب و محتوا"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2547
+msgid "Whole Site"
+msgstr "کل سایت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2549
+msgid "Enables secure SSL connection for the front-end (public parts of your site). Turning this off will disable front-end SSL control, turning this on \"Per Content\" will place a checkbox on the edit page for all posts and pages (near the publish settings) allowing you turn to on SSL for selected pages or posts, and selecting \"Whole Site\" will force the whole site to use SSL (not recommended unless you have a really good reason to use it)."
+msgstr "فعال کردن اتصال امن SSL  برای  front-end )بخش عمومی سایت شما). غیر فعال کردن کنترل front-end SSL ، فعال کنید    \"Per Content\"  یگ چک باکس در صفحه ویرایش پست ها و صفحات (کنار تنظیمات انتشار) به شما اجازه می دهد تا فعال کنیدSSL  را برای پست ها یا صفحات انتخاب شده و انتخاب کنید  \"کل سایت  \" را که کل سایت را مجبور به استفاده از اس اس ال می کند.(توصیه نمی شود مگر اینکه دلیلی برای انجام اینکار داشته باشید.)"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2554
+msgid "Enforce Login SSL"
+msgstr "درخواست برای ورود SSL"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2558
+msgid "Forces all logins to be served only over a secure SSL connection."
+msgstr "نیروی تمام ورود ها به سرور تنها از طریق اتصال امن SSL."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2563
+msgid "Enforce Admin SSL"
+msgstr "درخواست مدیریت SSL"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2567
+msgid "Forces all of the WordPress backend to be served only over a secure SSL connection."
+msgstr "تمام نیروی دسترسی وردپرس به سرور فقط با یک اتصال امن SSL"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2582
+msgid "This page contains a number of tweaks that can significantly improve the security of your system."
+msgstr "این صفحه حاوی یک تعدادی از بهینه سازی هایی است که تا حد زیادی می تواند به بهبود امنیت سیستم شما کمک کند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2583
+msgid "Server tweaks make use of rewrite rules and, in the case of Apache or LiteSpeed, will write them to your .htaccess file. If you are however using NGINX you will need to manually copy the rules on the Better WP Security Dashboard and put them in your server configuration."
+msgstr "سرور بهینه سازی از قواعد بازنویسی که در مورد Apache و LiteSpeed برای نوشتن فایل .  [htaccess ] استفاده می شود. اگر شما با این حال از NGINX استفاده می کنید شما نیاز دارید تا بصورت دستی کپی کنید قواعد را از پیشخوان افزونه و آنها را در تنظیمات سرور قرار دهید.   "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2584
+msgid "The other tweaks, in some cases, make use of editing your wp-config.php file. Those that do can be manually turned off by reverting the changes that file."
+msgstr "بهینه سازی های دیگر در برخی از موارد استفاده می کند از ویرایش فایل  [wp-config.php]. این بهینه سازی ها می توانند به صورت دستی با ویرایش این فایل لغو شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2585
+msgid "Be advsied, some of these tweaks may in fact break other plugins and themes that make use of techniques that are often seen in practice as suspicious. That said, I highly recommend turning these on one-by-one and don't worry if you cannot use them all."
+msgstr "هشدار: برخی از این ترفند ها ممکن است در پسوندهای غیر قابل استفاده دیگر افزونه ها و قالب هایی که از تکنیک های مشکوک استفاده می کنند در نظر گرفته شود. و من بشدت توصیه می کنم آنها را یکی یکی فعال کنید و اصلا نگران نباشید که از برخی از انها استفاده نمی کنید. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2597
+msgid "Your webserver is unsupported. You must use Apache, LiteSpeed or NGINX to make use of these rules."
+msgstr "وب سرور شما پشتیبانی نمی شود. شما باید از Apache, LiteSpeed یا NGINX  برای استفاده از این قوانین استفاده کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2605
+msgid "Server Tweaks"
+msgstr "بهینه سازی سرور"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2610
+msgid "Protect Files"
+msgstr "فایل های حفاظت شده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2614
+msgid "Prevent public access to readme.html, readme.txt, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed."
+msgstr "جلوگیری از دسترسی عمومی به : [readme.html] , [readme.txt] , [wp-config.php] , [install.php] , [wp-includes]  و  [ .htaccess] . این فایل های می توانند اطلاعات مهم روی سایت شما و سرور را تگه دارند و هیچ نقش عمومی مربوط به وردپرس وقتی نصب شده ندارند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2615
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2637
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2647
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2798
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2809
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2819
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2829
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2839
+msgid "Warning: This feature is known to cause conflicts with some plugins and themes."
+msgstr "هشدار: این ویژگی شناخته شده است به علت درگیری با افزونه ها  و تم های خاص."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2621
+msgid "Disable Directory Browsing"
+msgstr "غیر فعال کردن نمایش محتویات دایرکتوری"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2625
+msgid "Prevents users from seeing a list of files in a directory when no index file is present."
+msgstr "جلوگیری کاربران از مشاهده لیستی از فایل ها در دایرکتوری زمانی کع فایل شاخصی وجود ندارد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2626
+msgid "Warning: This feature is known to cause conflicts with some server configurations in which this feature has already been enabled in Apache."
+msgstr "هشدار : این ویژگی شناخته شده است به علت تداخل با برخی از تنظیمات خاص که این ویژگی در حال حاضر در آپاچی (Apache(  فعال است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2632
+msgid "Filter Request Methods"
+msgstr "روش های درخواست فیلتر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2636
+msgid "Filter out hits with the trace, delete, or track request methods."
+msgstr "،حذف نوع نمایش  TRACE, DELETE یا TRACK."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2642
+msgid "Filter Suspicious Query Strings"
+msgstr "فیلتر رشته های پرس و جوی مشکوک"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2646
+msgid "Filter out suspicious query strings in the URL. These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked."
+msgstr "فیلتر کردن رشته های مشکوک پرس و جوی URL. اینها اغلب نشانه هایی از کسانی است که برای ورود به سایت شما تلاش می کنند اما برخی از افزونه ها و قالب ها همچنین می توانند مسدود شوند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2657
+msgid "Header Tweaks"
+msgstr "عناوین بهینه سازی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2662
+msgid "Remove WordPress Generator Meta Tag"
+msgstr "حذف متا تگ مولد وردپرس"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2666
+msgid "Removes the <meta name=\"generator\" content=\"WordPress [version]\" /> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities."
+msgstr "حذف <meta name=\"generator\" content=\"WordPress [version]\" /> متا تگ از هدر سایت.این فرآیند اطلاعات ورژن را مخفی می کند تا آسیب پذیری آن را مشکل می کند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2671
+msgid "Remove wlwmanifest header"
+msgstr "حدف هدر wlwmanifest "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2675
+msgid "Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer or other blogging clients that rely on this file."
+msgstr "Retirer l'entête Windows Live Writer. Optionnel si vous n'utilisez pas Windows Live Writer."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2680
+msgid "Remove EditURI header"
+msgstr "حذف هدر EditURI"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2684
+msgid "Removes the RSD (Really Simple Discovery) header. If you don't integrate your blog with external XML-RPC services such as Flickr then the \"RSD\" function is pretty much useless to you."
+msgstr "حذف هدر RSD (Really Simple Discovery) . اگر شما وبلاگ خود را ادغام کنید با سرویس خارجی  XML-RPC بعنوان Flickr, و سپس تابع   \"RSD\" برای شما بی فایده است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2685
+msgid "Warning: This feature is known to cause conflicts with some 3rd party application and services that may want to interact with WordPress."
+msgstr "هشدار: این ویژگی شناخته شده است به علت تضاد با برنامه های کاربردی و 3rd  نیاز به تعامل با وردپرس دارد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2695
+msgid "Dashboard Tweaks"
+msgstr "بهینه سازی پیشخوان "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2700
+msgid "Hide Theme Update Notifications"
+msgstr "مخفی کردن اطلاعیه های بروزرسانی قالب "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2704
+msgid "Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations."
+msgstr "مخفی سازی اطلاعیه های بروزرسانی قالب از کاربران که نمی توانند آنها ها را بروز کنند. توجه داشته باشید که این فقط زمانی مناسب است که از سیستم وردپرس شبکه استفاده می کنیم. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2709
+msgid "Hide Plugin Update Notifications"
+msgstr "مخفی کردن اطلاعیه های بروزرسانی افزونه "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2713
+msgid "Hides plugin update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations."
+msgstr "مخفی سازی اطلاعیه های بروزرسانی افزونه از کاربران که نمی توانند آنها ها را بروز کنند. توجه داشته باشید که این فقط زمانی مناسب است که از سیستم وردپرس شبکه استفاده می کنیم. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2718
+msgid "Hide Core Update Notifications"
+msgstr "مخفی کردن اطلاعیه های بروزرسانی هسته "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2722
+msgid "Hides core update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations."
+msgstr "مخفی سازی اطلاعیه های بروزرسانی هسته از کاربران که نمی توانند آنها ها را بروز کنند. توجه داشته باشید که این فقط زمانی مناسب است که از سیستم وردپرس شبکه استفاده می کنیم. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2732
+msgid "Strong Password Tweaks"
+msgstr "بهینه سازی کلمات عبور پیچیده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2737
+msgid "Enable strong password enforcement"
+msgstr "فعال کردن نیاز به استفاده از کلمات عبور پیچیده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2741
+msgid "Enforce strong passwords for all users with at least the role specified below."
+msgstr "ایجاد کلمات عبور قوی برای تمام کاربران با حداقل نقش مشخص شده در زیر."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2746
+msgid "Strong Password Role"
+msgstr "نقش کلمات عبور پیچیده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2756
+msgid "Minimum role at which a user must choose a strong password. For more information on WordPress roles and capabilities please see"
+msgstr "حداقل نقشی که کاربر باید رمز عبور پیچیده ای انتخاب کند. برای اطلاعات بیشتر روی نقش های وردپرس و قابلیت ها اینجا را ببینید "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2757
+msgid "Warning: If your site invites public registrations setting the role too low may annoy your members."
+msgstr "هشدار: اگر سایت شما تنظیمات ثبت نام عمومی دارد، نقش خیلی کمی برای اعضا انتخاب کنید. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2767
+msgid "Other Tweaks"
+msgstr "بهینه سازی سرور "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2772
+msgid "Remove WordPress Login Error Messages"
+msgstr "حذف پیام هشدار در ورود وردپرس "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2776
+msgid "Prevents error messages from being displayed to a user upon a failed login attempt."
+msgstr "جلوگیری از نمایش پیغام خطا موقع تلاش کاربر برای ورود ناموفق به سایت."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2781
+msgid "Write to WordPress core files"
+msgstr "نوشتن روی فایل های هسته وردپرس "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2785
+msgid "Allow Better WP Security to write to .htaccess and wp-config.php. With this turned on this plugin will automatically write to your .htaccess and wp-config.php files. With it turned off you will need to manually make changes to these files and both the renaming of wp-content and the changing of the database table prefix will not be available."
+msgstr "اجازه دادن به افزونه برای نوشتن در  [.htaccess] و  [wp-config.php] . اگر این گزینه فعال باشد ، افزونه بصورت خودکار در فایل های [.htaccess] و  [wp-config.php]می نویسد.اگر غیر فعال باشد شما باید بصورت دستی تغییرات روی فایل ها ایجاد کنید و هر مورد دو تغییر نام [wp-content]  و تغییر پیشوند جداول پایگاه داده در دسترس نخواهد بود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2786
+msgid "This option is safe in nearly all instances however, if you know you have a server configuration that may conflict or simply want to make the changes yourself then uncheck this feature."
+msgstr "این اختیار دز اکثر مواقع امن است، با این حال اگر شما می دانید که باید تنظیمات سرور که ممکن است در تضاد باشد می خواهید تغییراتی در سایتتان ایجاد کنید ، این گزینه را انتخاب نکنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2787
+msgid "Warning: This feature is known to cause conflicts with some server configurations."
+msgstr "هشدار: این ویژگی شناخته شده است به علت درگیری با برخی از تنظیمات سرور."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2792
+msgid "Reduce comment spam"
+msgstr "کاهش نظرات هرزنامه"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2796
+msgid "This option will cut down on comment spam by denying comments from bots with no referrer or without a user-agent identified."
+msgstr "این گزینه هرزنامه های نظرات را قطع می کند بوسیله رد نظرات از ربات ها که ارجاع داده می شوند یا از سوی کاربران ناشناخته ارسال می شوند.   "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2797
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2808
+msgid "Note this feature only applies if \"Write to WordPress core files\" is enabled."
+msgstr "توجه داشته باشید که این مورد فقط وقتی اعمال می شود که  \" نوشتن روی فایل های هسته وردپرس \" فعال باشد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2803
+msgid "Remove write permissions from .htaccess and wp-config.php"
+msgstr "حدف مجوز دسترسی نوشتن فایل های  [.htaccess] و [wp-config.php]"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2807
+msgid "Prevents scripts and users from being able to write to the wp-config.php file and .htaccess file. Note that in the case of this and many plugins this can be overcome however it still does make the files more secure. Turning this on will set the unix file permissions to 0444 on these files and turning it off will set the permissions to 0644."
+msgstr "جلوگیری از اسکریپت ها و کاربران از اینکه قادر به نوشتن روی فایل  [wp-config.php] و [.htaccess] هستند .توجه داشته باشید که در این موارد و بسیاری از افزونه ها می تواند غلبه کند  با این حال فایل ها امن تر می شوند. تبدیل مجوز دسترسی فایل unix  به 0444 بر روی این فایل ها و خاموش کردن دسترسی به 0644 تنظیم کنید.    "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2814
+msgid "Display random version number to all non-administrative users"
+msgstr "نمایش تصادفی شماره نسخه برای تمام کاربران غیر مدیر"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2818
+msgid "Displays a random version number to visitors who are not logged in at all points where version number must be used and removes the version completely from where it can."
+msgstr "نمایش تعداد  تصادفی نسخه برای بازدید کنندگانی که بعنوان عضو وارد نشده اند در تمام نقاط که تعداد نسخه باید مورد استفاده قرار گیرد و حذف کامل نسخه از جایی که ممکن است.  "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2824
+msgid "Prevent long URL strings"
+msgstr "جلوگیری از رشته URL طولانی"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2828
+msgid "Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database."
+msgstr "محدود کردن تعدادی از کاراکترهایی که می تواند در URL ارسال شود.هکرها اغلب بهره می گیرند از URL های طولانی برای تلاش برای تزریق اطلاعات به پایگاه داده خود.   "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2834
+msgid "Turn off file editor in WordPress Back-end"
+msgstr "غیر فعال کردن ویرایشگر فایل در بخش مدیریت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/content.php:2838
+msgid "Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress."
+msgstr "غیر فعال کردن ویرایشگر برای افزونه ها و قالب ها نیازمند دسترسی کاربران به فایل های سیستم برای اصلاح فایل ها است. زمانی که فعال است شما نیاز دارید تا بصورت دستی قالب و دیگر فایل ها را ویرایش کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:105
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:708
+msgid "Database Backup Completed."
+msgstr "پشتیبان گیری از پایگاه داده کامل شد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:128
+msgid "Database Backup Ignored."
+msgstr " پشتیبان گیری از پایگاه داده نادیده گرفته می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:147
+msgid "WordPress Core File Writing confirmed."
+msgstr "نوشتن فایل هسته وردپرس را تایید کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:170
+msgid "WordPress Core File Writing ignored."
+msgstr "نادیده گرفتن تغییر فایل های وردپرس.."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:193
+msgid "Site Secured."
+msgstr "سایت ایمن است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:211
+msgid "Settings Saved. Your website is now protected from most attacks."
+msgstr "تنظیمات ذخیره شده.سایت شما در حال حاضر در برابر حملات شناخته شده محافظت می شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:220
+msgid "Initial configuration complete. Use the checklist below to enable additional features."
+msgstr "تنظیمات اولیه به پایان رسید.  برای فعال کردن ویژگی های اضافی از لیست زیر استفاده کنید ."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:235
+msgid "Successfully Changed admin Username. If you are logged in as admin you will have to log in again before continuing."
+msgstr "با موفقیت نام کاربری ادمین تغییر کرد. اگر شما با نام ادمین وارد شده اید باید دوباره وارد سایت شوید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:243
+msgid "You must enter a valid username. Please try again"
+msgstr "شما باید یک نام کاربری صحیح وارد کنید. لطفا دوباره تلاش کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:255
+msgid " already exists. Please try again"
+msgstr "از قبل وجود دارد. دوباره تلاش کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:278
+msgid " is not a valid username. Please try again"
+msgstr "نام کاربری صحیح نیست. لطفا دوباره تلاش کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:297
+msgid "Successfully Changed user 1 ID."
+msgstr "آی دی کاربر 1 با موفقیت تغییر کرد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:305
+msgid "User 1's ID was not changed. Please try again"
+msgstr "آی دی کاربر 1 تغییر نکرد. لطفا دوباره سعی کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:322
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:394
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:580
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:619
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:728
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:985
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1066
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1294
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1446
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1514
+msgid "Settings Saved"
+msgstr "تنظیمات ذخیره شد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:339
+msgid "The ending date must be after the current date."
+msgstr "تاریخ پایان باید بزرگتر از تاریخ فعلی باشد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:351
+msgid "Your current settings would lock you out 24 hours a day. Please make sure start and end times differ."
+msgstr "تنظیمات فعلی شما را در 24 ساعت روز مسدود می کند.لطفا مطمئن شوید که زمان شروع و پایان متفاوت است."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:373
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1275
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1468
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1560
+msgid "Settings Saved. You will have to manually add code to your wp-config.php file See the Better WP Security Dashboard for the code you will need."
+msgstr "تنظیمات ذخیره شد. شما باید بصورت دستی کد را به فایل  [wp-config.php] اضافه کنید. پیشخوان افزونه را برای کدهای مورد نیاز مشاهده کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:436
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:464
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1192
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1220
+msgid " is note a valid ip."
+msgstr "آی پی معتبر نیست"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:490
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1246
+msgid " is not a valid ip."
+msgstr "آی پی معتبر نیست."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:517
+msgid "You cannot ban yourself. Please try again."
+msgstr "شما نمی توانید خود را محروم کنید. دوباره سعی کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:552
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:593
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1017
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1495
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1587
+msgid "Settings Saved."
+msgstr "تنظیمات ذخیره شد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:560
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:599
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1023
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1488
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1580
+msgid "Settings Saved. You will have to manually add rewrite rules to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need."
+msgstr "تنظیمات ذخیره شد. شما باید بصورت دستی قواعد را به پیکربندی سایت اضافه کنید. پیشخوان افزونه را برای لیست قواعدی که مورد نیاز دارید مشاهده کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:632
+msgid "Unable to rename the wp-content folder. Operation cancelled."
+msgstr "نمی توان پوشه  wp-content   را تغییر نام داد.عملیات لغو شد. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:747
+msgid "The email address you entered is not a valid email address. You must enter a valid email address."
+msgstr "ایمیلی که وارد نموده اید صحیح نیست. لطفا یک ایمیل معتبر وارد کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:809
+msgid "Database Prefix Changed"
+msgstr "پیشوند پایگاه داده تغییر کرد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:852
+msgid "Error: Could not rename table "
+msgstr "خطا: جدول تغییر نام داده نمی شود."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:852
+msgid ". You may have to rename the table manually."
+msgstr ". شما باید بصورت دستی جداول را تغییر نام دهید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:889
+msgid "Could not update prefix refences in options tables."
+msgstr "قادر به به روز رسانی پیشوند گزینه های جداول نیست. ."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:910
+msgid "Could not update prefix refences in usermeta table."
+msgstr "قادر به به روز رسانی پیشوند جدول usermeta نیست."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:994
+msgid "You must enable permalinks in your WordPress settings for this feature to work."
+msgstr "برای استفاده از این ویژگی، شما نیاز به فعال کردن پیوندهای  یکتا در تنظیمات  وردپرس خود دارید.."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1044
+msgid "File Check Complete."
+msgstr "بررسی فایل کامل شد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1092
+msgid "The email address you entered for the file check email is not a valid email address. You must enter a valid email address."
+msgstr "آدرس ایمیل که شما برای کنترل فایل وارد کرده اید معتبر نیست. شما باید یک آدرس ایمیل معتبر وارد کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1106
+msgid "The email address you entered for the detect 404 email is not a valid email address. You must enter a valid email address."
+msgstr "آدرس ایمیل که شما وارد کرده اید برای تشخیصکدهای 404  معتبر نیست. شما باید یک آدرس ایمیل معتبر وارد کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1128
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1327
+msgid "Lockout time period needs to be aan integer greater than 0."
+msgstr "مدت زمان قفل باید عدد بزرگتر از 0 باشد"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1139
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1338
+msgid "Login time period needs to be aan integer greater than 0."
+msgstr "دوره زمانی اتصال باید یک عدد صحیح بزرگتر از 0 باشد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1150
+msgid "The error threshold needs to be aan integer greater than 0."
+msgstr "در آستانه خطا باید بزرگتر از 0 باشد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1316
+msgid "The email address you entered for lockout notifications is not a valid email address. You must enter a valid email address."
+msgstr "آدرس ایمیل که شما وارد کرده اید برای اطلاعیه های قفل شده  معتبر نیست. شما باید یک آدرس ایمیل معتبر وارد کنید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1349
+msgid "Max login attempts per host needs to be aan integer greater than 0."
+msgstr "حداکثر تعداد تلاش ورود به سیستم در هر میزبان باید بزرگتر از 0 باشد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1360
+msgid "Max login attempts per user needs to be aan integer greater than 0."
+msgstr "حداکثر تعداد تلاش ورود به سیستم هر کاربر باید بزرگتر از 0 باشد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1382
+msgid "The selected records have been cleared."
+msgstr "پرونده های انتخاب شده حذف می شوند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1411
+msgid "The selected lockouts have been cleared."
+msgstr "قفل(مورد) انتخاب شده پاکسازی شد."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1482
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/process.php:1574
+msgid "Settings Saved. You will have to manually add rewrite rules and wp-config.php code to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules  and wp-config.php code you will need."
+msgstr "تنظیمات ذخیره شد. شما باید به صورت دستی قواعد بازنویسی و کد به پیکربندی فایل wp-config.php اضافه کنید. شما نیاز دارید پیشخوان افزونه را مشاهده کنید برای لیستی از قواعد و کد فایل wp-config.php که نیاز دارید."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:40
+msgid "The following is a list of 404 errors found on your site with the last time the error was encountered, the relative url, the referrer (if applicable), and the number of times the error was encountered given last."
+msgstr "لیست زیر فهرستی از خطاهای 404 یافت شده در سایت شما هستند که با آن مواجه شده. "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:56
+msgid "Last Found"
+msgstr "یافت شده "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:57
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:303
+msgid "Host"
+msgstr "میزبان "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:58
+msgid "URI"
+msgstr "URI"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:59
+msgid "Referrer"
+msgstr "ارجاع دهنده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:60
+msgid "Count"
+msgstr "تعداد"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:285
+msgid "The following is a log of all lockouts in the system."
+msgstr "موارد زیر همه قفل ها در سیستم است"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:301
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:471
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:675
+msgid "Time"
+msgstr "زمان "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:302
+msgid "Reason"
+msgstr "علت "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:304
+msgid "User"
+msgstr "کاربر "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:455
+msgid "The following is a log of all file changes seen by the system."
+msgstr "موارد زیر تمام تغییرات فایل هست که سیستم مشاهده کرد"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:472
+msgid "Added"
+msgstr "اضافه شده "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:473
+msgid "Deleted"
+msgstr "حذف شده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:475
+msgid "Details"
+msgstr "جزئیات "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:476
+msgid "Memory Used"
+msgstr "حافظه مورد استفاده"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:544
+msgid "View Details"
+msgstr "مشاهده جزئیات"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:659
+msgid "The following is a list of all bad logins to your site along with the username attempted."
+msgstr "لیست زیر کسانی هستند که تلاش کردند به سایت شما وارد شوند."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:676
+msgid "Username Attempted"
+msgstr "نام کاربری در اقدام"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:837
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:995
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:1153
+msgid "modified"
+msgstr "اصلاح شده "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:838
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:996
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:1154
+msgid "hash"
+msgstr "ردیابی "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/inc/admin/tables.php:978
+msgid "Files Removed"
+msgstr "فایل ها حذف شدند"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:98
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:335
+msgid "If you need help getting this plugin or have found a bug please visit the <a href=\""
+msgstr "اگر شما درباره این افزونه نیاز به کمک دارید به این آدرس مراجعه کنید <a href=\""
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:337
+msgid "Need Help?"
+msgstr "به کمک نیاز دارید؟"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:361
+msgid "No news items, feed might be broken..."
+msgstr "خبری نیست، منبع ممکن است قطع ..."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:378
+msgid "It appears as if the feed is currently down. Please try again later"
+msgstr "لطفا دوباره سعی کنید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:381
+msgid "The Latest from Bit51"
+msgstr "آخرین اخبار از Bit51"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:393
+msgid "Have you found this plugin useful? Please help support it's continued development with a donation of $20, $50, or even $100."
+msgstr "این افزونه رو مفید می دونید؟ لطفا به ما حمایت کنید با مبالغی مثل 20 دلار  50 دلار  یا 100 دلار "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:397
+msgid "Short on funds?"
+msgstr "اتصال کوتاه به صندوق ؟"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:401
+msgid "Rate"
+msgstr "امتیاز "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:401
+msgid " 5★'s on WordPress.org"
+msgstr " 5 ★ در WordPress.org"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:403
+msgid "Talk about it on your site and link back to the "
+msgstr "بحث در مورد افزونه "
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:403
+msgid "plugin page."
+msgstr "صفحه افزونه."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:405
+msgid "Tweet about it. "
+msgstr "Tweeter ce sujet."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:409
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:473
+msgid "Support This Plugin"
+msgstr "پشتیبانی از افزونه"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:423
+msgid "Like Bit51 on Facebook"
+msgstr "محبوب کنید Bit51 رو در فیسبوک"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:425
+msgid "Follow Bit51 on Twitter"
+msgstr "Bit51 در Twitter"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:427
+msgid "Circle Bit51 on Google+"
+msgstr "Bit51 در Google+"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:429
+msgid "Subscribe with RSS or Email"
+msgstr "اشتراک با RSS یا ایمیل"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:433
+msgid "Bit51 on the Web"
+msgstr "Bit51 در اینترنت"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:473
+msgid "It looks like you've been enjoying"
+msgstr "بنظر می رسد لذت برده اید"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:473
+msgid "for at least 30 days. Would you consider a small donation to help support continued development of the plugin?"
+msgstr "به مدت حداقل 30 روز. می تواند به شما به عنوان یک عضو کوچک به شرکت در توسعه این افزونه کمک کند.."
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:473
+msgid "Rate it 5★'s"
+msgstr "رتبه 5 ★"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:473
+msgid "Tell Your Followers"
+msgstr "تلفن شما"
+
+#: C:\wamp\www\wordpress\wp-content\plugins\better-wp-security/lib/bit51/bit51.php:473
+msgid "Don't Bug Me Again"
+msgstr "دوباره اشکال نگیر"
+
+#~ msgid " is not a valid user agent. Please try again."
+#~ msgstr "مرورگر معتبر نیست. لطفا دوباره سعی کنید."
+
+#~ msgid "Better WP Security"
+#~ msgstr "امنیت بهتر وردپرس "
+
+#~ msgid "http://bit51.com/software/better-wp-security/"
+#~ msgstr "http://bit51.com/software/better-wp-security/"
+
+#~ msgid ""
+#~ "Helps protect your Wordpress installation from attackers. Hardens "
+#~ "standard Wordpress security by hiding vital areas of your site, "
+#~ "protecting access to important files via htaccess, preventing brute-force "
+#~ "login attempts, detecting attack attempts, and more."
+#~ msgstr ""
+#~ "Aide à protéger votre installation Wordpress des pirates. Renforce la "
+#~ "sécurité de votre site Wordpress en cachant les zones vitales, protège "
+#~ "l'accès des fichiers importants via .htaccess, empêche les tentatives de "
+#~ "connexion en force (brute-force), détecte les tentatives d'attaque, et "
+#~ "plus encore."
+
+#~ msgid "Bit51.com"
+#~ msgstr "Bit51.com"
+
+#~ msgid "http://bit51.com"
+#~ msgstr "http://bit51.com"
