@@ -688,7 +688,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 
 					} else {
 
-						$duration = __( 'parmanently', $this->hook );
+						$duration = __( 'permanently', $this->hook );
 
 					}
 			
