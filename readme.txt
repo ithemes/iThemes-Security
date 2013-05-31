@@ -157,7 +157,8 @@ NOTE: It is possible that something will break due to the complexity of the chan
 == Changelog ==
 
 = Dev =
-* * Persian by <a href="http://www.gonak.ir/">Ibrahim Jafari</a>
+* Simplified Chinese by <a href="http://haib.in">海滨</a>
+* Persian by <a href="http://forum.wp-parsi.com/user/1469-ibrahim/">Ibrahim Jafari</a>
 
 = 3.5.2 =
 * Fixed error message that could appear when creating backups
