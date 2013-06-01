@@ -313,8 +313,9 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 					if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 					
-						$rules .= "Order allow,deny" . PHP_EOL .
-						"Allow from all" . PHP_EOL;
+						$rules .= 	"Order Allow,Deny" . PHP_EOL .
+									"Deny from env=DenyAccess" . PHP_EOL .
+									"Allow from all" . PHP_EOL;
 						
 						
 					}
@@ -330,35 +331,41 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							if ( strstr( $host, '*' ) ) {
 							
 								$parts = array_reverse ( explode( '.', $host ) );
+
 								$netmask = 32;
-								
+
 								foreach ( $parts as $part ) {
-									
+
 									if ( strstr( trim( $part ), '*' ) ) {
-									
-										$netmask = $netmask - 8;
-									
+
+									$netmask = $netmask - 8;
+
 									}
-									
+
 								}
-								
+
 								$dhost = trim( str_replace('*', '0', implode( '.', array_reverse( $parts ) ) ) . '/' . $netmask );
 
 								
-								if ( strlen( $dhost ) > 4 ) {
+								if ( strlen( $dhost ) > 4 ) { // what's this check for? If strstr( $host, '*' ) is true on line 331 then you will never have "...." in this var. Especially not with /$netmask attached. - Maybe this is obsolete/needs to be updated!
 
 									if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+
+										$dhost = trim( str_replace('*', '[0-9]+', implode( '\\.', array_reverse( $parts ) ) ) ); //re-define $dhost to match required output for SetEnvIf-RegEX
 									
-										$trule = "Deny from " . $dhost . PHP_EOL;
 										
-										if ( trim( $trule ) != 'Deny From' ) {
+										$trule = "SetEnvIF REMOTE_ADDR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP
+										
+										if ( trim( $trule ) != 'SetEnvIF REMOTE_ADDR \"^$\" DenyAccess' ) { //whatever this test was used for
 								
 											$rules .= $trule;
+											$rules .= "SetEnvIF X-FORWARDED-FOR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP from Proxy-User
+											$rules .= "SetEnvIF X-CLUSTER-CLIENT-IP \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP for Cluster/Cloud-hosted WP-Installs
 											
 										}
 									
 									} else {
-								
+
 										$rules .= "\tdeny " . $dhost . ';' . PHP_EOL;
 								
 									}
@@ -368,12 +375,15 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							} else {
 							
 								$dhost = trim( $host );
-							
+
 								if ( strlen( $dhost ) > 4 ) {
 								
 									if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
-								
-										$rules .= "Deny from " . $dhost . PHP_EOL;
+
+										$dhost = str_replace('.', '\\.', $dhost); //re-define $dhost to match required output for SetEnvIf-RegEX
+										$rules .= "SetEnvIF REMOTE_ADDR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP
+										$rules .= "SetEnvIF X-FORWARDED-FOR \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP from Proxy-User
+										$rules .= "SetEnvIF X-CLUSTER-CLIENT-IP \"^" . $dhost . "$\" DenyAccess" . PHP_EOL; //Ban IP for Cluster/Cloud-hosted WP-Installs
 									
 									} else {
 								
