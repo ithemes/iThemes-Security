@@ -159,6 +159,8 @@ NOTE: It is possible that something will break due to the complexity of the chan
 = Dev =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>
 * Persian by <a href="http://forum.wp-parsi.com/user/1469-ibrahim/">Ibrahim Jafari</a>
+* Typo correction by ihuston
+* Fixed Bit51 Google+ Link
 
 = 3.5.2 =
 * Fixed error message that could appear when creating backups
