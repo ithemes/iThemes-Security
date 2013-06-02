@@ -161,6 +161,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Persian by <a href="http://forum.wp-parsi.com/user/1469-ibrahim/">Ibrahim Jafari</a>
 * Typo correction by ihuston
 * Fixed Bit51 Google+ Link
+* Better proxy support for ban users by kalvindukes
 
 = 3.5.2 =
 * Fixed error message that could appear when creating backups
