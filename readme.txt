@@ -1,6 +1,6 @@
 
 === Better WP Security ===
-Contributors: Bit51
+Contributors: Bit51, ChrisWiegman
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
 Requires at least: 3.5
