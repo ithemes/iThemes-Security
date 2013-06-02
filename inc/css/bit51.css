@@ -1,0 +1,37 @@
+div.inside a, div.inside a.rsswidget {
+	font-family: 'Lucida Grande', Verdana, Arial, 'Bitstream Vera Sans', sans-serif;
+	text-decoration: none;
+}
+
+div.inside ul {
+	margin-left: 20px;
+}
+
+div.inside ul li {
+	list-style: disc;
+	line-height:16px;
+}
+
+div.inside ul li.twitter {
+	list-style-image: url( '../../img/twitter.png' );
+}
+
+div.inside ul li.facebook {
+	list-style-image: url( '../../img/facebook.png' );
+}
+
+div.inside ul li.google {
+	list-style-image: url( '../../img/google.png' );
+}
+
+div.inside ul li.subscribe {
+	list-style-image: url( '../../img/subscribe.png' );
+}
+
+div.inside ul li.bit51 {
+	list-style-image: url( '../../img/bit51-small.png' ); 
+}
+
+#icon-shield {
+    background: transparent url( '../../img/shield-large.png' ) no-repeat;
+}
