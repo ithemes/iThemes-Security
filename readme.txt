@@ -1,6 +1,6 @@
 
 === Better WP Security ===
-Contributors: Bit51
+Contributors: Bit51, ChrisWiegman
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
 Requires at least: 3.5
@@ -80,6 +80,7 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * French by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
 * Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
+* Persian by <a href="http://www.gonak.ir/">Ibrahim Jafari</a>
 * Russian
 * Slovak by <a href="http://www.nawebik.sk">Erich Szabó</a>
 * Spanish by <a href="http://pabloromero.org">Pablo Romero</a>
@@ -154,6 +155,9 @@ NOTE: It is possible that something will break due to the complexity of the chan
 4. If you do get stuck help is never more than a few clicks away.
 
 == Changelog ==
+
+= Dev =
+* Complete rewrite for 4.0
 
 = 3.5.2 =
 * Fixed error message that could appear when creating backups

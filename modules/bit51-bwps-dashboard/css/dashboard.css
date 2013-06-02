@@ -1,0 +1,14 @@
+#bit51_publicize {
+	border-color: #0000ff;
+	border-width: 2px;
+	font-weight: bold;
+}
+
+#bit51_publicize h3 {
+	color:  #0000ff;
+}
+
+#bit51_publicize form {
+	margin:  7px auto 0 auto;
+	text-align: center;
+}
