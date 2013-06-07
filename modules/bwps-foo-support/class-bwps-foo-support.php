@@ -108,7 +108,7 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 				$content .= '<label for="support_other">' . __( 'Other Information', 'better_wp_security' ). ':</label><textarea name="other" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_other"></textarea><br />';
 				$content .= '<input id="submit_support" type="button" class="button-primary" value="' . __( 'Submit Support Ticket', 'better_wp_security' ) . '" /><br />';
 				$content .= '<br /></form>';
-				$content .= '<div style="display:none" class="support_message foolic-loading"><p>' . __( 'sending...', 'better_wp_security' ). '</p></div>';
+				$content .= '<div style="display:none" class="support_message foolic-loading"><p>' . __( 'sending support request...', 'better_wp_security' ). '</p></div>';
 				$content .= '<a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase priority support', 'better_wp_security' ) . '</a>';
 				$content .= ' | <a href="#newkey" class="foolic-clear-' . $this->core->plugin->globals['plugin_hook'] . '">' . __( 'Enter License Key', 'better_wp_security' ) . '</a>';
 				$content .= $data['nonce'];

@@ -111,19 +111,28 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			$plugopts = admin_url( 'options-general.php?page=' . $this->core->plugin->globals['plugin_hook'] );
 			
 			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
-			if ( ! isset( $options['no-nag'] ) && isset( $options['activatestamp'] ) && $options['activatestamp'] < ( current_time( 'timestamp' ) - 2952000 ) ) {
+			if ( ! isset( $options['no-nag'] ) && isset( $options['activatestamp'] ) && $options['activatestamp'] < ( current_time( 'timestamp' ) + 2952000 ) ) {
 			
 				if ( ! function_exists( 'bwps_share_notice' ) ) {
 			
 					function bwps_share_notice() {
 				
-						global $plugname;
-						global $plughook;
-						global $plugopts;
+						global $plugname, $plughook, $plugopts;
 					
-					    echo '<div class="updated">' . PHP_EOL .
-							'<p>' . __( 'It looks like you\'ve been enjoying', 'better_wp_security' ) . ' ' . $plugname . ' ' . __( 'for at least 30 days. Would you please consider telling your friends about it?', 'better_wp_security' ) . '</p> <p><input type="button" class="button " value="' . __( 'Rate it 5★\'s', 'better_wp_security' ) . '" onclick="document.location.href=\'?' . $plughook . '_lets_rate=yes&_wpnonce=' .  wp_create_nonce( $plughook . '-reminder' ) . '\';">  <input type="button" class="button " value="' . __( 'Tell Your Followers', 'better_wp_security' ) . '" onclick="document.location.href=\'?' . $plughook . '_lets_tweet=yes&_wpnonce=' .  wp_create_nonce( $plughook . '-reminder' ) . '\';">  <input type="button" class="button " value="' . __( 'Don\'t Bug Me Again', 'better_wp_security' ) . '" onclick="document.location.href=\'?' . $plughook . '_share_nag=off&_wpnonce=' .  wp_create_nonce( $plughook . '-reminder' ) . '\';"></p>' . PHP_EOL .
-					    	'</div>';
+					    printf( '<div class="updated"><p>%s %s %s</p> <p><input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_lets_rate=yes&_wpnonce=%s\';">  <input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_lets_tweet=yes&_wpnonce=%s\';">  <input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_share_nag=off&_wpnonce=%s\';"></p></div>',
+					    	__( 'It looks like you\'ve been enjoying', 'better_wp_security' ),
+					    	$plugname,
+					    	__( 'for at least 30 days. Would you please consider telling your friends about it?', 'better_wp_security' ),
+					    	__( 'Rate it 5★\'s', 'better_wp_security' ),
+					    	$plughook,
+					    	wp_create_nonce( $plughook . '-reminder' ),
+					    	__( 'Tell Your Followers', 'better_wp_security' ),
+					    	$plughook,
+					    	wp_create_nonce( $plughook . '-reminder' ),
+					    	__( 'Don\'t Bug Me Again', 'better_wp_security' ),
+					    	$plughook,
+					    	wp_create_nonce( $plughook . '-reminder' )
+					    );
 				    
 					}
 				
@@ -143,7 +152,7 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 				
 				//Go to the WordPress page to let them rate it.
 				if ( isset( $_GET[$this->core->plugin->globals['plugin_hook'] . '_lets_rate'] ) ) {
-					wp_redirect( $this->core->plugin->globals['plugin_homepage'], '302' );
+					wp_redirect( $this->core->plugin->globals['wordpress_page'], '302' );
 				}
 				
 				//Compose a Tweet
@@ -167,7 +176,7 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			$content .= '<li class="twitter"><a href="http://twitter.com/Bit51" target="_blank">' . __( 'Follow Bit51 on Twitter', 'better_wp_security' ) . '</a></li>';
 			$content .= '<li class="google"><a href="https://plus.google.com/b/111800087192533843819" target="_blank">' . __( 'Circle Bit51 on Google+', 'better_wp_security' ) . '</a></li>';
 			
-			$content .= '<li class="subscribe"><a href="http://bit51.com/subscribe" target="_blank">' . __( 'Subscribe with RSS or Email', 'better_wp_security' ) . '</a></li>';
+			$content .= '<li class="subscribe"><a href="http://bit51.com/subscribe" target="_blank">' . __( 'Subscribe to Bit51 Updates', 'better_wp_security' ) . '</a></li>';
 			
 			$content .= '</ul>';
 
@@ -186,9 +195,9 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			$content .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="' . $this->paypal_code . '"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
 			$content .= '<p>' . __( 'Short on funds?', 'better_wp_security' ) . '</p>';
 			$content .= '<ul>';
-			$content .= '<li><a href="' . $this->core->plugin->globals['wordpress_page'] . '" target="_blank">' . __( 'Rate', 'better_wp_security' ) . ' ' . $this->core->plugin->globals['plugin_name'] . __( ' 5★\'s on WordPress.org', 'better_wp_security' ) . '</a></li>';
-			$content .= '<li>' . __( 'Talk about it on your site and link back to the ', 'better_wp_security' ) . '<a href="' . $this->homepage . '" target="_blank">' . __( 'plugin page.', 'better_wp_security' ) . '</a></li>';
-			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( 'I use ' . $this->core->plugin->globals['plugin_name'] . ' for WordPress by @bit51 and you should too - ' . $this->core->plugin->globals['plugin_homepage'] ) . '" target="_blank">' . __( 'Tweet about it. ', 'better_wp_security' ) . '</a></li>';
+			$content .= '<li><a href="' . $this->core->plugin->globals['wordpress_page'] . '" target="_blank">' . sprintf( __( 'Rate %s 5★\'s on WordPress.org', 'better_wp_security' ), $this->core->plugin->globals['plugin_name'] ) . '</a></li>';
+			$content .= '<li>' . sprintf( __( 'Talk about it on your site and link back to the %splugin page', 'better_wp_security' ), '<a href="' . $this->core->plugin->globals['plugin_homepage'] . '" target="_blank">' ) . '</a></li>';
+			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( sprintf( __( 'I use %s for WordPress by %s and you should too - %s' ), $this->core->plugin->globals['plugin_name'], '@bit51', $this->core->plugin->globals['plugin_homepage'] ) ) . '" target="_blank">' . __( 'Tweet about it. ', 'better_wp_security' ) . '</a></li>';
 			$content .= '</ul>';
 
 			echo $content;
@@ -214,7 +223,7 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			
 				if ( ! $feeditems ) {
 			
-			    	$content .= '<li class="bit51">' . __( 'No news items, feed might be broken...', 'better_wp_security' ) . '</li>';
+			    	$content .= '<li class="bit51">' . __( 'I couldn\'t find any updates. If the problem persists please contact the feed owner', 'better_wp_security' ) . '</li>';
 			    
 				} else {
 			

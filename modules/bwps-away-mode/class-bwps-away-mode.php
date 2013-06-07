@@ -16,6 +16,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			$this->settings = get_option( 'bwps_away_mode' );
 
 			add_action( $this->core->plugin->globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
+			add_action( $this->core->plugin->globals['plugin_hook'] . '_page_top', array( $this, 'add_away_mode_intro' ) );
 			add_filter( $this->core->plugin->globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) );
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) );
 
@@ -50,20 +51,10 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			//add metaboxes
 			add_meta_box( 
-				'default_module_intro', 
-				__( 'About Away Mode', 'better_wp_security' ),
-				array( $this, 'metabox_normal_intro' ),
-				'security_page_toplevel_page_better_wp_security-away_mode',
-				'normal',
-				'core'
-			);
-
-			//add metaboxes
-			add_meta_box( 
-				'default_module_settings', 
+				'away_mode_settings', 
 				__( 'Configure Away Mode', 'better_wp_security' ),
 				array( $this, 'metabox_advanced_settings' ),
-				'security_page_toplevel_page_better_wp_security-away_mode',
+				'security_page_toplevel_page_bwps-away_mode',
 				'advanced',
 				'core'
 			);
@@ -81,14 +72,14 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 				'away_mode_settings',
 				__( 'Configure Away Mode', 'better_wp_security' ),
 				array( $this, 'sandbox_general_options_callback' ),
-				'security_page_toplevel_page_better_wp_security-away_mode'
+				'security_page_toplevel_page_bwps-away_mode'
 			);
 
 			add_settings_field(   
 				'bwps_away_mode[enabled]', 
 				__( 'Enable Away Mode', 'better_wp_security' ),
 				array( $this, 'away_mode_enabled' ),
-				'security_page_toplevel_page_better_wp_security-away_mode',
+				'security_page_toplevel_page_bwps-away_mode',
 				'away_mode_settings'
 			);
 
@@ -96,12 +87,12 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 				'bwps_away_mode[type]', 
 				__( 'Type of Restriction', 'better_wp_security' ),
 				array( $this, 'away_mode_type' ),
-				'security_page_toplevel_page_better_wp_security-away_mode',
+				'security_page_toplevel_page_bwps-away_mode',
 				'away_mode_settings'
 			);
 
 			register_setting(  
-				'security_page_toplevel_page_better_wp_security-away_mode',
+				'security_page_toplevel_page_bwps-away_mode',
 				'bwps_away_mode'
 			);
 
@@ -140,8 +131,8 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		function away_mode_type( $args ) {
 
 			$content = '<select name="bwps_away_mode[type]" id="bwps_away_mode_test">' . 
-    		$content .= '<option value="1" ' . selected( $this->settings['type'], 1, false ) . '>Daily</option>';
-    		$content .= '<option value="2" ' . selected( $this->settings['type'], 2, false ) . '>One Time</option>';
+    		$content .= '<option value="1" ' . selected( $this->settings['type'], 1, false ) . '>' . __( 'Daily', 'better_wp_security' ) . '</option>';
+    		$content .= '<option value="2" ' . selected( $this->settings['type'], 2, false ) . '>' . __( 'One Time', 'better_wp_security' ) . '</option>';
 			$content .= '</select>';
 			$content .= '<label for="bwps_away_mode_type"> '  . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';   
 
@@ -154,20 +145,24 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 * 
 		 * @return void
 		 */
-		public function metabox_normal_intro() {
+		public function add_away_mode_intro( $screen ) {
 
-			$content = '<p>' . __( 'As most sites are only updated at certain times of the day it is not always necessary to provide access to the WordPress dashboard 24 hours a day, 7 days a week. The options below will allow you to disable access to the WordPress Dashboard for the specified period. In addition to limiting exposure to attackers this could also be useful to disable site access based on a schedule for classroom or other reasons.', 'better_wp_security' ) . '</p>';
-			
-			if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) { 
-				$currdate = date_i18n( 'l, d F Y' . ' ' . get_option( 'time_format' ) , current_time( 'timestamp' ) );
-			} else {
-				$currdate = date( 'g:i a \o\n l F jS, Y', current_time( 'timestamp' ) );
+			if ( $screen === 'security_page_toplevel_page_bwps-away_mode' ) {
+
+				$content = '<p>' . __( 'As most sites are only updated at certain times of the day it is not always necessary to provide access to the WordPress dashboard 24 hours a day, 7 days a week. The options below will allow you to disable access to the WordPress Dashboard for the specified period. In addition to limiting exposure to attackers this could also be useful to disable site access based on a schedule for classroom or other reasons.', 'better_wp_security' ) . '</p>';
+				
+				if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) { 
+					$currdate = date_i18n( 'l, d F Y' . ' ' . get_option( 'time_format' ) , current_time( 'timestamp' ) );
+				} else {
+					$currdate = date( 'g:i a \o\n l F jS, Y', current_time( 'timestamp' ) );
+				}
+				
+				$content = '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your local time is %s. If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'better_wp_security' ), '<a href="options-general.php">', '</a>', '<strong><em>' . $currdate . '</em></strong>', '<a href="options-general.php">', '</a>' ) . '</p>';
+
+
+				echo $content;
+
 			}
-			
-			$content = '<p>' . __( 'Please note that according to your', 'better_wp_security' ) . ' <a href="options-general.php">' . __( 'WordPress timezone settings', 'better_wp_security' ) . '</a> ' . __( 'your local time is', 'better_wp_security' ) . ' <strong><em>' . $currdate . '</em></strong>. ' . __( 'If this is incorrect please correct it on the', 'better_wp_security' ) . ' <a href="options-general.php">' . __( 'WordPress general settings page', 'better_wp_security' ) . '</a> ' . __( 'by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'better_wp_security' ) . '</p>';
-
-
-			echo $content;
 
 		}
 
@@ -180,11 +175,11 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			printf( '<form name="%s" method="post" action="options.php">', get_current_screen()->id );
 
-			$this->core->do_settings_sections( 'security_page_toplevel_page_better_wp_security-away_mode', false );
+			$this->core->do_settings_sections( 'security_page_toplevel_page_bwps-away_mode', false );
 
 			echo '<p>' . PHP_EOL;
 
-			settings_fields( 'security_page_toplevel_page_better_wp_security-away_mode' );
+			settings_fields( 'security_page_toplevel_page_bwps-away_mode' );
 
 			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'better_wp_security' ) . '" />' . PHP_EOL;
 
