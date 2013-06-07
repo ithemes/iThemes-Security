@@ -262,9 +262,12 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 							</div>    
 	 
 							<div id="postbox-container-2" class="postbox-container">
-								<?php do_meta_boxes( $screen, 'normal', null );  ?>
+								<?php do_action( $this->plugin->globals['plugin_hook'] . '_page_top', $screen ); ?>
+								<?php do_meta_boxes( $screen, 'normal', null ); ?>
+								<?php do_action( $this->plugin->globals['plugin_hook'] . '_page_middle', $screen ); ?>
 								<?php do_meta_boxes( $screen, 'advanced', null ); ?>
-							</div>	     					
+								<?php do_action( $this->plugin->globals['plugin_hook'] . '_page_bottom', $screen ); ?>
+							</div>    					
 	 
 						</div> <!-- #post-body -->
 					
