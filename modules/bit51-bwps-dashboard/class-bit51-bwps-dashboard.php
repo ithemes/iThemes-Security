@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-if ( ! class_exists( 'Bit51_BWPS_Dashboard') ) {
+if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 
 	class Bit51_BWPS_Dashboard {
 
