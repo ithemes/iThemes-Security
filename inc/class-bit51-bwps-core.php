@@ -386,9 +386,11 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 				if ( ! isset( $wp_settings_fields ) || !isset( $wp_settings_fields[$page] ) || !isset( $wp_settings_fields[$page][$section['id']] ) )
 					continue;
-				echo '<table class="form-table">';
+
+				echo '<table class="form-table" id="' . $section['id'] . '">';
 				do_settings_fields( $page, $section['id'] );
 				echo '</table>';
+
 			}
 			
 		}
