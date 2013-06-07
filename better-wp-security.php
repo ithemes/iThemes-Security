@@ -59,12 +59,10 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 			$this->menu_name = __( 'Security', $this->globals['plugin_hook'] ); //main menu item name
 
 			//the following options must only be set if it's a top-level section
-			$this->settings_page = true; //when using top_level menus this will always create a "Dashboard" page. Should it create a settings page as well?
+			$this->settings_page = false; //when using top_level menus this will always create a "Dashboard" page. Should it create a settings page as well?
 			$this->menu_icon = $this->globals['plugin_url'] . 'img/shield-small.png'; //image icon 
 			$this->dashboard_menu_title = __( 'Dashboard', $this->globals['plugin_hook'] ); //the name of the dashboard menu item (if different "Dashboard")
-			$this->settings_menu_title = __( 'Settings', $this->globals['plugin_hook'] ); //the name of the settings menu item (if different from "Settings")
 			$this->dashboard_page_name = __( 'Dashboard', $this->globals['plugin_hook'] ); //page name - appears after plugin name on the dashboard page
-			$this->settings_page_name = __( 'Options', $this->globals['plugin_hook'] ); //page name - appears after plugin name on the dashboard page
 			
 
 			//load core functionality for admin use
@@ -98,6 +96,10 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 			//load Foo Plugins Support module
 			require_once( $this->globals['plugin_dir'] . 'modules/bwps-foo-support/class-bwps-foo-support.php' );
 			BWPS_Foo_Support::start( $this->core );
+
+			//load Away Mode Module
+			require_once( $this->globals['plugin_dir'] . 'modules/bwps-away-mode/class-bwps-away-mode.php' );
+			BWPS_Away_Mode::start( $this->core );
 			
 		}
 

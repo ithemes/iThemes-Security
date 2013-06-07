@@ -7,7 +7,7 @@
 
 require_once( plugin_dir_path( __FILE__ ) . 'class-foolic-validation-v1_1.php' );
 
-if ( ! class_exists( 'BWPS_Foo_Support') ) {
+if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 
 	class BWPS_Foo_Support {
 
