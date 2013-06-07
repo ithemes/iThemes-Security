@@ -28,7 +28,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 			$this->plugin = $plugin; //Allow us to access plugin defaults throughout
 
 			//load the text domain
-			load_plugin_textdomain( $this->plugin->globals['plugin_hook'], false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+			load_plugin_textdomain( 'better_wp_security', false, $this->plugin->globals['plugin_dir'] . 'languages' );
 
 			//require plugin setup information
 			require_once( $this->plugin->globals['plugin_dir'] . 'inc/class-bit51-bwps-setup.php' );
@@ -44,7 +44,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 				//see if the saved build version is older than the current build version
 				if ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $this->plugin->globals['plugin_build'] ) {
-					bwps_Setup::upgrade_execute( $plugin_data['build'] ); //run upgrade scripts
+					Bit51_BWPS_Setup::upgrade_execute( $plugin_data['build'] ); //run upgrade scripts
 				}
 
 			}
@@ -72,9 +72,11 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 * @return void
 		 */
 		public function execute_admin_init() {
+
 			wp_register_style( 'bwps_admin_styles', $this->plugin->globals['plugin_url'] . 'inc/css/bit51.css' );
 
 			do_action( $this->plugin->globals['plugin_hook'] . 'admin_init' ); //execute modules init scripts
+
 		}
 
 		/**
@@ -83,8 +85,10 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 * @return void
 		 */
 		public function enqueue_admin_styles() {
+
 			wp_enqueue_style( 'bwps_admin_styles' );
 			do_action( $this->plugin->globals['plugin_url'] . 'enqueue_admin_styles' );
+
 		}
 
 		/**
@@ -109,14 +113,14 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 				//Set default dashboard title to "Dashboard"
 				if ( ! isset( $this->plugin->dashboard_page_name ) || $this->plugin->dashboard_page_name === '' ) {
-					$dashboard_page_name = __( 'Dashboard', $this->plugin->globals['plugin_hook'] );
+					$dashboard_page_name = __( 'Dashboard', 'better_wp_security' );
 				} else {
 					$dashboard_page_name = $this->plugin->dashboard_page_name;
 				}
 
 				//Set default menu title to "Security"
 				if ( ! isset( $this->plugin->menu_name ) || $this->plugin->menu_name === '' ) {
-					$menu_name = __( 'Security', $this->plugin->globals['plugin_hook'] );
+					$menu_name = __( 'Security', 'better_wp_security' );
 				} else {
 					$menu_name = $this->plugin->menu_name;
 				}
@@ -140,13 +144,13 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 				if ( $this->plugin->settings_page === true ) {
 
 					if ( ! isset( $this->plugin->settings_page_name ) || $this->plugin->settings_page_name === '' ) {
-						$settings_page_name = __( 'Settings', $this->plugin->globals['plugin_hook'] );
+						$settings_page_name = __( 'Settings', 'better_wp_security' );
 					} else {
 						$settings_page_name = $this->plugin->settings_page_name;
 					}
 
 					if ( ! isset( $this->plugin->settings_menu_title ) || $this->plugin->settings_menu_title === '' ) {
-						$settings_menu_title = __( 'Settings', $this->plugin->globals['plugin_hook'] );
+						$settings_menu_title = __( 'Settings', 'better_wp_security' );
 					} else {
 						$settings_menu_title = $this->plugin->settings_menu_title;
 					}
@@ -170,7 +174,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 				if ( isset( $this->plugin->dashboard_menu_title ) && $this->plugin->dashboard_menu_title !== '' ) {
 					$dashboard_menu = $this->plugin->dashboard_menu_title;
 				} else {
-					$dashboard_menu = __( 'Dashboard', $this->plugin->globals['plugin_hook'] );
+					$dashboard_menu = __( 'Dashboard', 'better_wp_security' );
 				}
 
 				if ( isset( $submenu[ $this->plugin->globals['plugin_hook'] ] ) ) {
@@ -218,7 +222,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 			?>
 				
-			<script type="text/javascript"> postboxes.add_postbox_toggles(pagenow);</script>
+			<script type="text/javascript">postboxes.add_postbox_toggles(pagenow);</script>
 			
 			<?php
 
@@ -364,6 +368,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 * @param boolean $show_title Whether or not the title of the section should display: default true.
 		 */
 		function do_settings_sections( $page, $show_title = true ) {
+
 			global $wp_settings_sections, $wp_settings_fields;
 
 			if ( ! isset( $wp_settings_sections ) || !isset( $wp_settings_sections[$page] ) )
@@ -382,6 +387,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 				do_settings_fields( $page, $section['id'] );
 				echo '</table>';
 			}
+			
 		}
 
 		/**

@@ -24,7 +24,7 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 		function __construct( $case = false, $upgrading = false ) {
 
 			//Important, this must be manually set in each plugin
-			$this->hook = 'better_wp_security';
+			$this->hook = 'bwps';
 	
 			if ( ! $case ) {
 				die( 'error' );

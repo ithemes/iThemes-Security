@@ -34,7 +34,7 @@ if (!class_exists('foolic_validation_v1_1')) {
 		}
 
 		function get_validation_data() {
-			$default_text = __( 'Enter your license key here', $this->plugin_slug );
+			$default_text = __( 'Enter your license key here', 'better_wp_security' );
 			if ( get_option( $this->plugin_slug . '_licensekey' ) === false || get_option( $this->plugin_slug . '_licensekey' ) === $default_text ) {
 				$license = $default_text;
 				$onClick = ' onblur="if(this.value == \'\') { this.value=\'' . $default_text . '\'}" onfocus="if (this.value == \'' . $default_text . '\') {this.value=\'\'}"';
@@ -53,10 +53,10 @@ if (!class_exists('foolic_validation_v1_1')) {
 			$input_type = apply_filters('foolic_validation_input_type-'.$this->plugin_slug, 'password');
 			$input_size = apply_filters('foolic_validation_input_size-'.$this->plugin_slug, '40');
 			$input = '<input size="'. $input_size . '" class="foolic-input foolic-input-' . $this->plugin_slug . '' . ($valid !== false ? ($valid=='valid' ? ' foolic-valid' : ' foolic-invalid') : '') . '" type="' . $input_type . '" id="' . $input_id . '" name="' . $this->plugin_slug . '[license]" value="' . $license . '"' . $onClick . ' />';
-			$button = '<input class="foolic-check foolic-check-' . $this->plugin_slug . '" type="button" name="foolic-check-' . $this->plugin_slug . '" value="' . __('Validate', $this->plugin_slug) . '" />';
+			$button = '<input class="foolic-check foolic-check-' . $this->plugin_slug . '" type="button" name="foolic-check-' . $this->plugin_slug . '" value="' . __('Validate', 'better_wp_security') . '" />';
 			$nonce = '<span style="display:none" class="foolic-nonce-' . $this->plugin_slug . '">' . wp_create_nonce($this->plugin_slug . '_foolic-ajax-nonce') . '</span>';
 			if ($valid == 'expired') {
-				$message = '<div class="foolic-error foolic-message-' . $this->plugin_slug . '">' . __('The license key has expired!', $this->plugin_slug) . '</div>';
+				$message = '<div class="foolic-error foolic-message-' . $this->plugin_slug . '">' . __('The license key has expired!', 'better_wp_security') . '</div>';
 			} else {
 				$message = '<div style="display:none" class="foolic-message foolic-message-' . $this->plugin_slug . '"></div>';
 			}
@@ -141,7 +141,7 @@ if (!class_exists('foolic_validation_v1_1')) {
 			var $this = $(this);
 			var $input = $this.prev('.foolic-input-<?php echo $this->plugin_slug; ?>');
 			if ($input.val().length == 0) {
-				alert('<?php echo __('Please enter a license key', $this->plugin_slug); ?>');
+				alert('<?php echo __('Please enter a license key', 'better_wp_security'); ?>');
 			} else {
 				<?php echo $namespace; ?>.send_request($input, 'foolic_validate_license');
 			}
@@ -277,12 +277,12 @@ jQuery(function($) {
 
 					if (is_wp_error($response_raw)) {
 						$error = $response_raw->get_error_message();
-						$this->output_json_error(__('An error occurred while trying to validate your license key', $this->plugin_slug),
+						$this->output_json_error(__('An error occurred while trying to validate your license key', 'better_wp_security'),
 							$error);
 						die;
 					} else if (wp_remote_retrieve_response_code($response_raw) != 200) {
-						$this->output_json_error(__('An error occurred while trying to validate your license key', $this->plugin_slug),
-							sprintf(__('The response code of [%s] was not expected', $this->plugin_slug), wp_remote_retrieve_response_code($response_raw)));
+						$this->output_json_error(__('An error occurred while trying to validate your license key', 'better_wp_security'),
+							sprintf(__('The response code of [%s] was not expected', 'better_wp_security'), wp_remote_retrieve_response_code($response_raw)));
 					} else {
 
 						$response = $response_raw['body'];
@@ -294,12 +294,12 @@ jQuery(function($) {
 					}
 
 				} else {
-					$this->output_json_error(__('The validation request was invalid', $this->plugin_slug),
-						__('The validation NONCE could not be validated!', $this->plugin_slug));
+					$this->output_json_error(__('The validation request was invalid', 'better_wp_security'),
+						__('The validation NONCE could not be validated!', 'better_wp_security'));
 				}
 			}
 			catch (Exception $e) {
-				$this->output_json_error(__('An unexpected error occurred', $this->plugin_slug),
+				$this->output_json_error(__('An unexpected error occurred', 'better_wp_security'),
 					$e->getMessage());
 			}
 		}

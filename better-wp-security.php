@@ -48,7 +48,7 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 				'plugin_access_lvl' 	=> 'manage_options', //Access level required to access plugin options
 				'plugin_dir' 			=> plugin_dir_path( __FILE__ ), //the path of the plugin directory
 				'plugin_homepage' 		=> 'http://bit51.com/software/better-wp-security/', //The plugins homepage on WordPress.org
-				'plugin_hook'			=> 'better_wp_security', //the hook for text calls and other areas
+				'plugin_hook'			=> 'bwps', //the hook for text calls and other areas
 				'plugin_name' 			=> __( 'Better WP Security', 'better_wp_security' ), //the name of the plugin
 				'plugin_url' 			=> plugin_dir_url( __FILE__ ), //the URL of the plugin directory
 				'support_page' 			=> 'http://wordpress.org/support/plugin/better-wp-security', //address of the WordPress support forums for the plugin
@@ -56,13 +56,13 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 			);
 
 			$this->top_level_menu = true; //true if top level menu, else false
-			$this->menu_name = __( 'Security', $this->globals['plugin_hook'] ); //main menu item name
+			$this->menu_name = __( 'Security', 'better_wp_security' ); //main menu item name
 
 			//the following options must only be set if it's a top-level section
 			$this->settings_page = false; //when using top_level menus this will always create a "Dashboard" page. Should it create a settings page as well?
 			$this->menu_icon = $this->globals['plugin_url'] . 'img/shield-small.png'; //image icon 
-			$this->dashboard_menu_title = __( 'Dashboard', $this->globals['plugin_hook'] ); //the name of the dashboard menu item (if different "Dashboard")
-			$this->dashboard_page_name = __( 'Dashboard', $this->globals['plugin_hook'] ); //page name - appears after plugin name on the dashboard page
+			$this->dashboard_menu_title = __( 'Dashboard', 'better_wp_security' ); //the name of the dashboard menu item (if different "Dashboard")
+			$this->dashboard_page_name = __( 'Dashboard', 'better_wp_security' ); //page name - appears after plugin name on the dashboard page
 			
 
 			//load core functionality for admin use
