@@ -30,8 +30,8 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			$available_pages[] = add_submenu_page(
 				$this->core->plugin->globals['plugin_hook'],
-				__( 'Away Mode', $this->core->plugin->globals['plugin_hook'] ),
-				__( 'Away Mode', $this->core->plugin->globals['plugin_hook'] ),
+				__( 'Away Mode', 'better_wp_security' ),
+				__( 'Away Mode', 'better_wp_security' ),
 				$this->core->plugin->globals['plugin_access_lvl'],
 				$available_pages[0] . '-away_mode',
 				array( $this->core, 'render_page' )
@@ -51,7 +51,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			//add metaboxes
 			add_meta_box( 
 				'default_module_intro', 
-				__( 'About Away Mode', $this->core->plugin->globals['plugin_hook'] ),
+				__( 'About Away Mode', 'better_wp_security' ),
 				array( $this, 'metabox_normal_intro' ),
 				'security_page_toplevel_page_better_wp_security-away_mode',
 				'normal',
@@ -61,7 +61,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			//add metaboxes
 			add_meta_box( 
 				'default_module_settings', 
-				__( 'Configure Away Mode', $this->core->plugin->globals['plugin_hook'] ),
+				__( 'Configure Away Mode', 'better_wp_security' ),
 				array( $this, 'metabox_advanced_settings' ),
 				'security_page_toplevel_page_better_wp_security-away_mode',
 				'advanced',
@@ -79,14 +79,14 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			add_settings_section(  
 				'away_mode_settings',
-				__( 'Configure Away Mode', $this->core->plugin->globals['plugin_hook'] ),
+				__( 'Configure Away Mode', 'better_wp_security' ),
 				array( $this, 'sandbox_general_options_callback' ),
 				'security_page_toplevel_page_better_wp_security-away_mode'
 			);
 
 			add_settings_field(   
 				'bwps_away_mode[enabled]', 
-				__( 'Enable Away Mode', $this->core->plugin->globals['plugin_hook'] ),
+				__( 'Enable Away Mode', 'better_wp_security' ),
 				array( $this, 'away_mode_enabled' ),
 				'security_page_toplevel_page_better_wp_security-away_mode',
 				'away_mode_settings'
@@ -94,7 +94,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			add_settings_field(   
 				'bwps_away_mode[type]', 
-				__( 'Type of Restriction', $this->core->plugin->globals['plugin_hook'] ),
+				__( 'Type of Restriction', 'better_wp_security' ),
 				array( $this, 'away_mode_type' ),
 				'security_page_toplevel_page_better_wp_security-away_mode',
 				'away_mode_settings'
@@ -125,7 +125,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		function away_mode_enabled( $args ) {
 
 			$content = '<input type="checkbox" id="bwps_away_mode_enabled" name="bwps_away_mode[enabled]" value="1" ' . checked( 1, $this->settings['enabled'], false ) . '/>';  
-			$content .= '<label for="bwps_away_mode_enabled"> '  . __( 'Check this box to enable away mode', $this->core->plugin->globals['plugin_hook'] ) . '</label>';   
+			$content .= '<label for="bwps_away_mode_enabled"> '  . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';   
 
 			echo $content;
 
@@ -143,7 +143,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
     		$content .= '<option value="1" ' . selected( $this->settings['type'], 1, false ) . '>Daily</option>';
     		$content .= '<option value="2" ' . selected( $this->settings['type'], 2, false ) . '>One Time</option>';
 			$content .= '</select>';
-			$content .= '<label for="bwps_away_mode_type"> '  . __( 'Check this box to enable away mode', $this->core->plugin->globals['plugin_hook'] ) . '</label>';   
+			$content .= '<label for="bwps_away_mode_type"> '  . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';   
 
 			echo $content;
 
@@ -156,7 +156,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 */
 		public function metabox_normal_intro() {
 
-			$content = '<p>' . __( 'As most sites are only updated at certain times of the day it is not always necessary to provide access to the WordPress dashboard 24 hours a day, 7 days a week. The options below will allow you to disable access to the WordPress Dashboard for the specified period. In addition to limiting exposure to attackers this could also be useful to disable site access based on a schedule for classroom or other reasons.', $this->core->plugin->globals['plugin_hook'] ) . '</p>';
+			$content = '<p>' . __( 'As most sites are only updated at certain times of the day it is not always necessary to provide access to the WordPress dashboard 24 hours a day, 7 days a week. The options below will allow you to disable access to the WordPress Dashboard for the specified period. In addition to limiting exposure to attackers this could also be useful to disable site access based on a schedule for classroom or other reasons.', 'better_wp_security' ) . '</p>';
 			
 			if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) { 
 				$currdate = date_i18n( 'l, d F Y' . ' ' . get_option( 'time_format' ) , current_time( 'timestamp' ) );
@@ -164,7 +164,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 				$currdate = date( 'g:i a \o\n l F jS, Y', current_time( 'timestamp' ) );
 			}
 			
-			$content = '<p>' . __( 'Please note that according to your', $this->core->plugin->globals['plugin_hook'] ) . ' <a href="options-general.php">' . __( 'WordPress timezone settings', $this->core->plugin->globals['plugin_hook'] ) . '</a> ' . __( 'your local time is', $this->core->plugin->globals['plugin_hook'] ) . ' <strong><em>' . $currdate . '</em></strong>. ' . __( 'If this is incorrect please correct it on the', $this->core->plugin->globals['plugin_hook'] ) . ' <a href="options-general.php">' . __( 'WordPress general settings page', $this->core->plugin->globals['plugin_hook'] ) . '</a> ' . __( 'by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', $this->core->plugin->globals['plugin_hook'] ) . '</p>';
+			$content = '<p>' . __( 'Please note that according to your', 'better_wp_security' ) . ' <a href="options-general.php">' . __( 'WordPress timezone settings', 'better_wp_security' ) . '</a> ' . __( 'your local time is', 'better_wp_security' ) . ' <strong><em>' . $currdate . '</em></strong>. ' . __( 'If this is incorrect please correct it on the', 'better_wp_security' ) . ' <a href="options-general.php">' . __( 'WordPress general settings page', 'better_wp_security' ) . '</a> ' . __( 'by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'better_wp_security' ) . '</p>';
 
 
 			echo $content;
@@ -186,7 +186,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			settings_fields( 'security_page_toplevel_page_better_wp_security-away_mode' );
 
-			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', $this->core->plugin->globals['plugin_hook'] ) . '" />' . PHP_EOL;
+			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'better_wp_security' ) . '" />' . PHP_EOL;
 
 			echo '</p>' . PHP_EOL;
 

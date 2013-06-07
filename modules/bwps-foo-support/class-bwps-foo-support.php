@@ -44,7 +44,7 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 				//add metaboxes
 				add_meta_box( 
 					'bwps_foo_support', 
-					__( 'Need Help?', $this->core->plugin->globals['plugin_hook'] ),
+					__( 'Need Help?', 'better_wp_security' ),
 					array( $this, 'metabox_sideboar_foo_support' ),
 					$page,
 					'priority_side',
@@ -103,20 +103,20 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 				$content .= '<input type="hidden" name="action" value="' . $this->core->plugin->globals['plugin_hook'] . '_support" />';
 				$content .= '<input type="hidden" name="nonce" value="' . wp_create_nonce($this->core->plugin->globals['plugin_hook'] . '_ajax-nonce') . '" />';
 				$content .= '<input type="hidden" name="ticket_key" value="' . $data['license'] . '" />';
-				$content .= '<label for="support_issue">' . __( 'Describe the Issue', $this->core->plugin->globals['plugin_hook'] ). ':</label><textarea name="issue" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_issue"></textarea>';
-				$content .= '<label for="support_reproduce">' . __( 'Steps to Reproduce', $this->core->plugin->globals['plugin_hook'] ). ':</label><textarea name="reproduce" style="height:200px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_reproduce"></textarea>';
-				$content .= '<label for="support_other">' . __( 'Other Information', $this->core->plugin->globals['plugin_hook'] ). ':</label><textarea name="other" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_other"></textarea><br />';
-				$content .= '<input id="submit_support" type="button" class="button-primary" value="' . __( 'Submit Support Ticket', $this->core->plugin->globals['plugin_hook'] ) . '" /><br />';
+				$content .= '<label for="support_issue">' . __( 'Describe the Issue', 'better_wp_security' ). ':</label><textarea name="issue" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_issue"></textarea>';
+				$content .= '<label for="support_reproduce">' . __( 'Steps to Reproduce', 'better_wp_security' ). ':</label><textarea name="reproduce" style="height:200px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_reproduce"></textarea>';
+				$content .= '<label for="support_other">' . __( 'Other Information', 'better_wp_security' ). ':</label><textarea name="other" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_other"></textarea><br />';
+				$content .= '<input id="submit_support" type="button" class="button-primary" value="' . __( 'Submit Support Ticket', 'better_wp_security' ) . '" /><br />';
 				$content .= '<br /></form>';
-				$content .= '<div style="display:none" class="support_message foolic-loading"><p>' . __( 'sending...', $this->core->plugin->globals['plugin_hook'] ). '</p></div>';
-				$content .= '<a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase priority support', $this->core->plugin->globals['plugin_hook'] ) . '</a>';
-				$content .= ' | <a href="#newkey" class="foolic-clear-' . $this->core->plugin->globals['plugin_hook'] . '">' . __( 'Enter License Key', $this->core->plugin->globals['plugin_hook'] ) . '</a>';
+				$content .= '<div style="display:none" class="support_message foolic-loading"><p>' . __( 'sending...', 'better_wp_security' ). '</p></div>';
+				$content .= '<a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase priority support', 'better_wp_security' ) . '</a>';
+				$content .= ' | <a href="#newkey" class="foolic-clear-' . $this->core->plugin->globals['plugin_hook'] . '">' . __( 'Enter License Key', 'better_wp_security' ) . '</a>';
 				$content .= $data['nonce'];
 
 
 			} else {
 
-				$content = '<strong>' . __( 'Need premium support or configuration?', $this->core->plugin->globals['plugin_hook'] ). '<br /><br /><a target="_blank" href="' . $purchase_url .'">' . __( 'Purchase one-time premium support or installation', $this->core->plugin->globals['plugin_hook'] ) . '</a>.</strong><br /><br />';
+				$content = '<strong>' . __( 'Need premium support or configuration?', 'better_wp_security' ). '<br /><br /><a target="_blank" href="' . $purchase_url .'">' . __( 'Purchase one-time premium support or installation', 'better_wp_security' ) . '</a>.</strong><br /><br />';
 				$content .= $data['html'];
 
 			}
@@ -131,7 +131,7 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 									e.preventDefault();
 
 									if ($("#support_issue").val().length == 0) {
-										alert("' . __( 'Please describe the issue you are having', $this->core->plugin->globals['plugin_hook'] ). '");
+										alert("' . __( 'Please describe the issue you are having', 'better_wp_security' ). '");
 										return;
 									}
 									$("#support_form").slideUp();
@@ -141,7 +141,7 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 
 									$.ajax({ url: ajaxurl, cache: false, type: "POST", data: data,
 										success: function (data) {
-											$(".support_message").removeClass("foolic-loading").html("<p>' . __( 'Thank you for submitting your support ticket. We will contact you shortly.', $this->core->plugin->globals['plugin_hook'] ) . '</p>");
+											$(".support_message").removeClass("foolic-loading").html("<p>' . __( 'Thank you for submitting your support ticket. We will contact you shortly.', 'better_wp_security' ) . '</p>");
 										},
 										error: function(a,b,c) {
 											alert(a);

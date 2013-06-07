@@ -11,7 +11,7 @@ if ( ! class_exists( 'BWPS_Foo_Support_Setup' ) ) {
 			global $bwps_setup_action;
 
 			//Important, this must be manually set in each module
-			$this->hook = 'better_wp_security';
+			$this->hook = 'bwps';
 
 			if ( isset( $bwps_setup_action ) ) {
 				
