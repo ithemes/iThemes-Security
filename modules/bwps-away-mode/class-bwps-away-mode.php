@@ -19,6 +19,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			add_action( $this->core->plugin->globals['plugin_hook'] . '_page_top', array( $this, 'add_away_mode_intro' ) );
 			add_filter( $this->core->plugin->globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) );
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) );
 
 		}
 
@@ -51,7 +52,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			//add metaboxes
 			add_meta_box( 
-				'away_mode_settings', 
+				'away_mode_options', 
 				__( 'Configure Away Mode', 'better_wp_security' ),
 				array( $this, 'metabox_advanced_settings' ),
 				'security_page_toplevel_page_bwps-away_mode',
@@ -62,11 +63,32 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		}
 
 		/**
+		 * Add Away mode Javascript
+		 * 
+		 * @return void
+		 */
+		function admin_script() {
+
+			if( get_current_screen()->id == 'security_page_toplevel_page_bwps-away_mode' ) {
+				wp_enqueue_script( 'bwps_away_mode_js', $this->core->plugin->globals['plugin_url'] . 'modules/bwps-away-mode/js/admin-away.js', 'jquery', $this->core->plugin->globals['plugin_build'] );
+				wp_enqueue_script( 'jquery-ui-datepicker' );
+			}
+
+		}
+
+		/**
 		 * Execute admin initializations
 		 * 
 		 * @return void
 		 */
 		function initialize_admin() {
+
+			add_settings_section(  
+				'away_mode_enabled',
+				__( 'Configure Away Mode', 'better_wp_security' ),
+				array( $this, 'sandbox_general_options_callback' ),
+				'security_page_toplevel_page_bwps-away_mode'
+			);
 
 			add_settings_section(  
 				'away_mode_settings',
@@ -80,7 +102,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 				__( 'Enable Away Mode', 'better_wp_security' ),
 				array( $this, 'away_mode_enabled' ),
 				'security_page_toplevel_page_bwps-away_mode',
-				'away_mode_settings'
+				'away_mode_enabled'
 			);
 
 			add_settings_field(   
@@ -91,12 +113,31 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 				'away_mode_settings'
 			);
 
+			add_settings_field(   
+				'bwps_away_mode[start]', 
+				__( 'Start Date', 'better_wp_security' ),
+				array( $this, 'away_mode_start' ),
+				'security_page_toplevel_page_bwps-away_mode',
+				'away_mode_settings'
+			);
+
+			add_settings_field(   
+				'bwps_away_mode[end]', 
+				__( 'End Date', 'better_wp_security' ),
+				array( $this, 'away_mode_end' ),
+				'security_page_toplevel_page_bwps-away_mode',
+				'away_mode_settings'
+			);
+
+			//Register the settings field for the entire module
 			register_setting(  
 				'security_page_toplevel_page_bwps-away_mode',
 				'bwps_away_mode'
 			);
 
+			//Add the date picker
 			wp_enqueue_script( 'jquery-ui-datepicker' );
+			wp_enqueue_style( 'jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css' );
 
 		}
 
@@ -123,6 +164,40 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		}
 
 		/**
+		 * echos Start time field
+		 * 
+		 * @param  array $args field arguements
+		 * @return void
+		 */
+		function away_mode_end( $args ) {
+
+			$current = current_time( 'timestamp' );
+
+			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current > $this->settings['end'] ) {
+				$end = $this->settings['end'];
+			} else {
+				$end = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
+			}
+
+			$content = '<input type="text" id="bwps_away_mode_end_date" name="bwps_away_mode[end][date]" value="' . date( 'm/d/y', $end ) . '"/>'; 
+			
+			$content .= '<label for="bwps_away_mode_end_date"> '  . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';   
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos End time Field
+		 * 
+		 * @param  array $args field arguements
+		 * @return void
+		 */
+		function away_mode_start( $args ) {
+
+		}
+
+		/**
 		 * echos type Field
 		 * 
 		 * @param  array $args field arguements
@@ -130,7 +205,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 */
 		function away_mode_type( $args ) {
 
-			$content = '<select name="bwps_away_mode[type]" id="bwps_away_mode_test">' . 
+			$content = '<select name="bwps_away_mode[type]" id="bwps_away_mode_type">' . 
     		$content .= '<option value="1" ' . selected( $this->settings['type'], 1, false ) . '>' . __( 'Daily', 'better_wp_security' ) . '</option>';
     		$content .= '<option value="2" ' . selected( $this->settings['type'], 2, false ) . '>' . __( 'One Time', 'better_wp_security' ) . '</option>';
 			$content .= '</select>';
@@ -157,7 +232,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 					$currdate = date( 'g:i a \o\n l F jS, Y', current_time( 'timestamp' ) );
 				}
 				
-				$content = '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your local time is %s. If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'better_wp_security' ), '<a href="options-general.php">', '</a>', '<strong><em>' . $currdate . '</em></strong>', '<a href="options-general.php">', '</a>' ) . '</p>';
+				$content = '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is %s. If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'better_wp_security' ), '<a href="options-general.php">', '</a>', '<strong style="color: #f00; font-size: 150%;"><em>' . $currdate . '</em></strong>', '<a href="options-general.php">', '</a>' ) . '</p>';
 
 
 				echo $content;
