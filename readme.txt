@@ -82,6 +82,7 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
 * Persian by <a href="http://www.gonak.ir/">Ibrahim Jafari</a>
 * Russian
+* Simplified Chinese by <a href="http://haib.in">海滨</a>
 * Slovak by <a href="http://www.nawebik.sk">Erich Szabó</a>
 * Spanish by <a href="http://pabloromero.org">Pablo Romero</a>
 * Tagalog by <a href="http://pointen.dk/">Hanne</a>
@@ -162,6 +163,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Typo correction by ihuston
 * Fixed Bit51 Google+ Link
 * Better proxy support for ban users by kalvindukes
+* Updated Spanish translation by <a href="http://pabloromero.org">Pablo Romero</a>
 
 = 3.5.2 =
 * Fixed error message that could appear when creating backups
