@@ -28,7 +28,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 * 
 		 * @param array $available_pages array of BWPS settings pages
 		 */
-		function add_sub_page( $available_pages ) {
+		public function add_sub_page( $available_pages ) {
 
 			$available_pages[] = add_submenu_page(
 				$this->core->plugin->globals['plugin_hook'],
@@ -48,7 +48,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 * 
 		 * @param array $available_pages array of available page_hooks
 		 */
-		function add_admin_meta_boxes( $available_pages ) {
+		public function add_admin_meta_boxes( $available_pages ) {
 
 			//add metaboxes
 			add_meta_box( 
@@ -67,7 +67,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 * 
 		 * @return void
 		 */
-		function admin_script() {
+		public function admin_script() {
 
 			if( get_current_screen()->id == 'security_page_toplevel_page_bwps-away_mode' ) {
 				wp_enqueue_script( 'bwps_away_mode_js', $this->core->plugin->globals['plugin_url'] . 'modules/bwps-away-mode/js/admin-away.js', 'jquery', $this->core->plugin->globals['plugin_build'] );
@@ -81,7 +81,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 * 
 		 * @return void
 		 */
-		function initialize_admin() {
+		public function initialize_admin() {
 
 			add_settings_section(  
 				'away_mode_enabled',
@@ -114,17 +114,33 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			);
 
 			add_settings_field(   
-				'bwps_away_mode[start]', 
+				'bwps_away_mode[start_date]', 
 				__( 'Start Date', 'better_wp_security' ),
-				array( $this, 'away_mode_start' ),
+				array( $this, 'away_mode_start_date' ),
 				'security_page_toplevel_page_bwps-away_mode',
 				'away_mode_settings'
 			);
 
 			add_settings_field(   
-				'bwps_away_mode[end]', 
+				'bwps_away_mode[start_time]', 
+				__( 'Start Time', 'better_wp_security' ),
+				array( $this, 'away_mode_start_time' ),
+				'security_page_toplevel_page_bwps-away_mode',
+				'away_mode_settings'
+			);
+
+			add_settings_field(   
+				'bwps_away_mode[end_date]', 
 				__( 'End Date', 'better_wp_security' ),
-				array( $this, 'away_mode_end' ),
+				array( $this, 'away_mode_end_date' ),
+				'security_page_toplevel_page_bwps-away_mode',
+				'away_mode_settings'
+			);
+
+			add_settings_field(   
+				'bwps_away_mode[end_time]', 
+				__( 'End Time', 'better_wp_security' ),
+				array( $this, 'away_mode_end_time' ),
 				'security_page_toplevel_page_bwps-away_mode',
 				'away_mode_settings'
 			);
@@ -132,7 +148,8 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			//Register the settings field for the entire module
 			register_setting(  
 				'security_page_toplevel_page_bwps-away_mode',
-				'bwps_away_mode'
+				'bwps_away_mode',
+				array( $this, 'sanitize_module_input' )
 			);
 
 			//Add the date picker
@@ -146,7 +163,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 * 
 		 * @return void
 		 */
-		function sandbox_general_options_callback() {}
+		public function sandbox_general_options_callback() {}
 
 		/**
 		 * echos Enabled Field
@@ -154,10 +171,104 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 * @param  array $args field arguements
 		 * @return void
 		 */
-		function away_mode_enabled( $args ) {
+		public function away_mode_enabled( $args ) {
 
 			$content = '<input type="checkbox" id="bwps_away_mode_enabled" name="bwps_away_mode[enabled]" value="1" ' . checked( 1, $this->settings['enabled'], false ) . '/>';  
 			$content .= '<label for="bwps_away_mode_enabled"> '  . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';   
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos End date field
+		 * 
+		 * @param  array $args field arguements
+		 * @return void
+		 */
+		public function away_mode_end_date( $args ) {
+
+			$current = current_time( 'timestamp' );
+
+			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current > $this->settings['end'] ) {
+				$end = $this->settings['end'];
+			} else {
+				$end = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
+			}
+
+			//Date Field
+			$content = '<input class="end_date_field" type="text" id="bwps_away_mode_end_date" name="bwps_away_mode[end][date]" value="' . date( 'm/d/y', $end ) . '"/>'; 
+			$content .= '<label class="end_date_field" for="bwps_away_mode_end_date"> '  . __( 'Set the date at which the admin dashboard should become available', 'better_wp_security' ) . '</label>'; 
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos End time field
+		 * 
+		 * @param  array $args field arguements
+		 * @return void
+		 */
+		public function away_mode_end_time( $args ) {
+
+			$current = current_time( 'timestamp' );
+
+			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current > $this->settings['end'] ) {
+				$end = $this->settings['end'];
+			} else {
+				$end = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
+			}
+
+			//Hour Field
+			$content .= '<select name="bwps_away_mode[end][hour]" id="bwps_away_mod_end_time">';
+
+			for ( $i = 1; $i <= 12; $i++ ) {
+				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $end ), $i, false ) . '>' . $i . '</option>';
+			}
+
+			$content .= '</select>';
+
+			//Minute Field
+			$content .= '<select name="bwps_away_mode[end][minute]" id="bwps_away_mod_end_time">';
+
+			for ( $i = 0; $i <= 59; $i++ ) {
+
+				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'i', $end ), sprintf( '%02d', $i ), false ) . '>' . sprintf( '%02d', $i ) . '</option>';
+			}
+
+			$content .= '</select>';
+
+			//AM/PM Field
+			$content .= '<select name="bwps_away_mode[end][sel]" id="bwps_away_mod_end_time">';
+    		$content .= '<option value="am" ' . selected( date( 'a', $end ), 'am', false ) . '>' . __( 'am', 'better_wp_security' ) . '</option>';
+    		$content .= '<option value="pm" ' . selected( date( 'a', $end ), 'pm', false ) . '>' . __( 'pm', 'better_wp_security' ) . '</option>';
+			$content .= '</select>';
+			$content .= '<label for="bwps_away_mod_end_time"> '  . __( 'Set the time at which the admin dashboard should become available again.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Start date field
+		 * 
+		 * @param  array $args field arguements
+		 * @return void
+		 */
+		public function away_mode_start_date( $args ) {
+
+			$current = current_time( 'timestamp' );
+
+			if ( isset( $this->settings['start'] ) && isset( $this->settings['enabled'] ) && $current > $this->settings['start'] ) {
+				$start = $this->settings['start'];
+			} else {
+				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
+			}
+
+			//Date Field
+			$content = '<input class="start_date_field" type="text" id="bwps_away_mode_start_date" name="bwps_away_mode[start][date]" value="' . date( 'm/d/y', $start ) . '"/>'; 
+			$content .= '<label class="start_date_field" for="bwps_away_mode_start_date"> '  . __( 'Set the date at which the admin dashboard should become unavailable', 'better_wp_security' ) . '</label>'; 
 
 			echo $content;
 
@@ -169,31 +280,43 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 * @param  array $args field arguements
 		 * @return void
 		 */
-		function away_mode_end( $args ) {
+		public function away_mode_start_time( $args ) {
 
 			$current = current_time( 'timestamp' );
 
-			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current > $this->settings['end'] ) {
-				$end = $this->settings['end'];
+			if ( isset( $this->settings['start'] ) && isset( $this->settings['enabled'] ) && $current > $this->settings['start'] ) {
+				$start = $this->settings['start'];
 			} else {
-				$end = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
+				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
 			}
 
-			$content = '<input type="text" id="bwps_away_mode_end_date" name="bwps_away_mode[end][date]" value="' . date( 'm/d/y', $end ) . '"/>'; 
-			
-			$content .= '<label for="bwps_away_mode_end_date"> '  . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';   
+			//Hour Field
+			$content .= '<select name="bwps_away_mode[start][hour]" id="bwps_away_mod_start_time">';
+
+			for ( $i = 1; $i <= 12; $i++ ) {
+				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $start ), $i, false ) . '>' . $i . '</option>';
+			}
+
+			$content .= '</select>';
+
+			//Minute Field
+			$content .= '<select name="bwps_away_mode[start][minute]" id="bwps_away_mod_start_time">';
+
+			for ( $i = 0; $i <= 59; $i++ ) {
+
+				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'i', $start ), sprintf( '%02d', $i ), false ) . '>' . sprintf( '%02d', $i ) . '</option>';
+			}
+
+			$content .= '</select>';
+
+			//AM/PM Field
+			$content .= '<select name="bwps_away_mode[start][sel]" id="bwps_away_mod_start_time">';
+    		$content .= '<option value="am" ' . selected( date( 'a', $start ), 'am', false ) . '>' . __( 'am', 'better_wp_security' ) . '</option>';
+    		$content .= '<option value="pm" ' . selected( date( 'a', $start ), 'pm', false ) . '>' . __( 'pm', 'better_wp_security' ) . '</option>';
+			$content .= '</select>';
+			$content .= '<label for="bwps_away_mod_start_time"> '  . __( 'Set the time at which the admin dashboard should become available again.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
-
-		}
-
-		/**
-		 * echos End time Field
-		 * 
-		 * @param  array $args field arguements
-		 * @return void
-		 */
-		function away_mode_start( $args ) {
 
 		}
 
@@ -203,13 +326,13 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 * @param  array $args field arguements
 		 * @return void
 		 */
-		function away_mode_type( $args ) {
+		public function away_mode_type( $args ) {
 
-			$content = '<select name="bwps_away_mode[type]" id="bwps_away_mode_type">' . 
+			$content = '<select name="bwps_away_mode[type]" id="bwps_away_mode_type">';
     		$content .= '<option value="1" ' . selected( $this->settings['type'], 1, false ) . '>' . __( 'Daily', 'better_wp_security' ) . '</option>';
     		$content .= '<option value="2" ' . selected( $this->settings['type'], 2, false ) . '>' . __( 'One Time', 'better_wp_security' ) . '</option>';
 			$content .= '</select>';
-			$content .= '<label for="bwps_away_mode_type"> '  . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';   
+			$content .= '<label for="bwps_away_mode_type"> '  . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -261,6 +384,22 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			echo '</p>' . PHP_EOL;
 
 			echo '</form>';
+
+		}
+
+		/**
+		 * Sanitize and validate input
+		 * 
+		 * @param  Array $input  array of input fields
+		 * @return Array         Sanitized array
+		 */
+		public function sanitize_module_input( $input ) {
+			
+			$start = strtotime( $input['start']['date'] . ' ' . $input['start']['hour'] . ':' . $input['start']['minute'] . ' ' . $input['start']['sel'] );
+
+			die( 'Start: ' . $start );
+
+			return $input;
 
 		}
 
