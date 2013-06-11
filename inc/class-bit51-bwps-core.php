@@ -62,7 +62,12 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		public function build_admin() {
 
 			add_action( 'admin_init', array( $this, 'execute_admin_init' ) );
-			add_action( 'admin_menu', array( $this, 'setup_primary_admin' ) );
+
+			if ( is_multisite() ) { //must be network admin in multisite
+				add_action( 'network_admin_menu', array( $this, 'setup_primary_admin' ) );
+			} else {
+				add_action( 'admin_menu', array( $this, 'setup_primary_admin' ) );
+			}
 
 		}
 
@@ -200,7 +205,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 */
 		public function page_actions() {
 
-			do_action( $this->plugin->globals['plugin_hook'] . '_add_admin_meta_boxes', $this->page_hooks );	
+			do_action( $this->plugin->globals['plugin_hook'] . '_add_admin_meta_boxes', $this->page_hooks );
 
 			//Set two columns for all plugins using this framework
 			add_screen_option( 'layout_columns', array( 'max' => 2, 'default' => 2 ) );
@@ -234,7 +239,12 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 * @return void
 		 */
 		public function render_page() {
-				$screen = get_current_screen()->id; //the current screen id
+				if ( is_multisite() ) {
+					$screen = substr( get_current_screen()->id, 0, strpos( get_current_screen()->id, '-network' ) );
+				} else {
+					$screen = get_current_screen()->id; //the current screen id
+				}
+
 			?>
 		
 			<div class="wrap">

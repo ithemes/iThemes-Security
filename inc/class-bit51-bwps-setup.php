@@ -118,6 +118,13 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 		function activate_execute( $updating = false ) {
 			global $bwps_setup_action;
 
+			//if this is multisite make sure they're network activating or die
+			if ( defined( 'BWPS_NEW_INSTALL' ) && BWPS_NEW_INSTALL == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
+			
+				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', 'better-wp-security' ) );	
+			
+			}
+
 			$bwps_setup_action = 'activate';
 
 			$this->do_modules();
