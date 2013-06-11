@@ -100,7 +100,7 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 		
 			global $blog_id; //get the current blog id
 			
-			$options = get_option( $this->core->plugin->globals['plugin_hook'] . '_data' );
+			$options = get_site_option( $this->core->plugin->globals['plugin_hook'] . '_data' );
 
 			//Gotta make sure this is available when needed
 			global $plugname;
@@ -111,7 +111,7 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			$plugopts = admin_url( 'options-general.php?page=' . $this->core->plugin->globals['plugin_hook'] );
 			
 			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
-			if ( ! isset( $options['no-nag'] ) && isset( $options['activatestamp'] ) && $options['activatestamp'] < ( current_time( 'timestamp' ) + 2952000 ) ) {
+			if ( ! isset( $options['no-nag'] ) && isset( $options['activatestamp'] ) && $options['activatestamp'] < ( current_time( 'timestamp' ) - 2952000 ) ) {
 			
 				if ( ! function_exists( 'bwps_share_notice' ) ) {
 			
@@ -145,9 +145,9 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			//if they've clicked a button hide the notice
 			if ( ( isset( $_GET[$this->core->plugin->globals['plugin_hook'] . '_share_nag'] ) || isset( $_GET[$this->core->plugin->globals['plugin_hook'] . '_lets_rate'] ) || isset( $_GET[$this->core->plugin->globals['plugin_hook'] . '_lets_tweet'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], $this->core->plugin->globals['plugin_hook'] . '-reminder' ) ) {
 
-				$options = get_option( $this->core->plugin->globals['plugin_hook'] . '_data' );
+				$options = get_site_option( $this->core->plugin->globals['plugin_hook'] . '_data' );
 				$options['no-nag'] = 1;
-				update_option( $this->core->plugin->globals['plugin_hook'] . '_data', $options );
+				update_site_option( $this->core->plugin->globals['plugin_hook'] . '_data', $options );
 				remove_action( 'admin_notices', 'bwps_share_notice' );
 				
 				//Go to the WordPress page to let them rate it.

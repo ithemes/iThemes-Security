@@ -19,8 +19,8 @@ if (!class_exists('foolic_validation_v1_1')) {
 
 			if (is_admin()) {
 				//output the needed css and js
-				add_action('admin_enqueue_scripts', array(&$this, 'include_css') );
-				add_action('admin_footer', array(&$this, 'include_js') );
+				add_action('admin_enqueue_scripts', array($this, 'include_css') );
+				add_action('admin_footer', array($this, 'include_js') );
 
 				//wire up the ajax callbacks
 				add_action('wp_ajax_foolic_validate_license-'.$this->plugin_slug, array($this, 'ajax_validate_license'));
@@ -35,15 +35,15 @@ if (!class_exists('foolic_validation_v1_1')) {
 
 		function get_validation_data() {
 			$default_text = __( 'Enter your license key here', 'better_wp_security' );
-			if ( get_option( $this->plugin_slug . '_licensekey' ) === false || get_option( $this->plugin_slug . '_licensekey' ) === $default_text ) {
+			if ( get_site_option( $this->plugin_slug . '_licensekey' ) === false || get_site_option( $this->plugin_slug . '_licensekey' ) === $default_text ) {
 				$license = $default_text;
 				$onClick = ' onblur="if(this.value == \'\') { this.value=\'' . $default_text . '\'}" onfocus="if (this.value == \'' . $default_text . '\') {this.value=\'\'}"';
 			} else {
-				$license = get_option($this->plugin_slug . '_licensekey');
+				$license = get_site_option($this->plugin_slug . '_licensekey');
 				$onClick = '';
 			}
-			$valid = !empty($license) ? get_option($this->plugin_slug . '_valid') : false;
-			$expires = get_option($this->plugin_slug . '_valid_expires');
+			$valid = !empty($license) ? get_site_option($this->plugin_slug . '_valid') : false;
+			$expires = get_site_option($this->plugin_slug . '_valid_expires');
 			if ($expires !== false && $expires !== 'never') {
 				if (strtotime($expires) < strtotime(date("Y-m-d"))) {
 					$valid = 'expired'; //it has expired!
@@ -221,10 +221,10 @@ jQuery(function($) {
 <?php	}
 
 		function clear_all_options() {
-			delete_option($this->plugin_slug . '_licensekey');
-			delete_option($this->plugin_slug . '_valid');
-			delete_option($this->plugin_slug . '_valid_expires');
-			delete_option($this->plugin_slug . '_lasterror');
+			delete_site_option($this->plugin_slug . '_licensekey');
+			delete_site_option($this->plugin_slug . '_valid');
+			delete_site_option($this->plugin_slug . '_valid_expires');
+			delete_site_option($this->plugin_slug . '_lasterror');
 		}
 
 		function valid_nonce() {
@@ -242,7 +242,7 @@ jQuery(function($) {
 				$expires = $_REQUEST['expires'];
 				update_option($this->plugin_slug . '_valid', $valid);
 				if (!empty($expires)) {
-					update_option($this->plugin_slug . '_valid_expires', $expires);
+					update_site_option($this->plugin_slug . '_valid_expires', $expires);
 				}
 				$this->output_valid_response();
 			}
@@ -258,7 +258,7 @@ jQuery(function($) {
 		function ajax_license_store_error() {
 			if ($this->valid_nonce()) {
 				$response = $_REQUEST['response'];
-				update_option($this->plugin_slug . '_lasterror', $response);
+				update_site_option($this->plugin_slug . '_lasterror', $response);
 				$this->output_valid_response();
 			}
 		}
@@ -271,7 +271,7 @@ jQuery(function($) {
 
 					$license = $_REQUEST['license'];
 
-					update_option($this->plugin_slug . '_licensekey', $license);
+					update_site_option($this->plugin_slug . '_licensekey', $license);
 
 					$response_raw = wp_remote_post($this->plugin_validation_url, $this->prepare_validate_request($license));
 
