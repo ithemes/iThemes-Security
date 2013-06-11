@@ -13,7 +13,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		private function __construct( $core ) {
 
 			$this->core = $core;
-			$this->settings = get_option( 'bwps_away_mode' );
+			$this->settings = get_site_option( 'bwps_away_mode' );
 
 			add_action( $this->core->plugin->globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 			add_action( $this->core->plugin->globals['plugin_hook'] . '_page_top', array( $this, 'add_away_mode_intro' ) );
@@ -77,11 +77,90 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		}
 
 		/**
+		 * Check if away mode is active
+		 * 
+		 * @return bool true if locked out else false
+		 */
+		private function check_away() {
+
+			$transaway = get_site_transient( 'bwps_away' );
+
+			//if transient indicates away go ahead and lock them out
+			if ( $transaway === true && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) {
+			
+				return true;
+
+			} else { //check manually
+			
+				$current_time = current_time( 'timestamp' );
+				
+				if ( $this->settings['type'] == 1 && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) { //set up for daily
+
+					$start = strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $this->settings['start'] ) );
+					$end = strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $this->settings['end'] ) );
+				
+					if ( $start > $end ) { //starts and ends on same calendar day
+
+						if ( strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $start ) ) <= $current_time ) { 
+					
+							$start = strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $start ) );
+							$end = strtotime( date( 'n/j/y', ( $current_time + 86400 ) ) . ' ' . date( 'g:i a', $end ) );
+							
+						} else {
+						
+							$start = strtotime( date( 'n/j/y', $current_time - 86400 ) . ' ' . date( 'g:i a', $start ) );
+							$end = strtotime( date( 'n/j/y', ( $current_time ) ) . ' ' . date( 'g:i a', $end ) );
+						
+						}
+						
+					}
+
+					if ( $end < $current_time ) { //make sure to advance the day appropriately
+
+						$start = $start + 86400;
+						$end = $end + 86400;
+
+					}
+					
+				} else { //one time settings
+				
+					$start = $this->settings['start'];
+					$end = $this->settings['end'];
+				
+				}
+
+				$remaining = $end - $current_time;
+					
+				if ( $this->settings['enabled'] == 1 && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true && $start <= $current_time && $end >= $current_time ) { //if away mode is enabled continue
+
+					if ( get_site_transient( 'bwps_away' ) === true ) {
+						delete_site_transient ( 'bwps_away' );
+					}
+
+					set_site_transient( 'bwps_away' , true, $remaining );
+
+					return true; //time restriction is current
+					
+				}
+
+			}
+			
+			return false; //they are allowed to log in
+
+		}
+
+		/**
 		 * Execute admin initializations
 		 * 
 		 * @return void
 		 */
 		public function initialize_admin() {
+
+			//execute lockout if applicable
+			if( $this->check_away() ) {
+				wp_redirect( get_option( 'siteurl' ) );
+				wp_clear_auth_cookie();
+			}
 
 			add_settings_section(  
 				'away_mode_enabled',
@@ -190,7 +269,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			$current = current_time( 'timestamp' );
 
-			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current > $this->settings['end'] ) {
+			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
 				$end = $this->settings['end'];
 			} else {
 				$end = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
@@ -214,7 +293,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			$current = current_time( 'timestamp' );
 
-			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current > $this->settings['end'] ) {
+			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
 				$end = $this->settings['end'];
 			} else {
 				$end = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
@@ -260,7 +339,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			$current = current_time( 'timestamp' );
 
-			if ( isset( $this->settings['start'] ) && isset( $this->settings['enabled'] ) && $current > $this->settings['start'] ) {
+			if ( isset( $this->settings['start'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
 				$start = $this->settings['start'];
 			} else {
 				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
@@ -284,7 +363,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			$current = current_time( 'timestamp' );
 
-			if ( isset( $this->settings['start'] ) && isset( $this->settings['enabled'] ) && $current > $this->settings['start'] ) {
+			if ( isset( $this->settings['start'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
 				$start = $this->settings['start'];
 			} else {
 				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
@@ -394,10 +473,12 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 * @return Array         Sanitized array
 		 */
 		public function sanitize_module_input( $input ) {
-			
-			$start = strtotime( $input['start']['date'] . ' ' . $input['start']['hour'] . ':' . $input['start']['minute'] . ' ' . $input['start']['sel'] );
 
-			die( 'Start: ' . $start );
+			$input['enabled'] = intval( $input['enabled'] );
+			$input['type'] = intval( $input['type'] );
+			
+			$input['start'] = strtotime( $input['start']['date'] . ' ' . $input['start']['hour'] . ':' . $input['start']['minute'] . ' ' . $input['start']['sel'] );
+			$input['end'] = strtotime( $input['end']['date'] . ' ' . $input['end']['hour'] . ':' . $input['end']['minute'] . ' ' . $input['end']['sel'] );
 
 			return $input;
 
