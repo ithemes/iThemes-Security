@@ -78,9 +78,8 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 */
 		public function execute_admin_init() {
 
-			wp_register_style( 'bwps_admin_styles', $this->plugin->globals['plugin_url'] . 'inc/css/bit51.css' );
-
-			do_action( $this->plugin->globals['plugin_hook'] . 'admin_init' ); //execute modules init scripts
+				wp_register_style( 'bwps_admin_styles', $this->plugin->globals['plugin_url'] . 'inc/css/bit51.css' );
+				do_action( $this->plugin->globals['plugin_hook'] . 'admin_init' ); //execute modules init scripts
 
 		}
 
@@ -239,6 +238,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 * @return void
 		 */
 		public function render_page() {
+
 				if ( is_multisite() ) {
 					$screen = substr( get_current_screen()->id, 0, strpos( get_current_screen()->id, '-network' ) );
 				} else {
@@ -297,7 +297,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 			$save_data = false; //flag to avoid saving data if we don't have to
 
-			$plugin_data = get_option( $this->plugin->globals['plugin_hook'] . '_data' );
+			$plugin_data = get_site_option( $this->plugin->globals['plugin_hook'] . '_data' );
 
 			//Update the build number if we need to
 			if ( ! isset( $plugin_data['build'] ) || ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $this->plugin->globals['plugin_build'] ) ) {
@@ -313,7 +313,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 			//update the options table if we have to
 			if ( $save_data === true ) {
-				update_option( $this->plugin->globals['plugin_hook'] . '_data', $plugin_data );
+				update_site_option( $this->plugin->globals['plugin_hook'] . '_data', $plugin_data );
 			}
 
 		}
