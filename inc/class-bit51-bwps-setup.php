@@ -172,7 +172,7 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 
 			$this->do_modules();
 
-			delete_option( $this->hook . '_data' );
+			delete_site_option( $this->hook . '_data' );
 			
 			if ( function_exists( 'apc_store' ) ) { 
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
