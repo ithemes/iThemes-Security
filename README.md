@@ -8,8 +8,6 @@ For more information visit [Better WP Security](http://bit51.com/software/better
 
 ## Installation ##
 
-For detailed setup instructions, visit the official [Documentation](http://easydigitaldownloads.com/documentation/) page.
-
 1. You can clone the GitHub repository: `https://github.com/bit51/Better-WP-Security.git`
 2. Or download it directly as a ZIP file: `https://github.com/bit51/Better-WP-Security/archive/master.zip`
 
