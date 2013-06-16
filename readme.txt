@@ -5,7 +5,7 @@ Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 3.5.2
+Stable tag: 3.5.3
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -19,6 +19,10 @@ Released under the terms of the GNU General Public License.
 Better WP Security takes the best Wordpress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without having to worry about conflicting features or the possibility of missing anything on your site.
 
 With one-click activation for most features as well as advanced features for experienced users Better WP Security can help protect any site.
+
+= Professional Installation and Support Now Available =
+
+Need help or want to make sure your setup is as secure as possible? Professional support is now available! <a href="http://fooplugins.com/plugins/better-wp-security/">Purchase support or installation today through our partner FooPlugins</a>
 
 = Obscure =
 
@@ -132,7 +136,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Yes.
 
 = Can I help? =
-* Of course! I am in constant need of testers and I would be more than happy to add the right contributor. In addition, I could always use help with translations for internationalization.
+* Of course! I am in constant need of testers and I would be more than happy to add the right contributor. In addition, I could always use help with translations for internationalization. <a href="http://bit51.com/contributing-to-better-wp-security/">For more information on contributing to Better WP Security visit Bit51</a>.
 
 = Will this break my site? =
 * It is possible that something will break. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
@@ -157,13 +161,15 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 == Changelog ==
 
-= Dev =
+= 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>
 * Persian by <a href="http://forum.wp-parsi.com/user/1469-ibrahim/">Ibrahim Jafari</a>
 * Typo correction by ihuston
 * Fixed Bit51 Google+ Link
 * Better proxy support for ban users by kalvindukes
 * Updated Spanish translation by <a href="http://pabloromero.org">Pablo Romero</a>
+* Updated Readme
+* Updated .pot file
 
 = 3.5.2 =
 * Fixed error message that could appear when creating backups
