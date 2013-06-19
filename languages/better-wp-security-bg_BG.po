@@ -1,0 +1,3428 @@
+# Copyright (C) 2013 Better WP Security
+# This file is distributed under the same license as the Better WP Security package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Better WP Security Dev\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
+"POT-Creation-Date: 2013-06-16 19:47:45+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-06-17 13:43+0200\n"
+"Last-Translator: Nikolay Kolev <binaryvictim@gmail.com>\n"
+"Language-Team: Nikolay Kolev <binaryvictim@gmail.com>\n"
+"X-Generator: Poedit 1.5.5\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: Bulgarian\n"
+
+#: inc/admin/content.php:67 inc/admin/content.php:197
+msgid "Dashboard"
+msgstr "Табло"
+
+#: inc/admin/content.php:68
+msgid "Security"
+msgstr "Защита"
+
+#: inc/admin/content.php:79 inc/admin/content.php:274
+#: inc/admin/content.php:285
+msgid "Change Admin User"
+msgstr "Промяна на Админ Потребителя"
+
+#: inc/admin/content.php:80
+msgid "Admin User"
+msgstr "Админ Потребител"
+
+#: inc/admin/content.php:88 inc/admin/content.php:89
+msgid "Away Mode"
+msgstr "Режим в Отсъствие"
+
+#: inc/admin/content.php:97 inc/admin/content.php:98 inc/admin/content.php:327
+msgid "Ban Users"
+msgstr "Забранени Потребители"
+
+#: inc/admin/content.php:108
+msgid "Change Content Directory"
+msgstr "Промяна на Директорията \"Content\""
+
+#: inc/admin/content.php:109
+msgid "Content Directory"
+msgstr "Директория \"Content\""
+
+#: inc/admin/content.php:119 inc/admin/content.php:367
+msgid "Backup WordPress Database"
+msgstr "Бекъп на Wordpress Базата Данни"
+
+#: inc/admin/content.php:120
+msgid "Database Backup"
+msgstr "Бекъп на Базата Данни"
+
+#: inc/admin/content.php:130 inc/admin/content.php:388
+msgid "Change Database Prefix"
+msgstr "Промяна на Представката на Базата Данни"
+
+#: inc/admin/content.php:131
+msgid "Database Prefix"
+msgstr "Представка на Базата Данни"
+
+#: inc/admin/content.php:141 inc/admin/content.php:142
+msgid "Hide Backend"
+msgstr "Скрий Бекенда"
+
+#: inc/admin/content.php:150 inc/admin/content.php:151
+#: inc/admin/content.php:429 inc/admin/content.php:433
+#: inc/admin/content.php:442 inc/admin/content.php:445
+msgid "Intrusion Detection"
+msgstr "Откриване на Нарушения"
+
+#: inc/admin/content.php:159 inc/admin/content.php:464
+#: inc/admin/content.php:467
+msgid "Limit Login Attempts"
+msgstr "Ограничете Опитите за Вписване"
+
+#: inc/admin/content.php:160
+msgid "Login Limits"
+msgstr "Лимити за Вписване"
+
+#: inc/admin/content.php:168
+msgid "Secure Communications With SSL"
+msgstr "Подсигурете Комуникацията чрез SSL"
+
+#: inc/admin/content.php:169 inc/admin/content.php:483
+msgid "SSL"
+msgstr "SSL"
+
+#: inc/admin/content.php:177
+msgid "WordPress System Tweaks"
+msgstr "Подобряване на Системата на Wordpress"
+
+#: inc/admin/content.php:178 inc/admin/content.php:506
+msgid "System Tweaks"
+msgstr "Системни Подобрения"
+
+#: inc/admin/content.php:186 inc/admin/content.php:187 inc/filecheck.php:545
+msgid "View Logs"
+msgstr "Преглеждане на Записите"
+
+#: inc/admin/content.php:216 inc/admin/content.php:218
+#: inc/admin/content.php:230 inc/admin/content.php:241
+#: inc/admin/content.php:252
+msgid "System Status"
+msgstr "Системен Статус"
+
+#: inc/admin/content.php:219
+msgid "System Information"
+msgstr "Системна Информация"
+
+#: inc/admin/content.php:220
+msgid "Rewrite Rules"
+msgstr "Права за Презаписване"
+
+#: inc/admin/content.php:221
+msgid "Wp-config.php Code"
+msgstr "Wp-config.php Код"
+
+#: inc/admin/content.php:232
+msgid "One-Click Protection"
+msgstr "Защита чрез Един Клик"
+
+#: inc/admin/content.php:243
+msgid "Important"
+msgstr "Важно"
+
+#: inc/admin/content.php:254
+msgid "Welcome!"
+msgstr "Здравейте!"
+
+#: inc/admin/content.php:276 inc/admin/content.php:287
+#: inc/admin/content.php:309 inc/admin/content.php:329
+#: inc/admin/content.php:350 inc/admin/content.php:369
+#: inc/admin/content.php:390 inc/admin/content.php:409
+#: inc/admin/content.php:431 inc/admin/content.php:444
+#: inc/admin/content.php:466 inc/admin/content.php:485
+#: inc/admin/content.php:505 inc/admin/content.php:525
+msgid "Before You Begin"
+msgstr "Преди да Започнете"
+
+#: inc/admin/content.php:277 inc/admin/content.php:288
+msgid "Change The Admin User Name"
+msgstr "Сменете Името на Админ Потребителя"
+
+#: inc/admin/content.php:278
+msgid "Change The Admin User ID"
+msgstr "Сменете Номера на Админ Потребителя"
+
+#: inc/admin/content.php:307
+msgid "Administor Away Mode"
+msgstr "Управление на Режим Отсъствие"
+
+#: inc/admin/content.php:310
+msgid "Away Mode Options"
+msgstr "Опции на Режима на Отсъствие"
+
+#: inc/admin/content.php:311
+msgid "Away Mode Rules"
+msgstr "Правила на Режима на Отсъствие"
+
+#: inc/admin/content.php:330
+msgid "User and Bot Blacklist"
+msgstr "Черен Списък за Потребители и Ботове"
+
+#: inc/admin/content.php:331
+msgid "Banned Users Configuration"
+msgstr "Конфигуриране на Забранените Потребители"
+
+#: inc/admin/content.php:348
+msgid "Change wp-content Directory"
+msgstr "Промяна на Директорията wp-content"
+
+#: inc/admin/content.php:351
+msgid "Change The wp-content Directory"
+msgstr "Променете Директорията wp-content"
+
+#: inc/admin/content.php:370
+msgid "Backup Your WordPress Database"
+msgstr "Бекъпнете Вашата Wordpress База Данни"
+
+#: inc/admin/content.php:371
+msgid "Schedule Automated Backups"
+msgstr "Запланувайте Автоматични Бекъпи"
+
+#: inc/admin/content.php:372
+msgid "Backup Information"
+msgstr "Информация за Бекъпа"
+
+#: inc/admin/content.php:391
+msgid "Change The Database Prefix"
+msgstr "Сменете Представката на Базата Данни"
+
+#: inc/admin/content.php:407
+msgid "Hide WordPress Backend"
+msgstr "Скрийте Бекенда на Wordpress"
+
+#: inc/admin/content.php:410
+msgid "Hide Backend Options"
+msgstr "Опции за Скриване на Бекенда"
+
+#: inc/admin/content.php:411
+msgid "Secret Key"
+msgstr "Секретен Ключ"
+
+#: inc/admin/content.php:432
+msgid "Check For File Changes"
+msgstr "Проверка за Променени Файлове"
+
+#: inc/admin/content.php:486
+msgid "SSL Options"
+msgstr "Опции за SSL"
+
+#: inc/admin/content.php:503
+msgid "Various Security Tweaks"
+msgstr "Различни Подобрения на Сигурността"
+
+#: inc/admin/content.php:523
+msgid "Better WP Security Logs"
+msgstr "Записи на Better WP Security"
+
+#: inc/admin/content.php:526
+msgid "Clean Database"
+msgstr "Почистете Базата Данни"
+
+#: inc/admin/content.php:527
+msgid "Current Lockouts"
+msgstr "Текущи Заключвания"
+
+#: inc/admin/content.php:528
+msgid "404 Errors"
+msgstr "404 Грешки"
+
+#: inc/admin/content.php:529
+msgid "Bad Login Attempts"
+msgstr "Неуспешни Опити за Вписване"
+
+#: inc/admin/content.php:530
+msgid "All Lockouts"
+msgstr "Всички Заключвания"
+
+#: inc/admin/content.php:531
+msgid "Changed Files"
+msgstr "Променени Файлове"
+
+#: inc/admin/content.php:545
+msgid "Welcome to Better WP Security!"
+msgstr "Добре Дошли в Better WP Security"
+
+#: inc/admin/content.php:546
+msgid ""
+"Before we begin it is extremely important that you make a backup of your "
+"database. This will make sure you can get your site back to the way it is "
+"right now should something go wrong. Click the button below to make a backup "
+"which will be emailed to the website administrator at "
+msgstr ""
+"Преди да започнем е изключително важно да направите бекъп на Вашата база "
+"данни. Това ще Ви позволи да върнете сайта си до състоянието, в което е в "
+"момента в случай, че нещо се обърка. Натиснете бутона по-долу за да "
+"направите бекъп, който ще бъде изпратен на имейла на администратора на този "
+"уебсайт на адрес "
+
+#: inc/admin/content.php:550 inc/admin/content.php:1765
+msgid "Create Database Backup"
+msgstr "Направете Бекъп на Базата Данни"
+
+#: inc/admin/content.php:555
+msgid "No, thanks. I already have a backup"
+msgstr "Не благодаря. Вече имам бекъп"
+
+#: inc/admin/content.php:566
+msgid "Just one more question:"
+msgstr "Само още един въпрос:"
+
+#: inc/admin/content.php:567
+msgid ""
+"Better WP Security can automatically write to WordPress core files for you "
+"(wp-config.php and .htaccess). This saves time and prevents you from having "
+"to edit code yourself. While this is safe to do in nearly all systems it "
+"can, on some server configurations, cause problems. For this reason, before "
+"continuing, you have the option to allow this plugin to write to wp-config."
+"php and .htaccess or not."
+msgstr ""
+"Better WP Security може автоматично да пише в основните файлове на Wordpress "
+"(wp-config.php и .htaccess). Това пести време и Ви спестява необходимостта "
+"лично да променяте код. По принцип това е безопасна практика за почти всички "
+"системи, въпреки това на някои сървърни конфигурации би могло да доведе до "
+"проблем. По тази причина Ви се дава възможност лично да прецените дали да "
+"позволите на този плъгин да пише по wp.config.php и .htaccess или не."
+
+#: inc/admin/content.php:568
+msgid ""
+"Note, that this option can be changed later in the \"System Tweaks\" menu of "
+"this plugin. In addition, disabling file writes here will prevent this "
+"plugin from activation features such as changing the wp-content directory "
+"and changing the database prefix."
+msgstr ""
+"Обърнете внимание, че тази опция би могла да бъде променена на по-късен етап "
+"от \"Системни Подобрения\", меню от този плъгин. В допълнение забраната на "
+"записа върху файлове ще попречи на този плъгин да активира функции като "
+"промяна на wp-content директорията и промяната на представката на базата "
+"данни."
+
+#: inc/admin/content.php:569
+msgid ""
+"Finally, please remember that in nearly all cases there is no issue with "
+"allowing this plugin to edit your files. However if you know your have a "
+"unique server setup or simply would rather edit these files yourself I would "
+"recommend selecting \"Do not allow this plugin to change WordPress core "
+"files.\""
+msgstr ""
+"Последно, моля запомнете, че в почти всички случаи няма проблем с "
+"позволяването на този плъгин да редактира Вашите файлове. Въпреки това ако "
+"сте наясно, че имате специфична по рода си сървърна инсталация или просто "
+"бихте желали да променяте тези файлове сам, Ви препоръчвам да изберете \"Не "
+"позволявайте на този плъгин да променя основните WordPress файлове.\""
+
+#: inc/admin/content.php:573
+msgid "Allow this plugin to change WordPress core files"
+msgstr "Позволете на този плъгин да променя основните WordPress файлове"
+
+#: inc/admin/content.php:578
+msgid "Do not allow this plugin to change WordPress core files."
+msgstr "Не позволявайте на този плъгин да променя основните WordPress файлове."
+
+#: inc/admin/content.php:595
+msgid ""
+"The button below will turn on all the basic features of Better WP Security "
+"which will help automatically protect your site from potential attacks. "
+"Please note that it will NOT automatically activate any features which may "
+"interfere with other plugins, themes, or content on your site. As such, not "
+"all the items in the status will turn green by using the \"Secure My Site "
+"From Basic Attacks\" button. The idea is to activate basic features in one-"
+"click so you don't have to worry about it."
+msgstr ""
+"Бутонът по-долу ще включи всички основни функции на Better WP Security, "
+"което ще помогне за автоматичната защита на Вашия сайт от потенциални атаки. "
+"Моля обърнете внимание, че тази опция НЯМА да активира функции, които могат "
+"да се конфронтират с други плъгини, теми, или съдържание на Вашия сайт. По "
+"тази причина не всичко в статуса ще стане зелено след като използвате бутона "
+"\"Защити Моя Сайт От Основни Атаки\"."
+
+#: inc/admin/content.php:596
+msgid ""
+"Please note this will not make any changes to any files on your site "
+"including .htaccess and wp-config.php."
+msgstr ""
+"Моля обърнете внимание, че това няма да нанесе промени по нито един от "
+"файловете на сайта ви, включително няма да нанесе промени по .htaccess и wp-"
+"config.php."
+
+#: inc/admin/content.php:597
+msgid "Secure My Site From Basic Attacks"
+msgstr "Защити Моя Сайт от Основни Атаки"
+
+#: inc/admin/content.php:603
+msgid "No thanks, I prefer to do configure everything myself."
+msgstr "Не благодаря, предпочитам да настроя всичко сам."
+
+#: inc/admin/content.php:622
+msgid "You are enforcing strong passwords for all users."
+msgstr "Вие налагате силни пароли за всички потребители."
+
+#: inc/admin/content.php:624
+msgid "You are enforcing strong passwords, but not for all users."
+msgstr "Вие налагате силни пароли, но не за всички потребители."
+
+#: inc/admin/content.php:624 inc/admin/content.php:626
+#: inc/admin/content.php:634 inc/admin/content.php:636
+#: inc/admin/content.php:644 inc/admin/content.php:646
+#: inc/admin/content.php:676 inc/admin/content.php:683
+#: inc/admin/content.php:690 inc/admin/content.php:697
+#: inc/admin/content.php:704 inc/admin/content.php:712
+#: inc/admin/content.php:714 inc/admin/content.php:721
+#: inc/admin/content.php:735 inc/admin/content.php:742
+#: inc/admin/content.php:749 inc/admin/content.php:756
+#: inc/admin/content.php:763 inc/admin/content.php:770
+#: inc/admin/content.php:786 inc/admin/content.php:788
+#: inc/admin/content.php:793
+msgid "Click here to fix."
+msgstr "Натиснете тук за да го поправите."
+
+#: inc/admin/content.php:626
+msgid "You are not enforcing strong passwords."
+msgstr "Вие не налагате силни пароли."
+
+#: inc/admin/content.php:632
+msgid "Your WordPress header is revealing as little information as possible."
+msgstr "Вашият WordPress хедър показва възможно най-малко информация."
+
+#: inc/admin/content.php:634
+msgid "Your WordPress header is still revealing some information to users."
+msgstr ""
+"Вашият WordPress хедър все още показва някаква информация до потребителите."
+
+#: inc/admin/content.php:636
+msgid "Your WordPress header is showing too much information to users."
+msgstr ""
+"Вашият WordPress хедър показва твърде много информация до потребителите."
+
+#: inc/admin/content.php:642
+msgid "Non-administrators cannot see available updates."
+msgstr "Не-администраторите не могат да видят наличните ъпдейти."
+
+#: inc/admin/content.php:644
+msgid "Non-administrators can see some updates."
+msgstr "Не-администраторите могат да видят някои ъпдейти."
+
+#: inc/admin/content.php:646
+msgid "Non-administrators can see all updates."
+msgstr "Не-администраторите могат да видят някои ъпдейти."
+
+#: inc/admin/content.php:651
+msgid "The <em>admin</em> user still exists."
+msgstr "<em>Admin</em> потребителят все още съществува."
+
+#: inc/admin/content.php:651
+msgid "Click here to rename admin."
+msgstr "Натиснете тук за да преименувате admin."
+
+#: inc/admin/content.php:653
+msgid "The <em>admin</em> user has been removed."
+msgstr "<em>Admin</em> потребителят беше изтрит."
+
+#: inc/admin/content.php:658
+msgid "A user with id 1 still exists."
+msgstr "Потребител с номер 1 все още съществува."
+
+#: inc/admin/content.php:658
+msgid "Click here to change user 1's ID."
+msgstr "Натиснете тук за да промените цифрата 1 от номера на потребителя."
+
+#: inc/admin/content.php:660
+msgid "The user with id 1 has been removed."
+msgstr "Потребителят с номер 1 беше изтрит."
+
+#: inc/admin/content.php:666
+msgid "Your table prefix should not be "
+msgstr "Представката на вашата таблицата не трябва да бъде "
+
+#: inc/admin/content.php:666
+msgid "Click here to rename it."
+msgstr "Натиснете тук за да го преименувате."
+
+#: inc/admin/content.php:668
+msgid "Your table prefix is"
+msgstr "Представката за Вашата таблица е"
+
+#: inc/admin/content.php:674
+msgid "You have scheduled regular backups of your WordPress database."
+msgstr "Вие насрочихте регулярни бекъпи на Вашата WordPress база данни."
+
+#: inc/admin/content.php:676
+msgid "You are not scheduling regular backups of your WordPress database."
+msgstr "Вие не насрочвате регулярни бекъпи на Вашата WordPress база данни."
+
+#: inc/admin/content.php:681
+msgid ""
+"Your WordPress admin area is not available when you will not be needing it."
+msgstr ""
+"Админ частта от WordPress не е налична, когато няма да се нуждаете от нея."
+
+#: inc/admin/content.php:683
+msgid ""
+"Your WordPress admin area is available 24/7. Do you really update 24 hours a "
+"day?"
+msgstr ""
+"Админ частта от WordPress е налична 24/7. Наистина ли сте активни 24 часа на "
+"ден?"
+
+#: inc/admin/content.php:688
+msgid ""
+"You are blocking known bad hosts and agents with HackRepair.com's blacklist."
+msgstr ""
+"Вие блокирате известни bad hosts и agents използвайки черния списък на "
+"HackRepair.com"
+
+#: inc/admin/content.php:690
+msgid ""
+"You are not blocking known bad hosts and agents with HackRepair.com's "
+"blacklist?"
+msgstr ""
+"Вие не блокирате известни bad hosts и agents посредством черния списък на "
+"HackRepair.com"
+
+#: inc/admin/content.php:695
+msgid "Your login area is protected from brute force attacks."
+msgstr "Логин частта от сайта Ви е защитена от брут форс атаки."
+
+#: inc/admin/content.php:697
+msgid "Your login area is not protected from brute force attacks."
+msgstr "Логин частта от сайта Ви НЕ е защитена от брут форс атаки."
+
+#: inc/admin/content.php:702
+msgid "Your WordPress admin area is hidden."
+msgstr "Админ частта Ви от WordPress е скрита."
+
+#: inc/admin/content.php:704
+msgid "Your WordPress admin area is not hidden."
+msgstr "Админ частта Ви от WordPress НЕ е скрита."
+
+#: inc/admin/content.php:710
+msgid "Your .htaccess file is fully secured."
+msgstr "Вашият .htaccess файл е напълно защитен."
+
+#: inc/admin/content.php:712
+msgid "Your .htaccess file is partially secured."
+msgstr "Вашият .htaccess файл е частично защитен."
+
+#: inc/admin/content.php:714
+msgid "Your .htaccess file is NOT secured."
+msgstr "Вашият .htaccess файл НЕ е защитен."
+
+#: inc/admin/content.php:719
+msgid ""
+"Your installation is actively blocking attackers trying to scan your site "
+"for vulnerabilities."
+msgstr ""
+"Вашата инсталация активно блокира хакери, които се опитват да сканират сайта "
+"ви за слаби точки."
+
+#: inc/admin/content.php:721
+msgid ""
+"Your installation is not actively blocking attackers trying to scan your "
+"site for vulnerabilities."
+msgstr ""
+"Вашата инсталация НЕ блокира хакери, които се опитват активно да сканират "
+"сайта ви за слаби точки."
+
+#: inc/admin/content.php:726
+msgid "Your installation is actively looking for changed files."
+msgstr "Вашата инстсалация активно следи за променени файлове."
+
+#: inc/admin/content.php:735
+msgid "Your installation is not actively looking for changed files."
+msgstr "Вашата инстсалация НЕ следи активно за променени файлове."
+
+#: inc/admin/content.php:740
+msgid "Your installation does not accept long URLs."
+msgstr "Вашата инсталация не приема дълги URL-и."
+
+#: inc/admin/content.php:742
+msgid ""
+"Your installation accepts long (over 255 character) URLS. This can lead to "
+"vulnerabilities."
+msgstr ""
+"Вашата инсталация приема дълги URL-и (над 255 символа). Това може да доведе "
+"до уязвимост."
+
+#: inc/admin/content.php:747
+msgid ""
+"You are not allowing users to edit theme and plugin files from the WordPress "
+"backend."
+msgstr ""
+"Вие не позволявате потребителите да променят файловете на темата и плъгините "
+"на Вашия WordPress."
+
+#: inc/admin/content.php:749
+msgid ""
+"You are allowing users to edit theme and plugin files from the WordPress "
+"backend."
+msgstr ""
+"Вие позволявате потребителите да променят файловете на темата и плъгините на "
+"Вашия WordPress."
+
+#: inc/admin/content.php:754
+msgid "Better WP Security is allowed to write to wp-config.php and .htaccess."
+msgstr "Better WP Security има разрешени да пише по wp-config.php и .htaccess."
+
+#: inc/admin/content.php:756
+msgid ""
+"Better WP Security is not allowed to write to wp-config.php and .htaccess."
+msgstr ""
+"Better WP Security няма разрешени да пише по wp-config.php и .htaccess."
+
+#: inc/admin/content.php:761
+msgid "wp-config.php and .htacess are not writeable."
+msgstr "Вписвания по wp-config.php и .htaccess не са разрешени."
+
+#: inc/admin/content.php:763
+msgid "wp-config.php and .htacess are writeable."
+msgstr "Вписвания по wp-config.php и .htaccess са разрешени."
+
+#: inc/admin/content.php:768
+msgid "Version information is obscured to all non admin users."
+msgstr "Информация за версията е скрита от всички не-администратори."
+
+#: inc/admin/content.php:770
+msgid ""
+"Users may still be able to get version information from various plugins and "
+"themes."
+msgstr ""
+"Потребителите все още могат да видят информация за версията от various "
+"plugins and themes."
+
+#: inc/admin/content.php:776
+msgid "You have renamed the wp-content directory of your site."
+msgstr "Вие променихте името на wp-content директорията за Вашия сайт."
+
+#: inc/admin/content.php:778
+msgid "You should rename the wp-content directory of your site."
+msgstr ""
+"Вие трябва да промените името на wp-content директорията за Вашия сайт."
+
+#: inc/admin/content.php:778
+msgid "Click here to do so."
+msgstr "Натиснете тук за да го направите."
+
+#: inc/admin/content.php:784
+msgid "You are requiring a secure connection for logins and the admin area."
+msgstr "Вие изисквате защитена конекция за логин до админ частта на сайта Ви."
+
+#: inc/admin/content.php:786
+msgid ""
+"You are requiring a secure connection for logins or the admin area but not "
+"both."
+msgstr ""
+"Вие изисквате защитена конекция за вписване или за админ частта, но не и за "
+"двете."
+
+#: inc/admin/content.php:788
+msgid ""
+"You are not requiring a secure connection for logins or for the admin area."
+msgstr ""
+"Вие не изисквате защитена конекция за вписване или за админ частта от сайта "
+"Ви."
+
+#: inc/admin/content.php:793
+msgid ""
+"Notice: Some items are hidden as you are not allowing this plugin to write "
+"to core files."
+msgstr ""
+"Забележка: Някои точки са скрити, тъй като не позволявате на този плъгин да "
+"пише по основните файлове."
+
+#: inc/admin/content.php:799
+msgid "Items in green are fully secured. Good Job!"
+msgstr "Точките в зелено са напълно защитени. Добра работа!"
+
+#: inc/admin/content.php:800
+msgid ""
+"Items in orange are partially secured. Turn on more options to fully secure "
+"these areas."
+msgstr ""
+"Точките в оранжево са частично защитени. Включете още опции за да ги "
+"защитите напълно."
+
+#: inc/admin/content.php:801
+msgid "Items in red are not secured. You should secure these items immediately"
+msgstr "Точките в червено не са защитени. Трябва да ги защитите незабавно."
+
+#: inc/admin/content.php:802
+msgid ""
+"Items in blue are not fully secured but may conflict with other themes, "
+"plugins, or the other operation of your site. Secure them if you can but if "
+"you cannot do not worry about them."
+msgstr ""
+"Точките в синьо не са напълно защитени, но могат да създадат проблем с други "
+"теми, плъгини или с друга част от функционалността на Вашия сайт. Защитете "
+"ги ако можете, но в случай че не можете, не се тревожете за тях."
+
+#: inc/admin/content.php:819
+msgid ""
+"No rules have been generated. Turn on more features to see rewrite rules."
+msgstr ""
+"Не бяха създадени правила. Включете повече функции за да видите правилата за "
+"презаписване."
+
+#: inc/admin/content.php:854
+msgid ""
+"No rules have been generated. Turn on more features to see wp-content rules."
+msgstr ""
+"Не бяха създадени правила. Включете повече функции за да видите правилата за "
+"wp-content."
+
+#: inc/admin/content.php:875
+msgid "User Information"
+msgstr "Информация за потребителя"
+
+#: inc/admin/content.php:877
+msgid "Public IP Address"
+msgstr "Публичен IP Адрес"
+
+#: inc/admin/content.php:877 inc/admin/content.php:957
+msgid "Get more information on this address"
+msgstr "Намерете повече информация на този адрес"
+
+#: inc/admin/content.php:878
+msgid "User Agent"
+msgstr "User Agent"
+
+#: inc/admin/content.php:883
+msgid "File System Information"
+msgstr "Информация за Файловата Система"
+
+#: inc/admin/content.php:885
+msgid "Website Root Folder"
+msgstr "Website Root Folder"
+
+#: inc/admin/content.php:886
+msgid "Document Root Path"
+msgstr "Document Root Path"
+
+#: inc/admin/content.php:895 inc/admin/content.php:918
+#: inc/admin/content.php:1075 inc/admin/content.php:1083
+#: inc/admin/content.php:1091
+msgid "Yes"
+msgstr "Да."
+
+#: inc/admin/content.php:901 inc/admin/content.php:924
+msgid "No."
+msgstr "Не."
+
+#: inc/admin/content.php:909
+msgid ".htaccess File is Writable"
+msgstr "Позволено е да се пише по .htaccess файлa"
+
+#: inc/admin/content.php:932
+msgid "wp-config.php File is Writable"
+msgstr "Позволено е да се пише по wp-config.php файлa"
+
+#: inc/admin/content.php:937
+msgid "Database Information"
+msgstr "Информация за Базата Данни"
+
+#: inc/admin/content.php:939
+msgid "MySQL Database Version"
+msgstr "Версия на MySQL Базата Данни"
+
+#: inc/admin/content.php:940
+msgid "MySQL Client Version"
+msgstr "Клиентска Версия на MySQL"
+
+#: inc/admin/content.php:941
+msgid "Database Host"
+msgstr "Хост на Базата Данни"
+
+#: inc/admin/content.php:942
+msgid "Database Name"
+msgstr "Име на Базата Данни"
+
+#: inc/admin/content.php:943
+msgid "Database User"
+msgstr "Потребител в Базата Данни"
+
+#: inc/admin/content.php:946
+msgid "Not Set"
+msgstr "Не е Конфигуриран"
+
+#: inc/admin/content.php:947 inc/admin/content.php:997
+#: inc/admin/content.php:1005 inc/admin/content.php:1013
+#: inc/admin/content.php:1021 inc/admin/content.php:1029
+#: inc/admin/content.php:1037 inc/admin/content.php:1045
+#: inc/admin/content.php:1061 inc/admin/content.php:1069
+#: inc/admin/content.php:2545
+msgid "Off"
+msgstr "Изключен"
+
+#: inc/admin/content.php:949
+msgid "SQL Mode"
+msgstr "SQL Mode"
+
+#: inc/admin/content.php:954
+msgid "Server Information"
+msgstr "Информация за Сървъра"
+
+#: inc/admin/content.php:957
+msgid "Server / Website IP Address"
+msgstr "Сървър / IP Адрес на Уебсайта"
+
+#: inc/admin/content.php:958
+msgid "Server Type"
+msgstr "Вид на Сървъра"
+
+#: inc/admin/content.php:959
+msgid "Operating System"
+msgstr "Операционна Система"
+
+#: inc/admin/content.php:960
+msgid "Browser Compression Supported"
+msgstr "Browser Compression Supported"
+
+#: inc/admin/content.php:965
+msgid "PHP Information"
+msgstr "Информация за PHP"
+
+#: inc/admin/content.php:967
+msgid "PHP Version"
+msgstr "Версия на PHP"
+
+#: inc/admin/content.php:968
+msgid "PHP Memory Usage"
+msgstr "Използвана PHP памет"
+
+#: inc/admin/content.php:968
+msgid " MB"
+msgstr " МБ"
+
+#: inc/admin/content.php:973 inc/admin/content.php:981
+#: inc/admin/content.php:989 inc/admin/content.php:1053
+#: inc/admin/tables.php:561
+msgid "N/A"
+msgstr "N/A"
+
+#: inc/admin/content.php:976
+msgid "PHP Memory Limit"
+msgstr "Лимит на PHP паметта"
+
+#: inc/admin/content.php:984
+msgid "PHP Max Upload Size"
+msgstr "Максимален Размер на PHP Ъплоуда"
+
+#: inc/admin/content.php:992
+msgid "PHP Max Post Size"
+msgstr "Максимален Размер на PHP Поста"
+
+#: inc/admin/content.php:995 inc/admin/content.php:1003
+#: inc/admin/content.php:1011 inc/admin/content.php:1019
+#: inc/admin/content.php:1027 inc/admin/content.php:1035
+#: inc/admin/content.php:1043 inc/admin/content.php:1059
+#: inc/admin/content.php:1067
+msgid "On"
+msgstr "Включен"
+
+#: inc/admin/content.php:1000
+msgid "PHP Safe Mode"
+msgstr "Защитен Режим на PHP"
+
+#: inc/admin/content.php:1008
+msgid "PHP Allow URL fopen"
+msgstr "PHP Allow URL fopen"
+
+#: inc/admin/content.php:1016
+msgid "PHP Allow URL Include"
+msgstr "PHP Allow URL Include"
+
+#: inc/admin/content.php:1024
+msgid "PHP Display Errors"
+msgstr "PHP Display Errors"
+
+#: inc/admin/content.php:1032
+msgid "PHP Display Startup Errors"
+msgstr "PHP Display Startup Errors"
+
+#: inc/admin/content.php:1040
+msgid "PHP Expose PHP"
+msgstr "PHP Expose PHP"
+
+#: inc/admin/content.php:1048
+msgid "PHP Register Globals"
+msgstr "PHP Register Globals"
+
+#: inc/admin/content.php:1056
+msgid "PHP Max Script Execution Time"
+msgstr "PHP Max Script Execution Time"
+
+#: inc/admin/content.php:1056
+msgid "Seconds"
+msgstr "Секунди"
+
+#: inc/admin/content.php:1064
+msgid "PHP Magic Quotes GPC"
+msgstr "PHP Magic Quotes GPC"
+
+#: inc/admin/content.php:1072
+msgid "PHP open_basedir"
+msgstr "PHP open_basedir"
+
+#: inc/admin/content.php:1077 inc/admin/content.php:1085
+#: inc/admin/content.php:1093
+msgid "No"
+msgstr "Не"
+
+#: inc/admin/content.php:1080
+msgid "PHP XML Support"
+msgstr "PHP XML Поддръжка"
+
+#: inc/admin/content.php:1088
+msgid "PHP IPTC Support"
+msgstr "PHP IPTC Поддръжка"
+
+#: inc/admin/content.php:1096
+msgid "PHP Exif Support"
+msgstr "PHP Exif Поддръжка"
+
+#: inc/admin/content.php:1101
+msgid "WordPress Configuration"
+msgstr "WordPress Конфигурация"
+
+#: inc/admin/content.php:1105
+msgid "Multisite is enabled"
+msgstr "Multiside е разрешен"
+
+#: inc/admin/content.php:1107
+msgid "Multisite is NOT enabled"
+msgstr "Multiside НЕ е разрешен"
+
+#: inc/admin/content.php:1110
+msgid "\tMultisite"
+msgstr "\tMultisite"
+
+#: inc/admin/content.php:1115
+msgid "Enabled"
+msgstr "Включена"
+
+#: inc/admin/content.php:1119
+msgid ""
+"WARNING! Permalinks are NOT Enabled. Permalinks MUST be enabled for Better "
+"WP Security to function correctly"
+msgstr ""
+"ВНИМАНИЕ! Permalinks НЕ са включени. Permalinks ТРЯБВА да бъдат включени за "
+"да може Better WP Security да функционира правилно"
+
+#: inc/admin/content.php:1122
+msgid "WP Permalink Structure"
+msgstr "WP Permalink Структура"
+
+#: inc/admin/content.php:1123
+msgid "Wp-config Location"
+msgstr "Wp-config локация"
+
+#: inc/admin/content.php:1127
+msgid "Better WP Security variables"
+msgstr "Better WP Security variables"
+
+#: inc/admin/content.php:1131
+msgid "Not Yet Available. Enable Hide Backend mode to generate key."
+msgstr ""
+"Все още не е достъпен. Включете режим Скриване на Бекенд-а за да генерирате "
+"ключ."
+
+#: inc/admin/content.php:1136
+msgid "Hide Backend Key"
+msgstr "Ключ за Скриване на Бекенда"
+
+#: inc/admin/content.php:1137
+msgid "Better WP Build Version"
+msgstr "Better WP Build Версия"
+
+#: inc/admin/content.php:1138
+msgid ""
+"Note: this is NOT the same as the version number on the plugins page and is "
+"instead used for support."
+msgstr ""
+"Забележка: това НЕ е същият номер като номера на версията на страницата на "
+"плъгина и се използва предимно за поддръжка."
+
+#: inc/admin/content.php:1151
+msgid ""
+"By default WordPress initially creates a username with the username of "
+"\"admin.\" This is insecure as this user has full rights to your WordPress "
+"system and a potential hacker already knows that it is there. All an "
+"attacker would need to do at that point is guess the password. Changing this "
+"username will force a potential attacker to have to guess both your username "
+"and your password which makes some attacks significantly more difficult."
+msgstr ""
+"По подразбиране първоначално WordPress създава потребител с име \"admin\". "
+"Това е несигурно, тъй като този потребител има пълни права над Вашата "
+"WordPress система. Оттук следва, че всеки потенциален хакер знае името на "
+"този потребител. Единственото, което му остава е да Ви налучка паролата."
+"Променяйки това потребителско име ще принудите потенциалния хакер да трябва "
+"да налучка едновременно потребителското Ви име и паролата. Това прави някои "
+"атаки значително по-трудни!"
+
+#: inc/admin/content.php:1152
+msgid ""
+"Note that this function will only work if you chose a username other than "
+"\"admin\" when installing WordPress."
+msgstr ""
+"Обърнете внимание, че тази функция ще работи единствено ако изберете име "
+"различно от \"admin\", докато инсталирате WordPress."
+
+#: inc/admin/content.php:1169
+msgid "Enter Username"
+msgstr "Въведете Потребителско Име"
+
+#: inc/admin/content.php:1174
+msgid ""
+"Enter a new username to replace \"admin.\" Please note that if you are "
+"logged in as admin you will have to log in again."
+msgstr ""
+"Въведете ново потребителско име, което да замени \"admin.\" Моля обърнете "
+"внимание, че ако сте се вписали с това потребителско име ще се наложи да се "
+"впишете наново."
+
+#: inc/admin/content.php:1178
+msgid "Chage Admin Username"
+msgstr "Смяна на Потребителското Име Админ"
+
+#: inc/admin/content.php:1183
+msgid ""
+"Congratulations! You do not have a user named \"admin\" in your WordPress "
+"installation. No further action is available on this page."
+msgstr ""
+"Поздравления! Вече нямате потребител с име \"admin\" във Вашата WordPress "
+"инсталация. Други действия не са налични на тази страница."
+
+#: inc/admin/content.php:1195
+msgid ""
+"If your admin user has and ID of \"1\" it is vulnerable to some attacks. You "
+"should change the ID of your admin user."
+msgstr ""
+"Ако Вашият Админ потребител е обозначен под номер \"1\", то той е податлив "
+"на атаки. Вие трябва да смените номера на Вашият админ потребител."
+
+#: inc/admin/content.php:1199
+msgid "Change User 1 ID"
+msgstr "Сменете 1 в Номера на Потребителя"
+
+#: inc/admin/content.php:1204
+msgid ""
+"Congratulations! You do not have a user with ID 1 in your WordPress "
+"installation. No further action is available on this page."
+msgstr ""
+"Поздравления! Вече нямате потребител с номер 1 във Вашата WordPress "
+"инсталация. Други действия не са налични на тази страница."
+
+#: inc/admin/content.php:1215
+msgid ""
+"As many of us update our sites on a general schedule it is not always "
+"necessary to permit site access all of the time. The options below will "
+"disable the backend of the site for the specified period. This could also be "
+"useful to disable site access based on a schedule for classroom or other "
+"reasons."
+msgstr ""
+"Тъй като много от нас обновяваме своите уебсайтове по определен график, то "
+"не е препоръчително да оставяте достъп до панела на сайта Ви по всяко време. "
+"Опциите по-долу ще изключат бекенда на сайта Ви за конкретен период. Това "
+"може да е полезно за да се изключи достъп до сайт базиран върху учебни "
+"занятия или други причини."
+
+#: inc/admin/content.php:1223
+msgid "Please note that according to your"
+msgstr "Моля обърнете внимание, че според Вашите"
+
+#: inc/admin/content.php:1223
+msgid "WordPress timezone settings"
+msgstr "WordPress настройки за часова зона"
+
+#: inc/admin/content.php:1223
+msgid "your local time is"
+msgstr "Вашето локално време е"
+
+#: inc/admin/content.php:1223
+msgid "If this is incorrect please correct it on the"
+msgstr "Ако това не е вярно, моля поправете го в"
+
+#: inc/admin/content.php:1223
+msgid "WordPress general settings page"
+msgstr "WordPress general settings page"
+
+#: inc/admin/content.php:1223
+msgid ""
+"by setting the appropriate time zone. Failure to do so may result in "
+"unintended lockouts."
+msgstr ""
+"като конфигурирате правилната часова зона. Ако не я настроите правилно е "
+"възможно да бъде заключен от сайта по погрешка."
+
+#: inc/admin/content.php:1239
+msgid ""
+"Are you sure you want to enable away mode? Please check the local time "
+"(located at the top of this page) and verify the times set are correct to "
+"avoid locking yourself out of this site."
+msgstr ""
+"Сигурни ли сте, че искате да активирате Режима на Отсъствие? Моля проверете "
+"локалното време(намира се най-горе на тази страница) и се уверете, че "
+"часовете които са заложени са правилни за да избегнете евентуалното Ви "
+"заключване от този сайт."
+
+#: inc/admin/content.php:1288
+msgid "Enable Away Mode"
+msgstr "Активирайте Режим на Отсъствие"
+
+#: inc/admin/content.php:1292
+msgid "Check this box to enable away mode."
+msgstr "Маркирайте тази отметка за да разрешите режима на отсъствие."
+
+#: inc/admin/content.php:1297
+msgid "Type of Restriction"
+msgstr "Вид Ограничение"
+
+#: inc/admin/content.php:1300
+msgid "Daily"
+msgstr "Ежедневно"
+
+#: inc/admin/content.php:1301
+msgid "One Time"
+msgstr "Веднъж"
+
+#: inc/admin/content.php:1302
+msgid ""
+"Selecting <em>\"One Time\"</em> will lock out the backend of your site from "
+"the start date and time to the end date and time. Selecting <em>\"Daily\"</"
+"em> will ignore the start and and dates and will disable your site backend "
+"from the start time to the end time."
+msgstr ""
+"Избирайки <em>\"Веднъж\"</em> ще заключите бекенда на Вашия сайт от "
+"началната дата и час до крайната дата и час. Избирайки <em>\"Ежедневно\"</"
+"em> ще се игнорират началната и крайна дати и ще забраните бекенда на Вашия "
+"сайт от началния до крайния час."
+
+#: inc/admin/content.php:1307
+msgid "Start Date"
+msgstr "Начална Дата"
+
+#: inc/admin/content.php:1368
+msgid ""
+"Select the date at which access to the backend of this site will be "
+"disabled. Note that if <em>\"Daily\"</em> mode is selected this field will "
+"be ignored and access will be banned every day at the specified time."
+msgstr ""
+"Изберете датата, от която достъпът до бекенда на този сайт ще бъде изключен. "
+"Обърнете внимание, че в случай когато е избран режим<em>\"Ежедневно\"</em>, "
+"това поле ще бъде игнорирано и достъпът ще бъде забранен всеки ден в "
+"зависимост от избраното време."
+
+#: inc/admin/content.php:1374
+msgid "End Date"
+msgstr "Крайна Дата"
+
+#: inc/admin/content.php:1429
+msgid ""
+"Select the date at which access to the backend of this site will be re-"
+"enabled. Note that if <em>\"Daily\"</em> mode is selected this field will be "
+"ignored and access will be banned every day at the specified time."
+msgstr ""
+"Изберете датата, от която достъпът до бекенда на този сайт ще бъде активиран "
+"отново. Обърнете внимание, че в случай когато е избран режим<em>\"Ежедневно"
+"\"</em>, това поле ще бъде игнорирано и достъпът ще бъде забранен всеки ден "
+"в зависимост от избраното време."
+
+#: inc/admin/content.php:1435
+msgid "Start Time"
+msgstr "Начално Време"
+
+#: inc/admin/content.php:1491
+msgid ""
+"Select the time at which access to the backend of this site will be "
+"disabled. Note that if <em>\"Daily\"</em> mode is selected access will be "
+"banned every day at the specified time."
+msgstr ""
+"Изберете времето, от което достъпът до бекенда на този уебсайт ще бъде "
+"изключен. Обърнете внимание, че в случай когато е избран режим<em>\"Ежедневно"
+"\"</em>, достъпът ще бъде забранен всеки ден в зависимост от избраното време."
+
+#: inc/admin/content.php:1497
+msgid "End Time"
+msgstr "Крайно Време"
+
+#: inc/admin/content.php:1547
+msgid ""
+"Select the time at which access to the backend of this site will be re-"
+"enabled. Note that if <em>\"Daily\"</em> mode is selected access will be "
+"banned every day at the specified time."
+msgstr ""
+"Изберете времето, от което достъпът до бекенда на този уебсайт ще бъде "
+"включен отново. Обърнете внимание, че в случай когато е избран режим<em>"
+"\"Ежедневно\"</em>, достъпът ще бъде забранен всеки ден в зависимост от "
+"избраното време."
+
+#: inc/admin/content.php:1552 inc/admin/content.php:1687
+#: inc/admin/content.php:1728 inc/admin/content.php:1832
+#: inc/admin/content.php:1987 inc/admin/content.php:2321
+#: inc/admin/content.php:2571 inc/admin/content.php:2652
+#: inc/admin/content.php:2690 inc/admin/content.php:2727
+#: inc/admin/content.php:2762 inc/admin/content.php:2843
+msgid "Save Changes"
+msgstr "Запазете Настройките"
+
+#: inc/admin/content.php:1568
+msgid "every day"
+msgstr "всеки ден"
+
+#: inc/admin/content.php:1582 inc/admin/content.php:1583
+#: inc/admin/content.php:1587 inc/admin/content.php:1588
+msgid " at "
+msgstr "в"
+
+#: inc/admin/content.php:1594
+msgid "The backend (administrative section) of this site will be unavailable"
+msgstr "Бекендъд (Административната секция) на този сайт ще бъде недостъпна"
+
+#: inc/admin/content.php:1594
+msgid "from"
+msgstr "от"
+
+#: inc/admin/content.php:1594 inc/secure.php:687
+msgid "until"
+msgstr "до"
+
+#: inc/admin/content.php:1596
+msgid "Away mode is currently diabled"
+msgstr "Режимът на отсъствие е изключен"
+
+#: inc/admin/content.php:1607
+msgid ""
+"This feature allows you to ban hosts and user agents from your site "
+"completely using individual or groups of IP addresses as well as user agents "
+"without having to manage any configuration of your server. Any IP or user "
+"agent found in the lists below will not be allowed any access to your site."
+msgstr ""
+"Тази функция Ви позволява да забранявате изцяло достъпа на hosts и user "
+"agents от Вашия сайт използвайки персонални или групови IP адреси, както и "
+"user agents без да се налага да менажирате настройки по Вашия сървър. На "
+"всяко IP или user agent намерени в листата по-долу няма да бъде даден достъп "
+"до Вашия сайт."
+
+#: inc/admin/content.php:1621
+msgid ""
+"As a getting-started point you can include the excellent blacklist developed "
+"by Jim Walker of <a href=\"http://hackrepair.com/blog/how-to-block-bots-from-"
+"seeing-your-website-bad-bots-and-drive-by-hacks-explained\" target=\"_blank"
+"\">HackRepair.com</a>."
+msgstr ""
+"Като за начало можете да включите първокласния черен списък разработен от "
+"Jim Walker от <a href=\"http://hackrepair.com/blog/how-to-block-bots-from-"
+"\"\"seeing-your-website-bad-bots-and-drive-by-hacks-explained\" target="
+"\"_blank\">HackRepair.com</a>."
+
+#: inc/admin/content.php:1625
+msgid "Enable Default Banned List"
+msgstr "Разрешете Списък със забранени Потребители"
+
+#: inc/admin/content.php:1629
+msgid "Check this box to enable HackRepair.com's blacklist feature."
+msgstr "Отметнете тази кутийка за да разрешите списъка от HackRepair.com"
+
+#: inc/admin/content.php:1633
+msgid "Add Host and Agent Blacklist"
+msgstr "Добавете черен списък за Host и Agent"
+
+#: inc/admin/content.php:1651
+msgid "Enable Banned Users"
+msgstr "Разрешете Забранените Потребители"
+
+#: inc/admin/content.php:1655
+msgid "Check this box to enable the banned users feature."
+msgstr "Отметнете тази кутийка за да разрешите функцията забранени потребители"
+
+#: inc/admin/content.php:1660
+msgid "Ban Hosts"
+msgstr "Забранете Hosts"
+
+#: inc/admin/content.php:1664
+msgid ""
+"Use the guidelines below to enter hosts that will not be allowed access to "
+"your site. Note you cannot ban yourself."
+msgstr ""
+"Използвайте насоките по-долу за да въведете host-ове, на които няма да бъде "
+"разрешен достъпът до Вашия сайт. Обърнете внимание, че не можете да си "
+"забраните достъпа."
+
+#: inc/admin/content.php:1666
+msgid "You may ban users by individual IP address or IP address range."
+msgstr ""
+"Можете да забраните достъпа на потребители по индивидуален IP адрес или чрез "
+"спектър от IP адреси."
+
+#: inc/admin/content.php:1667 inc/admin/content.php:2138
+msgid ""
+"Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###."
+"###). Wildcards (*) are allowed to specify a range of ip addresses."
+msgstr ""
+"Индивидуалните IP адреси трябва да бъдат в стандарт IPV4 (пример ###.###.###."
+"###). Wildcards (*) са разрешени за посочване на спектър от IP адреси."
+
+#: inc/admin/content.php:1668 inc/admin/content.php:2139
+msgid ""
+"If using a wildcard (*) you must start with the right-most number in the ip "
+"field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*."
+"### is not."
+msgstr ""
+"Ако използвате wildcard (*) трябва да започнете отдясно. Например ###.###."
+"###.* и ###.###.*.* са разрешени, но ###.###.*.### не е."
+
+#: inc/admin/content.php:1669 inc/admin/content.php:2140
+msgid "Lookup IP Address."
+msgstr "Проверете IP Адрес."
+
+#: inc/admin/content.php:1670 inc/admin/content.php:2141
+msgid "Enter only 1 IP address or 1 IP address range per line."
+msgstr "Въведете само 1 IP адрес за всеки ред."
+
+#: inc/admin/content.php:1676
+msgid "Ban User Agents"
+msgstr "Забранете Agents"
+
+#: inc/admin/content.php:1680
+msgid ""
+"Use the guidelines below to enter user agents that will not be allowed "
+"access to your site."
+msgstr ""
+"Използвайте насоките по-долу за да въведете user agents, на които няма да "
+"бъде разрешен достъпът до Вашия сайт."
+
+#: inc/admin/content.php:1682
+msgid "Enter only 1 user agent per line."
+msgstr "Въведете само 1 user agent за всеки ред."
+
+#: inc/admin/content.php:1698
+msgid ""
+"By default WordPress puts all your content including images, plugins, "
+"themes, uploads, and more in a directory called \"wp-content\". This makes "
+"it easy to scan for vulnerable files on your WordPress installation as an "
+"attacker already knows where the vulnerable files will be at. As there are "
+"many plugins and themes with security vulnerabilities moving this folder can "
+"make it harder for an attacker to find problems with your site as scans of "
+"your site's file system will not produce any results."
+msgstr ""
+"По подразбиране WordPress съхранява цялото съдържание на сайта Ви, "
+"включително снимки, плъгини, теми, ъплоудс и др. в директория наречена \"wp-"
+"content\". Това позволява на хакерите да сканират директорията за податливи "
+"файлове, тъй като на тях им е известно, че такива файлове се намират точно в "
+"тази директория. Понеже има много плъгини и теми с проблеми в сигурността, "
+"преместването на тази папка би затруднило хакерите да намерят слабости във "
+"Вашия сайт. Оттук евентуалното сканиране на файловата система на Вашия сайт "
+"няма да доведе до нищо."
+
+#: inc/admin/content.php:1699
+msgid ""
+"Please note that changing the name of your wp-content directory on a site "
+"that already has images and other content referencing it will break your "
+"site. For that reason I highly recommend you do not try this on anything but "
+"a fresh WordPress install. In addition, this tool will not allow further "
+"changes to your wp-content folder once it has already been renamed in order "
+"to avoid accidently breaking a site later on. This includes uninstalling "
+"this plugin which will not revert the changes made by this page."
+msgstr ""
+"Моля обърнете внимание, че промяната на името на wp-content директорията на "
+"сайт, който вече има картинки и друго съдържание, което пренасочва към тази "
+"директория, ще счупи сайта. По тази причина горещо Ви се препоръчва да не "
+"опитвате тази функция в случай, че сайтът Ви не представлява току що "
+"подкарана WordPress инсталация. В допълнение това също така няма да позволи "
+"да се правят промени в wp-content папката след като я преименувате за да се "
+"избегне чупенето на сайта на по-късен етап. Дори след преинсталирането на "
+"този плъгин няма да се върнат промените."
+
+#: inc/admin/content.php:1700
+msgid ""
+"Finally, changing the name of the wp-content directory may in fact break "
+"plugins and themes that have \"hard-coded\" it into their design rather than "
+"call it dynamically."
+msgstr ""
+"В заключение, промяната на името на wp-content директорията може да счупи "
+"всички плъгини и теми, които имат директорията \"hard-code-ната\" в техния "
+"дизайн, а не я викат динамично."
+
+#: inc/admin/content.php:1701
+msgid "WARNING: BACKUP YOUR WORDPRESS INSTALLATION BEFORE USING THIS TOOL!"
+msgstr ""
+"ВНИМАНИЕ: БЕКЪПНЕТЕ ВАШАТА WORDPRESS ИНСТАЛАЦИЯ ПРЕДИ ДА ИЗПОЛЗВАТЕ ТАЗИ "
+"ОПЦИЯ!"
+
+#: inc/admin/content.php:1702
+msgid ""
+"RENAMING YOUR wp-content WILL BREAK LINKS ON A SITE WITH EXISTING CONTENT."
+msgstr ""
+"ПРЕИМЕНУВАНЕТО НА ВАШАТА wp-content ПАПКА ЩЕ СЧУПИ ЛИНКОВЕТЕ НА САЙТ СЪС "
+"СЪЩЕСТВУВАЩО СЪДЪРЖАНИЕ."
+
+#: inc/admin/content.php:1719
+msgid "Directory Name"
+msgstr "Име на Директорията"
+
+#: inc/admin/content.php:1724
+msgid ""
+"Enter a new directory name to replace \"wp-content.\" You may need to log in "
+"again after performing this operation."
+msgstr ""
+"Въведете ново име на директорията за да замените досегашното \"wp-content.\" "
+"Може да се наложи да се впишете наново в сайта след като изпълните тази "
+"операция."
+
+#: inc/admin/content.php:1738
+msgid ""
+"Congratulations! You have already renamed your \"wp-content\" directory."
+msgstr ""
+"Поздравления! Вие успешно презаписахте Вашата \"wp-content\" директория."
+
+#: inc/admin/content.php:1739
+msgid "Your current content directory is: "
+msgstr "Вашата текуща директория със съдържание е: "
+
+#: inc/admin/content.php:1740
+msgid "No further actions are available on this page."
+msgstr "Не са налични по-нататъшни действия на тази страница."
+
+#: inc/admin/content.php:1751
+msgid ""
+"While this plugin goes a long way to helping secure your website nothing can "
+"give you a 100% guarantee that your site won't be the victim of an attack. "
+"When something goes wrong one of the easiest ways of getting your site back "
+"is to restore the database from a backup and replace the files with fresh "
+"ones. Use the button below to create a full backup of your database for this "
+"purpose. You can also schedule automated backups and download or delete "
+"previous backups."
+msgstr ""
+"Въпреки, че този плъгин подобрява многократно сигурността на Вашия сайт, "
+"авторът не може да Ви даде 100% гаранция, че въпреки това няма да станете "
+"жертва на хакерска атака. Когато нещо се обърка един от най-лесните начини "
+"да съживите отново сайта си е да възстановите базата данни от бекъп и да "
+"подмените файловете в сайта с тези от бекъпа. Използвайте бутона по-долу за "
+"да създадете пълен бекъп на Вашата база данни. Вие също така можете да "
+"създадете автоматичен график за бекъп на базата данни и да теглите или "
+"триете стари бекъпи."
+
+#: inc/admin/content.php:1764
+msgid ""
+"Press the button below to create a backup of your WordPress database. If you "
+"have \"Send Backups By Email\" selected in automated backups you will "
+"receive an email containing the backup file."
+msgstr ""
+"Натиснете бутона по-долу за да създадете бекъп на Вашата WordPress база "
+"данни. Ако изберете \"Изпратете бекъпа по Имейл\", всички автоматични имейли "
+"ще бъдат изпращани на Вашия имейл."
+
+#: inc/admin/content.php:1783
+msgid "Enable Scheduled Backups"
+msgstr "Позволи Бекъпи по График"
+
+#: inc/admin/content.php:1787
+msgid ""
+"Check this box to enable scheduled backups which will be emailed to the "
+"address below."
+msgstr ""
+"Маркирайте с отметка тази кутийка за да разрешите бекъпите по график, които "
+"ще бъдат изпратени на имейл на адреса по-долу."
+
+#: inc/admin/content.php:1792
+msgid "Backup Interval"
+msgstr "Бекъп Интервал"
+
+#: inc/admin/content.php:1797
+msgid "Hours"
+msgstr "Часа"
+
+#: inc/admin/content.php:1798
+msgid "Days"
+msgstr "Дни"
+
+#: inc/admin/content.php:1799
+msgid "Weeks"
+msgstr "Седмици"
+
+#: inc/admin/content.php:1801
+msgid "Select the frequency of automated backups."
+msgstr "Изберете колко често да се осъществяват автоматични обновления."
+
+#: inc/admin/content.php:1806
+msgid "Send Backups by Email"
+msgstr "Изпрати Бекъпите по Имейл"
+
+#: inc/admin/content.php:1810
+msgid "Email backups to the current site admin."
+msgstr "Изпрати бекъпите до сегашния админ на сайта."
+
+#: inc/admin/content.php:1815 inc/admin/content.php:2074
+#: inc/admin/content.php:2180 inc/admin/content.php:2313
+msgid "Email Address"
+msgstr "Имейл Адрес"
+
+#: inc/admin/content.php:1819
+msgid "The email address backups will be sent to."
+msgstr "Имейл адресът, на който ще се изпращат бекъпите."
+
+#: inc/admin/content.php:1824
+msgid "Backups to Keep"
+msgstr "Бекъпи, Които да се Съхраняват"
+
+#: inc/admin/content.php:1828
+msgid ""
+"Number of backup files to retain. Enter 0 to keep all files. Please note "
+"that this setting only applies if \"Send Backups by Email\" is not selected."
+msgstr ""
+"Брой на бекъп файловете, които да се съхраняват. Въведете 0 за да запазвате "
+"всички бекъпи. Моля обърнете внимание, че тази опция е активна само ако не "
+"сте избрали \"Изпратете бекъпа по Имейл\"."
+
+#: inc/admin/content.php:1845
+msgid ""
+"Database backups are NOT saved to the server and instead will be emailed to"
+msgstr ""
+"Бекъпите на базата данни НЕ СЕ запазват на сървъра и вместо това ще бъдат "
+"изпращани на"
+
+#: inc/admin/content.php:1845
+msgid ""
+"To change this unset \"Send Backups by Email\" in the \"Scheduled Automated "
+"Backups\" section above."
+msgstr ""
+"За да промените това махнете отметката от \"Изпратете бекъпа по Имейл\" по-"
+"горе в секцията \"Автоматични Бекъпи по График.\""
+
+#: inc/admin/content.php:1849
+msgid ""
+"Please note that for security backups are not available for direct download. "
+"You will need to go to "
+msgstr ""
+"Моля обърнете внимание, че заради сигурността бекъпите не са налични за "
+"директно сваляне. Ще трябва да отидете "
+
+#: inc/admin/content.php:1851
+msgid ""
+" via FTP or SSH to download the files. This is because there is too much "
+"sensative information in the backup files and you do not want anyone just "
+"stumbling upon them."
+msgstr ""
+"на FTP или SSH за да изтеглите файловете. Това е така, защото има твърде "
+"много чувствителна информация в бекъп файловете и надали искате някой "
+"случайно да ги намери."
+
+#: inc/admin/content.php:1856
+msgid "Never"
+msgstr "Никога"
+
+#: inc/admin/content.php:1865
+msgid "Last Scheduled Backup:"
+msgstr "Последният Плануван Бекъп:"
+
+#: inc/admin/content.php:1866
+msgid "Next Scheduled Backup:"
+msgstr "Следващият Плануван Бекъп:"
+
+#: inc/admin/content.php:1876
+msgid ""
+"It looks like a scheduled backup is in progress please reload this page for "
+"more accurate times."
+msgstr ""
+"Изглежда, че в момента се осъществява бекъп. Моля презаредете страницата за "
+"по-точни времена."
+
+#: inc/admin/content.php:1888
+msgid ""
+"By default WordPress assigns the prefix \"wp_\" to all the tables in the "
+"database where your content, users, and objects live. For potential "
+"attackers this means it is easier to write scripts that can target WordPress "
+"databases as all the important table names for 95% or so of sites are "
+"already known. Changing this makes it more difficult for tools that are "
+"trying to take advantage of vulnerabilites in other places to affect the "
+"database of your site."
+msgstr ""
+"По подразбиране WordPress назначава представката \"wp_\" на всички таблици в "
+"базата данни, където се намират Вашите съдържание, потребители и други "
+"обекти. За всеки потенциален хакер това означава, че е по-лесно да напише "
+"скрипт за атака на базата данни на WordPress, тъй като всички важни имена на "
+"таблиците за 95% от сайтовете са вече известни. Ако промените това ще "
+"затрудните всички инструменти, които се опитват да използват слабостите по "
+"други места на сайта Ви за да повлияят върху базата данни на Вашия сайт."
+
+#: inc/admin/content.php:1889
+msgid ""
+"Please note that the use of this tool requires quite a bit of system memory "
+"which my be more than some hosts can handle. If you back your database up "
+"you can't do any permanent damage but without a proper backup you risk "
+"breaking your site and having to perform a rather difficult fix."
+msgstr ""
+"Моля обърнете внимание, че употребата на този инструмент изисква много "
+"системна памет, което може да е повече от това, което някои хостинги могат "
+"да поемат. Ако бекъпнете Вашата база данни не можете да нанесете перманентни "
+"щети, но без реален бекъп рискувате да счупите сайта си и да се наложи да се "
+"преборите с едно по-скоро сложно възстановяване на сайта Ви."
+
+#: inc/admin/content.php:1890
+msgid ""
+"WARNING: <a href=\"?page=better-wp-security-databasebackup\">BACKUP YOUR "
+"DATABASE</a> BEFORE USING THIS TOOL!"
+msgstr ""
+"ВНИМАНИЕ: <a href=\"?page=better-wp-security-databasebackup\">БЕКЪПНЕТЕ "
+"ВАШАТА БАЗА ДАННИ</a> ПРЕДИ ДА ИЗПОЛЗВАТЕ ТОЗИ ИНСТРУМЕНТ!"
+
+#: inc/admin/content.php:1902
+msgid "Your database is using the default table prefix"
+msgstr "Вашата база данни използва тази представка по подразбиране"
+
+#: inc/admin/content.php:1902
+msgid "You should change this."
+msgstr "Трябва да го промените."
+
+#: inc/admin/content.php:1904
+msgid "Your current database table prefix is"
+msgstr "Вашата текуща представка за таблиците е"
+
+#: inc/admin/content.php:1909
+msgid ""
+"Press the button below to generate a random database prefix value and update "
+"all of your tables accordingly."
+msgstr ""
+"Натиснете бутона по-долу за да генерирате случайна представка и оттам да "
+"обновите всичките си таблици по съответния ред."
+
+#: inc/admin/content.php:1910
+msgid "Change Database Table Prefix"
+msgstr "Променете Представката за Таблиците"
+
+#: inc/admin/content.php:1921
+msgid ""
+"The \"hide backend\" feature changes the URL from which you can access your "
+"WordPress backend thereby further obscuring your site to potential attackers."
+msgstr ""
+"Функцията \"Скриване на Бекънда\" променя URL-а, от който се влиза към "
+"бекенда на WordPress, с други думи прикрива сайта ви от потенциални хакери."
+
+#: inc/admin/content.php:1922
+msgid ""
+"This feature will need to modify your site's .htaccess file if you use the "
+"Apache webserver or, if you use NGINX you will need to add the rules "
+"manually to your virtualhost configuration. In both cases it requires "
+"permalinks to be turned on in your settings to function."
+msgstr ""
+"Тази функция ще трябва да промени .htaccess файл-а ако използвате Apache уеб "
+"сървър, а ако използвате NGINX ще трябва Вие лично да добавите правилата в "
+"конфигурацията на Вашия виртуален хост."
+
+#: inc/admin/content.php:1935
+msgid "You must turn on"
+msgstr "Трябва да стартирате"
+
+#: inc/admin/content.php:1935
+msgid "WordPress permalinks"
+msgstr "WordPress permalinks"
+
+#: inc/admin/content.php:1935
+msgid "to use this feature."
+msgstr "за да използвате тази функция."
+
+#: inc/admin/content.php:1943
+msgid "Enable Hide Backend"
+msgstr "Разрешете Скриване на Бекенда"
+
+#: inc/admin/content.php:1947
+msgid "Check this box to enable the hide backend."
+msgstr "Маркирайте тази кутийка за да разрешите скриването на бекенда."
+
+#: inc/admin/content.php:1952
+msgid "Login Slug"
+msgstr "Адрес за Вписване"
+
+#: inc/admin/content.php:1956
+msgid "Login URL:"
+msgstr "Login URL:"
+
+#: inc/admin/content.php:1961
+msgid "Register Slug"
+msgstr "Адрес за Регистрация"
+
+#: inc/admin/content.php:1965
+msgid "Register URL:"
+msgstr "Register URL:"
+
+#: inc/admin/content.php:1970
+msgid "Admin Slug"
+msgstr "Адрес за Админ"
+
+#: inc/admin/content.php:1974
+msgid "Admin URL:"
+msgstr "Admin URL:"
+
+#: inc/admin/content.php:1979
+msgid "Generate new secret key"
+msgstr "Създайте нов секретен ключ"
+
+#: inc/admin/content.php:1983
+msgid "Check this box to generate a new secret key."
+msgstr "Маркирайте тази кутийка за да създадете нов секретен ключ."
+
+#: inc/admin/content.php:2000
+msgid ""
+"Keep this key in a safe place. You can use it to manually fix plugins that "
+"link to wp-login.php. Once turning on this feature and plugins linking to wp-"
+"login.php will fail without adding ?[the key]& after wp-login.php. 99% of "
+"users will not need this key. The only place you would ever use it is to fix "
+"a bad login link in the code of a plugin or theme."
+msgstr ""
+"Пазете този ключ на секретно място. Може да го ползвате за да поправяте "
+"ръчно плъгини, които водят до wp-login.php. Веднъж включили тази функция "
+"всички плъгини, които водят до wp-login.php ще се счупят ако не се добави ?"
+"[ключът]& след wp-login.php. 99% от потребителите няма да се нуждаят от този "
+"ключ. Този ключ ще Ви трябва единствено за да поправите счупен линк за "
+"вписване на плъгин или тема."
+
+#: inc/admin/content.php:2011
+msgid ""
+"404 detection looks at a user who is hitting a large number of non-existent "
+"pages, that is they are getting a large number of 404 errors. It assumes "
+"that a user who hits a lot of 404 errors in a short period of time is "
+"scanning for something (presumably a vulnerability) and locks them out "
+"accordingly (you can set the thresholds for this below). This also gives the "
+"added benefit of helping you find hidden problems causing 404 errors on "
+"unseen parts of your site as all errors will be logged in the \"View Logs\" "
+"page. You can set threshholds for this feature below."
+msgstr ""
+"Следене за грешка 404 следи за потребители, които се опитват да заредят "
+"голям брой несъществуващи страници или с други думи зареждат висок брой "
+"грешки с номер 404 в системата. Тази функция предполага, че потребител, "
+"който записва голям брой грешки с номер 404, за кратък интервал от време, "
+"всъщност сканира системата за слабости и оттук функцията заключва достъпа на "
+"този потребител до сайта (можете да настроите стойностите по-долу). Тази "
+"функция също така Ви предоставя възможността да намерите скрити проблеми из "
+"сайта Ви, които предизвикват грешка 404 в части от сайта Ви, които не са "
+"видими, тъй като всички грешки ще бъдат записани в страницата \"Преглеждане "
+"на Записи\". Можете да настроите тази функция по-долу."
+
+#: inc/admin/content.php:2012
+msgid ""
+"File change detection looks at the files in your WordPress installation and "
+"reports changes to those files. This can help you determine if an attacker "
+"has compromised your system by changing files within WordPress. Note that it "
+"will only automatically check once per day to reduce server load and other "
+"insanity."
+msgstr ""
+"Функцията Промяна на Файлове следи за промени във файловата система на "
+"WordPress инсталацията Ви и докладва за всяка промяна. Това може да Ви "
+"помогне за да установите ако някой хакер е проникнал в системата Ви като е "
+"пренастроил файлове в WordPress. Обърнете внимание, че тази функция ще "
+"проверява за промени един път на ден за да не натоварва излишно сървъра Ви."
+
+#: inc/admin/content.php:2025
+msgid ""
+"Press the button below to manually check for changed files and folders on "
+"your site."
+msgstr ""
+"Натиснете бутона по-долу за ръчна проверка за променени файлове и папки във "
+"Вашия сайт."
+
+#: inc/admin/content.php:2026
+msgid "Check for file/folder changes"
+msgstr "Проверете за променени файлове/папки"
+
+#: inc/admin/content.php:2040
+msgid ""
+"Warning: Your server has less than 128MB of RAM dedicated to PHP. If you "
+"have many files in your installation or a lot of active plugins activating "
+"this feature may result in your site becoming disabled with a memory error. "
+"See the plugin homepage for more information."
+msgstr ""
+"Внимание: Вашият сървър има по-малко от 128МБ RAM предназначени за PHP. Ако "
+"имате много файлове във Вашата инсталация или много активни плъгини, "
+"активирането на тази функция може да доведе до невъзможност да се влезе в "
+"сайта Ви, който в последствие ще връща грешка в паметта. Вижте началната "
+"страница на плъгина за повече информация."
+
+#: inc/admin/content.php:2051
+msgid "404 Detection"
+msgstr "Следене за Грешка 404"
+
+#: inc/admin/content.php:2056
+msgid "Enable 404 Detection"
+msgstr "Разрешете Следенето за 404"
+
+#: inc/admin/content.php:2060
+msgid "Check this box to enable 404 intrusion detection."
+msgstr ""
+"Маркирайте тази кутийка за да разрешите следенето за грешки от тип 404."
+
+#: inc/admin/content.php:2065
+msgid "Email 404 Notifications"
+msgstr "Изпращане на Имейл за 404"
+
+#: inc/admin/content.php:2069
+msgid ""
+"Enabling this feature will trigger an email to be sent to the specified "
+"email address whenever a host is locked out of the system."
+msgstr ""
+"Активирането на тази функция ще Ви изпраща имейл всеки път, когато някой "
+"потребител бива заключен от сайта Ви."
+
+#: inc/admin/content.php:2078 inc/admin/content.php:2317
+msgid "The email address lockout notifications will be sent to."
+msgstr "Имейл адресът, до който ще се изпращат нотификациите."
+
+#: inc/admin/content.php:2083
+msgid "Check Period"
+msgstr "Период на Проверка"
+
+#: inc/admin/content.php:2087
+msgid ""
+"The number of minutes in which 404 errors should be remembered. Setting this "
+"too long can cause legitimate users to be banned."
+msgstr ""
+"Броят минути, през които грешки от тип 404 ще бъдат запеметени. Залагането "
+"на голям период може да доведе до заключването на нормални потребители."
+
+#: inc/admin/content.php:2092
+msgid "Error Threshold"
+msgstr "Праг за Грешките"
+
+#: inc/admin/content.php:2096
+msgid ""
+"The numbers of errors (within the check period timeframe) that will trigger "
+"a lockout."
+msgstr ""
+"Броят грешки (в определения период от време), които ще доведат до заключване."
+
+#: inc/admin/content.php:2101
+msgid "Lockout Period"
+msgstr "Период на Заключването"
+
+#: inc/admin/content.php:2105
+msgid ""
+"The number of minutes a host will be banned from the site after triggering a "
+"lockout."
+msgstr ""
+"Броят минути, за които потребителят ще бъде заключен от сайта след като бъде "
+"заключен от системата."
+
+#: inc/admin/content.php:2111 inc/admin/content.php:2285
+msgid "Blacklist Repeat Offender"
+msgstr "Добавяне в Черен Списък"
+
+#: inc/admin/content.php:2115 inc/admin/content.php:2289
+msgid ""
+"If this box is checked the IP address of the offending computer will be "
+"added to the \"Ban Users\" blacklist after reaching the number of lockouts "
+"listed below."
+msgstr ""
+"Ако тази кутийка бъде маркирана IP адресът на компютъра извършил нарушението "
+"ще бъде добавен към черния списък \"Забранени Потребители\" след като се "
+"достигне броят на заключванията посочени по-долу."
+
+#: inc/admin/content.php:2116
+msgid ""
+"Warning! If your site has a lot of missing files causing 404 errors using "
+"this feature can ban your own computer from your site. I would highly advice "
+"whitelisting your IP address below if this is the case."
+msgstr ""
+"Внимание! Ако Вашият сайт има много липсващи файлове причиняващи грешка 404, "
+"то използването на тази функция може да забрани достъпа на Вашия личен "
+"компютър до Вашия сайт. Горещо Ви съветвам да маркирате IP адресът на Вашия "
+"компютър в белия списък ако е такъв случаят."
+
+#: inc/admin/content.php:2121 inc/admin/content.php:2294
+msgid "Blacklist Threshold"
+msgstr "Праг за Добавяне в Черен Списък"
+
+#: inc/admin/content.php:2125 inc/admin/content.php:2298
+msgid ""
+"The number of lockouts per IP before the user is banned permanently from "
+"this site"
+msgstr ""
+"Броят заключвания за IP адрес преди потребителят да бъде добавен за "
+"постоянно в списъка на забранените потребители."
+
+#: inc/admin/content.php:2131
+msgid "404 White List"
+msgstr "404 Бял Списък"
+
+#: inc/admin/content.php:2135
+msgid ""
+"Use the guidelines below to enter hosts that will never be locked out due to "
+"too many 404 errors. This could be useful for Google, etc."
+msgstr ""
+"Използвайте насоките по-долу за да добавяте IP адреси, които никога да не "
+"бъдат заключвани поради грешка 404. Това може да е полезно за Google и др."
+
+#: inc/admin/content.php:2137
+msgid "You may whitelist users by individual IP address or IP address range."
+msgstr ""
+"Можете да добавяте потребители в белия списък по индивидуален IP адрес или "
+"спектър от IP адреси."
+
+#: inc/admin/content.php:2142
+msgid ""
+"404 errors will still be logged for users on the whitelist. Only the lockout "
+"will be prevented"
+msgstr ""
+"Грешка 404 ще продължи да се отчита за всички потребители в белия списък. "
+"Единствената разлика е, че тези потребители няма да бъдат заключвани."
+
+#: inc/admin/content.php:2148
+msgid "File Change Detection"
+msgstr "Отчитане на Променени Файлове"
+
+#: inc/admin/content.php:2153
+msgid "Enable File Change Detection"
+msgstr "Разрешете Следенето за Променени Файлове"
+
+#: inc/admin/content.php:2157
+msgid "Check this box to enable file change detection."
+msgstr ""
+"Маркирайте тази кутийка за да разрешите следенето за променени файлове."
+
+#: inc/admin/content.php:2162
+msgid "Display file change admin warning"
+msgstr "Показване на нотификация до админа за променени файлове"
+
+#: inc/admin/content.php:2166
+msgid ""
+"Disabling this feature will prevent the file change warning from displaying "
+"to the site administrator in the WordPress Dashboard. Not that disabling "
+"both the error message and the email address will result in no notifications "
+"of file changes. The only way you will be able to tell is by manually "
+"checking the log files."
+msgstr ""
+"Изключването на тази функция ще изключи нотификацията в Таблото на WordPress "
+"до администратора за промени във файловата система на WordPress. Ако "
+"изключите едновременно нотификацията в Таблото и нотификацията по имейл, "
+"това ще доведе до липса на каквато и да било нотификация за файлови промени. "
+"Единственият начин за проверка ще бъде ако лично прегледате записите на "
+"плъгина."
+
+#: inc/admin/content.php:2171
+msgid "Email File Change Notifications"
+msgstr "Нотификация по Имейл за Променени Файлове"
+
+#: inc/admin/content.php:2175
+msgid ""
+"Enabling this feature will trigger an email to be sent to the specified "
+"email address whenever a file change is detected."
+msgstr ""
+"Разрешаването на тази функция ще доведе до изпращането на имейл до посочения "
+"имейл адрес всеки път, когато бъде установена промяна по файловете в "
+"системата."
+
+#: inc/admin/content.php:2184
+msgid "The email address filechange notifications will be sent to."
+msgstr "Имейл адресът, до който ще бъдат изпращани нотификациите."
+
+#: inc/admin/content.php:2189
+msgid "Include/Exclude List"
+msgstr "Списък за добавяне/изключване"
+
+#: inc/admin/content.php:2193
+msgid "Include"
+msgstr "Добави"
+
+#: inc/admin/content.php:2194
+msgid "Exclude"
+msgstr "Изключи"
+
+#: inc/admin/content.php:2196
+msgid ""
+"If \"Include\" is selected only the contents of the list below will be "
+"checked. If exclude is selected all files and folders except those listed "
+"below will be checked."
+msgstr ""
+"Ако се избере \"Добави\" единствено ще се сканира съдържанието в посочените "
+"по-долу директории. Ако се избере \"Изключи\" всички файлове и папки с "
+"изключение на посочените по-долу ще бъдат сканирани."
+
+#: inc/admin/content.php:2201
+msgid "File/Directory Check List"
+msgstr "Листа за Файлове/Директории"
+
+#: inc/admin/content.php:2205
+msgid ""
+"Enter directories or files you do not want to include in the check (i.e. "
+"cache folders, etc). Only 1 file or directory per line. You can specify all "
+"files of a given type by just entering the extension preceeded by a dot (.) "
+"for exampe, .jpg"
+msgstr ""
+"Въведете директориите или файловете, които не искате да добавяте в проверката"
+"(например папки с кеш, т.н.). Само 1 файл или директория на ред. Може да "
+"добавите всички файлове от определен тип като добавите разширението им и "
+"сложите точка пред него (.), например .jpg"
+
+#: inc/admin/content.php:2206
+msgid ""
+"Directories should be entered in the from the root of the WordPress folder. "
+"For example, if you wish to enter the uploads directory you would enter it "
+"as \"wp-content/uploads\" (assuming you have not renamed wp-content). For "
+"files just enter the filename without directory information."
+msgstr ""
+"Директориите трябва да се добавят от root папката на WordPress. Например ако "
+"искате да добавите папката с качените файлове бихте я добавили като \"wp-"
+"content/uploads\" (като в този пример се предполага, че не сте преименували "
+"wp-content). Файловете ги добавете просто като посочите имената им без да "
+"добавяте информация за папката, в която се намират."
+
+#: inc/admin/content.php:2210
+msgid "Save Options"
+msgstr "Запазете Настройките"
+
+#: inc/admin/content.php:2222
+msgid ""
+"If one had unlimited time and wanted to try an unlimited number of password "
+"combimations to get into your site they eventually would, right? This method "
+"of attach, known as a brute force attack, is something that WordPress is "
+"acutely susceptible by default as the system doesn\\t care how many attempts "
+"a user makes to login. It will always let you try agin. Enabling login "
+"limits will ban the host user from attempting to login again after the "
+"specified bad login threshhold has been reached."
+msgstr ""
+"Ако един човек разполага с неограничен период от време и иска да опита "
+"неограничен брой комбинации на пароли за да влезе във Вашия сайт, то този "
+"човек евентуално би успял нали? Този метод на атака, известен още като брут "
+"форс, е нещо към което WordPress не е защитен, тъй като по начало системата "
+"не се интересува колко опита прави един потребител за да се впише. "
+"Разрешавайки функцията лимити за вписване ще спрете всички потребители, "
+"които се опитват да влезат в системата Ви като правят опит след опит веднъж "
+"след като са достигнали прага за неуспешни опити."
+
+#: inc/admin/content.php:2239
+msgid "Enable Login Limits"
+msgstr "Разрешете Лимитите за Вписване"
+
+#: inc/admin/content.php:2243
+msgid "Check this box to enable login limits on this site."
+msgstr ""
+"Маркирайте тази кутийка за да разрешите лимитите за вписване в този сайт."
+
+#: inc/admin/content.php:2248
+msgid "Max Login Attempts Per Host"
+msgstr "Максимален Брой Опити за Вписване на Потребител"
+
+#: inc/admin/content.php:2252
+msgid ""
+"The number of login attempts a user has before their host or computer is "
+"locked out of the system."
+msgstr ""
+"Броят опити за вписване, които са разрешени на потребител преди системата да "
+"заключи достъпа на компютъра му до сайта."
+
+#: inc/admin/content.php:2257
+msgid "Max Login Attempts Per User"
+msgstr "Максимален Брой Опити за Потребителско Име"
+
+#: inc/admin/content.php:2261
+msgid ""
+"The number of login attempts a user has before their username is locked out "
+"of the system. Note that this is different from hosts in case an attacker is "
+"using multiple computers. In addition, if they are using your login name you "
+"could be locked out yourself."
+msgstr ""
+"Броят опити за вписване на потребителско име преди това потребителско име да "
+"бъде заключено от системата. Моля обърнете внимание, че това е различно от "
+"опитите за вписване на потребител, тъй като понякога хакерът може да "
+"използва няколко различни компютъра за да Ви атакува. В допълнение ако те "
+"използват Вашето потребителско име, Вие също така можете да бъдете заключени "
+"от системата."
+
+#: inc/admin/content.php:2266
+msgid "Login Time Period (minutes)"
+msgstr "Период за Вписване (минути)"
+
+#: inc/admin/content.php:2270
+msgid "The number of minutes in which bad logins should be remembered."
+msgstr "Броят минути, през които да се помнят неуспешните опити за вписване."
+
+#: inc/admin/content.php:2275
+msgid "Lockout Time Period (minutes)"
+msgstr "Период на Заключване (минути)"
+
+#: inc/admin/content.php:2279
+msgid ""
+"The length of time a host or computer will be banned from this site after "
+"hitting the limit of bad logins."
+msgstr ""
+"Продължителността на заключване, през която на потребител да бъде спрян "
+"достъпът до този сайт след като е преминал ограничението за неуспешни "
+"вписвания."
+
+#: inc/admin/content.php:2304
+msgid "Email Notifications"
+msgstr "Известие по Имейл"
+
+#: inc/admin/content.php:2308
+msgid ""
+"Enabling this feature will trigger an email to be sent to the specified "
+"email address whenever a host or user is locked out of the system."
+msgstr ""
+"Разрешаването на тази функция ще Ви изпраща имейл, до посочения от Вас имейл "
+"адрес, всеки път когато някой потребител или потребителско бъдат заключени "
+"от системата."
+
+#: inc/admin/content.php:2332
+msgid ""
+"This page contains the logs generated by Better WP Security, current "
+"lockouts (which can be cleared here) and a way to cleanup the logs to save "
+"space on the server and reduce CPU load. Please note, you must manually "
+"clear these logs, they will not do so automatically. I highly recommend you "
+"do so regularly to improve performance which can otherwise be slowed if the "
+"system has to search through large log-files on a regular basis."
+msgstr ""
+"Тази страница съдържа записите генерирани от Better WP Security, текущите "
+"заключвания (които могат да бъдат изчистени оттук) и метод за изчистване на "
+"записите, което ще спести място на сървъра и ще намали употребата на CPU. "
+"Моля обърнете внимание, че Вие трябва ръчно да изтриете тези записи, те няма "
+"да бъдат изтрити автоматично. Горещо Ви се препоръчва да ги триете често за "
+"да подобрите производителността на сайта си."
+
+#: inc/admin/content.php:2355
+msgid "Old Data"
+msgstr "Стара Информация"
+
+#: inc/admin/content.php:2358
+msgid ""
+"Below is old security data still in your WordPress database. Data is "
+"considered old when the lockout has expired, or been manually cancelled, or "
+"when the log entry will no longer be used to generate a lockout."
+msgstr ""
+"По-долу се намира стара информация, която все още се намира в базата Ви "
+"данни на Wordpress. Информацията се счита за стара от момента, в който "
+"периодът на заключване е изтекъл или е бил ръчно отменен, или от момента, в "
+"който данни от логовете спират да служат като активен критерий за активиране "
+"на заключване."
+
+#: inc/admin/content.php:2359
+msgid ""
+"This data is not automatically deleted so that it may be used for analysis. "
+"You may delete this data with the form below. To see the actual data you "
+"will need to access your database directly."
+msgstr ""
+"Информацията не се трие автоматично за да може да Ви послужи за анализ. "
+"Можете да изтриете информацията чрез формата по-долу. За да видите реалната "
+"информация ще се наложи да влезете директно в базата данни."
+
+#: inc/admin/content.php:2360
+msgid ""
+"Check the box next to the data you would like to clear and then press the "
+"\"Remove Old Data\" button. (note this will not erase entries that may still "
+"be used for lockouts)."
+msgstr ""
+"Маркирайте кутийката до типа информация, който бихте желали да изтриете и "
+"след това натиснете бутона \"Изтриване на Стара Информация\". (забележка: "
+"това няма да изтрие записи, които все още могат да послужат за заключвания)"
+
+#: inc/admin/content.php:2362 inc/admin/content.php:2363
+#: inc/admin/content.php:2365 inc/admin/content.php:2366
+msgid "Your database contains"
+msgstr "Базата ви данни съдържа"
+
+#: inc/admin/content.php:2362
+msgid "bad login entries."
+msgstr "неуспешни опити за вписване."
+
+#: inc/admin/content.php:2363
+msgid "404 errors."
+msgstr "404 грешки."
+
+#: inc/admin/content.php:2364
+msgid "This will clear the 404 log below."
+msgstr "Това ще изтрие данните за грешки от 404, които се намират по-долу."
+
+#: inc/admin/content.php:2365
+msgid "old lockouts."
+msgstr "стари заключвания."
+
+#: inc/admin/content.php:2366
+msgid "changed file records."
+msgstr "променени записи на файлове."
+
+#: inc/admin/content.php:2371
+msgid "Remove Data"
+msgstr "Изтрий Данните"
+
+#: inc/admin/content.php:2393
+msgid "Locked out hosts"
+msgstr "Изключени hosts"
+
+#: inc/admin/content.php:2403
+msgid "Currently no hosts are locked out of this website."
+msgstr "Текущи няма hosts изключени от този уебсайт."
+
+#: inc/admin/content.php:2409
+msgid "Locked out users"
+msgstr "Заключени потребители."
+
+#: inc/admin/content.php:2420
+msgid "Currently no users are locked out of this website."
+msgstr "Текущо няма потребители заключени от този уебсайт."
+
+#: inc/admin/content.php:2425
+msgid "Release Lockout"
+msgstr "Освободи от Заключвания"
+
+#: inc/admin/content.php:2443
+msgid "Download 404 Log in .csv format"
+msgstr "Изтеглете 404 Записите в .csv формат"
+
+#: inc/admin/content.php:2495
+msgid "Return to Log"
+msgstr "Върнете се до Данните"
+
+#: inc/admin/content.php:2513
+msgid ""
+"Secure Socket Layers (aka SSL) is a technology that is used to encrypt the "
+"data sent between your server or host and the visitor to your web page. When "
+"activated it makes it almost impossible for an attacker to intercept data in "
+"transit therefore making the transmission of form, password, or other "
+"encrypted data much safer."
+msgstr ""
+"Secure Socket Layers (или SSL) е технология, която се използва за криптиране "
+"на данните изпратени между Вашия сървър или хостинг и посетителя на Вашата "
+"уеб страница. Веднъж активирана, тази технология прави разчитането на "
+"изпращаната информация почти невъзможно за всички хакери. По този начин "
+"подаването на потребителско име, парола и друга информация става много по-"
+"сигурно."
+
+#: inc/admin/content.php:2514
+msgid ""
+"Better WP Security gives you the option of turning on SSL (if your server or "
+"host support it) for all or part of your site. The options below allow you "
+"to automatically use SSL for major parts of your site, the login page, the "
+"admin dashboard, or the site as a whole. You can also turn on SSL for any "
+"post or page by editing the content you want to use SSL in and selecting "
+"\"Enable SSL\" in the publishing options of the content in question."
+msgstr ""
+"Better WP Security Ви предоставя възможност да включите SSL (ако Вашият "
+"сървър или хостинг я поддържа) за всички части на Вашия сайт. Опциите по-"
+"долу Ви позволяват автоматично да използвате SSL за всички големи части от "
+"Вашия уебсайт, като например страницата за вписване, таблото на "
+"администраторите или сайтът като цяло. Вие също така можете да включите SSL "
+"за всеки пост или страница като отидете на редактиране на съдържанието, "
+"което искате да използва SSL и изберете \"Разреши SSL\" в опциите за "
+"публикуване на съдържанието."
+
+#: inc/admin/content.php:2515
+msgid ""
+"While this plugin does give you the option of encrypting everything please "
+"note this might not be for you. SSL does add overhead to your site which "
+"will increase download times slightly. Therefore we recommend you enable SSL "
+"at a minimum on the login page, then on the whole admin section, finally on "
+"individual pages or posts with forms that require sensitive information."
+msgstr ""
+"Въпреки, че този плъгин Ви предоставя възможност да криптирате всичко, моля "
+"обърнете внимание, че тази функция може да не е подходяща за Вас. SSL "
+"технологията ще забави леко зареждането на сайта Ви. По тази причина Ви "
+"препоръчваме да разрешите SSL единствено за страницата за вписване, за админ "
+"секцията от сайта и за единични страници или постове, които съдържат "
+"информация от специфично естество."
+
+#: inc/admin/content.php:2516
+msgid ""
+"WARNING: Your server MUST support SSL to use these features. Using these "
+"features without SSL support on your server or host will cause some or all "
+"of your site to become unavailable."
+msgstr ""
+"ВНИМАНИЕ: Вашият сървър ТРЯБВА да поддържа SSL за да използвате тази "
+"функция. Използването на тази функция без поддръжката на SSL на Вашия сървър "
+"или хостинг ще доведе до невъзможност да се заредят части от сайта Ви или "
+"дори целият сайт!"
+
+#: inc/admin/content.php:2535
+msgid ""
+"Are you sure you want to enable SSL? If your server does not support SSL you "
+"will be locked out of your WordPress admin backend."
+msgstr ""
+"Сигурни ли сте, че искате да разрешите SSL? Ако Вашият сървър не поддържа "
+"SSL Вие ще бъдете изхвърлени от админ панела Ви на WordPress."
+
+#: inc/admin/content.php:2541
+msgid "Enforce Front end SSL"
+msgstr "Активирай SSL за Лицето на Сайта"
+
+#: inc/admin/content.php:2546
+msgid "Per Content"
+msgstr "За Съдържание"
+
+#: inc/admin/content.php:2547
+msgid "Whole Site"
+msgstr "За Целия Сайт"
+
+#: inc/admin/content.php:2549
+msgid ""
+"Enables secure SSL connection for the front-end (public parts of your site). "
+"Turning this off will disable front-end SSL control, turning this on \"Per "
+"Content\" will place a checkbox on the edit page for all posts and pages "
+"(near the publish settings) allowing you turn to on SSL for selected pages "
+"or posts, and selecting \"Whole Site\" will force the whole site to use SSL "
+"(not recommended unless you have a really good reason to use it)."
+msgstr ""
+"Разрешава SSL за лицето на сайта (публичните части от Вашия сайт). "
+"Изключването му ще доведе до прекратяването на SSL контролинга, включването "
+"му за \"За Съдържание\" ще Ви даде възможност да изберете за кои постове да "
+"го активирате докато ги редактирате (близо до опцията за публикуване) "
+"позволявайки ви да активирате SSL за определени постови и страници, а ако "
+"изберете \"За Целия Сайт\" ще принудите целия сайт да използва SSL (не се "
+"препоръчва освен ако нямате найстина добро основание да го използвате)."
+
+#: inc/admin/content.php:2554
+msgid "Enforce Login SSL"
+msgstr "Активирайте SSL за Вписване"
+
+#: inc/admin/content.php:2558
+msgid "Forces all logins to be served only over a secure SSL connection."
+msgstr "Всички опити за вписване ще се обслужват чрез SSL технологията."
+
+#: inc/admin/content.php:2563
+msgid "Enforce Admin SSL"
+msgstr "Активирай Админ SSL"
+
+#: inc/admin/content.php:2567
+msgid ""
+"Forces all of the WordPress backend to be served only over a secure SSL "
+"connection."
+msgstr ""
+"Целият контрол панел на WordPress ще се обслужва чрез SSL технологията."
+
+#: inc/admin/content.php:2582
+msgid ""
+"This page contains a number of tweaks that can significantly improve the "
+"security of your system."
+msgstr ""
+"Тази страница съдържа някои предложения, които могат значително да подобрят "
+"сигурността на Вашата система."
+
+#: inc/admin/content.php:2583
+msgid ""
+"Server tweaks make use of rewrite rules and, in the case of Apache or "
+"LiteSpeed, will write them to your .htaccess file. If you are however using "
+"NGINX you will need to manually copy the rules on the Better WP Security "
+"Dashboard and put them in your server configuration."
+msgstr ""
+"Сървърните подобрения използват правила за презаписване и в случай на Apache "
+"или Lite Speed ще ги записват във Вашия .htaccess файл. Ако обаче използвате "
+"NGINX ще е необходимо ръчно да копирате тези правила в таблото на Better WP "
+"Security и да ги сложите във Вашата сървърна конфигурация."
+
+#: inc/admin/content.php:2584
+msgid ""
+"The other tweaks, in some cases, make use of editing your wp-config.php "
+"file. Those that do can be manually turned off by reverting the changes that "
+"file."
+msgstr ""
+"Другите предложения за подобрения, в накои случаи, редактират Вашия wp-"
+"config.php файл. Тези, които го правят могат ръчно да бъдат изключени като "
+"върнете старите настройки на този файл."
+
+#: inc/admin/content.php:2585
+msgid ""
+"Be advsied, some of these tweaks may in fact break other plugins and themes "
+"that make use of techniques that are often seen in practice as suspicious. "
+"That said, I highly recommend turning these on one-by-one and don't worry if "
+"you cannot use them all."
+msgstr ""
+"Моля обърнете внимание, че някои от тези предложения всъщност могат да "
+"счупят други плъгини и теми, които използват техники, които често пъти са "
+"считани в практиката като съмнителни. Предвид това, горещо Ви се препоръчва "
+"да включвате тези предложения едно по едно и да не се тревожите ако не е "
+"възможно да използвате всичките."
+
+#: inc/admin/content.php:2597
+msgid ""
+"Your webserver is unsupported. You must use Apache, LiteSpeed or NGINX to "
+"make use of these rules."
+msgstr ""
+"Вашият уеб-сървър не се поддържа. Трябва да сте на Apache, LiteSpeed или "
+"NGINX за да използвате тези правила."
+
+#: inc/admin/content.php:2605
+msgid "Server Tweaks"
+msgstr "Сървърни Предложения"
+
+#: inc/admin/content.php:2610
+msgid "Protect Files"
+msgstr "Защита на Файлове"
+
+#: inc/admin/content.php:2614
+msgid ""
+"Prevent public access to readme.html, readme.txt, wp-config.php, install."
+"php, wp-includes, and .htaccess. These files can give away important "
+"information on your site and serve no purpose to the public once WordPress "
+"has been successfully installed."
+msgstr ""
+"Преустановете публичния достъп до readme.html, readme.txt, wp-config.php, "
+"install.php, wp-includes и .htaccess. Тези файлове могат да издадат важна "
+"информация за Вашия сайт като в същото време не са необходими на аудиторията "
+"Ви веднъж след като сте инсталирали WordPress."
+
+#: inc/admin/content.php:2615 inc/admin/content.php:2637
+#: inc/admin/content.php:2647 inc/admin/content.php:2798
+#: inc/admin/content.php:2809 inc/admin/content.php:2819
+#: inc/admin/content.php:2829 inc/admin/content.php:2839
+msgid ""
+"Warning: This feature is known to cause conflicts with some plugins and "
+"themes."
+msgstr ""
+"Внимание: Тази функция е възможно да създаде конфликт с други плъгини или "
+"теми."
+
+#: inc/admin/content.php:2621
+msgid "Disable Directory Browsing"
+msgstr "Изключете Разглеждането на Директории"
+
+#: inc/admin/content.php:2625
+msgid ""
+"Prevents users from seeing a list of files in a directory when no index file "
+"is present."
+msgstr ""
+"Предотвратява възможността потребителите да виждат списък от файлове в "
+"директория, когато не съществува index файл."
+
+#: inc/admin/content.php:2626
+msgid ""
+"Warning: This feature is known to cause conflicts with some server "
+"configurations in which this feature has already been enabled in Apache."
+msgstr ""
+"Внимание: Тази функция е възможно да създаде конфликт с някои сървърни "
+"конфигурации, в които тази функция е била вече разрешена в Apache."
+
+#: inc/admin/content.php:2632
+msgid "Filter Request Methods"
+msgstr "Филтриране на Методите за Заявка"
+
+#: inc/admin/content.php:2636
+msgid "Filter out hits with the trace, delete, or track request methods."
+msgstr "Филтриране на методите на заявка trace, delete, or track."
+
+#: inc/admin/content.php:2642
+msgid "Filter Suspicious Query Strings"
+msgstr "Филтриране на Съмнителни Query Strings"
+
+#: inc/admin/content.php:2646
+msgid ""
+"Filter out suspicious query strings in the URL. These are very often signs "
+"of someone trying to gain access to your site but some plugins and themes "
+"can also be blocked."
+msgstr ""
+"Филтриране на съмнителни query strings в URL-a. Много често те са признак, "
+"че някой се опитва да получи достъп до сайта Ви, но някои плъгини и теми "
+"също биха могли да бъдат блокирани."
+
+#: inc/admin/content.php:2657
+msgid "Header Tweaks"
+msgstr "Предложения за Хедъра"
+
+#: inc/admin/content.php:2662
+msgid "Remove WordPress Generator Meta Tag"
+msgstr "Премахни WordPress Generator Meta Tag"
+
+#: inc/admin/content.php:2666
+msgid ""
+"Removes the <meta name=\"generator\" content=\"WordPress [version]\" /> meta "
+"tag from your sites header. This process hides version information from a "
+"potential attacker making it more difficult to determine vulnerabilities."
+msgstr ""
+"Премахва <meta name=\"generator\" content=\"WordPress [version]\" /> мета "
+"таг от хедъра на Вашия сайт. Този процес скрива информацията за версията от "
+"потенциалните хакери и по този начин става по-трудно да се установят "
+"евентуални слабости в системата."
+
+#: inc/admin/content.php:2671
+msgid "Remove wlwmanifest header"
+msgstr "Премахване на wlwmanifest header"
+
+#: inc/admin/content.php:2675
+msgid ""
+"Removes the Windows Live Writer header. This is not needed if you do not use "
+"Windows Live Writer or other blogging clients that rely on this file."
+msgstr ""
+"Премахва хедърът Windows Live Writer.Това не е необходимо ако не използвате "
+"Windows Live Writer или друг блогинг клиент, който да се нуждае от този файл."
+
+#: inc/admin/content.php:2680
+msgid "Remove EditURI header"
+msgstr "Премахване на хедърът EditURI."
+
+#: inc/admin/content.php:2684
+msgid ""
+"Removes the RSD (Really Simple Discovery) header. If you don't integrate "
+"your blog with external XML-RPC services such as Flickr then the \"RSD\" "
+"function is pretty much useless to you."
+msgstr ""
+"Премахва хедърът RSD (Really Simple Discovery). Ако не интегрирате Вашия "
+"блог с външни XML-RPC услуги като например Flickr, то в такъв случай "
+"функцията \"RSD\" е напълно ненужна за Вас."
+
+#: inc/admin/content.php:2685
+msgid ""
+"Warning: This feature is known to cause conflicts with some 3rd party "
+"application and services that may want to interact with WordPress."
+msgstr ""
+"Внимание: Тази функция е възможно да създаде конфликт с някои услуги, които "
+"е възможно да имат нужда от комуникация с WordPress."
+
+#: inc/admin/content.php:2695
+msgid "Dashboard Tweaks"
+msgstr "Предложения за Таблото"
+
+#: inc/admin/content.php:2700
+msgid "Hide Theme Update Notifications"
+msgstr "Скрий Нотификациите за Обновления"
+
+#: inc/admin/content.php:2704
+msgid ""
+"Hides theme update notifications from users who cannot update themes. Please "
+"note that this only makes a difference in multi-site installations."
+msgstr ""
+"Скрийте нотификациите за налично обновление от потребителите, които не могат "
+"да обновяват темата. "
+
+#: inc/admin/content.php:2709
+msgid "Hide Plugin Update Notifications"
+msgstr "Скрий Нотификациите за Обновления на Плъгини"
+
+#: inc/admin/content.php:2713
+msgid ""
+"Hides plugin update notifications from users who cannot update themes. "
+"Please note that this only makes a difference in multi-site installations."
+msgstr ""
+"Скрива нотификациите за обновления на плъгини от потребители, които не могат "
+"да обновяват темата. "
+
+#: inc/admin/content.php:2718
+msgid "Hide Core Update Notifications"
+msgstr "Скрий Нотификациите за Обновления на Ядрото"
+
+#: inc/admin/content.php:2722
+msgid ""
+"Hides core update notifications from users who cannot update themes. Please "
+"note that this only makes a difference in multi-site installations."
+msgstr ""
+"Скрива нотификациите за обновления на ядрото от потребители, които не могат "
+"да обновяват темата. "
+
+#: inc/admin/content.php:2732
+msgid "Strong Password Tweaks"
+msgstr "Предложения за Силни Пароли"
+
+#: inc/admin/content.php:2737
+msgid "Enable strong password enforcement"
+msgstr "Разреши налагането на силни пароло"
+
+#: inc/admin/content.php:2741
+msgid ""
+"Enforce strong passwords for all users with at least the role specified "
+"below."
+msgstr ""
+"Наложете силни пароли за всички потребители от тази роля(посочена по-долу) "
+"нагоре."
+
+#: inc/admin/content.php:2746
+msgid "Strong Password Role"
+msgstr "Роля за Силна Парола"
+
+#: inc/admin/content.php:2756
+msgid ""
+"Minimum role at which a user must choose a strong password. For more "
+"information on WordPress roles and capabilities please see"
+msgstr ""
+"Минималната роля, за която потребителят трябва да избере силна парола. За "
+"повече информация относно WordPress ролите и възможностите им моля вижте"
+
+#: inc/admin/content.php:2757
+msgid ""
+"Warning: If your site invites public registrations setting the role too low "
+"may annoy your members."
+msgstr ""
+"Внимание: Ако сайтът Ви подканва публиката към регистрация, включването на "
+"тази функция може да раздразни потребителите."
+
+#: inc/admin/content.php:2767
+msgid "Other Tweaks"
+msgstr "Други Предложения"
+
+#: inc/admin/content.php:2772
+msgid "Remove WordPress Login Error Messages"
+msgstr "Премахнете Съобщенията за Грешки при Вписване"
+
+#: inc/admin/content.php:2776
+msgid ""
+"Prevents error messages from being displayed to a user upon a failed login "
+"attempt."
+msgstr ""
+"Предотвратява показването на съобщения за грешки след неуспешен опит за "
+"вписване."
+
+#: inc/admin/content.php:2781
+msgid "Write to WordPress core files"
+msgstr "Писане по файловете от ядрото на WordPress"
+
+#: inc/admin/content.php:2785
+msgid ""
+"Allow Better WP Security to write to .htaccess and wp-config.php. With this "
+"turned on this plugin will automatically write to your .htaccess and wp-"
+"config.php files. With it turned off you will need to manually make changes "
+"to these files and both the renaming of wp-content and the changing of the "
+"database table prefix will not be available."
+msgstr ""
+"Позволи Better WP Security да пише по .htaccess и wp-config.php. След като "
+"включите тази опция плъгинът автоматично ще започне да пише във Вашите ."
+"htaccess и wp-config.php файлове. Докато е изключена ще трябва ръчно да "
+"нанасяте всички промени по тези файлове, като в същото време преименуването "
+"на wp-content директорирята и представката на таблицата на базата данни няма "
+"да е възможно."
+
+#: inc/admin/content.php:2786
+msgid ""
+"This option is safe in nearly all instances however, if you know you have a "
+"server configuration that may conflict or simply want to make the changes "
+"yourself then uncheck this feature."
+msgstr ""
+"Тази опция е безопасна за почти всички случаи, но ако Ви е известно, че "
+"Вашата сървърна конфигурация може да се счупи или ако просто желаете сами да "
+"нанасяте промените, то в такъв случай не активирайте тази функция."
+
+#: inc/admin/content.php:2787
+msgid ""
+"Warning: This feature is known to cause conflicts with some server "
+"configurations."
+msgstr ""
+"Внимание: Тази функция е възможно да създаде конфликт с някои сървърни "
+"конфигурации."
+
+#: inc/admin/content.php:2792
+msgid "Reduce comment spam"
+msgstr "Намалете Спама по Коментарите"
+
+#: inc/admin/content.php:2796
+msgid ""
+"This option will cut down on comment spam by denying comments from bots with "
+"no referrer or without a user-agent identified."
+msgstr ""
+"Тази опция ще намали спам-а по коментарите като забрани коментарите от "
+"ботове, които нямат referrer или не са user-agent identified."
+
+#: inc/admin/content.php:2797 inc/admin/content.php:2808
+msgid ""
+"Note this feature only applies if \"Write to WordPress core files\" is "
+"enabled."
+msgstr ""
+"Обърнете внимание, че тази функция ще се приложи само ако функцията \"Писане "
+"по файловете от ядрото на WordPress\" е включена."
+
+#: inc/admin/content.php:2803
+msgid "Remove write permissions from .htaccess and wp-config.php"
+msgstr "Премахнете правата за писане по .htaccess и wp-config.php"
+
+#: inc/admin/content.php:2807
+msgid ""
+"Prevents scripts and users from being able to write to the wp-config.php "
+"file and .htaccess file. Note that in the case of this and many plugins this "
+"can be overcome however it still does make the files more secure. Turning "
+"this on will set the unix file permissions to 0444 on these files and "
+"turning it off will set the permissions to 0644."
+msgstr ""
+"Предотвратява скриптове и потребители от възможността да пишат по wp-config."
+"php и .htaccess файловете. Обърнете внимание, че дори да активирате тази "
+"функция, тя все пак може да бъде преодоляна, въпреки това активирането й ще "
+"Ви направи по-защитени. Активирането й ще промени unix file permissions на "
+"0444 за тези файлове, а изключването й ще ги върне на 0644."
+
+#: inc/admin/content.php:2814
+msgid "Display random version number to all non-administrative users"
+msgstr "Показване на случайна версия за всички не-администратори"
+
+#: inc/admin/content.php:2818
+msgid ""
+"Displays a random version number to visitors who are not logged in at all "
+"points where version number must be used and removes the version completely "
+"from where it can."
+msgstr ""
+"Показва случайна версия на посетителите, които не са се вписали в сайта на "
+"всички места, където е необходимо да се изпише версията и премахва версията "
+"навсякъде, от където може."
+
+#: inc/admin/content.php:2824
+msgid "Prevent long URL strings"
+msgstr "Предотвратяване на дълги URL-и"
+
+#: inc/admin/content.php:2828
+msgid ""
+"Limits the number of characters that can be sent in the URL. Hackers often "
+"take advantage of long URLs to try to inject information into your database."
+msgstr ""
+"Ограничава броя символи, които могат да се изпратят в URL-a. Хакерите често "
+"използват дълги URL-и за да се опитат да инжектират код във Вашата база "
+"данни."
+
+#: inc/admin/content.php:2834
+msgid "Turn off file editor in WordPress Back-end"
+msgstr "Изключване на редактора от контрол панела на WordPress"
+
+#: inc/admin/content.php:2838
+msgid ""
+"Disables the file editor for plugins and themes requiring users to have "
+"access to the file system to modify files. Once activated you will need to "
+"manually edit theme and other files using a tool other than WordPress."
+msgstr ""
+"Спира редактора на файлове за плъгини и теми и изисква потребителите да имат "
+"достъп до файловата система за да променят тези файлове. Веднъж активирали "
+"тази функция ще Ви се наложи ръчно да редактирате темата и другите файлове "
+"използвайки метод различен от WordPress."
+
+#: inc/admin/process.php:105 inc/admin/process.php:708
+msgid "Database Backup Completed."
+msgstr "Успешен Бекъп на Базата Данни."
+
+#: inc/admin/process.php:128
+msgid "Database Backup Ignored."
+msgstr "Игнориран Бекъп на Базата Данни."
+
+#: inc/admin/process.php:147
+msgid "WordPress Core File Writing confirmed."
+msgstr "Потвърдено писане по Файловете от Ядрото на WordPress."
+
+#: inc/admin/process.php:170
+msgid "WordPress Core File Writing ignored."
+msgstr "Игнорирано писане по Файловете от Ядрото на WordPress."
+
+#: inc/admin/process.php:193
+msgid "Site Secured."
+msgstr "Сайтът е Защитен."
+
+#: inc/admin/process.php:211
+msgid "Settings Saved. Your website is now protected from most attacks."
+msgstr ""
+"Настройките са Запазени. Сега Вашият сайт е защитен от повечето видове атаки."
+
+#: inc/admin/process.php:220
+msgid ""
+"Initial configuration complete. Use the checklist below to enable additional "
+"features."
+msgstr ""
+"Първоначалните настройки са завършени. Използвайте чеклиста по-долу за да "
+"стартирате допълни функции."
+
+#: inc/admin/process.php:235
+msgid ""
+"Successfully Changed admin Username. If you are logged in as admin you will "
+"have to log in again before continuing."
+msgstr ""
+"Успешно Променено Потребителско Име admin. Ако сте вписани в системата като "
+"admin ще се наложи да се впишете отново преди да продължите."
+
+#: inc/admin/process.php:243
+msgid "You must enter a valid username. Please try again"
+msgstr "Трябва да въведете правилно потребителско име. Моля опитайте отново."
+
+#: inc/admin/process.php:255
+msgid " already exists. Please try again"
+msgstr "вече съществува. Моля опитайте отново."
+
+#: inc/admin/process.php:278
+msgid " is not a valid username. Please try again"
+msgstr "не е валидно потребителско име. Моля опитайте отново."
+
+#: inc/admin/process.php:297
+msgid "Successfully Changed user 1 ID."
+msgstr "Успешно Променен Номер на Потребителя 1."
+
+#: inc/admin/process.php:305
+msgid "User 1's ID was not changed. Please try again"
+msgstr "Номерът на Потребителя 1 не беше променен. Моля опитайте отново."
+
+#: inc/admin/process.php:322 inc/admin/process.php:394
+#: inc/admin/process.php:580 inc/admin/process.php:619
+#: inc/admin/process.php:728 inc/admin/process.php:985
+#: inc/admin/process.php:1066 inc/admin/process.php:1294
+#: inc/admin/process.php:1446 inc/admin/process.php:1514
+msgid "Settings Saved"
+msgstr "Настройките са Запазени."
+
+#: inc/admin/process.php:339
+msgid "The ending date must be after the current date."
+msgstr "Крайната дата трябва да е след текущата дата."
+
+#: inc/admin/process.php:351
+msgid ""
+"Your current settings would lock you out 24 hours a day. Please make sure "
+"start and end times differ."
+msgstr ""
+"Текущите Ви настройки ще Ви заключат от сайта Ви за 24 часа всеки ден. Моля "
+"убедете се, че началното и крайното време се различават."
+
+#: inc/admin/process.php:373 inc/admin/process.php:1275
+#: inc/admin/process.php:1468 inc/admin/process.php:1560
+msgid ""
+"Settings Saved. You will have to manually add code to your wp-config.php "
+"file See the Better WP Security Dashboard for the code you will need."
+msgstr ""
+"Настройките са Запазени. Ще трябва ръчно да добавявате код към Вашия wp-"
+"config.php файл. Погледнете Таблото на Better WP Security за да намерите "
+"кода, който Ви трябва."
+
+#: inc/admin/process.php:517
+msgid "You cannot ban yourself. Please try again."
+msgstr "Не можете да забраните достъпа на себе си. Моля опитайте отново."
+
+#: inc/admin/process.php:552 inc/admin/process.php:593
+#: inc/admin/process.php:1017 inc/admin/process.php:1495
+#: inc/admin/process.php:1587
+msgid "Settings Saved."
+msgstr "Настройките са Запазени."
+
+#: inc/admin/process.php:560 inc/admin/process.php:599
+#: inc/admin/process.php:1023 inc/admin/process.php:1488
+#: inc/admin/process.php:1580
+msgid ""
+"Settings Saved. You will have to manually add rewrite rules to your "
+"configuration. See the Better WP Security Dashboard for a list of the "
+"rewrite rules you will need."
+msgstr ""
+"Настройките са Запазени. Ще трябва ръчно да добавяте правила към Вашата "
+"конфигурация. Погледнете Таблото на Better WP Security за да намерите списък "
+"с правилата, които ще Ви трябват."
+
+#: inc/admin/process.php:632
+msgid "Unable to rename the wp-content folder. Operation cancelled."
+msgstr ""
+"Неуспешно преименуване на папката wp-content. Операцията преустановена."
+
+#: inc/admin/process.php:747
+msgid ""
+"The email address you entered is not a valid email address. You must enter a "
+"valid email address."
+msgstr ""
+"Имейл адреса, който въведохте не е валиден. Трябва да въведете валиден имейл "
+"адрес."
+
+#: inc/admin/process.php:809
+msgid "Database Prefix Changed"
+msgstr "Представката на Базата Данни е Променена"
+
+#: inc/admin/process.php:852
+msgid "Error: Could not rename table "
+msgstr "Грешка: Неуспешно преименуване на таблицата"
+
+#: inc/admin/process.php:852
+msgid ". You may have to rename the table manually."
+msgstr ". Може да се наложи ръчно да преименувате таблицата."
+
+#: inc/admin/process.php:889
+msgid "Could not update prefix refences in options tables."
+msgstr "Неуспешно обновление на prefix refences in options tables."
+
+#: inc/admin/process.php:910
+msgid "Could not update prefix refences in usermeta table."
+msgstr "Неуспешно обновление на prefix refences in usermeta table."
+
+#: inc/admin/process.php:994
+msgid ""
+"You must enable permalinks in your WordPress settings for this feature to "
+"work."
+msgstr ""
+"Трябва да активирате permalinks във Вашиte WordPress настройки за да може "
+"тази функция да работи."
+
+#: inc/admin/process.php:1044
+msgid "File Check Complete."
+msgstr "Проверката на Файловете Завършена."
+
+#: inc/admin/process.php:1092
+msgid ""
+"The email address you entered for the file check email is not a valid email "
+"address. You must enter a valid email address."
+msgstr ""
+"Имейл адреса, който въведохте за проверката на файловете не е валиден. "
+"Трябва да въведете валиден имейл адрес."
+
+#: inc/admin/process.php:1106
+msgid ""
+"The email address you entered for the detect 404 email is not a valid email "
+"address. You must enter a valid email address."
+msgstr ""
+"Имейл адреса, който въведохте за засичане на грешка 404 не е валиден. Трябва "
+"да въведете валиден имейл адрес."
+
+#: inc/admin/process.php:1128 inc/admin/process.php:1327
+msgid "Lockout time period needs to be aan integer greater than 0."
+msgstr "Периодът за заключване трябва да е стойност по-голяма от 0."
+
+#: inc/admin/process.php:1139 inc/admin/process.php:1338
+msgid "Login time period needs to be aan integer greater than 0."
+msgstr "Периодът за вписване трябва да е стойност по-голяма от 0."
+
+#: inc/admin/process.php:1150
+msgid "The error threshold needs to be aan integer greater than 0."
+msgstr "Прагът за грешки трябва да е стойност по-голяма от 0."
+
+#: inc/admin/process.php:1316
+msgid ""
+"The email address you entered for lockout notifications is not a valid email "
+"address. You must enter a valid email address."
+msgstr ""
+"Имейл адресът, който въведохте за нотификации за заключване не е валиден. "
+"Трябва да въведете валиден имейл адрес."
+
+#: inc/admin/process.php:1349
+msgid "Max login attempts per host needs to be aan integer greater than 0."
+msgstr ""
+"Максималният брой опити за вписване за хост трябва да е стойност по-голяма "
+"от 0."
+
+#: inc/admin/process.php:1360
+msgid "Max login attempts per user needs to be aan integer greater than 0."
+msgstr ""
+"Максималният брой опити за вписване за потребител трябв да е стойност по-"
+"голяма от 0."
+
+#: inc/admin/process.php:1382
+msgid "The selected records have been cleared."
+msgstr "Избраните записи бяха изчистени."
+
+#: inc/admin/process.php:1411
+msgid "The selected lockouts have been cleared."
+msgstr "Избраните заключвания бяха изчистени."
+
+#: inc/admin/process.php:1482 inc/admin/process.php:1574
+msgid ""
+"Settings Saved. You will have to manually add rewrite rules and wp-config."
+"php code to your configuration. See the Better WP Security Dashboard for a "
+"list of the rewrite rules  and wp-config.php code you will need."
+msgstr ""
+"Настройките са Запазени. Ще трябва ръчно да преправяте правилата и кода на "
+"wp-config.php за Вашата конфигурация. Погледнете Таблото на Better WP "
+"Security за да намерите списък с правилата за презаписване и кода на wp-"
+"config.php."
+
+#: inc/admin/tables.php:40
+msgid ""
+"The following is a list of 404 errors found on your site with the last time "
+"the error was encountered, the relative url, the referrer (if applicable), "
+"and the number of times the error was encountered given last."
+msgstr ""
+"Последващото е списък с грешки от тип 404 с времето, когато грешката е "
+"срещната последно, относителния url, the referrer (ако е наличен) и брой "
+"пъти, в които грешката е срещната."
+
+#: inc/admin/tables.php:56
+msgid "Last Found"
+msgstr "Последно Срещната"
+
+#: inc/admin/tables.php:57 inc/admin/tables.php:303
+msgid "Host"
+msgstr "Host"
+
+#: inc/admin/tables.php:58
+msgid "URI"
+msgstr "URI"
+
+#: inc/admin/tables.php:59
+msgid "Referrer"
+msgstr "Referrer"
+
+#: inc/admin/tables.php:60
+msgid "Count"
+msgstr "Брой"
+
+#: inc/admin/tables.php:285
+msgid "The following is a log of all lockouts in the system."
+msgstr "Последващото е списък от всички заключвания в системата."
+
+#: inc/admin/tables.php:301 inc/admin/tables.php:471 inc/admin/tables.php:675
+msgid "Time"
+msgstr "Време"
+
+#: inc/admin/tables.php:302
+msgid "Reason"
+msgstr "Причина"
+
+#: inc/admin/tables.php:304
+msgid "User"
+msgstr "Потребител"
+
+#: inc/admin/tables.php:455
+msgid "The following is a log of all file changes seen by the system."
+msgstr "Последващото е списък с всички файлови промени в системата."
+
+#: inc/admin/tables.php:472
+msgid "Added"
+msgstr "Добавени"
+
+#: inc/admin/tables.php:473
+msgid "Deleted"
+msgstr "Изтрити"
+
+#: inc/admin/tables.php:474 inc/filecheck.php:379 inc/filecheck.php:401
+#: inc/filecheck.php:423
+msgid "Modified"
+msgstr "Преправени"
+
+#: inc/admin/tables.php:475
+msgid "Details"
+msgstr "Детайли"
+
+#: inc/admin/tables.php:476
+msgid "Memory Used"
+msgstr "Използвана Памет"
+
+#: inc/admin/tables.php:544
+msgid "View Details"
+msgstr "Вижте Детайлите"
+
+#: inc/admin/tables.php:659
+msgid ""
+"The following is a list of all bad logins to your site along with the "
+"username attempted."
+msgstr ""
+"Последващото е списък с всички неуспешни опити за вписване във Вашия сайт и "
+"съответното потребителско име, с което е опитано."
+
+#: inc/admin/tables.php:676
+msgid "Username Attempted"
+msgstr "Опитано Потребителско Име"
+
+#: inc/admin/tables.php:820 inc/filecheck.php:375
+msgid "Files Added"
+msgstr "Добавени Файлове"
+
+#: inc/admin/tables.php:836 inc/admin/tables.php:994 inc/admin/tables.php:1152
+#: inc/filecheck.php:378 inc/filecheck.php:400 inc/filecheck.php:422
+msgid "File"
+msgstr "Файл"
+
+#: inc/admin/tables.php:837 inc/admin/tables.php:995 inc/admin/tables.php:1153
+msgid "modified"
+msgstr "променени"
+
+#: inc/admin/tables.php:838 inc/admin/tables.php:996 inc/admin/tables.php:1154
+msgid "hash"
+msgstr "hash"
+
+#: inc/admin/tables.php:978
+msgid "Files Removed"
+msgstr "Премахнати Файлове"
+
+#: inc/admin/tables.php:1136 inc/filecheck.php:419
+msgid "Files Modified"
+msgstr "Преправени Файлове"
+
+#: inc/auth.php:39
+msgid ""
+"<strong>ERROR</strong>: We are sorry , your ability to login has been "
+"suspended due to too many recent failed login attempts. Please try again "
+"later."
+msgstr ""
+"<strong>ГРЕШКА</strong>: Съжаляваме, но възможността Ви за вписване беше "
+"отнета в следствие на твръде много неуспешни опити за вписване. Моля "
+"опитайте отново по-късно."
+
+#: inc/auth.php:49
+msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
+msgstr "<strong>ГРЕШКА</strong>: Грешно потребителско име или грешна парола."
+
+#: inc/backup.php:155
+msgid "Site Database Backup"
+msgstr "Бекъп на Базата Данни на Сайта"
+
+#: inc/backup.php:157
+msgid "Attached is the backup file for the database powering"
+msgstr "Прикачен е файлът от бекъпа на базата данни, който захранва"
+
+#: inc/backup.php:157
+msgid " taken"
+msgstr "взет"
+
+#: inc/filecheck.php:328
+msgid "WordPress File Change Warning"
+msgstr "Предупреждение за Промяна в WordPress Файлове"
+
+#: inc/filecheck.php:331
+msgid "<p>A file (or files) on your site at "
+msgstr "<p>Файл (или файлове) на Вашия сайт "
+
+#: inc/filecheck.php:331
+msgid ""
+" have been changed. Please review the report below to verify changes are not "
+"the result of a compromise."
+msgstr ""
+"бяха променени. Моля прегледайте доклада по-долу за да проверияте, че "
+"промените не са следствие от атака."
+
+#: inc/filecheck.php:367
+msgid "Scan Time:"
+msgstr "Време за Сканиране:"
+
+#: inc/filecheck.php:368
+msgid "Files Added:"
+msgstr "Добавени Файлове:"
+
+#: inc/filecheck.php:369
+msgid "Files Deleted:"
+msgstr "Премахнати Файлове:"
+
+#: inc/filecheck.php:370
+msgid "Files Modified:"
+msgstr "Преработени Файлове:"
+
+#: inc/filecheck.php:371
+msgid "Memory Used:"
+msgstr "Използвана Памет:"
+
+#: inc/filecheck.php:380 inc/filecheck.php:402 inc/filecheck.php:424
+msgid "File Hash"
+msgstr "File Hash"
+
+#: inc/filecheck.php:392
+msgid "No files were added."
+msgstr "Не бяха добавени файлове."
+
+#: inc/filecheck.php:397
+msgid "Files Deleted"
+msgstr "Изтрити Файлове"
+
+#: inc/filecheck.php:414
+msgid "No files were removed."
+msgstr "Не бяха изтрити файлове."
+
+#: inc/filecheck.php:436
+msgid "No files were changed."
+msgstr "Не бяха променени файлове."
+
+#: inc/filecheck.php:545
+msgid ""
+"Better WP Security has noticed a change to some files in your WordPress "
+"installation. Please review the logs to make sure your system has not been "
+"compromised."
+msgstr ""
+"Better WP Security забеляза промяна в някои от файловете във Вашата "
+"WordPress инсталация. Моля прегледайте логовете за да проверите дали не сте "
+"били обект на атака."
+
+#: inc/filecheck.php:545
+msgid "Dismiss Warning"
+msgstr "Преустанови Предупреждението"
+
+#: inc/secure.php:661
+msgid "Site Lockout Notification"
+msgstr "Нотификация за Заключване"
+
+#: inc/secure.php:666
+msgid "too many login attempts."
+msgstr "твърде много опити за вписване."
+
+#: inc/secure.php:670
+msgid "too many attempts to open a file that does not exist."
+msgstr "твърде много опити да се отвори файл, който не съществува."
+
+#: inc/secure.php:677
+msgid "WordPress user"
+msgstr "WordPress потребител"
+
+#: inc/secure.php:677
+msgid "at host, "
+msgstr "на host,"
+
+#: inc/secure.php:681
+msgid "host"
+msgstr "Host"
+
+#: inc/secure.php:681
+msgid "you can check the host at "
+msgstr "може да проверите host-a на"
+
+#: inc/secure.php:691
+msgid "permanently"
+msgstr "за постоянно"
+
+#: inc/secure.php:695
+msgid "A "
+msgstr " "
+
+#: inc/secure.php:695
+msgid "has been locked out of the WordPress site at"
+msgstr "беше заключен от WordPress сайта на адрес"
+
+#: inc/secure.php:695
+msgid "due to "
+msgstr "поради"
+
+#: inc/secure.php:695
+msgid " You may login to the site to manually release the lock if necessary."
+msgstr ""
+"Можете да влезете в сайта за да премахнете ръчно заключването ако е "
+"необходимо."
+
+#: inc/secure.php:930
+msgid "error"
+msgstr "грешка"
+
+#: inc/secure.php:1107
+msgid ""
+"<strong>ERROR</strong>: You MUST Choose a password that rates at least "
+"<em>Strong</em> on the meter. Your setting have NOT been saved."
+msgstr ""
+"<strong>ГРЕШКА</strong>: ТРЯБВА да Изберете парола, която се отчита като "
+"<em>Силна</em> по скалата. Вашите настройки НЕ бяха запазени."
+
+#: inc/secure.php:1175
+msgid "Sorry, but you must enter a strong password"
+msgstr "Съжалявам, но трябва да въведете силна парола"
+
+#: inc/setup.php:94
+msgid ""
+"<strong>ERROR</strong>: You must activate this plugin from the network "
+"dashboard."
+msgstr ""
+"<strong>ГРЕШКА</strong>: Трябва да активирате този плъгин от таблото network."
+
+#: lib/bit51/bit51.php:113
+msgid "Settings"
+msgstr "Настройки"
+
+#: lib/bit51/bit51.php:363
+msgid "Describe the Issue"
+msgstr "Опишете Проблема"
+
+#: lib/bit51/bit51.php:364 lib/bit51/bit51.php:610
+msgid "Steps to Reproduce"
+msgstr "Стъпки за да се Повтори"
+
+#: lib/bit51/bit51.php:365 lib/bit51/bit51.php:611
+msgid "Other Information"
+msgstr "Други Информация"
+
+#: lib/bit51/bit51.php:366
+msgid "Submit Support Ticket"
+msgstr "Подайте Оплакване до Поддръжката"
+
+#: lib/bit51/bit51.php:368
+msgid "sending..."
+msgstr "изпращане..."
+
+#: lib/bit51/bit51.php:369
+msgid "Purchase priority support"
+msgstr "Закупете поддръжка с приоритет"
+
+#: lib/bit51/bit51.php:370
+msgid "Enter License Key"
+msgstr "Въведете Лицензния Ключ"
+
+#: lib/bit51/bit51.php:376
+msgid "Need premium support or configuration?"
+msgstr "Нуждаете се от премиум поддръжка или конфигурация?"
+
+#: lib/bit51/bit51.php:376
+msgid "Purchase one-time premium support or installation"
+msgstr "Закупете еднократна премиум поддръжка или инсталация"
+
+#: lib/bit51/bit51.php:391
+msgid "Please describe the issue you are having"
+msgstr "Моля опишете проблема, който сте срещнали"
+
+#: lib/bit51/bit51.php:401
+msgid ""
+"Thank you for submitting your support ticket. We will contact you shortly."
+msgstr ""
+"Благодарим Ви, че попълнихте бланката до поддръжката. Скоро ще се свържем с "
+"Вас."
+
+#: lib/bit51/bit51.php:411
+msgid "Premium Support"
+msgstr "Премиум Поддръжка"
+
+#: lib/bit51/bit51.php:435
+msgid "No news items, feed might be broken..."
+msgstr "Нямате новини, feed-ът е най-вероятно счупен..."
+
+#: lib/bit51/bit51.php:452
+msgid "It appears as if the feed is currently down. Please try again later"
+msgstr "Изглежда, че feed-ът е временно недостъпен. Моля опитайте по-късно"
+
+#: lib/bit51/bit51.php:455
+msgid "The Latest from Bit51"
+msgstr "Последно от Bit51"
+
+#: lib/bit51/bit51.php:467
+msgid ""
+"Have you found this plugin useful? Please help support it's continued "
+"development with a donation of $20, $50, or even $100."
+msgstr ""
+"Намирате ли този плъгин за полезен? Моля помогнете за поддръжката му като "
+"дарите $20, $50 или дори $100."
+
+#: lib/bit51/bit51.php:471
+msgid "Short on funds?"
+msgstr "Нямате пари?"
+
+#: lib/bit51/bit51.php:475
+msgid "Rate"
+msgstr "Оценете"
+
+#: lib/bit51/bit51.php:475
+msgid " 5★'s on WordPress.org"
+msgstr " 5★ на WordPress.org"
+
+#: lib/bit51/bit51.php:477
+msgid "Talk about it on your site and link back to the "
+msgstr "Споделете за него на Вашия сайт и линкнете обратно към"
+
+#: lib/bit51/bit51.php:477
+msgid "plugin page."
+msgstr "страницата на плъгина."
+
+#: lib/bit51/bit51.php:479
+msgid "Tweet about it. "
+msgstr "Tweet-нете за него."
+
+#: lib/bit51/bit51.php:483 lib/bit51/bit51.php:547
+msgid "Support This Plugin"
+msgstr "Подкрепете Този Плъгин."
+
+#: lib/bit51/bit51.php:497
+msgid "Like Bit51 on Facebook"
+msgstr "Харесйате Bit51 във Facebook"
+
+#: lib/bit51/bit51.php:499
+msgid "Follow Bit51 on Twitter"
+msgstr "Последвайте Bit51 в Twitter"
+
+#: lib/bit51/bit51.php:501
+msgid "Circle Bit51 on Google+"
+msgstr "Добавете Bit51 в Google+"
+
+#: lib/bit51/bit51.php:503
+msgid "Subscribe with RSS or Email"
+msgstr "Абонирайте се чрез RSS или Email"
+
+#: lib/bit51/bit51.php:507
+msgid "Bit51 on the Web"
+msgstr "Bit51 в Мрежата"
+
+#: lib/bit51/bit51.php:547
+msgid "It looks like you've been enjoying"
+msgstr "Изглежда, че се наслаждавахте"
+
+#: lib/bit51/bit51.php:547
+msgid ""
+"for at least 30 days. Would you consider a small donation to help support "
+"continued development of the plugin?"
+msgstr ""
+"за поне 30 дни. Бихте ли обмислили малко дарение за да подпомогнете "
+"разработването на този плъгин?"
+
+#: lib/bit51/bit51.php:547
+msgid "Rate it 5★'s"
+msgstr "Оценете го с 5★"
+
+#: lib/bit51/bit51.php:547
+msgid "Tell Your Followers"
+msgstr "Кажете на Своите Последователи"
+
+#: lib/bit51/bit51.php:547
+msgid "Don't Bug Me Again"
+msgstr "Не Ме Закачай Отново"
+
+#: lib/bit51/bit51.php:609
+msgid "Issue"
+msgstr "Проблем"
+
+#: lib/bit51/bit51.php:612
+msgid "Support Ticket Key"
+msgstr "Ключ от Номера на Бланката до Поддръжката"
+
+#: lib/bit51/bit51.php:613
+msgid "Plugin Version"
+msgstr "Версия на Плъгина"
+
+#: lib/bit51/bit51.php:614
+msgid "WP Version"
+msgstr "WP Версия"
+
+#: lib/bit51/bit51.php:615
+msgid "Website"
+msgstr "Уебсайт"
+
+#: lib/bit51/bit51.php:616
+msgid "Email"
+msgstr "Имейл"
+
+#: lib/bit51/bit51.php:617
+msgid "Name"
+msgstr "Име"
+
+#: lib/bit51/bit51.php:623
+msgid "Better WP Security Support Ticket"
+msgstr "Бланка до Поддръжката на Better WP Security"
+
+#: lib/bit51/foolic_validation_v1_1.php:37
+msgid "Enter your license key here"
+msgstr "Въведете Вашия лицензен ключ"
+
+#: lib/bit51/foolic_validation_v1_1.php:56
+msgid "Validate"
+msgstr "Валидирайте"
+
+#: lib/bit51/foolic_validation_v1_1.php:59
+msgid "The license key has expired!"
+msgstr "Лицензния Ви ключ е изтекъл!"
+
+#: lib/bit51/foolic_validation_v1_1.php:144
+msgid "Please enter a license key"
+msgstr "Моля въведете лицензен ключ"
+
+#: lib/bit51/foolic_validation_v1_1.php:280
+#: lib/bit51/foolic_validation_v1_1.php:284
+msgid "An error occurred while trying to validate your license key"
+msgstr "Получи се грешка докато опитвахме да валидираме Вашия лицензен ключ"
+
+#: lib/bit51/foolic_validation_v1_1.php:285
+msgid "The response code of [%s] was not expected"
+msgstr "The response code of [%s] was not expected"
+
+#: lib/bit51/foolic_validation_v1_1.php:297
+msgid "The validation request was invalid"
+msgstr "Валидационната заявка беше невалидна"
+
+#: lib/bit51/foolic_validation_v1_1.php:298
+msgid "The validation NONCE could not be validated!"
+msgstr "The validation NONCE could not be validated!"
+
+#: lib/bit51/foolic_validation_v1_1.php:302
+msgid "An unexpected error occurred"
+msgstr "Случи се неочаквана грешка"
+
+#. Plugin Name of the plugin/theme
+msgid "Better WP Security"
+msgstr "Better WP Security"
+
+#. Plugin URI of the plugin/theme
+msgid "http://bit51.com/software/better-wp-security/"
+msgstr "http://bit51.com/software/better-wp-security/"
+
+#. Description of the plugin/theme
+msgid ""
+"Helps protect your Wordpress installation from attackers. Hardens standard "
+"Wordpress security by hiding vital areas of your site, protecting access to "
+"important files via htaccess, preventing brute-force login attempts, "
+"detecting attack attempts, and more."
+msgstr ""
+"Помага да защити Вашата WordPress инсталация от хакери. Подсилва "
+"стандартната WordPress сигурност като скрива уязвими части от Вашия сайт, "
+"засилва сигурността на достъпа до важни файлове чрез htaccess, предотвратява "
+"брут форс опити за вписване, засича опити за атака и още."
+
+#. Author of the plugin/theme
+msgid "Bit51"
+msgstr "Bit51"
+
+#. Author URI of the plugin/theme
+msgid "http://bit51.com"
+msgstr "http://bit51.com"
