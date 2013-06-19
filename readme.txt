@@ -82,6 +82,7 @@ Finally, should the worst happen Better WP Security will make regular backups of
 
 = Translations =
 * Bulgarian by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
+* Chinese (Traditional) by Toine Cheung
 * French by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
 * Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
@@ -164,6 +165,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 = Dev =
 * Bulgarian translation by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
+* Chinese (Traditional) translation by Toine Cheung
 
 = 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>

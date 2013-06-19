@@ -1,0 +1,2952 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: better-wp-security 3.5.2\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/better-wp-security\n"
+"POT-Creation-Date: 2012-12-04 01:21:56+00:00\n"
+"PO-Revision-Date: 2013-06-17 15:00+0800\n"
+"Last-Translator: Toine Cheung <toine.etoilefilante@gmail.com>\n"
+"Language-Team: Near Dai <dai(at)haib.in>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: inc/admin/content.php:67 inc/admin/content.php:197
+msgid "Dashboard"
+msgstr "控制台"
+
+#: inc/admin/content.php:68
+msgid "Security"
+msgstr "保安"
+
+#: inc/admin/content.php:79 inc/admin/content.php:274
+#: inc/admin/content.php:285
+msgid "Change Admin User"
+msgstr "修改管理員用戶"
+
+#: inc/admin/content.php:80
+msgid "Admin User"
+msgstr "管理用戶"
+
+#: inc/admin/content.php:88 inc/admin/content.php:89
+msgid "Away Mode"
+msgstr "離開模式"
+
+#: inc/admin/content.php:97 inc/admin/content.php:98 inc/admin/content.php:327
+msgid "Ban Users"
+msgstr "封禁用戶"
+
+#: inc/admin/content.php:108
+msgid "Change Content Directory"
+msgstr "修改內容目錄"
+
+#: inc/admin/content.php:109
+msgid "Content Directory"
+msgstr "內容目錄"
+
+#: inc/admin/content.php:119 inc/admin/content.php:367
+msgid "Backup WordPress Database"
+msgstr "備份 Wordpress 數據庫"
+
+#: inc/admin/content.php:120
+msgid "Database Backup"
+msgstr "數據備份"
+
+#: inc/admin/content.php:130 inc/admin/content.php:388
+msgid "Change Database Prefix"
+msgstr "修改數據庫前綴"
+
+#: inc/admin/content.php:131
+msgid "Database Prefix"
+msgstr "數據前綴"
+
+#: inc/admin/content.php:141 inc/admin/content.php:142
+msgid "Hide Backend"
+msgstr "隱藏後端"
+
+#: inc/admin/content.php:150 inc/admin/content.php:151
+#: inc/admin/content.php:429 inc/admin/content.php:433
+#: inc/admin/content.php:442 inc/admin/content.php:445
+msgid "Intrusion Detection"
+msgstr "入侵檢測"
+
+#: inc/admin/content.php:159 inc/admin/content.php:464
+#: inc/admin/content.php:467
+msgid "Limit Login Attempts"
+msgstr "限制登錄嘗試"
+
+#: inc/admin/content.php:160
+msgid "Login Limits"
+msgstr "登錄限制"
+
+#: inc/admin/content.php:168
+msgid "Secure Communications With SSL"
+msgstr "SSL安全通信"
+
+#: inc/admin/content.php:169 inc/admin/content.php:483
+msgid "SSL"
+msgstr "SSL"
+
+#: inc/admin/content.php:177
+msgid "WordPress System Tweaks"
+msgstr "WordPress 系統微調"
+
+#: inc/admin/content.php:178 inc/admin/content.php:506
+msgid "System Tweaks"
+msgstr "系統微調"
+
+#: inc/admin/content.php:186 inc/admin/content.php:187 inc/filecheck.php:545
+msgid "View Logs"
+msgstr "查看日誌"
+
+#: inc/admin/content.php:216 inc/admin/content.php:218
+#: inc/admin/content.php:230 inc/admin/content.php:241
+#: inc/admin/content.php:252
+msgid "System Status"
+msgstr "系統狀態"
+
+#: inc/admin/content.php:219
+msgid "System Information"
+msgstr "系統信息"
+
+#: inc/admin/content.php:220
+msgid "Rewrite Rules"
+msgstr "重寫規則"
+
+#: inc/admin/content.php:221
+msgid "Wp-config.php Code"
+msgstr "Wp-config.php 代碼"
+
+#: inc/admin/content.php:232
+msgid "One-Click Protection"
+msgstr "一鍵保護"
+
+#: inc/admin/content.php:243
+msgid "Important"
+msgstr "重要"
+
+#: inc/admin/content.php:254
+msgid "Welcome!"
+msgstr "歡迎！"
+
+#: inc/admin/content.php:276 inc/admin/content.php:287
+#: inc/admin/content.php:309 inc/admin/content.php:329
+#: inc/admin/content.php:350 inc/admin/content.php:369
+#: inc/admin/content.php:390 inc/admin/content.php:409
+#: inc/admin/content.php:431 inc/admin/content.php:444
+#: inc/admin/content.php:466 inc/admin/content.php:485
+#: inc/admin/content.php:505 inc/admin/content.php:525
+msgid "Before You Begin"
+msgstr "開始之前"
+
+#: inc/admin/content.php:277 inc/admin/content.php:288
+msgid "Change The Admin User Name"
+msgstr "修改管理員用戶名"
+
+#: inc/admin/content.php:278
+msgid "Change The Admin User ID"
+msgstr "修改管理員用戶ID"
+
+#: inc/admin/content.php:307
+msgid "Administor Away Mode"
+msgstr "管理員離開模式"
+
+#: inc/admin/content.php:310
+msgid "Away Mode Options"
+msgstr "離開模式選項"
+
+#: inc/admin/content.php:311
+msgid "Away Mode Rules"
+msgstr "離開模式規則"
+
+#: inc/admin/content.php:330
+msgid "User and Bot Blacklist"
+msgstr "用戶和機器人黑名單"
+
+#: inc/admin/content.php:331
+msgid "Banned Users Configuration"
+msgstr "封禁用戶配置"
+
+#: inc/admin/content.php:348
+msgid "Change wp-content Directory"
+msgstr "修改wp-content目錄"
+
+#: inc/admin/content.php:351
+msgid "Change The wp-content Directory"
+msgstr "修改wp-content目錄"
+
+#: inc/admin/content.php:370
+msgid "Backup Your WordPress Database"
+msgstr "備份Wordpress數據庫"
+
+#: inc/admin/content.php:371
+msgid "Schedule Automated Backups"
+msgstr "自動備份任務"
+
+#: inc/admin/content.php:372
+msgid "Backup Information"
+msgstr "備份信息"
+
+#: inc/admin/content.php:391
+msgid "Change The Database Prefix"
+msgstr "修改數據庫前綴"
+
+#: inc/admin/content.php:407
+msgid "Hide WordPress Backend"
+msgstr "隱藏 Wordpress 後端"
+
+#: inc/admin/content.php:410
+msgid "Hide Backend Options"
+msgstr "隱藏後端選項"
+
+#: inc/admin/content.php:411
+msgid "Secret Key"
+msgstr "密鑰"
+
+#: inc/admin/content.php:432
+msgid "Check For File Changes"
+msgstr "檢查文件變化"
+
+#: inc/admin/content.php:486
+msgid "SSL Options"
+msgstr "SSL選項"
+
+#: inc/admin/content.php:503
+msgid "Various Security Tweaks"
+msgstr "各種安全調整"
+
+#: inc/admin/content.php:523
+msgid "Better WP Security Logs"
+msgstr "Better WP Security 日誌"
+
+#: inc/admin/content.php:526
+msgid "Clean Database"
+msgstr "清理數據庫"
+
+#: inc/admin/content.php:527
+msgid "Current Lockouts"
+msgstr "當前鎖定"
+
+#: inc/admin/content.php:528
+msgid "404 Errors"
+msgstr "404 錯誤"
+
+#: inc/admin/content.php:529
+msgid "Bad Login Attempts"
+msgstr "錯誤登錄嘗試"
+
+#: inc/admin/content.php:530
+msgid "All Lockouts"
+msgstr "全部鎖定"
+
+#: inc/admin/content.php:531
+msgid "Changed Files"
+msgstr "修改文件"
+
+#: inc/admin/content.php:545
+msgid "Welcome to Better WP Security!"
+msgstr "歡迎使用 Better WP Security！"
+
+#: inc/admin/content.php:546
+msgid ""
+"Before we begin it is extremely important that you make a backup of your "
+"database. This will make sure you can get your site back to the way it is "
+"right now should something go wrong. Click the button below to make a backup "
+"which will be emailed to the website administrator at "
+msgstr ""
+"重要：請在開始之前先備份數據庫，這可以讓網站在出錯後進行恢復。點擊下面的按鈕"
+"創建備份並發送到郵箱"
+
+#: inc/admin/content.php:550 inc/admin/content.php:1670
+msgid "Create Database Backup"
+msgstr "創建數據庫備份"
+
+#: inc/admin/content.php:555
+msgid "No, thanks. I already have a backup"
+msgstr "不，謝謝。我已有備份"
+
+#: inc/admin/content.php:566
+msgid "Just one more question:"
+msgstr "還有一個問題："
+
+#: inc/admin/content.php:567
+msgid ""
+"Better WP Security can automatically write to WordPress core files for you "
+"(wp-config.php and .htaccess). This saves time and prevents you from having "
+"to edit code yourself. While this is safe to do in nearly all systems it "
+"can, on some server configurations, cause problems. For this reason, before "
+"continuing, you have the option to allow this plugin to write to wp-config."
+"php and .htaccess or not."
+msgstr ""
+"Better WP Security 可以自動寫入 WordPress 核心文件(wp-config.php 和 ."
+"htaccess)，對你來說省時省力。這在大部分情況下是安全的，當然也可能在某些服務器"
+"配置下例外。繼續之前請確認是否允許插件修改這些文件。"
+
+#: inc/admin/content.php:568
+msgid ""
+"Note, that this option can be changed later in the \"System Tweaks\" menu of "
+"this plugin. In addition, disabling file writes here will prevent this "
+"plugin from activation features such as changing the wp-content directory "
+"and changing the database prefix."
+msgstr ""
+"注意，你以後也能在插件的“系統調整”菜單裡修改這個選項。另外，禁用文件寫入會使"
+"一些插件功能失效，如修改 wp-content 目錄、修改數據庫前綴。"
+
+#: inc/admin/content.php:569
+msgid ""
+"Finally, please remember that in nearly all cases there is no issue with "
+"allowing this plugin to edit your files. However if you know your have a "
+"unique server setup or simply would rather edit these files yourself I would "
+"recommend selecting \"Do not allow this plugin to change WordPress core "
+"files.\""
+msgstr ""
+"最後，請記住在絕大部分情況下，讓插件可修改你的文件是沒有問題的。要是你有一個"
+"獨特的服務器配置、或想自己手動修改它們，我推薦你選擇“不允許插件修改 "
+"WordPress 核心文件”。"
+
+#: inc/admin/content.php:573
+msgid "Allow this plugin to change WordPress core files"
+msgstr "允許插件修改 WordPress 核心文件"
+
+#: inc/admin/content.php:578
+msgid "Do not allow this plugin to change WordPress core files."
+msgstr "不允許插件修改 WordPress 核心文件"
+
+#: inc/admin/content.php:595
+msgid ""
+"The button below will turn on all the basic features of Better WP Security "
+"which will help automatically protect your site from potential attacks. "
+"Please note that it will NOT automatically activate any features which may "
+"interfere with other plugins, themes, or content on your site. As such, not "
+"all the items in the status will turn green by using the \"Secure My Site "
+"From Basic Attacks\" button. The idea is to activate basic features in one-"
+"click so you don't have to worry about it."
+msgstr ""
+"一鍵開啟 Better WP Security 所有基本功能，自動保護你的站點不受潛在攻擊。請注"
+"意，這不會激活任何可能影響其它插件、主題、或網站內容的功能。同樣的，使用“啟用"
+"基本保護”並不會讓所有檢測項目狀態變綠。這只是為了一鍵啟用基本的保護，所以你不"
+"用擔心。"
+
+#: inc/admin/content.php:596
+msgid ""
+"Please note this will not make any changes to any files on your site "
+"including .htaccess and wp-config.php."
+msgstr "請注意，這不會修改包括.htaccess 和wp-config.php在內的任何網站文件。"
+
+#: inc/admin/content.php:597
+msgid "Secure My Site From Basic Attacks"
+msgstr "啟用基本保護"
+
+#: inc/admin/content.php:603
+msgid "No thanks, I prefer to do configure everything myself."
+msgstr "不，我要自己進行各項配置"
+
+#: inc/admin/content.php:622
+msgid "You are enforcing strong passwords for all users."
+msgstr "強制所有用戶使用強密碼"
+
+#: inc/admin/content.php:624
+msgid "You are enforcing strong passwords, but not for all users."
+msgstr "強制使用強密碼，但不是所有用戶"
+
+#: inc/admin/content.php:624 inc/admin/content.php:626
+#: inc/admin/content.php:634 inc/admin/content.php:636
+#: inc/admin/content.php:644 inc/admin/content.php:646
+#: inc/admin/content.php:676 inc/admin/content.php:683
+#: inc/admin/content.php:690 inc/admin/content.php:697
+#: inc/admin/content.php:704 inc/admin/content.php:712
+#: inc/admin/content.php:714 inc/admin/content.php:721
+#: inc/admin/content.php:735 inc/admin/content.php:742
+#: inc/admin/content.php:749 inc/admin/content.php:756
+#: inc/admin/content.php:763 inc/admin/content.php:770
+#: inc/admin/content.php:786 inc/admin/content.php:788
+#: inc/admin/content.php:793
+msgid "Click here to fix."
+msgstr "點擊解決"
+
+#: inc/admin/content.php:626
+msgid "You are not enforcing strong passwords."
+msgstr "沒有強制強密碼"
+
+#: inc/admin/content.php:632
+msgid "Your WordPress header is revealing as little information as possible."
+msgstr "WordPress header 幾乎沒有暴露潛在的信息"
+
+#: inc/admin/content.php:634
+msgid "Your WordPress header is still revealing some information to users."
+msgstr "WordPress header 仍然向用戶暴露了一些信息"
+
+#: inc/admin/content.php:636
+msgid "Your WordPress header is showing too much information to users."
+msgstr "WordPress header 向用戶暴露了太多信息"
+
+#: inc/admin/content.php:642
+msgid "Non-administrators cannot see available updates."
+msgstr "非管理員無法查看可用更新"
+
+#: inc/admin/content.php:644
+msgid "Non-administrators can see some updates."
+msgstr "非管理員可查看一些更新信息"
+
+#: inc/admin/content.php:646
+msgid "Non-administrators can see all updates."
+msgstr "非管理員可查看全部更新信息"
+
+#: inc/admin/content.php:651
+msgid "The <em>admin</em> user still exists."
+msgstr "用戶<em>admin</em>仍然存在"
+
+#: inc/admin/content.php:651
+msgid "Click here to rename admin."
+msgstr "點擊重新命名 admin 用戶"
+
+#: inc/admin/content.php:653
+msgid "The <em>admin</em> user has been removed."
+msgstr "用戶<em>admin</em>已移除"
+
+#: inc/admin/content.php:658
+msgid "A user with id 1 still exists."
+msgstr "ID 1 的用戶仍然存在"
+
+#: inc/admin/content.php:658
+msgid "Click here to change user 1's ID."
+msgstr "點擊修改 ID 1 的用戶"
+
+#: inc/admin/content.php:660
+msgid "The user with id 1 has been removed."
+msgstr "ID 1 的用戶已被移除"
+
+#: inc/admin/content.php:666
+msgid "Your table prefix should not be "
+msgstr "請勿使用數據表前綴"
+
+#: inc/admin/content.php:666
+msgid "Click here to rename it."
+msgstr "點擊重新命名"
+
+#: inc/admin/content.php:668
+msgid "Your table prefix is"
+msgstr "表前綴為"
+
+#: inc/admin/content.php:674
+msgid "You have scheduled regular backups of your WordPress database."
+msgstr "已安排定期備份 WordPress 數據庫"
+
+#: inc/admin/content.php:676
+msgid "You are not scheduling regular backups of your WordPress database."
+msgstr "沒有安排定期備份 WordPress 數據庫"
+
+#: inc/admin/content.php:681
+msgid ""
+"Your WordPress admin area is not available when you will not be needing it."
+msgstr "當你不需要時，WordPress 管理面板不可用"
+
+#: inc/admin/content.php:683
+msgid ""
+"Your WordPress admin area is available 24/7. Do you really update 24 hours a "
+"day?"
+msgstr "WordPress 管理面板全天可用。你真的全天24小時更新嗎？"
+
+#: inc/admin/content.php:688
+msgid ""
+"You are blocking known bad hosts and agents with HackRepair.com's blacklist."
+msgstr "屏蔽了 HackRepair.com 黑名單上已知的不良主機和代理"
+
+#: inc/admin/content.php:690
+msgid ""
+"You are not blocking known bad hosts and agents with HackRepair.com's "
+"blacklist?"
+msgstr "沒有屏蔽 HackRepair.com 黑名單上已知的不良主機和代理？"
+
+#: inc/admin/content.php:695
+msgid "Your login area is protected from brute force attacks."
+msgstr "登錄區域已免受暴力攻擊"
+
+#: inc/admin/content.php:697
+msgid "Your login area is not protected from brute force attacks."
+msgstr "登錄區域還未遠離暴力攻擊"
+
+#: inc/admin/content.php:702
+msgid "Your WordPress admin area is hidden."
+msgstr "已隱藏 WordPress 管理區域"
+
+#: inc/admin/content.php:704
+msgid "Your WordPress admin area is not hidden."
+msgstr "尚未隱藏 WordPress 管理區域"
+
+#: inc/admin/content.php:710
+msgid "Your .htaccess file is fully secured."
+msgstr ".htaccess 文件很安全"
+
+#: inc/admin/content.php:712
+msgid "Your .htaccess file is partially secured."
+msgstr ".htaccess 文件基本安全"
+
+#: inc/admin/content.php:714
+msgid "Your .htaccess file is NOT secured."
+msgstr ".htaccess 文件不安全"
+
+#: inc/admin/content.php:719
+msgid ""
+"Your installation is actively blocking attackers trying to scan your site "
+"for vulnerabilities."
+msgstr "已積極阻止試圖掃描網站漏洞的攻擊者"
+
+#: inc/admin/content.php:721
+msgid ""
+"Your installation is not actively blocking attackers trying to scan your "
+"site for vulnerabilities."
+msgstr "未積極阻止試圖掃描網站漏洞的攻擊者"
+
+#: inc/admin/content.php:726
+msgid "Your installation is actively looking for changed files."
+msgstr "已積極查找被修改文件"
+
+#: inc/admin/content.php:735
+msgid "Your installation is not actively looking for changed files."
+msgstr "未積極查找被修改文件"
+
+#: inc/admin/content.php:740
+msgid "Your installation does not accept long URLs."
+msgstr "不接受長網址"
+
+#: inc/admin/content.php:742
+msgid ""
+"Your installation accepts long (over 255 character) URLS. This can lead to "
+"vulnerabilities."
+msgstr "接受長網址（超過255字符）。但這可能導致漏洞"
+
+#: inc/admin/content.php:747
+msgid ""
+"You are not allowing users to edit theme and plugin files from the WordPress "
+"backend."
+msgstr "不允許用戶在 WordPress 後台修改主題和插件"
+
+#: inc/admin/content.php:749
+msgid ""
+"You are allowing users to edit theme and plugin files from the WordPress "
+"backend."
+msgstr "允許用戶在 WordPress 後台修改主題和插件"
+
+#: inc/admin/content.php:754
+msgid "Better WP Security is allowed to write to wp-config.php and .htaccess."
+msgstr "允許 Better WP Security 寫入 wp-config.php 和 .htaccess 文件"
+
+#: inc/admin/content.php:756
+msgid ""
+"Better WP Security is not allowed to write to wp-config.php and .htaccess."
+msgstr "不允許 Better WP Security 寫入 wp-config.php 和 .htaccess 文件"
+
+#: inc/admin/content.php:761
+msgid "wp-config.php and .htacess are not writeable."
+msgstr "wp-config.php 和 .htacess 文件不可寫"
+
+#: inc/admin/content.php:763
+msgid "wp-config.php and .htacess are writeable."
+msgstr "wp-config.php 和 .htacess 文件可寫"
+
+#: inc/admin/content.php:768
+msgid "Version information is obscured to all non admin users."
+msgstr "沒有對非管理員用戶隱藏版本信息"
+
+#: inc/admin/content.php:770
+msgid ""
+"Users may still be able to get version information from various plugins and "
+"themes."
+msgstr "用戶仍可通過各種插件、主題得到版本信息"
+
+#: inc/admin/content.php:776
+msgid "You have renamed the wp-content directory of your site."
+msgstr "你已重新命名 wp-content 目錄"
+
+#: inc/admin/content.php:778
+msgid "You should rename the wp-content directory of your site."
+msgstr "你應重新命名 wp-content 目錄"
+
+#: inc/admin/content.php:778
+msgid "Click here to do so."
+msgstr "點擊這裡執行"
+
+#: inc/admin/content.php:784
+msgid "You are requiring a secure connection for logins and the admin area."
+msgstr "登錄及管理區已使用安全連接"
+
+#: inc/admin/content.php:786
+msgid ""
+"You are requiring a secure connection for logins or the admin area but not "
+"both."
+msgstr "登錄及管理區未全部使用安全連接"
+
+#: inc/admin/content.php:788
+msgid ""
+"You are not requiring a secure connection for logins or for the admin area."
+msgstr "登錄及管理區未使用安全連接"
+
+#: inc/admin/content.php:793
+msgid ""
+"Notice: Some items are hidden as you are not allowing this plugin to write "
+"to core files."
+msgstr "注意：由於你禁止了插件寫入核心文件，一些項目已被隱藏"
+
+#: inc/admin/content.php:799
+msgid "Items in green are fully secured. Good Job!"
+msgstr "綠色項目代表非常安全。做得不錯！"
+
+#: inc/admin/content.php:800
+msgid ""
+"Items in orange are partially secured. Turn on more options to fully secure "
+"these areas."
+msgstr "橙色項目代表基本安全。打開更多選項以獲取完全保護"
+
+#: inc/admin/content.php:801
+msgid "Items in red are not secured. You should secure these items immediately"
+msgstr "紅色項目代表很不安全。你應該立即修復它們"
+
+#: inc/admin/content.php:802
+msgid ""
+"Items in blue are not fully secured but may conflict with other themes, "
+"plugins, or the other operation of your site. Secure them if you can but if "
+"you cannot do not worry about them."
+msgstr ""
+"藍色項目代表不充分安全，但它可能和其它主題、插件、其它操作起衝突。最好啟用保"
+"護，不行就罷了"
+
+#: inc/admin/content.php:819
+msgid ""
+"No rules have been generated. Turn on more features to see rewrite rules."
+msgstr "未生成規則。開啟更多功能可查看重寫規則"
+
+#: inc/admin/content.php:854
+msgid ""
+"No rules have been generated. Turn on more features to see wp-content rules."
+msgstr "未生成規則。開啟更多功能可查看 wp-content 規則"
+
+#: inc/admin/content.php:875
+msgid "User Information"
+msgstr "用戶信息"
+
+#: inc/admin/content.php:877
+msgid "Public IP Address"
+msgstr "公共 IP 地址"
+
+#: inc/admin/content.php:877 inc/admin/content.php:956
+msgid "Get more information on this address"
+msgstr "獲取此地址的更多信息"
+
+#: inc/admin/content.php:878
+msgid "User Agent"
+msgstr "用戶代理"
+
+#: inc/admin/content.php:883
+msgid "File System Information"
+msgstr "文件系統信息"
+
+#: inc/admin/content.php:885
+msgid "Website Root Folder"
+msgstr "網站根文件夾"
+
+#: inc/admin/content.php:886
+msgid "Document Root Path"
+msgstr "文檔根目錄路徑"
+
+#: inc/admin/content.php:895 inc/admin/content.php:918
+#: inc/admin/content.php:1074 inc/admin/content.php:1082
+#: inc/admin/content.php:1090
+msgid "Yes"
+msgstr "是"
+
+#: inc/admin/content.php:901 inc/admin/content.php:924
+msgid "No."
+msgstr "否"
+
+#: inc/admin/content.php:909
+msgid ".htaccess File is Writable"
+msgstr ".htaccess 文件可寫"
+
+#: inc/admin/content.php:932
+msgid "wp-config.php File is Writable"
+msgstr "wp-config.php 文件可寫"
+
+#: inc/admin/content.php:937
+msgid "Database Information"
+msgstr "數據庫信息"
+
+#: inc/admin/content.php:939
+msgid "MySQL Database Version"
+msgstr "MySQL 數據庫版本"
+
+#: inc/admin/content.php:940
+msgid "MySQL Client Version"
+msgstr "MySQL 客戶端版本"
+
+#: inc/admin/content.php:941
+msgid "Database Host"
+msgstr "數據庫主機"
+
+#: inc/admin/content.php:942
+msgid "Database Name"
+msgstr "數據庫名稱"
+
+#: inc/admin/content.php:943
+msgid "Database User"
+msgstr "數據庫用戶"
+
+#: inc/admin/content.php:946
+msgid "Not Set"
+msgstr "未設置"
+
+#: inc/admin/content.php:947 inc/admin/content.php:996
+#: inc/admin/content.php:1004 inc/admin/content.php:1012
+#: inc/admin/content.php:1020 inc/admin/content.php:1028
+#: inc/admin/content.php:1036 inc/admin/content.php:1044
+#: inc/admin/content.php:1060 inc/admin/content.php:1068
+#: inc/admin/content.php:2432
+msgid "Off"
+msgstr "關"
+
+#: inc/admin/content.php:949
+msgid "SQL Mode"
+msgstr "SQL 模式"
+
+#: inc/admin/content.php:954
+msgid "Server Information"
+msgstr "服務器信息"
+
+#: inc/admin/content.php:956
+msgid "Server / Website IP Address"
+msgstr "服務器／網站 IP 地址"
+
+#: inc/admin/content.php:957
+msgid "Server Type"
+msgstr "服務器類型"
+
+#: inc/admin/content.php:958
+msgid "Operating System"
+msgstr "操作系統"
+
+#: inc/admin/content.php:959
+msgid "Browser Compression Supported"
+msgstr "瀏覽器壓縮支持"
+
+#: inc/admin/content.php:964
+msgid "PHP Information"
+msgstr "PHP 信息"
+
+#: inc/admin/content.php:966
+msgid "PHP Version"
+msgstr "PHP 版本"
+
+#: inc/admin/content.php:967
+msgid "PHP Memory Usage"
+msgstr "PHP 內存使用情況"
+
+#: inc/admin/content.php:967
+msgid " MB"
+msgstr " MB"
+
+#: inc/admin/content.php:972 inc/admin/content.php:980
+#: inc/admin/content.php:988 inc/admin/content.php:1052
+#: inc/admin/tables.php:560
+msgid "N/A"
+msgstr "不適用"
+
+#: inc/admin/content.php:975
+msgid "PHP Memory Limit"
+msgstr "PHP 内存限額"
+
+#: inc/admin/content.php:983
+msgid "PHP Max Upload Size"
+msgstr "PHP 上傳文件大小限制"
+
+#: inc/admin/content.php:991
+msgid "PHP Max Post Size"
+msgstr "PHP 文檔大小限制"
+
+#: inc/admin/content.php:994 inc/admin/content.php:1002
+#: inc/admin/content.php:1010 inc/admin/content.php:1018
+#: inc/admin/content.php:1026 inc/admin/content.php:1034
+#: inc/admin/content.php:1042 inc/admin/content.php:1058
+#: inc/admin/content.php:1066
+msgid "On"
+msgstr "開"
+
+#: inc/admin/content.php:999
+msgid "PHP Safe Mode"
+msgstr "PHP 安全模式"
+
+#: inc/admin/content.php:1007
+msgid "PHP Allow URL fopen"
+msgstr "PHP 允許遠程調用"
+
+#: inc/admin/content.php:1015
+msgid "PHP Allow URL Include"
+msgstr "PHP 允许包含網址"
+
+#: inc/admin/content.php:1023
+msgid "PHP Display Errors"
+msgstr "PHP 顯示錯誤"
+
+#: inc/admin/content.php:1031
+msgid "PHP Display Startup Errors"
+msgstr "PHP 顯示啓動錯誤"
+
+#: inc/admin/content.php:1039
+msgid "PHP Expose PHP"
+msgstr "PHP 顯示 PHP"
+
+#: inc/admin/content.php:1047
+msgid "PHP Register Globals"
+msgstr "PHP 註冊全局變量"
+
+#: inc/admin/content.php:1055
+msgid "PHP Max Script Execution Time"
+msgstr "PHP 最大腳本執行時間"
+
+#: inc/admin/content.php:1055
+msgid "Seconds"
+msgstr "秒"
+
+#: inc/admin/content.php:1063
+msgid "PHP Magic Quotes GPC"
+msgstr "PHP 魔術引用 GPC"
+
+#: inc/admin/content.php:1071
+msgid "PHP open_basedir"
+msgstr "PHP open_basedir"
+
+#: inc/admin/content.php:1076 inc/admin/content.php:1084
+#: inc/admin/content.php:1092
+msgid "No"
+msgstr "不"
+
+#: inc/admin/content.php:1079
+msgid "PHP XML Support"
+msgstr "PHP XML 支持"
+
+#: inc/admin/content.php:1087
+msgid "PHP IPTC Support"
+msgstr "PHP IPTC 支持"
+
+#: inc/admin/content.php:1095
+msgid "PHP Exif Support"
+msgstr "PHP Exif 支持"
+
+#: inc/admin/content.php:1100
+msgid "WordPress Configuration"
+msgstr "WordPress 配置"
+
+#: inc/admin/content.php:1104
+msgid "Multisite is enabled"
+msgstr "允許多站點功能"
+
+#: inc/admin/content.php:1106
+msgid "Multisite is NOT enabled"
+msgstr "不允許多站點功能"
+
+#: inc/admin/content.php:1109
+msgid "\tMultisite"
+msgstr "\t多站點功能"
+
+#: inc/admin/content.php:1114
+msgid "Enabled"
+msgstr "啟用"
+
+#: inc/admin/content.php:1118
+msgid ""
+"WARNING! Permalinks are NOT Enabled. Permalinks MUST be enabled for Better "
+"WP Security to function correctly"
+msgstr ""
+"警告！沒有啟用固定鏈接。為使Better WP Security功能正常，必須啟用固定鏈接"
+
+#: inc/admin/content.php:1121
+msgid "WP Permalink Structure"
+msgstr "WP 固定鏈接結構"
+
+#: inc/admin/content.php:1122
+msgid "Wp-config Location"
+msgstr "Wp-config 位置"
+
+#: inc/admin/content.php:1126
+msgid "Better WP Security variables"
+msgstr "Better WP Security 變量"
+
+#: inc/admin/content.php:1130
+msgid "Not Yet Available. Enable Hide Backend mode to generate key."
+msgstr "還不可用。請啟用隱藏後台模式以生成密鑰。"
+
+#: inc/admin/content.php:1135
+msgid "Hide Backend Key"
+msgstr "隱藏後台密鑰"
+
+#: inc/admin/content.php:1136
+msgid "Better WP Build Version"
+msgstr "Better WP 構建版本"
+
+#: inc/admin/content.php:1137
+msgid ""
+"Note: this is NOT the same as the version number on the plugins page and is "
+"instead used for support."
+msgstr "注意：這和插件主頁版本號不一樣，而是用於支持"
+
+#: inc/admin/content.php:1150
+msgid ""
+"By default WordPress initially creates a username with the username of "
+"\"admin.\" This is insecure as this user has full rights to your WordPress "
+"system and a potential hacker already knows that it is there. All an "
+"attacker would need to do at that point is guess the password. Changing this "
+"username will force a potential attacker to have to guess both your username "
+"and your password which makes some attacks significantly more difficult."
+msgstr ""
+"WordPress 最初默認創建的用戶名是“admin”。此用戶擁有 WordPress 系統完全的權"
+"力，潛在的黑客也知道它，這是不安全的。所有的攻擊者只要猜出密碼就行了。改變這"
+"個用戶名將迫使潛在的攻擊者必須猜出你的用戶名和密碼，加大了攻擊的難度。"
+
+#: inc/admin/content.php:1151
+msgid ""
+"Note that this function will only work if you chose a username other than "
+"\"admin\" when installing WordPress."
+msgstr ""
+"注意，只有在你安裝 WordPress 時選擇了非“admin”的用戶名，此功能才可運作。"
+
+#: inc/admin/content.php:1168
+msgid "Enter Username"
+msgstr "輸入用戶名"
+
+#: inc/admin/content.php:1173
+msgid ""
+"Enter a new username to replace \"admin.\" Please note that if you are "
+"logged in as admin you will have to log in again."
+msgstr ""
+"輸入一個新的用戶名替換“admin”。注意，如果你正以admin登錄，則必須再次登錄"
+
+#: inc/admin/content.php:1177
+msgid "Chage Admin Username"
+msgstr "修改管理員用戶名"
+
+#: inc/admin/content.php:1182
+msgid ""
+"Congratulations! You do not have a user named \"admin\" in your WordPress "
+"installation. No further action is available on this page."
+msgstr "恭喜！沒有用戶名為“admin”。在此頁無需採取進一步操作"
+
+#: inc/admin/content.php:1194
+msgid ""
+"If your admin user has and ID of \"1\" it is vulnerable to some attacks. You "
+"should change the ID of your admin user."
+msgstr "如管理員用戶使用ID“1”，則容易受到一些攻擊。請修改管理員用戶ID"
+
+#: inc/admin/content.php:1198
+msgid "Change User 1 ID"
+msgstr "修改 ID 1 的用戶"
+
+#: inc/admin/content.php:1203
+msgid ""
+"Congratulations! You do not have a user with ID 1 in your WordPress "
+"installation. No further action is available on this page."
+msgstr "恭喜！並沒有 ID 1 的用戶。在此頁無需採取進一步操作"
+
+#: inc/admin/content.php:1214
+msgid ""
+"As many of us update our sites on a general schedule it is not always "
+"necessary to permit site access all of the time. The options below will "
+"disable the backend of the site for the specified period. This could also be "
+"useful to disable site access based on a schedule for classroom or other "
+"reasons."
+msgstr ""
+"多數人按時間表更新網站，而不是全天。下面的選項可在指定時間禁用網站後台。這也"
+"用來基於課堂計劃或其它原因禁用網站後台"
+
+#: inc/admin/content.php:1215
+msgid "Please note that according to your"
+msgstr "請注意，根據你的"
+
+#: inc/admin/content.php:1215
+msgid "WordPress timezone settings"
+msgstr "WordPress 時區設置"
+
+#: inc/admin/content.php:1215
+msgid "your local time is"
+msgstr "本地時間為"
+
+#: inc/admin/content.php:1215
+msgid "If this is incorrect please correct it on the"
+msgstr "如有錯誤，請在"
+
+#: inc/admin/content.php:1215
+msgid "WordPress general settings page"
+msgstr "WordPress 常規設置頁面"
+
+#: inc/admin/content.php:1215
+msgid ""
+"by setting the appropriate time zone. Failure to do so may result in "
+"unintended lockouts."
+msgstr "設置合適的時區。否則可能導致意外停止"
+
+#: inc/admin/content.php:1230
+msgid ""
+"Are you sure you want to enable away mode? Please check the local time "
+"(located at the top of this page) and verify the times set are correct to "
+"avoid locking yourself out of this site."
+msgstr "確定啟用離開模式嗎？請核對本地時間（在本頁頂部），以免您自己無法進入"
+
+#: inc/admin/content.php:1277
+msgid "Enable Away Mode"
+msgstr "啟用離開模式"
+
+#: inc/admin/content.php:1281
+msgid "Check this box to enable away mode."
+msgstr "選中此項啟用離開模式"
+
+#: inc/admin/content.php:1286
+msgid "Type of Restriction"
+msgstr "限制類型"
+
+#: inc/admin/content.php:1289
+msgid "Daily"
+msgstr "每天"
+
+#: inc/admin/content.php:1290
+msgid "One Time"
+msgstr "一次"
+
+#: inc/admin/content.php:1291
+msgid ""
+"Selecting <em>\"One Time\"</em> will lock out the backend of your site from "
+"the start date and time to the end date and time. Selecting <em>\"Daily\"</"
+"em> will ignore the start and and dates and will disable your site backend "
+"from the start time to the end time."
+msgstr ""
+"選擇<em>“一次”</em>將從開始日期指定時間~結束日指定時間鎖定後台，選擇<em>“每"
+"天”</em>將忽略日期，在指定時間鎖定後台"
+
+#: inc/admin/content.php:1296
+msgid "Start Date"
+msgstr "開始日期"
+
+#: inc/admin/content.php:1335
+msgid ""
+"Select the date at which access to the backend of this site will be "
+"disabled. Note that if <em>\"Daily\"</em> mode is selected this field will "
+"be ignored and access will be banned every day at the specified time."
+msgstr ""
+"選擇鎖定網站後台的日期。注意，如果選擇了<em>“每天”</em>模式，此處將被忽略，網"
+"站後台會在每天的指定時間鎖定"
+
+#: inc/admin/content.php:1341
+msgid "End Date"
+msgstr "結束日期"
+
+#: inc/admin/content.php:1380
+msgid ""
+"Select the date at which access to the backend of this site will be re-"
+"enabled. Note that if <em>\"Daily\"</em> mode is selected this field will be "
+"ignored and access will be banned every day at the specified time."
+msgstr ""
+"選擇重新開放網站後台的日期。注意，如果選擇了<em>“每天”</em>模式，此處將被忽"
+"略，網站後台會在每天的指定時間鎖定"
+
+#: inc/admin/content.php:1386
+msgid "Start Time"
+msgstr "開始時間"
+
+#: inc/admin/content.php:1422
+msgid ""
+"Select the time at which access to the backend of this site will be "
+"disabled. Note that if <em>\"Daily\"</em> mode is selected access will be "
+"banned every day at the specified time."
+msgstr ""
+"選擇鎖定網站後台的時間。注意，如果選擇了<em>“每天”</em>模式，網站後台會在每天"
+"的指定時間鎖定"
+
+#: inc/admin/content.php:1428
+msgid "End Time"
+msgstr "結束時間"
+
+#: inc/admin/content.php:1464
+msgid ""
+"Select the time at which access to the backend of this site will be re-"
+"enabled. Note that if <em>\"Daily\"</em> mode is selected access will be "
+"banned every day at the specified time."
+msgstr ""
+"選擇重新開放網站後台的時間。注意，如果選擇了<em>“每天”</em>模式，網站後台會在"
+"每天的指定時間鎖定"
+
+#: inc/admin/content.php:1469 inc/admin/content.php:1592
+#: inc/admin/content.php:1633 inc/admin/content.php:1737
+#: inc/admin/content.php:1880 inc/admin/content.php:2214
+#: inc/admin/content.php:2458 inc/admin/content.php:2539
+#: inc/admin/content.php:2577 inc/admin/content.php:2614
+#: inc/admin/content.php:2649 inc/admin/content.php:2730
+msgid "Save Changes"
+msgstr "保存修改"
+
+#: inc/admin/content.php:1485
+msgid "every day"
+msgstr "每天"
+
+#: inc/admin/content.php:1492 inc/admin/content.php:1493
+msgid " at "
+msgstr "在"
+
+#: inc/admin/content.php:1499
+msgid "The backend (administrative section) of this site will be unavailable"
+msgstr "此網站的後端（管理部分）將不可用"
+
+#: inc/admin/content.php:1499
+msgid "from"
+msgstr "從"
+
+#: inc/admin/content.php:1499 inc/secure.php:619
+msgid "until"
+msgstr "直至"
+
+#: inc/admin/content.php:1501
+msgid "Away mode is currently diabled"
+msgstr "當前未啟用離開模式"
+
+#: inc/admin/content.php:1512
+msgid ""
+"This feature allows you to ban hosts and user agents from your site "
+"completely using individual or groups of IP addresses as well as user agents "
+"without having to manage any configuration of your server. Any IP or user "
+"agent found in the lists below will not be allowed any access to your site."
+msgstr ""
+"無需管理您服務器的任何配置，此功能即可讓你完全阻止一個或一組IP的主機及用戶代"
+"理訪問你的網站，任何在以下列表中IP或用戶代理都將不被允許訪問您的站點"
+
+#: inc/admin/content.php:1526
+msgid ""
+"As a getting-started point you can include the excellent blacklist developed "
+"by Jim Walker of <a href=\"http://hackrepair.com/blog/how-to-block-bots-from-"
+"seeing-your-website-bad-bots-and-drive-by-hacks-explained\" target=\"_blank"
+"\">HackRepair.com</a>."
+msgstr ""
+"作為一個開始，你可以選擇Jim Walker在<a href=\"http://hackrepair.com/blog/how-"
+"to-block-bots-from-seeing-your-website-bad-bots-and-drive- by-hacks-explained"
+"\" target=\"_blank\">HackRepair.com</a>發佈的黑名單"
+
+#: inc/admin/content.php:1530
+msgid "Enable Default Banned List"
+msgstr "啟用默認黑名單"
+
+#: inc/admin/content.php:1534
+msgid "Check this box to enable HackRepair.com's blacklist feature."
+msgstr "選中此項啟用 HackRepair.com 的黑名單"
+
+#: inc/admin/content.php:1538
+msgid "Add Host and Agent Blacklist"
+msgstr "添加主機和代理黑名單"
+
+#: inc/admin/content.php:1556
+msgid "Enable Banned Users"
+msgstr "啟用封禁用戶"
+
+#: inc/admin/content.php:1560
+msgid "Check this box to enable the banned users feature."
+msgstr "選中此項啟用封禁用戶功能"
+
+#: inc/admin/content.php:1565
+msgid "Ban Hosts"
+msgstr "封禁主機"
+
+#: inc/admin/content.php:1569
+msgid ""
+"Use the guidelines below to enter hosts that will not be allowed access to "
+"your site. Note you cannot ban yourself."
+msgstr "參考以下指南輸入要封禁的主機。注意，不可封鎖自己"
+
+#: inc/admin/content.php:1571
+msgid "You may ban users by individual IP address or IP address range."
+msgstr "你可以封鎖單個 IP 或一個 IP 段"
+
+#: inc/admin/content.php:1572 inc/admin/content.php:2031
+msgid ""
+"Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###."
+"###). Wildcards (*) are allowed to specify a range of ip addresses."
+msgstr ""
+"單個IP必須是IPV4標準格式（如###.###.###.###）。通配符（*）可用來指定一個IP段"
+
+#: inc/admin/content.php:1573 inc/admin/content.php:2032
+msgid ""
+"If using a wildcard (*) you must start with the right-most number in the ip "
+"field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*."
+"### is not."
+msgstr ""
+"通配符（*）只在右側使用，如###.###.###.* 和###.###.*.* ，不可使用###.###.*.# "
+"##"
+
+#: inc/admin/content.php:1574 inc/admin/content.php:2033
+msgid "Lookup IP Address."
+msgstr "查看 IP 地址"
+
+#: inc/admin/content.php:1575 inc/admin/content.php:2034
+msgid "Enter only 1 IP address or 1 IP address range per line."
+msgstr "每行輸入 1 個 IP 或 1 個 IP 段"
+
+#: inc/admin/content.php:1581
+msgid "Ban User Agents"
+msgstr "封禁用戶代理"
+
+#: inc/admin/content.php:1585
+msgid ""
+"Use the guidelines below to enter user agents that will not be allowed "
+"access to your site."
+msgstr "參考以下指南輸入要封禁的用戶代理"
+
+#: inc/admin/content.php:1587
+msgid "Enter only 1 user agent per line."
+msgstr "每行輸入1個用戶代理"
+
+#: inc/admin/content.php:1603
+msgid ""
+"By default WordPress puts all your content including images, plugins, "
+"themes, uploads, and more in a directory called \"wp-content\". This makes "
+"it easy to scan for vulnerable files on your WordPress installation as an "
+"attacker already knows where the vulnerable files will be at. As there are "
+"many plugins and themes with security vulnerabilities moving this folder can "
+"make it harder for an attacker to find problems with your site as scans of "
+"your site's file system will not produce any results."
+msgstr ""
+"默認情況下WordPress把你的圖像、插件、主題、上傳文件等放置在“wp-content”文件"
+"夾。攻擊者知道脆弱文件所在便能容易掃描。很多插件和主題有安全漏洞，移動這個文"
+"件夾可使攻擊者掃描不到結果，更難發現網站的問題"
+
+#: inc/admin/content.php:1604
+msgid ""
+"Please note that changing the name of your wp-content directory on a site "
+"that already has images and other content referencing it will break your "
+"site. For that reason I highly recommend you do not try this on anything but "
+"a fresh WordPress install. In addition, this tool will not allow further "
+"changes to your wp-content folder once it has already been renamed in order "
+"to avoid accidently breaking a site later on. This includes uninstalling "
+"this plugin which will not revert the changes made by this page."
+msgstr ""
+"請注意，修改wp-content目錄名稱將破壞已有圖像和其它內容的連接。因此我強烈建議"
+"你只在新的Wordpress網站使用此功能。另外，為防止之後破壞網站，如wp-content已重"
+"命名，將不允許再次更改。這包括卸載該插件也不會還原此頁所作的更改"
+
+#: inc/admin/content.php:1605
+msgid ""
+"Finally, changing the name of the wp-content directory may in fact break "
+"plugins and themes that have \"hard-coded\" it into their design rather than "
+"call it dynamically."
+msgstr ""
+"最後，改變wp-content目錄名稱會破壞“硬編碼”插件和主題的使用，它們沒有動態調用"
+"文件夾"
+
+#: inc/admin/content.php:1606
+msgid "WARNING: BACKUP YOUR WORDPRESS INSTALLATION BEFORE USING THIS TOOL!"
+msgstr "警告：使用此工具前請備份你的Wordpress安裝文件！"
+
+#: inc/admin/content.php:1607
+msgid ""
+"RENAMING YOUR wp-content WILL BREAK LINKS ON A SITE WITH EXISTING CONTENT."
+msgstr "對 wp-content 重命名會破壞現有內容的連接"
+
+#: inc/admin/content.php:1624
+msgid "Directory Name"
+msgstr "目錄名稱"
+
+#: inc/admin/content.php:1629
+msgid ""
+"Enter a new directory name to replace \"wp-content.\" You may need to log in "
+"again after performing this operation."
+msgstr "輸入一個新的目錄名稱來代替“wp-content”。執行此項操作後可能需要重新登錄"
+
+#: inc/admin/content.php:1643
+msgid ""
+"Congratulations! You have already renamed your \"wp-content\" directory."
+msgstr "恭喜！已經對重新命名“wp-content”目錄"
+
+#: inc/admin/content.php:1644
+msgid "Your current content directory is: "
+msgstr "你現在的內容目錄是："
+
+#: inc/admin/content.php:1645
+msgid "No further actions are available on this page."
+msgstr "在此頁無需採取進一步操作"
+
+#: inc/admin/content.php:1656
+msgid ""
+"While this plugin goes a long way to helping secure your website nothing can "
+"give you a 100% guarantee that your site won't be the victim of an attack. "
+"When something goes wrong one of the easiest ways of getting your site back "
+"is to restore the database from a backup and replace the files with fresh "
+"ones. Use the button below to create a full backup of your database for this "
+"purpose. You can also schedule automated backups and download or delete "
+"previous backups."
+msgstr ""
+"這個插件盡全力保護你的網站，但不能百分百保證網站不會成為某次攻擊的受害者。當"
+"出現問題後，讓網站回檔的最簡單方法是從備份裡恢復數據庫。為此請使用以下按鈕創"
+"建完整的數據庫備份。你也可以設置自動備份、下載、刪除備份"
+
+#: inc/admin/content.php:1669
+msgid ""
+"Press the button below to create a backup of your WordPress database. If you "
+"have \"Send Backups By Email\" selected in automated backups you will "
+"receive an email containing the backup file."
+msgstr ""
+"點擊下面的按鈕創建一個你的 WordPress 數據庫備份。如果選擇了“通過電郵發送備"
+"份”，你將收到一封含有備份文件的郵件"
+
+#: inc/admin/content.php:1688
+msgid "Enable Scheduled Backups"
+msgstr "啟用定期備份"
+
+#: inc/admin/content.php:1692
+msgid ""
+"Check this box to enable scheduled backups which will be emailed to the "
+"address below."
+msgstr "選中此項啟用定期備份，可發送到下面的電郵地址"
+
+#: inc/admin/content.php:1697
+msgid "Backup Interval"
+msgstr "自動備份間隔時間"
+
+#: inc/admin/content.php:1702
+msgid "Hours"
+msgstr "小時"
+
+#: inc/admin/content.php:1703
+msgid "Days"
+msgstr "天"
+
+#: inc/admin/content.php:1704
+msgid "Weeks"
+msgstr "星期"
+
+#: inc/admin/content.php:1706
+msgid "Select the frequency of automated backups."
+msgstr "選擇自動備份的頻率"
+
+#: inc/admin/content.php:1711
+msgid "Send Backups by Email"
+msgstr "透過電郵發送備份"
+
+#: inc/admin/content.php:1715
+msgid "Email backups to the current site admin."
+msgstr "發送到當前管理員的電郵"
+
+#: inc/admin/content.php:1720 inc/admin/content.php:1967
+#: inc/admin/content.php:2073 inc/admin/content.php:2206
+msgid "Email Address"
+msgstr "電郵地址"
+
+#: inc/admin/content.php:1724
+msgid "The email address backups will be sent to."
+msgstr "接收備份的電郵地址"
+
+#: inc/admin/content.php:1729
+msgid "Backups to Keep"
+msgstr "保留備份的數量"
+
+#: inc/admin/content.php:1733
+msgid ""
+"Number of backup files to retain. Enter 0 to keep all files. Please note "
+"that this setting only applies if \"Send Backups by Email\" is not selected."
+msgstr ""
+"保留備份的文件數量。輸入0即全部保存。請注意，此設置僅適用於“透過電郵發送備"
+"份” 沒有被選中的情況"
+
+#: inc/admin/content.php:1750
+msgid ""
+"Database backups are NOT saved to the server and instead will be emailed to"
+msgstr "數據庫備份不會保存在服務器，而是通過電郵發送到"
+
+#: inc/admin/content.php:1750
+msgid ""
+"To change this unset \"Send Backups by Email\" in the \"Scheduled Automated "
+"Backups\" section above."
+msgstr "改變此項請取消選中“自動備份任務”下的“通過Email發送備份”"
+
+#: inc/admin/content.php:1754
+msgid ""
+"Please note that for security backups are not available for direct download. "
+"You will need to go to "
+msgstr "請注意，安全起見，備份文件不可直接下載。請到"
+
+#: inc/admin/content.php:1756
+msgid ""
+" via FTP or SSH to download the files. This is because there is too much "
+"sensative information in the backup files and you do not want anyone just "
+"stumbling upon them."
+msgstr ""
+"通過FTP或SSH下載文件。因為備份文件裡有大量敏感信息，你一定不想讓任何人無意間"
+"得到"
+
+#: inc/admin/content.php:1766
+msgid "Last Scheduled Backup:"
+msgstr "上次計劃備份："
+
+#: inc/admin/content.php:1767
+msgid "Next Scheduled Backup:"
+msgstr "下次計劃備份："
+
+#: inc/admin/content.php:1769
+msgid ""
+"It looks like a scheduled backup is in progress please reload this page for "
+"more accurate times."
+msgstr "備份似乎正在進行，請刷新本頁以獲得更準確的時間"
+
+#: inc/admin/content.php:1781
+msgid ""
+"By default WordPress assigns the prefix \"wp_\" to all the tables in the "
+"database where your content, users, and objects live. For potential "
+"attackers this means it is easier to write scripts that can target WordPress "
+"databases as all the important table names for 95% or so of sites are "
+"already known. Changing this makes it more difficult for tools that are "
+"trying to take advantage of vulnerabilites in other places to affect the "
+"database of your site."
+msgstr ""
+"默認情況下 Wordpress 的內容、用戶、對像等數據表前綴都是“wp_”。這意味著潛在攻"
+"擊者很容易編寫腳本針對已知的網站上 95% 的重要數據表。修改它使想利用漏洞的工具"
+"更難影響你的網站數據庫"
+
+#: inc/admin/content.php:1782
+msgid ""
+"Please note that the use of this tool requires quite a bit of system memory "
+"which my be more than some hosts can handle. If you back your database up "
+"you can't do any permanent damage but without a proper backup you risk "
+"breaking your site and having to perform a rather difficult fix."
+msgstr ""
+"請注意，使用此工具需要相當多的系統內存，可能在某些主機上無法處理。請備份數據"
+"庫以防止永久性損壞，否則即是冒著破壞網站，並難以解決的風險"
+
+#: inc/admin/content.php:1783
+msgid ""
+"WARNING: <a href=\"?page=better-wp-security-databasebackup\">BACKUP YOUR "
+"DATABASE</a> BEFORE USING THIS TOOL!"
+msgstr ""
+"警告！使用此工具前請<a href=\"?page=better-wp-security-databasebackup\">備份"
+"數據庫</a>！"
+
+#: inc/admin/content.php:1795
+msgid "Your database is using the default table prefix"
+msgstr "數據庫正使用默認表前綴"
+
+#: inc/admin/content.php:1795
+msgid "You should change this."
+msgstr "你應修改它"
+
+#: inc/admin/content.php:1797
+msgid "Your current database table prefix is"
+msgstr "當前數據表前綴為"
+
+#: inc/admin/content.php:1802
+msgid ""
+"Press the button below to generate a random database prefix value and update "
+"all of your tables accordingly."
+msgstr "按下面的按鈕來生成一個隨機的數據庫前綴，並更新相應的數據表"
+
+#: inc/admin/content.php:1803
+msgid "Change Database Table Prefix"
+msgstr "修改數據表前綴"
+
+#: inc/admin/content.php:1814
+msgid ""
+"The \"hide backend\" feature changes the URL from which you can access your "
+"WordPress backend thereby further obscuring your site to potential attackers."
+msgstr "“隱藏後台”功能可改變後台網址，使網站進一步遠離潛在攻擊者"
+
+#: inc/admin/content.php:1815
+msgid ""
+"This feature will need to modify your site's .htaccess file if you use the "
+"Apache webserver or, if you use NGINX you will need to add the rules "
+"manually to your virtualhost configuration. In both cases it requires "
+"permalinks to be turned on in your settings to function."
+msgstr ""
+"本功能可在Apache網絡服務器下修改 .htaccess 文件，如是 NGINX，則請手動添加規則"
+"到虛擬主機配置。兩者都需要在功能設置裡開啟固定鏈接"
+
+#: inc/admin/content.php:1828
+msgid "You must turn on"
+msgstr "你必須開啟"
+
+#: inc/admin/content.php:1828
+msgid "WordPress permalinks"
+msgstr "WordPress 固定鏈接"
+
+#: inc/admin/content.php:1828
+msgid "to use this feature."
+msgstr "以使用本功能"
+
+#: inc/admin/content.php:1836
+msgid "Enable Hide Backend"
+msgstr "啟用隱藏後台"
+
+#: inc/admin/content.php:1840
+msgid "Check this box to enable the hide backend."
+msgstr "選中此項隱藏後台"
+
+#: inc/admin/content.php:1845
+msgid "Login Slug"
+msgstr "登錄別名"
+
+#: inc/admin/content.php:1849
+msgid "Login URL:"
+msgstr "登錄地址："
+
+#: inc/admin/content.php:1854
+msgid "Register Slug"
+msgstr "註冊別名"
+
+#: inc/admin/content.php:1858
+msgid "Register URL:"
+msgstr "註冊地址："
+
+#: inc/admin/content.php:1863
+msgid "Admin Slug"
+msgstr "管理別名"
+
+#: inc/admin/content.php:1867
+msgid "Admin URL:"
+msgstr "管理地址："
+
+#: inc/admin/content.php:1872
+msgid "Generate new secret key"
+msgstr "生成新密鑰"
+
+#: inc/admin/content.php:1876
+msgid "Check this box to generate a new secret key."
+msgstr "選中此項生成新密鑰"
+
+#: inc/admin/content.php:1893
+msgid ""
+"Keep this key in a safe place. You can use it to manually fix plugins that "
+"link to wp-login.php. Once turning on this feature and plugins linking to wp-"
+"login.php will fail without adding ?[the key]& after wp-login.php. 99% of "
+"users will not need this key. The only place you would ever use it is to fix "
+"a bad login link in the code of a plugin or theme."
+msgstr ""
+"請妥善保存密鑰。你可以用它來手動修復插件與wp-login.php的鏈接。隱藏後台功能開"
+"啟後，插件與wp-login.php的鏈接將失效，除非在後面加上?[密鑰]&。 99%的用戶不需"
+"要這個密鑰。唯一用得上的地方是修復某些插件或主題代碼裡被損壞的登錄鏈接"
+
+#: inc/admin/content.php:1904
+msgid ""
+"404 detection looks at a user who is hitting a large number of non-existent "
+"pages, that is they are getting a large number of 404 errors. It assumes "
+"that a user who hits a lot of 404 errors in a short period of time is "
+"scanning for something (presumably a vulnerability) and locks them out "
+"accordingly (you can set the thresholds for this below). This also gives the "
+"added benefit of helping you find hidden problems causing 404 errors on "
+"unseen parts of your site as all errors will be logged in the \"View Logs\" "
+"page. You can set threshholds for this feature below."
+msgstr ""
+"404檢測可監控有無用戶請求大量不存在的頁面，造成了許多404錯誤。假設一個用戶在"
+"短時間內造成大量404錯誤，可能是在掃描某些東西（大概是一個漏洞），此功能可進行"
+"相應鎖定（你可以設置閾值）。這還有另外一個好處，在“查看日誌”裡記錄了所有錯"
+"誤，幫助你發現在網頁中引起404錯誤的隱藏問題。你可以在下面設置閾值"
+
+#: inc/admin/content.php:1905
+msgid ""
+"File change detection looks at the files in your WordPress installation and "
+"reports changes to those files. This can help you determine if an attacker "
+"has compromised your system by changing files within WordPress. Note that it "
+"will only automatically check once per day to reduce server load and other "
+"insanity."
+msgstr ""
+"文件修改檢測可監控WordPress安裝文件並報告修改。這能幫助你確定是否有攻擊通過修"
+"改WordPress內的文件破壞了你的系統。請注意，為減少服務器負載和其它錯誤，此功能"
+"僅每天自動檢查一次"
+
+#: inc/admin/content.php:1918
+msgid ""
+"Press the button below to manually check for changed files and folders on "
+"your site."
+msgstr "點擊以下按鈕手動檢查文件和目錄修改"
+
+#: inc/admin/content.php:1919
+msgid "Check for file/folder changes"
+msgstr "檢查文件／目錄修改"
+
+#: inc/admin/content.php:1933
+msgid ""
+"Warning: Your server has less than 128MB of RAM dedicated to PHP. If you "
+"have many files in your installation or a lot of active plugins activating "
+"this feature may result in your site becoming disabled with a memory error. "
+"See the plugin homepage for more information."
+msgstr ""
+"警告：服務器內存少於128M。如擁有大量文件或許多活動插件，此功能可能造成站點因"
+"內存錯誤而無法訪問。在插件主頁查看更多信息"
+
+#: inc/admin/content.php:1944
+msgid "404 Detection"
+msgstr "404 檢測"
+
+#: inc/admin/content.php:1949
+msgid "Enable 404 Detection"
+msgstr "啟用 404 檢測"
+
+#: inc/admin/content.php:1953
+msgid "Check this box to enable 404 intrusion detection."
+msgstr "選中此項啟用 404 入侵檢測"
+
+#: inc/admin/content.php:1958
+msgid "Email 404 Notifications"
+msgstr "通過電子郵件發送404通知"
+
+#: inc/admin/content.php:1962
+msgid ""
+"Enabling this feature will trigger an email to be sent to the specified "
+"email address whenever a host is locked out of the system."
+msgstr "啟用此項後，如有主機被系統鎖定，將發送郵件到指定郵箱"
+
+#: inc/admin/content.php:1971 inc/admin/content.php:2210
+msgid "The email address lockout notifications will be sent to."
+msgstr "接收鎖定通知的電郵地址"
+
+#: inc/admin/content.php:1976
+msgid "Check Period"
+msgstr "檢查週期"
+
+#: inc/admin/content.php:1980
+msgid ""
+"The number of minutes in which 404 errors should be remembered. Setting this "
+"too long can cause legitimate users to be banned."
+msgstr "記錄錯誤的分鐘數。設置得太長會導致正常用戶被封禁"
+
+#: inc/admin/content.php:1985
+msgid "Error Threshold"
+msgstr "錯誤閾值"
+
+#: inc/admin/content.php:1989
+msgid ""
+"The numbers of errors (within the check period timeframe) that will trigger "
+"a lockout."
+msgstr "觸發鎖定的錯誤數（在檢測週期內）"
+
+#: inc/admin/content.php:1994
+msgid "Lockout Period"
+msgstr "鎖定週期"
+
+#: inc/admin/content.php:1998
+msgid ""
+"The number of minutes a host will be banned from the site after triggering a "
+"lockout."
+msgstr "主機被封禁的分鐘數"
+
+#: inc/admin/content.php:2004 inc/admin/content.php:2178
+msgid "Blacklist Repeat Offender"
+msgstr "黑名單觸發"
+
+#: inc/admin/content.php:2008 inc/admin/content.php:2182
+msgid ""
+"If this box is checked the IP address of the offending computer will be "
+"added to the \"Ban Users\" blacklist after reaching the number of lockouts "
+"listed below."
+msgstr "選中此項後當IP違規達到以下次數後將其加入“封禁用戶”黑名單"
+
+#: inc/admin/content.php:2009
+msgid ""
+"Warning! If your site has a lot of missing files causing 404 errors using "
+"this feature can ban your own computer from your site. I would highly advice "
+"whitelisting your IP address below if this is the case."
+msgstr ""
+"警告！如果你的站點有大量文件丟失造成404錯誤，使用此功能也會封禁你的電腦。此情"
+"況下我強烈建議將你的IP加入白名單"
+
+#: inc/admin/content.php:2014 inc/admin/content.php:2187
+msgid "Blacklist Threshold"
+msgstr "黑名單閾值"
+
+#: inc/admin/content.php:2018 inc/admin/content.php:2191
+msgid ""
+"The number of lockouts per IP before the user is banned permanently from "
+"this site"
+msgstr "IP被鎖定幾次後將其永久封禁"
+
+#: inc/admin/content.php:2024
+msgid "404 White List"
+msgstr "404 白名單"
+
+#: inc/admin/content.php:2028
+msgid ""
+"Use the guidelines below to enter hosts that will never be locked out due to "
+"too many 404 errors. This could be useful for Google, etc."
+msgstr "參考以下指南輸入不因大量404錯誤而被鎖定的主機。非常適用於Google等等"
+
+#: inc/admin/content.php:2030
+msgid "You may whitelist users by individual IP address or IP address range."
+msgstr "你可以設置單個IP或一個IP段為白名單用戶"
+
+#: inc/admin/content.php:2035
+msgid ""
+"404 errors will still be logged for users on the whitelist. Only the lockout "
+"will be prevented"
+msgstr "白名單用戶的404錯誤仍會記錄，離開模式除外"
+
+#: inc/admin/content.php:2041
+msgid "File Change Detection"
+msgstr "文件修改檢測"
+
+#: inc/admin/content.php:2046
+msgid "Enable File Change Detection"
+msgstr "啟用文件修改檢測"
+
+#: inc/admin/content.php:2050
+msgid "Check this box to enable file change detection."
+msgstr "選中此項啟用文件修改檢測"
+
+#: inc/admin/content.php:2055
+msgid "Display file change admin warning"
+msgstr "管理員警告"
+
+#: inc/admin/content.php:2059
+msgid ""
+"Disabling this feature will prevent the file change warning from displaying "
+"to the site administrator in the WordPress Dashboard. Not that disabling "
+"both the error message and the email address will result in no notifications "
+"of file changes. The only way you will be able to tell is by manually "
+"checking the log files."
+msgstr ""
+"禁用此功能則不在 WordPress 儀錶盤向管理員用戶顯示文件修改警告。如電郵通知也禁"
+"用了，則不顯示任何消息，只能手動檢查日誌"
+
+#: inc/admin/content.php:2064
+msgid "Email File Change Notifications"
+msgstr "文件變更時以電郵通知"
+
+#: inc/admin/content.php:2068
+msgid ""
+"Enabling this feature will trigger an email to be sent to the specified "
+"email address whenever a file change is detected."
+msgstr "啟用此項後，如有文件被修改，將發送郵件到指定郵箱"
+
+#: inc/admin/content.php:2077
+msgid "The email address filechange notifications will be sent to."
+msgstr "接收文件修改通知的電郵地址"
+
+#: inc/admin/content.php:2082
+msgid "Include/Exclude List"
+msgstr "包括／排除列表"
+
+#: inc/admin/content.php:2086
+msgid "Include"
+msgstr "包含"
+
+#: inc/admin/content.php:2087
+msgid "Exclude"
+msgstr "排除"
+
+#: inc/admin/content.php:2089
+msgid ""
+"If \"Include\" is selected only the contents of the list below will be "
+"checked. If exclude is selected all files and folders except those listed "
+"below will be checked."
+msgstr ""
+"選擇“包含”則只檢測以下內容清單，選擇“排除”則檢測除了以下內容清單外的所有文件"
+"及文件夾"
+
+#: inc/admin/content.php:2094
+msgid "File/Directory Check List"
+msgstr "文件／目錄檢查清單"
+
+#: inc/admin/content.php:2098
+msgid ""
+"Enter directories or files you do not want to include in the check (i.e. "
+"cache folders, etc). Only 1 file or directory per line. You can specify all "
+"files of a given type by just entering the extension preceeded by a dot (.) "
+"for exampe, .jpg"
+msgstr ""
+"輸入不檢測的目錄或文件（如：緩存文件夾，等等）。每行1個文件或目錄。可以指定同"
+"一擴展名的全部文件，如 .jpg"
+
+#: inc/admin/content.php:2099
+msgid ""
+"Directories should be entered in the from the root of the WordPress folder. "
+"For example, if you wish to enter the uploads directory you would enter it "
+"as \"wp-content/uploads\" (assuming you have not renamed wp-content). For "
+"files just enter the filename without directory information."
+msgstr ""
+"對於目錄，請輸入WordPress根文件夾。例如，要指定上傳目錄，則需輸入“wp-content/"
+"uploads”（假設你沒有重命名wp-content）。對於文件，直接輸入文件名稱即可，無需"
+"目錄信息"
+
+#: inc/admin/content.php:2103
+msgid "Save Options"
+msgstr "保存選項"
+
+#: inc/admin/content.php:2115
+msgid ""
+"If one had unlimited time and wanted to try an unlimited number of password "
+"combimations to get into your site they eventually would, right? This method "
+"of attach, known as a brute force attack, is something that WordPress is "
+"acutely susceptible by default as the system doesn\\t care how many attempts "
+"a user makes to login. It will always let you try agin. Enabling login "
+"limits will ban the host user from attempting to login again after the "
+"specified bad login threshhold has been reached."
+msgstr ""
+"假如一個人有足夠的時間來嘗試無數密碼，最終他會成功進入你的網站，是吧？這種攻"
+"擊方式叫做“窮舉法”，WordPress默認不對用戶的嘗試登錄次數作限制，極易受到它的影"
+"響。啟用登錄限制後，當主機用戶達到登錄失敗的閾值，則將其加入黑名單"
+
+#: inc/admin/content.php:2132
+msgid "Enable Login Limits"
+msgstr "啟用登錄限制"
+
+#: inc/admin/content.php:2136
+msgid "Check this box to enable login limits on this site."
+msgstr "選中此項啟用站點的登錄限制"
+
+#: inc/admin/content.php:2141
+msgid "Max Login Attempts Per Host"
+msgstr "每個主機的登錄嘗試上限"
+
+#: inc/admin/content.php:2145
+msgid ""
+"The number of login attempts a user has before their host or computer is "
+"locked out of the system."
+msgstr "按主機或電腦的嘗試登錄次數來限制"
+
+#: inc/admin/content.php:2150
+msgid "Max Login Attempts Per User"
+msgstr "每個用戶的登錄嘗試上限"
+
+#: inc/admin/content.php:2154
+msgid ""
+"The number of login attempts a user has before their username is locked out "
+"of the system. Note that this is different from hosts in case an attacker is "
+"using multiple computers. In addition, if they are using your login name you "
+"could be locked out yourself."
+msgstr ""
+"按用戶名的嘗試登錄次數來限制。請注意，不同於主機限制，這適用於攻擊者使用多台"
+"電腦。另外，如果攻擊者使用你的用戶名，則你也會被鎖定"
+
+#: inc/admin/content.php:2159
+msgid "Login Time Period (minutes)"
+msgstr "登錄時間週期（分鐘）"
+
+#: inc/admin/content.php:2163
+msgid "The number of minutes in which bad logins should be remembered."
+msgstr "在幾分鐘內的登錄失敗會被記錄"
+
+#: inc/admin/content.php:2168
+msgid "Lockout Time Period (minutes)"
+msgstr "鎖定週期（分鐘）"
+
+#: inc/admin/content.php:2172
+msgid ""
+"The length of time a host or computer will be banned from this site after "
+"hitting the limit of bad logins."
+msgstr "主機或電腦達到限制的登錄失敗次數後，被封禁的一段時間"
+
+#: inc/admin/content.php:2197
+msgid "Email Notifications"
+msgstr "電郵通知"
+
+#: inc/admin/content.php:2201
+msgid ""
+"Enabling this feature will trigger an email to be sent to the specified "
+"email address whenever a host or user is locked out of the system."
+msgstr "啟用此項後，如有主機或用戶被系統鎖定，將發送郵件到指定郵箱"
+
+#: inc/admin/content.php:2225
+msgid ""
+"This page contains the logs generated by Better WP Security, current "
+"lockouts (which can be cleared here) and a way to cleanup the logs to save "
+"space on the server and reduce CPU load. Please note, you must manually "
+"clear these logs, they will not do so automatically. I highly recommend you "
+"do so regularly to improve performance which can otherwise be slowed if the "
+"system has to search through large log-files on a regular basis."
+msgstr ""
+"此頁包含了Better WP Security生成的日誌，當前鎖定（可以在此清除）。清理日誌可"
+"節省服務器空間和減少CPU負載。請注意，它們不會自動清除，你必須手動完成。如果系"
+"統在常規基礎上搜索大的日誌文件會減慢，所以我強烈建議你定期清除以提高性能"
+
+#: inc/admin/content.php:2248
+msgid "Old Data"
+msgstr "舊數據"
+
+#: inc/admin/content.php:2251
+msgid ""
+"Below is old security data still in your WordPress database. Data is "
+"considered old when the lockout has expired, or been manually cancelled, or "
+"when the log entry will no longer be used to generate a lockout."
+msgstr ""
+"以下是在 WordPress 數據庫中舊的安全數據（鎖定狀態過期、手動取消，或日誌條目不"
+"再使用）"
+
+#: inc/admin/content.php:2252
+msgid ""
+"This data is not automatically deleted so that it may be used for analysis. "
+"You may delete this data with the form below. To see the actual data you "
+"will need to access your database directly."
+msgstr ""
+"數據不會自動刪除，它們可用於分析。你或許想通過以下表格刪除這些數據。要查看實"
+"際數據，請直接訪問數據庫"
+
+#: inc/admin/content.php:2253
+msgid ""
+"Check the box next to the data you would like to clear and then press the "
+"\"Remove Old Data\" button. (note this will not erase entries that may still "
+"be used for lockouts)."
+msgstr ""
+"勾選要清理的數據，然後點擊“移除舊數據”（請注意，這不會刪除鎖定中的條目）"
+
+#: inc/admin/content.php:2255 inc/admin/content.php:2256
+#: inc/admin/content.php:2258 inc/admin/content.php:2259
+msgid "Your database contains"
+msgstr "當前數據庫中包含"
+
+#: inc/admin/content.php:2255
+msgid "bad login entries."
+msgstr "條錯誤登錄條目"
+
+#: inc/admin/content.php:2256
+msgid "404 errors."
+msgstr "條 404 錯誤"
+
+#: inc/admin/content.php:2257
+msgid "This will clear the 404 log below."
+msgstr "將清除404錯誤日誌"
+
+#: inc/admin/content.php:2258
+msgid "old lockouts."
+msgstr "條舊的鎖定條目"
+
+#: inc/admin/content.php:2259
+msgid "changed file records."
+msgstr "條修改文件記錄"
+
+#: inc/admin/content.php:2264
+msgid "Remove Data"
+msgstr "移除數據"
+
+#: inc/admin/content.php:2286
+msgid "Locked out hosts"
+msgstr "鎖定主機"
+
+#: inc/admin/content.php:2296
+msgid "Currently no hosts are locked out of this website."
+msgstr "當前無主機被鎖定"
+
+#: inc/admin/content.php:2302
+msgid "Locked out users"
+msgstr "鎖定用戶"
+
+#: inc/admin/content.php:2313
+msgid "Currently no users are locked out of this website."
+msgstr "當前無用戶被鎖定"
+
+#: inc/admin/content.php:2318
+msgid "Release Lockout"
+msgstr "釋放鎖定"
+
+#: inc/admin/content.php:2382
+msgid "Return to Log"
+msgstr "返回日誌"
+
+#: inc/admin/content.php:2400
+msgid ""
+"Secure Socket Layers (aka SSL) is a technology that is used to encrypt the "
+"data sent between your server or host and the visitor to your web page. When "
+"activated it makes it almost impossible for an attacker to intercept data in "
+"transit therefore making the transmission of form, password, or other "
+"encrypted data much safer."
+msgstr ""
+"安全套接層（又名SSL）是一種技術，用來加密服務器或主機與網站用戶之間發送的數"
+"據。激活後幾乎不可能被攻擊者竊聽，因此表單、密碼，或其它加密的數據更安全"
+
+#: inc/admin/content.php:2401
+msgid ""
+"Better WP Security gives you the option of turning on SSL (if your server or "
+"host support it) for all or part of your site. The options below allow you "
+"to automatically use SSL for major parts of your site, the login page, the "
+"admin dashboard, or the site as a whole. You can also turn on SSL for any "
+"post or page by editing the content you want to use SSL in and selecting "
+"\"Enable SSL\" in the publishing options of the content in question."
+msgstr ""
+"如你的服務器或主機支持SSL，Better WP Security提供整站或部分開啟的選項。下面的"
+"選項為網站的重要部分自動使用SSL，如登錄頁、儀錶盤、或整個網站。你也可以在編輯"
+"任何文章、頁面時，在發布選項選擇“啟用SSL”"
+
+#: inc/admin/content.php:2402
+msgid ""
+"While this plugin does give you the option of encrypting everything please "
+"note this might not be for you. SSL does add overhead to your site which "
+"will increase download times slightly. Therefore we recommend you enable SSL "
+"at a minimum on the login page, then on the whole admin section, finally on "
+"individual pages or posts with forms that require sensitive information."
+msgstr ""
+"雖然本插件提供了全部加密的選項，但請注意，這可能並不適合你。 SSL會略微增加網"
+"站的載入時間。因此推薦你至少在登錄頁面啟用SSL，然後在整個管理部分，最後是個別"
+"要求敏感信息的頁面、文章"
+
+#: inc/admin/content.php:2403
+msgid ""
+"WARNING: Your server MUST support SSL to use these features. Using these "
+"features without SSL support on your server or host will cause some or all "
+"of your site to become unavailable."
+msgstr "警告：服務器必須支持 SSL 方可使用此功能，否則將可能導致網站不可用"
+
+#: inc/admin/content.php:2422
+msgid ""
+"Are you sure you want to enable SSL? If your server does not support SSL you "
+"will be locked out of your WordPress admin backend."
+msgstr ""
+"確定開啟 SSL 嗎？如果服務器不支持 SSL，則你將無法進入 WordPress 管理後台"
+
+#: inc/admin/content.php:2428
+msgid "Enforce Front end SSL"
+msgstr "執行前端 SSL"
+
+#: inc/admin/content.php:2433
+msgid "Per Content"
+msgstr "按內容"
+
+#: inc/admin/content.php:2434
+msgid "Whole Site"
+msgstr "整站"
+
+#: inc/admin/content.php:2436
+msgid ""
+"Enables secure SSL connection for the front-end (public parts of your site). "
+"Turning this off will disable front-end SSL control, turning this on \"Per "
+"Content\" will place a checkbox on the edit page for all posts and pages "
+"(near the publish settings) allowing you turn to on SSL for selected pages "
+"or posts, and selecting \"Whole Site\" will force the whole site to use SSL "
+"(not recommended unless you have a really good reason to use it)."
+msgstr ""
+"在前端（網站的公共部分）啟用安全的SSL連接。關閉將禁用前端SSL，選擇“按內容”將"
+"在所有文章和頁面的編輯頁（發佈設置附近）放置一個複選框以單獨啟用SSL，選擇“整"
+"站”將強制整個網站使用SSL（不推薦，除非你有很好的理由）"
+
+#: inc/admin/content.php:2441
+msgid "Enforce Login SSL"
+msgstr "強制登錄SSL"
+
+#: inc/admin/content.php:2445
+msgid "Forces all logins to be served only over a secure SSL connection."
+msgstr "所有登錄執行安全SSL連接"
+
+#: inc/admin/content.php:2450
+msgid "Enforce Admin SSL"
+msgstr "強制管理SSL"
+
+#: inc/admin/content.php:2454
+msgid ""
+"Forces all of the WordPress backend to be served only over a secure SSL "
+"connection."
+msgstr "強制所有WordPress後台執行安全SSL連接"
+
+#: inc/admin/content.php:2469
+msgid ""
+"This page contains a number of tweaks that can significantly improve the "
+"security of your system."
+msgstr "本頁包含許多調整功能，可大大提高系統安全性"
+
+#: inc/admin/content.php:2470
+msgid ""
+"Server tweaks make use of rewrite rules and, in the case of Apache or "
+"LiteSpeed, will write them to your .htaccess file. If you are however using "
+"NGINX you will need to manually copy the rules on the Better WP Security "
+"Dashboard and put them in your server configuration."
+msgstr ""
+"服務器調整利用重定向規則，在Apache或LiteSpeed​​下寫入.htaccess文件。但在NGINX"
+"下，你需要手動從Better WP Security控制面板複製規則，放置到服務器配置上"
+
+#: inc/admin/content.php:2471
+msgid ""
+"The other tweaks, in some cases, make use of editing your wp-config.php "
+"file. Those that do can be manually turned off by reverting the changes that "
+"file."
+msgstr ""
+"在某些情況下，其它調整會編輯wp-config.php文件，這些修改可通過還原文件變化手動"
+"關閉"
+
+#: inc/admin/content.php:2472
+msgid ""
+"Be advsied, some of these tweaks may in fact break other plugins and themes "
+"that make use of techniques that are often seen in practice as suspicious. "
+"That said, I highly recommend turning these on one-by-one and don't worry if "
+"you cannot use them all."
+msgstr ""
+"請注意，事實上一些調整可能會利用技術停用其它插件或主題，實踐中常被認為是可疑"
+"的。儘管如此，我強烈建議將它們一個一個重新啟用，不必擔心它們會失效"
+
+#: inc/admin/content.php:2484
+msgid ""
+"Your webserver is unsupported. You must use Apache, LiteSpeed or NGINX to "
+"make use of these rules."
+msgstr "你的網絡服務器不支持。必須是Apache、LiteSpeed 或 NGINX才可使用這些規則"
+
+#: inc/admin/content.php:2492
+msgid "Server Tweaks"
+msgstr "服務器微調"
+
+#: inc/admin/content.php:2497
+msgid "Protect Files"
+msgstr "保護文件"
+
+#: inc/admin/content.php:2501
+msgid ""
+"Prevent public access to readme.html, readme.txt, wp-config.php, install."
+"php, wp-includes, and .htaccess. These files can give away important "
+"information on your site and serve no purpose to the public once WordPress "
+"has been successfully installed."
+msgstr ""
+"防止公眾訪問 readme.html, readme.txt, wp-config.php, install.php, wp-"
+"includes, 和.htaccess。當 WordPress 成功安裝後，這些文件對公眾毫無用處，但會"
+"透露站點的重要信息"
+
+#: inc/admin/content.php:2502 inc/admin/content.php:2524
+#: inc/admin/content.php:2534 inc/admin/content.php:2685
+#: inc/admin/content.php:2696 inc/admin/content.php:2706
+#: inc/admin/content.php:2716 inc/admin/content.php:2726
+msgid ""
+"Warning: This feature is known to cause conflicts with some plugins and "
+"themes."
+msgstr "警告：已知此功能和某些插件及主題有衝突"
+
+#: inc/admin/content.php:2508
+msgid "Disable Directory Browsing"
+msgstr "禁用目錄瀏覽"
+
+#: inc/admin/content.php:2512
+msgid ""
+"Prevents users from seeing a list of files in a directory when no index file "
+"is present."
+msgstr "防止沒有呈現文件時用戶看到一個目錄中的文件列表"
+
+#: inc/admin/content.php:2513
+msgid ""
+"Warning: This feature is known to cause conflicts with some server "
+"configurations in which this feature has already been enabled in Apache."
+msgstr "警告：已知此功能在Apache啟用會與某些服務器配置起衝突"
+
+#: inc/admin/content.php:2519
+msgid "Filter Request Methods"
+msgstr "過濾請求方法"
+
+#: inc/admin/content.php:2523
+msgid "Filter out hits with the trace, delete, or track request methods."
+msgstr "過濾掉 trace, delete 和 track 請求方法"
+
+#: inc/admin/content.php:2529
+msgid "Filter Suspicious Query Strings"
+msgstr "過濾可疑的查詢字符串"
+
+#: inc/admin/content.php:2533
+msgid ""
+"Filter out suspicious query strings in the URL. These are very often signs "
+"of someone trying to gain access to your site but some plugins and themes "
+"can also be blocked."
+msgstr ""
+"過濾掉URL中可疑的查詢字符串。這往往是有人試圖侵入網站的跡象，但也可能阻止一些"
+"插件和主題"
+
+#: inc/admin/content.php:2544
+msgid "Header Tweaks"
+msgstr "Header 調整"
+
+#: inc/admin/content.php:2549
+msgid "Remove WordPress Generator Meta Tag"
+msgstr "移除 WordPress Generator 元標記"
+
+#: inc/admin/content.php:2553
+msgid ""
+"Removes the <meta name=\"generator\" content=\"WordPress [version]\" /> meta "
+"tag from your sites header. This process hides version information from a "
+"potential attacker making it more difficult to determine vulnerabilities."
+msgstr ""
+"從站點header中移除<meta name=\"generator\" content=\"WordPress [version]\" />"
+"元標記。此處理對潛在攻擊者隱藏版本信息使之更難確定安全漏洞"
+
+#: inc/admin/content.php:2558
+msgid "Remove wlwmanifest header"
+msgstr "移除 WLW Manifest 元標記"
+
+#: inc/admin/content.php:2562
+msgid ""
+"Removes the Windows Live Writer header. This is not needed if you do not use "
+"Windows Live Writer or other blogging clients that rely on this file."
+msgstr ""
+"移除Windows Live Writer標記。如不使用Windows Live Writer或其它依賴此文件的博"
+"客客戶端，則不需要它"
+
+#: inc/admin/content.php:2567
+msgid "Remove EditURI header"
+msgstr "移除EditURI元標記"
+
+#: inc/admin/content.php:2571
+msgid ""
+"Removes the RSD (Really Simple Discovery) header. If you don't integrate "
+"your blog with external XML-RPC services such as Flickr then the \"RSD\" "
+"function is pretty much useless to you."
+msgstr ""
+"移除RSD元標記。如果網站不和外部XML-RPC服務（如Flickr）整合，則“RSD”功能對你幾"
+"乎無用"
+
+#: inc/admin/content.php:2572
+msgid ""
+"Warning: This feature is known to cause conflicts with some 3rd party "
+"application and services that may want to interact with WordPress."
+msgstr "警告：已知此功能和某些試圖與WordPress交互的插件及主題有衝突"
+
+#: inc/admin/content.php:2582
+msgid "Dashboard Tweaks"
+msgstr "控制面板微調"
+
+#: inc/admin/content.php:2587
+msgid "Hide Theme Update Notifications"
+msgstr "隱藏主題升級通知"
+
+#: inc/admin/content.php:2591
+msgid ""
+"Hides theme update notifications from users who cannot update themes. Please "
+"note that this only makes a difference in multi-site installations."
+msgstr "對無法更新主題的用戶隱藏主題升級通知。請注意這只在多站點安裝中起作用"
+
+#: inc/admin/content.php:2596
+msgid "Hide Plugin Update Notifications"
+msgstr "隱藏插件升級通知"
+
+#: inc/admin/content.php:2600
+msgid ""
+"Hides plugin update notifications from users who cannot update themes. "
+"Please note that this only makes a difference in multi-site installations."
+msgstr "對無法更新插件的用戶隱藏插件升級通知。請注意這只在多站點安裝中起作用"
+
+#: inc/admin/content.php:2605
+msgid "Hide Core Update Notifications"
+msgstr "隱藏程序升級通知"
+
+#: inc/admin/content.php:2609
+msgid ""
+"Hides core update notifications from users who cannot update themes. Please "
+"note that this only makes a difference in multi-site installations."
+msgstr "對無法更新程序的用戶隱藏程序升級通知。請注意這只在多站點安裝中起作用"
+
+#: inc/admin/content.php:2619
+msgid "Strong Password Tweaks"
+msgstr "強密碼調整"
+
+#: inc/admin/content.php:2624
+msgid "Enable strong password enforcement"
+msgstr "啟用強制使用強密碼"
+
+#: inc/admin/content.php:2628
+msgid ""
+"Enforce strong passwords for all users with at least the role specified "
+"below."
+msgstr "強制以下角色的所有用戶使用強密碼"
+
+#: inc/admin/content.php:2633
+msgid "Strong Password Role"
+msgstr "強密碼角色"
+
+#: inc/admin/content.php:2643
+msgid ""
+"Minimum role at which a user must choose a strong password. For more "
+"information on WordPress roles and capabilities please see"
+msgstr "必須選擇強密碼的最低角色。關於 WordPress 角色和權限的信息，請查看"
+
+#: inc/admin/content.php:2644
+msgid ""
+"Warning: If your site invites public registrations setting the role too low "
+"may annoy your members."
+msgstr "警告：如果網站邀請公眾註冊，把角色設置過低可能煩擾你的成員"
+
+#: inc/admin/content.php:2654
+msgid "Other Tweaks"
+msgstr "其它調整"
+
+#: inc/admin/content.php:2659
+msgid "Remove WordPress Login Error Messages"
+msgstr "移除WordPress登錄錯誤信息"
+
+#: inc/admin/content.php:2663
+msgid ""
+"Prevents error messages from being displayed to a user upon a failed login "
+"attempt."
+msgstr "防止嘗試登錄失敗後顯示錯誤信息"
+
+#: inc/admin/content.php:2668
+msgid "Write to WordPress core files"
+msgstr "寫入WordPress核心文件"
+
+#: inc/admin/content.php:2672
+msgid ""
+"Allow Better WP Security to write to .htaccess and wp-config.php. With this "
+"turned on this plugin will automatically write to your .htaccess and wp-"
+"config.php files. With it turned off you will need to manually make changes "
+"to these files and both the renaming of wp-content and the changing of the "
+"database table prefix will not be available."
+msgstr ""
+"允許Better WP Security寫入.htaccess和wp-config.php文件。啟用後插件可自動寫入"
+"這兩個文件。禁用後則需你手動修改它們，並且無法重命名wp-content和改變數據庫表"
+"前綴"
+
+#: inc/admin/content.php:2673
+msgid ""
+"This option is safe in nearly all instances however, if you know you have a "
+"server configuration that may conflict or simply want to make the changes "
+"yourself then uncheck this feature."
+msgstr ""
+"幾乎在所有實例中此選項都是安全的，然而如你知道你有一個服務器配置可能會衝突，"
+"或者只是想要自己進行更改，請取消選中此功能"
+
+#: inc/admin/content.php:2674
+msgid ""
+"Warning: This feature is known to cause conflicts with some server "
+"configurations."
+msgstr "警告：已知此功能會與某些服務器配置起衝突"
+
+#: inc/admin/content.php:2679
+msgid "Reduce comment spam"
+msgstr "減少垃圾評論"
+
+#: inc/admin/content.php:2683
+msgid ""
+"This option will cut down on comment spam by denying comments from bots with "
+"no referrer or without a user-agent identified."
+msgstr "通過拒絕無來路或已確認代理的機器人回复，來減少垃圾評論"
+
+#: inc/admin/content.php:2684 inc/admin/content.php:2695
+msgid ""
+"Note this feature only applies if \"Write to WordPress core files\" is "
+"enabled."
+msgstr "請注意，此功能需啟用“寫入WordPress核心文件”"
+
+#: inc/admin/content.php:2690
+msgid "Remove write permissions from .htaccess and wp-config.php"
+msgstr "移除.htaccess和wp-config.php的寫入權限"
+
+#: inc/admin/content.php:2694
+msgid ""
+"Prevents scripts and users from being able to write to the wp-config.php "
+"file and .htaccess file. Note that in the case of this and many plugins this "
+"can be overcome however it still does make the files more secure. Turning "
+"this on will set the unix file permissions to 0444 on these files and "
+"turning it off will set the permissions to 0644."
+msgstr ""
+"防止腳本和用戶可寫入wp-config.php和.htaccess文件。這種情況下許多插件會被限"
+"制，然而它令文件更加安全。開啟後將設置這些系統文件權限為0444，關閉則是0644"
+
+#: inc/admin/content.php:2701
+msgid "Display random version number to all non-administrative users"
+msgstr "對非管理員用戶顯示隨機版本號"
+
+#: inc/admin/content.php:2705
+msgid ""
+"Displays a random version number to visitors who are not logged in at all "
+"points where version number must be used and removes the version completely "
+"from where it can."
+msgstr "在必須使用版本號的地方完全移除它，並對未登錄用戶顯示隨機版本號"
+
+#: inc/admin/content.php:2711
+msgid "Prevent long URL strings"
+msgstr "防止長URL字符串"
+
+#: inc/admin/content.php:2715
+msgid ""
+"Limits the number of characters that can be sent in the URL. Hackers often "
+"take advantage of long URLs to try to inject information into your database."
+msgstr "限制URL可發送的最長字符數。黑客經常利用長URL來嘗試對數據庫進行注入信息"
+
+#: inc/admin/content.php:2721
+msgid "Turn off file editor in WordPress Back-end"
+msgstr "在Wordpress後台關閉文件編輯器"
+
+#: inc/admin/content.php:2725
+msgid ""
+"Disables the file editor for plugins and themes requiring users to have "
+"access to the file system to modify files. Once activated you will need to "
+"manually edit theme and other files using a tool other than WordPress."
+msgstr ""
+"禁用插件和主題編輯器，要求用戶訪問文件系統來修改文​​件。一旦被激活，您將需要使"
+"用WordPress的以外的工具手動編輯主題和其他文件"
+
+#: inc/admin/process.php:105 inc/admin/process.php:709
+msgid "Database Backup Completed."
+msgstr "數據庫備份已完成"
+
+#: inc/admin/process.php:128
+msgid "Database Backup Ignored."
+msgstr "已忽略數據庫備份"
+
+#: inc/admin/process.php:147
+msgid "WordPress Core File Writing confirmed."
+msgstr "確認寫入WordPress核心文件"
+
+#: inc/admin/process.php:170
+msgid "WordPress Core File Writing ignored."
+msgstr "忽略寫入WordPress核心文件"
+
+#: inc/admin/process.php:193
+msgid "Site Secured."
+msgstr "網站安全"
+
+#: inc/admin/process.php:211
+msgid "Settings Saved. Your website is now protected from most attacks."
+msgstr "設置已保存。你的網站已可免除大部分攻擊"
+
+#: inc/admin/process.php:220
+msgid ""
+"Initial configuration complete. Use the checklist below to enable additional "
+"features."
+msgstr "初始配置完成。使用下面的清單啟用額外功能"
+
+#: inc/admin/process.php:235
+msgid ""
+"Successfully Changed admin Username. If you are logged in as admin you will "
+"have to log in again before continuing."
+msgstr "管理員用戶名已修改。如果你正以admin登錄，則必須再次登錄"
+
+#: inc/admin/process.php:243
+msgid "You must enter a valid username. Please try again"
+msgstr "必須輸入有效的用戶名。請重試"
+
+#: inc/admin/process.php:255
+msgid " already exists. Please try again"
+msgstr "已存在。請重試"
+
+#: inc/admin/process.php:278
+msgid " is not a valid username. Please try again"
+msgstr "不是有效的用戶名。請重試"
+
+#: inc/admin/process.php:297
+msgid "Successfully Changed user 1 ID."
+msgstr "成功修改 ID 1 用戶"
+
+#: inc/admin/process.php:305
+msgid "User 1's ID was not changed. Please try again"
+msgstr "用戶ID 1未改變。請重試"
+
+#: inc/admin/process.php:322 inc/admin/process.php:394
+#: inc/admin/process.php:581 inc/admin/process.php:620
+#: inc/admin/process.php:729 inc/admin/process.php:986
+#: inc/admin/process.php:1067 inc/admin/process.php:1295
+#: inc/admin/process.php:1447 inc/admin/process.php:1515
+msgid "Settings Saved"
+msgstr "設置已保存"
+
+#: inc/admin/process.php:339
+msgid "The ending date must be after the current date."
+msgstr "結束日期必須在當前日期之後"
+
+#: inc/admin/process.php:351
+msgid ""
+"Your current settings would lock you out 24 hours a day. Please make sure "
+"start and end times differ."
+msgstr "當前的設置將一天24小時鎖定。請確保開始和結束的時間不同"
+
+#: inc/admin/process.php:373 inc/admin/process.php:1276
+#: inc/admin/process.php:1469 inc/admin/process.php:1561
+msgid ""
+"Settings Saved. You will have to manually add code to your wp-config.php "
+"file See the Better WP Security Dashboard for the code you will need."
+msgstr ""
+"設置已保存。你必須手動添加代碼到wp-config.php文件，到Better WP Security控制面"
+"板查看所需代碼"
+
+#: inc/admin/process.php:512
+msgid "You cannot ban yourself. Please try again."
+msgstr "不可封禁自己。請重試"
+
+#: inc/admin/process.php:537
+msgid " is not a valid user agent. Please try again."
+msgstr "不是一個有效的用戶代理。請重試"
+
+#: inc/admin/process.php:555 inc/admin/process.php:594
+#: inc/admin/process.php:1018 inc/admin/process.php:1496
+#: inc/admin/process.php:1588
+msgid "Settings Saved."
+msgstr "設置已保存"
+
+#: inc/admin/process.php:561 inc/admin/process.php:600
+#: inc/admin/process.php:1024 inc/admin/process.php:1489
+#: inc/admin/process.php:1581
+msgid ""
+"Settings Saved. You will have to manually add rewrite rules to your "
+"configuration. See the Better WP Security Dashboard for a list of the "
+"rewrite rules you will need."
+msgstr ""
+"設置已保存。你必須手動添加重寫規則到配置中。請在Better WP Security控制面板查"
+"看所需規則及代碼"
+
+#: inc/admin/process.php:633
+msgid "Unable to rename the wp-content folder. Operation cancelled."
+msgstr "無法重新命名wp-content文件夾。操作已取消"
+
+#: inc/admin/process.php:748
+msgid ""
+"The email address you entered is not a valid email address. You must enter a "
+"valid email address."
+msgstr "輸入的Email無效，請重新輸入"
+
+#: inc/admin/process.php:810
+msgid "Database Prefix Changed"
+msgstr "數據庫前綴已修改"
+
+#: inc/admin/process.php:853
+msgid "Error: Could not rename table "
+msgstr "錯誤：無法重命名表"
+
+#: inc/admin/process.php:853
+msgid ". You may have to rename the table manually."
+msgstr "。必須手動重命名"
+
+#: inc/admin/process.php:890
+msgid "Could not update prefix refences in options tables."
+msgstr "無法更新 options 表前綴"
+
+#: inc/admin/process.php:911
+msgid "Could not update prefix refences in usermeta table."
+msgstr "無法更新 usermeta 表前綴"
+
+#: inc/admin/process.php:995
+msgid ""
+"You must enable permalinks in your WordPress settings for this feature to "
+"work."
+msgstr "必須在 WordPress 設置裡啟用固定鏈接後才能使用此功能"
+
+#: inc/admin/process.php:1045
+msgid "File Check Complete."
+msgstr "文件檢查已完成"
+
+#: inc/admin/process.php:1093
+msgid ""
+"The email address you entered for the file check email is not a valid email "
+"address. You must enter a valid email address."
+msgstr "為文件檢測輸入的電郵無效，請重新輸入"
+
+#: inc/admin/process.php:1107
+msgid ""
+"The email address you entered for the detect 404 email is not a valid email "
+"address. You must enter a valid email address."
+msgstr "為404檢測輸入的電郵無效，請重新輸入"
+
+#: inc/admin/process.php:1129 inc/admin/process.php:1328
+msgid "Lockout time period needs to be aan integer greater than 0."
+msgstr "鎖定週期必須是大於 0 的整數"
+
+#: inc/admin/process.php:1140 inc/admin/process.php:1339
+msgid "Login time period needs to be aan integer greater than 0."
+msgstr "登錄時間必須是大於 0 的整數"
+
+#: inc/admin/process.php:1151
+msgid "The error threshold needs to be aan integer greater than 0."
+msgstr "錯誤閾值必須是大於 0 的整數"
+
+#: inc/admin/process.php:1317
+msgid ""
+"The email address you entered for lockout notifications is not a valid email "
+"address. You must enter a valid email address."
+msgstr "為鎖定通知輸入的電郵無效，請重新輸入"
+
+#: inc/admin/process.php:1350
+msgid "Max login attempts per host needs to be aan integer greater than 0."
+msgstr "每個主機的最大登錄嘗試次數必須是大於 0 的整數"
+
+#: inc/admin/process.php:1361
+msgid "Max login attempts per user needs to be aan integer greater than 0."
+msgstr "每個用戶的最大登錄嘗試次數必須是大於 0 的整數"
+
+#: inc/admin/process.php:1383
+msgid "The selected records have been cleared."
+msgstr "所選記錄已清除"
+
+#: inc/admin/process.php:1412
+msgid "The selected lockouts have been cleared."
+msgstr "所選鎖定已清除"
+
+#: inc/admin/process.php:1483 inc/admin/process.php:1575
+msgid ""
+"Settings Saved. You will have to manually add rewrite rules and wp-config."
+"php code to your configuration. See the Better WP Security Dashboard for a "
+"list of the rewrite rules  and wp-config.php code you will need."
+msgstr ""
+"設置已保存。你必須手動添加重寫規則和wp-config.php代碼到配置中。請在Better WP "
+"Security控制面板查看所需規則及代碼"
+
+#: inc/admin/tables.php:40
+msgid ""
+"The following is a list of 404 errors found on your site with the last time "
+"the error was encountered, the relative url, the referrer (if applicable), "
+"and the number of times the error was encountered given last."
+msgstr ""
+"以下是404錯誤清單，包含上次發現時間、相對地址、來路（如可用），和總計次數"
+
+#: inc/admin/tables.php:56
+msgid "Last Found"
+msgstr "上次發現"
+
+#: inc/admin/tables.php:57 inc/admin/tables.php:302
+msgid "Host"
+msgstr "主機"
+
+#: inc/admin/tables.php:58
+msgid "URI"
+msgstr "地址"
+
+#: inc/admin/tables.php:59
+msgid "Referrer"
+msgstr "來路"
+
+#: inc/admin/tables.php:60
+msgid "Count"
+msgstr "次數"
+
+#: inc/admin/tables.php:284
+msgid "The following is a log of all lockouts in the system."
+msgstr "以下是系統全部的鎖定日誌"
+
+#: inc/admin/tables.php:300 inc/admin/tables.php:470 inc/admin/tables.php:674
+msgid "Time"
+msgstr "時間"
+
+#: inc/admin/tables.php:301
+msgid "Reason"
+msgstr "原因"
+
+#: inc/admin/tables.php:303
+msgid "User"
+msgstr "用戶"
+
+#: inc/admin/tables.php:454
+msgid "The following is a log of all file changes seen by the system."
+msgstr "以下是系統全部的可見修改"
+
+#: inc/admin/tables.php:471
+msgid "Added"
+msgstr "增加"
+
+#: inc/admin/tables.php:472
+msgid "Deleted"
+msgstr "刪除"
+
+#: inc/admin/tables.php:473 inc/filecheck.php:379 inc/filecheck.php:401
+#: inc/filecheck.php:423
+msgid "Modified"
+msgstr "修改"
+
+#: inc/admin/tables.php:474
+msgid "Details"
+msgstr "詳情"
+
+#: inc/admin/tables.php:475
+msgid "Memory Used"
+msgstr "內存使用"
+
+#: inc/admin/tables.php:543
+msgid "View Details"
+msgstr "查看詳情"
+
+#: inc/admin/tables.php:658
+msgid ""
+"The following is a list of all bad logins to your site along with the "
+"username attempted."
+msgstr "以下是按用戶名列出的全部嘗試登錄失敗的清單"
+
+#: inc/admin/tables.php:675
+msgid "Username Attempted"
+msgstr "用戶名"
+
+#: inc/admin/tables.php:819 inc/filecheck.php:375
+msgid "Files Added"
+msgstr "文件增加"
+
+#: inc/admin/tables.php:835 inc/admin/tables.php:993 inc/admin/tables.php:1151
+#: inc/filecheck.php:378 inc/filecheck.php:400 inc/filecheck.php:422
+msgid "File"
+msgstr "文件"
+
+#: inc/admin/tables.php:836 inc/admin/tables.php:994 inc/admin/tables.php:1152
+msgid "modified"
+msgstr "修改"
+
+#: inc/admin/tables.php:837 inc/admin/tables.php:995 inc/admin/tables.php:1153
+msgid "hash"
+msgstr "hash 值"
+
+#: inc/admin/tables.php:977
+msgid "Files Removed"
+msgstr "文件移除"
+
+#: inc/admin/tables.php:1135 inc/filecheck.php:419
+msgid "Files Modified"
+msgstr "文件修改"
+
+#: inc/auth.php:39
+msgid ""
+"<strong>ERROR</strong>: We are sorry , your ability to login has been "
+"suspended due to too many recent failed login attempts. Please try again "
+"later."
+msgstr "<strong>錯誤</strong>：抱歉，錯誤登錄次數過多，請稍候重試"
+
+#: inc/auth.php:49
+msgid "<strong>ERROR</strong>: Invalid username or incorrect password."
+msgstr "<strong>錯誤</strong>：無效用戶名或密碼"
+
+#: inc/backup.php:155
+msgid "Site Database Backup"
+msgstr "網站數據庫備份"
+
+#: inc/backup.php:157
+msgid "Attached is the backup file for the database powering"
+msgstr "附件為數據庫備份文件"
+
+#: inc/backup.php:157
+msgid " taken"
+msgstr "於"
+
+#: inc/filecheck.php:328
+msgid "WordPress File Change Warning"
+msgstr "WordPress 文件修改警告"
+
+#: inc/filecheck.php:331
+msgid "<p>A file (or files) on your site at "
+msgstr "<p>有文件在"
+
+#: inc/filecheck.php:331
+msgid ""
+" have been changed. Please review the report below to verify changes are not "
+"the result of a compromise."
+msgstr "被修改。請查看以下報告，確認不是被破壞後的結果"
+
+#: inc/filecheck.php:367
+msgid "Scan Time:"
+msgstr "掃描時間："
+
+#: inc/filecheck.php:368
+msgid "Files Added:"
+msgstr "文件增加："
+
+#: inc/filecheck.php:369
+msgid "Files Deleted:"
+msgstr "文件刪除："
+
+#: inc/filecheck.php:370
+msgid "Files Modified:"
+msgstr "文件修改："
+
+#: inc/filecheck.php:371
+msgid "Memory Used:"
+msgstr "內存使用："
+
+#: inc/filecheck.php:380 inc/filecheck.php:402 inc/filecheck.php:424
+msgid "File Hash"
+msgstr "文件 Hash 值"
+
+#: inc/filecheck.php:392
+msgid "No files were added."
+msgstr "沒有文件被增加"
+
+#: inc/filecheck.php:397
+msgid "Files Deleted"
+msgstr "文件刪除"
+
+#: inc/filecheck.php:414
+msgid "No files were removed."
+msgstr "沒有文件被刪除"
+
+#: inc/filecheck.php:436
+msgid "No files were changed."
+msgstr "沒有文件被修改"
+
+#: inc/filecheck.php:545
+msgid ""
+"Better WP Security has noticed a change to some files in your WordPress "
+"installation. Please review the logs to make sure your system has not been "
+"compromised."
+msgstr ""
+"Better WP Security已經註意到有一些WordPress文件被修改。請查看日誌，確定係統沒"
+"有遭到破壞"
+
+#: inc/filecheck.php:545
+msgid "Dismiss Warning"
+msgstr "忽略警告"
+
+#: inc/secure.php:593
+msgid "Site Lockout Notification"
+msgstr "網站鎖定通知"
+
+#: inc/secure.php:598
+msgid "too many login attempts."
+msgstr "太多登錄嘗試"
+
+#: inc/secure.php:602
+msgid "too many attempts to open a file that does not exist."
+msgstr "太多訪問一個不存在文件的請求"
+
+#: inc/secure.php:609
+msgid "WordPress user"
+msgstr "WordPress 用戶"
+
+#: inc/secure.php:609
+msgid "at host, "
+msgstr "在主機，"
+
+#: inc/secure.php:613
+msgid "host"
+msgstr "主機"
+
+#: inc/secure.php:613
+msgid "you can check the host at "
+msgstr "你可以檢查主機，在"
+
+#: inc/secure.php:623
+msgid "parmanently"
+msgstr "永久地"
+
+#: inc/secure.php:627
+msgid "A "
+msgstr "一個"
+
+#: inc/secure.php:627
+msgid "has been locked out of the WordPress site at"
+msgstr "已被WordPress鎖定，在"
+
+#: inc/secure.php:627
+msgid "due to "
+msgstr "由於"
+
+#: inc/secure.php:627
+msgid " You may login to the site to manually release the lock if necessary."
+msgstr "如有必要，請登錄網站手動釋放鎖定"
+
+#: inc/secure.php:857
+msgid "error"
+msgstr "錯誤"
+
+#: inc/secure.php:1034
+msgid ""
+"<strong>ERROR</strong>: You MUST Choose a password that rates at least "
+"<em>Strong</em> on the meter. Your setting have NOT been saved."
+msgstr ""
+"<strong>錯誤</strong>：設置未保存。你必須選擇一個等級至少為<em>強</em>的密碼"
+
+#: inc/secure.php:1102
+msgid "Sorry, but you must enter a strong password"
+msgstr "抱歉，你必須使用強密碼"
+
+#: inc/setup.php:89
+msgid ""
+"<strong>ERROR</strong>: You must activate this plugin from the network "
+"dashboard."
+msgstr "<strong>錯誤</strong>：你必須從網絡儀錶盤激活此插件"
+
+#: lib/bit51/bit51.php:98
+msgid "Settings"
+msgstr "設置"
+
+#: lib/bit51/bit51.php:337
+msgid "Need Help?"
+msgstr "需要幫助？"
+
+#: lib/bit51/bit51.php:359
+msgid "No news items, feed might be broken..."
+msgstr "沒有新消息，可能feed出錯了‧‧‧"
+
+#: lib/bit51/bit51.php:375
+msgid "The Latest from Bit51"
+msgstr "Bit51 最新動態"
+
+#: lib/bit51/bit51.php:387
+msgid ""
+"Have you found this plugin useful? Please help support it's continued "
+"development with a donation of $20, $50, or $100!"
+msgstr "你發現這個插件很有用吧？請捐贈$20、$50或$100支持它的繼續發展！"
+
+#: lib/bit51/bit51.php:391
+msgid "Short on funds?"
+msgstr "缺乏資金？"
+
+#: lib/bit51/bit51.php:395
+msgid "Rate"
+msgstr "在 WordPress.org 為"
+
+#: lib/bit51/bit51.php:395
+msgid " 5★'s on WordPress.org"
+msgstr "打5★"
+
+#: lib/bit51/bit51.php:397
+msgid "Talk about it on your site and link back to the "
+msgstr "在網站上介紹並鏈接"
+
+#: lib/bit51/bit51.php:397
+msgid "plugin page."
+msgstr "插件主頁"
+
+#: lib/bit51/bit51.php:399
+msgid "Tweet about it. "
+msgstr "發布關於它的推文"
+
+#: lib/bit51/bit51.php:403 lib/bit51/bit51.php:467
+msgid "Support This Plugin"
+msgstr "支持插件"
+
+#: lib/bit51/bit51.php:417
+msgid "Like Bit51 on Facebook"
+msgstr "在Facebook 上讚好 Bit51"
+
+#: lib/bit51/bit51.php:419
+msgid "Follow Bit51 on Twitter"
+msgstr "在 Twitter 上關注 Bit51"
+
+#: lib/bit51/bit51.php:421
+msgid "Circle Bit51 on Google+"
+msgstr "在Google+上圈 Bit51"
+
+#: lib/bit51/bit51.php:423
+msgid "Subscribe with RSS or Email"
+msgstr "訂閱RSS或郵件"
+
+#: lib/bit51/bit51.php:427
+msgid "Bit51 on the Web"
+msgstr "關注 Bit51"
+
+#: lib/bit51/bit51.php:467
+msgid "It looks like you've been enjoying"
+msgstr "看來你正在享受"
+
+#: lib/bit51/bit51.php:467
+msgid ""
+"for at least 30 days. Would you consider a small donation to help support "
+"continued development of the plugin?"
+msgstr "—— 在這30多天來。你會考慮一個小捐款來幫助支持插件的繼續發展？"
+
+#: lib/bit51/bit51.php:467
+msgid "Rate it 5★'s"
+msgstr "打5★"
+
+#: lib/bit51/bit51.php:467
+msgid "Tell Your Followers"
+msgstr "告訴你的關注者"
+
+#: lib/bit51/bit51.php:467
+msgid "Don't Bug Me Again"
+msgstr "不再提醒"
+
+#. Plugin Name of the plugin/theme
+msgid "Better WP Security"
+msgstr "更好的 WP 保安"
+
+#. Plugin URI of the plugin/theme
+msgid "http://bit51.com/software/better-wp-security/"
+msgstr "http://bit51.com/software/better-wp-security/"
+
+#. Description of the plugin/theme
+msgid ""
+"Helps protect your Wordpress installation from attackers. Hardens standard "
+"Wordpress security by hiding vital areas of your site, protecting access to "
+"important files via htaccess, preventing brute-force login attempts, "
+"detecting attack attempts, and more."
+msgstr ""
+"幫助保護你的Wordpress。利用隱藏網站重要區域、通過 htaccess 保護重要文件、防止"
+"暴力破解、檢測攻擊等等來強化Wordpress安全標準"
+
+#. Author of the plugin/theme
+msgid "Bit51.com"
+msgstr "Bit51.com"
+
+#. Author URI of the plugin/theme
+msgid "http://bit51.com"
+msgstr "http://bit51.com"
