@@ -726,11 +726,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			if ( $type == 2 ) { //get url and referrer if 404
 			
-				$url = $wpdb->escape( $_SERVER['REQUEST_URI'] );
+				$url = esc_attr( $_SERVER['REQUEST_URI'] );
 				
 				if ( isset( $_SERVER['HTTP_REFERER']  ) ) {
 				
-					$referrer = $wpdb->escape( $_SERVER['HTTP_REFERER'] );
+					$referrer = esc_attr( $_SERVER['HTTP_REFERER'] );
 				
 				} else {
 				
