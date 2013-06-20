@@ -18,6 +18,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			add_action( $this->core->plugin->globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 			add_action( $this->core->plugin->globals['plugin_hook'] . '_page_top', array( $this, 'add_away_mode_intro' ) );
 			add_filter( $this->core->plugin->globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) );
+			add_filter( $this->plugin->globals['plugin_hook'] . '_add_wp_config_rule', array( $this, 'set_wpconfig_rule' ) );
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) );
 
@@ -566,6 +567,24 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			//send them back to the away mode options page
 			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_bwps-away_mode', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
+
+		}
+
+		/**
+		 * Set wp-config entry
+		 * 
+		 * @param array $rules array of wp_config rules
+		 * @return  array array of wp_config rules
+		 */
+		public function set_wpconfig_rule ( $rules ) {
+
+			if ( $this->settings['enabled'] == 1 ) {
+
+				$rules[] = 'define( \'BWPS_AWAY_MODE\', true );';
+
+			}
+
+			return $rules;
 
 		}
 
