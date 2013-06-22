@@ -167,6 +167,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Bulgarian translation by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
 * Chinese (Traditional) translation by Toine Cheung
 * Fixed an XSS vulnerability in the logevent function. Fix by <a href="http://www.nccgroup.com/en/blog/?author=Richard%20Warren">Richard Warren</a>
+* Updated Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
 
 = 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>
