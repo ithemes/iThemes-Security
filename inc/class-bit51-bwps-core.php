@@ -81,10 +81,6 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 				wp_register_style( 'bwps_admin_styles', $this->plugin->globals['plugin_url'] . 'inc/css/bit51.css' );
 				do_action( $this->plugin->globals['plugin_hook'] . 'admin_init' ); //execute modules init scripts
 
-				// Load writer class for wp-config.php
-				require_once( $this->plugin->globals['plugin_dir'] . 'inc/class-bit51-bwps-wpconfig.php' );
-				Bit51_BWPS_WPConfig::start( $this->plugin );
-
 		}
 
 		/**

@@ -532,7 +532,10 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			$input['enabled'] = intval( $input['enabled'] );
+			if ( isset( $input['enabled'] ) ) {
+				$input['enabled'] = intval( $input['enabled'] );
+			}
+
 			$input['type'] = intval( $input['type'] );
 
 			//we don't need to process this again if it is a multisite installation
@@ -542,6 +545,15 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 				$input['end'] = strtotime( $input['end']['date'] . ' ' . $input['end']['hour'] . ':' . $input['end']['minute'] . ' ' . $input['end']['sel'] );
 
 			}
+
+			if ( isset( $input['enabled'] ) && $input['enabled'] === 1 ) {
+				$action = true;
+			} else {
+				$action = false;
+			}
+
+			require_once( $this->core->plugin->globals['plugin_dir'] . 'inc/class-bit51-bwps-wpconfig.php' );
+			Bit51_BWPS_WPConfig::start( $this->core, 'define( \'BWPS_AWAY_MODE\', true );', $action );
 
 			return $input;
 
@@ -567,24 +579,6 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			//send them back to the away mode options page
 			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_bwps-away_mode', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
-
-		}
-
-		/**
-		 * Set wp-config entry
-		 * 
-		 * @param array $rules array of wp_config rules
-		 * @return  array array of wp_config rules
-		 */
-		public function set_wpconfig_rule ( $rules ) {
-
-			if ( $this->settings['enabled'] == 1 ) {
-
-				$rules[] = 'define( \'BWPS_AWAY_MODE\', true );';
-
-			}
-
-			return $rules;
 
 		}
 
