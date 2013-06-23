@@ -46,6 +46,39 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 			
 		}
 
+		private function build_rules( $rule, $config_contents, $action ) {
+
+			if ( $action === true && strpos( $config_contents, $rule ) === false ) {
+
+				if ( strpos( $config_contents, '// Added by Better WP Security' ) === false ) {
+					
+					$rule = '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL;
+					$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rule . PHP_EOL, $config_contents );
+
+				} else {
+
+					$config_contents = str_replace( '// Added by Better WP Security' . PHP_EOL, '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL, $config_contents );
+
+				}
+
+			} elseif ( $action === false ) {
+
+				if ( strpos( $config_contents, $rule ) === false ) {
+
+					return true;
+
+				} else {
+
+					$config_contents = str_replace( $rule . PHP_EOL, '', $config_contents );
+
+				}
+
+			}
+
+			return $config_contents;
+
+		}
+
 		public function write_config( $rule, $action ) {
 
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
@@ -74,31 +107,18 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
     			if ( ! $config_contents ) {
       				return new WP_Error( 'reading_error', __( 'Error when reading wp-config.php', 'better-wp-security' ) ); //return error object
       			} else {
-      				
-      				if ( $action === true && strpos( $config_contents, $rule ) === false ) {
 
-      					if ( strpos( $config_contents, '// Added by Better WP Security' ) === false ) {
-      						
-      						$rule = '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL;
-      						$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rule . PHP_EOL, $config_contents );
+      				if ( is_array( $rule ) ) {
 
-      					} else {
+      					foreach ( $rule as $single_rule ) {
 
-      						$config_contents = str_replace( '// Added by Better WP Security' . PHP_EOL, '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL, $config_contents );
+      						$config_contents = $this->build_rules( $rule, $single_rule, $action );
 
       					}
 
-      				} elseif ( $action === false ) {
+      				} else {
 
-      					if ( strpos( $config_contents, $rule ) === false ) {
-
-      						return true;
-
-      					} else {
-
-      						$config_contents = str_replace( $rule . PHP_EOL, '', $config_contents );
-
-      					}
+      					$config_contents = $this->build_rules( $rule, $config_contents, $action );
 
       				}
 
