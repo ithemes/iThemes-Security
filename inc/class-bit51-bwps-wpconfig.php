@@ -7,21 +7,20 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 		private static $instance = null; //instantiated instance of this plugin
 
 		private 
-			$plugin,
-			$rules;
+			$plugin;
 
-		private function __construct( $plugin ) {
+		/**
+		 * Create and manage wp_config.php
+		 * 
+		 * @param  [plugin_class]  	  $plugin       Instance of main plugin class
+		 * @param  String|array		  $rule         The rule to be added or removed
+		 * @param  bool 			  $action 	    true for add, false for delete
+		 */
+		private function __construct( $plugin, $rule, $action ) {
 
 			$this->plugin = $plugin;
-			$this->rules = '';
 
-			$this->write_config();
-
-			if ( defined( 'BWPS_WRITE_CONFIG' ) ) {
-
-				die( var_dump( $this->rules ) );
-
-			}
+			$this->write_config( $rule, $action );
 
 		}
 
@@ -47,18 +46,7 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 			
 		}
 
-		/**
-		 * Generate rules for wp-config.php
-		 * 
-		 * @return void
-		 */
-		public function get_rules() {
-
-			$this->rules = apply_filters( $this->plugin->globals['plugin_hook'] . '_add_wp_config_rule', $this->rules );
-
-		}
-
-		public function write_config() {
+		public function write_config( $rule, $action ) {
 
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
 
@@ -79,14 +67,41 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 			global $wp_filesystem;
 
-			if ( $wp_filesystem->exists ( $config_file ) ) { //check for existence
+			if ( $wp_filesystem->exists( $config_file ) ) { //check for existence
 
 				$config_contents = $wp_filesystem->get_contents( $config_file );
 
     			if ( ! $config_contents ) {
       				return new WP_Error( 'reading_error', __( 'Error when reading wp-config.php', 'better-wp-security' ) ); //return error object
       			} else {
-      				// @todo build config output
+      				
+      				if ( $action === true && strpos( $config_contents, $rule ) === false ) {
+
+      					if ( strpos( $config_contents, '// Added by Better WP Security' ) === false ) {
+      						
+      						$rule = '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL;
+      						$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rule . PHP_EOL, $config_contents );
+
+      					} else {
+
+      						$config_contents = str_replace( '// Added by Better WP Security' . PHP_EOL, '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL, $config_contents );
+
+      					}
+
+      				} elseif ( $action === false ) {
+
+      					if ( strpos( $config_contents, $rule ) === false ) {
+
+      						return true;
+
+      					} else {
+
+      						$config_contents = str_replace( $rule . PHP_EOL, '', $config_contents );
+
+      					}
+
+      				}
+
       			}
 
       		}
@@ -100,13 +115,15 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 		/**
 		 * Start the global instance
 		 * 
-		 * @param  [plugin_class]  $plugin       Instance of main plugin class
-		 * @return bwps_Core                     The instance of the bwps_Core class
+		 * @param  [plugin_class]     $plugin       Instance of main plugin class
+		 * @param  String|array		  $rule         The rule to be added or removed
+		 * @param  bool 			  $action 	    true for add, false for delete
+		 * @return bwps_Core                        The instance of the bwps_Core class
 		 */
-		public static function start( $plugin ) {
+		public static function start( $plugin, $rule, $action ) {
 
 			if ( ! isset( self::$instance ) || self::$instance === null ) {
-				self::$instance = new self( $plugin );
+				self::$instance = new self( $plugin, $rule, $action );
 			}
 
 			return self::$instance;
