@@ -11,35 +11,35 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			if ( $bwpsoptions['st_writefiles'] == 0 ) { 
 
 				$bwpstabs = array(
-					'better-wp-security'					=> 'Dashboard',
-					'better-wp-security-adminuser'			=> 'User',
-					'better-wp-security-awaymode'			=> 'Away',
-					'better-wp-security-banusers'			=> 'Ban',
-					'better-wp-security-databasebackup'		=> 'Backup',
-					'better-wp-security-hidebackend'		=> 'Hide',
-					'better-wp-security-intrusiondetection'	=> 'Detect',
-					'better-wp-security-loginlimits'		=> 'Login',
-					'better-wp-security-ssl'				=> 'SSL',
-					'better-wp-security-systemtweaks'		=> 'Tweaks',
-					'better-wp-security-logs'				=> 'Logs'
+					'better-wp-security'					=> __( 'Dashboard', 'better-wp-security' ),
+					'better-wp-security-adminuser'			=> __( 'User', 'better-wp-security' ),
+					'better-wp-security-awaymode'			=> __( 'Away', 'better-wp-security' ),
+					'better-wp-security-banusers'			=> __( 'Ban', 'better-wp-security' ),
+					'better-wp-security-databasebackup'		=> __( 'Backup', 'better-wp-security' ),
+					'better-wp-security-hidebackend'		=> __( 'Hide', 'better-wp-security' ),
+					'better-wp-security-intrusiondetection'	=> __( 'Detect', 'better-wp-security' ),
+					'better-wp-security-loginlimits'		=> __( 'Login', 'better-wp-security' ),
+					'better-wp-security-ssl'				=> __( 'SSL', 'better-wp-security' ),
+					'better-wp-security-systemtweaks'		=> __( 'Tweaks', 'better-wp-security' ),
+					'better-wp-security-logs'				=> __( 'Logs', 'better-wp-security' )
 				);			
 
 			} else {
 
 				$bwpstabs = array(
-					'better-wp-security'					=> 'Dashboard',
-					'better-wp-security-adminuser'			=> 'User',
-					'better-wp-security-awaymode'			=> 'Away',
-					'better-wp-security-banusers'			=> 'Ban',
-					'better-wp-security-contentdirectory'	=> 'Dir',
-					'better-wp-security-databasebackup'		=> 'Backup',
-					'better-wp-security-databaseprefix'		=> 'Prefix',
-					'better-wp-security-hidebackend'		=> 'Hide',
-					'better-wp-security-intrusiondetection'	=> 'Detect',
-					'better-wp-security-loginlimits'		=> 'Login',
-					'better-wp-security-ssl'				=> 'SSL',
-					'better-wp-security-systemtweaks'		=> 'Tweaks',
-					'better-wp-security-logs'				=> 'Logs'
+					'better-wp-security'					=> __( 'Dashboard', 'better-wp-security' ),
+					'better-wp-security-adminuser'			=> __( 'User', 'better-wp-security' ),
+					'better-wp-security-awaymode'			=> __( 'Away', 'better-wp-security' ),
+					'better-wp-security-banusers'			=> __( 'Ban', 'better-wp-security' ),
+					'better-wp-security-contentdirectory'	=> __( 'Dir', 'better-wp-security' ),
+					'better-wp-security-databasebackup'		=> __( 'Backup', 'better-wp-security' ),
+					'better-wp-security-databaseprefix'		=> __( 'Prefix', 'better-wp-security' ),
+					'better-wp-security-hidebackend'		=> __( 'Hide', 'better-wp-security' ),
+					'better-wp-security-intrusiondetection'	=> __( 'Detect', 'better-wp-security' ),
+					'better-wp-security-loginlimits'		=> __( 'Login', 'better-wp-security' ),
+					'better-wp-security-ssl'				=> __( 'SSL', 'better-wp-security' ),
+					'better-wp-security-systemtweaks'		=> __( 'Tweaks', 'better-wp-security' ),
+					'better-wp-security-logs'				=> __( 'Logs', 'better-wp-security' )
 				);
 
 			}
