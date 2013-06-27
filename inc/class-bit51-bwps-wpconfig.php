@@ -18,10 +18,43 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 		 */
 		private function __construct( $plugin, $rule, $action ) {
 
+			global $bwps_globals;
+
+			//attempt to lock the process for safety
+			$lock_file = $bwps_globals['upload_dir'] . '/config.lock';
+
+			if ( file_exists( $lock_file ) ) {
+
+				$pid = @file_get_contents( $lock_file );
+
+				if ( @posix_getsid( $pid ) !== false) {
+
+
+
+					return false; //file is locked for writing
+				
+				} 
+
+			}
+
+			@file_put_contents( $lock_file, getmypid() );
+			
 			$this->plugin = $plugin;
 
-			$this->write_config( $rule, $action );
+			if ( $this->write_config( $rule, $action ) === true ) {
 
+				unlink( $lock_file );
+
+				return true;
+
+			} else {
+
+				unlink( $lock_file );
+
+				return false;
+
+			}
+			
 		}
 
 		/**
@@ -89,7 +122,7 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 			if ( ! WP_Filesystem($creds) ) {
     			// our credentials were no good, ask the user for them again
-    			request_filesystem_credentials($url, $method, true, false, $form_fields);
+    			request_filesystem_credentials( $url, $method, true, false, $form_fields );
     			return true;
 			}
 

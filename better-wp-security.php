@@ -26,7 +26,7 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 			$core,
 			$dashboard_menu_title,
 			$dashboard_page_name,
-			$globals,
+			$bwps_globals,
 			$menu_icon,
 			$menu_name,
 			$settings_menu_title,
@@ -41,8 +41,12 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 		 */
 		private function __construct() {
 
+			global $bwps_globals;
+
+			$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
+
 			//Set plugin defaults
-			$this->globals = array(
+			$bwps_globals = array(
 				'plugin_build'			=> 3062, //plugin build number - used to trigger updates
 				'plugin_file'			=> __FILE__, //the main plugin file
 				'plugin_access_lvl' 	=> 'manage_options', //Access level required to access plugin options
@@ -53,6 +57,7 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 				'plugin_url' 			=> plugin_dir_url( __FILE__ ), //the URL of the plugin directory
 				'support_page' 			=> 'http://wordpress.org/support/plugin/better-wp-security', //address of the WordPress support forums for the plugin
 				'wordpress_page'		=> 'http://wordpress.org/extend/plugins/better-wp-security/', //plugin's page in the WordPress.org Repos
+				'upload_dir'			=> $upload_dir['basedir'], // the upload directory for the WordPress installation
 			);
 
 			$this->top_level_menu = true; //true if top level menu, else false
@@ -60,13 +65,13 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 
 			//the following options must only be set if it's a top-level section
 			$this->settings_page = false; //when using top_level menus this will always create a "Dashboard" page. Should it create a settings page as well?
-			$this->menu_icon = $this->globals['plugin_url'] . 'img/shield-small.png'; //image icon 
+			$this->menu_icon = $bwps_globals['plugin_url'] . 'img/shield-small.png'; //image icon 
 			$this->dashboard_menu_title = __( 'Dashboard', 'better_wp_security' ); //the name of the dashboard menu item (if different "Dashboard")
 			$this->dashboard_page_name = __( 'Dashboard', 'better_wp_security' ); //page name - appears after plugin name on the dashboard page
 			
 
 			//load core functionality for admin use
-			require_once( $this->globals['plugin_dir'] . 'inc/class-bit51-bwps-core.php' );
+			require_once( $bwps_globals['plugin_dir'] . 'inc/class-bit51-bwps-core.php' );
 			$this->core = Bit51_BWPS_Core::start( $this );
 
 			//load modules
@@ -89,16 +94,18 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 		 */
 		public function load_modules() {
 
+			global $bwps_globals;
+
 			//load BWPS Dashboard module
-			require_once( $this->globals['plugin_dir'] . 'modules/bit51-bwps-dashboard/class-bit51-bwps-dashboard.php' );
+			require_once( $bwps_globals['plugin_dir'] . 'modules/bit51-bwps-dashboard/class-bit51-bwps-dashboard.php' );
 			Bit51_BWPS_Dashboard::start( $this->core );
 
 			//load Foo Plugins Support module
-			require_once( $this->globals['plugin_dir'] . 'modules/bwps-foo-support/class-bwps-foo-support.php' );
+			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-foo-support/class-bwps-foo-support.php' );
 			BWPS_Foo_Support::start( $this->core );
 
 			//load Away Mode Module
-			require_once( $this->globals['plugin_dir'] . 'modules/bwps-away-mode/class-bwps-away-mode.php' );
+			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-away-mode/class-bwps-away-mode.php' );
 			BWPS_Away_Mode::start( $this->core );
 			
 		}
