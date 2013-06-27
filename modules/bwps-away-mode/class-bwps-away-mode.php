@@ -12,13 +12,15 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 		private function __construct( $core ) {
 
+			global $bwps_globals;
+
 			$this->core = $core;
 			$this->settings = get_site_option( 'bwps_away_mode' );
 
-			add_action( $this->core->plugin->globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
-			add_action( $this->core->plugin->globals['plugin_hook'] . '_page_top', array( $this, 'add_away_mode_intro' ) );
-			add_filter( $this->core->plugin->globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) );
-			add_filter( $this->plugin->globals['plugin_hook'] . '_add_wp_config_rule', array( $this, 'set_wpconfig_rule' ) );
+			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
+			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'add_away_mode_intro' ) );
+			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) );
+			add_filter( $bwps_globals['plugin_hook'] . '_add_wp_config_rule', array( $this, 'set_wpconfig_rule' ) );
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) );
 
@@ -36,11 +38,13 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 */
 		public function add_sub_page( $available_pages ) {
 
+			global $bwps_globals;
+
 			$available_pages[] = add_submenu_page(
-				$this->core->plugin->globals['plugin_hook'],
+				$bwps_globals['plugin_hook'],
 				__( 'Away Mode', 'better_wp_security' ),
 				__( 'Away Mode', 'better_wp_security' ),
-				$this->core->plugin->globals['plugin_access_lvl'],
+				$bwps_globals['plugin_access_lvl'],
 				$available_pages[0] . '-away_mode',
 				array( $this->core, 'render_page' )
 			);
@@ -75,9 +79,11 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 */
 		public function admin_script() {
 
+			global $bwps_globals;
+
 			if ( strpos( get_current_screen()->id,'security_page_toplevel_page_bwps-away_mode' ) !== false ) {
 				
-				wp_enqueue_script( 'bwps_away_mode_js', $this->core->plugin->globals['plugin_url'] . 'modules/bwps-away-mode/js/admin-away.js', 'jquery', $this->core->plugin->globals['plugin_build'] );
+				wp_enqueue_script( 'bwps_away_mode_js', $bwps_globals['plugin_url'] . 'modules/bwps-away-mode/js/admin-away.js', 'jquery', $bwps_globals['plugin_build'] );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
 			}
 
@@ -552,7 +558,6 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 				$action = false;
 			}
 
-			require_once( $this->core->plugin->globals['plugin_dir'] . 'inc/class-bit51-bwps-wpconfig.php' );
 			Bit51_BWPS_WPConfig::start( $this->core, 'define( \'BWPS_AWAY_MODE\', true );', $action );
 
 			return $input;

@@ -18,6 +18,8 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 
 		private function __construct( $core ) {
 
+			global $bwps_globals;
+
 			$this->core = $core;
 
 			$this->paypal_code = 'V647NGJSBC882';
@@ -27,9 +29,9 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			add_action( 'admin_init', array( $this, 'share_reminder' ) );
 
 			//Add admin CSS
-			add_action( $this->core->plugin->globals['plugin_hook'] . 'admin_init', array( $this, 'register_admin_css' ) );
+			add_action( $bwps_globals['plugin_hook'] . 'admin_init', array( $this, 'register_admin_css' ) );
 
-			add_action( $this->core->plugin->globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
+			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 
 		}
 
@@ -80,9 +82,13 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 		 * @return void
 		 */
 		public function register_admin_css() {
-			wp_register_style( 'bwps_admin_dashboard', $this->core->plugin->globals['plugin_url'] . 'modules/bit51-bwps-dashboard/css/dashboard.css' );
 
-			add_action( $this->core->plugin->globals['plugin_url'] . 'enqueue_admin_styles', array( $this, 'enqueue_admin_css' ) );
+			global $bwps_globals;
+
+			wp_register_style( 'bwps_admin_dashboard', $bwps_globals['plugin_url'] . 'modules/bit51-bwps-dashboard/css/dashboard.css' );
+
+			add_action( $bwps_globals['plugin_url'] . 'enqueue_admin_styles', array( $this, 'enqueue_admin_css' ) );
+
 		}
 
 		public function enqueue_admin_css() {
@@ -98,17 +104,17 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 		 **/
 		function share_reminder() {
 		
-			global $blog_id; //get the current blog id
+			global $blog_id, $bwps_globals;
 			
-			$options = get_site_option( $this->core->plugin->globals['plugin_hook'] . '_data' );
+			$options = get_site_option( $bwps_globals['plugin_hook'] . '_data' );
 
 			//Gotta make sure this is available when needed
 			global $plugname;
 			global $plughook;
 			global $plugopts;
-			$plugname = $this->core->plugin->globals['plugin_name'];
-			$plughook = $this->core->plugin->globals['plugin_hook'];
-			$plugopts = admin_url( 'options-general.php?page=' . $this->core->plugin->globals['plugin_hook'] );
+			$plugname = $bwps_globals['plugin_name'];
+			$plughook = $bwps_globals['plugin_hook'];
+			$plugopts = admin_url( 'options-general.php?page=' . $bwps_globals['plugin_hook'] );
 			
 			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
 			if ( ! isset( $options['no-nag'] ) && isset( $options['activatestamp'] ) && $options['activatestamp'] < ( current_time( 'timestamp' ) - 2952000 ) ) {
@@ -143,21 +149,21 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			}
 			
 			//if they've clicked a button hide the notice
-			if ( ( isset( $_GET[$this->core->plugin->globals['plugin_hook'] . '_share_nag'] ) || isset( $_GET[$this->core->plugin->globals['plugin_hook'] . '_lets_rate'] ) || isset( $_GET[$this->core->plugin->globals['plugin_hook'] . '_lets_tweet'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], $this->core->plugin->globals['plugin_hook'] . '-reminder' ) ) {
+			if ( ( isset( $_GET[$bwps_globals['plugin_hook'] . '_share_nag'] ) || isset( $_GET[$bwps_globals['plugin_hook'] . '_lets_rate'] ) || isset( $_GET[$bwps_globals['plugin_hook'] . '_lets_tweet'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], $bwps_globals['plugin_hook'] . '-reminder' ) ) {
 
-				$options = get_site_option( $this->core->plugin->globals['plugin_hook'] . '_data' );
+				$options = get_site_option( $bwps_globals['plugin_hook'] . '_data' );
 				$options['no-nag'] = 1;
-				update_site_option( $this->core->plugin->globals['plugin_hook'] . '_data', $options );
+				update_site_option( $bwps_globals['plugin_hook'] . '_data', $options );
 				remove_action( 'admin_notices', 'bwps_share_notice' );
 				
 				//Go to the WordPress page to let them rate it.
-				if ( isset( $_GET[$this->core->plugin->globals['plugin_hook'] . '_lets_rate'] ) ) {
-					wp_redirect( $this->core->plugin->globals['wordpress_page'], '302' );
+				if ( isset( $_GET[$bwps_globals['plugin_hook'] . '_lets_rate'] ) ) {
+					wp_redirect( $bwps_globals['wordpress_page'], '302' );
 				}
 				
 				//Compose a Tweet
-				if ( isset( $_GET[$this->core->plugin->globals['plugin_hook'] . '_lets_tweet'] ) ) {
-					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $this->core->plugin->globals['plugin_name'] . ' for WordPress by @Bit51 and you should too - ' . $this->core->plugin->globals['plugin_homepage'] ) , '302' );
+				if ( isset( $_GET[$bwps_globals['plugin_hook'] . '_lets_tweet'] ) ) {
+					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $bwps_globals['plugin_name'] . ' for WordPress by @Bit51 and you should too - ' . $bwps_globals['plugin_homepage'] ) , '302' );
 				}
 				
 			}
@@ -191,13 +197,15 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 		 */
 		public function metabox_sidebar_publicize() {
 
+			global $bwps_globals;
+
 			$content = __( 'Have you found this plugin useful? Please help support it\'s continued development with a donation of $20, $50, or even $100.', 'better_wp_security' );
 			$content .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="' . $this->paypal_code . '"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
 			$content .= '<p>' . __( 'Short on funds?', 'better_wp_security' ) . '</p>';
 			$content .= '<ul>';
-			$content .= '<li><a href="' . $this->core->plugin->globals['wordpress_page'] . '" target="_blank">' . sprintf( __( 'Rate %s 5★\'s on WordPress.org', 'better_wp_security' ), $this->core->plugin->globals['plugin_name'] ) . '</a></li>';
-			$content .= '<li>' . sprintf( __( 'Talk about it on your site and link back to the %splugin page', 'better_wp_security' ), '<a href="' . $this->core->plugin->globals['plugin_homepage'] . '" target="_blank">' ) . '</a></li>';
-			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( sprintf( __( 'I use %s for WordPress by %s and you should too - %s' ), $this->core->plugin->globals['plugin_name'], '@bit51', $this->core->plugin->globals['plugin_homepage'] ) ) . '" target="_blank">' . __( 'Tweet about it. ', 'better_wp_security' ) . '</a></li>';
+			$content .= '<li><a href="' . $bwps_globals['wordpress_page'] . '" target="_blank">' . sprintf( __( 'Rate %s 5★\'s on WordPress.org', 'better_wp_security' ), $bwps_globals['plugin_name'] ) . '</a></li>';
+			$content .= '<li>' . sprintf( __( 'Talk about it on your site and link back to the %splugin page', 'better_wp_security' ), '<a href="' . $bwps_globals['plugin_homepage'] . '" target="_blank">' ) . '</a></li>';
+			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( sprintf( __( 'I use %s for WordPress by %s and you should too - %s' ), $bwps_globals['plugin_name'], '@bit51', $bwps_globals['plugin_homepage'] ) ) . '" target="_blank">' . __( 'Tweet about it. ', 'better_wp_security' ) . '</a></li>';
 			$content .= '</ul>';
 
 			echo $content;

@@ -20,15 +20,17 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 
 		private function __construct( $core ) {
 
+			global $bwps_globals;
+
 			$this->core = $core;
 
-			add_action( $this->core->plugin->globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
+			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 
-			add_filter( 'foolic_validation_include_css-' . $this->core->plugin->globals['plugin_hook'], array( $this, 'include_foolic_css' ) );
-			add_filter( 'foolic_validation_input_type-' . $this->core->plugin->globals['plugin_hook'], array( $this, 'change_foolic_input_type' ) );
-			add_filter( 'foolic_validation_input_size-' . $this->core->plugin->globals['plugin_hook'], array( $this, 'change_foolic_input_size' ) );
-			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', $this->core->plugin->globals['plugin_hook'] );
-			add_action( 'wp_ajax_' . $this->core->plugin->globals['plugin_hook'] . '_support', array( $this, 'ajax_submit_ticket' ) );
+			add_filter( 'foolic_validation_include_css-' . $bwps_globals['plugin_hook'], array( $this, 'include_foolic_css' ) );
+			add_filter( 'foolic_validation_input_type-' . $bwps_globals['plugin_hook'], array( $this, 'change_foolic_input_type' ) );
+			add_filter( 'foolic_validation_input_size-' . $bwps_globals['plugin_hook'], array( $this, 'change_foolic_input_size' ) );
+			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', $bwps_globals['plugin_hook'] );
+			add_action( 'wp_ajax_' . $bwps_globals['plugin_hook'] . '_support', array( $this, 'ajax_submit_ticket' ) );
 
 		}
 
@@ -90,9 +92,11 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 		 */
 		public function metabox_sideboar_foo_support() {
 
+			global $bwps_globals;
+
 			$purchase_url = 'http://fooplugins.com/plugins/better-wp-security/';
 
-			$data = apply_filters( 'foolic_get_validation_data-' . $this->core->plugin->globals['plugin_hook'], false );
+			$data = apply_filters( 'foolic_get_validation_data-' . $bwps_globals['plugin_hook'], false );
 
 			if ( $data === false ) {
 				return;
@@ -100,8 +104,8 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 
 			if ( $data['valid'] === 'valid' ) {
 				$content = '<form id="support_form">';
-				$content .= '<input type="hidden" name="action" value="' . $this->core->plugin->globals['plugin_hook'] . '_support" />';
-				$content .= '<input type="hidden" name="nonce" value="' . wp_create_nonce($this->core->plugin->globals['plugin_hook'] . '_ajax-nonce') . '" />';
+				$content .= '<input type="hidden" name="action" value="' . $bwps_globalss['plugin_hook'] . '_support" />';
+				$content .= '<input type="hidden" name="nonce" value="' . wp_create_nonce( $bwps_globals['plugin_hook'] . '_ajax-nonce' ) . '" />';
 				$content .= '<input type="hidden" name="ticket_key" value="' . $data['license'] . '" />';
 				$content .= '<label for="support_issue">' . __( 'Describe the Issue', 'better_wp_security' ). ':</label><textarea name="issue" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_issue"></textarea>';
 				$content .= '<label for="support_reproduce">' . __( 'Steps to Reproduce', 'better_wp_security' ). ':</label><textarea name="reproduce" style="height:200px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_reproduce"></textarea>';
@@ -110,7 +114,7 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 				$content .= '<br /></form>';
 				$content .= '<div style="display:none" class="support_message foolic-loading"><p>' . __( 'sending support request...', 'better_wp_security' ). '</p></div>';
 				$content .= '<a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase priority support', 'better_wp_security' ) . '</a>';
-				$content .= ' | <a href="#newkey" class="foolic-clear-' . $this->core->plugin->globals['plugin_hook'] . '">' . __( 'Enter License Key', 'better_wp_security' ) . '</a>';
+				$content .= ' | <a href="#newkey" class="foolic-clear-' . $bwps_globals['plugin_hook'] . '">' . __( 'Enter License Key', 'better_wp_security' ) . '</a>';
 				$content .= $data['nonce'];
 
 
@@ -123,7 +127,7 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 
 			$content .= '<script type="text/javascript">
 							jQuery( function( $ ) {
-								$( document ).bind( "foolic-cleared-' . $this->core->plugin->globals['plugin_hook'] . '", function() {
+								$( document ).bind( "foolic-cleared-' . $bwps_globals['plugin_hook'] . '", function() {
 									window.location.reload();
 								} );
 

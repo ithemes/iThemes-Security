@@ -116,6 +116,7 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 		 * @return void
 		 */
 		function activate_execute( $updating = false ) {
+
 			global $bwps_setup_action;
 
 			//if this is multisite make sure they're network activating or die
@@ -140,6 +141,7 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 		 * @return void
 		 */
 		function upgrade_execute( $oldversion = '' ) {
+
 			global $bwps_setup_action;
 
 			$bwps_setup_action = 'upgrade';
@@ -153,6 +155,7 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 		 *
 		 **/
 		function deactivate_execute( $updating = false ) {
+
 			global $bwps_setup_action;
 
 			$bwps_setup_action = 'deactivate';
@@ -166,6 +169,7 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 		 *
 		 **/
 		function uninstall_execute() {
+			
 			global $bwps_setup_action;
 
 			$bwps_setup_action = 'uninstall';

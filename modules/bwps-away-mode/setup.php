@@ -44,6 +44,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 		 * @return void
 		 */
 		function execute_activate() {
+
 			global $bwps_hook;
 
 		}
@@ -54,9 +55,11 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 		 * @return void
 		 */
 		function execute_deactivate() {
+
 			global $bwps_hook;
 
 			delete_site_transient ( 'bwps_away' );
+
 		}
 
 		/**
@@ -65,6 +68,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 		 * @return void
 		 */
 		function execute_uninstall() {
+
 			global $bwps_hook;
 
 			$this->execute_deactivate();
@@ -79,6 +83,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 		 * @return void
 		 */
 		function execute_upgrade() {
+			
 			global $bwps_hook;
 
 		}

@@ -25,32 +25,34 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 */
 		private function __construct( $plugin ) {
 
+			global $bwps_globals;
+
 			$this->plugin = $plugin; //Allow us to access plugin defaults throughout
 
 			//load the text domain
 			load_plugin_textdomain( 'better_wp_security', false, $this->plugin->globals['plugin_dir'] . 'languages' );
 
 			//require plugin setup information
-			require_once( $this->plugin->globals['plugin_dir'] . 'inc/class-bit51-bwps-setup.php' );
-			register_activation_hook( $this->plugin->globals['plugin_file'], array( 'Bit51_BWPS_Setup', 'on_activate' ) );
-			register_deactivation_hook( $this->plugin->globals['plugin_file'], array( 'Bit51_BWPS_Setup', 'on_deactivate' ) );
-			register_uninstall_hook( $this->plugin->globals['plugin_file'], array( 'Bit51_BWPS_Setup', 'on_uninstall' ) );
+			require_once( $bwps_globals['plugin_dir'] . 'inc/class-bit51-bwps-setup.php' );
+			register_activation_hook( $bwps_globals['plugin_file'], array( 'Bit51_BWPS_Setup', 'on_activate' ) );
+			register_deactivation_hook( $bwps_globals['plugin_file'], array( 'Bit51_BWPS_Setup', 'on_deactivate' ) );
+			register_uninstall_hook( $bwps_globals['plugin_file'], array( 'Bit51_BWPS_Setup', 'on_uninstall' ) );
 
 			
 			//Determine if we need to run upgrade scripts
-			$plugin_data = get_option( $this->plugin->globals['plugin_hook'] . '_data' );
+			$plugin_data = get_option( $bwps_globals['plugin_hook'] . '_data' );
 
 			if ( $plugin_data !== false ) { //if plugin data does exist
 
 				//see if the saved build version is older than the current build version
-				if ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $this->plugin->globals['plugin_build'] ) {
+				if ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $bwps_globals['plugin_build'] ) {
 					Bit51_BWPS_Setup::upgrade_execute( $plugin_data['build'] ); //run upgrade scripts
 				}
 
 			}
 
 			//save plugin information
-			add_action( $this->plugin->globals['plugin_hook'] . '_set_plugin_data', array( $this, 'save_plugin_data' ) );
+			add_action( $bwps_globals['plugin_hook'] . '_set_plugin_data', array( $this, 'save_plugin_data' ) );
 
 		}
 
@@ -78,8 +80,13 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 */
 		public function execute_admin_init() {
 
-				wp_register_style( 'bwps_admin_styles', $this->plugin->globals['plugin_url'] . 'inc/css/bit51.css' );
-				do_action( $this->plugin->globals['plugin_hook'] . 'admin_init' ); //execute modules init scripts
+			global $bwps_globals;
+
+				wp_register_style( 'bwps_admin_styles', $bwps_globals['plugin_url'] . 'inc/css/bit51.css' );
+				do_action( $bwps_globals['plugin_hook'] . 'admin_init' ); //execute modules init scripts
+
+				//Load the wp-config writer class in case we need it.
+				require_once( $bwps_globals['plugin_dir'] . 'inc/class-bit51-bwps-wpconfig.php' ); 
 
 		}
 
@@ -90,8 +97,10 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 */
 		public function enqueue_admin_styles() {
 
+			global $bwps_globals;
+
 			wp_enqueue_style( 'bwps_admin_styles' );
-			do_action( $this->plugin->globals['plugin_url'] . 'enqueue_admin_styles' );
+			do_action( $bwps_globals['plugin_url'] . 'enqueue_admin_styles' );
 
 		}
 
@@ -102,14 +111,16 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 */
 		public function setup_primary_admin() {
 
+			global $bwps_globals;
+
 			//If the plugin admin screen will only appear under options we'll add an options page
 			if ( $this->plugin->top_level_menu === false ) {
 
 				$this->page_hooks[] = add_options_page ( 
-					$this->plugin->globals['plugin_name'],
+					$bwps_globals['plugin_name'],
 					$this->plugin->menu_name,
-					$this->plugin->globals['plugin_access_lvl'],
-					$this->plugin->globals['plugin_hook'],
+					$bwps_globals['plugin_access_lvl'],
+					$bwps_globals['plugin_hook'],
 					array( $this, 'render_page' )
 				);
 
@@ -139,8 +150,8 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 				$this->page_hooks[] = add_menu_page(
 					$dashboard_page_name,
 					$menu_name,
-					$this->plugin->globals['plugin_access_lvl'],
-					$this->plugin->globals['plugin_hook'],
+					$bwps_globals['plugin_access_lvl'],
+					$bwps_globals['plugin_hook'],
 					array( $this, 'render_page' ),
 					$menu_icon
 				);
@@ -160,17 +171,17 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 					}
 
 					$this->page_hooks[] = add_submenu_page(
-						$this->plugin->globals['plugin_hook'],
+						$bwps_globals['plugin_hook'],
 						$settings_page_name,
 						$settings_menu_title,
-						$this->plugin->globals['plugin_access_lvl'],
+						$bwps_globals['plugin_access_lvl'],
 						$this->page_hooks[0] . '-settings',
 						array( $this, 'render_page' )
 					);
 
 				}
 
-				$this->page_hooks = apply_filters( $this->plugin->globals['plugin_hook'] . '_add_admin_sub_pages', $this->page_hooks );
+				$this->page_hooks = apply_filters( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', $this->page_hooks );
 
 				//Make the dashboard is named correctly
 				global $submenu;
@@ -181,8 +192,8 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 					$dashboard_menu = __( 'Dashboard', 'better_wp_security' );
 				}
 
-				if ( isset( $submenu[ $this->plugin->globals['plugin_hook'] ] ) ) {
-					$submenu[$this->plugin->globals['plugin_hook']][0][0] = $this->plugin->dashboard_menu_title;
+				if ( isset( $submenu[ $bwps_globals['plugin_hook'] ] ) ) {
+					$submenu[$bwps_globals['plugin_hook']][0][0] = $this->plugin->dashboard_menu_title;
 				}
 
 			}
@@ -204,7 +215,9 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 */
 		public function page_actions() {
 
-			do_action( $this->plugin->globals['plugin_hook'] . '_add_admin_meta_boxes', $this->page_hooks );
+			global $bwps_globals;
+
+			do_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', $this->page_hooks );
 
 			//Set two columns for all plugins using this framework
 			add_screen_option( 'layout_columns', array( 'max' => 2, 'default' => 2 ) );
@@ -239,6 +252,8 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 */
 		public function render_page() {
 
+			global $bwps_globals;
+
 				if ( is_multisite() ) {
 					$screen = substr( get_current_screen()->id, 0, strpos( get_current_screen()->id, '-network' ) );
 				} else {
@@ -251,8 +266,8 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
  
 				<?php screen_icon( 'shield' ); ?>
 	 
-	 			<?php if ( isset( $this->plugin->top_level_menu ) && $this->plugin->top_level_menu === true ) { ?>
-					<h2><?php echo $this->plugin->globals['plugin_name'] . ' - ' . get_admin_page_title(); ?></h2>
+				<?php if ( isset( $this->plugin->top_level_menu ) && $this->plugin->top_level_menu === true ) { ?>
+					<h2><?php echo $bwps_globals['plugin_name'] . ' - ' . get_admin_page_title(); ?></h2>
 				 <?php } else { ?>
 					<h2><?php echo get_admin_page_title(); ?></h2>
 				<?php } ?>
@@ -272,11 +287,11 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 							</div>    
 	 
 							<div id="postbox-container-2" class="postbox-container">
-								<?php do_action( $this->plugin->globals['plugin_hook'] . '_page_top', $screen ); ?>
+								<?php do_action( $bwps_globals['plugin_hook'] . '_page_top', $screen ); ?>
 								<?php do_meta_boxes( $screen, 'normal', null ); ?>
-								<?php do_action( $this->plugin->globals['plugin_hook'] . '_page_middle', $screen ); ?>
+								<?php do_action( $bwps_globals['plugin_hook'] . '_page_middle', $screen ); ?>
 								<?php do_meta_boxes( $screen, 'advanced', null ); ?>
-								<?php do_action( $this->plugin->globals['plugin_hook'] . '_page_bottom', $screen ); ?>
+								<?php do_action( $bwps_globals['plugin_hook'] . '_page_bottom', $screen ); ?>
 							</div>    					
 	 
 						</div> <!-- #post-body -->
@@ -295,13 +310,15 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		 */
 		function save_plugin_data() {
 
+			global $bwps_globals;
+
 			$save_data = false; //flag to avoid saving data if we don't have to
 
-			$plugin_data = get_site_option( $this->plugin->globals['plugin_hook'] . '_data' );
+			$plugin_data = get_site_option( $bwps_globals['plugin_hook'] . '_data' );
 
 			//Update the build number if we need to
-			if ( ! isset( $plugin_data['build'] ) || ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $this->plugin->globals['plugin_build'] ) ) {
-				$plugin_data['build'] = $this->plugin->globals['plugin_build'];
+			if ( ! isset( $plugin_data['build'] ) || ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $bwps_globals['plugin_build'] ) ) {
+				$plugin_data['build'] = $bwps_globals['plugin_build'];
 				$save_data = true;
 			}
 
@@ -313,7 +330,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 			//update the options table if we have to
 			if ( $save_data === true ) {
-				update_site_option( $this->plugin->globals['plugin_hook'] . '_data', $plugin_data );
+				update_site_option( $bwps_globals['plugin_hook'] . '_data', $plugin_data );
 			}
 
 		}
