@@ -81,9 +81,9 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 		private function build_rules( $rule, $config_contents, $action ) {			
 
-			if ( $action === true && strpos( $config_contents, $rule ) === false ) {
+			if ( $action === true && strpos( $config_contents, $rule ) === false ) { //if we're adding the rule and it isn't already there
 
-				if ( strpos( $config_contents, '// Added by Better WP Security' ) === false ) {
+				if ( strpos( $config_contents, '// Added by Better WP Security' ) === false ) { //if there are other Better WP Security rules already present
 					
 					$config_contents = str_replace( '<?php', '<?php' . PHP_EOL . '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL, $config_contents );
 
@@ -93,11 +93,11 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 				}
 
-			} elseif ( $action === false ) {
+			} elseif ( $action === false ) { //we're deleting a rule
 
-				if ( strpos( $config_contents, $rule ) === false ) {
+				if ( strpos( $config_contents, $rule ) === false ) { //it's already been deleted
 
-					return true;
+					return false;
 
 				} else {
 
@@ -158,8 +158,12 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
       		}
 
-			if ( ! $wp_filesystem->put_contents( $config_file, $config_contents, FS_CHMOD_FILE ) ) {
-				return new WP_Error( 'writing_error', __( 'Error when writing wp-config.php', 'better-wp-security' ) ); //return error object
+      		if ( $config_contents !== false ) {
+
+				if ( ! $wp_filesystem->put_contents( $config_file, $config_contents, FS_CHMOD_FILE ) ) {
+					return new WP_Error( 'writing_error', __( 'Error when writing wp-config.php', 'better-wp-security' ) ); //return error object
+				}
+
 			}
 
 		}

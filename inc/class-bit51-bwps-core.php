@@ -30,7 +30,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 			$this->plugin = $plugin; //Allow us to access plugin defaults throughout
 
 			//load the text domain
-			load_plugin_textdomain( 'better_wp_security', false, $this->plugin->globals['plugin_dir'] . 'languages' );
+			load_plugin_textdomain( 'better_wp_security', false, $bwps_globals['plugin_dir'] . 'languages' );
 
 			//require plugin setup information
 			require_once( $bwps_globals['plugin_dir'] . 'inc/class-bit51-bwps-setup.php' );
@@ -57,11 +57,22 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 		}
 
 		/**
+		 * Displays plugin admin notices
+		 *
+		 * @return  void
+		 */
+		public function admin_notices() {
+			settings_errors( 'bwps_admin_notices' );
+		}
+
+		/**
 		 * Enque actions to build the admin pages
 		 * 
 		 * @return void
 		 */
 		public function build_admin() {
+
+			add_action( 'admin_notices', array( $this, 'admin_notices') );
 
 			add_action( 'admin_init', array( $this, 'execute_admin_init' ) );
 
@@ -87,6 +98,9 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 				//Load the wp-config writer class in case we need it.
 				require_once( $bwps_globals['plugin_dir'] . 'inc/class-bit51-bwps-wpconfig.php' ); 
+
+				//display any applicable error messages
+				
 
 		}
 
