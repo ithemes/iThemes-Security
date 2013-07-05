@@ -18,6 +18,8 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 		 */
 		private function __construct( $plugin, $rule, $action ) {
 
+			@ini_set( 'auto_detect_line_endings', true );
+
 			global $bwps_globals;
 
 			//attempt to lock the process for safety
@@ -28,8 +30,6 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 				$pid = @file_get_contents( $lock_file );
 
 				if ( @posix_getsid( $pid ) !== false) {
-
-
 
 					return false; //file is locked for writing
 				
@@ -79,18 +79,17 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 			
 		}
 
-		private function build_rules( $rule, $config_contents, $action ) {
+		private function build_rules( $rule, $config_contents, $action ) {			
 
 			if ( $action === true && strpos( $config_contents, $rule ) === false ) {
 
 				if ( strpos( $config_contents, '// Added by Better WP Security' ) === false ) {
 					
-					$rule = '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL;
-					$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rule . PHP_EOL, $config_contents );
+					$config_contents = str_replace( '<?php', '<?php' . PHP_EOL . '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL, $config_contents );
 
 				} else {
 
-					$config_contents = str_replace( '// Added by Better WP Security' . PHP_EOL, '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL, $config_contents );
+					$config_contents = str_replace( '// Added by Better WP Security', '// Added by Better WP Security' . PHP_EOL . $rule, $config_contents );
 
 				}
 

@@ -276,7 +276,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		public function away_mode_enabled( $args ) {
 
 			//disable the option if away mode is in the past
-			if ( isset( $this->settings['enabled'] ) && ( $this->settings['end'] > current_time( 'timestamp') || $this->settings['type'] === 2 ) ) {
+			if ( isset( $this->settings['enabled'] ) && ( $this->settings['type'] == 1 || ( $this->settings['end'] > current_time( 'timestamp') || $this->settings['type'] === 2 ) ) ) {
 				$enabled = 1;
 			} else {
 				$enabled = 0;
