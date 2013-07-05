@@ -91,15 +91,31 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 		/**
 		 * Check if away mode is active
-		 * 
+		 *
+		 * @param bool $forms[false] Whether the call comes from the same options form
+		 * @param array  @input[NULL] Input of options to check if calling from form
 		 * @return bool true if locked out else false
 		 */
-		private function check_away() {
+		private function check_away( $form = false, $input = NULL ) {
+
+			if ( $form === false ) {
+
+				$test_type = $this->settings['type'];
+				$test_start = $this->settings['start'];
+				$test_end = $this->settings['end'];
+
+			} else {
+
+				$test_type = $input['type'];
+				$test_start = $input['start'];
+				$test_end = $input['end'];
+
+			}
 
 			$transaway = get_site_transient( 'bwps_away' );
 
 			//if transient indicates away go ahead and lock them out
-			if ( $transaway === true && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) {
+			if ( $form === false && $transaway === true && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) {
 			
 				return true;
 
@@ -107,10 +123,10 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			
 				$current_time = current_time( 'timestamp' );
 				
-				if ( $this->settings['type'] == 1 && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) { //set up for daily
+				if ( $test_type == 1 && ( ( defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) || $form === true ) ) { //set up for daily
 
-					$start = strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $this->settings['start'] ) );
-					$end = strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $this->settings['end'] ) );
+					$start = strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $test_start ) );
+					$end = strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $test_end ) );
 				
 					if ( $start > $end ) { //starts and ends on same calendar day
 
@@ -137,20 +153,24 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 					
 				} else { //one time settings
 				
-					$start = $this->settings['start'];
-					$end = $this->settings['end'];
+					$start = $test_start;
+					$end = $test_end;
 				
 				}
 
 				$remaining = $end - $current_time;
 					
-				if ( $this->settings['enabled'] == 1 && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true && $start <= $current_time && $end >= $current_time ) { //if away mode is enabled continue
+				if ( $start <= $current_time && $end >= $current_time && ( $form === true || ( $this->settings['enabled'] === 1 && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) ) ) { //if away mode is enabled continue
 
-					if ( get_site_transient( 'bwps_away' ) === true ) {
-						delete_site_transient ( 'bwps_away' );
+					if ( $form === false ) {
+
+						if ( get_site_transient( 'bwps_away' ) === true ) {
+							delete_site_transient ( 'bwps_away' );
+						}
+
+						set_site_transient( 'bwps_away' , true, $remaining );
+
 					}
-
-					set_site_transient( 'bwps_away' , true, $remaining );
 
 					return true; //time restriction is current
 					
@@ -276,7 +296,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		public function away_mode_enabled( $args ) {
 
 			//disable the option if away mode is in the past
-			if ( isset( $this->settings['enabled'] ) && ( $this->settings['type'] == 1 || ( $this->settings['end'] > current_time( 'timestamp') || $this->settings['type'] === 2 ) ) ) {
+			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 && ( $this->settings['type'] == 1 || ( $this->settings['end'] > current_time( 'timestamp') || $this->settings['type'] === 2 ) ) ) {
 				$enabled = 1;
 			} else {
 				$enabled = 0;
@@ -538,11 +558,9 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			if ( isset( $input['enabled'] ) ) {
-				$input['enabled'] = intval( $input['enabled'] );
-			}
+			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
 
-			$input['type'] = intval( $input['type'] );
+			$input['type'] = intval( $input['type'] == 1 ? 1 : 2 );
 
 			//we don't need to process this again if it is a multisite installation
 			if ( ! is_multisite() ) {
@@ -552,13 +570,51 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			}
 
-			if ( isset( $input['enabled'] ) && $input['enabled'] === 1 ) {
-				$action = true;
-			} else {
+			if ( $this->check_away( true, $input ) === true ) {
+
+				$input['enabled'] = 0; //disable away mode
 				$action = false;
+				
+				$type = 'error';
+				$message = __( 'Invalid time listed. The time entered would lock you out of your site now. Please try again.', 'better_wp_security' );
+
+			} elseif ( $input['type'] === 2 && $input['end'] < $input['start'] ) {
+
+				$input['enabled'] = 0; //disable away mode
+				$action = false;
+				
+				$type = 'error';
+				$message = __( 'Invalid time listed. The start time selected is after the end time selected.', 'better_wp_security' );
+
+			} elseif ( $input['type'] === 2 && $input['end'] < current_time( 'timestamp' ) ) {
+
+				$input['enabled'] = 0; //disable away mode
+				$action = false;
+				
+				$type = 'error';
+				$message = __( 'Invalid time listed. The period selected already ended.', 'better_wp_security' );
+
+			} else {
+
+				if ( $input['enabled'] === 1 ) {
+					$action = true;
+				} else {
+					$action = false;
+				}
+
+				$type = 'updated';
+				$message = __( 'Settings Updated', 'better_wp_security' );
+
 			}
 
 			Bit51_BWPS_WPConfig::start( $this->core, 'define( \'BWPS_AWAY_MODE\', true );', $action );
+
+			add_settings_error(
+        		'bwps_admin_notices',
+        		esc_attr( 'settings_updated' ),
+        		$message,
+        		$type
+    		);
 
 			return $input;
 
@@ -572,7 +628,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		public function save_network_options() {
 
 			if ( isset( $_POST['bwps_away_mode']['enabled'] ) ) {
-				$settings['enabled'] = intval( $_POST['bwps_away_mode']['enabled'] ) === 1 ? 1 : 0;
+				$settings['enabled'] = intval( $_POST['bwps_away_mode']['enabled'] == 1 ? 1 : 0 );
 			}
 
 			$settings['type'] = intval( $_POST['bwps_away_mode']['type'] ) === 1 ? 1 : 2;
