@@ -85,6 +85,7 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * Bulgarian by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
 * Chinese (Traditional) by Toine Cheung
 * French by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
+* German by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
 * Hindi by <a href="http://outshinesolutions.com/">Outshine Solutions</a>
 * Lithuanian by <a href="http://www.host1free.com/">Vincent G</a>
 * Persian by <a href="http://www.gonak.ir/">Ibrahim Jafari</a>
@@ -173,6 +174,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Added .htaccess to protect saved backups (thank you Marc-Alexandre Montpas)
 * Added extra sanitization when downloading host info from database (was sanitized on upload) (thank you Marc-Alexandre Montpas)
 * Brazilian Portuguese translation by Rafael
+* German translation by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
 
 = 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>
