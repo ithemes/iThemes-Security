@@ -2396,7 +2396,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<?php if ( sizeof( $hostLocks ) > 0 ) { ?>
 							<ul>
 								<?php foreach ( $hostLocks as $host) { ?>
-									<li style="list-style: none;"><input type="checkbox" name="lo_<?php echo $host['id']; ?>" id="lo_<?php echo $host['id']; ?>" value="<?php echo $host['id']; ?>" /> <label for="lo_<?php echo $host['id']; ?>"><strong><?php echo $host['host']; ?></strong> - Expires <em><?php echo date( 'Y-m-d H:i:s', $host['exptime'] ); ?></em></label></li>
+									<li style="list-style: none;"><input type="checkbox" name="lo_<?php echo filter_var( $host['id'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ); ?>" id="lo_<?php echo $host['id']; ?>" value="<?php echo $host['id']; ?>" /> <label for="lo_<?php echo $host['id']; ?>"><strong><?php echo filter_var( $host['host'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 );; ?></strong> - Expires <em><?php echo date( 'Y-m-d H:i:s', $host['exptime'] ); ?></em></label></li>
 								<?php } ?>
 							</ul>
 							<?php } else { //no host is locked out ?>
