@@ -20,7 +20,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'add_away_mode_intro' ) );
 			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) );
-			add_filter( $bwps_globals['plugin_hook'] . '_add_wp_config_rule', array( $this, 'set_wpconfig_rule' ) );
+			add_filter( $bwps_globals['plugin_hook'] . '_add_dashboard_status', array( $this, 'dashboard_status' ) );
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) );
 
@@ -179,6 +179,31 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			}
 			
 			return false; //they are allowed to log in
+
+		}
+
+		/**
+		 * Sets the status in the plugin dashboard
+		 * 
+		 * @return void
+		 */
+		public function dashboard_status( $statuses ) {
+
+			$link = 'admin.php?page=toplevel_page_bwps-away_mode';
+
+			if ( $this->settings['enabled'] === 1 ) {
+				$statuses['safe'][] = array(
+					'text' => __( 'Away Mode is enabled and your WordPress Dashboard is not available when you will not be needing it.', 'better_wp_security' ),
+					'link' => $link,
+				);
+			} else {
+				$statuses['partial'][] = array(
+					'text' => __( 'Your WordPress Dashboard is available 24/7. Do you really update 24 hours a day? Consider using Away Mode.', 'better_wp_security' ),
+					'link' => $link,
+				);
+			}
+
+			return $statuses;
 
 		}
 

@@ -74,6 +74,15 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 
 			}
 
+			add_meta_box( 
+				'bwps_status', 
+				__( 'Security Status', 'better_wp_security' ),
+				array( $this, 'metabox_normal_status' ),
+				'toplevel_page_bwps',
+				'normal',
+				'core'
+			);
+
 		}
 
 		/**
@@ -252,6 +261,47 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			}
 
 			echo $content;
+
+		}
+
+		public function metabox_normal_status() {
+
+			global $bwps_globals;
+
+			$statuses = array (
+				'safe' => array(),
+				'partial' => array(),
+				'unsafe' => array(),
+				'conflict' => array(),
+			);
+
+			$statuses = apply_filters( $bwps_globals['plugin_hook'] . '_add_dashboard_status', $statuses );
+
+			printf( '<h2>%s</h2>', __( 'Needs Attention', 'better-wp-security' ) );
+			printf( '<h3>%s</h3>', __( 'High Priority', 'better-wp-security' ) );
+			_e( 'These are items that should be secured immediately.', 'better-wp-security' );
+			printf( '<h3>%s</h3>', __( 'Medium Priority', 'better-wp-security' ) );
+			_e( 'These are items that should be secured however they are not critical to the overall security of your site.', 'better-wp-security' );
+
+			echo '<ol>';
+			foreach ( $statuses['partial'] as $status ) {
+
+				printf( '<li> <a  style="color: orange;" href="%s">%s</a></li>', $status['link'], $status['text'] );
+
+			}
+			echo '</ol>';
+
+			printf( '<h3>%s</h3>', __( 'Low Priority', 'better-wp-security' ) );
+			_e( 'These are items that should be secured if and only if your plugin or theme does not require their use.', 'better-wp-security' );
+			printf( '<h2>%s</h2>', __( 'Fully Secured', 'better-wp-security' ) );
+
+			echo '<ol>';
+			foreach ( $statuses['safe'] as $status ) {
+
+				printf( '<li> <a  style="color: green;" href="%s">%s</a></li>', $status['link'], $status['text'] );
+
+			}
+			echo '</ol>';
 
 		}
 
