@@ -373,7 +373,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
 				$end = $this->settings['end'];
 			} else {
-				$end = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
+				$end = strtotime( date( 'n/j/y 6:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
 			}
 
 			//Hour Field
