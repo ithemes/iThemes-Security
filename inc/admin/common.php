@@ -1068,31 +1068,31 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			$config = explode( PHP_EOL, implode( '', file( $configfile ) ) );
 			
-			if ( $bwpsoptions['st_fileedit'] == 1 ) {
+			if ( isset( $bwpsoptions['st_fileedit'] ) && $bwpsoptions['st_fileedit'] == 1 ) {
 			
 				$lines .= "define( 'DISALLOW_FILE_EDIT', true );" . PHP_EOL . PHP_EOL;
 			
 			}
 			
-			if ( $bwpsoptions['ssl_forcelogin'] == 1 ) {
+			if ( isset( $bwpsoptions['ssl_forcelogin'] ) && $bwpsoptions['ssl_forcelogin'] == 1 ) {
 			
 				$lines .= "define( 'FORCE_SSL_LOGIN', true );" . PHP_EOL;
 			
 			}
 			
-			if ( $bwpsoptions['ssl_forceadmin'] == 1 ) {
+			if ( isset( $bwpsoptions['ssl_forceadmin'] ) && $bwpsoptions['ssl_forceadmin'] == 1 ) {
 			
 				$lines .= "define( 'FORCE_SSL_ADMIN', true );" . PHP_EOL . PHP_EOL;
 			
 			}
 
-			if ( $bwpsoptions['am_enabled'] == 1 ) {
+			if ( isset( $bwpsoptions['am_enabled'] ) && $bwpsoptions['am_enabled'] == 1 ) {
 			
 				$lines .= "define( 'BWPS_AWAY_MODE', true );" . PHP_EOL;
 			
 			}
 
-			if ( $bwpsoptions['id_fileenabled'] == 1 ) {
+			if ( isset( $bwpsoptions['id_fileenabled'] ) && $bwpsoptions['id_fileenabled'] == 1 ) {
 				
 				$lines .= "define( 'BWPS_FILECHECK', true );" . PHP_EOL;
 				
