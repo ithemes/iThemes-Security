@@ -228,7 +228,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 					'type' => '3',
 					'timestamp' => current_time( 'timestamp' ),
 					'host' => '',
-					'user' => '',
+					'user' => 0,
 					'url' => '',
 					'referrer' => '',
 					'data' => serialize( $combined )
