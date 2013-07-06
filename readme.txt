@@ -81,6 +81,7 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * Some features can be problematic if you don't have enough RAM to support them. All my testing servers allocate 128MB to WordPress and usually don't have any other plugins installed. I have seen issues with file check and database backups failing on servers with 64MB or less of RAM, particularly if there are many other plugins being used.
 
 = Translations =
+* Brazilian Portuguese by Rafael
 * Bulgarian by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
 * Chinese (Traditional) by Toine Cheung
 * French by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
@@ -168,6 +169,10 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Chinese (Traditional) translation by Toine Cheung
 * Fixed an XSS vulnerability in the logevent function. Fix by <a href="http://www.nccgroup.com/en/blog/?author=Richard%20Warren">Richard Warren</a>
 * Updated Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
+* 404 Logs now only accessible via the link on the logs page (thank you Marc-Alexandre Montpas)
+* Added .htaccess to protect saved backups (thank you Marc-Alexandre Montpas)
+* Added extra sanitization when downloading host info from database (was sanitized on upload) (thank you Marc-Alexandre Montpas)
+* Brazilian Portuguese translation by Rafael
 
 = 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>
