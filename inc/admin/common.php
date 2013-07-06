@@ -849,6 +849,10 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 		 **/
 		function log404csv() {
 
+			if ( ! is_user_logged_in() || ! isset( $_SERVER['HTTP_REFERER'] ) || ! strpos( $_SERVER['HTTP_REFERER'], 'better-wp-security-logs' ) ) {
+				die( 'error' );
+			}
+
 			global $wpdb;
 
 			@header( 'Content-type: text/x-csv' );
