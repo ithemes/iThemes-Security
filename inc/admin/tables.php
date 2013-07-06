@@ -134,7 +134,7 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
 		 **/
 		function column_referrer( $item ) {
 		
-			return $item['referrer'];
+			return esc_attr( $item['referrer'] );
 		
 		}
 		
