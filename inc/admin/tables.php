@@ -105,7 +105,7 @@ if ( ! class_exists( 'log_content_4_table' ) ) {
 				$item['host'] = array($item['host']);
 			}
 			foreach ($item['host'] as $host) {
-				$r[] = '<a href="http://ip-adress.com/ip_tracer/' . $host . '" target="_blank">' . $host . '</a>';
+				$r[] = '<a href="http://ip-adress.com/ip_tracer/' . filter_var( $host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) . '" target="_blank">' . filter_var( $host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) . '</a>';
 			}
 			$return = implode('<br />', $r);
 			return $return;
