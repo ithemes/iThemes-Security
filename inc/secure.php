@@ -30,7 +30,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 			
 			//Don't redirect any SSL if SSL is turned off.
-			if ( $bwpsoptions['ssl_frontend']  >= 1 ) {
+			if ( isset( $bwpsoptions['ssl_frontend'] ) && $bwpsoptions['ssl_frontend']  >= 1 ) {
 				add_action( 'template_redirect', array( &$this, 'sslredirect' ) );
 			}
 
@@ -41,32 +41,32 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				add_action( 'init', array( &$this, 'siteinit' ) );
 
 				//execute 404 check
-				if ( $bwpsoptions['id_enabled'] == 1 ) {
+				if ( isset( $bwpsoptions['id_enabled'] ) && $bwpsoptions['id_enabled'] == 1 ) {
 					add_action( 'wp_head', array( &$this,'check404' ) );
 				}
 				
 				//remove wp-generator meta tag
-				if ( $bwpsoptions['st_generator'] == 1 ) { 
+				if ( isset( $bwpsoptions['st_generator'] ) && $bwpsoptions['st_generator'] == 1 ) { 
 					remove_action( 'wp_head', 'wp_generator' );
 				}
 				
 				//remove login error messages if turned on
-				if ( $bwpsoptions['st_loginerror'] == 1 ) {
+				if ( isset( $bwpsoptions['st_loginerror'] ) && $bwpsoptions['st_loginerror'] == 1 ) {
 					add_filter( 'login_errors', create_function( '$a', 'return null;' ) );
 				}
 				
 				//remove wlmanifest link if turned on
-				if ( $bwpsoptions['st_manifest'] == 1 ) {
+				if ( isset( $bwpsoptions['st_manifest'] ) && $bwpsoptions['st_manifest'] == 1 ) {
 					remove_action( 'wp_head', 'wlwmanifest_link' );
 				}
 				
 				//remove rsd link from header if turned on
-				if ( $bwpsoptions['st_edituri'] == 1 ) {
+				if ( isset( $bwpsoptions['st_edituri'] ) && $bwpsoptions['st_edituri'] == 1 ) {
 					remove_action( 'wp_head', 'rsd_link' );
 				}
 				
 				//ban extra-long urls if turned on
-				if ( $bwpsoptions['st_longurl'] == 1 && ! is_admin() ) {
+				if ( isset( $bwpsoptions['st_longurl'] ) && $bwpsoptions['st_longurl'] == 1 && ! is_admin() ) {
 				
 					if ( 
 						! strpos( $_SERVER['REQUEST_URI'], 'infinity=scrolling&action=infinite_scroll' ) &&
@@ -91,7 +91,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				}
 				
 				//require strong passwords if turned on
-				if ( $bwpsoptions['st_enablepassword'] == 1 ) {
+				if ( isset( $bwpsoptions['st_enablepassword'] ) && $bwpsoptions['st_enablepassword'] == 1 ) {
 					add_action( 'user_profile_update_errors',  array( &$this, 'strongpass' ), 0, 3 );
 					
 					if ( isset( $_GET['action'] ) && ( $_GET['action'] == 'rp' || $_GET['action'] == 'resetpass' ) && isset( $_GET['login'] ) ) {
@@ -101,22 +101,22 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				}
 				
 				//display random number for wordpress version if turned on
-				if ( $bwpsoptions['st_randomversion'] == 1 ) {
+				if ( isset( $bwpsoptions['st_randomversion'] ) && $bwpsoptions['st_randomversion'] == 1 ) {
 					add_action( 'plugins_loaded', array( &$this, 'randomVersion' ) );
 				}
 				
 				//remove theme update notifications if turned on
-				if ( $bwpsoptions['st_themenot'] == 1 ) {
+				if ( isset( $bwpsoptions['st_themenot'] ) && $bwpsoptions['st_themenot'] == 1 ) {
 					add_action( 'plugins_loaded', array( &$this, 'themeupdates' ) );
 				}
 				
 				//remove plugin update notifications if turned on
-				if ( $bwpsoptions['st_pluginnot'] == 1 ) {
+				if ( isset( $bwpsoptions['st_pluginnot'] ) && $bwpsoptions['st_pluginnot'] == 1 ) {
 					add_action( 'plugins_loaded', array( &$this, 'pluginupdates' ) );
 				}
 				
 				//remove core update notifications if turned on
-				if ( $bwpsoptions['st_corenot'] == 1 ) {
+				if ( isset( $bwpsoptions['st_corenot'] ) && $bwpsoptions['st_corenot'] == 1 ) {
 					add_action( 'plugins_loaded', array( &$this, 'coreupdates' ) );
 				}
 				
