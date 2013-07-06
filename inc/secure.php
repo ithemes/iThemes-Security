@@ -480,7 +480,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 
 			//Get the forwarded IP if it exists
-			if ( array_key_exists( 'X-Forwarded-For', $headers ) ) {
+			if ( array_key_exists( 'X-Forwarded-For', $headers ) && ( filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) || filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) ) {
 				
 				$theIP = $headers['X-Forwarded-For'];
                         
