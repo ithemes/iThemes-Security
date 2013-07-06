@@ -177,6 +177,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * German translation by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
 * Removed timezone from email lockout notifications (GitHub Issue #35)
 * Better variable checking to prevent error messages
+* Force user 0 when logging filechecking (GitHub Issue #7)
 
 = 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>
