@@ -684,7 +684,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 
 					if ( $permban == false ) {
 
-						$duration = __( 'until', $this->hook ) . " " . date( "l, F jS, Y \a\\t g:i:s a e", $exptime );
+						$duration = __( 'until', $this->hook ) . " " . date( "l, F jS, Y \a\\t g:i a", $exptime );
 
 					} else {
 
