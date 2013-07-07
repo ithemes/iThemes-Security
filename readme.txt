@@ -180,6 +180,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Force user 0 when logging filechecking (GitHub Issue #7)
 * CSS update for MP6 from shivapoudel
 * Small tweak to prevent email notifications being sent when they shouldn't
+* Cleaned up variable checking throughout to eliminate activation errors if php errors or WP_DEBUG is turned on
 
 = 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>
