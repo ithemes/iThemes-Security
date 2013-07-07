@@ -116,9 +116,6 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 		function __construct() {
 		
 			global $bwps, $bwpsoptions, $bwpsdata;
-
-			//add extras to primarysettings
-			$this->settings['bit51_bwps_options']['bit51_bwps']['id_specialfile'] = 'favicon.ico' . PHP_EOL . 'apple-touch-icon.png' . PHP_EOL . 'apple-touch-icon-precomposed.png';
 			
 			//Get the options
 			if ( is_multisite() ) {
