@@ -146,7 +146,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						
 				@fclose( $f );
 				
-				if ( $bwpsoptions['st_fileperm'] == 1 ) {
+				if ( isset( $bwpsoptions['st_fileperm'] ) && $bwpsoptions['st_fileperm'] == 1 ) {
 					@chmod( $htaccess, 0444 );
 				}
 						
@@ -204,7 +204,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 							
 				@fclose( $f );
 				
-				if ( $bwpsoptions['st_fileperm'] == 1 ) {
+				if ( isset( $bwpsoptions['st_fileperm'] ) && $bwpsoptions['st_fileperm'] == 1 ) {
 					@chmod( $configfile, 0444 );
 				}
 							
@@ -274,7 +274,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			$rules = '';
 			
 			//remove directory indexing
-			if ( $bwpsoptions['st_ht_browsing'] == 1 ) {
+			if ( isset( $bwpsoptions['st_ht_browsing'] ) && $bwpsoptions['st_ht_browsing'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -286,7 +286,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			//ban hosts
 			
-			if ( $bwpsoptions['bu_blacklist'] == 1 ) {
+			if ( isset( $bwpsoptions['bu_blacklist'] ) && $bwpsoptions['bu_blacklist'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -305,7 +305,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			
-			if ( $bwpsoptions['bu_enabled'] == 1 ) {
+			if ( isset( $bwpsoptions['bu_enabled'] ) && $bwpsoptions['bu_enabled'] == 1 ) {
 			
 				$hosts = explode( PHP_EOL, $bwpsoptions['bu_banlist'] );
 				
@@ -406,7 +406,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//lockdown files
-			if ( $bwpsoptions['st_ht_files'] == 1 ) {
+			if ( isset( $bwpsoptions['st_ht_files'] ) && $bwpsoptions['st_ht_files'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -445,7 +445,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//start mod_rewrite rules
-			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_comment'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) ) {
+			if ( ( isset( $bwpsoptions['st_ht_request'] ) && $bwpsoptions['st_ht_request'] == 1 ) || ( isset( $bwpsoptions['st_comment'] ) && $bwpsoptions['st_comment'] == 1 ) || ( isset( $bwpsoptions['st_ht_query'] ) && $bwpsoptions['st_ht_query'] == 1 ) || ( isset( $bwpsoptions['hb_enabled'] ) && $bwpsoptions['hb_enabled'] == 1 ) || ( isset( $bwpsoptions['bu_enabled'] ) && $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -464,7 +464,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//ban hosts and agents
-			if ( $bwpsoptions['bu_enabled'] == 1 && strlen( $bwpsoptions['bu_banagent'] ) > 0 ) {
+			if ( isset( $bwpsoptions['bu_enabled'] ) && $bwpsoptions['bu_enabled'] == 1 && strlen( $bwpsoptions['bu_banagent'] ) > 0 ) {
 				
 				$agents = explode( PHP_EOL, $bwpsoptions['bu_banagent'] );
 				
@@ -519,7 +519,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			}
 			
-			if ( $bwpsoptions['st_ht_files'] == 1 ) {
+			if ( isset( $bwpsoptions['st_ht_files'] ) && $bwpsoptions['st_ht_files'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -540,7 +540,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
-			if ( $bwpsoptions['st_ht_request'] == 1 ) {
+			if ( isset( $bwpsoptions['st_ht_request'] ) && $bwpsoptions['st_ht_request'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -556,7 +556,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			}
 			
-			if ( $bwpsoptions['st_comment'] == 1 ) {
+			if ( isset( $bwpsoptions['st_comment'] ) && $bwpsoptions['st_comment'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -584,7 +584,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//filter suspicious queries
-			if ( $bwpsoptions['st_ht_query'] == 1 ) {
+			if ( isset( $bwpsoptions['st_ht_query'] ) && $bwpsoptions['st_ht_query'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
@@ -648,7 +648,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			}
 			
-			if ( $bwpsoptions['st_ht_query'] == 1 ) {
+			if ( isset( $bwpsoptions['st_ht_query'] ) && $bwpsoptions['st_ht_query'] == 1 ) {
 			
 				if ( $bwpsserver == 'nginx' ) {
 			
@@ -660,7 +660,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//hide backend rules	
-			if ( $bwpsoptions['hb_enabled'] == 1 ) {
+			if ( isset( $bwpsoptions['hb_enabled'] ) && $bwpsoptions['hb_enabled'] == 1 ) {
 					
 				//get the slugs
 				$login = $bwpsoptions['hb_login'];
@@ -737,7 +737,12 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			}
 			
 			//close mod_rewrite
-			if ( $bwpsoptions['st_ht_request'] == 1 || $bwpsoptions['st_comment'] == 1 || $bwpsoptions['st_ht_query'] == 1 || $bwpsoptions['hb_enabled'] == 1 || ( $bwpsoptions['bu_enabled'] == 1 && strlen(  $bwpsoptions['bu_banagent'] ) > 0 ) ) {
+			if ( 
+				( isset( $bwpsoptions['st_ht_request'] ) && $bwpsoptions['st_ht_request'] == 1 ) || 
+				( isset( $bwpsoptions['st_comment'] ) && $bwpsoptions['st_comment'] == 1 ) || 
+				( isset( $bwpsoptions['st_ht_query'] ) && $bwpsoptions['st_ht_query'] == 1 ) || 
+				( isset( $bwpsoptions['hb_enabled'] ) && $bwpsoptions['hb_enabled'] == 1 ) || 
+				( isset( $bwpsoptions['bu_enabled'] ) && $bwpsoptions['bu_enabled'] == 1 && strlen( $bwpsoptions['bu_banagent'] ) > 0 ) ) {
 			
 				if ( ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) ) {
 				
@@ -1033,7 +1038,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 				
 			@fclose( $f );
 			
-			if ( $bwpsoptions['st_fileperm'] == 1 ) {
+			if ( isset( $bwpsoptions['st_fileperm'] ) && $bwpsoptions['st_fileperm'] == 1 ) {
 				@chmod( $htaccess, 0444 );
 			}
 			
@@ -1146,7 +1151,7 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 			@fclose( $f );
 			
-			if ( $bwpsoptions['st_fileperm'] == 1 ) {
+			if ( isset( $bwpsoptions['st_fileperm'] ) && $bwpsoptions['st_fileperm'] == 1 ) {
 				@chmod( $configfile, 0444 );
 			}
 			

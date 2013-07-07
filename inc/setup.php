@@ -391,10 +391,10 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 					$bwpsoptions['st_writefiles'] = 1;
 					$bwpsoptions['initial_filewrite'] = 1;
 					
-					$bwpsoptions['ssl_forcelogin'] = $bwpsoptions['st_forceloginssl'];
-					$bwpsoptions['ssl_forceadmin'] = $bwpsoptions['st_forceadminssl'];
+					$bwpsoptions['ssl_forcelogin'] = ( isset( $bwpsoptions['st_forceloginssl'] ) ? $bwpsoptions['st_forceloginssl'] : '0' );
+					$bwpsoptions['ssl_forceadmin'] = ( isset( $bwpsoptions['st_forceadminssl'] ) ? $bwpsoptions['st_forceadminssl'] : '0' );
 					
-					if ( $bwpsoptions['backup_enabled'] == 1 && $bwpsoptions['ll_enabled'] == 1 && $bwpsoptions['id_enabled'] == 1 && $bwpsoptions['st_ht_files'] == 1 && $bwpsoptions['st_ht_browsing'] == 1 && $bwpsoptions['st_generator'] == 1 && $bwpsoptions['st_manifest'] == 1 && $bwpsoptions['st_themenot'] == 1 && $bwpsoptions['st_pluginnot'] == 1 && $bwpsoptions['st_corenot'] == 1 && $bwpsoptions['st_enablepassword'] == 1 && $bwpsoptions['st_loginerror'] == 1 && $bwpsoptions['st_ht_request'] == 1 ) {
+					if ( isset( $bwpsoptions['backup_enabled'] ) && $bwpsoptions['backup_enabled'] == 1 && isset( $bwpsoptions['ll_enabled'] ) && $bwpsoptions['ll_enabled'] == 1 && isset( $bwpsoptions['id_enabled'] ) && $bwpsoptions['id_enabled'] == 1 && isset( $bwpsoptions['st_ht_files'] ) && $bwpsoptions['st_ht_files'] == 1 && isset( $bwpsoptions['st_ht_browsing'] ) && $bwpsoptions['st_ht_browsing'] == 1 && isset( $bwpsoptions['st_generator'] ) && $bwpsoptions['st_generator'] == 1 && isset( $bwpsoptions['st_manifest'] ) && $bwpsoptions['st_manifest'] == 1 && isset( $bwpsoptions['st_themenot'] ) && $bwpsoptions['st_themenot'] == 1 && isset( $bwpsoptions['st_pluginnot'] ) && $bwpsoptions['st_pluginnot'] == 1 && isset( $bwpsoptions['st_corenot'] ) && $bwpsoptions['st_corenot'] == 1 && isset( $bwpsoptions['st_enablepassword'] ) && $bwpsoptions['st_enablepassword'] == 1 && isset( $bwpsoptions['st_loginerror'] ) && $bwpsoptions['st_loginerror'] == 1 && isset( $bwpsoptions['st_ht_request'] ) && $bwpsoptions['st_ht_request'] == 1 ) {
 					
 						$bwpsoptions['id_fileenabled'] = 1;	
 						
@@ -419,7 +419,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				
 				if ( str_replace( '.', '', $oldversion ) < 3033 ) {
 					
-					$bwpsoptions['ssl_frontend'] = $bwpsoptions['ssl_forcesite'] == 1 ? 2 : 1;	
+					$bwpsoptions['ssl_frontend'] = ( isset( $bwpsoptions['ssl_forcesite'] ) && $bwpsoptions['ssl_forcesite'] == 1 ? 2 : 1 );
 					
 					//Get the right options
 					if ( is_multisite() ) {
@@ -441,7 +441,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				if ( str_replace( '.', '', $oldversion ) < 3044 ) {
 				
 					//turn on id confirmation for existing users.
-					$idconfirm = $bwpsoptions['id_fileenabled'] == 1 ? true : false;
+					$idconfirm = ( isset( $bwpsoptions['id_fileenabled'] ) && $bwpsoptions['id_fileenabled'] == 1 ? true : false );
 					
 					update_option( 'bwps_filecheck', $idconfirm );
 				
@@ -450,7 +450,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				if ( str_replace( '.', '', $oldversion ) < 3051 ) {
 				
 					//turn on away mode for existing users.
-					$amconfirm = $bwpsoptions['am_enabled'] == 1 ? 1 : 0;
+					$amconfirm = ( isset( $bwpsoptions['am_enabled'] ) && $bwpsoptions['am_enabled'] == 1 ? 1 : 0 );
 					
 					update_option( 'bwps_awaymode', $amconfirm );
 				

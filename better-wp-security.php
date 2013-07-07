@@ -118,7 +118,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 			global $bwps, $bwpsoptions, $bwpsdata;
 
 			//add extras to primarysettings
-			//$this->settings['bit51_bwps_options']['bit51_bwps']['id_specialfile'] = 'favicon.ico' . PHP_EOL . 'apple-touch-icon.png' . PHP_EOL . 'apple-touch-icon-precomposed.png';
+			$this->settings['bit51_bwps_options']['bit51_bwps']['id_specialfile'] = 'favicon.ico' . PHP_EOL . 'apple-touch-icon.png' . PHP_EOL . 'apple-touch-icon-precomposed.png';
 			
 			//Get the options
 			if ( is_multisite() ) {
@@ -149,17 +149,17 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 		
 			//load the text domain
 			load_plugin_textdomain( 'better-wp-security', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-		
-			//require admin pages
-			if ( is_admin() || ( is_multisite() && is_network_admin() ) ) {
-				require_once( BWPS_PP . 'inc/admin/construct.php' );
-			}
-			
+
 			//require setup information
 			require_once( BWPS_PP . 'inc/setup.php' );
 			register_activation_hook( __FILE__, array( 'bwps_setup', 'on_activate' ) );
 			register_deactivation_hook( __FILE__, array( 'bwps_setup', 'on_deactivate' ) );
 			register_uninstall_hook( __FILE__, array( 'bwps_setup', 'on_uninstall' ) );
+		
+			//require admin pages
+			if ( is_admin() || ( is_multisite() && is_network_admin() ) ) {
+				require_once( BWPS_PP . 'inc/admin/construct.php' );
+			}
 			
 			require_once( BWPS_PP . 'inc/auth.php' );
 			require_once( BWPS_PP . 'inc/secure.php' );
