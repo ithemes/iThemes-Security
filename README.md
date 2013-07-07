@@ -1,5 +1,8 @@
 # [Better WP Security](http://bit51.com/software/better-wp-security/) #
 
+## [4.x Branch Ready For Testing] (https://github.com/bit51/Better-WP-Security/tree/4.x)
+I'm happy to announce that the [4.x branch] (https://github.com/bit51/Better-WP-Security/tree/4.x) has enough in it to start testing. If you have a minute or 6 please download it and start submitting your issues.
+
 ### Welcome to the Better WP Security Development Repository
 
 WordPress core might be secure, but many plugins and users don't always maintain the same level of security. Better WP Security aims to fix some of the issues caused by things other than WordPress core.
