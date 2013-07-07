@@ -323,7 +323,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 							</div>
 						</div>
 					</div>
-					<div class="postbox-container side" style="width:20%;">
+					<div class="postbox-container side" style="width:25%;">
 						<div class="metabox-holder">	
 							<div class="meta-box-sortables">
 								<?php
