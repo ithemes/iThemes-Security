@@ -628,7 +628,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				}
 				
 				//contruct and send email if necessary
-				if ( ( $type == 1 && $bwpsoptions['ll_emailnotify'] == 1 ) || ( $type == 2 && $bwpsoptions['id_emailnotify'] == 1 ) ) {
+				if ( ( isset( $bwpsoptions['ll_emailnotify'] ) && $type === 1 && $bwpsoptions['ll_emailnotify'] === 1 ) || ( isset( $bwpsoptions['id_emailnotify'] ) && $type === 2 && $bwpsoptions['id_emailnotify'] === 1 ) ) {
 				
 					//Get the right email address.
 					if ( $type == 1 ) {

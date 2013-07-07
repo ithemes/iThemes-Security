@@ -179,6 +179,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Better variable checking to prevent error messages
 * Force user 0 when logging filechecking (GitHub Issue #7)
 * CSS update for MP6 from shivapoudel
+* Small tweak to prevent email notifications being sent when they shouldn't
 
 = 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>
