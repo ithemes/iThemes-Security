@@ -144,7 +144,7 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
       					foreach ( $rule as $single_rule ) {
 
-      						$config_contents = $this->build_rules( $rule, $single_rule, $action );
+      						$config_contents = $this->build_rules( $single_rule, $config_contents, $action );
 
       					}
 
