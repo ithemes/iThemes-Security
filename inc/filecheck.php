@@ -379,7 +379,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
-				if ( sizeof( $added > 0 ) ) {
+				if ( isset( $added ) && is_array( $added ) && sizeof( $added > 0 ) ) {
 					foreach ( $added as $item => $attr ) { 
 						$report .= '<tr>' . PHP_EOL;
 						$report .= '<td>' . $item . '</td>' . PHP_EOL;
@@ -401,7 +401,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
-				if ( sizeof( $removed > 0 ) ) {
+				if ( isset( $removed ) && is_array( $removed ) && sizeof( $removed > 0 ) ) {
 					foreach ( $removed as $item => $attr ) { 
 						$report .= '<tr>' . PHP_EOL;
 						$report .= '<td>' . $item . '</td>' . PHP_EOL;
@@ -423,7 +423,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				$report .= '<th>' . __( 'Modified', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '<th>' . __( 'File Hash', $this->hook ) . '</th>' . PHP_EOL;
 				$report .= '</tr>' . PHP_EOL;
-				if ( sizeof( $changed > 0 ) ) {
+				if ( isset( $changed ) && is_array( $changed ) && sizeof( $changed > 0 ) ) {
 					foreach ( $changed as $item => $attr ) { 
 						$report .= '<tr>' . PHP_EOL;
 						$report .= '<td>' . $item . '</td>' . PHP_EOL;
