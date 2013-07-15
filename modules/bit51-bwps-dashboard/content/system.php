@@ -1,7 +1,7 @@
 <?php 
 	global $bwps_utilities, $wpdb; 
 	$config_file = $bwps_utilities->get_config();
-	$htaccess = ABSPATH . '.htaccess';
+	$htaccess = $bwps_utilities->get_htaccess();
 ?>
 
 <ul>
@@ -168,7 +168,7 @@
 			<li><?php _e( 'PHP Register Globals', 'better-wp-security' ); ?>: <strong><?php echo $register_globals; ?></strong></li>
 			<?php 
 				if ( ini_get( 'max_execution_time' ) ) {
-					$max_execute = ini_get( 'max_execution_time' );
+					$max_execute = filter_var( ini_get( 'max_execution_time' ) );
 				} else {
 					$max_execute = __( 'N/A', 'better-wp-security' ); 
 				}

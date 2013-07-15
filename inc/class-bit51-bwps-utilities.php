@@ -36,6 +36,20 @@ if ( ! class_exists( 'Bit51_BWPS_Utilities' ) ) {
 		 **/
 		public function get_config() {
 		
+			return ABSPATH . '.htaccess';
+			
+		}
+
+		/**
+		 * Gets location of .htaccess
+		 *
+		 * Finds and returns path to .htaccess
+		 *
+		 * @return string path to .htaccess
+		 *
+		 **/
+		public function get_htaccess() {
+		
 			if ( file_exists( trailingslashit( ABSPATH ) . 'wp-config.php' ) ) {
 			
 				return trailingslashit( ABSPATH ) . 'wp-config.php';
