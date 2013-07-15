@@ -18,46 +18,31 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 		 */
 		private function __construct( $plugin, $rule, $action ) {
 
+			global $bwps_utilities;
+
 			@ini_set( 'auto_detect_line_endings', true );
-
-			global $bwps_globals;
-
-			//attempt to lock the process for safety
-			$lock_file = $bwps_globals['upload_dir'] . '/config.lock';
-
-			if ( file_exists( $lock_file ) ) {
-
-				$pid = @file_get_contents( $lock_file );
-
-				if ( @posix_getsid( $pid ) !== false) {
-
-					return false; //file is locked for writing
-				
-				} 
-
-			}
-
-			@file_put_contents( $lock_file, getmypid() );
 			
-			$this->plugin = $plugin;
+			if ( $bwps_utilities->get_lock() === true ) {
 
-			if ( $this->write_config( $rule, $action ) === true ) {
+				if ( $this->write_config( $rule, $action ) === true ) {
 
-				unlink( $lock_file );
+					$bwps_utilities->release_lock();
 
-				return true;
+					return true;
 
-			} else {
+				} else {
 
-				unlink( $lock_file );
+					$bwps_utilities->release_lock();
 
-				return false;
+				}
 
 			}
+
+			return false;
 			
 		}
 
-		private function build_rules( $rule, $config_contents, $action ) {			
+		private function build_rules( $rule, $config_contents, $action ) {
 
 			if ( $action === true && strpos( $config_contents, $rule ) === false ) { //if we're adding the rule and it isn't already there
 
@@ -95,11 +80,14 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
 
+			$form_fields = array ( 'save' );
+			$method = ''; 
+
 			if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $form_fields ) ) ) {
 				return true; // stop the normal page form from displaying
 			}
 
-			if ( ! WP_Filesystem($creds) ) {
+			if ( ! WP_Filesystem( $creds ) ) {
     			// our credentials were no good, ask the user for them again
     			request_filesystem_credentials( $url, $method, true, false, $form_fields );
     			return true;

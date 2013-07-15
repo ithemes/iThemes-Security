@@ -7,9 +7,10 @@ if ( ! class_exists( 'Bit51_BWPS_Utilities' ) ) {
 		private static $instance = null; //instantiated instance of this plugin
 
 		public
-			$admin_tabs,
-			$page_hooks,
 			$plugin;
+
+		private 
+			$lock_file;
 
 		/**
 		 * Loads core functionality across both admin and frontend.
@@ -24,6 +25,8 @@ if ( ! class_exists( 'Bit51_BWPS_Utilities' ) ) {
 
 			$this->plugin = $plugin; //Allow us to access plugin defaults throughout
 
+			$this->lock_file = $bwps_globals['upload_dir'] . '/config.lock';
+
 		}
 
 		/**
@@ -35,9 +38,59 @@ if ( ! class_exists( 'Bit51_BWPS_Utilities' ) ) {
 		 *
 		 **/
 		public function get_config() {
-		
-			return ABSPATH . '.htaccess';
+
+			if ( file_exists( trailingslashit( ABSPATH ) . 'wp-config.php' ) ) {
 			
+				return trailingslashit( ABSPATH ) . 'wp-config.php';
+				
+			} else {
+			
+				return trailingslashit( dirname( ABSPATH ) ) . 'wp-config.php';
+				
+			}
+			
+		}
+
+		/**
+		 * Attempt to get a lock for atomic operations
+		 * 
+		 * @return bool true if lock was achieved, else false
+		 */
+		public function get_lock() {
+
+			global $bwps_globals;
+
+			if ( file_exists( $this->lock_file ) ) {
+
+				$pid = @file_get_contents( $this->lock_file );
+
+				if ( @posix_getsid( $pid ) !== false) {
+
+					return true; //file is locked for writing
+				
+				} 
+
+			}
+
+			@file_put_contents( $this->lock_file, getmypid() );
+
+			return false;
+
+		}
+
+		/**
+		 * Release the lock
+		 * 
+		 * @return bool true if released, false otherwise
+		 */
+		public function release_lock() {
+
+			if ( @unlink( $this->lock_file ) ) {
+				return true;
+			}
+
+			return false;
+
 		}
 
 		/**
@@ -50,15 +103,7 @@ if ( ! class_exists( 'Bit51_BWPS_Utilities' ) ) {
 		 **/
 		public function get_htaccess() {
 		
-			if ( file_exists( trailingslashit( ABSPATH ) . 'wp-config.php' ) ) {
-			
-				return trailingslashit( ABSPATH ) . 'wp-config.php';
-				
-			} else {
-			
-				return trailingslashit( dirname( ABSPATH ) ) . 'wp-config.php';
-				
-			}
+			return ABSPATH . '.htaccess';
 			
 		}
 
