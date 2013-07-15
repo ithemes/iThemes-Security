@@ -281,7 +281,7 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			printf( '<h3>%s</h3>', __( 'High Priority', 'better-wp-security' ) );
 			_e( 'These are items that should be secured immediately.', 'better-wp-security' );
 			printf( '<h3>%s</h3>', __( 'Medium Priority', 'better-wp-security' ) );
-			_e( 'These are items that should be secured however they are not critical to the overall security of your site.', 'better-wp-security' );
+			_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'better-wp-security' );
 
 			echo '<ol>';
 			foreach ( $statuses['partial'] as $status ) {
@@ -292,10 +292,9 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			echo '</ol>';
 
 			printf( '<h3>%s</h3>', __( 'Low Priority', 'better-wp-security' ) );
-			_e( 'These are items that should be secured if and only if your plugin or theme does not require their use.', 'better-wp-security' );
+			_e( 'These are items that should be secured if, and only if, your plugins or theme does not require their use.', 'better-wp-security' );
 			printf( '<h2>%s</h2>', __( 'Fully Secured', 'better-wp-security' ) );
-
-			echo '<ol>';
+			
 			foreach ( $statuses['safe'] as $status ) {
 
 				printf( '<li> <a  style="color: green;" href="%s">%s</a></li>', $status['link'], $status['text'] );
