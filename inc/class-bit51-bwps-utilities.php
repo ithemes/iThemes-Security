@@ -142,6 +142,18 @@ if ( ! class_exists( 'Bit51_BWPS_Utilities' ) ) {
 		}
 
 		/**
+		 * Defer action due to lock or other reason
+		 *
+		 * @param [type] [varname] [description]
+		 * @return  bool true for success false for failure
+		 */
+		public function add_deffered( $type ) {
+
+
+
+		}
+
+		/**
 		 * Start the global utilities instance
 		 * 
 		 * @param  [plugin_class]  $plugin       Instance of main plugin class
