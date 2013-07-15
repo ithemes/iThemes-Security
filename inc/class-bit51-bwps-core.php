@@ -46,7 +46,7 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 				//see if the saved build version is older than the current build version
 				if ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $bwps_globals['plugin_build'] ) {
-					Bit51_BWPS_Setup::upgrade_execute( $plugin_data['build'] ); //run upgrade scripts
+					Bit51_BWPS_Setup::on_activate( $plugin_data['build'] ); //run upgrade scripts
 				}
 
 			}

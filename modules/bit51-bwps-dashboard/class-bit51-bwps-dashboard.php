@@ -83,6 +83,15 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 				'core'
 			);
 
+			add_meta_box( 
+				'bwps_system_info', 
+				__( 'System Information', 'better_wp_security' ),
+				array( $this, 'metabox_normal_system' ),
+				'toplevel_page_bwps',
+				'normal',
+				'core'
+			);
+
 		}
 
 		/**
@@ -264,6 +273,11 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 
 		}
 
+		/**
+		 * Display security status
+		 * 
+		 * @return void
+		 */
 		public function metabox_normal_status() {
 
 			global $bwps_globals;
@@ -294,13 +308,24 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			printf( '<h3>%s</h3>', __( 'Low Priority', 'better-wp-security' ) );
 			_e( 'These are items that should be secured if, and only if, your plugins or theme does not require their use.', 'better-wp-security' );
 			printf( '<h2>%s</h2>', __( 'Fully Secured', 'better-wp-security' ) );
-			
+
 			foreach ( $statuses['safe'] as $status ) {
 
 				printf( '<li> <a  style="color: green;" href="%s">%s</a></li>', $status['link'], $status['text'] );
 
 			}
 			echo '</ol>';
+
+		}
+
+		/**
+		 * Displays system information
+		 * 
+		 * @return void
+		 */
+		public function metabox_normal_system() {
+
+			require_once( 'content/system.php' );
 
 		}
 

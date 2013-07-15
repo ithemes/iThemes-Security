@@ -41,13 +41,13 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 		 */
 		private function __construct() {
 
-			global $bwps_globals;
+			global $bwps_globals, $bwps_utilities;
 
 			$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
 
 			//Set plugin defaults
 			$bwps_globals = array(
-				'plugin_build'			=> 3062, //plugin build number - used to trigger updates
+				'plugin_build'			=> 4001, //plugin build number - used to trigger updates
 				'plugin_file'			=> __FILE__, //the main plugin file
 				'plugin_access_lvl' 	=> 'manage_options', //Access level required to access plugin options
 				'plugin_dir' 			=> plugin_dir_path( __FILE__ ), //the path of the plugin directory
@@ -68,11 +68,14 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 			$this->menu_icon = $bwps_globals['plugin_url'] . 'img/shield-small.png'; //image icon 
 			$this->dashboard_menu_title = __( 'Dashboard', 'better_wp_security' ); //the name of the dashboard menu item (if different "Dashboard")
 			$this->dashboard_page_name = __( 'Dashboard', 'better_wp_security' ); //page name - appears after plugin name on the dashboard page
-			
 
 			//load core functionality for admin use
 			require_once( $bwps_globals['plugin_dir'] . 'inc/class-bit51-bwps-core.php' );
 			$this->core = Bit51_BWPS_Core::start( $this );
+
+			//load utility functions
+			require_once( $bwps_globals['plugin_dir'] . 'inc/class-bit51-bwps-utilities.php' );
+			$bwps_utilities = Bit51_BWPS_Utilities::start( $this->core );
 
 			//load modules
 			$this->load_modules();

@@ -57,28 +57,6 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 			
 		}
 
-		/**
-		 * Gets location of wp-config.php
-		 *
-		 * Finds and returns path to wp-config.php
-		 *
-		 * @return string path to wp-config.php
-		 *
-		 **/
-		private function get_config() {
-		
-			if ( file_exists( trailingslashit( ABSPATH ) . 'wp-config.php' ) ) {
-			
-				return trailingslashit( ABSPATH ) . 'wp-config.php';
-				
-			} else {
-			
-				return trailingslashit( dirname( ABSPATH ) ) . 'wp-config.php';
-				
-			}
-			
-		}
-
 		private function build_rules( $rule, $config_contents, $action ) {			
 
 			if ( $action === true && strpos( $config_contents, $rule ) === false ) { //if we're adding the rule and it isn't already there
@@ -113,6 +91,8 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 		public function write_config( $rule, $action ) {
 
+			global $bwps_utilities;
+
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
 
 			if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $form_fields ) ) ) {
@@ -128,7 +108,7 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 			// get the upload directory and make a test.txt file
 			$upload_dir = wp_upload_dir();
 			$filename = trailingslashit( $upload_dir['path'] ) . 'test.txt';
-			$config_file = $this->get_config();
+			$config_file = $bwps_utilities->get_config();
 
 			global $wp_filesystem;
 

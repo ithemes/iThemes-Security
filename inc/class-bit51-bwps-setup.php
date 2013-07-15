@@ -35,6 +35,10 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 					$this->activate_execute( $upgrading );
 					break;
 
+				case 'upgrade': //active plugin
+					$this->upgrade_execute();
+					break;
+
 				case 'deactivate': //deactivate plugin
 					$this->deactivate_execute();
 					break;
@@ -106,6 +110,16 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 		function on_uninstall() {
 		
 			new Bit51_BWPS_Setup( 'uninstall' );
+			
+		}
+
+		/**
+		 * Public function to upgrade
+		 *
+		 **/
+		function on_upgrade() {
+		
+			new Bit51_BWPS_Setup( 'upgrade' );
 			
 		}
 		
