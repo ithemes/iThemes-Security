@@ -27,6 +27,8 @@ if ( ! class_exists( 'Bit51_BWPS_Utilities' ) ) {
 
 			$this->lock_file = $bwps_globals['upload_dir'] . '/config.lock';
 
+			$this->process_deferred(); //process any deferred actions
+
 		}
 
 		/**
@@ -66,7 +68,7 @@ if ( ! class_exists( 'Bit51_BWPS_Utilities' ) ) {
 
 				if ( @posix_getsid( $pid ) !== false) {
 
-					return true; //file is locked for writing
+					return false; //file is locked for writing
 				
 				} 
 
@@ -144,12 +146,34 @@ if ( ! class_exists( 'Bit51_BWPS_Utilities' ) ) {
 		/**
 		 * Defer action due to lock or other reason
 		 *
-		 * @param [type] [varname] [description]
-		 * @return  bool true for success false for failure
+		 * @param string $type 		Type of deferral
+		 * @param  array $action   	Action to perform on typw
+		 * @return  bool 			true for success false for failure
 		 */
-		public function add_deffered( $type ) {
+		public function add_deferred( $type, $action ) {
 
+			$deferred = get_site_option( 'bwps_deferred' );
 
+			$deferred[$type][] = $action;
+
+			update_site_option( 'bwps_deferred', $deferred );
+
+		}
+
+		/**
+		 * Process deferred actions
+		 * 
+		 * @return void
+		 */
+		private function process_deferred() {
+
+			$deferred = get_site_option( 'bwps_deferred' );
+
+			if ( $deferred === false ) {
+				return;
+			}
+
+			do_action( $bwps_globals['plugin_url'] . 'process_deferred', $deferred );
 
 		}
 

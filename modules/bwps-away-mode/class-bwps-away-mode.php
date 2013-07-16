@@ -23,10 +23,36 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			add_filter( $bwps_globals['plugin_hook'] . '_add_dashboard_status', array( $this, 'dashboard_status' ) );
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) );
+			add_action( $bwps_globals['plugin_url'] . 'process_deferred', array( $this, 'process_deferred' ) );
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
 				add_action( 'network_admin_edit_bwps_away_mode', array( $this, 'save_network_options' ) );
+			}
+
+		}
+
+		public function process_deferred( $deferred ) {
+
+			if ( isset( $deferred['away_mode'] ) ) {
+
+				foreach ( $deferred['away_mode'] as $current_action ) {
+
+					$written = new Bit51_BWPS_WPConfig( $current_action['rule'], $current_action['action'] );
+
+					if ( $written === false ) {
+
+						$deferred_action = array(
+							'rule' 		=> $current_action['rule'],
+							'action' 	=> $current_action['action'],
+						);
+
+						$bwps_utilities->add_deferred( 'away_mode', $deferred_action );
+
+					}
+
+				}
+
 			}
 
 		}
@@ -583,6 +609,8 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
+			global $bwps_utilities;
+
 			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
 
 			$input['type'] = intval( $input['type'] == 1 ? 1 : 2 );
@@ -632,7 +660,19 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			}
 
-			Bit51_BWPS_WPConfig::start( $this->core, 'define( \'BWPS_AWAY_MODE\', true );', $action );
+			$rule = 'define( \'BWPS_AWAY_MODE\', true );';
+			$written = new Bit51_BWPS_WPConfig( $rule, $action );
+
+			if ( $written === false ) {
+die('test');
+				$deferred_action = array(
+					'rule' 		=> $rule,
+					'action' 	=> $action,
+				);
+
+				$bwps_utilities->add_deferred( 'away_mode', $deferred_action );
+
+			}
 
 			add_settings_error(
         		'bwps_admin_notices',

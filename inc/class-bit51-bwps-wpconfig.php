@@ -4,11 +4,6 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 	class Bit51_BWPS_WPConfig {
 
-		private static $instance = null; //instantiated instance of this plugin
-
-		private 
-			$plugin;
-
 		/**
 		 * Create and manage wp_config.php
 		 * 
@@ -16,7 +11,7 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 		 * @param  String|array		  $rule         The rule to be added or removed
 		 * @param  bool 			  $action 	    true for add, false for delete
 		 */
-		private function __construct( $plugin, $rule, $action ) {
+		function __construct( $rule, $action ) {
 
 			global $bwps_utilities;
 
@@ -133,24 +128,6 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 				}
 
 			}
-
-		}
-
-		/**
-		 * Start the global instance
-		 * 
-		 * @param  [plugin_class]     $plugin       Instance of main plugin class
-		 * @param  String|array		  $rule         The rule to be added or removed
-		 * @param  bool 			  $action 	    true for add, false for delete
-		 * @return bwps_Core                        The instance of the bwps_Core class
-		 */
-		public static function start( $plugin, $rule, $action ) {
-
-			if ( ! isset( self::$instance ) || self::$instance === null ) {
-				self::$instance = new self( $plugin, $rule, $action );
-			}
-
-			return self::$instance;
 
 		}
 
