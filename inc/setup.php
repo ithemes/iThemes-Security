@@ -463,18 +463,68 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 				
 				}
 
-				if ( str_replace( '.', '', $oldversion ) < 3059 ) {
+                if ( str_replace( '.', '', $oldversion ) < 3059 ) {
 
 
-					$this->writehtaccess();
-			
-					if ( $bwpsoptions['st_writefiles'] == 1 ) {
-			
-						$this->writewpconfig(); //write appropriate options to wp-config.php
-				
-					}
+                    $this->writehtaccess();
 
-				}
+                    if ( $bwpsoptions['st_writefiles'] == 1 ) {
+
+                        $this->writewpconfig(); //write appropriate options to wp-config.php
+
+                    }
+
+                }
+
+                if ( str_replace( '.', '', $oldversion ) < 3063 ) {
+
+
+                    $this->writehtaccess();
+
+                    if ( isset( $bwpsoptions['st_ht_query'] ) && $bwpsoptions['st_ht_query'] == 1 ) {
+
+                        $bwpsoptions['st_ht_foreign'] = 1;
+
+                        //Get the right options
+                        if ( is_multisite() ) {
+
+                            switch_to_blog( 1 );
+
+                            update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+
+                            restore_current_blog();
+
+                        } else {
+
+                            update_option( $this->primarysettings, $bwpsoptions ); //save new options data
+
+                        }
+
+                        if ( ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) || strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'litespeed' ) ) && $bwpsoptions['st_writefiles'] == 1 ) { //if they're using apache write to .htaccess
+
+                            $this->writehtaccess();
+
+                        } else { //if they're not using apache let them know to manually update rules
+
+                            if ( is_wp_error( $errorHandler ) ) {
+
+                                $errorHandler = new WP_Error();
+
+                                $errorHandler->add( '2', __( 'Settings Saved. You will have to manually add rewrite rules and wp-config.php code to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules  and wp-config.php code you will need.', $this->hook ) );
+
+                            } else {
+
+                                $errorHandler = new WP_Error();
+
+                                $errorHandler->add( '2', __( 'Settings Saved. You will have to manually add rewrite rules to your configuration. See the Better WP Security Dashboard for a list of the rewrite rules you will need.', $this->hook ) );
+
+                            }
+
+                        }
+
+                    }
+
+                }
 			
 			}
 		

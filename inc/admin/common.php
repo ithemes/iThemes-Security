@@ -587,6 +587,12 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			if ( isset( $bwpsoptions['st_ht_query'] ) && $bwpsoptions['st_ht_query'] == 1 ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
+
+                    if ( isset( $bwpsoptions['st_ht_foreign'] ) && $bwpsoptions['st_ht_foreign'] == 1 ) {
+                        $foreign_chars = "RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F).* [NC,OR]" . PHP_EOL;
+                    } else {
+                        $foreign_chars = '';
+                    }
 				
 					$rules .= "RewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} ^.*\.(bash|git|hg|log|svn|swp|cvs) [NC,OR]" . PHP_EOL .
@@ -601,8 +607,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"RewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>|ê|\"|;|\?|\*|=$).* [NC,OR]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} ^.*(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;).* [NC,OR]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]" .  PHP_EOL .
-						"RewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F|127\.0).* [NC]" . PHP_EOL .
-						"RewriteCond %{QUERY_STRING} |^.*(%C3).* [NC,OR]" . PHP_EOL .
+						"RewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC]" . PHP_EOL .
+				        $foreign_chars .
 						"RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} ^.*(request|select|concat|insert|union|declare).* [NC]" . PHP_EOL .
 						"RewriteCond %{QUERY_STRING} !^loggedout=true" . PHP_EOL .
@@ -612,6 +618,12 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
 				
 				} else {
+
+                    if ( isset( $bwpsoptions['st_ht_foreign'] ) && $bwpsoptions['st_ht_foreign'] == 1 ) {
+                        $foreign_chars = "\tif (\$args ~* \"(%0|%A|%B|%C|%D|%E|%F)\") { set \$susquery 1; }" . PHP_EOL;
+                    } else {
+                        $foreign_chars = '';
+                    }
 				
 					$rules .= 
 					
@@ -628,7 +640,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 						"\tif (\$args ~* \"(%24&x)\") { set \$susquery 1; }" . PHP_EOL .
 						"\tif (\$args ~* \"(\\[|\\]|\\(|\\)|<|>|ê|\\\"|;|\?|\*|=$)\"){ set \$susquery 1; }" . PHP_EOL .
 						"\tif (\$args ~* \"(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;|%24&x)\"){ set \$susquery 1; }" . PHP_EOL .
-						"\tif (\$args ~* \"(%0|%A|%B|%C|%D|%E|%F|127.0)\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(127.0)\") { set \$susquery 1; }" . PHP_EOL .
+                        $foreign_chars .
 						"\tif (\$args ~* \"(globals|encode|localhost|loopback)\") { set \$susquery 1; }" .PHP_EOL .
 						"\tif (\$args ~* \"(request|select|insert|concat|union|declare)\") { set \$susquery 1; }" . PHP_EOL;
 				

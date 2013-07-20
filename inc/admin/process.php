@@ -1517,7 +1517,8 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 			$bwpsoptions['st_ht_files'] = ( isset( $_POST['st_ht_files'] ) && $_POST['st_ht_files'] == 1  ? 1 : 0 );
 			$bwpsoptions['st_ht_request'] = ( isset( $_POST['st_ht_request'] ) && $_POST['st_ht_request'] == 1  ? 1 : 0 );
 			$bwpsoptions['st_ht_query'] = ( isset( $_POST['st_ht_query'] ) && $_POST['st_ht_query'] == 1  ? 1 : 0 );
-						
+			$bwpsoptions['st_ht_foreign'] = ( isset( $_POST['st_ht_foreign'] ) && $_POST['st_ht_foreign'] == 1  ? 1 : 0 );
+
 			//always set directory browsing to 1 on nginx to prevent nag
 			if ( strstr( strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) ), 'apache' ) ) {
 				$bwpsoptions['st_ht_browsing'] = ( isset( $_POST['st_ht_browsing'] ) && $_POST['st_ht_browsing'] == 1  ? 1 : 0 );

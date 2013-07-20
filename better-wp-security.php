@@ -19,7 +19,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 
 	class bit51_bwps extends Bit51Foo {
 	
-		public $pluginversion 	= '3062'; //current plugin version
+		public $pluginversion 	= '3063'; //current plugin version
 	
 		//important plugin information
 		public $hook 				= 'better-wp-security';
@@ -89,6 +89,7 @@ if ( ! class_exists( 'bit51_bwps' ) ) {
 					'st_ht_browsing'			=> '0',
 					'st_ht_request'				=> '0',
 					'st_ht_query'				=> '0',
+                    'st_ht_foreign'             => '0',
 					'st_generator'				=> '0',
 					'st_manifest'				=> '0',
 					'st_edituri'				=> '0',
