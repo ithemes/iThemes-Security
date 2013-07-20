@@ -184,7 +184,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Added further checks to reduce errors if file change log is invalid
 * Memory should now display correctly in file change email
 * Use maybe_unserialize instead of unserialize
-* Attempt fix to not filter out %C3 in suspicious query filter
+* Added option to filter foreign charcters as part of filter suspicious query string
 
 = 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>
