@@ -5,7 +5,7 @@ Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 3.5.3
+Stable tag: 3.5.4
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -185,6 +185,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Memory should now display correctly in file change email
 * Use maybe_unserialize instead of unserialize
 * Added option to filter foreign charcters as part of filter suspicious query string
+* Updated .pot file
 
 = 3.5.3 =
 * Simplified Chinese by <a href="http://haib.in">海滨</a>
