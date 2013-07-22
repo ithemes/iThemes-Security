@@ -122,6 +122,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				//load filecheck and backup if needed (if this isn't a 404 page)
 				if ( ! $is_404 ) {
+
 					add_action( 'plugins_loaded', array( &$this, 'backup' ) );
 				
 					add_action( 'plugins_loaded', array( &$this, 'filecheck' ) );
