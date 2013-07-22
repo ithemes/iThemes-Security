@@ -14,10 +14,8 @@ if ( ! class_exists( 'Bit51_BWPS_Utilities' ) ) {
 
 		/**
 		 * Loads core functionality across both admin and frontend.
-		 * 
+		 *
 		 * @param Bit51_BWPS $plugin
-		 * 
-		 * @return void
 		 */
 		private function __construct( $plugin ) {
 
