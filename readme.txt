@@ -168,7 +168,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 = Dev =
 * Fixed error that prevented manual backups from executing
 
-= Dev =
+= 3.5.4 =
 * Bulgarian translation by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
 * Chinese (Traditional) translation by Toine Cheung
 * Fixed an XSS vulnerability in the logevent function. Fix by <a href="http://www.nccgroup.com/en/blog/?author=Richard%20Warren">Richard Warren</a>
