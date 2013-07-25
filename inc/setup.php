@@ -42,7 +42,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 * Public function to activate
 		 *
 		 **/
-		function on_activate() {
+		static function on_activate() {
 			
 			define( 'BWPS_NEW_INSTALL', true );
 			new bwps_setup( 'activate' );
@@ -53,7 +53,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 * Public function to deactivate
 		 *
 		 **/
-		function on_deactivate() {
+		static function on_deactivate() {
 	
 			$devel = false; //set to true to uninstall for development
 		
@@ -70,7 +70,7 @@ if ( ! class_exists( 'bwps_setup' ) ) {
 		 * Public function to uninstall
 		 *
 		 **/
-		function on_uninstall() {
+		static function on_uninstall() {
 		
 			new bwps_setup( 'uninstall' );
 			

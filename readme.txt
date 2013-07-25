@@ -167,6 +167,8 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 = Dev =
 * Fixed error that prevented manual backups from executing
+* Minor fixes for strict warnings occuring when on PHP 5.4
+* Fix for lstat error for files in the better-wp-security/backups/ directory
 
 = 3.5.4 =
 * Bulgarian translation by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
