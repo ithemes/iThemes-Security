@@ -495,7 +495,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 						
 						if ( $this->checkFile( $relname ) == true ) { //make sure the user wants this file scanned
 						
-							if ( filetype( $absname ) == 'dir' ) { //if directory scan it
+							if ( is_dir( $absname ) && filetype( $absname ) == 'dir' ) { //if directory scan it
 							
 								$data = array_merge( $data, $this->scanfiles( $relname . '/' ) );
 								
