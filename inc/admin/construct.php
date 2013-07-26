@@ -16,7 +16,7 @@ if ( ! class_exists( 'bwps_admin_construct' ) ) {
 		 **/
 		function __construct() {
 
-			global $isIWP, $bwps_backup;
+			global $isIWP, $bwps_backup, $bwps_filecheck;
 			
 			//add scripts and css
 			add_action( 'admin_print_scripts', array( &$this, 'config_page_scripts' ) );
@@ -43,9 +43,13 @@ if ( ! class_exists( 'bwps_admin_construct' ) ) {
 				
 			}
 
-			//execute backups
+			//load backup class
 			require_once( BWPS_PP . 'inc/backup.php' );
 			$bwps_backup = new bwps_backup();
+
+			//load filecheck
+			require_once( BWPS_PP . 'inc/filecheck.php' );
+			$bwps_filecheck = new bwps_filecheck();
 				
 		}
 		
