@@ -174,16 +174,19 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 				
 				$count = 0;
 				
-				foreach ( $files as $file ) {
-					if ( strstr( $file, 'database-backup' ) ) {
-						if ( $count >= $bwpsoptions['backups_to_retain'] ) {
-							@unlink( BWPS_PP . 'backups/' . $file );
+				if( is_array( $files ) && count( $files ) > 0 ) {
+					foreach ( $files as $file ) {
+						if ( strstr( $file, 'database-backup' ) ) {
+							if ( $count >= $bwpsoptions['backups_to_retain'] ) {
+								@unlink( BWPS_PP . 'backups/' . $file );
+							}
+							$count++;
 						}
-						$count++;
+							
 					}
-						
+					
 				}
-				
+
 			}
 				
 		}
