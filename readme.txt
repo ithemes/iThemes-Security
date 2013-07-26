@@ -16,7 +16,7 @@ Released under the terms of the GNU General Public License.
 
 = #1 WORDPRESS SECURITY PLUGIN =
 
-Better WP Security takes the best Wordpress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without having to worry about conflicting features or the possibility of missing anything on your site.
+Better WP Security takes the best WordPress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without having to worry about conflicting features or the possibility of missing anything on your site.
 
 With one-click activation for most features as well as advanced features for experienced users Better WP Security can help protect any site.
 
