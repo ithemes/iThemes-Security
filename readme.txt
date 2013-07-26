@@ -5,7 +5,7 @@ Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
 Requires at least: 3.5
 Tested up to: 3.6
-Stable tag: 3.5.4
+Stable tag: 3.5.5
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -165,10 +165,12 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 == Changelog ==
 
-= Dev =
+= 3.5.5 =
 * Fixed error that prevented manual backups from executing
 * Updated Turkish translation by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
 * Updated shield logo by Martin Halachev
+* Minor fixes for strict warnings occuring when on PHP 5.4
+* Fix for lstat error for files in the better-wp-security/backups/ directory
 
 = 3.5.4 =
 * Bulgarian translation by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
