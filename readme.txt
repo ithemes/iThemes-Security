@@ -168,6 +168,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 = Dev =
 * Fixed error that prevented manual backups from executing
 * Updated Turkish translation by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
+* Updated shield logo by Martin Halachev
 
 = 3.5.4 =
 * Bulgarian translation by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
