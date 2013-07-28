@@ -165,6 +165,8 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 == Changelog ==
 
+= Dev =
+
 = 3.5.5 =
 * Fixed error that prevented manual backups from executing
 * Updated Turkish translation by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
