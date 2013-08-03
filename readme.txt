@@ -82,7 +82,7 @@ Finally, should the worst happen Better WP Security will make regular backups of
 
 = Translations =
 * Brazilian Portuguese by <a href="http://profiles.wordpress.org/rafaelfunchal">Rafael Funchal</a>
-* Bulgarian by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a>
+* Bulgarian by <a href="http://arthlete.com/">Nikolay Kolev of Gymnastics and Bodyweight Tutorials</a> and <a href="http://wordpress.org/support/profile/mhalachev">Martin Halachev</a>
 * Chinese (Traditional) by Toine Cheung
 * French by <a href="http://www.sceric.net/">SCUDELLER Eric</a>
 * German by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
@@ -166,6 +166,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 == Changelog ==
 
 = Dev =
+* Updated Bulgarian translation by <a href="http://wordpress.org/support/profile/mhalachev">Martin Halachev</a>
 
 = 3.5.5 =
 * Fixed error that prevented manual backups from executing
