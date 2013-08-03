@@ -257,13 +257,13 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 					} else {
 								
 						//query main user table
-						$wpdb->query( "UPDATE `" . $wpdb->users . "` SET user_login = '" . $wpdb->escape( $newuser ) . "' WHERE user_login='admin';" );
+						$wpdb->query( "UPDATE `" . $wpdb->users . "` SET user_login = '" . esc_sql( $newuser ) . "' WHERE user_login='admin';" );
 						
 						if ( is_multisite() ) { //process sitemeta if we're in a multi-site situation
 						
 							$oldAdmins = $wpdb->get_var( "SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key = 'site_admins'" );
-							$newAdmins = str_replace( '5:"admin"', strlen( $newuser ) . ':"' . $wpdb->escape( $newuser ) . '"', $oldAdmins );
-							$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . $wpdb->escape( $newAdmins ) . "' WHERE meta_key = 'site_admins'" );
+							$newAdmins = str_replace( '5:"admin"', strlen( $newuser ) . ':"' . esc_sql( $newuser ) . '"', $oldAdmins );
+							$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . esc_sql( $newAdmins ) . "' WHERE meta_key = 'site_admins'" );
 							
 						}
 						
@@ -829,7 +829,7 @@ if ( ! class_exists( 'bwps_admin_process' ) ) {
 				//complete with underscore
 				$newPrefix .= '_';
 				
-				$newPrefix = $wpdb->escape( $newPrefix ); //just be safe
+				$newPrefix = esc_sql( $newPrefix ); //just be safe
 				
 				$checkPrefix = $wpdb->get_results( 'SHOW TABLES LIKE "' . $newPrefix . '%";', ARRAY_N ); //if there are no tables with that prefix in the database set checkPrefix to false
 					

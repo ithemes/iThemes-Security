@@ -277,7 +277,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			//use current host if host is not provided
 			if ( $rawhost == '' ) {
-				$rawhost = $wpdb->escape( $this->getIp() );
+				$rawhost = esc_sql( $this->getIp() );
 			}
 			
 			$host = ip2long( $rawhost );
@@ -364,7 +364,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 					
 			//see if the host is locked out
-			$hostCheck = $wpdb->get_var( "SELECT `host` FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` > " . current_time( 'timestamp' ) . " AND `host` = '" . $wpdb->escape( $this->getIp() ) . "' AND `active` = 1;" );
+			$hostCheck = $wpdb->get_var( "SELECT `host` FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` > " . current_time( 'timestamp' ) . " AND `host` = '" . esc_sql( $this->getIp() ) . "' AND `active` = 1;" );
 				
 			//return false if both the user and the host are not locked out	
 			if ( ! $userCheck && ! $hostCheck ) {
@@ -539,22 +539,22 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					
 				}
 				
-				if ( filter_var( $wpdb->escape( $this->getIp() ), FILTER_VALIDATE_IP ) && ( $bwpsoptions['id_blacklistip'] == 1 || $bwpsoptions['ll_blacklistip'] == 1 ) ) {
+				if ( filter_var( esc_sql( $this->getIp() ), FILTER_VALIDATE_IP ) && ( $bwpsoptions['id_blacklistip'] == 1 || $bwpsoptions['ll_blacklistip'] == 1 ) ) {
 				
 					if ( $bwpsoptions['id_blacklistip'] == 1 && $bwpsoptions['ll_blacklistip'] == 1 ) {
 				
 						$locklimit = min( $bwpsoptions['ll_blacklistipthreshold'], $bwpsoptions['id_blacklistipthreshold'] );
-						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE host='" . $wpdb->escape( $this->getIp() ) . "';" ) + 1;
+						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE host='" . esc_sql( $this->getIp() ) . "';" ) + 1;
 					
 					} elseif ( $bwpsoptions['id_blacklistip'] == 1 && $bwpsoptions['st_writefiles'] == 1 ) {
 						
 						$locklimit = $bwpsoptions['id_blacklistipthreshold'];
-						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type=2 AND host='" . $wpdb->escape( $this->getIp() ) . "';" ) + 1;
+						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type=2 AND host='" . esc_sql( $this->getIp() ) . "';" ) + 1;
 				
 					} elseif ( $bwpsoptions['ll_blacklistip'] == 1 && $bwpsoptions['st_writefiles'] == 1 ) {
 						
 						$locklimit = $bwpsoptions['ll_blacklistipthreshold'];
-						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type =1 AND host='" . $wpdb->escape( $this->getIp() ) . "';" ) + 1;
+						$lockcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE type =1 AND host='" . esc_sql( $this->getIp() ) . "';" ) + 1;
 				
 					} 
 					
@@ -579,11 +579,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 						$banlist = array_unique( $banlist, SORT_STRING );
 					}
 
-					if ( ! in_array( $wpdb->escape( $this->getIp() ), $banlist) ) {
+					if ( ! in_array( esc_sql( $this->getIp() ), $banlist) ) {
 
 						$permban = true;
 					
-						$banlist[] = $wpdb->escape( $this->getIp() );
+						$banlist[] = esc_sql( $this->getIp() );
 					
 						$bwpsoptions['bu_banlist'] = implode( PHP_EOL, $banlist );
 					
@@ -621,7 +621,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 							'active' => 1,
 							'starttime' => $currtime,
 							'exptime' => $exptime,
-							'host' => $wpdb->escape( $this->getIp() ),
+							'host' => esc_sql( $this->getIp() ),
 							'user' => 0
 						)
 					);
@@ -675,11 +675,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					if ( $user != '' ) {
 					
 						$username = get_user_by( 'id', $user );
-						$who = __( 'WordPress user', $this->hook ) . ', ' . $username->user_login . ', ' . __( 'at host, ', $this->hook ) . $wpdb->escape( $this->getIp() ) . ', ';
+						$who = __( 'WordPress user', $this->hook ) . ', ' . $username->user_login . ', ' . __( 'at host, ', $this->hook ) . esc_sql( $this->getIp() ) . ', ';
 						
 					} else {
 					
-						$who = __( 'host', $this->hook ) . ', ' . $wpdb->escape( $this->getIp() ) . '(' . __( 'you can check the host at ', $this->hook ) . 'http://ip-adress.com/ip_tracer/' . $wpdb->escape( $this->getIp() ) . ') ';
+						$who = __( 'host', $this->hook ) . ', ' . esc_sql( $this->getIp() ) . '(' . __( 'you can check the host at ', $this->hook ) . 'http://ip-adress.com/ip_tracer/' . esc_sql( $this->getIp() ) . ') ';
 						
 					}
 
@@ -721,7 +721,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			}
 			
 			//get default data
-			$host = $wpdb->escape( $this->getIp() );
+			$host = esc_sql( $this->getIp() );
 			$username = sanitize_user( $username );
 			$user = get_user_by( 'login', $username );
 			

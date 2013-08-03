@@ -167,6 +167,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 = Dev =
 * Updated Bulgarian translation by <a href="http://wordpress.org/support/profile/mhalachev">Martin Halachev</a>
+* Removed all instances of the deprecated $wpdb->escape
 
 = 3.5.5 =
 * Fixed error that prevented manual backups from executing
