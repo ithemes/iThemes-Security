@@ -17,42 +17,17 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			$this->core = $core;
 			$this->settings = get_site_option( 'bwps_away_mode' );
 
-			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
-			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'add_away_mode_intro' ) );
-			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) );
-			add_filter( $bwps_globals['plugin_hook'] . '_add_dashboard_status', array( $this, 'dashboard_status' ) );
-			add_action( 'admin_init', array( $this, 'initialize_admin' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) );
-			add_action( $bwps_globals['plugin_url'] . 'process_deferred', array( $this, 'process_deferred' ) );
+			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'add_away_mode_intro' ) ); //add page intro and information
+			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+			add_filter( $bwps_globals['plugin_hook'] . '_wp_config_rules', array( $this, 'wp_config_rule' ) ); //build wp_config.php rules
+			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( $bwps_globals['plugin_hook'] . '_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
-				add_action( 'network_admin_edit_bwps_away_mode', array( $this, 'save_network_options' ) );
-			}
-
-		}
-
-		public function process_deferred( $deferred ) {
-
-			if ( isset( $deferred['away_mode'] ) ) {
-
-				foreach ( $deferred['away_mode'] as $current_action ) {
-
-					$written = new Bit51_BWPS_WPConfig( $current_action['rule'], $current_action['action'] );
-
-					if ( $written === false ) {
-
-						$deferred_action = array(
-							'rule' 		=> $current_action['rule'],
-							'action' 	=> $current_action['action'],
-						);
-
-						$bwps_utilities->add_deferred( 'away_mode', $deferred_action );
-
-					}
-
-				}
-
+				add_action( 'network_admin_edit_bwps_away_mode', array( $this, 'save_network_options' ) ); //save multisite options
 			}
 
 		}
@@ -609,8 +584,6 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			global $bwps_utilities;
-
 			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
 
 			$input['type'] = intval( $input['type'] == 1 ? 1 : 2 );
@@ -626,7 +599,6 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			if ( $this->check_away( true, $input ) === true ) {
 
 				$input['enabled'] = 0; //disable away mode
-				$action = false;
 				
 				$type = 'error';
 				$message = __( 'Invalid time listed. The time entered would lock you out of your site now. Please try again.', 'better_wp_security' );
@@ -634,7 +606,6 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			} elseif ( $input['type'] === 2 && $input['end'] < $input['start'] ) {
 
 				$input['enabled'] = 0; //disable away mode
-				$action = false;
 				
 				$type = 'error';
 				$message = __( 'Invalid time listed. The start time selected is after the end time selected.', 'better_wp_security' );
@@ -642,35 +613,24 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			} elseif ( $input['type'] === 2 && $input['end'] < current_time( 'timestamp' ) ) {
 
 				$input['enabled'] = 0; //disable away mode
-				$action = false;
 				
 				$type = 'error';
 				$message = __( 'Invalid time listed. The period selected already ended.', 'better_wp_security' );
 
 			} else {
 
-				if ( $input['enabled'] === 1 ) {
-					$action = true;
-				} else {
-					$action = false;
-				}
-
 				$type = 'updated';
 				$message = __( 'Settings Updated', 'better_wp_security' );
 
 			}
 
-			$rule = 'define( \'BWPS_AWAY_MODE\', true );';
-			$written = new Bit51_BWPS_WPConfig( $rule, $action );
+
+			$written = new Bit51_BWPS_WPConfig();
 
 			if ( $written === false ) {
-die('test');
-				$deferred_action = array(
-					'rule' 		=> $rule,
-					'action' 	=> $action,
-				);
 
-				$bwps_utilities->add_deferred( 'away_mode', $deferred_action );
+				$type = 'error';
+				$message = __( 'Better WP Security could not write to wp-config.php. You will need to manually update your wp-config.php rules..', 'better_wp_security' );
 
 			}
 
@@ -682,6 +642,22 @@ die('test');
     		);
 
 			return $input;
+
+		}
+
+		public function wp_config_rule( $rules ) {
+
+			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] == 1 ) {
+
+				$rules['define( \'BWPS_AWAY_MODE\', true );'] = 1;
+
+			} else {
+
+				$rules['define( \'BWPS_AWAY_MODE\', true );'] = 0;
+
+			}
+
+			return $rules;
 
 		}
 

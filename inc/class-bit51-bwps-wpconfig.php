@@ -4,6 +4,9 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 	class Bit51_BWPS_WPConfig {
 
+		public
+			$rules;
+
 		/**
 		 * Create and manage wp_config.php
 		 * 
@@ -11,15 +14,17 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 		 * @param  String|array		  $rule         The rule to be added or removed
 		 * @param  bool 			  $action 	    true for add, false for delete
 		 */
-		function __construct( $rule, $action ) {
+		function __construct() {
 
 			global $bwps_utilities;
 
-			@ini_set( 'auto_detect_line_endings', true );
+			$this->rules = array();
+
+			$this->rules = apply_filters( $bwps_globals['plugin_hook'] . '_wp_config_rules', $this->rules );
 			
 			if ( $bwps_utilities->get_lock() === true ) {
 
-				if ( $this->write_config( $rule, $action ) === true ) {
+				if ( $this->write_config() === true ) {
 
 					$bwps_utilities->release_lock();
 
@@ -33,8 +38,12 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 			}
 
-			return false;
+			return new WP_Error( 'writing_error', __( 'Error when writing wp-config.php', 'better-wp-security' ) );
 			
+		}
+
+		public function show_all_rules() {
+
 		}
 
 		private function build_rules( $rule, $config_contents, $action ) {
@@ -69,7 +78,7 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 		}
 
-		public function write_config( $rule, $action ) {
+		public function write_config() {
 
 			global $bwps_utilities;
 
@@ -79,18 +88,15 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 			$method = ''; 
 
 			if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $form_fields ) ) ) {
-				return true; // stop the normal page form from displaying
+				return false; // stop the normal page form from displaying
 			}
 
 			if ( ! WP_Filesystem( $creds ) ) {
     			// our credentials were no good, ask the user for them again
     			request_filesystem_credentials( $url, $method, true, false, $form_fields );
-    			return true;
+    			return false;
 			}
 
-			// get the upload directory and make a test.txt file
-			$upload_dir = wp_upload_dir();
-			$filename = trailingslashit( $upload_dir['path'] ) . 'test.txt';
 			$config_file = $bwps_utilities->get_config();
 
 			global $wp_filesystem;
@@ -103,19 +109,7 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
       				return new WP_Error( 'reading_error', __( 'Error when reading wp-config.php', 'better-wp-security' ) ); //return error object
       			} else {
 
-      				if ( is_array( $rule ) ) {
-
-      					foreach ( $rule as $single_rule ) {
-
-      						$config_contents = $this->build_rules( $single_rule, $config_contents, $action );
-
-      					}
-
-      				} else {
-
-      					$config_contents = $this->build_rules( $rule, $config_contents, $action );
-
-      				}
+					$config_contents = $this->build_rules( $config_contents );
 
       			}
 

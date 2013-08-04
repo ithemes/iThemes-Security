@@ -27,6 +27,8 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 			global $bwps_globals;
 
+			@ini_set( 'auto_detect_line_endings', true ); //Make certain we're using proper line endings
+
 			$this->plugin = $plugin; //Allow us to access plugin defaults throughout
 
 			//load the text domain
