@@ -624,6 +624,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			}
 
+			add_filter( $bwps_globals['plugin_hook'] . '_wp_config_rules', array( $this, 'wp_config_rule' ) ); //build wp_config.php rules
 
 			$written = new Bit51_BWPS_WPConfig();
 
