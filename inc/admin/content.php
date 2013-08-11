@@ -2201,7 +2201,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 							<label for "id_specialfile"><?php _e( 'File/Directory Check List', 'better-wp-security' ); ?></label>
 						</th>
 						<td class="settingfield">
-							<textarea id="id_specialfile" rows="10" cols="50" name="id_specialfile"><?php echo isset( $_POST['id_specialfile'] ) ? $_POST['id_specialfile'] : $bwpsoptions['id_specialfile']; ?></textarea>
+							<textarea id="id_specialfile" rows="10" cols="50" name="id_specialfile"><?php echo isset( $_POST['id_specialfile'] ) ? filter_var($_POST['id_specialfile'], FILTER_SANITIZE_STRING) : $bwpsoptions['id_specialfile']; ?></textarea>
 							<p><?php _e( 'Enter directories or files you do not want to include in the check (i.e. cache folders, etc). Only 1 file or directory per line. You can specify all files of a given type by just entering the extension preceeded by a dot (.) for exampe, .jpg', 'better-wp-security' ); ?></p>
 							<p><?php _e( 'Directories should be entered in the from the root of the WordPress folder. For example, if you wish to enter the uploads directory you would enter it as "wp-content/uploads" (assuming you have not renamed wp-content). For files just enter the filename without directory information.', 'better-wp-security' ); ?></p>
 						</td>
