@@ -27,7 +27,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			
 			//add action for admin warning if enabled 
 			if ( isset( $_GET['bit51_view_logs'] ) || $bwpsoptions['id_filedisplayerror'] == 1 || ( isset( $_POST['bwps_page'] ) ) && $_POST['bwps_page'] == 'intrusiondetection_1' ) {
-				add_action( 'admin_init', array( &$this, 'warning' ) );
+				add_action( 'admin_init', array( $this, 'warning' ) );
 			}
 			
 		}
@@ -309,6 +309,7 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 		 *
 		 **/
 		function fileemail() {
+
 			global $logid, $bwpsoptions;
 			
 			//Get the right email address.
