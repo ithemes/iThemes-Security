@@ -9,7 +9,8 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		private 
 			$settings,
 			$core,
-			$away_file;
+			$away_file,
+			$page;
 
 		private function __construct( $core ) {
 
@@ -25,6 +26,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 			add_filter( $bwps_globals['plugin_hook'] . '_wp_config_rules', array( $this, 'wp_config_rule' ) ); //build wp_config.php rules
 			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( $bwps_globals['plugin_hook'] . '_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
 			if ( $bwps_utilities->is_login_page() === true && $this->check_away() === true ) {
@@ -47,6 +49,8 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			global $bwps_globals;
 
+			$this->page = $available_pages[0] . '-away_mode';
+
 			$available_pages[] = add_submenu_page(
 				$bwps_globals['plugin_hook'],
 				__( 'Away Mode', 'better_wp_security' ),
@@ -57,6 +61,14 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			);
 
 			return $available_pages;
+
+		}
+
+		public function add_admin_tab( $tabs ) {
+
+			$tabs[ $this->page ] = __( 'Away Mode', 'better_wp_security' );
+
+			return $tabs;
 
 		}
 

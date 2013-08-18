@@ -106,6 +106,38 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 		}
 
+		public function admin_tabs( $current = NULL ) {
+
+			global $bwps_globals;
+
+			if ( $current == NULL ) {
+				$current = $bwps_globals['plugin_hook'];
+			}
+
+			echo '<div id="icon-themes" class="icon32"><br></div>';
+			echo '<h2 class="nav-tab-wrapper">';
+
+			foreach( $this->admin_tabs as $location => $tabname ){
+
+				if ( is_array( $tabname ) ) {
+
+					$class = ( $location == $current ) ? ' nav-tab-active' : '';
+					echo '<a class="nav-tab' . $class. '" href="?page=' . $tabname[1] . '&tab='. $location . '">' . $tabname[0] . '</a>';
+
+				} else {
+
+					$class = ( $location == $current ) ? ' nav-tab-active' : '';
+					echo '<a class="nav-tab' . $class. '" href="?page=' . $location . '">' . $tabname . '</a>';
+
+				}
+
+			}
+
+			echo '</h2>';
+
+		}
+
+
 		/**
 		 * Enqueues the styles for the admin area so WordPress can load them
 		 * 
@@ -141,6 +173,8 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 				);
 
 			} else { //this plugin wants a top-level admin section
+
+				$this->admin_tabs['bwps'] = __( 'Dashboard', 'better_wp_security' );//set a tab for the dashboard
 
 				//Set default dashboard title to "Dashboard"
 				if ( ! isset( $this->plugin->dashboard_page_name ) || $this->plugin->dashboard_page_name === '' ) {
@@ -198,6 +232,8 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 				}
 
 				$this->page_hooks = apply_filters( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', $this->page_hooks );
+
+				$this->admin_tabs = apply_filters( $bwps_globals['plugin_hook'] . '_add_admin_tabs', $this->admin_tabs );
 
 				//Make the dashboard is named correctly
 				global $submenu;
@@ -270,11 +306,11 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 
 			global $bwps_globals;
 
-				if ( is_multisite() ) {
-					$screen = substr( get_current_screen()->id, 0, strpos( get_current_screen()->id, '-network' ) );
-				} else {
-					$screen = get_current_screen()->id; //the current screen id
-				}
+			if ( is_multisite() ) {
+				$screen = substr( get_current_screen()->id, 0, strpos( get_current_screen()->id, '-network' ) );
+			} else {
+				$screen = get_current_screen()->id; //the current screen id
+			}
 
 			?>
 		
@@ -287,6 +323,14 @@ if ( ! class_exists( 'Bit51_BWPS_Core' ) ) {
 				 <?php } else { ?>
 					<h2><?php echo get_admin_page_title(); ?></h2>
 				<?php } ?>
+
+				<?php
+				if ( isset ( $_GET['page'] ) ) {
+					$this->admin_tabs(  $_GET['page']);
+				} else {
+					$this->admin_tabs();
+				}
+				?>
 					
 					<?php
 						wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
