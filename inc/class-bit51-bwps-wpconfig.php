@@ -69,7 +69,7 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 			}
 
-			$rules .= $this->rule_close . PHP_EOL;
+			$rules .= $this->rule_close;
 
 			if ( $has_rules === false ) { //there are no rules to write
 
@@ -122,7 +122,7 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 				    if ( ( $start = strpos( $config_contents, $this->rule_open ) ) !== false ) {
 
-					    $end = strpos( $config_contents, $this->rule_close . PHP_EOL ) + strlen( $this->rule_close ) - $start;
+					    $end = strpos( $config_contents, $this->rule_close ) + strlen( $this->rule_close ) - $start;
 
 					    $config_contents = substr_replace( $config_contents, '', $start, $end );
 
@@ -132,7 +132,7 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 				    if ( $rules !== false ) {
 
-					    $config_contents = str_replace( '<?php', '<?php' . PHP_EOL . $rules, $config_contents );
+					    $config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules, $config_contents );
 
 				    }
 
