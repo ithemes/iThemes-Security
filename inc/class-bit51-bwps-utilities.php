@@ -75,6 +75,17 @@ if ( ! class_exists( 'Bit51_BWPS_Utilities' ) ) {
 		}
 
 		/**
+		 * Determine whether we're on the login page or not
+		 *
+		 * @return bool true if is login page else false
+		 */
+		public function is_login_page() {
+
+			return in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) );
+
+		}
+
+		/**
 		 * Release the lock
 		 * 
 		 * @return bool true if released, false otherwise

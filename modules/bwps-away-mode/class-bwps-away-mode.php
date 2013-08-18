@@ -8,14 +8,16 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 		private 
 			$settings,
-			$core;
+			$core,
+			$away_file;
 
 		private function __construct( $core ) {
 
-			global $bwps_globals;
+			global $bwps_globals, $bwps_utilities;;
 
 			$this->core = $core;
 			$this->settings = get_site_option( 'bwps_away_mode' );
+			$this->away_file = $bwps_globals['upload_dir'] . '/bwps_away.confg';
 
 			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'add_away_mode_intro' ) ); //add page intro and information
@@ -24,6 +26,10 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			add_filter( $bwps_globals['plugin_hook'] . '_wp_config_rules', array( $this, 'wp_config_rule' ) ); //build wp_config.php rules
 			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( $bwps_globals['plugin_hook'] . '_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+
+			if ( $bwps_utilities->is_login_page() === true && $this->check_away() === true ) {
+				header( 'Location:' . get_option( 'siteurl' ) );
+			}
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
@@ -116,7 +122,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			$transaway = get_site_transient( 'bwps_away' );
 
 			//if transient indicates away go ahead and lock them out
-			if ( $form === false && $transaway === true && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) {
+			if ( $form === false && $transaway === true && file_exists( $this->away_file ) ) {
 			
 				return true;
 
@@ -161,7 +167,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 				$remaining = $end - $current_time;
 					
-				if ( $start <= $current_time && $end >= $current_time && ( $form === true || ( $this->settings['enabled'] === 1 && defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) ) ) { //if away mode is enabled continue
+				if ( $start <= $current_time && $end >= $current_time && ( $form === true || ( $this->settings['enabled'] === 1 && file_exists( $this->away_file ) ) ) ) { //if away mode is enabled continue
 
 					if ( $form === false ) {
 
@@ -584,6 +590,8 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
+			global $bwps_globals;
+
 			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
 
 			$input['type'] = intval( $input['type'] == 1 ? 1 : 2 );
@@ -621,6 +629,16 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 				$type = 'updated';
 				$message = __( 'Settings Updated', 'better_wp_security' );
+
+			}
+
+			if ( $input['enabled'] == 1 && ! file_exists( $this->away_file ) ) {
+
+				@file_put_contents( $this->away_file, 'true' );
+
+			} else {
+
+				@unlink( $this->away_file );
 
 			}
 
