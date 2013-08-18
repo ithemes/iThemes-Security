@@ -31,18 +31,18 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			
 			//Don't redirect any SSL if SSL is turned off.
 			if ( isset( $bwpsoptions['ssl_frontend'] ) && $bwpsoptions['ssl_frontend']  >= 1 ) {
-				add_action( 'template_redirect', array( &$this, 'sslredirect' ) );
+				add_action( 'template_redirect', array( $this, 'sslredirect' ) );
 			}
 
 			//don't execute anything but SSL for InfiniteWP
 			if ( $isIWP === false ) {
 			
 				//execute default checks
-				add_action( 'init', array( &$this, 'siteinit' ) );
+				add_action( 'init', array( $this, 'siteinit' ) );
 
 				//execute 404 check
 				if ( isset( $bwpsoptions['id_enabled'] ) && $bwpsoptions['id_enabled'] == 1 ) {
-					add_action( 'wp_head', array( &$this,'check404' ) );
+					add_action( 'wp_head', array( $this,'check404' ) );
 				}
 				
 				//remove wp-generator meta tag
@@ -92,40 +92,40 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				//require strong passwords if turned on
 				if ( isset( $bwpsoptions['st_enablepassword'] ) && $bwpsoptions['st_enablepassword'] == 1 ) {
-					add_action( 'user_profile_update_errors',  array( &$this, 'strongpass' ), 0, 3 );
+					add_action( 'user_profile_update_errors',  array( $this, 'strongpass' ), 0, 3 );
 					
 					if ( isset( $_GET['action'] ) && ( $_GET['action'] == 'rp' || $_GET['action'] == 'resetpass' ) && isset( $_GET['login'] ) ) {
-						add_action( 'login_head', array( &$this, 'passwordreset' ) );
+						add_action( 'login_head', array( $this, 'passwordreset' ) );
 					}
 
 				}
 				
 				//display random number for wordpress version if turned on
 				if ( isset( $bwpsoptions['st_randomversion'] ) && $bwpsoptions['st_randomversion'] == 1 ) {
-					add_action( 'plugins_loaded', array( &$this, 'randomVersion' ) );
+					add_action( 'plugins_loaded', array( $this, 'randomVersion' ) );
 				}
 				
 				//remove theme update notifications if turned on
 				if ( isset( $bwpsoptions['st_themenot'] ) && $bwpsoptions['st_themenot'] == 1 ) {
-					add_action( 'plugins_loaded', array( &$this, 'themeupdates' ) );
+					add_action( 'plugins_loaded', array( $this, 'themeupdates' ) );
 				}
 				
 				//remove plugin update notifications if turned on
 				if ( isset( $bwpsoptions['st_pluginnot'] ) && $bwpsoptions['st_pluginnot'] == 1 ) {
-					add_action( 'plugins_loaded', array( &$this, 'pluginupdates' ) );
+					add_action( 'plugins_loaded', array( $this, 'pluginupdates' ) );
 				}
 				
 				//remove core update notifications if turned on
 				if ( isset( $bwpsoptions['st_corenot'] ) && $bwpsoptions['st_corenot'] == 1 ) {
-					add_action( 'plugins_loaded', array( &$this, 'coreupdates' ) );
+					add_action( 'plugins_loaded', array( $this, 'coreupdates' ) );
 				}
 				
 				//load filecheck and backup if needed (if this isn't a 404 page)
 				if ( ! $is_404 ) {
 
-					add_action( 'plugins_loaded', array( &$this, 'backup' ) );
+					add_action( 'plugins_loaded', array( $this, 'backup' ) );
 				
-					add_action( 'plugins_loaded', array( &$this, 'filecheck' ) );
+					add_action( 'plugins_loaded', array( $this, 'filecheck' ) );
 				}
 
 			}
@@ -877,8 +877,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			if ( ! current_user_can( 'manage_options' ) ) {
 			
 				$wp_version = $newVersion;
-				add_filter( 'script_loader_src', array( &$this, 'remove_script_version' ), 15, 1 );
-				add_filter( 'style_loader_src', array( &$this, 	'remove_script_version' ), 15, 1 );
+				add_filter( 'script_loader_src', array( $this, 'remove_script_version' ), 15, 1 );
+				add_filter( 'style_loader_src', array( $this, 	'remove_script_version' ), 15, 1 );
 				
 			}
 			
