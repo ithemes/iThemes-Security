@@ -19,7 +19,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 			$this->settings = get_site_option( 'bwps-ban-users' );
 
 			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'add_ban_users_intro' ) ); //add page intro and information
+			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'ban_users_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 			add_filter( $bwps_globals['plugin_hook'] . '_wp_config_rules', array( $this, 'wp_config_rule' ) ); //build wp_config.php rules
@@ -113,12 +113,12 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 			if ( $this->settings['enabled'] === 1 ) {
 				$statuses['safe'][] = array(
-					'text' => __( 'Away Mode is enabled and your WordPress Dashboard is not available when you will not be needing it.', 'better_wp_security' ),
+					'text' => __( 'You are blocking known bad hosts and agents with the ban users tool.', 'better_wp_security' ),
 					'link' => $link,
 				);
 			} else {
-				$statuses['partial'][] = array(
-					'text' => __( 'Your WordPress Dashboard is available 24/7. Do you really update 24 hours a day? Consider using Away Mode.', 'better_wp_security' ),
+				$statuses['low'][] = array(
+					'text' => __( 'You are not blocking any users that are known to be a problem. Consider turning on the Ban Users feature.', 'better_wp_security' ),
 					'link' => $link,
 				);
 			}
@@ -136,84 +136,62 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 			//Enabled section
 			add_settings_section(
-				'away_mode_enabled',
-				__( 'Configure Away Mode', 'better_wp_security' ),
+				'ban_users_enabled',
+				__( 'Configure Ban Users', 'better_wp_security' ),
 				array( $this, 'sandbox_general_options_callback' ),
-				'security_page_toplevel_page_bwps-away_mode'
+				'security_page_toplevel_page_bwps-ban_users'
 			);
 
 			//primary settings section
 			add_settings_section(
-				'away_mode_settings',
-				__( 'Configure Away Mode', 'better_wp_security' ),
+				'ban_users_settings',
+				__( 'Configure Ban Users', 'better_wp_security' ),
 				array( $this, 'sandbox_general_options_callback' ),
-				'security_page_toplevel_page_bwps-away_mode'
+				'security_page_toplevel_page_bwps-ban_users'
 			);
 
 			//enabled field
 			add_settings_field(
-				'bwps_away_mode[enabled]',
-				__( 'Enable Away Mode', 'better_wp_security' ),
-				array( $this, 'away_mode_enabled' ),
-				'security_page_toplevel_page_bwps-away_mode',
-				'away_mode_enabled'
+				'bwps_ban_users[enabled]',
+				__( 'Enable Ban Users', 'better_wp_security' ),
+				array( $this, 'ban_users_enabled' ),
+				'security_page_toplevel_page_bwps-ban_users',
+				'ban_users_enabled'
 			);
 
-			//type field
+			//host list field
 			add_settings_field(
-				'bwps_away_mode[type]',
-				__( 'Type of Restriction', 'better_wp_security' ),
-				array( $this, 'away_mode_type' ),
-				'security_page_toplevel_page_bwps-away_mode',
-				'away_mode_settings'
+				'bwps_ban_users[host_list]',
+				__( 'Ban Hosts', 'better_wp_security' ),
+				array( $this, 'ban_users_host_list' ),
+				'security_page_toplevel_page_bwps-ban_users',
+				'ban_users_settings'
 			);
 
-			//start date field
+			//agent _list field
 			add_settings_field(
-				'bwps_away_mode[start_date]',
-				__( 'Start Date', 'better_wp_security' ),
-				array( $this, 'away_mode_start_date' ),
-				'security_page_toplevel_page_bwps-away_mode',
-				'away_mode_settings'
+				'bwps_ban_users[agent_list]',
+				__( 'Ban User Agents', 'better_wp_security' ),
+				array( $this, 'ban_users_agent_list' ),
+				'security_page_toplevel_page_bwps-ban_users',
+				'ban_users_settings'
 			);
 
-			//start time field
+			//agent _list field
 			add_settings_field(
-				'bwps_away_mode[start_time]',
-				__( 'Start Time', 'better_wp_security' ),
-				array( $this, 'away_mode_start_time' ),
-				'security_page_toplevel_page_bwps-away_mode',
-				'away_mode_settings'
-			);
-
-			//end date field
-			add_settings_field(
-				'bwps_away_mode[end_date]',
-				__( 'End Date', 'better_wp_security' ),
-				array( $this, 'away_mode_end_date' ),
-				'security_page_toplevel_page_bwps-away_mode',
-				'away_mode_settings'
-			);
-
-			//end time field
-			add_settings_field(
-				'bwps_away_mode[end_time]',
-				__( 'End Time', 'better_wp_security' ),
-				array( $this, 'away_mode_end_time' ),
-				'security_page_toplevel_page_bwps-away_mode',
-				'away_mode_settings'
+				'bwps_ban_users[white_list]',
+				__( 'Whitelist Users', 'better_wp_security' ),
+				array( $this, 'ban_users_white_list' ),
+				'security_page_toplevel_page_bwps-ban_users',
+				'ban_users_settings'
 			);
 
 			//Register the settings field for the entire module
 			register_setting(
-				'security_page_toplevel_page_bwps-away_mode',
-				'bwps_away_mode',
+				'security_page_toplevel_page_bwps-ban_users',
+				'bwps_ban_users',
 				array( $this, 'sanitize_module_input' )
 			);
-
-			//Add the date picker
-			wp_enqueue_script( 'jquery-ui-datepicker' );
-			wp_enqueue_style( 'jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css' );
 
 		}
 
@@ -232,179 +210,100 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 		 * @param  array $args field arguements
 		 * @return void
 		 */
-		public function away_mode_enabled( $args ) {
+		public function ban_users_enabled( $args ) {
 
 			//disable the option if away mode is in the past
-			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 && ( $this->settings['type'] == 1 || ( $this->settings['end'] > current_time( 'timestamp') || $this->settings['type'] === 2 ) ) ) {
+			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 ) {
 				$enabled = 1;
 			} else {
 				$enabled = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_away_mode_enabled" name="bwps_away_mode[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="bwps_away_mode_enabled"> '  . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="bwps_ban_users_enabled" name="ban_users[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="bwps_ban_users_enabled"> '  . __( 'Check this box to enable ban users', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
 		}
 
 		/**
-		 * echos End date field
+		 * echos Banned Hosts field
 		 *
 		 * @param  array $args field arguements
 		 * @return void
 		 */
-		public function away_mode_end_date( $args ) {
+		public function ban_users_host_list( $args ) {
 
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
-				$end = $this->settings['end'];
+			//disable the option if away mode is in the past
+			if ( isset( $this->settings['host_list'] ) && strlen( $this->settings['host_list'] ) > 1 ) {
+				$default = $this->settings['host_list'];
 			} else {
-				$end = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
+				$default = '';
 			}
 
-			//Date Field
-			$content = '<input class="end_date_field" type="text" id="bwps_away_mode_end_date" name="bwps_away_mode[end][date]" value="' . date( 'm/d/y', $end ) . '"/>';
-			$content .= '<label class="end_date_field" for="bwps_away_mode_end_date"> '  . __( 'Set the date at which the admin dashboard should become available', 'better_wp_security' ) . '</label>';
+			$content = '<textarea id="bwps_ban_users_host_list" name="ban_users[host_list]" rows="10" cols="50">' . $default . '</textarea>';
+			$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', 'better_wp_security' ) . '</p>';
+			$content .= '<ul><em>';
+			$content .= '<li>' . __ ( 'You may ban users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
+			$content .= '<li>' . __ ( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', 'better_wp_security' ) . '</li>';
+			$content .= '<li>' . __ ( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'better_wp_security' ) . '</li>';
+			$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'better_wp_security' ) . '</a></li>';
+			$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'better_wp_security' ) . '</li>';
+			$content .= '</em></ul>';
 
 			echo $content;
 
 		}
 
 		/**
-		 * echos End time field
+		 * echos Banned Agents field
 		 *
 		 * @param  array $args field arguements
 		 * @return void
 		 */
-		public function away_mode_end_time( $args ) {
+		public function ban_users_agent_list( $args ) {
 
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
-				$end = $this->settings['end'];
+			//disable the option if away mode is in the past
+			if ( isset( $this->settings['agent_list'] ) && strlen( $this->settings['agent_list'] ) > 1 ) {
+				$default = $this->settings['agent_list'];
 			} else {
-				$end = strtotime( date( 'n/j/y 6:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
+				$default = '';
 			}
 
-			//Hour Field
-			$content = '<select name="bwps_away_mode[end][hour]" id="bwps_away_mod_end_time">';
-
-			for ( $i = 1; $i <= 12; $i++ ) {
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $end ), $i, false ) . '>' . $i . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//Minute Field
-			$content .= '<select name="bwps_away_mode[end][minute]" id="bwps_away_mod_end_time">';
-
-			for ( $i = 0; $i <= 59; $i++ ) {
-
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'i', $end ), sprintf( '%02d', $i ), false ) . '>' . sprintf( '%02d', $i ) . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//AM/PM Field
-			$content .= '<select name="bwps_away_mode[end][sel]" id="bwps_away_mod_end_time">';
-			$content .= '<option value="am" ' . selected( date( 'a', $end ), 'am', false ) . '>' . __( 'am', 'better_wp_security' ) . '</option>';
-			$content .= '<option value="pm" ' . selected( date( 'a', $end ), 'pm', false ) . '>' . __( 'pm', 'better_wp_security' ) . '</option>';
-			$content .= '</select>';
-			$content .= '<label for="bwps_away_mod_end_time"> '  . __( 'Set the time at which the admin dashboard should become available again.', 'better_wp_security' ) . '</label>';
+			$content = '<textarea id="bwps_ban_users_agent_list" name="ban_users[agent_list]" rows="10" cols="50">' . $default . '</textarea>';
+			$content .= '<p>' . __( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', 'better_wp_security' ) . '</p>';
+			$content .= '<ul><em>';
+			$content .= '<li>' . __ ( 'Enter only 1 user agent per line.', 'better_wp_security' ) . '</li>';
+			$content .= '</em></ul>';
 
 			echo $content;
 
 		}
 
 		/**
-		 * echos Start date field
+		 * echos Banned white list field
 		 *
 		 * @param  array $args field arguements
 		 * @return void
 		 */
-		public function away_mode_start_date( $args ) {
+		public function ban_users_white_list( $args ) {
 
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['start'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
-				$start = $this->settings['start'];
+			//disable the option if away mode is in the past
+			if ( isset( $this->settings['white_list'] ) && strlen( $this->settings['white_list'] ) > 1 ) {
+				$default = $this->settings['white_list'];
 			} else {
-				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
+				$default = '';
 			}
 
-			//Date Field
-			$content = '<input class="start_date_field" type="text" id="bwps_away_mode_start_date" name="bwps_away_mode[start][date]" value="' . date( 'm/d/y', $start ) . '"/>';
-			$content .= '<label class="start_date_field" for="bwps_away_mode_start_date"> '  . __( 'Set the date at which the admin dashboard should become unavailable', 'better_wp_security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Start time field
-		 *
-		 * @param  array $args field arguements
-		 * @return void
-		 */
-		public function away_mode_start_time( $args ) {
-
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['start'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
-				$start = $this->settings['start'];
-			} else {
-				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
-			}
-
-			//Hour Field
-			$content = '<select name="bwps_away_mode[start][hour]" id="bwps_away_mod_start_time">';
-
-			for ( $i = 1; $i <= 12; $i++ ) {
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $start ), $i, false ) . '>' . $i . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//Minute Field
-			$content .= '<select name="bwps_away_mode[start][minute]" id="bwps_away_mod_start_time">';
-
-			for ( $i = 0; $i <= 59; $i++ ) {
-
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'i', $start ), sprintf( '%02d', $i ), false ) . '>' . sprintf( '%02d', $i ) . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//AM/PM Field
-			$content .= '<select name="bwps_away_mode[start][sel]" id="bwps_away_mod_start_time">';
-			$content .= '<option value="am" ' . selected( date( 'a', $start ), 'am', false ) . '>' . __( 'am', 'better_wp_security' ) . '</option>';
-			$content .= '<option value="pm" ' . selected( date( 'a', $start ), 'pm', false ) . '>' . __( 'pm', 'better_wp_security' ) . '</option>';
-			$content .= '</select>';
-			$content .= '<label for="bwps_away_mod_start_time"> '  . __( 'Set the time at which the admin dashboard should become available again.', 'better_wp_security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos type Field
-		 *
-		 * @param  array $args field arguements
-		 * @return void
-		 */
-		public function away_mode_type( $args ) {
-
-			$content = '<select name="bwps_away_mode[type]" id="bwps_away_mode_type">';
-			$content .= '<option value="1" ' . selected( $this->settings['type'], 1, false ) . '>' . __( 'Daily', 'better_wp_security' ) . '</option>';
-			$content .= '<option value="2" ' . selected( $this->settings['type'], 2, false ) . '>' . __( 'One Time', 'better_wp_security' ) . '</option>';
-			$content .= '</select>';
-			$content .= '<label for="bwps_away_mode_type"> '  . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';
+			$content = '<textarea id="bwps_ban_users_white_list" name="ban_users[white_list]" rows="10" cols="50">' . $default . '</textarea>';
+			$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be banned from your site. This will keep you from locking yourself out of any features if you should trigger a lockout. Please note this does not override away mode.', 'better_wp_security' ) . '</p>';
+			$content .= '<ul><em>';
+			$content .= '<li>' . __ ( 'You may white list users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
+			$content .= '<li>' . __ ( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', 'better_wp_security' ) . '</li>';
+			$content .= '<li>' . __ ( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'better_wp_security' ) . '</li>';
+			$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'better_wp_security' ) . '</a></li>';
+			$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'better_wp_security' ) . '</li>';
+			$content .= '</em></ul>';
 
 			echo $content;
 
@@ -415,45 +314,13 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 		 *
 		 * @return void
 		 */
-		public function add_ban_users_intro( $screen ) {
+		public function ban_users_intro( $screen ) {
 
-			if ( $screen === 'security_page_toplevel_page_bwps-away_mode' ) { //only display on away mode page
+			if ( $screen === 'security_page_toplevel_page_bwps-ban_users' ) { //only display on away mode page
 
-				$content = '<p>' . __( 'As most sites are only updated at certain times of the day it is not always necessary to provide access to the WordPress dashboard 24 hours a day, 7 days a week. The options below will allow you to disable access to the WordPress Dashboard for the specified period. In addition to limiting exposure to attackers this could also be useful to disable site access based on a schedule for classroom or other reasons.', 'better_wp_security' ) . '</p>';
-
-				if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) {
-					$currdate = date_i18n( 'l, d F Y' . ' ' . get_option( 'time_format' ) , current_time( 'timestamp' ) );
-				} else {
-					$currdate = date( 'g:i a \o\n l F jS, Y', current_time( 'timestamp' ) );
-				}
-
-				$content = '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is %s. If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'better_wp_security' ), '<a href="options-general.php">', '</a>', '<strong style="color: #f00; font-size: 150%;"><em>' . $currdate . '</em></strong>', '<a href="options-general.php">', '</a>' ) . '</p>';
-
+				$content = '<p>' . __( 'This feature allows you to ban hosts and user agents from your site completely using individual or groups of IP addresses as well as user agents without having to manage any configuration of your server. Any IP or user agent found in the lists below will not be allowed any access to your site.', 'better_wp_security' ) . '</p>';
 
 				echo $content;
-
-				//set information explaining away mode is enabled
-				if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 && ( $this->settings['type'] === 1 || ( $this->settings['end'] > current_time( 'timestamp' ) ) ) ) {
-
-					$content = '<hr />';
-
-					$content .= sprintf( '<p><strong>%s</strong></p>', __( 'Away mode is currently enabled.', 'better_wp_security' ) );
-
-					//Create the appropriate notification based on daily or one time use
-					if ( $this->settings['type'] === 1 ) {
-
-						$content .= sprintf( '<p>' . __( 'The dashboard of this website will become unavailable %s%s%s from %s%s%s until %s%s%s.', 'better_wp_security' ) . '</p>', '<strong>', __( 'every day', 'better_wp_security' ), '</strong>', '<strong>', date_i18n( get_option('time_format'), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option('time_format'), $this->settings['end'] ), '</strong>' );
-
-					} else {
-
-						$content .= sprintf( '<p>' . __( 'The dashboard of this website will become unavailable from %s%s%s on %s%s%s until %s%s%s on %s%s%s.', 'better_wp_security' ) . '</p>', '<strong>', date_i18n( get_option('time_format'), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option('date_format'), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option('time_format'), $this->settings['end'] ), '</strong>', '<strong>', date_i18n( get_option('date_format'), $this->settings['end'] ), '</strong>' );
-
-					}
-
-					$content.= '<p>' . __( 'You will not be able to log into this website when the site is unavailable.', 'better_wp_security' ) . '</p>';
-
-					echo $content;
-				}
 
 			}
 
@@ -468,18 +335,18 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 			//set appropriate action for multisite or standard site
 			if ( is_multisite() ) {
-				$action = 'edit.php?action=bwps_away_mode';
+				$action = 'edit.php?action=bwps_ban_users';
 			} else {
 				$action = 'options.php';
 			}
 
 			printf( '<form name="%s" method="post" action="%s">', get_current_screen()->id, $action );
 
-			$this->core->do_settings_sections( 'security_page_toplevel_page_bwps-away_mode', false );
+			$this->core->do_settings_sections( 'security_page_toplevel_page_bwps-ban_users', false );
 
 			echo '<p>' . PHP_EOL;
 
-			settings_fields( 'security_page_toplevel_page_bwps-away_mode' );
+			settings_fields( 'security_page_toplevel_page_bwps-ban_users' );
 
 			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'better_wp_security' ) . '" />' . PHP_EOL;
 
