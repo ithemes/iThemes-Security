@@ -282,42 +282,96 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 
 			global $bwps_globals;
 
-			$statuses = array (
-				'safe' => array(),
-				'partial' => array(),
-				'unsafe' => array(),
-				'conflict' => array(),
-			);
+			$statuses = array();
 
 			$statuses = apply_filters( $bwps_globals['plugin_hook'] . '_add_dashboard_status', $statuses );
 
-			printf( '<h2>%s</h2>', __( 'Needs Attention', 'better-wp-security' ) );
-			printf( '<h4>%s</h4>', __( 'High Priority', 'better-wp-security' ) );
-			_e( 'These are items that should be secured immediately.', 'better-wp-security' );
-			printf( '<h4>%s</h4>', __( 'Medium Priority', 'better-wp-security' ) );
-			_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'better-wp-security' );
+			if ( isset ( $statuses['high'] ) || isset( $statuses['safe-high'] ) ) {
 
-			echo '<ol class="statuslist">';
-			foreach ( $statuses['partial'] as $status ) {
+				printf( '<h2>%s</h2>', __( 'High Priority', 'better_wp_security' ) );
+				_e( 'These are items that should be secured immediately.', 'better_wp_security' );
 
-				printf( '<li> <a  style="color: orange;" href="%s">%s</a></li>', $status['link'], $status['text'] );
+				echo '<ol class="statuslist">';
+
+				if ( isset ( $statuses['high'] ) ) {
+
+					foreach ( $statuses['high'] as $status ) {
+
+						printf( '<li> <strong><a  style="color: red;" href="%s">%s</a></strong></li>', $status['link'], $status['text'] );
+
+					}
+
+				} elseif ( isset ( $statuses['safe-high'] ) ) {
+
+					foreach ( $statuses['safe-high'] as $status ) {
+
+						printf( '<li> <a  style="color: green;" href="%s">%s</a></li>', $status['link'], $status['text'] );
+
+					}
+
+				}
+
+				echo '</ol>';
 
 			}
-			echo '</ol>';
 
-			printf( '<h4>%s</h4>', __( 'Low Priority', 'better-wp-security' ) );
-			_e( 'These are items that should be secured if, and only if, your plugins or theme does not require their use.', 'better-wp-security' );
-			printf( '<h2>%s</h2>', __( 'Fully Secured', 'better-wp-security' ) );
+			if ( isset ( $statuses['medium'] ) || isset( $statuses['safe-medium'] ) ) {
 
-			echo '<ul class="statuslist">';
+				printf( '<h2>%s</h2>', __( 'Medium Priority', 'better_wp_security' ) );
+				_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'better_wp_security' );
 
-			foreach ( $statuses['safe'] as $status ) {
+				echo '<ol class="statuslist">';
 
-				printf( '<li> <a  style="color: green;" href="%s">%s</a></li>', $status['link'], $status['text'] );
+				if ( isset ( $statuses['medium'] ) ) {
+
+					foreach ( $statuses['medium'] as $status ) {
+
+						printf( '<li> <strong><a  style="color: orange;" href="%s">%s</a></strong></li>', $status['link'], $status['text'] );
+
+					}
+
+				} elseif ( isset ( $statuses['safe-medium'] ) ) {
+
+					foreach ( $statuses['safe-medium'] as $status ) {
+
+						printf( '<li> <a  style="color: green;" href="%s">%s</a></li>', $status['link'], $status['text'] );
+
+					}
+
+				}
+
+				echo '</ol>';
 
 			}
 
-			echo '</ul>';
+			if ( isset ( $statuses['low'] ) || isset( $statuses['safe-low'] ) ) {
+
+				printf( '<h2>%s</h2>', __( 'Low Priority', 'better_wp_security' ) );
+				_e( 'These are items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'better_wp_security' );
+
+				echo '<ol class="statuslist">';
+
+				if ( isset ( $statuses['low'] ) ) {
+
+					foreach ( $statuses['low'] as $status ) {
+
+						printf( '<li> <strong><a  style="color: blue;" href="%s">%s</a></strong></li>', $status['link'], $status['text'] );
+
+					}
+
+				} elseif ( isset ( $statuses['safe-low'] ) ) {
+
+					foreach ( $statuses['safe-low'] as $status ) {
+
+						printf( '<li> <a  style="color: green;" href="%s">%s</a></li>', $status['link'], $status['text'] );
+
+					}
+
+				}
+
+				echo '</ol>';
+
+			}
 
 		}
 
