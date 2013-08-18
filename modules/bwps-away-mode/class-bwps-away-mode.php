@@ -602,8 +602,6 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			global $bwps_globals;
-
 			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
 
 			$input['type'] = intval( $input['type'] == 1 ? 1 : 2 );
@@ -689,7 +687,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		}
 
 		/**
-		 * Start the Springbox module
+		 * Start the Away Mode module
 		 * 
 		 * @param  Bit51_BWPS_Core    $core     Instance of core plugin class
 		 * @return BWPS_Away_Mode 			    The instance of the BWPS_Away_Mode class
