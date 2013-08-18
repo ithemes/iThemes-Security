@@ -292,12 +292,12 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			$statuses = apply_filters( $bwps_globals['plugin_hook'] . '_add_dashboard_status', $statuses );
 
 			printf( '<h2>%s</h2>', __( 'Needs Attention', 'better-wp-security' ) );
-			printf( '<h3>%s</h3>', __( 'High Priority', 'better-wp-security' ) );
+			printf( '<h4>%s</h4>', __( 'High Priority', 'better-wp-security' ) );
 			_e( 'These are items that should be secured immediately.', 'better-wp-security' );
-			printf( '<h3>%s</h3>', __( 'Medium Priority', 'better-wp-security' ) );
+			printf( '<h4>%s</h4>', __( 'Medium Priority', 'better-wp-security' ) );
 			_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'better-wp-security' );
 
-			echo '<ol>';
+			echo '<ol class="statuslist">';
 			foreach ( $statuses['partial'] as $status ) {
 
 				printf( '<li> <a  style="color: orange;" href="%s">%s</a></li>', $status['link'], $status['text'] );
@@ -305,16 +305,19 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 			}
 			echo '</ol>';
 
-			printf( '<h3>%s</h3>', __( 'Low Priority', 'better-wp-security' ) );
+			printf( '<h4>%s</h4>', __( 'Low Priority', 'better-wp-security' ) );
 			_e( 'These are items that should be secured if, and only if, your plugins or theme does not require their use.', 'better-wp-security' );
 			printf( '<h2>%s</h2>', __( 'Fully Secured', 'better-wp-security' ) );
+
+			echo '<ul class="statuslist">';
 
 			foreach ( $statuses['safe'] as $status ) {
 
 				printf( '<li> <a  style="color: green;" href="%s">%s</a></li>', $status['link'], $status['text'] );
 
 			}
-			echo '</ol>';
+
+			echo '</ul>';
 
 		}
 

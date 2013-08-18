@@ -19,3 +19,8 @@ div.inside ul li {
 .form-table th {
 	font-weight: bold;
 }
+
+ul.statuslist,
+ol.statuslist {
+	padding-left: 10px;
+}
