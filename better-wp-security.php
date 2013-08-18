@@ -110,6 +110,10 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 			//load Away Mode Module
 			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-away-mode/class-bwps-away-mode.php' );
 			BWPS_Away_Mode::start( $this->core );
+
+			//load Ban Users Module
+			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-ban-users/class-bwps-ban-users.php' );
+			BWPS_Ban_Users::start( $this->core );
 			
 		}
 
