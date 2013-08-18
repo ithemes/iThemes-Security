@@ -13,10 +13,10 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 		private function __construct( $core ) {
 
-			global $bwps_globals, $bwps_utilities;;
+			global $bwps_globals;
 
 			$this->core = $core;
-			$this->settings = get_site_option( 'bwps-ban-users' );
+			$this->settings = get_site_option( 'bwps_ban_users' );
 
 			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'ban_users_intro' ) ); //add page intro and information
@@ -219,7 +219,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 				$enabled = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_ban_users_enabled" name="ban_users[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content = '<input type="checkbox" id="bwps_ban_users_enabled" name="bwps_ban_users[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
 			$content .= '<label for="bwps_ban_users_enabled"> '  . __( 'Check this box to enable ban users', 'better_wp_security' ) . '</label>';
 
 			echo $content;
@@ -241,7 +241,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 				$default = '';
 			}
 
-			$content = '<textarea id="bwps_ban_users_host_list" name="ban_users[host_list]" rows="10" cols="50">' . $default . '</textarea>';
+			$content = '<textarea id="bwps_ban_users_host_list" name="bwps_ban_users[host_list]" rows="10" cols="50">' . $default . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', 'better_wp_security' ) . '</p>';
 			$content .= '<ul><em>';
 			$content .= '<li>' . __ ( 'You may ban users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
@@ -270,7 +270,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 				$default = '';
 			}
 
-			$content = '<textarea id="bwps_ban_users_agent_list" name="ban_users[agent_list]" rows="10" cols="50">' . $default . '</textarea>';
+			$content = '<textarea id="bwps_ban_users_agent_list" name="bwps_ban_users[agent_list]" rows="10" cols="50">' . $default . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', 'better_wp_security' ) . '</p>';
 			$content .= '<ul><em>';
 			$content .= '<li>' . __ ( 'Enter only 1 user agent per line.', 'better_wp_security' ) . '</li>';
@@ -295,7 +295,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 				$default = '';
 			}
 
-			$content = '<textarea id="bwps_ban_users_white_list" name="ban_users[white_list]" rows="10" cols="50">' . $default . '</textarea>';
+			$content = '<textarea id="bwps_ban_users_white_list" name="bwps_ban_users[white_list]" rows="10" cols="50">' . $default . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be banned from your site. This will keep you from locking yourself out of any features if you should trigger a lockout. Please note this does not override away mode.', 'better_wp_security' ) . '</p>';
 			$content .= '<ul><em>';
 			$content .= '<li>' . __ ( 'You may white list users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
@@ -364,55 +364,33 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			global $bwps_globals;
-
 			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
 
-			$input['type'] = intval( $input['type'] == 1 ? 1 : 2 );
+			$ips = $this->validate_bad_hosts( $input['host_list'], true );
 
-			//we don't need to process this again if it is a multisite installation
-			if ( ! is_multisite() ) {
+			if ( is_wp_error( $ips ) ) {
 
-				$input['start'] = strtotime( $input['start']['date'] . ' ' . $input['start']['hour'] . ':' . $input['start']['minute'] . ' ' . $input['start']['sel'] );
-				$input['end'] = strtotime( $input['end']['date'] . ' ' . $input['end']['hour'] . ':' . $input['end']['minute'] . ' ' . $input['end']['sel'] );
-
-			}
-
-			if ( $this->check_away( true, $input ) === true ) {
-
-				$input['enabled'] = 0; //disable away mode
+				$input['enabled'] = 0; //disable ban users list
 
 				$type = 'error';
-				$message = __( 'Invalid time listed. The time entered would lock you out of your site now. Please try again.', 'better_wp_security' );
+				$message = '';
 
-			} elseif ( $input['type'] === 2 && $input['end'] < $input['start'] ) {
+				if ( is_wp_error( $ips ) ) {
 
-				$input['enabled'] = 0; //disable away mode
+					foreach ( $ips->get_error_messages() as $error ) {
+						$message .= $error . '<br />';
+					}
 
-				$type = 'error';
-				$message = __( 'Invalid time listed. The start time selected is after the end time selected.', 'better_wp_security' );
+				}
 
-			} elseif ( $input['type'] === 2 && $input['end'] < current_time( 'timestamp' ) ) {
-
-				$input['enabled'] = 0; //disable away mode
-
-				$type = 'error';
-				$message = __( 'Invalid time listed. The period selected already ended.', 'better_wp_security' );
+				$message .= sprintf( '<br /><br />%s', __( 'Note that the ban users feature has been disabled until the errors are corrected.', 'better_wp_security' ) );
 
 			} else {
+
+				$input['host_list'] = $ips;
 
 				$type = 'updated';
 				$message = __( 'Settings Updated', 'better_wp_security' );
-
-			}
-
-			if ( $input['enabled'] == 1 && ! file_exists( $this->away_file ) ) {
-
-				@file_put_contents( $this->away_file, 'true' );
-
-			} else {
-
-				@unlink( $this->away_file );
 
 			}
 
@@ -426,6 +404,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 			return $input;
 
 		}
+
 
 		/**
 		 * Prepare and save options in network settings
@@ -451,7 +430,142 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 		}
 
 		/**
-		 * Start the Springbox module
+		 * Validates a host list
+		 *
+		 * @param string $hosts string of hosts to check
+		 * @param bool $ban true for ban list, false for whitelist
+		 * @return array array of good hosts or false
+		 */
+		public function validate_bad_hosts( $hosts, $ban ) {
+
+			//validate list
+			$banhosts = explode( PHP_EOL, $hosts );
+			$list = array();
+			$error_handler = null;
+
+			if( ! empty( $banhosts ) ) {
+
+				foreach( $banhosts as $host ) {
+
+					$host = filter_var( $host, FILTER_SANITIZE_STRING );
+
+					if ( strlen( $host ) > 0 ) {
+
+						$ipParts = explode( '.', $host );
+						$isIP = 0;
+						$partcount = 1;
+						$goodip = true;
+						$foundwild = false;
+
+						foreach ( $ipParts as $part ) {
+
+							if ( $goodip == true ) {
+
+								if ( ( is_numeric( trim( $part ) ) && trim( $part ) <= 255 && trim( $part ) >= 0 ) || trim( $part ) == '*' ) {
+									$isIP++;
+								}
+
+								switch ( $partcount ) {
+
+									case 1:
+
+										if ( trim( $part ) == '*' ) {
+
+											$goodip = false;
+
+											if ( ! is_wp_error( $error_handler ) ) { //invalid ip
+												$error_handler = new WP_Error();
+											}
+
+											$error_handler->add( 'error', __( filter_var( $host, FILTER_SANITIZE_STRING ) . ' is note a valid ip.', 'better_wp_security' ) );
+
+										}
+
+										break;
+
+									case 2:
+
+										if ( trim( $part ) == '*' ) {
+
+											$foundwild = true;
+
+										}
+
+										break;
+
+									default:
+
+										if ( trim( $part ) != '*' ) {
+
+											if ( $foundwild == true ) {
+
+												$goodip = false;
+
+												if ( ! is_wp_error( $error_handler ) ) { //invalid ip
+													$error_handler = new WP_Error();
+												}
+
+												$error_handler->add( 'error', __( filter_var( $host, FILTER_SANITIZE_STRING ) . ' is note a valid ip.', 'better_wp_security' ) );
+
+											}
+
+										} else {
+
+											$foundwild = true;
+
+										}
+
+										break;
+
+								}
+
+								$partcount++;
+
+							}
+
+						}
+
+						if ( ip2long( trim( str_replace( '*', '0', $host ) ) ) == false ) { //invalid ip
+
+							if ( ! is_wp_error( $error_handler ) ) {
+								$error_handler = new WP_Error();
+							}
+
+							$error_handler->add( 'error', __( filter_var( $host, FILTER_SANITIZE_STRING ) . ' is not a valid ip.', 'better_wp_security' ) );
+
+						} elseif ( strlen( $host > 4 && ! in_array( $host, $list ) ) ) {
+
+							$list[] = trim( $host );
+
+						}
+
+					}
+
+				}
+
+			}
+
+			if ( sizeof( $list ) > 1 ) {
+				sort( $list );
+				$list = array_unique( $list, SORT_STRING );
+			}
+
+			if ( is_wp_error( $error_handler ) ) {
+				return $error_handler;
+			} else {
+				return $list;
+			}
+
+		}
+
+		public function validate_bad_agents( $agents ) {
+
+
+
+		}
+
+		/**
+		 * Start the Ban Users module
 		 *
 		 * @param  Bit51_BWPS_Core    $core     Instance of core plugin class
 		 * @return BWPS_Away_Mode 			    The instance of the BWPS_Away_Mode class
