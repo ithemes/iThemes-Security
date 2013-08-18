@@ -171,6 +171,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Fixed possible XSS issue (Github Issue #64 with patch from i0wn)
 * Wrapped all wp_mail calls in function_exists checks as it no longer seems to be reliably available after plugins_loaded in WordPress 3.6
 * Minor refactoring
+* Added (.*) to Zues in hackrepair.com list to mitigate possible issues
 
 = 3.5.5 =
 * Fixed error that prevented manual backups from executing

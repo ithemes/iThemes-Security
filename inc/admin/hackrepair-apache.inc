@@ -134,7 +134,7 @@ RewriteCond %{HTTP_USER_AGENT} ^WWWOFFLE [NC,OR]
 RewriteCond %{HTTP_USER_AGENT} ^Xaldon\ WebSpider [NC,OR]
 RewriteCond %{HTTP_USER_AGENT} zermelo [NC,OR]
 RewriteCond %{HTTP_USER_AGENT} ^Zeus [NC,OR]
-RewriteCond %{HTTP_USER_AGENT} ^Zeus\.*Webster [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^(.*)Zeus\.*Webster [NC,OR]
 RewriteCond %{HTTP_USER_AGENT} ZyBorg [NC]
 RewriteRule ^.* - [F,L]
 # Abuse bot blocking rule end
