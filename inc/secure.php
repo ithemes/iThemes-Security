@@ -694,8 +694,10 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					}
 			
 					$mesEmail = __( 'A ', $this->hook ) . $who . __( 'has been locked out of the WordPress site at', $this->hook ) . " " . get_bloginfo( 'url' ) . " " . $duration . ' ' . __( 'due to ', $this->hook ) . $reason . __( ' You may login to the site to manually release the lock if necessary.', $this->hook );
-				
-					$sendMail = wp_mail( $toEmail, $subEmail, $mesEmail, $mailHead );
+
+					if ( function_exists( 'wp_mail' ) ) {
+						$sendMail = wp_mail( $toEmail, $subEmail, $mesEmail, $mailHead );
+					}
 					
 				}
 				

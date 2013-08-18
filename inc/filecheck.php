@@ -333,8 +333,10 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 			$message .= $this->getdetails( $logid, true ); //get report
 			
 			add_filter( 'wp_mail_content_type', create_function( '', 'return "text/html";' ) ); //send as html
-			
-			wp_mail( $to, $subject, $message, $headers ); //send message
+
+			if ( function_exists( 'wp_mail' ) ) {
+				wp_mail( $to, $subject, $message, $headers ); //send message
+			}
 		
 		}
 		

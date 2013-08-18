@@ -155,8 +155,10 @@ if ( ! class_exists( 'bwps_backup' ) ) {
 				$subject = __( 'Site Database Backup', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', current_time( 'timestamp' ) );
 				$attachment = array( BWPS_PP . 'backups/' . $file . $fileext );
 				$message = __( 'Attached is the backup file for the database powering', $this->hook ) . ' ' . get_option( 'siteurl' ) . __( ' taken', $this->hook ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', current_time( 'timestamp' ) );
-				
-				wp_mail( $to, $subject, $message, $headers, $attachment );
+
+				if ( function_exists( 'wp_mail' ) ) {
+					wp_mail( $to, $subject, $message, $headers, $attachment );
+				}
 					
 				$files = scandir( BWPS_PP . 'backups/', 1 );
 					
