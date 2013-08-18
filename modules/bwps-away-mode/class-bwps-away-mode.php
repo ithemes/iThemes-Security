@@ -211,12 +211,12 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			$link = 'admin.php?page=toplevel_page_bwps-away_mode';
 
 			if ( $this->settings['enabled'] === 1 ) {
-				$statuses['safe'][] = array(
+				$statuses['safe-medium'][] = array(
 					'text' => __( 'Away Mode is enabled and your WordPress Dashboard is not available when you will not be needing it.', 'better_wp_security' ),
 					'link' => $link,
 				);
 			} else {
-				$statuses['partial'][] = array(
+				$statuses['medium'][] = array(
 					'text' => __( 'Your WordPress Dashboard is available 24/7. Do you really update 24 hours a day? Consider using Away Mode.', 'better_wp_security' ),
 					'link' => $link,
 				);
