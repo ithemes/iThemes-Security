@@ -169,6 +169,8 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Updated Bulgarian translation by <a href="http://wordpress.org/support/profile/mhalachev">Martin Halachev</a>
 * Removed all instances of the deprecated $wpdb->escape
 * Fixed possible XSS issue (Github Issue #64 with patch from i0wn)
+* Wrapped all wp_mail calls in function_exists checks as it no longer seems to be reliably available after plugins_loaded in WordPress 3.6
+* Minor refactoring
 
 = 3.5.5 =
 * Fixed error that prevented manual backups from executing
