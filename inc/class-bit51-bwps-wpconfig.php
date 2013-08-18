@@ -54,6 +54,22 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 		 */
 		public function show_all_rules( $echo = false ) {
 
+			global $saved_rules;
+
+			if ( is_array( $saved_rules ) ) {
+
+				foreach( $saved_rules as $rule => $action ) {
+
+					if ( array_key_exists( $rule, $this->rules ) ) {
+
+						$this->rules[ $rule ] = $action;
+
+					}
+
+				}
+
+			}
+
 			$has_rules = false; //whether there are any rules to return
 
 			$rules = $this->rule_open . PHP_EOL;

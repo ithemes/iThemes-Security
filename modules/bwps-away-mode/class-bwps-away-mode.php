@@ -124,7 +124,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			
 				$current_time = current_time( 'timestamp' );
 				
-				if ( $test_type == 1 && ( ( defined( 'BWPS_AWAY_MODE' ) && BWPS_AWAY_MODE === true ) || $form === true ) ) { //set up for daily
+				if ( $test_type == 1 ) { //set up for daily
 
 					$start = strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $test_start ) );
 					$end = strtotime( date( 'n/j/y', $current_time ) . ' ' . date( 'g:i a', $test_end ) );
@@ -624,17 +624,6 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			}
 
-			add_filter( $bwps_globals['plugin_hook'] . '_wp_config_rules', array( $this, 'wp_config_rule' ) ); //build wp_config.php rules
-
-			$written = new Bit51_BWPS_WPConfig();
-
-			if ( $written === false ) {
-
-				$type = 'error';
-				$message = __( 'Better WP Security could not write to wp-config.php. You will need to manually update your wp-config.php rules..', 'better_wp_security' );
-
-			}
-
 			add_settings_error(
         		'bwps_admin_notices',
         		esc_attr( 'settings_updated' ),
@@ -643,22 +632,6 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
     		);
 
 			return $input;
-
-		}
-
-		public function wp_config_rule( $rules ) {
-
-			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] == 1 ) {
-
-				$rules['define( \'BWPS_AWAY_MODE\', true );'] = 1;
-
-			} else {
-
-				$rules['define( \'BWPS_AWAY_MODE\', true );'] = 0;
-
-			}
-
-			return $rules;
 
 		}
 
