@@ -18,7 +18,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 			$this->core = $core;
 			$this->settings = get_site_option( 'bwps_away_mode' );
-			$this->away_file = $bwps_globals['upload_dir'] . '/bwps_away.confg';
+			$this->away_file = $bwps_globals['upload_dir'] . '/bwps_away.confg'; //override file
 
 			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'add_away_mode_intro' ) ); //add page intro and information

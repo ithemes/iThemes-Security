@@ -45,7 +45,15 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 		 */
 		function execute_activate() {
 
-			global $bwps_hook;
+			$options = get_site_option( $this->hook . '_away_mode' );
+
+			$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
+
+			$away_file = $upload_dir['basedir'] . '/bwps_away.confg'; //override file
+
+			if ( isset( $options['enabled'] ) && $options['enabled'] == 1 && ! file_exists( $away_file ) ) {
+				@file_put_contents( $away_file, 'true' );
+			}
 
 		}
 
@@ -56,9 +64,13 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 		 */
 		function execute_deactivate() {
 
-			global $bwps_hook;
-
 			delete_site_transient ( 'bwps_away' );
+
+			$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
+
+			$away_file = $upload_dir['basedir'] . '/bwps_away.confg'; //override file
+
+			@unlink( $away_file );
 
 		}
 
@@ -68,8 +80,6 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 		 * @return void
 		 */
 		function execute_uninstall() {
-
-			global $bwps_hook;
 
 			$this->execute_deactivate();
 
@@ -83,8 +93,6 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 		 * @return void
 		 */
 		function execute_upgrade() {
-			
-			global $bwps_hook;
 
 		}
 
