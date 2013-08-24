@@ -165,7 +165,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 == Changelog ==
 
-= Dev =
+= 3.5.6 =
 * Updated Bulgarian translation by <a href="http://wordpress.org/support/profile/mhalachev">Martin Halachev</a>
 * Removed all instances of the deprecated $wpdb->escape
 * Fixed possible XSS issue (Github Issue #64 with patch from i0wn)
