@@ -103,6 +103,10 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 			require_once( $bwps_globals['plugin_dir'] . 'modules/bit51-bwps-dashboard/class-bit51-bwps-dashboard.php' );
 			Bit51_BWPS_Dashboard::start( $this->core );
 
+			//load BWPS Dashboard module
+			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-support/class-bwps-support.php' );
+			BWPS_Support::start( $this->core );
+
 			//load Foo Plugins Support module
 			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-foo-support/class-bwps-foo-support.php' );
 			BWPS_Foo_Support::start( $this->core );

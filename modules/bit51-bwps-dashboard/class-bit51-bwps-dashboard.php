@@ -83,15 +83,6 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 				'core'
 			);
 
-			add_meta_box( 
-				'bwps_system_info', 
-				__( 'System Information', 'better_wp_security' ),
-				array( $this, 'metabox_normal_system' ),
-				'toplevel_page_bwps',
-				'normal',
-				'core'
-			);
-
 		}
 
 		/**
@@ -372,17 +363,6 @@ if ( ! class_exists( 'Bit51_BWPS_Dashboard' ) ) {
 				echo '</ol>';
 
 			}
-
-		}
-
-		/**
-		 * Displays system information
-		 * 
-		 * @return void
-		 */
-		public function metabox_normal_system() {
-
-			require_once( 'content/system.php' );
 
 		}
 
