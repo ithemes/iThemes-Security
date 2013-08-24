@@ -2546,7 +2546,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 								<option value="1" <?php selected( $bwpsoptions['ssl_frontend'], '1' ); ?>><?php _e( 'Per Content', 'better-wp-security' ); ?></option>
 								<option value="2" <?php selected( $bwpsoptions['ssl_frontend'], '2' ); ?>><?php _e( 'Whole Site', 'better-wp-security' ); ?></option>
 							</select>
-							<p><?php _e( 'Enables secure SSL connection for the front-end (public parts of your site). Turning this off will disable front-end SSL control, turning this on "Per Content" will place a checkbox on the edit page for all posts and pages (near the publish settings) allowing you turn to on SSL for selected pages or posts, and selecting "Whole Site" will force the whole site to use SSL (not recommended unless you have a really good reason to use it).', 'better-wp-security' ); ?></p>
+							<p><?php _e( 'Enables secure SSL connection for the front-end (public parts of your site). Turning this off will disable front-end SSL control, turning this on "Per Content" will place a checkbox on the edit page for all posts and pages (near the publish settings) allowing you to turn on SSL for selected pages or posts, and selecting "Whole Site" will force the whole site to use SSL (not recommended unless you have a really good reason to use it).', 'better-wp-security' ); ?></p>
 						</td>
 					</tr>
 					<tr valign="top" class="strongwarning">
