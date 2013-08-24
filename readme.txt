@@ -3,9 +3,9 @@
 Contributors: Bit51, ChrisWiegman
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
-Requires at least: 3.5
+Requires at least: 3.6
 Tested up to: 3.6
-Stable tag: 3.5.5
+Stable tag: 3.5.6
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
 
@@ -172,6 +172,8 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Wrapped all wp_mail calls in function_exists checks as it no longer seems to be reliably available after plugins_loaded in WordPress 3.6
 * Minor refactoring
 * Added (.*) to Zues in hackrepair.com list to mitigate possible issues
+* Typo correction on SSL options courtesy of <a href="http://karthost.com">Roy Randolph</a>.
+* Changed minimum version to 3.6
 
 = 3.5.5 =
 * Fixed error that prevented manual backups from executing
