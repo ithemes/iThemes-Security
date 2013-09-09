@@ -73,7 +73,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			);
 			
 			if ( $bwpsoptions['initial_backup'] == 1 && $bwpsoptions['initial_filewrite'] == 1 ) { //they've backed up their database or ignored the warning
-			
+
 				add_submenu_page(
 					$this->hook, 
 					__( $this->pluginname, $this->hook ) . ' - ' . __( 'Change Admin User', $this->hook ),
