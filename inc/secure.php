@@ -501,11 +501,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 * Locks out user or host and notifies admin if enabled
 		 *
 		 * @param int $type Type of event to log 1 for bad login, 2 for 404
-		 * @param string $username[optional] Username of bad login user (if applicable)
+		 * @param string $user[optional] User-ID of bad login user (if applicable)
+		 * @param string $username The username ($_POST["log"]) which tried to log in
 		 *
 		 **/
-		function lockout( $type, $user = '' ) {
-		
+		function lockout( $type, $user = '', $username ) {
+
 			global $wpdb, $bwpsoptions;
 					
 			$currtime = current_time( 'timestamp' ); //current time
@@ -693,7 +694,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 
 					}
 			
-					$mesEmail = __( 'A ', $this->hook ) . $who . __( 'has been locked out of the WordPress site at', $this->hook ) . " " . get_bloginfo( 'url' ) . " " . $duration . ' ' . __( 'due to ', $this->hook ) . $reason . __( ' You may login to the site to manually release the lock if necessary.', $this->hook );
+					$mesEmail = __( 'A ', $this->hook ) . $who . __( 'has been locked out of the WordPress site at', $this->hook ) . " " . get_bloginfo( 'url' ) . " " . $duration . ' ' . __( 'due to ', $this->hook ) . $reason .__( ' The provided username was ' ) . $username . "." .__( ' You may login to the site to manually release the lock if necessary.', $this->hook );
 
 					if ( function_exists( 'wp_mail' ) ) {
 						$sendMail = wp_mail( $toEmail, $subEmail, $mesEmail, $mailHead );
@@ -715,7 +716,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 *
 		 **/
 		function logevent( $type, $username='' ) {
-		
+			
 			global $wpdb, $bwpsoptions;
 			
 			if ( ( $type == 1 && $bwpsoptions['ll_enabled'] == 0 ) || ( $type == 2 && $bwpsoptions['id_enabled'] == 0 ) ) {
@@ -780,11 +781,11 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				
 				if ( $usercount >= $bwpsoptions['ll_maxattemptsuser'] ) {
 				
-					$this->lockout( 1, $user->ID ); //lockout user
+					$this->lockout( 1, $user->ID, $username ); //lockout user
 					
 				} elseif  ( $hostcount >= $bwpsoptions['ll_maxattemptshost'] ) {
 				
-					$this->lockout( 1 ); //lockout host
+					$this->lockout( 1, 0, $username ); //lockout host
 					
 				}
 				
@@ -795,7 +796,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				$hostcount = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE type=2 AND host='" . $host . "' AND timestamp > " . ( current_time( 'timestamp' ) - $period ) . ";" );
 				
 				if ( $hostcount >= $bwpsoptions['id_threshold'] ) {
-					$this->lockout( 2 );
+					$this->lockout( 2, 0, $username );
 				}
 				
 			}	
