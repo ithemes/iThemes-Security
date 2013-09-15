@@ -165,6 +165,9 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 == Changelog ==
 
+= Dev =
+* updated German translation by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
+
 = 3.5.6 =
 * Updated Bulgarian translation by <a href="http://wordpress.org/support/profile/mhalachev">Martin Halachev</a>
 * Removed all instances of the deprecated $wpdb->escape
