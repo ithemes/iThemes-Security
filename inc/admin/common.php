@@ -544,7 +544,8 @@ if ( ! class_exists( 'bwps_admin_common' ) ) {
 			
 				if ( $bwpsserver == 'apache' || $bwpsserver == 'litespeed' ) {
 				
-					$rules .= "RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]" . PHP_EOL .
+					$rules .= "RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE) [NC]" . PHP_EOL .
+					//$rules .= "RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]" . PHP_EOL .
 						"RewriteRule ^(.*)$ - [F,L]" . PHP_EOL . PHP_EOL;
 				
 				} else {
