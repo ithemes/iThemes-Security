@@ -2338,7 +2338,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		 *
 		 **/
 		function logs_content_2() {
-			global $wpdb, $bwpsoptions;
+			global $wpdb;
 			?>
 			<form method="post" action="">
 			<?php wp_nonce_field( 'BWPS_admin_save','wp_nonce' ); ?>
@@ -2346,7 +2346,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 			<?php //get database record counts
 				$countlogin = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE`type` = 1;" );
 				$count404 = $wpdb->get_var("SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE  `type` = 2;" );
-				$countlockout = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `active` = 0;" );
+				$countlockout = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_lockouts` WHERE `exptime` < " . current_time( 'timestamp' ) . ";" );
 				$countchange = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "bwps_log` WHERE `type` = 3;" );
 			 ?>
 				<table class="form-table">

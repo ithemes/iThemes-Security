@@ -172,7 +172,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 **/
 		function checkaway() {
 		
-			global $bwps, $bwpsoptions;
+			global $bwpsoptions;
 
 			if ( is_multisite() ) { //get central transient if multisite
 				$transaway = get_site_transient( 'bwps_away' );
@@ -269,8 +269,6 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 *
 		 **/
 		function checklist( $list, $rawhost = '' ) {
-		
-			global $bwps, $wpdb;
 			
 			//convert list to array
 			$values = explode( "\n", $list );
