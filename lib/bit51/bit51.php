@@ -328,6 +328,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 							<div class="meta-box-sortables">
 								<?php
 									do_action( 'bit51_metaboxes', $this->hook );
+									$this->email();
 									$this->support();
 									$this->donate();
 									$this->news(); 
@@ -338,6 +339,36 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 					</div>
 				</div>
 			<?php
+		}
+		
+		/**
+		 * Display email signup form in admin sidebar.
+		 *
+		 **/
+		function email() {
+			
+			$content = '';
+			
+			ob_start();
+			?>
+				<div id="mc_embed_signup">
+					<form action="http://ithemes.us2.list-manage.com/subscribe/post?u=7acf83c7a47b32c740ad94a4e&amp;id=5176bfed9e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+						<p>Subscribe to iThemes email list.</p>
+						<div id="mce-responses" class="clear">
+							<div class="response" id="mce-error-response" style="display:none"></div>
+							<div class="response" id="mce-success-response" style="display:none"></div>
+						</div>
+							<label for="mce-EMAIL" style="display: block;margin-bottom: 3px;"><?php _e( 'Email Address', 'better-wp-security' ); ?></label>
+							<input type="email" size="29" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="email@domain.com">
+							<br/><br/>
+							<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button button-primary">
+					</form>
+				</div>
+			<?php
+			
+			$content = ob_get_clean();
+			
+			$this->postbox( 'email-signup', __( 'Email Signup' , $this->hook ), $content ); //setup the postbox
 		}
 		
 		/**
