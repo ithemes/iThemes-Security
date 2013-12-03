@@ -369,7 +369,8 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 					array( __( 'Before You Begin', $this->hook ), 'databasebackup_content_1' ), //information to prevent the user from getting in trouble
 					array( __( 'Backup Your WordPress Database', $this->hook ), 'databasebackup_content_2' ), //backup switch
 					array( __( 'Schedule Automated Backups', $this->hook ), 'databasebackup_content_3' ), //scheduled backup options
-					array( __( 'Backup Information', $this->hook ), 'databasebackup_content_4' ) //where to find downloads
+					array( __( 'Backup Information', $this->hook ), 'databasebackup_content_4' ), //where to find downloads
+					array( __( 'Backup & Restore WordPress', $this->hook ), 'databasebackup_content_5' ), //BackupBuddy Signup Form.
 				),
 				BWPS_PU . 'images/shield-large.png',
 				$bwpstabs
@@ -1877,6 +1878,17 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				<?php } ?>
 				<?php
 			}
+		}
+		
+		/**
+		 * Purchase BackupBuddy Link.
+		 *
+		 **/
+		function databasebackup_content_5() {
+			?>
+				<p><?php _e( 'Want full site backups plus be able to restore and move WordPress? Back up your entire WordPress installation (widgets, themes, plugins, files and SQL database - the entire package) with BackupBuddy.', 'better-wp-security' ); ?></p>
+				<a class="button-primary" href="http://ithemes.com/backupbuddy/" target="_blank"><?php _e( 'Get BackupBuddy', 'better-wp-security' ); ?></a>
+			<?php
 		}
 		
 		/**
