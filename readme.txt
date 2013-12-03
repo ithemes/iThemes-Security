@@ -1,10 +1,10 @@
 
 === Better WP Security ===
-Contributors: Bit51, ChrisWiegman
+Contributors: iThemes, ChrisWiegman
 Donate link: http://bit51.com/software/better-wp-security/
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
-Requires at least: 3.6
-Tested up to: 3.6
+Requires at least: 3.7
+Tested up to: 3.8
 Stable tag: 3.5.6
 
 The easiest, most effective way to secure WordPress. Improve the security of any WordPress site in seconds.
@@ -166,6 +166,9 @@ NOTE: It is possible that something will break due to the complexity of the chan
 == Changelog ==
 
 = Dev =
+* Changed author to iThemes
+* Added links to backup buddy and iThemes subscription
+* Fixed inconsistent count in logs
 * updated German translation by <a href="http://fluchtsportler.de" title="kniebremser">Rene Wolf</a>
 
 = 3.5.6 =

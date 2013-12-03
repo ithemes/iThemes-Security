@@ -6,10 +6,10 @@
 	Version: Dev
 	Text Domain: better-wp-security
 	Domain Path: /languages
-	Author: Bit51
-	Author URI: http://bit51.com
+	Author: iThemes
+	Author URI: http://ithemes.com
 	License: GPLv2
-	Copyright 2013 Bit51.com  (email : info@bit51.com)
+	Copyright 2013 iThemes  (email : info@ithemes.com)
 */
 
 //Require common Bit51 library
