@@ -12,7 +12,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 
 	abstract class Bit51Foo {
 
-		var $feed = 'http://bit51.com/feed'; //current address of Bit51.com feed
+		var $feed = 'http://ithemes.com/blog/feed/'; //current address of Bit51.com feed
 		var $support_email = 'support.bwps@fooplugins.com'; //current email address of Bit51.com support
 
 		/**
@@ -296,9 +296,9 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 			?>
 				<div class="wrap">
 					<?php if ( $icon == '' ) { ?>
-						<a href="http://bit51.com/"><div id="bit51-icon" style="background: url(<?php echo plugin_dir_url( $this->pluginbase, __FILE__ ); ?>lib/bit51/images/bit51.png) no-repeat;" class="icon32"><br /></div></a>
+						<a href="http://ithemes.com/"><div id="bit51-icon" style="background: url(<?php echo plugin_dir_url( $this->pluginbase, __FILE__ ); ?>lib/bit51/images/bit51.png) no-repeat;" class="icon32"><br /></div></a>
 					<?php } else { ?>
-						<a href="http://bit51.com/"><div id="bit51-icon" style="background: url(<?php echo $icon; ?>) no-repeat;" class="icon32"><br /></div></a>
+						<a href="http://ithemes.com/"><div id="bit51-icon" style="background: url(<?php echo $icon; ?>) no-repeat;" class="icon32"><br /></div></a>
 					<?php } ?>
 					<h2><?php _e( $title, $this->hook ) ?></h2>
 					<?php 
@@ -444,7 +444,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 		}
 		
 		/**
-		 * Display Bit51's latest posts
+		 * Display iTheme's latest posts
 		 *
 		 * Displays latest posts from Bit51 in admin page sidebar
 		 *
@@ -483,7 +483,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 				$content = __( 'It appears as if the feed is currently down. Please try again later', $this->hook );
 			}
 			
-			$this->postbox( 'bit51posts' , __( 'The Latest from Bit51', $this->hook ), $content ); //set up postbox
+			$this->postbox( 'bit51posts' , __( 'The Latest from iThemes', $this->hook ), $content ); //set up postbox
 			
 		}
 		
@@ -525,17 +525,17 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 		
 			$content = '<ul>';
 			
-			$content .= '<li class="facebook"><a href="https://www.facebook.com/bit51" target="_blank">' . __( 'Like Bit51 on Facebook', $this->hook ) . '</a></li>';
+			$content .= '<li class="facebook"><a href="https://www.facebook.com/ithemes" target="_blank">' . __( 'Like iThemes on Facebook', $this->hook ) . '</a></li>';
 			
-			$content .= '<li class="twitter"><a href="http://twitter.com/Bit51" target="_blank">' . __( 'Follow Bit51 on Twitter', $this->hook ) . '</a></li>';
+			$content .= '<li class="twitter"><a href="http://twitter.com/ithemes" target="_blank">' . __( 'Follow iThemes on Twitter', $this->hook ) . '</a></li>';
 			
-			$content .= '<li class="google"><a href="https://plus.google.com/111800087192533843819" target="_blank">' . __( 'Circle Bit51 on Google+', $this->hook ) . '</a></li>';
+			$content .= '<li class="google"><a href="https://plus.google.com/100771929727041515430" target="_blank">' . __( 'Circle iThemes on Google+', $this->hook ) . '</a></li>';
 			
-			$content .= '<li class="subscribe"><a href="http://bit51.com/subscribe" target="_blank">' . __( 'Subscribe with RSS or Email', $this->hook ) . '</a></li>';
+			$content .= '<li class="subscribe"><a href="http://ithemes.com/subscribe/" target="_blank">' . __( 'Subscribe with RSS or Email', $this->hook ) . '</a></li>';
 			
 			$content .= '</ul>';
 			
-			$this->postbox( 'bit51social', __( 'Bit51 on the Web', $this->hook ), $content ); //setup the postbox
+			$this->postbox( 'bit51social', __( 'iThemes on the Web', $this->hook ), $content ); //setup the postbox
 			
 		}
 		

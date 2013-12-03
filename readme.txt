@@ -166,6 +166,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 == Changelog ==
 
 = Dev =
+* Changed social information to iThemes
 * Better domain support (Mark Boudreau)
 * Add username to notification email (Andreas Geibert)
 * Changed author to iThemes
