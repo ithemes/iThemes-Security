@@ -166,6 +166,8 @@ NOTE: It is possible that something will break due to the complexity of the chan
 == Changelog ==
 
 = Dev =
+* Better domain support (Mark Boudreau)
+* Add username to notification email (Andreas Geibert)
 * Changed author to iThemes
 * Added links to backup buddy and iThemes subscription
 * Fixed inconsistent count in logs
