@@ -367,10 +367,10 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 				$this->pluginname . ' - ' . __( 'Backup WordPress Database', $this->hook ),
 				array(
 					array( __( 'Before You Begin', $this->hook ), 'databasebackup_content_1' ), //information to prevent the user from getting in trouble
-					array( __( 'Backup Your WordPress Database', $this->hook ), 'databasebackup_content_2' ), //backup switch
+					array( __( 'Full WordPress Backup and Restore (Files and Database)', $this->hook ), 'databasebackup_content_5' ), //BackupBuddy Signup Form.
+					array( __( 'Backup Your WordPress Database only (requires manual restore)', $this->hook ), 'databasebackup_content_2' ), //backup switch
 					array( __( 'Schedule Automated Backups', $this->hook ), 'databasebackup_content_3' ), //scheduled backup options
 					array( __( 'Backup Information', $this->hook ), 'databasebackup_content_4' ), //where to find downloads
-					array( __( 'Backup & Restore WordPress', $this->hook ), 'databasebackup_content_5' ), //BackupBuddy Signup Form.
 				),
 				BWPS_PU . 'images/shield-large.png',
 				$bwpstabs
