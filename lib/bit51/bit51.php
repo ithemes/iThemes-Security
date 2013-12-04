@@ -330,6 +330,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 									do_action( 'bit51_metaboxes', $this->hook );
 									$this->email();
 									$this->support();
+									$this->securitylock();
 									$this->donate();
 									$this->news(); 
 									$this->social();
@@ -353,7 +354,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 			?>
 				<div id="mc_embed_signup">
 					<form action="http://ithemes.us2.list-manage.com/subscribe/post?u=7acf83c7a47b32c740ad94a4e&amp;id=5176bfed9e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-						<p>Subscribe to iThemes email list.</p>
+						<p><?php _e( 'Signup to get the latest WP security updates and news and releases from iThemes.', 'better-wp-security'); ?></p>
 						<div id="mce-responses" class="clear">
 							<div class="response" id="mce-error-response" style="display:none"></div>
 							<div class="response" id="mce-success-response" style="display:none"></div>
@@ -361,14 +362,27 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 							<label for="mce-EMAIL" style="display: block;margin-bottom: 3px;"><?php _e( 'Email Address', 'better-wp-security' ); ?></label>
 							<input type="email" size="29" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="email@domain.com">
 							<br/><br/>
-							<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button button-primary">
+							<input type="submit" value="<?php _e( 'Subscribe', 'better-wp-security' ); ?>" name="subscribe" id="mc-embedded-subscribe" class="button button-primary">
 					</form>
 				</div>
 			<?php
 			
 			$content = ob_get_clean();
 			
-			$this->postbox( 'email-signup', __( 'Email Signup' , $this->hook ), $content ); //setup the postbox
+			$this->postbox( 'email-signup', __( 'Get WP Security Updates' , $this->hook ), $content ); //setup the postbox
+		}
+
+		/**
+		 * Display email WP Security Lock link in admin sidebar.
+		 *
+		 **/
+		function securitylock() {
+
+			$content = '<h3>' . __( 'Has your site already been compromised?', 'better-wp-security' ) . '</h3>';
+			$content .= '<p>' . __( 'Better WP Security can keep your WordPress installation safe but it can\'t help you if your site has already been hacked. If you need to clean your site right we recommend WP Security Lock for fast, professional malware and security cleanup.', 'better-wp-security' ) . '</p>';
+			$content .= '<a href="http://www.wpsecuritylock.com/cmd.php?af=1567290" target="_blank"></a>';
+
+			$this->postbox( 'wp_security_lock', __( 'Site Hacked? Get It Fixed Right' , $this->hook ), $content ); //setup the postbox
 		}
 		
 		/**
