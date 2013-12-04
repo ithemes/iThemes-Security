@@ -378,9 +378,9 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 		 **/
 		function securitylock() {
 
-			$content = '<h3>' . __( 'Has your site already been compromised?', 'better-wp-security' ) . '</h3>';
+			$content = '<strong>' . __( 'Has your site already been compromised?', 'better-wp-security' ) . '</strong>';
 			$content .= '<p>' . __( 'Better WP Security can keep your WordPress installation safe but it can\'t help you if your site has already been hacked. If you need to clean your site right we recommend WP Security Lock for fast, professional malware and security cleanup.', 'better-wp-security' ) . '</p>';
-			$content .= '<a href="http://www.wpsecuritylock.com/cmd.php?af=1567290" target="_blank"></a>';
+			$content .= '<a class="wpsllink" href="http://www.wpsecuritylock.com/cmd.php?Clk=5166852" target="_blank"><img class="wpslimage" src="' . BWPS_PU . '/lib/bit51/images/wpsl.png" width="200" height="200"></a>';
 
 			$this->postbox( 'wp_security_lock', __( 'Site Hacked? Get It Fixed Right' , $this->hook ), $content ); //setup the postbox
 		}
