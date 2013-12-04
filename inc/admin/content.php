@@ -1887,7 +1887,7 @@ if ( ! class_exists( 'bwps_admin_content' ) ) {
 		function databasebackup_content_5() {
 			?>
 				<p><?php _e( 'Want full site backups plus be able to restore and move WordPress? Back up your entire WordPress installation (widgets, themes, plugins, files and SQL database - the entire package) with BackupBuddy.', 'better-wp-security' ); ?></p>
-				<a class="button-primary" href="http://ithemes.com/backupbuddy/" target="_blank"><?php _e( 'Get BackupBuddy', 'better-wp-security' ); ?></a>
+				<a class="button-primary" href="http://ithemes.com/bwpsfullbackups" target="_blank"><?php _e( 'Get BackupBuddy', 'better-wp-security' ); ?></a>
 			<?php
 		}
 		
