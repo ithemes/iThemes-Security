@@ -688,7 +688,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 				
 				//They agreed to take the survey. Take them there.
 				if ( isset( $_GET['bwps_take_ithemes_survey'] ) ) {
-					wp_redirect( 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=' . $this->paypalcode, '302' );
+					wp_redirect( 'http://ithemes.com/better-wp-security-survey/', '302' );
 				}
 				
 			}
