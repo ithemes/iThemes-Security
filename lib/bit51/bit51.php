@@ -722,14 +722,17 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 				</table>';
 
 				add_filter( 'wp_mail_content_type', array($this, 'set_html_content_type' ) );
+
 				if ( function_exists( 'wp_mail' ) ) {
+					
 					wp_mail(
 						$this->support_email,
 						__('Better WP Security Support Ticket', 'better-wp-security'),
 						$message,
-						'From: ' . $current_user->display_name . ' <' . $current_user->user_email . '>' . "\r\n";
+						'From: ' . $current_user->display_name . ' <' . $current_user->user_email . '>' . PHP_EOL
 					);
 				}
+
 				remove_filter( 'wp_mail_content_type', array($this, 'set_html_content_type' ) ); // reset content-type to to avoid conflicts
 			}
 		}
