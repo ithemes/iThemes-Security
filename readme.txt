@@ -169,6 +169,9 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 == Changelog ==
 
+= 3.6.1 =
+* Fixed iThemes image path for case-sensitive
+
 = 3.6 =
 * Added WP Security Lock as a partner for sites that have already been compromised.
 * Changed social information to iThemes
