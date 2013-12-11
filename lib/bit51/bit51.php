@@ -360,7 +360,7 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 							<div class="response" id="mce-success-response" style="display:none"></div>
 						</div>
 							<label for="mce-EMAIL" style="display: block;margin-bottom: 3px;"><?php _e( 'Email Address', 'better-wp-security' ); ?></label>
-							<input type="email" size="29" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="email@domain.com">
+							<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="email@domain.com">
 							<br/><br/>
 							<input type="submit" value="<?php _e( 'Subscribe', 'better-wp-security' ); ?>" name="subscribe" id="mc-embedded-subscribe" class="button button-primary">
 					</form>
@@ -696,10 +696,6 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 
 		function change_foolic_input_type() {
 			return 'text';
-		}
-
-		function change_foolic_input_size() {
-			return '29';
 		}
 
 		function ajax_submit_ticket() {
