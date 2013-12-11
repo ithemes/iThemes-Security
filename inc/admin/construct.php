@@ -19,30 +19,30 @@ if ( ! class_exists( 'bwps_admin_construct' ) ) {
 			global $isIWP, $bwps_backup, $bwps_filecheck;
 			
 			//add scripts and css
-			add_action( 'admin_print_scripts', array( &$this, 'config_page_scripts' ) );
-			add_action( 'admin_print_styles', array( &$this, 'config_page_styles' ) );
-			add_action( 'admin_print_styles', array( &$this, 'bwps_styles' ) );
+			add_action( 'admin_print_scripts', array( $this, 'config_page_scripts' ) );
+			add_action( 'admin_print_styles', array( $this, 'config_page_styles' ) );
+			add_action( 'admin_print_styles', array( $this, 'bwps_styles' ) );
 	
 			//add action link
-			add_filter( 'plugin_action_links', array( &$this, 'add_action_link' ), 10, 2 );
+			add_filter( 'plugin_action_links', array( $this, 'add_action_link' ), 10, 2 );
 	
 			//add donation reminder
-			add_action( 'admin_init', array( &$this, 'ask' ) );	
+			add_action( 'admin_init', array( $this, 'ask' ) );	
 
 			//add survey reminder
-			add_action( 'admin_init', array( &$this, 'ithemes_survey' ) );	
+			add_action( 'admin_init', array( $this, 'ithemes_survey' ) );	
 
 			//don't execute anything but SSL for InfiniteWP
 			if ( $isIWP === false ) {
 		
-				add_action( 'admin_init', array( &$this, 'awaycheck' ) );
+				add_action( 'admin_init', array( $this, 'awaycheck' ) );
 
 			}
 
 			//Process 404 .csv file
 			if ( isset( $_GET['bit51_404_csv'] ) ) {
 
-				add_action( 'init', array( &$this, 'log404csv' ) );
+				add_action( 'init', array( $this, 'log404csv' ) );
 				
 			}
 
