@@ -625,6 +625,69 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 				
 			}
 			
+		}/**
+		 * Display (and hide) iThemes Survey reminder
+		 *
+		 * Adds reminder to take the iThemes Security survey
+		 *
+		 **/
+		function ithemes_survey() {
+		
+			global $blog_id; //get the current blog id
+			
+			if ( is_multisite() && ( $blog_id != 1 || ! current_user_can( 'manage_network_options' ) ) ) { //only display to network admin if in multisite
+				return;
+			}
+			
+			$options = get_option( $this->plugindata );
+			$settings = get_option( $this->primarysettings );
+			
+			//this is called at a strange point in WP so we need to bring in some data
+			global $plugname;
+			global $plughook;
+			global $plugopts;
+			$plugname = $this->pluginname;
+			$plughook = $this->hook;
+			$plugopts = $this->plugin_options_url();
+			
+			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
+			if ( ! isset( $options['no_survey'] ) && isset( $settings['initial_backup'] ) && $settings['initial_backup'] == 1 && isset( $settings['initial_filewrite'] ) && $settings['initial_filewrite'] == 1 ) {
+			
+				if ( ! function_exists( 'bit51_plugin_ithemes_survey' ) ) {
+			
+					function bit51_plugin_ithemes_survey(){
+				
+						global $plugname;
+						global $plughook;
+						global $plugopts;
+					
+					    echo '<div class="updated">
+				       <p>' . __( 'Help iThemes improve Better WP Security.', 'better-wp-security' ) . ' ' . $plugname . ' ' . __( 'Please take our short survey to help serve you better.', 'better-wp-security' ) . '</p> <p><input type="button" class="button " value="' . __( 'Take the Survey', 'better-wp-security' ) . '" onclick="document.location.href=\'?bwps_take_ithemes_survey=yes&_wpnonce=' .  wp_create_nonce('bwps_nag') . '\';"> <input type="button" class="button " value="' . __( 'Don\'t Ask Again', 'better-wp-security' ) . '" onclick="document.location.href=\'?bwps_ithemes_survey_nag=off&_wpnonce=' .  wp_create_nonce( 'bwps_nag' ) . '\';"></p>
+					    </div>';
+				    
+					}
+				
+				}
+				
+				add_action( 'admin_notices', 'bit51_plugin_ithemes_survey' ); //register notification
+				
+			}
+			
+			//if they've clicked a button hide the notice
+			if ( ( isset( $_GET['bwps_ithemes_survey_nag'] ) || isset( $_GET['bwps_take_ithemes_survey'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bwps_nag' ) ) {
+			
+				$options = get_option( $this->plugindata );
+				$options['no_survey'] = 1;
+				update_option( $this->plugindata, $options );
+				remove_action( 'admin_notices', 'bit51_plugin_ithemes_survey' );
+				
+				//They agreed to take the survey. Take them there.
+				if ( isset( $_GET['bwps_take_ithemes_survey'] ) ) {
+					wp_redirect( 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=' . $this->paypalcode, '302' );
+				}
+				
+			}
+			
 		}
 
 		function include_foolic_css( $screen ) {

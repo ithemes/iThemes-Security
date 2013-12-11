@@ -171,6 +171,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 = 3.6.1 =
 * Fixed iThemes image path for case-sensitive
+* Add iThemes BWPS survey to help plan further updates
 
 = 3.6 =
 * Added WP Security Lock as a partner for sites that have already been compromised.
