@@ -698,6 +698,10 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 			return 'text';
 		}
 
+		function change_foolic_input_size() {
+			return '29';
+		}
+
 		function ajax_submit_ticket() {
 			global $wp_version;
 			global $current_user;
