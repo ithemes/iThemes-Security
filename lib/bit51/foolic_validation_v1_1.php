@@ -51,8 +51,7 @@ if (!class_exists('foolic_validation_v1_1')) {
 			}
 			$input_id = $this->plugin_slug . '_licensekey';
 			$input_type = apply_filters('foolic_validation_input_type-'.$this->plugin_slug, 'password');
-			$input_size = apply_filters('foolic_validation_input_size-'.$this->plugin_slug, '40');
-			$input = '<input size="'. $input_size . '" class="foolic-input foolic-input-' . $this->plugin_slug . '' . ($valid !== false ? ($valid=='valid' ? ' foolic-valid' : ' foolic-invalid') : '') . '" type="' . $input_type . '" id="' . $input_id . '" name="' . $this->plugin_slug . '[license]" value="' . $license . '"' . $onClick . ' />';
+			$input = '<input class="foolic-input foolic-input-' . $this->plugin_slug . '' . ($valid !== false ? ($valid=='valid' ? ' foolic-valid' : ' foolic-invalid') : '') . '" type="' . $input_type . '" id="' . $input_id . '" name="' . $this->plugin_slug . '[license]" value="' . $license . '"' . $onClick . ' />';
 			$button = '<input class="foolic-check foolic-check-' . $this->plugin_slug . '" type="button" name="foolic-check-' . $this->plugin_slug . '" value="' . __('Validate', $this->plugin_slug) . '" />';
 			$nonce = '<span style="display:none" class="foolic-nonce-' . $this->plugin_slug . '">' . wp_create_nonce($this->plugin_slug . '_foolic-ajax-nonce') . '</span>';
 			if ($valid == 'expired') {

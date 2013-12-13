@@ -22,7 +22,6 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 		function init() {
 			add_filter( 'foolic_validation_include_css-' . $this->hook, array( &$this, 'include_foolic_css' ) );
 			add_filter( 'foolic_validation_input_type-' . $this->hook, array( &$this, 'change_foolic_input_type' ) );
-			add_filter( 'foolic_validation_input_size-' . $this->hook, array( &$this, 'change_foolic_input_size' ) );
 			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', $this->hook );
 			add_action('wp_ajax_' . $this->hook . '_support', array($this, 'ajax_submit_ticket'));
 		}
