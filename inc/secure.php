@@ -1095,8 +1095,8 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 					}  
 				
 				} else {  //a new user
-			
-					if ( in_array( $_POST["role"],  $rollists[$minRole]) ) {  
+
+					if ( ! empty( $_POST['role'] ) && in_array( $_POST["role"],  $rollists[$minRole]) ) {
 						$enforce = false;  
 					}  
 				
