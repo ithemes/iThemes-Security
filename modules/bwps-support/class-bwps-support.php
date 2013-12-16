@@ -7,13 +7,12 @@ if ( ! class_exists( 'BWPS_Support' ) ) {
 		private static $instance = NULL;
 
 		private
-			$settings,
 			$core,
 			$page;
 
 		private function __construct( $core ) {
 
-			global $bwps_globals, $bwps_utilities;;
+			global $bwps_globals;
 
 			$this->core = $core;
 
@@ -59,9 +58,8 @@ if ( ! class_exists( 'BWPS_Support' ) ) {
 		/**
 		 * Add meta boxes to primary options pages
 		 *
-		 * @param array $available_pages array of available page_hooks
 		 */
-		public function add_admin_meta_boxes( $available_pages ) {
+		public function add_admin_meta_boxes() {
 
 			add_meta_box(
 				'bwps_system_info',
