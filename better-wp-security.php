@@ -55,7 +55,7 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 				'plugin_hook'			=> 'bwps', //the hook for text calls and other areas
 				'plugin_name' 			=> __( 'Better WP Security', 'better_wp_security' ), //the name of the plugin
 				'plugin_url' 			=> plugin_dir_url( __FILE__ ), //the URL of the plugin directory
-				'support_page' 			=> 'http://wordpress.org/support/plugin/better-wp-security', //address of the WordPress support forums for the plugin
+				'support_page' 			=> 'http://wordpress.org/support/plugin/better-wp-security/', //address of the WordPress support forums for the plugin
 				'wordpress_page'		=> 'http://wordpress.org/extend/plugins/better-wp-security/', //plugin's page in the WordPress.org Repos
 				'upload_dir'			=> $upload_dir['basedir'], // the upload directory for the WordPress installation
 			);
