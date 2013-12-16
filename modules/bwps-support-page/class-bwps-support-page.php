@@ -101,36 +101,6 @@ if ( ! class_exists( 'BWPS_Support_Page' ) ) {
 		}
 
 		/**
-		 * Render the settings metabox
-		 *
-		 * @return void
-		 */
-		public function metabox_advanced_settings() {
-
-			//set appropriate action for multisite or standard site
-			if ( is_multisite() ) {
-				$action = 'edit.php?action=support';
-			} else {
-				$action = 'options.php';
-			}
-
-			printf( '<form name="%s" method="post" action="%s">', get_current_screen()->id, $action );
-
-			$this->core->do_settings_sections( 'security_page_toplevel_page_bwps-away_mode', false );
-
-			echo '<p>' . PHP_EOL;
-
-			settings_fields( 'security_page_toplevel_page_bwps-away_mode' );
-
-			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'better_wp_security' ) . '" />' . PHP_EOL;
-
-			echo '</p>' . PHP_EOL;
-
-			echo '</form>';
-
-		}
-
-		/**
 		 * Start the Support module
 		 *
 		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
