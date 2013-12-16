@@ -23,9 +23,9 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 				$this->settings = false;
 			}
 
+			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'add_content_directory_intro' ) ); //add page intro and information
-			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( $bwps_globals['plugin_hook'] . '_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
@@ -195,7 +195,7 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 		 */
 		public function metabox_advanced_settings() {
 
-			if ( ( ! isset( $_POST['bwps_one_time_save'] ) || $_POST['bwps_one_time_save'] !== 'content_directory' ) && strpos( WP_CONTENT_DIR, 'wp-content' ) ) { //only show form if user the content directory hasn't already been changed
+			if ( $this->settings !== true ) { //only show form if user the content directory hasn't already been changed
 				?>
 
 				<form method="post" action="">
@@ -242,6 +242,11 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 
 				$type    = 'error';
 				$message = __( 'Please choose a directory name that is greater than 2 characters in length.', 'better_wp_security' );
+
+			} elseif( $dir_name === 'wp-content' ) {
+
+				$type    = 'error';
+				$message = __( 'You have not chosen a new name for wp-content. Nothing was saved.', 'better_wp_security' );
 
 			} else { //process the name change
 
@@ -321,6 +326,8 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 						}
 
 					}
+
+					$this->settings = true;
 
 					$bwps_utilities->release_lock();
 
