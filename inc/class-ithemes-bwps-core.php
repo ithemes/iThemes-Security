@@ -99,11 +99,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			wp_register_style( 'bwps_admin_styles', $bwps_globals['plugin_url'] . 'inc/css/ithemes.css' );
 			do_action( $bwps_globals['plugin_hook'] . 'admin_init' ); //execute modules init scripts
 
-			//Load the wp-config writer class in case we need it.
-			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-wpconfig.php' );
-
-			//display any applicable error messages
-
 		}
 
 		public function admin_tabs( $current = NULL ) {
