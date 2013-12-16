@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Support' ) ) {
+if ( ! class_exists( 'BWPS_Support_Page' ) ) {
 
-	class BWPS_Support {
+	class BWPS_Support_Page {
 
 		private static $instance = NULL;
 
