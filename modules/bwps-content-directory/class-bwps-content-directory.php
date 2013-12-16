@@ -58,7 +58,11 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 
 		public function add_admin_tab( $tabs ) {
 
-			$tabs[$this->page] = __( 'Dir', 'better_wp_security' );
+			if ( ! $this->settings === true ) {
+
+				$tabs[$this->page] = __( 'Dir', 'better_wp_security' );
+
+			}
 
 			return $tabs;
 
@@ -69,17 +73,21 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 		 *
 		 * @param array $available_pages array of available page_hooks
 		 */
-		public function add_admin_meta_boxes( $available_pages ) {
+		public function add_admin_meta_boxes() {
 
-			//add metaboxes
-			add_meta_box(
-				'content_directory_options',
-				__( 'Change Content Directory', 'better_wp_security' ),
-				array( $this, 'metabox_advanced_settings' ),
-				'security_page_toplevel_page_bwps-content_directory',
-				'advanced',
-				'core'
-			);
+			if ( ! $this->settings === true ) {
+
+				//add metaboxes
+				add_meta_box(
+					'content_directory_options',
+					__( 'Change Content Directory', 'better_wp_security' ),
+					array( $this, 'metabox_advanced_settings' ),
+					'security_page_toplevel_page_bwps-content_directory',
+					'advanced',
+					'core'
+				);
+
+			}
 
 		}
 
@@ -123,62 +131,19 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 		 */
 		public function initialize_admin() {
 
-			//Enabled section
-			add_settings_section(
-				'content_directory_name',
-				__( 'Rename Content Directory', 'better_wp_security' ),
-				array( $this, 'sandbox_general_options_callback' ),
-				'security_page_toplevel_page_bwps-content_directory'
-			);
+			if ( ! $this->settings === true && isset( $_POST['bwps_one_time_save'] ) ) {
 
-			//enabled field
-			add_settings_field(
-				'bwps_content_directory[name]',
-				__( 'Content Directory Name', 'better_wp_security' ),
-				array( $this, 'content_directory_name' ),
-				'security_page_toplevel_page_bwps-content_directory',
-				'content_directory_name'
-			);
+				if ( ! wp_verify_nonce( $_POST['wp_nonce'], 'BWPS_admin_save' ) ) {
 
-			//Register the settings field for the entire module
-			register_setting(
-				'security_page_toplevel_page_bwps-content_directory',
-				'bwps_content_directory',
-				array( $this, 'sanitize_module_input' )
-			);
+					die( 'Security error!' );
 
-		}
+				} else {
 
-		/**
-		 * Settings section callback
-		 *
-		 * Can be used for an introductory setction or other output. Currently is used by both settings sections.
-		 *
-		 * @return void
-		 */
-		public function sandbox_general_options_callback() {
-		}
+					$this->process_directory();
 
-		/**
-		 * echos Enabled Field
-		 *
-		 * @param  array $args field arguements
-		 *
-		 * @return void
-		 */
-		public function content_directory_name( $args ) {
+				}
 
-			//disable the option if away mode is in the past
-			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 && ( $this->settings['type'] == 1 || ( $this->settings['end'] > current_time( 'timestamp' ) || $this->settings['type'] === 2 ) ) ) {
-				$enabled = 1;
-			} else {
-				$enabled = 0;
 			}
-
-			$content = '<input type="text" id="bwps_content_directory_name" name="bwps_content_directory[name]" value="wp-content"/><br />';
-			$content .= '<label for="bwps_content_directory_name"> ' . __( 'Enter a new directory name to replace "wp-content." You may need to log in again after performing this operation.', 'better_wp_security' ) . '</label>';
-
-			echo $content;
 
 		}
 
@@ -191,11 +156,31 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 
 			if ( $screen === 'security_page_toplevel_page_bwps-content_directory' ) { //only display on away mode page
 
-				$content = '<p>' . __( 'By default WordPress puts all your content including images, plugins, themes, uploads, and more in a directory called "wp-content". This makes it easy to scan for vulnerable files on your WordPress installation as an attacker already knows where the vulnerable files will be at. As there are many plugins and themes with security vulnerabilities moving this folder can make it harder for an attacker to find problems with your site as scans of your site\'s file system will not produce any results.', 'better-wp-security' ) . '</p>';
-				$content .= '<p>' . __( 'Please note that changing the name of your wp-content directory on a site that already has images and other content referencing it will break your site. For that reason I highly recommend you do not try this on anything but a fresh WordPress install. In addition, this tool will not allow further changes to your wp-content folder once it has already been renamed in order to avoid accidently breaking a site later on. This includes uninstalling this plugin which will not revert the changes made by this page.', 'better-wp-security' ) . '</p>';
-				$content .= '<p>' . __( 'Finally, changing the name of the wp-content directory may in fact break plugins and themes that have "hard-coded" it into their design rather than call it dynamically.', 'better-wp-security' ) . '</p>';
-				$content .= '<p style="text-align: center; font-size: 130%; font-weight: bold; color: #ff0000;">' . __( 'WARNING: BACKUP YOUR WORDPRESS INSTALLATION BEFORE USING THIS TOOL!', 'better-wp-security' ) . '</p>';
-				$content .= '<p style="text-align: center; font-size: 130%; font-weight: bold; color: #ff0000;">' . __( 'RENAMING YOUR wp-content WILL BREAK LINKS ON A SITE WITH EXISTING CONTENT.', 'better-wp-security' ) . '</p>';
+				if ( $this->settings !== true ) {
+
+					$content = '<p>' . __( 'By default WordPress puts all your content including images, plugins, themes, uploads, and more in a directory called "wp-content". This makes it easy to scan for vulnerable files on your WordPress installation as an attacker already knows where the vulnerable files will be at. As there are many plugins and themes with security vulnerabilities moving this folder can make it harder for an attacker to find problems with your site as scans of your site\'s file system will not produce any results.', 'better-wp-security' ) . '</p>';
+					$content .= '<p>' . __( 'Please note that changing the name of your wp-content directory on a site that already has images and other content referencing it will break your site. For that reason I highly recommend you do not try this on anything but a fresh WordPress install. In addition, this tool will not allow further changes to your wp-content folder once it has already been renamed in order to avoid accidently breaking a site later on. This includes uninstalling this plugin which will not revert the changes made by this page.', 'better-wp-security' ) . '</p>';
+					$content .= '<p>' . __( 'Finally, changing the name of the wp-content directory may in fact break plugins and themes that have "hard-coded" it into their design rather than call it dynamically.', 'better-wp-security' ) . '</p>';
+					$content .= '<p style="text-align: center; font-size: 130%; font-weight: bold; color: #ff0000;">' . __( 'WARNING: BACKUP YOUR WORDPRESS INSTALLATION BEFORE USING THIS TOOL!', 'better-wp-security' ) . '</p>';
+					$content .= '<p style="text-align: center; font-size: 130%; font-weight: bold; color: #ff0000;">' . __( 'RENAMING YOUR wp-content WILL BREAK LINKS ON A SITE WITH EXISTING CONTENT.', 'better-wp-security' ) . '</p>';
+
+				} else {
+
+					if ( isset( $_POST['bwps_one_time_save'] ) ) {
+
+						$dir_name = sanitize_file_name( $_POST['name'] );
+
+					} else {
+
+						$dir_name = substr( WP_CONTENT_DIR, strrpos( WP_CONTENT_DIR, '/' ) + 1 );
+					}
+
+					$content = '<p>' . __( 'Congratulations! You have already renamed your "wp-content" directory.', 'better-wp-security' ) . '</p>';
+					$content .= '<p>' . __( 'Your current content directory is: ', 'better-wp-security' );
+					$content .= '<strong>' . $dir_name . '</strong></p>';
+					$content .= '<p>' . __( 'No further actions are available on this page.', 'better-wp-security' ) . '</p>';
+
+				}
 
 				echo $content;
 
@@ -210,41 +195,44 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 		 */
 		public function metabox_advanced_settings() {
 
-			//set appropriate action for multisite or standard site
-			if ( is_multisite() ) {
-				$action = 'edit.php?action=bwps_content_directory';
-			} else {
-				$action = 'options.php';
+			if ( ( ! isset( $_POST['bwps_one_time_save'] ) || $_POST['bwps_one_time_save'] !== 'content_directory' ) && strpos( WP_CONTENT_DIR, 'wp-content' ) ) { //only show form if user the content directory hasn't already been changed
+				?>
+
+				<form method="post" action="">
+					<?php wp_nonce_field( 'BWPS_admin_save', 'wp_nonce' ); ?>
+					<input type="hidden" name="bwps_one_time_save" value="content_directory"/>
+					<table class="form-table">
+						<tr valign="top">
+							<th scope="row" class="settinglabel">
+								<label for "name"><?php _e( 'Directory Name', 'better-wp-security' ); ?></label>
+							</th>
+							<td class="settingfield">
+								<?php //username field ?>
+								<input id="name" name="name" type="text" value="wp-content"/>
+
+								<p><?php _e( 'Enter a new directory name to replace "wp-content." You may need to log in again after performing this operation.', 'better-wp-security' ); ?></p>
+							</td>
+						</tr>
+					</table>
+					<p class="submit">
+						<input type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'better-wp-security' ); ?>"/>
+					</p>
+				</form>
+			<?php
+
 			}
-
-			printf( '<form name="%s" method="post" action="%s">', get_current_screen()->id, $action );
-
-			$this->core->do_settings_sections( 'security_page_toplevel_page_bwps-content_directory', false );
-
-			echo '<p>' . PHP_EOL;
-
-			settings_fields( 'security_page_toplevel_page_bwps-content_directory' );
-
-			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'better_wp_security' ) . '" />' . PHP_EOL;
-
-			echo '</p>' . PHP_EOL;
-
-			echo '</form>';
 
 		}
 
 		/**
 		 * Sanitize and validate input
 		 *
-		 * @param  Array $input array of input fields
-		 *
-		 * @return Array         Sanitized array
 		 */
-		public function sanitize_module_input( $input ) {
+		public function process_directory() {
 
 			global $bwps_utilities;
 
-			$dir_name = sanitize_file_name( $input['name'] );
+			$dir_name = sanitize_file_name( $_POST['name'] );
 
 			//assume this will work
 			$type    = 'updated';
@@ -300,10 +288,11 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 						if ( $handle ) {
 
 							$scanText = "<?php";
-							$newText = "<?php" . PHP_EOL . "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );" . PHP_EOL . "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );" . PHP_EOL;
+							$newText  = "<?php" . PHP_EOL . "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );" . PHP_EOL . "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );" . PHP_EOL;
 
 							//read each line into an array
-							while ( $lines[] = fgets( $handle, 4096 ) ) {}
+							while ( $lines[] = fgets( $handle, 4096 ) ) {
+							}
 
 							fclose( $handle ); //close reader
 
@@ -317,7 +306,7 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 
 								}
 
-								if (strstr( $line, $scanText ) ) {
+								if ( strstr( $line, $scanText ) ) {
 
 									$line = str_replace( $scanText, $newText, $line );
 
