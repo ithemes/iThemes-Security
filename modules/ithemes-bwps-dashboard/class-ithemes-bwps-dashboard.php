@@ -23,7 +23,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard' ) ) {
 			$this->core = $core;
 
 			$this->paypal_code = 'V647NGJSBC882';
-			$this->feed        = 'http://ithtmes.com/feed';
+			$this->feed        = 'http://ithemes.com/blog/feed/';
 
 			//add sharing reminder
 			add_action( 'admin_init', array( $this, 'share_reminder' ) );
