@@ -15,7 +15,7 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 
 			global $bwps_globals;
 
-			$this->core      = $core;
+			$this->core = $core;
 
 			if ( ! strstr( WP_CONTENT_DIR, 'wp-content' ) || ! strstr( WP_CONTENT_URL, 'wp-content' ) ) {
 				$this->settings = true;
@@ -95,7 +95,7 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 			if ( $this->settings === true ) {
 
 				$status_array = 'safe-low';
-				$status = array(
+				$status       = array(
 					'text' => __( 'You have renamed the wp-content directory of your site.', 'better_wp_security' ),
 					'link' => $link,
 				);
@@ -103,7 +103,7 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 			} else {
 
 				$status_array = 'low';
-				$status = array(
+				$status       = array(
 					'text' => __( 'You should rename the wp-content directory of your site.', 'better_wp_security' ),
 					'link' => $link,
 				);
@@ -242,55 +242,100 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			die( var_dump( $input ) );
+			global $bwps_utilities;
 
-			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
+			$dir_name = sanitize_file_name( $input['name'] );
 
-			$input['type'] = intval( $input['type'] == 1 ? 1 : 2 );
+			//assume this will work
+			$type    = 'updated';
+			$message = __( 'Settings Updated', 'better_wp_security' );
 
-			//we don't need to process this again if it is a multisite installation
-			if ( ! is_multisite() ) {
-
-				$input['start'] = strtotime( $input['start']['date'] . ' ' . $input['start']['hour'] . ':' . $input['start']['minute'] . ' ' . $input['start']['sel'] );
-				$input['end']   = strtotime( $input['end']['date'] . ' ' . $input['end']['hour'] . ':' . $input['end']['minute'] . ' ' . $input['end']['sel'] );
-
-			}
-
-			if ( $this->check_away( true, $input ) === true ) {
-
-				$input['enabled'] = 0; //disable away mode
+			if ( strlen( $dir_name ) <= 2 ) { //make sure the directory name is at least 2 characters
 
 				$type    = 'error';
-				$message = __( 'Invalid time listed. The time entered would lock you out of your site now. Please try again.', 'better_wp_security' );
+				$message = __( 'Please choose a directory name that is greater than 2 characters in length.', 'better_wp_security' );
 
-			} elseif ( $input['type'] === 2 && $input['end'] < $input['start'] ) {
+			} else { //process the name change
 
-				$input['enabled'] = 0; //disable away mode
+				if ( $bwps_utilities->get_lock() ) {
 
-				$type    = 'error';
-				$message = __( 'Invalid time listed. The start time selected is after the end time selected.', 'better_wp_security' );
+					$config = $bwps_utilities->get_config();
 
-			} elseif ( $input['type'] === 2 && $input['end'] < current_time( 'timestamp' ) ) {
+					if ( ! $f = @fopen( $config, 'a+' ) ) { //make sure we can open the file for writing
 
-				$input['enabled'] = 0; //disable away mode
+						@chmod( $config, 0644 );
 
-				$type    = 'error';
-				$message = __( 'Invalid time listed. The period selected already ended.', 'better_wp_security' );
+						if ( ! $f = @fopen( $config, 'a+' ) ) {
 
-			} else {
+							$type    = 'error';
+							$message = __( 'Fatal error. Couldn\'t open wp-config.php for writing. Please contact your system administrator.', 'better_wp_security' );
 
-				$type    = 'updated';
-				$message = __( 'Settings Updated', 'better_wp_security' );
+							add_settings_error(
+								'bwps_admin_notices',
+								esc_attr( 'settings_updated' ),
+								$message,
+								$type
+							);
 
-			}
+						}
 
-			if ( $input['enabled'] == 1 && ! file_exists( $this->away_file ) ) {
+						@fclose( $f );
 
-				@file_put_contents( $this->away_file, 'true' );
+						return;
 
-			} else {
+					}
 
-				@unlink( $this->away_file );
+					$old_dir = WP_CONTENT_DIR;
+					$new_dir = trailingslashit( ABSPATH ) . $dir_name;
+
+					if ( ! rename( $old_dir, $new_dir ) ) { //make sure renaming the directory was successful
+
+						$type    = 'error';
+						$message = __( 'WordPress was unable to rename your wp-content directory. Please check with your server administrator and try again.', 'better_wp_security' );
+
+					} else {
+
+						$handle = @fopen( $config, 'r+' ); //open for reading
+
+						if ( $handle ) {
+
+							$scanText = "<?php";
+							$newText = "<?php" . PHP_EOL . "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );" . PHP_EOL . "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );" . PHP_EOL;
+
+							//read each line into an array
+							while ( $lines[] = fgets( $handle, 4096 ) ) {}
+
+							fclose( $handle ); //close reader
+
+							$handle = @fopen( $config, 'w+' ); //open writer
+
+							foreach ( $lines as $line ) { //process each line
+
+								if ( strstr( $line, 'WP_CONTENT_DIR' ) || strstr( $line, 'WP_CONTENT_URL' ) ) {
+
+									$line = str_replace( $line, '', $line );
+
+								}
+
+								if (strstr( $line, $scanText ) ) {
+
+									$line = str_replace( $scanText, $newText, $line );
+
+								}
+
+								fwrite( $handle, $line ); //write the line
+
+							}
+
+							fclose( $handle ); //close the config file
+
+						}
+
+					}
+
+					$bwps_utilities->release_lock();
+
+				}
 
 			}
 
@@ -300,8 +345,6 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 				$message,
 				$type
 			);
-
-			return $input;
 
 		}
 
