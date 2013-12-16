@@ -1,7 +1,7 @@
 <?php
 /**
- * Brand plugins with Bit51 sidebar items in the admin
- * 
+ * Brand plugins with iThemes sidebar items in the admin
+ *
  * @version 1.0
  */
 
@@ -11,11 +11,11 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 
 	class BWPS_Foo_Support {
 
-		private static $instance = null;
+		private static $instance = NULL;
 
-		private $support_email = 'support.bwps@fooplugins.com'; //current email address of Bit51.com support
+		private $support_email = 'support.bwps@fooplugins.com'; //current email address of iThemes support
 
-		private 
+		private
 			$core;
 
 		private function __construct( $core ) {
@@ -36,16 +36,16 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 
 		/**
 		 * Add meta boxes to primary options pages
-		 * 
+		 *
 		 * @param array $available_pages array of available page_hooks
 		 */
 		function add_admin_meta_boxes( $available_pages ) {
 
 			foreach ( $available_pages as $page ) {
-				
+
 				//add metaboxes
-				add_meta_box( 
-					'bwps_foo_support', 
+				add_meta_box(
+					'bwps_foo_support',
 					__( 'Need Help?', 'better_wp_security' ),
 					array( $this, 'metabox_sideboar_foo_support' ),
 					$page,
@@ -59,35 +59,39 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 
 		/**
 		 * set screen for css implementation
-		 * 
-		 * @param  Screen $screen 	WordPress Screen object
-		 * @return bool         	make sure we're on a BWPS screen
+		 *
+		 * @param  Screen $screen WordPress Screen object
+		 *
+		 * @return bool            make sure we're on a BWPS screen
 		 */
 		function include_foolic_css( $screen ) {
+
 			return $screen->id === 'toplevel_page_better_wp_security';
 		}
 
 		/**
 		 * Set input type
-		 * 
+		 *
 		 * @return string type of input box for support key
 		 */
 		function change_foolic_input_type() {
+
 			return 'text';
 		}
 
 		/**
 		 * Field size for support key field
-		 * 
+		 *
 		 * @return string field size for support key
 		 */
 		function change_foolic_input_size() {
+
 			return '29';
 		}
 
 		/**
 		 * Build and echo the content sidebar metabox
-		 * 
+		 *
 		 * @return void
 		 */
 		public function metabox_sideboar_foo_support() {
@@ -107,20 +111,19 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 				$content .= '<input type="hidden" name="action" value="' . $bwps_globalss['plugin_hook'] . '_support" />';
 				$content .= '<input type="hidden" name="nonce" value="' . wp_create_nonce( $bwps_globals['plugin_hook'] . '_ajax-nonce' ) . '" />';
 				$content .= '<input type="hidden" name="ticket_key" value="' . $data['license'] . '" />';
-				$content .= '<label for="support_issue">' . __( 'Describe the Issue', 'better_wp_security' ). ':</label><textarea name="issue" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_issue"></textarea>';
-				$content .= '<label for="support_reproduce">' . __( 'Steps to Reproduce', 'better_wp_security' ). ':</label><textarea name="reproduce" style="height:200px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_reproduce"></textarea>';
-				$content .= '<label for="support_other">' . __( 'Other Information', 'better_wp_security' ). ':</label><textarea name="other" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_other"></textarea><br />';
+				$content .= '<label for="support_issue">' . __( 'Describe the Issue', 'better_wp_security' ) . ':</label><textarea name="issue" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_issue"></textarea>';
+				$content .= '<label for="support_reproduce">' . __( 'Steps to Reproduce', 'better_wp_security' ) . ':</label><textarea name="reproduce" style="height:200px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_reproduce"></textarea>';
+				$content .= '<label for="support_other">' . __( 'Other Information', 'better_wp_security' ) . ':</label><textarea name="other" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_other"></textarea><br />';
 				$content .= '<input id="submit_support" type="button" class="button-primary" value="' . __( 'Submit Support Ticket', 'better_wp_security' ) . '" /><br />';
 				$content .= '<br /></form>';
-				$content .= '<div style="display:none" class="support_message foolic-loading"><p>' . __( 'sending support request...', 'better_wp_security' ). '</p></div>';
+				$content .= '<div style="display:none" class="support_message foolic-loading"><p>' . __( 'sending support request...', 'better_wp_security' ) . '</p></div>';
 				$content .= '<a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase priority support', 'better_wp_security' ) . '</a>';
 				$content .= ' | <a href="#newkey" class="foolic-clear-' . $bwps_globals['plugin_hook'] . '">' . __( 'Enter License Key', 'better_wp_security' ) . '</a>';
 				$content .= $data['nonce'];
 
-
 			} else {
 
-				$content = '<strong>' . __( 'Need premium support or configuration?', 'better_wp_security' ). '<br /><br /><a target="_blank" href="' . $purchase_url .'">' . __( 'Purchase one-time premium support or installation', 'better_wp_security' ) . '</a>.</strong><br /><br />';
+				$content = '<strong>' . __( 'Need premium support or configuration?', 'better_wp_security' ) . '<br /><br /><a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase one-time premium support or installation', 'better_wp_security' ) . '</a>.</strong><br /><br />';
 				$content .= $data['html'];
 
 			}
@@ -135,7 +138,7 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 									e.preventDefault();
 
 									if ($("#support_issue").val().length == 0) {
-										alert("' . __( 'Please describe the issue you are having', 'better_wp_security' ). '");
+										alert("' . __( 'Please describe the issue you are having', 'better_wp_security' ) . '");
 										return;
 									}
 									$("#support_form").slideUp();
@@ -154,7 +157,6 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 								} );
 							} );
 						</script>';
-			
 
 			echo $content;
 
@@ -162,13 +164,14 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 
 		/**
 		 * Start the BWPS Dashboard module
-		 * 
-		 * @param  Bit51_BWPS_Core    $core     	Instance of core plugin class
-		 * @return BWPS_Foo_Support 				The instance of the BWPS_Foo_Support class
+		 *
+		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
+		 *
+		 * @return BWPS_Foo_Support                The instance of the BWPS_Foo_Support class
 		 */
 		public static function start( $core ) {
 
-			if ( ! isset( self::$instance ) || self::$instance === null ) {
+			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
 				self::$instance = new self( $core );
 			}
 

@@ -4,17 +4,18 @@ if ( ! class_exists( 'BWPS_Foo_Support_Setup' ) ) {
 
 	class BWPS_Foo_Support_Setup {
 
-		private 
+		private
 			$hook;
 
 		function __construct() {
+
 			global $bwps_setup_action;
 
 			//Important, this must be manually set in each module
 			$this->hook = 'bwps';
 
 			if ( isset( $bwps_setup_action ) ) {
-				
+
 				switch ( $bwps_setup_action ) {
 
 					case 'activate':
@@ -40,20 +41,22 @@ if ( ! class_exists( 'BWPS_Foo_Support_Setup' ) ) {
 
 		/**
 		 * Execute module activation
-		 * 
+		 *
 		 * @return void
 		 */
 		function execute_activate() {
+
 			global $bwps_hook;
 
 		}
 
 		/**
 		 * Execute module deactivation
-		 * 
+		 *
 		 * @return void
 		 */
 		function execute_deactivate() {
+
 			global $bwps_hook;
 
 			delete_option( $this->hook . '_licensekey' );
@@ -65,10 +68,11 @@ if ( ! class_exists( 'BWPS_Foo_Support_Setup' ) ) {
 
 		/**
 		 * Execute module uninstall
-		 * 
+		 *
 		 * @return void
 		 */
 		function execute_uninstall() {
+
 			global $bwps_hook;
 
 			$this->execute_deactivate();
@@ -77,10 +81,11 @@ if ( ! class_exists( 'BWPS_Foo_Support_Setup' ) ) {
 
 		/**
 		 * Execute module upgrade
-		 * 
+		 *
 		 * @return void
 		 */
 		function execute_upgrade() {
+
 			global $bwps_hook;
 
 		}

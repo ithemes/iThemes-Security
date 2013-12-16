@@ -8,6 +8,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Setup' ) ) {
 			$hook;
 
 		function __construct() {
+
 			global $bwps_setup_action;
 
 			//Important, this must be manually set in each module

@@ -1,7 +1,7 @@
 
 === Better WP Security ===
 Contributors: ithemes, ChrisWiegman, mattdanner, chrisbliss18
-Donate link: http://bit51.com/software/better-wp-security/
+Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
 Requires at least: 3.8
 Tested up to: 3.8
@@ -100,7 +100,7 @@ Finally, should the worst happen Better WP Security will make regular backups of
 * Tagalog by <a href="http://pointen.dk/">Hanne</a>
 * Turkish by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
 
-Please <A href="http://bit51.com/contact" target="_blank">let us know</a> if you would like to contribute a translation.
+Please <A href="http://ithemes.com/contact" target="_blank">let us know</a> if you would like to contribute a translation.
 
 = Warning =
 
@@ -144,13 +144,13 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Yes.
 
 = Can I help? =
-* Of course! I am in constant need of testers and I would be more than happy to add the right contributor. In addition, I could always use help with translations for internationalization. <a href="http://bit51.com/contributing-to-better-wp-security/">For more information on contributing to Better WP Security visit Bit51</a>.
+* Of course! I am in constant need of testers and I would be more than happy to add the right contributor. In addition, I could always use help with translations for internationalization. <a href="http://ithemes.com/contributing-to-better-wp-security/">For more information on contributing to Better WP Security visit iThemes</a>.
 
 = Will this break my site? =
 * It is possible that something will break. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
 * Note that renaming the wp-content directory will not update the path in existing content. Use this feature only on new sites or in a situation where you can easily update all existing links.
-* <a href="http://bit51.com/fixing-better-wp-security-lockouts/">Fixing Better WP Security Lockouts</a>
-* <a href="http://bit51.com/what-is-changed-by-better-wp-security/">What is Changed By Better WP Security</a>
+* <a href="http://ithemes.com/fixing-better-wp-security-lockouts/">Fixing Better WP Security Lockouts</a>
+* <a href="http://ithemes.com/what-is-changed-by-better-wp-security/">What is Changed By Better WP Security</a>
 
 = I've enabled the Enforce SSL option and it broke my site. How do I get back in? =
 * Open your wp-config.php file in a text editor and remove the following 2 lines:
@@ -158,7 +158,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * define('FORCE_SSL_ADMIN', true);
 
 = Where can I get help if something goes wrong? =
-* Free support is available by reading the <a href="http://bit51.com/software/better-wp-security/" target="_blank">plugin documentation</a> or may be available with the help of the community in the <a href="http://wordpress.org/support/plugin/better-wp-security" target="_blank">WordPress.org support forums</a> (this is community provided support as Bit51 does not monitor the WordPress.org support forums). If you need more formal support you can <a href="http://fooplugins.com/plugins/better-wp-security/" target="_blank">purchase a premium support ticket</a> on a per-incident basis.
+* Free support is available by reading the <a href="http://wordpress.org/plugins/better-wp-security//" target="_blank">plugin documentation</a> or may be available with the help of the community in the <a href="http://wordpress.org/support/plugin/better-wp-security" target="_blank">WordPress.org support forums</a> (this is community provided support as iThemes does not monitor the WordPress.org support forums). If you need more formal support you can <a href="http://fooplugins.com/plugins/better-wp-security/" target="_blank">purchase a premium support ticket</a> on a per-incident basis.
 
 == Screenshots ==
 

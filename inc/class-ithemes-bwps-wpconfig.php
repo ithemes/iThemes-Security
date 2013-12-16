@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
+if ( ! class_exists( 'Ithemes_BWPS_WPConfig' ) ) {
 
-	class Bit51_BWPS_WPConfig {
+	class Ithemes_BWPS_WPConfig {
 
 		private
 			$rule_open = '//BEGIN Better WP Security',
@@ -13,10 +13,10 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 		/**
 		 * Create and manage wp_config.php
-		 * 
-		 * @param  [plugin_class]  	  $plugin       Instance of main plugin class
-		 * @param  String|array		  $rule         The rule to be added or removed
-		 * @param  bool 			  $action 	    true for add, false for delete
+		 *
+		 * @param  [plugin_class]      $plugin       Instance of main plugin class
+		 * @param  String|array $rule   The rule to be added or removed
+		 * @param  bool         $action true for add, false for delete
 		 */
 		function __construct() {
 
@@ -25,7 +25,7 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 			$this->rules = array();
 
 			$this->rules = apply_filters( $bwps_globals['plugin_hook'] . '_wp_config_rules', $this->rules );
-			
+
 			if ( $bwps_utilities->get_lock() === true ) {
 
 				if ( $this->write_config() === true ) {
@@ -43,13 +43,14 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 			}
 
 			return new WP_Error( 'writing_error', __( 'Error when writing wp-config.php', 'better-wp-security' ) );
-			
+
 		}
 
 		/**
 		 * Returns or echos all wp-config.php rules
 		 *
 		 * @param bool $echo true to echo, false to return
+		 *
 		 * @return mixed rules string if present, false if not, nothing if echoed
 		 */
 		public function show_all_rules( $echo = false ) {
@@ -58,11 +59,11 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 			if ( is_array( $saved_rules ) ) {
 
-				foreach( $saved_rules as $rule => $action ) {
+				foreach ( $saved_rules as $rule => $action ) {
 
 					if ( array_key_exists( $rule, $this->rules ) ) {
 
-						$this->rules[ $rule ] = $action;
+						$this->rules[$rule] = $action;
 
 					}
 
@@ -109,16 +110,17 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
 
-			$form_fields = array ( 'save' );
-			$method = ''; 
+			$form_fields = array( 'save' );
+			$method      = '';
 
 			if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $form_fields ) ) ) {
 				return false; // stop the normal page form from displaying
 			}
 
 			if ( ! WP_Filesystem( $creds ) ) {
-    			// our credentials were no good, ask the user for them again
-    			request_filesystem_credentials( $url, $method, true, false, $form_fields );
+				// our credentials were no good, ask the user for them again
+				request_filesystem_credentials( $url, $method, true, false, $form_fields );
+
 				return false;
 			}
 
@@ -130,33 +132,33 @@ if ( ! class_exists( 'Bit51_BWPS_WPConfig' ) ) {
 
 				$config_contents = $wp_filesystem->get_contents( $config_file ); //get the contents of wp-config.php
 
-    			if ( ! $config_contents ) { //we couldn't get wp-config.php contents
+				if ( ! $config_contents ) { //we couldn't get wp-config.php contents
 
-      				return new WP_Error( 'reading_error', __( 'Error when reading wp-config.php', 'better-wp-security' ) ); //return error object
+					return new WP_Error( 'reading_error', __( 'Error when reading wp-config.php', 'better-wp-security' ) ); //return error object
 
-      			} else { //write out what we need to.
+				} else { //write out what we need to.
 
-				    if ( ( $start = strpos( $config_contents, $this->rule_open ) ) !== false ) {
+					if ( ( $start = strpos( $config_contents, $this->rule_open ) ) !== false ) {
 
-					    $end = strpos( $config_contents, $this->rule_close ) + strlen( $this->rule_close ) - $start;
+						$end = strpos( $config_contents, $this->rule_close ) + strlen( $this->rule_close ) - $start;
 
-					    $config_contents = substr_replace( $config_contents, '', $start, $end );
+						$config_contents = substr_replace( $config_contents, '', $start, $end );
 
-				    }
+					}
 
 					$rules = $this->show_all_rules();
 
-				    if ( $rules !== false ) {
+					if ( $rules !== false ) {
 
-					    $config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules, $config_contents );
+						$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules, $config_contents );
 
-				    }
+					}
 
-      			}
+				}
 
-      		}
+			}
 
-      		if ( $config_contents !== false ) {
+			if ( $config_contents !== false ) {
 
 				if ( ! $wp_filesystem->put_contents( $config_file, $config_contents, FS_CHMOD_FILE ) ) {
 					return new WP_Error( 'writing_error', __( 'Error when writing wp-config.php', 'better-wp-security' ) ); //return error object

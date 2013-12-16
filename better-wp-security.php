@@ -12,13 +12,13 @@
 	Copyright 2011-2013  iThemes  (email : info@ithemes.com)
 */
 
-if ( ! class_exists( 'Bit51_BWPS' ) ) {
+if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 
 
 	/**
 	 * Plugin class used to create plugin object and load both core and needed modules
 	 */
-	final class Bit51_BWPS {
+	final class Ithemes_BWPS {
 
 		private static $instance = null; //instantiated instance of this plugin
 
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 				'plugin_file'			=> __FILE__, //the main plugin file
 				'plugin_access_lvl' 	=> 'manage_options', //Access level required to access plugin options
 				'plugin_dir' 			=> plugin_dir_path( __FILE__ ), //the path of the plugin directory
-				'plugin_homepage' 		=> 'http://bit51.com/software/better-wp-security/', //The plugins homepage on WordPress.org
+				'plugin_homepage' 		=> 'http://ithemes.com', //The plugins homepage on WordPress.org
 				'plugin_hook'			=> 'bwps', //the hook for text calls and other areas
 				'plugin_name' 			=> __( 'Better WP Security', 'better_wp_security' ), //the name of the plugin
 				'plugin_url' 			=> plugin_dir_url( __FILE__ ), //the URL of the plugin directory
@@ -70,12 +70,12 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 			$this->dashboard_page_name = __( 'Dashboard', 'better_wp_security' ); //page name - appears after plugin name on the dashboard page
 
 			//load core functionality for admin use
-			require_once( $bwps_globals['plugin_dir'] . 'inc/class-bit51-bwps-core.php' );
-			$this->core = Bit51_BWPS_Core::start( $this );
+			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-core.php' );
+			$this->core = Ithemes_BWPS_Core::start( $this );
 
 			//load utility functions
-			require_once( $bwps_globals['plugin_dir'] . 'inc/class-bit51-bwps-utilities.php' );
-			$bwps_utilities = Bit51_BWPS_Utilities::start( $this->core );
+			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-utilities.php' );
+			$bwps_utilities = Ithemes_BWPS_Utilities::start( $this->core );
 
 			//load modules
 			$this->load_modules();
@@ -100,8 +100,8 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 			global $bwps_globals;
 
 			//load BWPS Dashboard module
-			require_once( $bwps_globals['plugin_dir'] . 'modules/bit51-bwps-dashboard/class-bit51-bwps-dashboard.php' );
-			Bit51_BWPS_Dashboard::start( $this->core );
+			require_once( $bwps_globals['plugin_dir'] . 'modules/ithemes-bwps-dashboard/class-ithemes-bwps-dashboard.php' );
+			Ithemes_BWPS_Dashboard::start( $this->core );
 
 			//load BWPS Dashboard module
 			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-support/class-bwps-support.php' );
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 		/**
 		 * Start the plugin
 		 * 
-		 * @return Bit51_BWPS     The instance of the plugin
+		 * @return Ithemes_BWPS     The instance of the plugin
 		 */
 		public static function start() {
 
@@ -140,4 +140,4 @@ if ( ! class_exists( 'Bit51_BWPS' ) ) {
 
 }
 
-Bit51_BWPS::start();
+Ithemes_BWPS::start();

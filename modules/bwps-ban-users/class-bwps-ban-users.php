@@ -4,7 +4,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 	class BWPS_Ban_Users {
 
-		private static $instance = null;
+		private static $instance = NULL;
 
 		private
 			$settings,
@@ -15,7 +15,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 			global $bwps_globals;
 
-			$this->core = $core;
+			$this->core     = $core;
 			$this->settings = get_site_option( 'bwps_ban_users' );
 
 			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
@@ -60,7 +60,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 		public function add_admin_tab( $tabs ) {
 
-			$tabs[ $this->page ] = __( 'Ban Users', 'better_wp_security' );
+			$tabs[$this->page] = __( 'Ban Users', 'better_wp_security' );
 
 			return $tabs;
 
@@ -94,7 +94,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 			global $bwps_globals;
 
-			if ( strpos( get_current_screen()->id,'security_page_toplevel_page_bwps-ban_users' ) !== false ) {
+			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_bwps-ban_users' ) !== false ) {
 
 				wp_enqueue_script( 'bwps_ban_users_js', $bwps_globals['plugin_url'] . 'modules/bwps-ban-users/js/admin-ban_users.js', 'jquery', $bwps_globals['plugin_build'] );
 
@@ -202,12 +202,14 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 		 *
 		 * @return void
 		 */
-		public function sandbox_general_options_callback() {}
+		public function sandbox_general_options_callback() {
+		}
 
 		/**
 		 * echos Enabled Field
 		 *
 		 * @param  array $args field arguements
+		 *
 		 * @return void
 		 */
 		public function ban_users_enabled( $args ) {
@@ -220,7 +222,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 			}
 
 			$content = '<input type="checkbox" id="bwps_ban_users_enabled" name="bwps_ban_users[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="bwps_ban_users_enabled"> '  . __( 'Check this box to enable ban users', 'better_wp_security' ) . '</label>';
+			$content .= '<label for="bwps_ban_users_enabled"> ' . __( 'Check this box to enable ban users', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -230,6 +232,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 		 * echos Banned Hosts field
 		 *
 		 * @param  array $args field arguements
+		 *
 		 * @return void
 		 */
 		public function ban_users_host_list( $args ) {
@@ -244,9 +247,9 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 			$content = '<textarea id="bwps_ban_users_host_list" name="bwps_ban_users[host_list]" rows="10" cols="50">' . $default . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', 'better_wp_security' ) . '</p>';
 			$content .= '<ul><em>';
-			$content .= '<li>' . __ ( 'You may ban users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
-			$content .= '<li>' . __ ( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', 'better_wp_security' ) . '</li>';
-			$content .= '<li>' . __ ( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'better_wp_security' ) . '</li>';
+			$content .= '<li>' . __( 'You may ban users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
+			$content .= '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', 'better_wp_security' ) . '</li>';
+			$content .= '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'better_wp_security' ) . '</li>';
 			$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'better_wp_security' ) . '</a></li>';
 			$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'better_wp_security' ) . '</li>';
 			$content .= '</em></ul>';
@@ -259,6 +262,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 		 * echos Banned Agents field
 		 *
 		 * @param  array $args field arguements
+		 *
 		 * @return void
 		 */
 		public function ban_users_agent_list( $args ) {
@@ -273,7 +277,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 			$content = '<textarea id="bwps_ban_users_agent_list" name="bwps_ban_users[agent_list]" rows="10" cols="50">' . $default . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', 'better_wp_security' ) . '</p>';
 			$content .= '<ul><em>';
-			$content .= '<li>' . __ ( 'Enter only 1 user agent per line.', 'better_wp_security' ) . '</li>';
+			$content .= '<li>' . __( 'Enter only 1 user agent per line.', 'better_wp_security' ) . '</li>';
 			$content .= '</em></ul>';
 
 			echo $content;
@@ -284,6 +288,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 		 * echos Banned white list field
 		 *
 		 * @param  array $args field arguements
+		 *
 		 * @return void
 		 */
 		public function ban_users_white_list( $args ) {
@@ -298,9 +303,9 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 			$content = '<textarea id="bwps_ban_users_white_list" name="bwps_ban_users[white_list]" rows="10" cols="50">' . $default . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be banned from your site. This will keep you from locking yourself out of any features if you should trigger a lockout. Please note this does not override away mode.', 'better_wp_security' ) . '</p>';
 			$content .= '<ul><em>';
-			$content .= '<li>' . __ ( 'You may white list users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
-			$content .= '<li>' . __ ( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', 'better_wp_security' ) . '</li>';
-			$content .= '<li>' . __ ( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'better_wp_security' ) . '</li>';
+			$content .= '<li>' . __( 'You may white list users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
+			$content .= '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.###). Wildcards (*) are allowed to specify a range of ip addresses.', 'better_wp_security' ) . '</li>';
+			$content .= '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'better_wp_security' ) . '</li>';
 			$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'better_wp_security' ) . '</a></li>';
 			$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'better_wp_security' ) . '</li>';
 			$content .= '</em></ul>';
@@ -359,7 +364,8 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 		/**
 		 * Sanitize and validate input
 		 *
-		 * @param  Array $input  array of input fields
+		 * @param  Array $input array of input fields
+		 *
 		 * @return Array         Sanitized array
 		 */
 		public function sanitize_module_input( $input ) {
@@ -372,7 +378,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 				$input['enabled'] = 0; //disable ban users list
 
-				$type = 'error';
+				$type    = 'error';
 				$message = '';
 
 				if ( is_wp_error( $ips ) ) {
@@ -389,7 +395,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 				$input['host_list'] = $ips;
 
-				$type = 'updated';
+				$type    = 'updated';
 				$message = __( 'Settings Updated', 'better_wp_security' );
 
 			}
@@ -405,7 +411,6 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 		}
 
-
 		/**
 		 * Prepare and save options in network settings
 		 *
@@ -417,9 +422,9 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 				$settings['enabled'] = intval( $_POST['bwps_away_mode']['enabled'] == 1 ? 1 : 0 );
 			}
 
-			$settings['type'] = intval( $_POST['bwps_away_mode']['type'] ) === 1 ? 1 : 2;
+			$settings['type']  = intval( $_POST['bwps_away_mode']['type'] ) === 1 ? 1 : 2;
 			$settings['start'] = strtotime( $_POST['bwps_away_mode']['start']['date'] . ' ' . $_POST['bwps_away_mode']['start']['hour'] . ':' . $_POST['bwps_away_mode']['start']['minute'] . ' ' . $_POST['bwps_away_mode']['start']['sel'] );
-			$settings['end'] = strtotime( $_POST['bwps_away_mode']['end']['date'] . ' ' . $_POST['bwps_away_mode']['end']['hour'] . ':' . $_POST['bwps_away_mode']['end']['minute'] . ' ' . $_POST['bwps_away_mode']['end']['sel'] );
+			$settings['end']   = strtotime( $_POST['bwps_away_mode']['end']['date'] . ' ' . $_POST['bwps_away_mode']['end']['hour'] . ':' . $_POST['bwps_away_mode']['end']['minute'] . ' ' . $_POST['bwps_away_mode']['end']['sel'] );
 
 			update_site_option( 'bwps_away_mode', $settings ); //we must manually save network options
 
@@ -433,28 +438,29 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 		 * Validates a host list
 		 *
 		 * @param string $hosts string of hosts to check
-		 * @param bool $ban true for ban list, false for whitelist
+		 * @param bool   $ban   true for ban list, false for whitelist
+		 *
 		 * @return array array of good hosts or false
 		 */
 		public function validate_bad_hosts( $hosts, $ban ) {
 
 			//validate list
-			$banhosts = explode( PHP_EOL, $hosts );
-			$list = array();
-			$error_handler = null;
+			$banhosts      = explode( PHP_EOL, $hosts );
+			$list          = array();
+			$error_handler = NULL;
 
-			if( ! empty( $banhosts ) ) {
+			if ( ! empty( $banhosts ) ) {
 
-				foreach( $banhosts as $host ) {
+				foreach ( $banhosts as $host ) {
 
 					$host = filter_var( $host, FILTER_SANITIZE_STRING );
 
 					if ( strlen( $host ) > 0 ) {
 
-						$ipParts = explode( '.', $host );
-						$isIP = 0;
+						$ipParts   = explode( '.', $host );
+						$isIP      = 0;
 						$partcount = 1;
-						$goodip = true;
+						$goodip    = true;
 						$foundwild = false;
 
 						foreach ( $ipParts as $part ) {
@@ -462,7 +468,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 							if ( $goodip == true ) {
 
 								if ( ( is_numeric( trim( $part ) ) && trim( $part ) <= 255 && trim( $part ) >= 0 ) || trim( $part ) == '*' ) {
-									$isIP++;
+									$isIP ++;
 								}
 
 								switch ( $partcount ) {
@@ -519,7 +525,7 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 								}
 
-								$partcount++;
+								$partcount ++;
 
 							}
 
@@ -560,19 +566,18 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 
 		public function validate_bad_agents( $agents ) {
 
-
-
 		}
 
 		/**
 		 * Start the Ban Users module
 		 *
-		 * @param  Bit51_BWPS_Core    $core     Instance of core plugin class
-		 * @return BWPS_Away_Mode 			    The instance of the BWPS_Away_Mode class
+		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
+		 *
+		 * @return BWPS_Away_Mode                The instance of the BWPS_Away_Mode class
 		 */
 		public static function start( $core ) {
 
-			if ( ! isset( self::$instance ) || self::$instance === null ) {
+			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
 				self::$instance = new self( $core );
 			}
 

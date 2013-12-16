@@ -4,17 +4,18 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 
 	class BWPS_Away_Mode_Setup {
 
-		private 
+		private
 			$hook;
 
 		function __construct() {
+
 			global $bwps_setup_action;
 
 			//Important, this must be manually set in each module
 			$this->hook = 'bwps';
 
 			if ( isset( $bwps_setup_action ) ) {
-				
+
 				switch ( $bwps_setup_action ) {
 
 					case 'activate':
@@ -40,7 +41,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 
 		/**
 		 * Execute module activation
-		 * 
+		 *
 		 * @return void
 		 */
 		function execute_activate() {
@@ -59,12 +60,12 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 
 		/**
 		 * Execute module deactivation
-		 * 
+		 *
 		 * @return void
 		 */
 		function execute_deactivate() {
 
-			delete_site_transient ( 'bwps_away' );
+			delete_site_transient( 'bwps_away' );
 
 			$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
 
@@ -76,7 +77,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 
 		/**
 		 * Execute module uninstall
-		 * 
+		 *
 		 * @return void
 		 */
 		function execute_uninstall() {
@@ -89,7 +90,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 
 		/**
 		 * Execute module upgrade
-		 * 
+		 *
 		 * @return void
 		 */
 		function execute_upgrade() {

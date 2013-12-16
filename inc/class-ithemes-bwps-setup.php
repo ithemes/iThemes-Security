@@ -1,13 +1,13 @@
 <?php
 /**
- * Dispatches seup processes from individual modules
- * 
+ * Dispatches setup processes from individual modules
+ *
  * @version 1.0
  */
 
-if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
+if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
-	class Bit51_BWPS_Setup {
+	class Ithemes_BWPS_Setup {
 
 		private
 			$hook,
@@ -18,19 +18,19 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 		 *
 		 * Establishes set object and calls appropriate execution function
 		 *
-		 * @param bool $case[optional] Appropriate execution module to call
+		 * @param bool $case [optional] Appropriate execution module to call
 		 *
 		 **/
 		function __construct( $case = false, $upgrading = false ) {
 
 			//Important, this must be manually set in each plugin
 			$this->hook = 'bwps';
-	
+
 			if ( ! $case ) {
 				die( 'error' );
 			}
 
-			switch($case) {
+			switch ( $case ) {
 				case 'activate': //active plugin
 					$this->activate_execute( $upgrading );
 					break;
@@ -52,17 +52,17 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 
 		/**
 		 * Execute setup script for each module installed
-		 * 
+		 *
 		 * @return void
 		 */
 		function do_modules() {
 
-			$modules_folder = dirname(__FILE__) . '/../modules';
+			$modules_folder = dirname( __FILE__ ) . '/../modules';
 
 			$modules = scandir( $modules_folder );
-			
+
 			foreach ( $modules as $module ) {
-				
+
 				$module_folder = $modules_folder . '/' . $module;
 
 				if ( $module !== '.' && $module !== '..' && is_dir( $module_folder ) && file_exists( $module_folder . '/setup.php' ) ) {
@@ -74,16 +74,16 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 			}
 
 		}
-		
+
 		/**
 		 * Public function to activate
 		 *
 		 **/
 		function on_activate() {
-			
+
 			define( 'BWPS_NEW_INSTALL', true );
-			new Bit51_BWPS_Setup( 'activate' );
-			
+			new Ithemes_BWPS_Setup( 'activate' );
+
 		}
 
 		/**
@@ -91,16 +91,16 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 		 *
 		 **/
 		function on_deactivate() {
-	
+
 			$devel = true; //set to true to uninstall for development
-		
+
 			if ( $devel ) {
 				$case = 'uninstall';
 			} else {
 				$case = 'deactivate';
 			}
 
-			new Bit51_BWPS_Setup( $case );
+			new Ithemes_BWPS_Setup( $case );
 		}
 
 		/**
@@ -108,9 +108,9 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 		 *
 		 **/
 		function on_uninstall() {
-		
-			new Bit51_BWPS_Setup( 'uninstall' );
-			
+
+			new Ithemes_BWPS_Setup( 'uninstall' );
+
 		}
 
 		/**
@@ -118,15 +118,16 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 		 *
 		 **/
 		function on_upgrade() {
-		
-			new Bit51_BWPS_Setup( 'upgrade' );
-			
+
+			new Ithemes_BWPS_Setup( 'upgrade' );
+
 		}
-		
+
 		/**
 		 * Execute activation
-		 * 
+		 *
 		 * @param  boolean $updating true if the plugin is updating
+		 *
 		 * @return void
 		 */
 		function activate_execute( $updating = false ) {
@@ -135,9 +136,9 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 
 			//if this is multisite make sure they're network activating or die
 			if ( defined( 'BWPS_NEW_INSTALL' ) && BWPS_NEW_INSTALL == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
-			
-				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', 'better-wp-security' ) );	
-			
+
+				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', 'better-wp-security' ) );
+
 			}
 
 			$bwps_setup_action = 'activate';
@@ -145,13 +146,14 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 			$this->do_modules();
 
 			do_action( $this->hook . '_set_plugin_data' );
-			
+
 		}
 
 		/**
 		 * Update Execution
-		 * 
+		 *
 		 * @param  string $oldversion Old version number
+		 *
 		 * @return void
 		 */
 		function upgrade_execute( $oldversion = '' ) {
@@ -161,9 +163,9 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 			$bwps_setup_action = 'upgrade';
 
 			$this->do_modules();
-			
+
 		}
-		
+
 		/**
 		 * Deactivate execution
 		 *
@@ -175,15 +177,15 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 			$bwps_setup_action = 'deactivate';
 
 			$this->do_modules();
-			
+
 		}
-		
+
 		/**
 		 * Uninstall execution
 		 *
 		 **/
 		function uninstall_execute() {
-			
+
 			global $bwps_setup_action;
 
 			$bwps_setup_action = 'uninstall';
@@ -191,13 +193,13 @@ if ( ! class_exists( 'Bit51_BWPS_Setup' ) ) {
 			$this->do_modules();
 
 			delete_site_option( $this->hook . '_data' );
-			
-			if ( function_exists( 'apc_store' ) ) { 
+
+			if ( function_exists( 'apc_store' ) ) {
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
 			}
-			
+
 		}
-		
+
 	}
-	
+
 }

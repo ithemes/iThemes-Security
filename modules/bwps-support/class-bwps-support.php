@@ -4,9 +4,9 @@ if ( ! class_exists( 'BWPS_Support' ) ) {
 
 	class BWPS_Support {
 
-		private static $instance = null;
+		private static $instance = NULL;
 
-		private 
+		private
 			$settings,
 			$core,
 			$page;
@@ -26,7 +26,7 @@ if ( ! class_exists( 'BWPS_Support' ) ) {
 
 		/**
 		 * Register subpage for Away Mode
-		 * 
+		 *
 		 * @param array $available_pages array of BWPS settings pages
 		 */
 		public function add_sub_page( $available_pages ) {
@@ -50,7 +50,7 @@ if ( ! class_exists( 'BWPS_Support' ) ) {
 
 		public function add_admin_tab( $tabs ) {
 
-			$tabs[ $this->page ] = __( 'Support', 'better_wp_security' );
+			$tabs[$this->page] = __( 'Support', 'better_wp_security' );
 
 			return $tabs;
 
@@ -58,13 +58,13 @@ if ( ! class_exists( 'BWPS_Support' ) ) {
 
 		/**
 		 * Add meta boxes to primary options pages
-		 * 
+		 *
 		 * @param array $available_pages array of available page_hooks
 		 */
 		public function add_admin_meta_boxes( $available_pages ) {
 
-			add_meta_box( 
-				'bwps_system_info', 
+			add_meta_box(
+				'bwps_system_info',
 				__( 'System Information', 'better_wp_security' ),
 				array( $this, 'metabox_normal_system' ),
 				'security_page_toplevel_page_bwps-support',
@@ -76,7 +76,7 @@ if ( ! class_exists( 'BWPS_Support' ) ) {
 
 		/**
 		 * Displays system information
-		 * 
+		 *
 		 * @return void
 		 */
 		public function metabox_normal_system() {
@@ -87,7 +87,7 @@ if ( ! class_exists( 'BWPS_Support' ) ) {
 
 		/**
 		 * Build and echo the away mode description
-		 * 
+		 *
 		 * @return void
 		 */
 		public function add_support_intro( $screen ) {
@@ -104,7 +104,7 @@ if ( ! class_exists( 'BWPS_Support' ) ) {
 
 		/**
 		 * Render the settings metabox
-		 * 
+		 *
 		 * @return void
 		 */
 		public function metabox_advanced_settings() {
@@ -134,13 +134,14 @@ if ( ! class_exists( 'BWPS_Support' ) ) {
 
 		/**
 		 * Start the Support module
-		 * 
-		 * @param  Bit51_BWPS_Core    $core     Instance of core plugin class
-		 * @return BWPS_Support 			    The instance of the BWPS_Support class
+		 *
+		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
+		 *
+		 * @return BWPS_Support                The instance of the BWPS_Support class
 		 */
 		public static function start( $core ) {
 
-			if ( ! isset( self::$instance ) || self::$instance === null ) {
+			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
 				self::$instance = new self( $core );
 			}
 

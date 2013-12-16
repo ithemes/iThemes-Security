@@ -1,14 +1,14 @@
-#bit51_publicize {
+#ithemes_publicize {
 	border-color: #0000ff;
 	border-width: 2px;
 	font-weight: bold;
 }
 
-#bit51_publicize h3 {
+#ithemes_publicize h3 {
 	color:  #0000ff;
 }
 
-#bit51_publicize form {
+#ithemes_publicize form {
 	margin:  7px auto 0 auto;
 	text-align: center;
 }
@@ -29,6 +29,6 @@ div.inside ul li.subscribe {
 	list-style-image: url( '../img/subscribe.png' );
 }
 
-div.inside ul li.bit51 {
-	list-style-image: url( '../img/bit51-small.png' ); 
+div.inside ul li.ithemes {
+	list-style-image: url( '../img/ithemes-small.png' );
 }
