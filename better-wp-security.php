@@ -104,7 +104,7 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 			Ithemes_BWPS_Dashboard::start( $this->core );
 
 			//load BWPS Dashboard module
-			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-support/class-bwps-support-page.php' );
+			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-support-page/class-bwps-support-page.php' );
 			BWPS_Support_Page::start( $this->core );
 
 			//load Foo Plugins Support module
