@@ -52,13 +52,22 @@ if ( ! class_exists( 'Ithemes_BWPS_Utilities' ) ) {
 		/**
 		 * Attempt to get a lock for atomic operations
 		 *
+		 * @param string $lock the lock file to acquire (if not standard)
+		 *
 		 * @return bool true if lock was achieved, else false
 		 */
-		public function get_lock() {
+		public function get_lock( $lock = NULL ) {
 
-			if ( file_exists( $this->lock_file ) ) {
+			//all to override the lock file
+			if ( $lock === NULL ) {
+				$lock_file = $lock;
+			} else {
+				$lock_file = $this->lock_file;
+			}
 
-				$pid = @file_get_contents( $this->lock_file );
+			if ( file_exists( $lock_file ) ) {
+
+				$pid = @file_get_contents( $lock_file );
 
 				if ( @posix_getsid( $pid ) !== false ) {
 
@@ -88,11 +97,20 @@ if ( ! class_exists( 'Ithemes_BWPS_Utilities' ) ) {
 		/**
 		 * Release the lock
 		 *
+		 * @param string $lock the lock file to release (if not standard)
+		 *
 		 * @return bool true if released, false otherwise
 		 */
-		public function release_lock() {
+		public function release_lock( $lock = NULL ) {
 
-			if ( @unlink( $this->lock_file ) ) {
+			//all to override the lock file
+			if ( $lock === NULL ) {
+				$lock_file = $lock;
+			} else {
+				$lock_file = $this->lock_file;
+			}
+
+			if ( @unlink( $lock_file ) ) {
 				return true;
 			}
 
