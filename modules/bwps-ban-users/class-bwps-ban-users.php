@@ -112,16 +112,24 @@ if ( ! class_exists( 'BWPS_Ban_Users' ) ) {
 			$link = 'admin.php?page=toplevel_page_bwps-ban_users';
 
 			if ( $this->settings['enabled'] === 1 ) {
-				$statuses['safe'][] = array(
+
+				$status_array = 'safe-low';
+				$status = array(
 					'text' => __( 'You are blocking known bad hosts and agents with the ban users tool.', 'better_wp_security' ),
 					'link' => $link,
 				);
+
 			} else {
-				$statuses['low'][] = array(
+
+				$status_array = 'low';
+				$status = array(
 					'text' => __( 'You are not blocking any users that are known to be a problem. Consider turning on the Ban Users feature.', 'better_wp_security' ),
 					'link' => $link,
 				);
+
 			}
+
+			array_push( $statuses[$status_array], $status );
 
 			return $statuses;
 
