@@ -65,6 +65,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		public function admin_notices() {
 
 			settings_errors( 'bwps_admin_notices' );
+
 		}
 
 		/**
@@ -313,8 +314,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			?>
 
 			<div class="wrap">
-
-				<?php screen_icon( 'shield' ); ?>
 
 				<?php if ( isset( $this->plugin->top_level_menu ) && $this->plugin->top_level_menu === true ) { ?>
 					<h2><?php echo $bwps_globals['plugin_name'] . ' - ' . get_admin_page_title(); ?></h2>
