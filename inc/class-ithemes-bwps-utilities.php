@@ -19,11 +19,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Utilities' ) ) {
 		 */
 		private function __construct( $plugin ) {
 
-			global $bwps_globals;
-
 			$this->plugin = $plugin; //Allow us to access plugin defaults throughout
 
 			$this->lock_file = trailingslashit( ABSPATH ) . 'config.lock';
+
+			//load file utility classes
+			require( dirname( __FILE__ ) . '/class-ithemes-bwps-wpconfig.php' );
 
 		}
 
