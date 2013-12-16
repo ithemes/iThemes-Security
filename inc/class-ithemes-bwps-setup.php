@@ -10,8 +10,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 	class Ithemes_BWPS_Setup {
 
 		private
-			$hook,
-			$update;
+			$hook;
 
 		/**
 		 * Establish setup object
@@ -151,11 +150,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		/**
 		 * Update Execution
 		 *
-		 * @param  string $oldversion Old version number
-		 *
-		 * @return void
 		 */
-		function upgrade_execute( $oldversion = '' ) {
+		function upgrade_execute() {
 
 			global $bwps_setup_action;
 
@@ -169,7 +165,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 * Deactivate execution
 		 *
 		 **/
-		function deactivate_execute( $updating = false ) {
+		function deactivate_execute() {
 
 			global $bwps_setup_action;
 
