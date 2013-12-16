@@ -1,15 +1,15 @@
 <?php
 /*
 	Plugin Name: Better WP Security
-	Plugin URI: http://bit51.com/software/better-wp-security/
+	Plugin URI: http://ithemes.com
 	Description: Protect your WordPress site by hiding vital areas of your site, protecting access to important files, preventing brute-force login attempts, detecting attack attempts and more.
-	Version: Dev
+	Version: 4.0 Dev
 	Text Domain: better_wp_security
 	Domain Path: /languages
-	Author: Bit51
-	Author URI: http://bit51.com
+	Author: iThemes
+	Author URI: http://ithemes.com
 	License: GPLv2
-	Copyright 2011-2013  Bit51  (email : info@bit51.com)
+	Copyright 2011-2013  iThemes  (email : info@ithemes.com)
 */
 
 if ( ! class_exists( 'Bit51_BWPS' ) ) {
