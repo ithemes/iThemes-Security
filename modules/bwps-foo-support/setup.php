@@ -42,51 +42,39 @@ if ( ! class_exists( 'BWPS_Foo_Support_Setup' ) ) {
 		/**
 		 * Execute module activation
 		 *
-		 * @return void
 		 */
 		function execute_activate() {
-
-			global $bwps_hook;
 
 		}
 
 		/**
 		 * Execute module deactivation
 		 *
-		 * @return void
 		 */
 		function execute_deactivate() {
-
-			global $bwps_hook;
-
-			delete_option( $this->hook . '_licensekey' );
-			delete_option( $this->hook . '_valid' );
-			delete_option( $this->hook . '_valid_expires' );
-			delete_option( $this->hook . '_lasterror' );
 
 		}
 
 		/**
 		 * Execute module uninstall
 		 *
-		 * @return void
 		 */
 		function execute_uninstall() {
 
-			global $bwps_hook;
-
 			$this->execute_deactivate();
+
+			delete_site_option( $this->hook . '_licensekey' );
+			delete_site_option( $this->hook . '_valid' );
+			delete_site_option( $this->hook . '_valid_expires' );
+			delete_site_option( $this->hook . '_lasterror' );
 
 		}
 
 		/**
 		 * Execute module upgrade
 		 *
-		 * @return void
 		 */
 		function execute_upgrade() {
-
-			global $bwps_hook;
 
 		}
 
