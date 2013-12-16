@@ -12,10 +12,6 @@ div.inside ul li {
 	line-height:16px;
 }
 
-#icon-shield {
-    background: transparent url( '../../img/shield-large.png' ) no-repeat;
-}
-
 .form-table th {
 	font-weight: bold;
 }
