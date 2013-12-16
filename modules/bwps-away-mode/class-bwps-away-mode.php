@@ -211,16 +211,24 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			$link = 'admin.php?page=toplevel_page_bwps-away_mode';
 
 			if ( $this->settings['enabled'] === 1 ) {
-				$statuses['safe-medium'][] = array(
+
+				$status_array = 'safe-medium';
+				$status = array(
 					'text' => __( 'Away Mode is enabled and your WordPress Dashboard is not available when you will not be needing it.', 'better_wp_security' ),
 					'link' => $link,
 				);
+
 			} else {
-				$statuses['medium'][] = array(
+
+				$status_array = 'medium';
+				$status = array(
 					'text' => __( 'Your WordPress Dashboard is available 24/7. Do you really update 24 hours a day? Consider using Away Mode.', 'better_wp_security' ),
 					'link' => $link,
 				);
+
 			}
+
+			array_push( $statuses[$status_array], $status );
 
 			return $statuses;
 
@@ -539,7 +547,7 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 					$currdate = date( 'g:i a \o\n l F jS, Y', current_time( 'timestamp' ) );
 				}
 
-				$content = '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is %s. If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'better_wp_security' ), '<a href="options-general.php">', '</a>', '<strong style="color: #f00; font-size: 150%;"><em>' . $currdate . '</em></strong>', '<a href="options-general.php">', '</a>' ) . '</p>';
+				$content .= '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is %s. If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'better_wp_security' ), '<a href="options-general.php">', '</a>', '<strong style="color: #f00; font-size: 150%;"><em>' . $currdate . '</em></strong>', '<a href="options-general.php">', '</a>' ) . '</p>';
 
 				echo $content;
 
