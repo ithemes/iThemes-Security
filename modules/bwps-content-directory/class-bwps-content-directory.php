@@ -58,11 +58,7 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 
 		public function add_admin_tab( $tabs ) {
 
-			if ( ! $this->settings === true ) {
-
-				$tabs[$this->page] = __( 'Dir', 'better_wp_security' );
-
-			}
+			$tabs[$this->page] = __( 'Dir', 'better_wp_security' );
 
 			return $tabs;
 
