@@ -275,7 +275,14 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard' ) ) {
 
 			global $bwps_globals;
 
-			$statuses = array();
+			$statuses = array(
+				'safe-high' => array(),
+				'high' => array(),
+				'safe-medium' => array(),
+				'medium' => array(),
+				'safe-low' => array(),
+				'low' => array(),
+			);
 
 			$statuses = apply_filters( $bwps_globals['plugin_hook'] . '_add_dashboard_status', $statuses );
 
@@ -294,7 +301,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard' ) ) {
 
 					}
 
-				} elseif ( isset ( $statuses['safe-high'] ) ) {
+				}
+
+				if ( isset ( $statuses['safe-high'] ) ) {
 
 					foreach ( $statuses['safe-high'] as $status ) {
 
@@ -323,7 +332,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard' ) ) {
 
 					}
 
-				} elseif ( isset ( $statuses['safe-medium'] ) ) {
+				}
+
+				if ( isset ( $statuses['safe-medium'] ) ) {
 
 					foreach ( $statuses['safe-medium'] as $status ) {
 
@@ -352,7 +363,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard' ) ) {
 
 					}
 
-				} elseif ( isset ( $statuses['safe-low'] ) ) {
+				}
+
+				if ( isset ( $statuses['safe-low'] ) ) {
 
 					foreach ( $statuses['safe-low'] as $status ) {
 
