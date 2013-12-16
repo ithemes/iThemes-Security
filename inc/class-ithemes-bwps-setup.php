@@ -82,6 +82,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		function on_activate() {
 
 			define( 'BWPS_NEW_INSTALL', true );
+
 			new Ithemes_BWPS_Setup( 'activate' );
 
 		}
@@ -92,9 +93,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		function on_deactivate() {
 
-			$devel = true; //set to true to uninstall for development
-
-			if ( $devel ) {
+			if ( defined( 'BWPS_DEVELOPMENT' ) && BWPS_DEVELOPMENT == true ) { //set BWPS_DEVELOPMENT to true to reset settings on deactivation for development
 				$case = 'uninstall';
 			} else {
 				$case = 'deactivate';
