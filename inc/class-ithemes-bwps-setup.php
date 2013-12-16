@@ -79,7 +79,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 * Public function to activate
 		 *
 		 **/
-		function on_activate() {
+		static function on_activate() {
 
 			define( 'BWPS_NEW_INSTALL', true );
 
@@ -91,7 +91,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 * Public function to deactivate
 		 *
 		 **/
-		function on_deactivate() {
+		static function on_deactivate() {
 
 			if ( defined( 'BWPS_DEVELOPMENT' ) && BWPS_DEVELOPMENT == true ) { //set BWPS_DEVELOPMENT to true to reset settings on deactivation for development
 				$case = 'uninstall';
@@ -106,7 +106,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 * Public function to uninstall
 		 *
 		 **/
-		function on_uninstall() {
+		static function on_uninstall() {
 
 			new Ithemes_BWPS_Setup( 'uninstall' );
 
@@ -116,7 +116,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 * Public function to upgrade
 		 *
 		 **/
-		function on_upgrade() {
+		static function on_upgrade() {
 
 			new Ithemes_BWPS_Setup( 'upgrade' );
 
