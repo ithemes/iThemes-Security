@@ -28,7 +28,6 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 
 			add_filter( 'foolic_validation_include_css-' . $bwps_globals['plugin_hook'], array( $this, 'include_foolic_css' ) );
 			add_filter( 'foolic_validation_input_type-' . $bwps_globals['plugin_hook'], array( $this, 'change_foolic_input_type' ) );
-			add_filter( 'foolic_validation_input_size-' . $bwps_globals['plugin_hook'], array( $this, 'change_foolic_input_size' ) );
 			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', $bwps_globals['plugin_hook'] );
 			add_action( 'wp_ajax_' . $bwps_globals['plugin_hook'] . '_support', array( $this, 'ajax_submit_ticket' ) );
 
@@ -80,16 +79,6 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 		}
 
 		/**
-		 * Field size for support key field
-		 *
-		 * @return string field size for support key
-		 */
-		function change_foolic_input_size() {
-
-			return '29';
-		}
-
-		/**
 		 * Build and echo the content sidebar metabox
 		 *
 		 * @return void
@@ -107,18 +96,21 @@ if ( ! class_exists( 'BWPS_Foo_Support' ) ) {
 			}
 
 			if ( $data['valid'] === 'valid' ) {
+
 				$content = '<form id="support_form">';
-				$content .= '<input type="hidden" name="action" value="' . $bwps_globalss['plugin_hook'] . '_support" />';
-				$content .= '<input type="hidden" name="nonce" value="' . wp_create_nonce( $bwps_globals['plugin_hook'] . '_ajax-nonce' ) . '" />';
+				$content .= '<input type="hidden" name="action" value="' . $this->hook . '_support" />';
+				$content .= '<input type="hidden" name="nonce" value="' . wp_create_nonce($this->hook . '_ajax-nonce') . '" />';
 				$content .= '<input type="hidden" name="ticket_key" value="' . $data['license'] . '" />';
-				$content .= '<label for="support_issue">' . __( 'Describe the Issue', 'better_wp_security' ) . ':</label><textarea name="issue" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_issue"></textarea>';
-				$content .= '<label for="support_reproduce">' . __( 'Steps to Reproduce', 'better_wp_security' ) . ':</label><textarea name="reproduce" style="height:200px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_reproduce"></textarea>';
-				$content .= '<label for="support_other">' . __( 'Other Information', 'better_wp_security' ) . ':</label><textarea name="other" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_other"></textarea><br />';
-				$content .= '<input id="submit_support" type="button" class="button-primary" value="' . __( 'Submit Support Ticket', 'better_wp_security' ) . '" /><br />';
+				$content .= '<label for="support_email">' . __( 'Your Email Address', $this->hook ). ':</label><input type="text" name="email" value="' . $current_user->user_email . '" id="support_email">';
+				$content .= '<label for="support_name">' . __( 'Your Name', $this->hook ). ':</label><input type="text" name="name" value="' . $current_user->display_name . '" id="support_name">';
+				$content .= '<label for="support_issue">' . __( 'Describe the Issue', $this->hook ). ':</label><textarea name="issue" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_issue"></textarea>';
+				$content .= '<label for="support_reproduce">' . __( 'Steps to Reproduce', $this->hook ). ':</label><textarea name="reproduce" style="height:200px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_reproduce"></textarea>';
+				$content .= '<label for="support_other">' . __( 'Other Information', $this->hook ). ':</label><textarea name="other" style="height:100px; display:block; width:100%; border:solid 1px #aaa;" class="regular-text" id="support_other"></textarea><br />';
+				$content .= '<input id="submit_support" type="button" class="button-primary" value="' . __( 'Submit Support Ticket', $this->hook ) . '" /><br />';
 				$content .= '<br /></form>';
-				$content .= '<div style="display:none" class="support_message foolic-loading"><p>' . __( 'sending support request...', 'better_wp_security' ) . '</p></div>';
-				$content .= '<a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase priority support', 'better_wp_security' ) . '</a>';
-				$content .= ' | <a href="#newkey" class="foolic-clear-' . $bwps_globals['plugin_hook'] . '">' . __( 'Enter License Key', 'better_wp_security' ) . '</a>';
+				$content .= '<div style="display:none" class="support_message foolic-loading"><p>' . __( 'sending...', $this->hook ). '</p></div>';
+				$content .= '<a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase priority support', $this->hook ) . '</a>';
+				$content .= ' | <a href="#newkey" class="foolic-clear-' . $this->hook . '">' . __( 'Enter License Key', $this->hook ) . '</a>';
 				$content .= $data['nonce'];
 
 			} else {
