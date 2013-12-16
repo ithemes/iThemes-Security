@@ -30,12 +30,6 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( $bwps_globals['plugin_hook'] . '_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
-
-			//manually save options on multisite
-			if ( is_multisite() ) {
-				add_action( 'network_admin_edit_bwps_content_directory', array( $this, 'save_network_options' ) ); //save multisite options
-			}
-
 		}
 
 		/**
@@ -131,10 +125,19 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 
 			//Enabled section
 			add_settings_section(
-				'content_directory_enabled',
-				__( 'Configure Away Mode', 'better_wp_security' ),
+				'content_directory_name',
+				__( 'Rename Content Directory', 'better_wp_security' ),
 				array( $this, 'sandbox_general_options_callback' ),
 				'security_page_toplevel_page_bwps-content_directory'
+			);
+
+			//enabled field
+			add_settings_field(
+				'bwps_content_directory[name]',
+				__( 'Content Directory Name', 'better_wp_security' ),
+				array( $this, 'content_directory_name' ),
+				'security_page_toplevel_page_bwps-content_directory',
+				'content_directory_name'
 			);
 
 			//Register the settings field for the entire module
@@ -163,7 +166,7 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 		 *
 		 * @return void
 		 */
-		public function content_directory_enabled( $args ) {
+		public function content_directory_name( $args ) {
 
 			//disable the option if away mode is in the past
 			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 && ( $this->settings['type'] == 1 || ( $this->settings['end'] > current_time( 'timestamp' ) || $this->settings['type'] === 2 ) ) ) {
@@ -172,175 +175,8 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 				$enabled = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_content_directory_enabled" name="bwps_content_directory[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="bwps_content_directory_enabled"> ' . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos End date field
-		 *
-		 * @param  array $args field arguements
-		 *
-		 * @return void
-		 */
-		public function content_directory_end_date( $args ) {
-
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
-				$end = $this->settings['end'];
-			} else {
-				$end = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
-			}
-
-			//Date Field
-			$content = '<input class="end_date_field" type="text" id="bwps_content_directory_end_date" name="bwps_content_directory[end][date]" value="' . date( 'm/d/y', $end ) . '"/>';
-			$content .= '<label class="end_date_field" for="bwps_content_directory_end_date"> ' . __( 'Set the date at which the admin dashboard should become available', 'better_wp_security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos End time field
-		 *
-		 * @param  array $args field arguements
-		 *
-		 * @return void
-		 */
-		public function content_directory_end_time( $args ) {
-
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['end'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
-				$end = $this->settings['end'];
-			} else {
-				$end = strtotime( date( 'n/j/y 6:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
-			}
-
-			//Hour Field
-			$content = '<select name="bwps_content_directory[end][hour]" id="bwps_away_mod_end_time">';
-
-			for ( $i = 1; $i <= 12; $i ++ ) {
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $end ), $i, false ) . '>' . $i . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//Minute Field
-			$content .= '<select name="bwps_content_directory[end][minute]" id="bwps_away_mod_end_time">';
-
-			for ( $i = 0; $i <= 59; $i ++ ) {
-
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'i', $end ), sprintf( '%02d', $i ), false ) . '>' . sprintf( '%02d', $i ) . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//AM/PM Field
-			$content .= '<select name="bwps_content_directory[end][sel]" id="bwps_away_mod_end_time">';
-			$content .= '<option value="am" ' . selected( date( 'a', $end ), 'am', false ) . '>' . __( 'am', 'better_wp_security' ) . '</option>';
-			$content .= '<option value="pm" ' . selected( date( 'a', $end ), 'pm', false ) . '>' . __( 'pm', 'better_wp_security' ) . '</option>';
-			$content .= '</select>';
-			$content .= '<label for="bwps_away_mod_end_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'better_wp_security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Start date field
-		 *
-		 * @param  array $args field arguements
-		 *
-		 * @return void
-		 */
-		public function content_directory_start_date( $args ) {
-
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['start'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
-				$start = $this->settings['start'];
-			} else {
-				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
-			}
-
-			//Date Field
-			$content = '<input class="start_date_field" type="text" id="bwps_content_directory_start_date" name="bwps_content_directory[start][date]" value="' . date( 'm/d/y', $start ) . '"/>';
-			$content .= '<label class="start_date_field" for="bwps_content_directory_start_date"> ' . __( 'Set the date at which the admin dashboard should become unavailable', 'better_wp_security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Start time field
-		 *
-		 * @param  array $args field arguements
-		 *
-		 * @return void
-		 */
-		public function content_directory_start_time( $args ) {
-
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['start'] ) && isset( $this->settings['enabled'] ) && $current < $this->settings['end'] ) {
-				$start = $this->settings['start'];
-			} else {
-				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
-			}
-
-			//Hour Field
-			$content = '<select name="bwps_content_directory[start][hour]" id="bwps_away_mod_start_time">';
-
-			for ( $i = 1; $i <= 12; $i ++ ) {
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $start ), $i, false ) . '>' . $i . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//Minute Field
-			$content .= '<select name="bwps_content_directory[start][minute]" id="bwps_away_mod_start_time">';
-
-			for ( $i = 0; $i <= 59; $i ++ ) {
-
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'i', $start ), sprintf( '%02d', $i ), false ) . '>' . sprintf( '%02d', $i ) . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//AM/PM Field
-			$content .= '<select name="bwps_content_directory[start][sel]" id="bwps_away_mod_start_time">';
-			$content .= '<option value="am" ' . selected( date( 'a', $start ), 'am', false ) . '>' . __( 'am', 'better_wp_security' ) . '</option>';
-			$content .= '<option value="pm" ' . selected( date( 'a', $start ), 'pm', false ) . '>' . __( 'pm', 'better_wp_security' ) . '</option>';
-			$content .= '</select>';
-			$content .= '<label for="bwps_away_mod_start_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'better_wp_security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos type Field
-		 *
-		 * @param  array $args field arguements
-		 *
-		 * @return void
-		 */
-		public function content_directory_type( $args ) {
-
-			$content = '<select name="bwps_content_directory[type]" id="bwps_content_directory_type">';
-			$content .= '<option value="1" ' . selected( $this->settings['type'], 1, false ) . '>' . __( 'Daily', 'better_wp_security' ) . '</option>';
-			$content .= '<option value="2" ' . selected( $this->settings['type'], 2, false ) . '>' . __( 'One Time', 'better_wp_security' ) . '</option>';
-			$content .= '</select>';
-			$content .= '<label for="bwps_content_directory_type"> ' . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';
+			$content = '<input type="text" id="bwps_content_directory_name" name="bwps_content_directory[name]" value="wp-content"/><br />';
+			$content .= '<label for="bwps_content_directory_name"> ' . __( 'Enter a new directory name to replace "wp-content." You may need to log in again after performing this operation.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -406,6 +242,8 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
+			die( var_dump( $input ) );
+
 			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
 
 			$input['type'] = intval( $input['type'] == 1 ? 1 : 2 );
@@ -468,30 +306,7 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 		}
 
 		/**
-		 * Prepare and save options in network settings
-		 *
-		 * @return void
-		 */
-		public function save_network_options() {
-
-			if ( isset( $_POST['bwps_content_directory']['enabled'] ) ) {
-				$settings['enabled'] = intval( $_POST['bwps_content_directory']['enabled'] == 1 ? 1 : 0 );
-			}
-
-			$settings['type']  = intval( $_POST['bwps_content_directory']['type'] ) === 1 ? 1 : 2;
-			$settings['start'] = strtotime( $_POST['bwps_content_directory']['start']['date'] . ' ' . $_POST['bwps_content_directory']['start']['hour'] . ':' . $_POST['bwps_content_directory']['start']['minute'] . ' ' . $_POST['bwps_content_directory']['start']['sel'] );
-			$settings['end']   = strtotime( $_POST['bwps_content_directory']['end']['date'] . ' ' . $_POST['bwps_content_directory']['end']['hour'] . ':' . $_POST['bwps_content_directory']['end']['minute'] . ' ' . $_POST['bwps_content_directory']['end']['sel'] );
-
-			update_site_option( 'bwps_content_directory', $settings ); //we must manually save network options
-
-			//send them back to the away mode options page
-			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_bwps-content_directory', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
-			exit();
-
-		}
-
-		/**
-		 * Start the Away Mode module
+		 * Start the Content Directory module
 		 *
 		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
 		 *
