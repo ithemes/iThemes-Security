@@ -84,6 +84,7 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 			if ( is_admin() ) {
 				$this->core->build_admin(); 
 			}
+
 			
 		}
 
