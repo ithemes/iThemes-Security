@@ -25,14 +25,25 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		private function __construct( $plugin ) {
 
-			global $bwps_globals;
+			global $bwps_globals, $bwps_lib;
 
 			@ini_set( 'auto_detect_line_endings', true ); //Make certain we're using proper line endings
 
 			$this->plugin = $plugin; //Allow us to access plugin defaults throughout
 
+			//load utility functions
+			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-lib.php' );
+			$bwps_lib = Ithemes_BWPS_Lib::start( $this );
+
 			//load the text domain
 			load_plugin_textdomain( 'better_wp_security', false, $bwps_globals['plugin_dir'] . 'languages' );
+
+			$this->load_modules(); //load all modules
+
+			//builds admin menus after modules are loaded
+			if ( is_admin() ) {
+				$this->build_admin();
+			}
 
 			//require plugin setup information
 			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-setup.php' );
@@ -143,6 +154,36 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 
 			wp_enqueue_style( 'bwps_admin_styles' );
 			do_action( $bwps_globals['plugin_url'] . 'enqueue_admin_styles' );
+
+		}
+
+		/**
+		 * Loads required plugin modules
+		 *
+		 * Note: Do not modify this area other than to specify modules to load.
+		 * Build all functionality into the appropriate module.
+		 *
+		 * @return void
+		 */
+		public function load_modules() {
+
+			global $bwps_globals;
+
+			$modules_folder = $bwps_globals['plugin_dir'] . 'modules';
+
+			$modules = scandir( $modules_folder );
+
+			foreach ( $modules as $module ) {
+
+				$module_folder = $modules_folder . '/' . $module;
+
+				if ( $module !== '.' && $module !== '..' && is_dir( $module_folder ) && file_exists( $module_folder . '/init.php' ) ) {
+
+					require_once( $module_folder . '/init.php' );
+
+				}
+
+			}
 
 		}
 

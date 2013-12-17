@@ -41,7 +41,7 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 		 */
 		private function __construct() {
 
-			global $bwps_globals, $bwps_lib;
+			global $bwps_globals;
 
 			$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
 
@@ -72,47 +72,6 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 			//load core functionality for admin use
 			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-core.php' );
 			$this->core = Ithemes_BWPS_Core::start( $this );
-
-			//load utility functions
-			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-lib.php' );
-			$bwps_lib = Ithemes_BWPS_Lib::start( $this->core );
-
-			//load modules
-			$this->load_modules();
-
-			//builds admin menus after modules are loaded
-			if ( is_admin() ) {
-				$this->core->build_admin(); 
-			}
-
-			
-		}
-
-		/**
-		 * Loads required plugin modules
-		 *
-		 * Note: Do not modify this area other than to specify modules to load. 
-		 * Build all functionality into the appropriate module.
-		 * 
-		 * @return void
-		 */
-		public function load_modules() {
-
-			$modules_folder = dirname( __FILE__ ) . '/modules';
-
-			$modules = scandir( $modules_folder );
-
-			foreach ( $modules as $module ) {
-
-				$module_folder = $modules_folder . '/' . $module;
-
-				if ( $module !== '.' && $module !== '..' && is_dir( $module_folder ) && file_exists( $module_folder . '/init.php' ) ) {
-
-					require_once( $module_folder . '/init.php' );
-
-				}
-
-			}
 			
 		}
 
