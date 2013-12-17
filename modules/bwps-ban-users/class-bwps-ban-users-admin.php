@@ -386,11 +386,11 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			global $bwps_utilities;
+			global $bwps_lib;
 
 			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
 
-			$ips = $bwps_utilities->validate_bad_hosts( $input['host_list'], true );
+			$ips = $bwps_lib->validate_bad_hosts( $input['host_list'], true );
 
 			if ( is_wp_error( $ips ) ) {
 

@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'Ithemes_BWPS_Utilities' ) ) {
+if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
-	final class Ithemes_BWPS_Utilities {
+	final class Ithemes_BWPS_Lib {
 
 		private static $instance = NULL; //instantiated instance of this plugin
 
@@ -241,11 +241,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Utilities' ) ) {
 		}
 
 		/**
-		 * Start the global utilities instance
+		 * Start the global library instance
 		 *
 		 * @param  [plugin_class]  $plugin       Instance of main plugin class
 		 *
-		 * @return Ithemes_BWPS_Utilities          The instance of the Ithemes_BWPS_Utilities class
+		 * @return Ithemes_BWPS_Lib          The instance of the Ithemes_BWPS_Lib class
 		 */
 		public static function start( $plugin ) {
 

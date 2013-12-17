@@ -226,7 +226,7 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 		 */
 		public function process_directory() {
 
-			global $bwps_utilities;
+			global $bwps_lib;
 
 			$dir_name = sanitize_file_name( $_POST['name'] );
 
@@ -246,9 +246,9 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 
 			} else { //process the name change
 
-				if ( $bwps_utilities->get_lock() ) {
+				if ( $bwps_lib->get_lock() ) {
 
-					$config = $bwps_utilities->get_config();
+					$config = $bwps_lib->get_config();
 
 					if ( ! $f = @fopen( $config, 'a+' ) ) { //make sure we can open the file for writing
 
@@ -325,7 +325,7 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 
 					$this->settings = true;
 
-					$bwps_utilities->release_lock();
+					$bwps_lib->release_lock();
 
 				}
 

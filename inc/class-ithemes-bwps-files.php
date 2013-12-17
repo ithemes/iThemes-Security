@@ -198,7 +198,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 		public function write_htaccess( $rule, $action ) {
 
-			global $bwps_utilities;
+			global $bwps_lib;
 
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
 
@@ -216,7 +216,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			// get the upload directory and make a test.txt file
 			$upload_dir  = wp_upload_dir();
 			$filename    = trailingslashit( $upload_dir['path'] ) . 'test.txt';
-			$config_file = $bwps_utilities->get_config();
+			$config_file = $bwps_lib->get_config();
 
 			global $wp_filesystem;
 
@@ -258,7 +258,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 		public function write_wp_config() {
 
-			global $bwps_utilities;
+			global $bwps_lib;
 
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
 
@@ -276,7 +276,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				return false;
 			}
 
-			$config_file = $bwps_utilities->get_config();
+			$config_file = $bwps_lib->get_config();
 
 			global $wp_filesystem;
 

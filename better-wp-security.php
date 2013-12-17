@@ -41,7 +41,7 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 		 */
 		private function __construct() {
 
-			global $bwps_globals, $bwps_utilities;
+			global $bwps_globals, $bwps_lib;
 
 			$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
 
@@ -74,8 +74,8 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 			$this->core = Ithemes_BWPS_Core::start( $this );
 
 			//load utility functions
-			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-utilities.php' );
-			$bwps_utilities = Ithemes_BWPS_Utilities::start( $this->core );
+			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-lib.php' );
+			$bwps_lib = Ithemes_BWPS_Lib::start( $this->core );
 
 			//load modules
 			$this->load_modules();

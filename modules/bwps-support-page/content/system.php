@@ -1,14 +1,14 @@
 <?php 
-	global $bwps_utilities, $wpdb; 
-	$config_file = $bwps_utilities->get_config();
-	$htaccess = $bwps_utilities->get_htaccess();
+	global $bwps_lib, $wpdb;
+	$config_file = $bwps_lib->get_config();
+	$htaccess = $bwps_lib->get_htaccess();
 ?>
 
 <ul>
 	<li>
 		<h4><?php _e( 'User Information', 'better-wp-security' ); ?></h4>
 		<ul>
-			<li><?php _e( 'Public IP Address', 'better-wp-security' ); ?>: <strong><a target="_blank" title="<?php _e( 'Get more information on this address', 'better-wp-security' ); ?>" href="http://whois.domaintools.com/<?php echo $bwps_utilities->get_ip(); ?>"><?php echo $bwps_utilities->get_ip(); ?></a></strong></li>
+			<li><?php _e( 'Public IP Address', 'better-wp-security' ); ?>: <strong><a target="_blank" title="<?php _e( 'Get more information on this address', 'better-wp-security' ); ?>" href="http://whois.domaintools.com/<?php echo $bwps_lib->get_ip(); ?>"><?php echo $bwps_lib->get_ip(); ?></a></strong></li>
 			<li><?php _e( 'User Agent', 'better-wp-security' ); ?>: <strong><?php echo filter_var( $_SERVER['HTTP_USER_AGENT'], FILTER_SANITIZE_STRING ); ?></strong></li>
 		</ul>
 	</li>
