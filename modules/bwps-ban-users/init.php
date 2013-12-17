@@ -1,7 +1,7 @@
 <?php
 
 if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
-	require_once( dirname( __FILE__ ) . '/class-bwps-ban-users-admin.php' );
+	require( dirname( __FILE__ ) . '/class-bwps-ban-users-admin.php' );
 }
 
 BWPS_Ban_Users_Admin::start( $this->core );
