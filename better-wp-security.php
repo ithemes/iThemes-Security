@@ -108,10 +108,6 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-support-page/class-bwps-support-page.php' );
 			BWPS_Support_Page::start( $this->core );
 
-			//load Foo Plugins Support module
-			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-foo-support/class-bwps-foo-support.php' );
-			BWPS_Foo_Support::start( $this->core );
-
 			$modules_folder = dirname( __FILE__ ) . '/modules';
 
 			$modules = scandir( $modules_folder );
