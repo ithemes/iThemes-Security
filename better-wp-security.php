@@ -112,10 +112,6 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-foo-support/class-bwps-foo-support.php' );
 			BWPS_Foo_Support::start( $this->core );
 
-			//load Ban Users Module
-			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-ban-users/class-bwps-ban-users.php' );
-			BWPS_Ban_Users::start( $this->core );
-
 			$modules_folder = dirname( __FILE__ ) . '/modules';
 
 			$modules = scandir( $modules_folder );
