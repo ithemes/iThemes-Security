@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
+if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 
-	class BWPS_Content_Directory {
+	class BWPS_Content_Directory_Admin {
 
 		private static $instance = NULL;
 
@@ -345,7 +345,7 @@ if ( ! class_exists( 'BWPS_Content_Directory' ) ) {
 		 *
 		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
 		 *
-		 * @return BWPS_content_directory                The instance of the BWPS_content_directory class
+		 * @return BWPS_content_directory                The instance of the BWPS_Content_Directory_Admin class
 		 */
 		public static function start( $core ) {
 
