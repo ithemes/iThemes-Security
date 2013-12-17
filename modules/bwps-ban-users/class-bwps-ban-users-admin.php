@@ -9,15 +9,13 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		private
 			$settings,
 			$core,
-			$module,
 			$page;
 
-		private function __construct( $core, $module ) {
+		private function __construct( $core ) {
 
 			global $bwps_globals;
 
 			$this->core     = $core;
-			$this->module	= $module;
 			$this->settings = get_site_option( 'bwps_ban_users' );
 
 			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
@@ -116,7 +114,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			if ( $this->settings['enabled'] === 1 ) {
 
 				$status_array = 'safe-low';
-				$status = array(
+				$status       = array(
 					'text' => __( 'You are blocking known bad hosts and agents with the ban users tool.', 'better_wp_security' ),
 					'link' => $link,
 				);
@@ -124,7 +122,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			} else {
 
 				$status_array = 'low';
-				$status = array(
+				$status       = array(
 					'text' => __( 'You are not blocking any users that are known to be a problem. Consider turning on the Ban Users feature.', 'better_wp_security' ),
 					'link' => $link,
 				);
@@ -252,7 +250,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			//disable the option if away mode is in the past
 			if ( isset( $this->settings['host_list'] ) && is_array( $this->settings['host_list'] ) && sizeof( $this->settings['host_list'] ) >= 1 ) {
 
-				foreach( $this->settings['host_list'] as $host ) {
+				foreach ( $this->settings['host_list'] as $host ) {
 					$default .= $host . PHP_EOL;
 				}
 
@@ -388,9 +386,11 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
+			global $bwps_utilities;
+
 			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
 
-			$ips = $this->module->validate_bad_hosts( $input['host_list'], true );
+			$ips = $bwps_utilities->validate_bad_hosts( $input['host_list'], true );
 
 			if ( is_wp_error( $ips ) ) {
 
@@ -456,14 +456,13 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 * Start the Ban Users module
 		 *
 		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
-		 * @param BWPS_Ban_Users $module Instance of Ban Users Module
 		 *
 		 * @return BWPS_Ban_Users_Admin                The instance of the BWPS_Ban_Users_Admin class
 		 */
-		public static function start( $core, $module ) {
+		public static function start( $core ) {
 
 			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
-				self::$instance = new self( $core, $module );
+				self::$instance = new self( $core );
 			}
 
 			return self::$instance;
