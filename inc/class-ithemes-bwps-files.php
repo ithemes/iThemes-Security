@@ -5,24 +5,31 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 	class Ithemes_BWPS_Files {
 
 		private
-			$htaccess_rules,
-			$wpconfig_lock,
-			$htaccess_lock,
-			$wpconfig_rules;
+			$lock_file,
+			$section_name,
+			$rules,
+			$type;
 
 		/**
 		 * Create and manage wp_config.php
 		 *
 		 */
-		function __construct() {
+		function __construct( $type, $section_name, $rules ) {
 
 			global $bwps_globals;
 
-			$this->wpconfig_lock = trailingslashit( ABSPATH ) . 'bwps_wpconfig.lock';
-			$this->htaccess_lock = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
+			if ( $type  === 'wpconfig' ) {
+				$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_wpconfig.lock';
+				$this->type = 'wpconfig';
+			} elseif ( $type === 'htaccess' ) {
+				$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
+				$this->type = 'htaccess';
+			} else {
+				return new WP_Error( 'writing_error', __( 'Could not initialize Better WP Security file-writer.', 'better-wp-security' ) );
+			}
 
-			$this->wpconfig_rules = array();
-			$this->htaccess_rules = array();
+			$this->section_name = $section_name;
+			$this->rules = $rules;
 
 			$this->wpconfig_rules = apply_filters( $bwps_globals['plugin_hook'] . '_wp_config_rules', $this->rules );
 
