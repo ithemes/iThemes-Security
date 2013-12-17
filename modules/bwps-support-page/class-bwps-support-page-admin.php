@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Support_Page' ) ) {
+if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
 
-	class BWPS_Support_Page {
+	class BWPS_Support_Page_Admin {
 
 		private static $instance = NULL;
 
@@ -105,7 +105,7 @@ if ( ! class_exists( 'BWPS_Support_Page' ) ) {
 		 *
 		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
 		 *
-		 * @return BWPS_Support                The instance of the BWPS_Support class
+		 * @return BWPS_Support_Page_Admin                The instance of the BWPS_Support_Page_Admin class
 		 */
 		public static function start( $core ) {
 
