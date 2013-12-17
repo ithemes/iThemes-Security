@@ -24,7 +24,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Utilities' ) ) {
 			$this->lock_file = trailingslashit( ABSPATH ) . 'config.lock';
 
 			//load file utility classes
-			require( dirname( __FILE__ ) . '/class-ithemes-bwps-wpconfig.php' );
+			require( dirname( __FILE__ ) . '/class-ithemes-bwps-files.php' );
 
 		}
 

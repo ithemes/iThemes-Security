@@ -1,12 +1,14 @@
 <?php
 
-if ( ! class_exists( 'Ithemes_BWPS_WPConfig' ) ) {
+if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
-	class Ithemes_BWPS_WPConfig {
+	class Ithemes_BWPS_Files {
 
 		private
-			$rule_open = '//BEGIN Better WP Security',
-			$rule_close = '//END Better WP Security';
+			$wpconfig_open	= '//BEGIN Better WP Security',
+			$wpconfig_close = '//END Better WP Security',
+			$htaccess_open	= '#BEGIN Better WP Security',
+			$htaccess_close	= '#END Better WP Security';
 
 		public
 			$rules;
@@ -28,7 +30,7 @@ if ( ! class_exists( 'Ithemes_BWPS_WPConfig' ) ) {
 
 			if ( $bwps_utilities->get_lock() === true ) {
 
-				if ( $this->write_config() === true ) {
+				if ( $this->write_wp_config() === true ) {
 
 					$bwps_utilities->release_lock();
 
@@ -46,6 +48,38 @@ if ( ! class_exists( 'Ithemes_BWPS_WPConfig' ) ) {
 
 		}
 
+		private function build_htaccess( $rule, $config_contents, $action ) {
+
+			if ( $action === true && strpos( $config_contents, $rule ) === false ) { //if we're adding the rule and it isn't already there
+
+				if ( strpos( $config_contents, '// Added by Better WP Security' ) === false ) { //if there are other Better WP Security rules already present
+
+					$config_contents = str_replace( '<?php', '<?php' . PHP_EOL . '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL, $config_contents );
+
+				} else {
+
+					$config_contents = str_replace( '// Added by Better WP Security', '// Added by Better WP Security' . PHP_EOL . $rule, $config_contents );
+
+				}
+
+			} elseif ( $action === false ) { //we're deleting a rule
+
+				if ( strpos( $config_contents, $rule ) === false ) { //it's already been deleted
+
+					return false;
+
+				} else {
+
+					$config_contents = str_replace( $rule . PHP_EOL, '', $config_contents );
+
+				}
+
+			}
+
+			return $config_contents;
+
+		}
+
 		/**
 		 * Returns or echos all wp-config.php rules
 		 *
@@ -53,7 +87,7 @@ if ( ! class_exists( 'Ithemes_BWPS_WPConfig' ) ) {
 		 *
 		 * @return mixed rules string if present, false if not, nothing if echoed
 		 */
-		public function show_all_rules( $echo = false ) {
+		public function build_wp_config( $echo = false ) {
 
 			global $saved_rules;
 
@@ -73,7 +107,7 @@ if ( ! class_exists( 'Ithemes_BWPS_WPConfig' ) ) {
 
 			$has_rules = false; //whether there are any rules to return
 
-			$rules = $this->rule_open . PHP_EOL;
+			$rules = $this->wpconfig_open . PHP_EOL;
 
 			foreach ( $this->rules as $action ) {
 
@@ -86,7 +120,7 @@ if ( ! class_exists( 'Ithemes_BWPS_WPConfig' ) ) {
 
 			}
 
-			$rules .= $this->rule_close;
+			$rules .= $this->wpconfig_close;
 
 			if ( $has_rules === false ) { //there are no rules to write
 
@@ -104,7 +138,67 @@ if ( ! class_exists( 'Ithemes_BWPS_WPConfig' ) ) {
 
 		}
 
-		public function write_config() {
+		public function write_htaccess( $rule, $action ) {
+
+			global $bwps_utilities;
+
+			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
+
+			if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $form_fields ) ) ) {
+				return true; // stop the normal page form from displaying
+			}
+
+			if ( ! WP_Filesystem( $creds ) ) {
+				// our credentials were no good, ask the user for them again
+				request_filesystem_credentials( $url, $method, true, false, $form_fields );
+
+				return true;
+			}
+
+			// get the upload directory and make a test.txt file
+			$upload_dir  = wp_upload_dir();
+			$filename    = trailingslashit( $upload_dir['path'] ) . 'test.txt';
+			$config_file = $bwps_utilities->get_config();
+
+			global $wp_filesystem;
+
+			if ( $wp_filesystem->exists( $config_file ) ) { //check for existence
+
+				$config_contents = $wp_filesystem->get_contents( $config_file );
+
+				if ( ! $config_contents ) {
+					return new WP_Error( 'reading_error', __( 'Error when reading wp-config.php', 'better-wp-security' ) ); //return error object
+				} else {
+
+					if ( is_array( $rule ) ) {
+
+						foreach ( $rule as $single_rule ) {
+
+							$config_contents = $this->build_rules( $single_rule, $config_contents, $action );
+
+						}
+
+					} else {
+
+						$config_contents = $this->build_rules( $rule, $config_contents, $action );
+
+					}
+
+				}
+
+			}
+
+			if ( $config_contents !== false ) {
+
+				if ( ! $wp_filesystem->put_contents( $config_file, $config_contents, FS_CHMOD_FILE ) ) {
+					return new WP_Error( 'writing_error', __( 'Error when writing wp-config.php', 'better-wp-security' ) ); //return error object
+				}
+
+			}
+
+		}
+
+		public function write_wp_config() {
 
 			global $bwps_utilities;
 
@@ -146,7 +240,7 @@ if ( ! class_exists( 'Ithemes_BWPS_WPConfig' ) ) {
 
 					}
 
-					$rules = $this->show_all_rules();
+					$rules = $this->build_wp_config();
 
 					if ( $rules !== false ) {
 
