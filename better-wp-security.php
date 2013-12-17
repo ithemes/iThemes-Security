@@ -112,10 +112,6 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-foo-support/class-bwps-foo-support.php' );
 			BWPS_Foo_Support::start( $this->core );
 
-			//load Away Mode Module
-			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-away-mode/class-bwps-away-mode.php' );
-			BWPS_Away_Mode::start( $this->core );
-
 			//load Ban Users Module
 			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-ban-users/class-bwps-ban-users.php' );
 			BWPS_Ban_Users::start( $this->core );
@@ -123,6 +119,23 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 			//load Content Directory Module
 			require_once( $bwps_globals['plugin_dir'] . 'modules/bwps-content-directory/class-bwps-content-directory.php' );
 			BWPS_Content_Directory::start( $this->core );
+
+
+			$modules_folder = dirname( __FILE__ ) . '/modules';
+
+			$modules = scandir( $modules_folder );
+
+			foreach ( $modules as $module ) {
+
+				$module_folder = $modules_folder . '/' . $module;
+
+				if ( $module !== '.' && $module !== '..' && is_dir( $module_folder ) && file_exists( $module_folder . '/init.php' ) ) {
+
+					require_once( $module_folder . '/init.php' );
+
+				}
+
+			}
 			
 		}
 
