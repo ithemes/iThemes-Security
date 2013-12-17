@@ -47,6 +47,7 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 
 			//Set plugin defaults
 			$bwps_globals = array(
+				'paypal_id'				=> 'V647NGJSBC882', //Paypal ID for plugin donations
 				'plugin_build'			=> 4001, //plugin build number - used to trigger updates
 				'plugin_file'			=> __FILE__, //the main plugin file
 				'plugin_access_lvl' 	=> 'manage_options', //Access level required to access plugin options
@@ -56,8 +57,10 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 				'plugin_name' 			=> __( 'Better WP Security', 'better_wp_security' ), //the name of the plugin
 				'plugin_url' 			=> plugin_dir_url( __FILE__ ), //the URL of the plugin directory
 				'support_page' 			=> 'http://wordpress.org/support/plugin/better-wp-security/', //address of the WordPress support forums for the plugin
+				'support_email'			=> 'support.bwps@fooplugins.com', //Email address support forms should be sent to
 				'wordpress_page'		=> 'http://wordpress.org/extend/plugins/better-wp-security/', //plugin's page in the WordPress.org Repos
 				'upload_dir'			=> $upload_dir['basedir'], // the upload directory for the WordPress installation
+				'website_feed'			=> 'http://ithemes.com/blog/feed/',//Feed from plugin homepage
 			);
 
 			$this->top_level_menu = true; //true if top level menu, else false

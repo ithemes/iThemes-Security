@@ -13,14 +13,15 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 
 		private static $instance = NULL;
 
-		private $support_email = 'support.bwps@fooplugins.com'; //current email address of iThemes support
-
 		private
-			$core;
+			$core,
+			$support_email;
 
 		private function __construct( $core ) {
 
 			global $bwps_globals;
+
+			$this->support_email = $bwps_globals['support_email'];
 
 			$this->core = $core;
 

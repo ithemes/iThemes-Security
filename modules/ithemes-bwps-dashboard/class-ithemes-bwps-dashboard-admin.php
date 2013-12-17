@@ -14,7 +14,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 		private
 			$core,
 			$feed,
-			$paypal_code;
+			$paypal_id;
 
 		private function __construct( $core ) {
 
@@ -22,8 +22,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 			$this->core = $core;
 
-			$this->paypal_code = 'V647NGJSBC882';
-			$this->feed        = 'http://ithemes.com/blog/feed/';
+			$this->paypal_id = $bwps_globals['paypal_id'];
+			$this->feed        = $bwps_globals['website_feed'];
 
 			//add sharing reminder
 			add_action( 'admin_init', array( $this, 'share_reminder' ) );
@@ -210,7 +210,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 			global $bwps_globals;
 
 			$content = __( 'Have you found this plugin useful? Please help support it\'s continued development with a donation of $20, $50, or even $100.', 'better_wp_security' );
-			$content .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="' . $this->paypal_code . '"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
+			$content .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="' . $this->paypal_id . '"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
 			$content .= '<p>' . __( 'Short on funds?', 'better_wp_security' ) . '</p>';
 			$content .= '<ul>';
 			$content .= '<li><a href="' . $bwps_globals['wordpress_page'] . '" target="_blank">' . sprintf( __( 'Rate %s 5★\'s on WordPress.org', 'better_wp_security' ), $bwps_globals['plugin_name'] ) . '</a></li>';
