@@ -5,40 +5,38 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 	class Ithemes_BWPS_Files {
 
 		private
-			$wpconfig_open	= '//BEGIN Better WP Security',
-			$wpconfig_close = '//END Better WP Security',
-			$htaccess_open	= '#BEGIN Better WP Security',
-			$htaccess_close	= '#END Better WP Security';
-
-		public
-			$rules;
+			$htaccess_rules,
+			$wpconfig_lock,
+			$htaccess_lock,
+			$wpconfig_rules;
 
 		/**
 		 * Create and manage wp_config.php
 		 *
-		 * @param  [plugin_class]      $plugin       Instance of main plugin class
-		 * @param  String|array $rule   The rule to be added or removed
-		 * @param  bool         $action true for add, false for delete
 		 */
 		function __construct() {
 
-			global $bwps_globals, $bwps_utilities;
+			global $bwps_globals;
 
-			$this->rules = array();
+			$this->wpconfig_lock = trailingslashit( ABSPATH ) . 'bwps_wpconfig.lock';
+			$this->htaccess_lock = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
 
-			$this->rules = apply_filters( $bwps_globals['plugin_hook'] . '_wp_config_rules', $this->rules );
+			$this->wpconfig_rules = array();
+			$this->htaccess_rules = array();
 
-			if ( $bwps_utilities->get_lock() === true ) {
+			$this->wpconfig_rules = apply_filters( $bwps_globals['plugin_hook'] . '_wp_config_rules', $this->rules );
+
+			if ( $this->get_lock( 'wpconfig' ) === true ) {
 
 				if ( $this->write_wp_config() === true ) {
 
-					$bwps_utilities->release_lock();
+					$this->release_lock( 'wpconfig' );
 
 					return true;
 
 				} else {
 
-					$bwps_utilities->release_lock();
+					$this->release_lock( 'wpconfig' );
 
 				}
 
@@ -135,6 +133,66 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				return $rules;
 
 			}
+
+		}
+
+		/**
+		 * Attempt to get a lock for atomic operations
+		 *
+		 * @param string $type [htaccess] type of lock: htaccess or wpconfig
+		 *
+		 * @return bool true if lock was achieved, else false
+		 */
+		public function get_lock( $type = 'htaccess' ) {
+
+			if ( $type === 'htaccess' ) {
+				$lock_file = $this->htaccess_lock;
+			} elseif ( $type === 'wpconfig' ) {
+				$lock_file = $this->wpconfig_lock;
+			} else {
+				return false;
+			}
+
+			if ( file_exists( $lock_file ) ) {
+
+				$pid = @file_get_contents( $lock_file );
+
+				if ( @posix_getsid( $pid ) !== false ) {
+
+					return false; //file is locked for writing
+
+				}
+
+			}
+
+			@file_put_contents( $lock_file, getmypid() );
+
+			return true; //file lock was achieved
+
+		}
+
+		/**
+		 * Release the lock
+		 *
+		 * @param string $type [htaccess] type of lock: htaccess or wpconfig
+		 *
+		 * @return bool true if released, false otherwise
+		 */
+		public function release_lock( $type = 'htaccess' ) {
+
+			if ( $type === 'htaccess' ) {
+				$lock_file = $this->htaccess_lock;
+			} elseif ( $type === 'wpconfig' ) {
+				$lock_file = $this->wpconfig_lock;
+			} else {
+				return false;
+			}
+
+			if ( ! file_exists( $lock_file ) || @unlink( $lock_file ) ) {
+				return true;
+			}
+
+			return false;
 
 		}
 

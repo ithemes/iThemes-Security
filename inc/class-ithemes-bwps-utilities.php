@@ -6,11 +6,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Utilities' ) ) {
 
 		private static $instance = NULL; //instantiated instance of this plugin
 
-		public
-			$plugin;
-
 		private
-			$lock_file;
+			$plugin;
 
 		/**
 		 * Loads core functionality across both admin and frontend.
@@ -51,32 +48,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Utilities' ) ) {
 		}
 
 		/**
-		 * Attempt to get a lock for atomic operations
-		 *
-		 *
-		 * @return bool true if lock was achieved, else false
-		 */
-		public function get_lock() {
-
-			if ( file_exists( $this->lock_file ) ) {
-
-				$pid = @file_get_contents( $this->lock_file );
-
-				if ( @posix_getsid( $pid ) !== false ) {
-
-					return false; //file is locked for writing
-
-				}
-
-			}
-
-			@file_put_contents( $this->lock_file, getmypid() );
-
-			return true; //file lock was achieved
-
-		}
-
-		/**
 		 * Determine whether we're on the login page or not
 		 *
 		 * @return bool true if is login page else false
@@ -84,22 +55,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Utilities' ) ) {
 		public function is_login_page() {
 
 			return in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) );
-
-		}
-
-		/**
-		 * Release the lock
-		 *
-		 *
-		 * @return bool true if released, false otherwise
-		 */
-		public function release_lock() {
-
-			if ( @unlink( $this->lock_file ) ) {
-				return true;
-			}
-
-			return false;
 
 		}
 
