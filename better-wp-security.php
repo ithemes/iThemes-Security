@@ -98,12 +98,6 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 		 */
 		public function load_modules() {
 
-			global $bwps_globals;
-
-			//load BWPS Dashboard module
-			require_once( $bwps_globals['plugin_dir'] . 'modules/ithemes-bwps-dashboard/class-ithemes-bwps-dashboard.php' );
-			Ithemes_BWPS_Dashboard::start( $this->core );
-
 			$modules_folder = dirname( __FILE__ ) . '/modules';
 
 			$modules = scandir( $modules_folder );

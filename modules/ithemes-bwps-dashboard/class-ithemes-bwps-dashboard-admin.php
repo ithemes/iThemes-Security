@@ -5,9 +5,9 @@
  * @version 1.0
  */
 
-if ( ! class_exists( 'Ithemes_BWPS_Dashboard' ) ) {
+if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
-	class Ithemes_BWPS_Dashboard {
+	class Ithemes_BWPS_Dashboard_Admin {
 
 		private static $instance = NULL;
 
@@ -386,7 +386,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard' ) ) {
 		 *
 		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
 		 *
-		 * @return Ithemes_BWPS_Dashboard            The instance of the Ithemes_BWPS_Dashboard class
+		 * @return Ithemes_BWPS_Dashboard_Admin            The instance of the Ithemes_BWPS_Dashboard_Admin class
 		 */
 		public static function start( $core ) {
 
