@@ -196,93 +196,26 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 
 			global $bwps_globals;
 
-			//If the plugin admin screen will only appear under options we'll add an options page
-			if ( $this->plugin->top_level_menu === false ) {
+			$this->admin_tabs['bwps'] = $bwps_globals['dashboard_title']; //set a tab for the dashboard
 
-				$this->page_hooks[] = add_options_page(
-					$bwps_globals['plugin_name'],
-					$this->plugin->menu_name,
-					$bwps_globals['plugin_access_lvl'],
-					$bwps_globals['plugin_hook'],
-					array( $this, 'render_page' )
-				);
+			$this->page_hooks[] = add_menu_page(
+				$bwps_globals['dashboard_title'],
+				$bwps_globals['menu_name'],
+				$bwps_globals['plugin_access_lvl'],
+				$bwps_globals['plugin_hook'],
+				array( $this, 'render_page' ),
+				$bwps_globals['menu_icon']
+			);
 
-			} else { //this plugin wants a top-level admin section
+			$this->page_hooks = apply_filters( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', $this->page_hooks );
 
-				$this->admin_tabs['bwps'] = __( 'Dashboard', 'better_wp_security' ); //set a tab for the dashboard
+			$this->admin_tabs = apply_filters( $bwps_globals['plugin_hook'] . '_add_admin_tabs', $this->admin_tabs );
 
-				//Set default dashboard title to "Dashboard"
-				if ( ! isset( $this->plugin->dashboard_page_name ) || $this->plugin->dashboard_page_name === '' ) {
-					$dashboard_page_name = __( 'Dashboard', 'better_wp_security' );
-				} else {
-					$dashboard_page_name = $this->plugin->dashboard_page_name;
-				}
+			//Make the dashboard is named correctly
+			global $submenu;
 
-				//Set default menu title to "Security"
-				if ( ! isset( $this->plugin->menu_name ) || $this->plugin->menu_name === '' ) {
-					$menu_name = __( 'Security', 'better_wp_security' );
-				} else {
-					$menu_name = $this->plugin->menu_name;
-				}
-
-				//Set default menu icon to an empty string
-				if ( ! isset( $this->plugin->menu_icon ) || $this->plugin->menu_icon === '' ) {
-					$menu_icon = '';
-				} else {
-					$menu_icon = $this->plugin->menu_icon;
-				}
-
-				$this->page_hooks[] = add_menu_page(
-					$dashboard_page_name,
-					$menu_name,
-					$bwps_globals['plugin_access_lvl'],
-					$bwps_globals['plugin_hook'],
-					array( $this, 'render_page' ),
-					$menu_icon
-				);
-
-				if ( $this->plugin->settings_page === true ) {
-
-					if ( ! isset( $this->plugin->settings_page_name ) || $this->plugin->settings_page_name === '' ) {
-						$settings_page_name = __( 'Settings', 'better_wp_security' );
-					} else {
-						$settings_page_name = $this->plugin->settings_page_name;
-					}
-
-					if ( ! isset( $this->plugin->settings_menu_title ) || $this->plugin->settings_menu_title === '' ) {
-						$settings_menu_title = __( 'Settings', 'better_wp_security' );
-					} else {
-						$settings_menu_title = $this->plugin->settings_menu_title;
-					}
-
-					$this->page_hooks[] = add_submenu_page(
-						$bwps_globals['plugin_hook'],
-						$settings_page_name,
-						$settings_menu_title,
-						$bwps_globals['plugin_access_lvl'],
-						$this->page_hooks[0] . '-settings',
-						array( $this, 'render_page' )
-					);
-
-				}
-
-				$this->page_hooks = apply_filters( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', $this->page_hooks );
-
-				$this->admin_tabs = apply_filters( $bwps_globals['plugin_hook'] . '_add_admin_tabs', $this->admin_tabs );
-
-				//Make the dashboard is named correctly
-				global $submenu;
-
-				if ( isset( $this->plugin->dashboard_menu_title ) && $this->plugin->dashboard_menu_title !== '' ) {
-					$dashboard_menu = $this->plugin->dashboard_menu_title;
-				} else {
-					$dashboard_menu = __( 'Dashboard', 'better_wp_security' );
-				}
-
-				if ( isset( $submenu[$bwps_globals['plugin_hook']] ) ) {
-					$submenu[$bwps_globals['plugin_hook']][0][0] = $this->plugin->dashboard_menu_title;
-				}
-
+			if ( isset( $submenu[$bwps_globals['plugin_hook']] ) ) {
+				$submenu[$bwps_globals['plugin_hook']][0][0] = $bwps_globals['dashboard_title'];
 			}
 
 			foreach ( $this->page_hooks as $page_hook ) {

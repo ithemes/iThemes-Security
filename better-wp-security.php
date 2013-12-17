@@ -61,16 +61,10 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 				'wordpress_page'		=> 'http://wordpress.org/extend/plugins/better-wp-security/', //plugin's page in the WordPress.org Repos
 				'upload_dir'			=> $upload_dir['basedir'], // the upload directory for the WordPress installation
 				'website_feed'			=> 'http://ithemes.com/blog/feed/',//Feed from plugin homepage
+				'menu_name'				=> __( 'Security', 'better_wp_security' ), //main menu item name
+				'menu_icon'				=> plugin_dir_url( __FILE__ ) . 'img/shield-small.png', //image icon
+				'dashboard_title'		=> __( 'Dashboard', 'better_wp_security' ), //the name of the dashboard menu item (if different "Dashboard")
 			);
-
-			$this->top_level_menu = true; //true if top level menu, else false
-			$this->menu_name = __( 'Security', 'better_wp_security' ); //main menu item name
-
-			//the following options must only be set if it's a top-level section
-			$this->settings_page = false; //when using top_level menus this will always create a "Dashboard" page. Should it create a settings page as well?
-			$this->menu_icon = $bwps_globals['plugin_url'] . 'img/shield-small.png'; //image icon 
-			$this->dashboard_menu_title = __( 'Dashboard', 'better_wp_security' ); //the name of the dashboard menu item (if different "Dashboard")
-			$this->dashboard_page_name = __( 'Dashboard', 'better_wp_security' ); //page name - appears after plugin name on the dashboard page
 
 			//load core functionality for admin use
 			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-core.php' );
