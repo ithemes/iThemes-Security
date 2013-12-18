@@ -52,7 +52,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			register_uninstall_hook( $bwps_globals['plugin_file'], array( 'Ithemes_BWPS_Setup', 'on_uninstall' ) );
 
 			//Determine if we need to run upgrade scripts
-			$plugin_data = get_option( $bwps_globals['plugin_hook'] . '_data' );
+			$plugin_data = get_option( 'bwps_data' );
 
 			if ( $plugin_data !== false ) { //if plugin data does exist
 
@@ -64,7 +64,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			}
 
 			//save plugin information
-			add_action( $bwps_globals['plugin_hook'] . '_set_plugin_data', array( $this, 'save_plugin_data' ) );
+			add_action( 'bwps_set_plugin_data', array( $this, 'save_plugin_data' ) );
 
 		}
 
@@ -108,7 +108,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			global $bwps_globals;
 
 			wp_register_style( 'bwps_admin_styles', $bwps_globals['plugin_url'] . 'inc/css/ithemes.css' );
-			do_action( $bwps_globals['plugin_hook'] . 'admin_init' ); //execute modules init scripts
+			do_action( 'bwps_admin_init' ); //execute modules init scripts
 
 		}
 
@@ -117,7 +117,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			global $bwps_globals;
 
 			if ( $current == NULL ) {
-				$current = $bwps_globals['plugin_hook'];
+				$current = 'bwps';
 			}
 
 			echo '<div id="icon-themes" class="icon32"><br></div>';
@@ -202,20 +202,20 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 				$bwps_globals['dashboard_title'],
 				$bwps_globals['menu_name'],
 				$bwps_globals['plugin_access_lvl'],
-				$bwps_globals['plugin_hook'],
+				'bwps',
 				array( $this, 'render_page' ),
 				$bwps_globals['menu_icon']
 			);
 
-			$this->page_hooks = apply_filters( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', $this->page_hooks );
+			$this->page_hooks = apply_filters( 'bwps_add_admin_sub_pages', $this->page_hooks );
 
-			$this->admin_tabs = apply_filters( $bwps_globals['plugin_hook'] . '_add_admin_tabs', $this->admin_tabs );
+			$this->admin_tabs = apply_filters( 'bwps_add_admin_tabs', $this->admin_tabs );
 
 			//Make the dashboard is named correctly
 			global $submenu;
 
-			if ( isset( $submenu[$bwps_globals['plugin_hook']] ) ) {
-				$submenu[$bwps_globals['plugin_hook']][0][0] = $bwps_globals['dashboard_title'];
+			if ( isset( $submenu['bwps'] ) ) {
+				$submenu['bwps'][0][0] = $bwps_globals['dashboard_title'];
 			}
 
 			foreach ( $this->page_hooks as $page_hook ) {
@@ -237,7 +237,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 
 			global $bwps_globals;
 
-			do_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', $this->page_hooks );
+			do_action( 'bwps_add_admin_meta_boxes', $this->page_hooks );
 
 			//Set two columns for all plugins using this framework
 			add_screen_option( 'layout_columns', array( 'max' => 2, 'default' => 2 ) );
@@ -313,11 +313,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 						</div>
 
 						<div id="postbox-container-2" class="postbox-container">
-							<?php do_action( $bwps_globals['plugin_hook'] . '_page_top', $screen ); ?>
+							<?php do_action( 'bwps_page_top', $screen ); ?>
 							<?php do_meta_boxes( $screen, 'normal', NULL ); ?>
-							<?php do_action( $bwps_globals['plugin_hook'] . '_page_middle', $screen ); ?>
+							<?php do_action( 'bwps_page_middle', $screen ); ?>
 							<?php do_meta_boxes( $screen, 'advanced', NULL ); ?>
-							<?php do_action( $bwps_globals['plugin_hook'] . '_page_bottom', $screen ); ?>
+							<?php do_action( 'bwps_page_bottom', $screen ); ?>
 						</div>
 
 					</div>
@@ -342,7 +342,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 
 			$save_data = false; //flag to avoid saving data if we don't have to
 
-			$plugin_data = get_site_option( $bwps_globals['plugin_hook'] . '_data' );
+			$plugin_data = get_site_option( 'bwps_data' );
 
 			//Update the build number if we need to
 			if ( ! isset( $plugin_data['build'] ) || ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $bwps_globals['plugin_build'] ) ) {
@@ -358,7 +358,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 
 			//update the options table if we have to
 			if ( $save_data === true ) {
-				update_site_option( $bwps_globals['plugin_hook'] . '_data', $plugin_data );
+				update_site_option( 'bwps_data', $plugin_data );
 			}
 
 		}

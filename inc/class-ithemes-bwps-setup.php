@@ -22,9 +22,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		function __construct( $case = false, $upgrading = false ) {
 
-			//Important, this must be manually set in each plugin
-			$this->hook = 'bwps';
-
 			if ( ! $case ) {
 				die( 'error' );
 			}
@@ -187,7 +184,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			$this->do_modules();
 
-			delete_site_option( $this->hook . '_data' );
+			delete_site_option( 'bwps_data' );
+			delete_site_option( 'bwps_rewrites' );
 
 			if ( function_exists( 'apc_store' ) ) {
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.

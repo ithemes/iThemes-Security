@@ -53,7 +53,6 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 				'plugin_access_lvl' 	=> 'manage_options', //Access level required to access plugin options
 				'plugin_dir' 			=> plugin_dir_path( __FILE__ ), //the path of the plugin directory
 				'plugin_homepage' 		=> 'http://ithemes.com', //The plugins homepage on WordPress.org
-				'plugin_hook'			=> 'bwps', //the hook for text calls and other areas
 				'plugin_name' 			=> __( 'Better WP Security', 'better_wp_security' ), //the name of the plugin
 				'plugin_url' 			=> plugin_dir_url( __FILE__ ), //the URL of the plugin directory
 				'support_page' 			=> 'http://wordpress.org/support/plugin/better-wp-security/', //address of the WordPress support forums for the plugin

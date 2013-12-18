@@ -24,11 +24,11 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 			}
 
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'add_content_directory_intro' ) ); //add page intro and information
-			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
-			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
-			add_filter( $bwps_globals['plugin_hook'] . '_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_action( 'bwps_page_top', array( $this, 'add_content_directory_intro' ) ); //add page intro and information
+			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+			add_filter( 'bwps_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
 		}
 
@@ -44,7 +44,7 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 			$this->page = $available_pages[0] . '-content_directory';
 
 			$available_pages[] = add_submenu_page(
-				$bwps_globals['plugin_hook'],
+				'bwps',
 				__( 'Content Directory', 'better_wp_security' ),
 				__( 'Content Directory', 'better_wp_security' ),
 				$bwps_globals['plugin_access_lvl'],

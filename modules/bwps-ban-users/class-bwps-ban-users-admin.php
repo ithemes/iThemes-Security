@@ -18,14 +18,14 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			$this->core     = $core;
 			$this->settings = get_site_option( 'bwps_ban_users' );
 
-			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'ban_users_intro' ) ); //add page intro and information
+			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_action( 'bwps_page_top', array( $this, 'ban_users_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-			//add_filter( $bwps_globals['plugin_hook'] . '_wp_config_rules', array( $this, 'wp_config_rule' ) ); //build wp_config.php rules
-			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
-			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
-			add_filter( $bwps_globals['plugin_hook'] . '_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			//add_filter( 'bwps_wp_config_rules', array( $this, 'wp_config_rule' ) ); //build wp_config.php rules
+			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+			add_filter( 'bwps_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
@@ -46,7 +46,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			$this->page = $available_pages[0] . '-ban_users';
 
 			$available_pages[] = add_submenu_page(
-				$bwps_globals['plugin_hook'],
+				'bwps',
 				__( 'Ban Users', 'better_wp_security' ),
 				__( 'Ban Users', 'better_wp_security' ),
 				$bwps_globals['plugin_access_lvl'],

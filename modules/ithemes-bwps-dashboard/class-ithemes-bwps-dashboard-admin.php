@@ -29,9 +29,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 			add_action( 'admin_init', array( $this, 'share_reminder' ) );
 
 			//Add admin CSS
-			add_action( $bwps_globals['plugin_hook'] . 'admin_init', array( $this, 'register_admin_css' ) );
+			add_action( 'bwps_admin_init', array( $this, 'register_admin_css' ) );
 
-			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
+			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 
 		}
 
@@ -116,15 +116,15 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 			global $blog_id, $bwps_globals;
 
-			$options = get_site_option( $bwps_globals['plugin_hook'] . '_data' );
+			$options = get_site_option( 'bwps_data' );
 
 			//Gotta make sure this is available when needed
 			global $plugname;
 			global $plughook;
 			global $plugopts;
 			$plugname = $bwps_globals['plugin_name'];
-			$plughook = $bwps_globals['plugin_hook'];
-			$plugopts = admin_url( 'options-general.php?page=' . $bwps_globals['plugin_hook'] );
+			$plughook = 'bwps';
+			$plugopts = admin_url( 'options-general.php?page=bwps' );
 
 			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
 			if ( ! isset( $options['no-nag'] ) && isset( $options['activatestamp'] ) && $options['activatestamp'] < ( current_time( 'timestamp' ) - 2952000 ) ) {
@@ -159,20 +159,20 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 			}
 
 			//if they've clicked a button hide the notice
-			if ( ( isset( $_GET[$bwps_globals['plugin_hook'] . '_share_nag'] ) || isset( $_GET[$bwps_globals['plugin_hook'] . '_lets_rate'] ) || isset( $_GET[$bwps_globals['plugin_hook'] . '_lets_tweet'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], $bwps_globals['plugin_hook'] . '-reminder' ) ) {
+			if ( ( isset( $_GET['bwps_share_nag'] ) || isset( $_GET['bwps_lets_rate'] ) || isset( $_GET['bwps_lets_tweet'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bwps-reminder' ) ) {
 
-				$options           = get_site_option( $bwps_globals['plugin_hook'] . '_data' );
+				$options           = get_site_option( 'bwps_data' );
 				$options['no-nag'] = 1;
-				update_site_option( $bwps_globals['plugin_hook'] . '_data', $options );
+				update_site_option( 'bwps_data', $options );
 				remove_action( 'admin_notices', 'bwps_share_notice' );
 
 				//Go to the WordPress page to let them rate it.
-				if ( isset( $_GET[$bwps_globals['plugin_hook'] . '_lets_rate'] ) ) {
+				if ( isset( $_GET['bwps_lets_rate'] ) ) {
 					wp_redirect( $bwps_globals['wordpress_page'], '302' );
 				}
 
 				//Compose a Tweet
-				if ( isset( $_GET[$bwps_globals['plugin_hook'] . '_lets_tweet'] ) ) {
+				if ( isset( $_GET['bwps_lets_tweet'] ) ) {
 					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $bwps_globals['plugin_name'] . ' for WordPress by @iThemes and you should too - ' . $bwps_globals['plugin_homepage'] ), '302' );
 				}
 
@@ -284,7 +284,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 				'low' => array(),
 			);
 
-			$statuses = apply_filters( $bwps_globals['plugin_hook'] . '_add_dashboard_status', $statuses );
+			$statuses = apply_filters( 'bwps_add_dashboard_status', $statuses );
 
 			if ( isset ( $statuses['high'] ) || isset( $statuses['safe-high'] ) ) {
 

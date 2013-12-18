@@ -16,10 +16,10 @@ if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
 
 			$this->core = $core;
 
-			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( $bwps_globals['plugin_hook'] . '_page_top', array( $this, 'add_support_intro' ) ); //add page intro and information
-			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
-			add_filter( $bwps_globals['plugin_hook'] . '_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_action( 'bwps_page_top', array( $this, 'add_support_intro' ) ); //add page intro and information
+			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 
 		}
 
@@ -35,7 +35,7 @@ if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
 			$this->page = $available_pages[0] . '-support';
 
 			$available_pages[] = add_submenu_page(
-				$bwps_globals['plugin_hook'],
+				'bwps',
 				__( 'Support', 'better_wp_security' ),
 				__( 'Support', 'better_wp_security' ),
 				$bwps_globals['plugin_access_lvl'],

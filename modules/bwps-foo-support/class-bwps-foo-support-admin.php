@@ -25,12 +25,12 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 
 			$this->core = $core;
 
-			add_action( $bwps_globals['plugin_hook'] . '_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
+			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 
-			add_filter( 'foolic_validation_include_css-' . $bwps_globals['plugin_hook'], array( $this, 'include_foolic_css' ) );
-			add_filter( 'foolic_validation_input_type-' . $bwps_globals['plugin_hook'], array( $this, 'change_foolic_input_type' ) );
-			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', $bwps_globals['plugin_hook'] );
-			add_action( 'wp_ajax_' . $bwps_globals['plugin_hook'] . '_support', array( $this, 'ajax_submit_ticket' ) );
+			add_filter( 'foolic_validation_include_css-bwps', array( $this, 'include_foolic_css' ) );
+			add_filter( 'foolic_validation_input_type-bwps', array( $this, 'change_foolic_input_type' ) );
+			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', 'bwps' );
+			add_action( 'wp_ajax_' . 'bwps_support', array( $this, 'ajax_submit_ticket' ) );
 
 		}
 
@@ -90,7 +90,7 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 
 			$purchase_url = 'http://fooplugins.com/plugins/better-wp-security/';
 
-			$data = apply_filters( 'foolic_get_validation_data-' . $bwps_globals['plugin_hook'], false );
+			$data = apply_filters( 'foolic_get_validation_data-bwps', false );
 
 			if ( $data === false ) {
 				return;
@@ -123,7 +123,7 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 
 			$content .= '<script type="text/javascript">
 							jQuery( function( $ ) {
-								$( document ).bind( "foolic-cleared-' . $bwps_globals['plugin_hook'] . '", function() {
+								$( document ).bind( "foolic-cleared-' . 'bwps", function() {
 									window.location.reload();
 								} );
 

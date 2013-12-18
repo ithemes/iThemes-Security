@@ -28,10 +28,10 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				return new WP_Error( 'writing_error', __( 'Could not initialize Better WP Security file-writer.', 'better-wp-security' ) );
 			}
 
+			$this->rules = get_option( 'bwps_rewrites' );
+
 			$this->section_name = $section_name;
 			$this->rules = $rules;
-
-			$this->wpconfig_rules = apply_filters( $bwps_globals['plugin_hook'] . '_wp_config_rules', $this->rules );
 
 			if ( $this->get_lock( 'wpconfig' ) === true ) {
 
