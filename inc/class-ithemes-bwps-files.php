@@ -13,28 +13,42 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		/**
 		 * Create and manage wp_config.php or .htaccess rewrites
 		 *
-		 * @param string $type         type of file to write: htaccess or wpconfig
+		 * @param string $type         type of file to write: htaccess, wpconfig or getrules to just return existing rules
 		 * @param string $section_name name of section or feature of rules
 		 * @param array  $rules        array of rules to write
 		 */
 		function __construct( $type, $section_name, $rules ) {
 
-			//Verify type is either wpconfig or htaccess
-			if ( $type === 'wpconfig' ) {
-				$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_wpconfig.lock';
-				$this->type      = 'wpconfig';
-			} elseif ( $type === 'htaccess' ) {
-				$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
-				$this->type      = 'htaccess';
-			} else {
-				return new WP_Error( 'writing_error', __( 'Could not initialize Better WP Security file-writer.', 'better-wp-security' ) );
-			}
-
+			$this->type = $type; //the type of file or getrules
 			$this->section_name = $section_name; // set the section name
+
+			//get the correct lock file or just execute a rules return
+			switch ( $this->type ) {
+
+				case 'wpconfig': //we're writing to wp-config.php
+
+					$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_wpconfig.lock';
+					break;
+
+				case 'htaccess': //we're writing to .htaccess or just displaying rules
+
+					$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
+					break;
+
+				case 'getrules': //we're just displaying rules
+
+					return $this->build_htaccess();
+					break;
+
+				default:
+
+					return false;
+
+			}
 
 			if ( ! is_array( $rules ) ) { //verify rules is an array
 
-				return new WP_Error( 'writing_error', __( 'Could not initialize Better WP Security file-writer.', 'better-wp-security' ) );
+				return false;
 
 			} elseif ( isset( $rules['save'] ) && $rules['save'] === false ) { //if save is false we're not saving the rules to the database (the user can't change them later)
 
@@ -74,7 +88,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			} else {
 
-				return new WP_Error( 'writing_error', __( 'Rules must be entered as an array.', 'better-wp-security' ) );
+				return false;
 
 			}
 
@@ -92,13 +106,17 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 				}
 
+			} else { //couldn't get lock
+
+
+
 			}
 
-			return new WP_Error( 'writing_error', __( 'Error when writing wp-config.php', 'better-wp-security' ) );
+			return false;
 
 		}
 
-		private function build_htaccess( $rule, $config_contents, $action ) {
+		public function build_htaccess() {
 
 			if ( $action === true && strpos( $config_contents, $rule ) === false ) { //if we're adding the rule and it isn't already there
 
@@ -127,64 +145,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			}
 
 			return $config_contents;
-
-		}
-
-		/**
-		 * Returns or echos all wp-config.php rules that can be reversed or changed manually
-		 *
-		 * @param bool $echo true to echo, false to return
-		 *
-		 * @return mixed rules string if present, false if not, nothing if echoed
-		 */
-		public function build_wp_config( $echo = false ) {
-
-			global $saved_rules;
-
-			if ( is_array( $saved_rules ) ) {
-
-				foreach ( $saved_rules as $rule => $action ) {
-
-					if ( array_key_exists( $rule, $this->rules ) ) {
-
-						$this->rules[$rule] = $action;
-
-					}
-
-				}
-
-			}
-
-			$has_rules = false; //whether there are any rules to return
-
-			$rules = $this->wpconfig_open . PHP_EOL;
-
-			foreach ( $this->rules as $action ) {
-
-				if ( $action == 1 ) { //array value 1 to add, 0 to skip
-
-					$rules .= key( $this->rules ) . PHP_EOL;
-					$has_rules = true;
-
-				}
-
-			}
-
-			$rules .= $this->wpconfig_close;
-
-			if ( $has_rules === false ) { //there are no rules to write
-
-				return false;
-
-			} elseif ( $echo === true ) { //echo the rules to the user
-
-				echo $rules;
-
-			} else { //return the rules for further processing
-
-				return $rules;
-
-			}
 
 		}
 
@@ -234,6 +194,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
 
+			$form_fields = array( 'save' );
+			$method      = '';
+
 			if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $form_fields ) ) ) {
 				return false; // stop the normal page form from displaying
 			}
@@ -245,32 +208,33 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				return false;
 			}
 
-			// get the upload directory and make a test.txt file
-			$upload_dir  = wp_upload_dir();
-			$filename    = trailingslashit( $upload_dir['path'] ) . 'test.txt';
 			$config_file = $bwps_lib->get_config();
 
 			global $wp_filesystem;
 
-			if ( $wp_filesystem->exists( $config_file ) ) { //check for existence
+			if ( $wp_filesystem->exists( $config_file ) ) { //check wp-config.php exists where we think it should
 
-				$config_contents = $wp_filesystem->get_contents( $config_file );
+				$config_contents = $wp_filesystem->get_contents( $config_file ); //get the contents of wp-config.php
 
-				if ( ! $config_contents ) {
-					return new WP_Error( 'reading_error', __( 'Error when reading wp-config.php', 'better-wp-security' ) ); //return error object
-				} else {
+				if ( ! $config_contents ) { //we couldn't get wp-config.php contents
 
-					if ( is_array( $rule ) ) {
+					return false;
 
-						foreach ( $rule as $single_rule ) {
+				} else { //write out what we need to.
 
-							$config_contents = $this->build_rules( $single_rule, $config_contents, $action );
+					$rules_to_write = ''; //String of rules to insert into wp-config
 
+					foreach ( $this->rules as $check => $rule ) {
+
+						if ( ( $check === 'Comment' && strstr( $config_contents, $rule ) === false ) || strstr( $config_contents, $check ) === false ) {
+							$rules_to_write .= $rule . PHP_EOL;
 						}
 
-					} else {
+					}
 
-						$config_contents = $this->build_rules( $rule, $config_contents, $action );
+					if ( strlen( $rules_to_write ) > 1 ) { //make sure we have something to write
+
+						$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $config_contents );
 
 					}
 
@@ -278,6 +242,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			}
 
+			//Actually write the new content to wp-config.
 			if ( $config_contents !== false ) {
 
 				if ( ! $wp_filesystem->put_contents( $config_file, $config_contents, FS_CHMOD_FILE ) ) {
@@ -293,7 +258,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		/**
 		 * Writes given rules to wp-config.php
 		 *
-		 * @return bool|WP_Error true or WordPress error
+		 * @return bool true on success, false on failure
 		 */
 		public function write_wp_config() {
 
@@ -325,7 +290,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 				if ( ! $config_contents ) { //we couldn't get wp-config.php contents
 
-					return new WP_Error( 'reading_error', __( 'Error when reading wp-config.php', 'better-wp-security' ) ); //return error object
+					return false;
 
 				} else { //write out what we need to.
 
@@ -353,10 +318,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			if ( $config_contents !== false ) {
 
 				if ( ! $wp_filesystem->put_contents( $config_file, $config_contents, FS_CHMOD_FILE ) ) {
-					return new WP_Error( 'writing_error', __( 'Error when writing wp-config.php', 'better-wp-security' ) ); //return error object
+					return false;
 				}
 
 			}
+
+			return true;
 
 		}
 
