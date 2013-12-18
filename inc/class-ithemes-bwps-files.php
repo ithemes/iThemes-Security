@@ -74,7 +74,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			} else {
 
-				return new WP_Error( 'writing_error', __( 'Could not initialize Better WP Security file-writer.', 'better-wp-security' ) );
+				return new WP_Error( 'writing_error', __( 'Rules must be entered as an array.', 'better-wp-security' ) );
 
 			}
 
@@ -235,14 +235,14 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
 
 			if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $form_fields ) ) ) {
-				return true; // stop the normal page form from displaying
+				return false; // stop the normal page form from displaying
 			}
 
 			if ( ! WP_Filesystem( $creds ) ) {
 				// our credentials were no good, ask the user for them again
 				request_filesystem_credentials( $url, $method, true, false, $form_fields );
 
-				return true;
+				return false;
 			}
 
 			// get the upload directory and make a test.txt file
@@ -281,10 +281,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			if ( $config_contents !== false ) {
 
 				if ( ! $wp_filesystem->put_contents( $config_file, $config_contents, FS_CHMOD_FILE ) ) {
-					return new WP_Error( 'writing_error', __( 'Error when writing wp-config.php', 'better-wp-security' ) ); //return error object
+					return false;
 				}
 
 			}
+
+			return true;
 
 		}
 
