@@ -208,15 +208,15 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				return false;
 			}
 
-			$config_file = $bwps_lib->get_config();
+			$htaccess_file = $bwps_lib->get_htaccess();
 
 			global $wp_filesystem;
 
-			if ( $wp_filesystem->exists( $config_file ) ) { //check wp-config.php exists where we think it should
+			if ( $wp_filesystem->exists( $htaccess_file ) ) { //check wp-config.php exists where we think it should
 
-				$config_contents = $wp_filesystem->get_contents( $config_file ); //get the contents of wp-config.php
+				$htaccess_contents = $wp_filesystem->get_contents( $htaccess_file ); //get the contents of wp-config.php
 
-				if ( ! $config_contents ) { //we couldn't get wp-config.php contents
+				if ( ! $htaccess_contents ) { //we couldn't get wp-config.php contents
 
 					return false;
 
@@ -226,7 +226,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 					foreach ( $this->rules as $check => $rule ) {
 
-						if ( ( $check === 'Comment' && strstr( $config_contents, $rule ) === false ) || strstr( $config_contents, $check ) === false ) {
+						if ( ( $check === 'Comment' && strstr( $htaccess_contents, $rule ) === false ) || strstr( $htaccess_contents, $check ) === false ) {
 							$rules_to_write .= $rule . PHP_EOL;
 						}
 
@@ -234,7 +234,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 					if ( strlen( $rules_to_write ) > 1 ) { //make sure we have something to write
 
-						$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $config_contents );
+						$htaccess_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $htaccess_contents );
 
 					}
 
@@ -243,9 +243,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			}
 
 			//Actually write the new content to wp-config.
-			if ( $config_contents !== false ) {
+			if ( $htaccess_contents !== false ) {
 
-				if ( ! $wp_filesystem->put_contents( $config_file, $config_contents, FS_CHMOD_FILE ) ) {
+				if ( ! $wp_filesystem->put_contents( $htaccess_file, $htaccess_contents, FS_CHMOD_FILE ) ) {
 					return false;
 				}
 
