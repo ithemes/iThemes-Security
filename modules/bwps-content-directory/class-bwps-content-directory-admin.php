@@ -226,8 +226,6 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 		 */
 		public function process_directory() {
 
-			global $bwps_lib;
-
 			$dir_name = sanitize_file_name( $_POST['name'] );
 
 			//assume this will work
@@ -239,95 +237,37 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 				$type    = 'error';
 				$message = __( 'Please choose a directory name that is greater than 2 characters in length.', 'better_wp_security' );
 
-			} elseif( $dir_name === 'wp-content' ) {
+			} elseif ( $dir_name === 'wp-content' ) {
 
 				$type    = 'error';
 				$message = __( 'You have not chosen a new name for wp-content. Nothing was saved.', 'better_wp_security' );
 
 			} else { //process the name change
 
-				if ( $bwps_lib->get_lock() ) {
+				$old_dir = WP_CONTENT_DIR;
+				$new_dir = trailingslashit( ABSPATH ) . $dir_name;
 
-					$config = $bwps_lib->get_config();
+				/*if ( ! rename( $old_dir, $new_dir ) ) { //make sure renaming the directory was successful
 
-					if ( ! $f = @fopen( $config, 'a+' ) ) { //make sure we can open the file for writing
+					$type    = 'error';
+					$message = __( 'WordPress was unable to rename your wp-content directory. Please check with your server administrator and try again.', 'better_wp_security' );
 
-						@chmod( $config, 0644 );
+				} else {*/
 
-						if ( ! $f = @fopen( $config, 'a+' ) ) {
+				$rules = array(
+					'save'  => false,
+					'rules' => array(
+						'Comment'        => "//Do not delete these. Doing so WILL break your site.",
+						'WP_CONTENT_DIR' => "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
+						'WP_CONTENT_URL' => "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );",
+					),
+				);
 
-							$type    = 'error';
-							$message = __( 'Fatal error. Couldn\'t open wp-config.php for writing. Please contact your system administrator.', 'better_wp_security' );
+				$success = new Ithemes_BWPS_Files( 'wpconfig', 'Content Directory', $rules );
 
-							add_settings_error(
-								'bwps_admin_notices',
-								esc_attr( 'settings_updated' ),
-								$message,
-								$type
-							);
+				$this->settings = true;
 
-						}
-
-						@fclose( $f );
-
-						return;
-
-					}
-
-					$old_dir = WP_CONTENT_DIR;
-					$new_dir = trailingslashit( ABSPATH ) . $dir_name;
-
-					if ( ! rename( $old_dir, $new_dir ) ) { //make sure renaming the directory was successful
-
-						$type    = 'error';
-						$message = __( 'WordPress was unable to rename your wp-content directory. Please check with your server administrator and try again.', 'better_wp_security' );
-
-					} else {
-
-						$handle = @fopen( $config, 'r+' ); //open for reading
-
-						if ( $handle ) {
-
-							$scanText = "<?php";
-							$newText  = "<?php" . PHP_EOL . "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );" . PHP_EOL . "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );" . PHP_EOL;
-
-							//read each line into an array
-							while ( $lines[] = fgets( $handle, 4096 ) ) {
-							}
-
-							fclose( $handle ); //close reader
-
-							$handle = @fopen( $config, 'w+' ); //open writer
-
-							foreach ( $lines as $line ) { //process each line
-
-								if ( strstr( $line, 'WP_CONTENT_DIR' ) || strstr( $line, 'WP_CONTENT_URL' ) ) {
-
-									$line = str_replace( $line, '', $line );
-
-								}
-
-								if ( strstr( $line, $scanText ) ) {
-
-									$line = str_replace( $scanText, $newText, $line );
-
-								}
-
-								fwrite( $handle, $line ); //write the line
-
-							}
-
-							fclose( $handle ); //close the config file
-
-						}
-
-					}
-
-					$this->settings = true;
-
-					$bwps_lib->release_lock();
-
-				}
+				//}
 
 			}
 
