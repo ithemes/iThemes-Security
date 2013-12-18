@@ -377,6 +377,32 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 		}
 
+		//Builds appropriate rules based on server type
+		private function build_rules() {
+
+			global $bwps_lib;
+
+			$server_type = $bwps_lib->get_server();
+
+			switch ( $server_type ) {
+
+				case 'nginx':
+
+					//This is for nginx
+
+					break;
+
+				default:
+
+					//This is for servers that use .htaccess
+
+					break;
+
+			}
+
+
+		}
+
 		/**
 		 * Sanitize and validate input
 		 *
@@ -390,7 +416,15 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
 
-			$ips = $bwps_lib->validate_bad_hosts( $input['host_list'], true );
+			$addresses = explode( PHP_EOL, $input['host_list'] );
+
+			foreach ( $addresses as $address ) {
+
+				$bwps_lib->validates_ip_address( $address );
+
+			}
+
+
 
 			if ( is_wp_error( $ips ) ) {
 

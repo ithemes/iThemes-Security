@@ -122,7 +122,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 			} elseif ( strstr( $server_raw, 'nginx' ) ) {
 
-				 return 'nginx';
+				return 'nginx';
 
 			} elseif ( strstr( $server_raw, 'litespeed' ) ) {
 
@@ -137,132 +137,118 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		}
 
 		/**
-		 * Validates a host list
+		 * Validates a list of ip addresses
 		 *
-		 * @param string $hosts string of hosts to check
-		 * @param bool   $ban   true for ban list, false for whitelist
+		 * @param string $ip string of hosts to check
 		 *
 		 * @return array array of good hosts or false
 		 */
-		public function validate_bad_hosts( $hosts ) {
+		public function validates_ip_address( $ip ) {
 
 			//validate list
-			$banhosts      = explode( PHP_EOL, $hosts );
-			$list          = array();
+			$ip = filter_var( $ip, FILTER_SANITIZE_STRING );
+			$ip_parts      = explode( '.', $ip );
 			$error_handler = NULL;
+			$is_ip          = 0;
+			$part_count     = 1;
+			$good_ip        = true;
+			$found_wildcard     = false;
 
-			if ( ! empty( $banhosts ) ) {
+			foreach ( $ip_parts as $part ) {
 
-				foreach ( $banhosts as $host ) {
+				if ( $good_ip == true ) {
 
-					$host = filter_var( $host, FILTER_SANITIZE_STRING );
+					if ( ( is_numeric( $part ) && $part <= 255 && $part >= 0 ) || $part === '*' || ( $part_count === 3 && strstr( $part, '/' ) ) ) {
+						$is_ip ++;
+					}
 
-					if ( strlen( $host ) > 0 ) {
+					switch ( $part_count ) {
 
-						$ipParts   = explode( '.', $host );
-						$isIP      = 0;
-						$partcount = 1;
-						$goodip    = true;
-						$foundwild = false;
+						case 1:
 
-						foreach ( $ipParts as $part ) {
+							if ( $part === '*' || strstr( $part, '/' ) ) {
 
-							if ( $goodip == true ) {
-
-								if ( ( is_numeric( trim( $part ) ) && trim( $part ) <= 255 && trim( $part ) >= 0 ) || trim( $part ) == '*' ) {
-									$isIP ++;
-								}
-
-								switch ( $partcount ) {
-
-									case 1:
-
-										if ( trim( $part ) == '*' ) {
-
-											$goodip = false;
-
-											if ( ! is_wp_error( $error_handler ) ) { //invalid ip
-												$error_handler = new WP_Error();
-											}
-
-											$error_handler->add( 'error', __( filter_var( $host, FILTER_SANITIZE_STRING ) . ' is note a valid ip.', 'better_wp_security' ) );
-
-										}
-
-										break;
-
-									case 2:
-
-										if ( trim( $part ) == '*' ) {
-
-											$foundwild = true;
-
-										}
-
-										break;
-
-									default:
-
-										if ( trim( $part ) != '*' ) {
-
-											if ( $foundwild == true ) {
-
-												$goodip = false;
-
-												if ( ! is_wp_error( $error_handler ) ) { //invalid ip
-													$error_handler = new WP_Error();
-												}
-
-												$error_handler->add( 'error', __( filter_var( $host, FILTER_SANITIZE_STRING ) . ' is note a valid ip.', 'better_wp_security' ) );
-
-											}
-
-										} else {
-
-											$foundwild = true;
-
-										}
-
-										break;
-
-								}
-
-								$partcount ++;
+								return false;
 
 							}
 
-						}
+							break;
 
-						if ( ip2long( trim( str_replace( '*', '0', $host ) ) ) == false ) { //invalid ip
+						case 2:
 
-							if ( ! is_wp_error( $error_handler ) ) {
-								$error_handler = new WP_Error();
+							if ( $part === '*' ) {
+
+								$found_wildcard = true;
+
+							} elseif ( strstr( $part, '/' ) ) {
+
+								return false;
+
 							}
 
-							$error_handler->add( 'error', __( filter_var( $host, FILTER_SANITIZE_STRING ) . ' is not a valid ip.', 'better_wp_security' ) );
+							break;
 
-						} elseif ( strlen( $host > 4 && ! in_array( $host, $list ) ) ) {
+						case 3:
 
-							$list[] = trim( $host );
+							if ( $part !== '*' ) {
 
-						}
+								if ( $found_wildcard === true ) {
+
+									return false;
+
+								}
+
+							} elseif ( strstr( $part, '/' ) ) {
+
+									return false;
+
+							} else {
+
+								$found_wildcard = true;
+
+							}
+
+							break;
+
+						default:
+
+							if ( $part !== '*' ) {
+
+								if ( $found_wildcard == true ) {
+
+									return false;
+
+								} elseif ( strstr( $part, '/' ) ){
+
+									$netmask = substr( $part, strpos( $part, '/' ) );
+
+									if ( ! is_numeric( $netmask ) && 1 > $netmask && 31 < $netmask ) {
+
+										return false;
+
+									}
+
+								}
+
+							}
+
+							break;
 
 					}
+
+					$part_count ++;
 
 				}
 
 			}
 
-			if ( sizeof( $list ) > 1 ) {
-				sort( $list );
-				$list = array_unique( $list, SORT_STRING );
+			if ( ip2long( trim( str_replace( '*', '0', $ip ) ) ) == false ) { //invalid ip
+
+				return false;
+
 			}
 
-			if ( is_wp_error( $error_handler ) ) {
-				return $error_handler;
-			} else {
-				return $list;
-			}
+			return true; //ip is valid
 
 		}
 
