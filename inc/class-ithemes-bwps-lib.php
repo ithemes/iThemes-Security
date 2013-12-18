@@ -107,6 +107,36 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		}
 
 		/**
+		 * Returns the server type of the plugin user.
+		 *
+		 * @return string|bool server type the user is using of false if undetectable.
+		 */
+		public function get_server() {
+
+			$server_raw = strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) );
+
+			//figure out what server they're using
+			if ( strstr( $server_raw, 'apache' ) ) {
+
+				return 'apache';
+
+			} elseif ( strstr( $server_raw, 'nginx' ) ) {
+
+				 return 'nginx';
+
+			} elseif ( strstr( $server_raw, 'litespeed' ) ) {
+
+				return 'litespeed';
+
+			} else { //unsupported server
+
+				return false;
+
+			}
+
+		}
+
+		/**
 		 * Validates a host list
 		 *
 		 * @param string $hosts string of hosts to check
