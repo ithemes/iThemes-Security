@@ -191,11 +191,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		/**
 		 * Attempt to get a lock for atomic operations
 		 *
-		 * @param string $type [htaccess] type of lock: htaccess or wpconfig
-		 *
 		 * @return bool true if lock was achieved, else false
 		 */
-		public function get_lock( $type = 'htaccess' ) {
+		public function get_lock() {
 
 			if ( file_exists( $this->lock_file ) ) {
 
@@ -218,11 +216,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		/**
 		 * Release the lock
 		 *
-		 * @param string $type [htaccess] type of lock: htaccess or wpconfig
-		 *
 		 * @return bool true if released, false otherwise
 		 */
-		public function release_lock( $type = 'htaccess' ) {
+		public function release_lock() {
 
 			if ( ! file_exists( $this->lock_file ) || @unlink( $this->lock_file ) ) {
 				return true;
