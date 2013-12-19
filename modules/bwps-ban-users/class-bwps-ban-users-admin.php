@@ -458,112 +458,131 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			//manage and save according to the correct server type
 			$server_type = $bwps_lib->get_server();
 
-			switch ( $server_type ) {
+			if ( $default === 1 && $server_type === 'nginx' ) {
+				$default_list = file_get_contents( plugin_dir_path( __FILE__ ) . 'lists/hackrepair-nginx.inc' );
+			} elseif ( $default === 1 ) {
+				$default_list = file_get_contents( plugin_dir_path( __FILE__ ) . 'lists/hackrepair-apache.inc' );
+			} else {
+				$default_list = '';
+			}
 
-				case 'nginx':
+			$host_list  = '';
+			$agent_list = '';
 
-					//This is for nginx
+			if ( $enabled === 1 ) {
 
-					break;
+				if ( is_array( $raw_host_list ) ) {
 
-				default:
+					foreach ( $raw_host_list as $host ) {
 
-					if ( $default === 1 ) {
-						$default_list = file_get_contents( plugin_dir_path( __FILE__ ) . 'lists/hackrepair-apache.inc' );
-					} else {
-						$default_list = '';
-					}
+						$host_parts = array_reverse( explode( '.', trim( $host ) ) );
 
-					$host_list  = '';
-					$agent_list = '';
+						$mask = 0;
 
-					if ( $enabled === 1 ) {
+						foreach ( $host_parts as $part ) {
 
-						if ( is_array( $raw_host_list ) ) {
-
-							foreach ( $raw_host_list as $host ) {
-
-								$host_parts = array_reverse( explode( '.', trim( $host ) ) );
-
-								$mask = 0;
-
-								foreach ( $host_parts as $part ) {
-
-									if ( $part === '*' ) {
-										$mask = $mask + 8;
-									}
-
-									$converted_host = 'Deny from ' . str_replace( '*', '0', $host );
-
-									if ( $mask > 0 ) {
-										$converted_host .= '/' . $mask;
-									}
-
-									$converted_host .= PHP_EOL;
-
-								}
-
-								$host_list .= $converted_host;
-
+							if ( $part === '*' ) {
+								$mask = $mask + 8;
 							}
+
+							if ( $server_type === 'nginx' ) {
+								$converted_host = 'Deny from ' . str_replace( '*', '0', $host );
+							} else {
+								$converted_host = "\tdeny " . str_replace( '*', '0', $host );
+							}
+
+							if ( $mask > 0 ) {
+								$converted_host .= '/' . $mask;
+							}
+
+							$converted_host .= PHP_EOL;
 
 						}
 
-						if ( is_array( $raw_agent_list ) ) {
+						$host_list .= $converted_host;
 
-							$count = 1;
+					}
 
-							foreach ( $raw_agent_list as $agent ) {
+				}
 
-								if ( $count < sizeof ( $agent ) ) {
-									$end = ' [NC,OR]' . PHP_EOL;
-								} else {
-									$end = '[NC]' . PHP_EOL;
-								}
+				if ( is_array( $raw_agent_list ) ) {
 
-								$converted_agent = 'RewriteCond %{HTTP_USER_AGENT} ^' . trim( $agent ) . $end;
+					$count = 1;
 
-								$agent_list .= $converted_agent;
+					foreach ( $raw_agent_list as $agent ) {
 
-								$count++;
-
-							}
-
+						if ( $count < sizeof( $agent ) ) {
+							$end = ' [NC,OR]' . PHP_EOL;
+						} else {
+							$end = '[NC]' . PHP_EOL;
 						}
 
-					}
+						if ( $server_type === 'nginx' ) {
+							$converted_agent = 'if ($http_user_agent ~* "^' . trim( $agent ) . '"){ return 403; }' . PHP_EOL;
+						} else {
+							$converted_agent = 'RewriteCond %{HTTP_USER_AGENT} ^' . trim( $agent ) . $end;
+						}
 
-					$rules = '';
+						$agent_list .= $converted_agent;
 
-					if ( strlen( $default_list ) > 1 ) {
-
-						$rules .= $default_list;
-
-					}
-
-					if ( strlen( $host_list ) > 1 ) {
-
-						$rules .= 'Order allow, deny' . PHP_EOL;
-						$rules .= 'Allow from all' . PHP_EOL;
-						$rules .= $host_list;
+						$count ++;
 
 					}
 
-					if ( strlen( $agent_list ) > 1 ) {
+				}
 
-						$rules .= '<IfModule mod_rewrite.c>' . PHP_EOL;
-						$rules .= 'RewriteEngine On' . PHP_EOL;
+			}
 
-						$rules .= $agent_list;
-						$rules .= 'RewriteRule ^(.*)$ - [F,L]' . PHP_EOL;
-						$rules .= '</IfModule>' . PHP_EOL;
+			$rules = '';
 
-					}
+			if ( strlen( $default_list ) > 1 ) {
 
-					die ( $rules );
+				$rules .= $default_list;
 
-					break;
+			}
 
+			if ( strlen( $host_list ) > 1 ) {
+
+				if ( $server_type === 'nginx' ) {
+
+					$rules .= 'location / {' . PHP_EOL;
+					$rules .= $host_list;
+					$rules .= "\tallow all" . PHP_EOL;
+					$rules .= '}' . PHP_EOL;
+
+				} else {
+
+					$rules .= 'Order allow, deny' . PHP_EOL;
+					$rules .= 'Allow from all' . PHP_EOL;
+					$rules .= $host_list;
+
+				}
+
+			}
+
+			if ( strlen( $agent_list ) > 1 ) {
+
+				if ( $server_type === 'nginx' ) {
+
+					$rules .= $agent_list;
+
+				} else {
+
+					$rules .= '<IfModule mod_rewrite.c>' . PHP_EOL;
+					$rules .= 'RewriteEngine On' . PHP_EOL;
+
+					$rules .= $agent_list;
+					$rules .= 'RewriteRule ^(.*)$ - [F,L]' . PHP_EOL;
+					$rules .= '</IfModule>' . PHP_EOL;
+
+				}
+
+			}
+
+			if ( new Ithemes_BWPS_Files( 'htaccess', 'Ban Users', $rules ) ) {
+				return true;
+			} else {
+				return false;
 			}
 
 		}
