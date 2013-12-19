@@ -245,6 +245,7 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 				$old_dir = WP_CONTENT_DIR;
 				$new_dir = trailingslashit( ABSPATH ) . $dir_name;
 
+				//if ( true == false ) {
 				if ( ! rename( $old_dir, $new_dir ) ) { //make sure renaming the directory was successful
 
 					$type    = 'error';
@@ -255,9 +256,11 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 					$rules = array(
 						'save'  => false,
 						'rules' => array(
-							'Comment'        => "//Do not delete these. Doing so WILL break your site.",
-							'WP_CONTENT_DIR' => "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
-							'WP_CONTENT_URL' => "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );",
+							'rules' => array(
+								'Comment'        => "//Do not delete these. Doing so WILL break your site.",
+								'WP_CONTENT_DIR' => "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
+								'WP_CONTENT_URL' => "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );",
+							),
 						),
 					);
 

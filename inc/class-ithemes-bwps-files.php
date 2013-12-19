@@ -54,41 +54,45 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 				$this->rules = $rules['rules'];
 
-			} elseif ( is_array( $rules['rules'] ) ) { //make sure the rules themselves were sent as an array
+			} else { //make sure the rules themselves were sent as an array
 
-				$this->rules = get_site_option( 'bwps_rewrites' ); //get existing rules from database
+				//Get rules from other sections from the database
+				$this->rules = get_site_option( 'bwps_rewrites' );
 
 				if ( is_array( $this->rules ) ) { //make sure the rules retrieved from the database are an array
 
 					if ( is_array( $this->rules[$type] ) ) { //see if an array exists for the given type
 
-						if ( is_array( $this->rules[$type][$this->section_name] ) ) { //see if an array exists for the given feature
+						if ( is_array( $this->rules[$type][$this->section_name] ) && isset( $this->rules[$type][$this->section_name]['rules'] ) && is_array( $this->rules[$type][$this->section_name]['rules'] ) ) { //see if an array exists for the given feature
 
-							$this->rules[$type][$this->section_name] = array_merge( $this->rules[$type][$this->section_name], $rules['rules'] );
+							$this->rules[$type][$this->section_name]['rules'] = array_merge( $this->rules[$type][$this->section_name]['rules'], $rules['rules'] );
 
 						} else {
 
-							$this->rules[$type][$this->section_name] = $rules['rules'];
+							$this->rules[$type][$this->section_name]['rules'] = $rules['rules'];
 
 						}
 
 					} else {
 
-						$this->rules[$type][$this->section_name] = $rules['rules'];
+						$this->rules[$type][$this->section_name]['rules'] = $rules['rules'];
 
 					}
 
 				} else { //saved rules aren't an array so just create our own
 
-					$this->rules[$type][$this->section_name] = $rules['rules'];
+					$this->rules[$type][$this->section_name]['rules'] = $rules['rules'];
 
 				}
 
+				//Set the rules priority for sorting or 10 for default
+				if ( isset( $rules['piority'] ) ) {
+					$this->rules[$type][$this->section_name]['priority'] = $rules['priority'];
+				} else {
+					$this->rules[$type][$this->section_name]['priority'] = 10;
+				}
+
 				update_site_option( 'bwps_rewrites', $this->rules ); //save new array rules to database
-
-			} else {
-
-				return false;
 
 			}
 
@@ -188,6 +192,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 		}
 
+		/**
+		 * Writes given rules to htaccess or related file
+		 *
+		 * @return bool true on success, false on failure
+		 */
 		public function write_htaccess() {
 
 			global $bwps_lib, $wp_filesystem;
@@ -225,11 +234,31 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			} else { //write out what we need to.
 
-				$rules_to_write = ''; //String of rules to insert into wp-config
+				$lines = explode( PHP_EOL, $htaccess_contents ); //create an array to make this easier
+				$rules_to_write = ''; //String of rules to insert into file
+				$state = false;
+
+				foreach ( $lines as $line_number => $line ) { //for each line in the file
+
+					if ( strpos( $line, '# BEGIN ' . $this->section_name ) !== false ) { //if we're at the beginning of the section
+						$state = true;
+					}
+
+					if ( $state == true ) { //as long as we're not in the section keep writing
+
+						unset( $lines[$line_number] );
+
+					}
+
+					if ( strpos( $line, '# END ' . $this->section_name ) !== false ) { //see if we're at the end of the section
+						$state = true;
+					}
+
+				}
 
 				foreach ( $this->rules as $check => $rule ) {
 
-					if ( ( $check === 'Comment' && strstr( $htaccess_contents, $rule ) === false ) || strstr( $htaccess_contents, $check ) === false ) {
+					if ( ( $check === 'Comment' && strpos( $htaccess_contents, $rule ) === false ) || strpos( $htaccess_contents, $check ) === false ) {
 						$rules_to_write .= $rule . PHP_EOL;
 					}
 
@@ -275,10 +304,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			}
 
 			if ( ! WP_Filesystem( $creds ) ) {
+
 				// our credentials were no good, ask the user for them again
 				request_filesystem_credentials( $url, $method, true, false, $form_fields );
-
 				return false;
+
 			}
 
 			$config_file = $bwps_lib->get_config();
@@ -295,9 +325,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 					$rules_to_write = ''; //String of rules to insert into wp-config
 
-					foreach ( $this->rules as $check => $rule ) {
+					foreach ( $this->rules['rules'] as $check => $rule ) {
 
-						if ( ( $check === 'Comment' && strstr( $config_contents, $rule ) === false ) || strstr( $config_contents, $check ) === false ) {
+						if ( ( $check === 'Comment' && strpos( $config_contents, $rule ) === false ) || strpos( $config_contents, $check ) === false ) {
 							$rules_to_write .= $rule . PHP_EOL;
 						}
 
