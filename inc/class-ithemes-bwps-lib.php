@@ -61,14 +61,22 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		/**
 		 * Gets location of .htaccess
 		 *
-		 * Finds and returns path to .htaccess
+		 * Finds and returns path to .htaccess or nginx.conf if appropriate
 		 *
 		 * @return string path to .htaccess
 		 *
 		 **/
 		public function get_htaccess() {
 
-			return ABSPATH . '.htaccess';
+			if ( $this->get_server() === 'nginx' ) {
+
+				return ABSPATH . 'nginx.conf';
+
+			} else {
+
+				return ABSPATH . '.htaccess';
+
+			}
 
 		}
 
