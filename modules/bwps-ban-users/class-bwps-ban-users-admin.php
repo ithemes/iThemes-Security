@@ -291,17 +291,15 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			//disable the option if away mode is in the past
 			if ( isset( $this->settings['host_list'] ) && is_array( $this->settings['host_list'] ) && sizeof( $this->settings['host_list'] ) >= 1 ) {
 
-				foreach ( $this->settings['host_list'] as $host ) {
-					$default .= $host . PHP_EOL;
-				}
+				$host_list = implode( PHP_EOL, $this->settings['host_list'] );
 
 			} elseif ( isset( $this->settings['host_list'] ) && ! is_array( $this->settings['host_list'] ) && strlen( $this->settings['host_list'] ) > 1 ) {
 
-				$default = $this->settings['host_list'];
+				$host_list = $this->settings['host_list'];
 
 			}
 
-			$content = '<textarea id="bwps_ban_users_host_list" name="bwps_ban_users[host_list]" rows="10" cols="50">' . $default . '</textarea>';
+			$content = '<textarea id="bwps_ban_users_host_list" name="bwps_ban_users[host_list]" rows="10" cols="50">' . $host_list . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', 'better_wp_security' ) . '</p>';
 			$content .= '<ul><em>';
 			$content .= '<li>' . __( 'You may ban users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
@@ -421,18 +419,22 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		/**
 		 * Build the rewrite rules and sends them to the file writer
 		 *
-		 * @param array  $list array of IPs or User Agents
-		 * @param string $type type of list, ip, whitelist or agent
-		 * @param        bool  [false] $insert is this inserting a single IP (true) or saving options
+		 * @param array  $input array of options, ips, etc
+		 * @param string $type  type of list, ip, whitelist or agent
+		 * @param        bool   [false] $insert is this inserting a single IP (true) or saving options
 		 */
-		private function build_ban_list( $list, $type = 'ip', $insert = false ) {
+		private function build_ban_list( $input, $type = 'ip', $insert = false ) {
 
 			global $bwps_lib;
 
 			//setup data structure to save
 			if ( $insert === true && $type === 'ip' ) { //blocking ip on the fly
 
-				$settings = get_site_option( 'bwps_ban_users' );
+				$settings       = get_site_option( 'bwps_ban_users' );
+				$default        = $settings['default'];
+				$enabled        = $settings['enabled'];
+				$raw_host_list  = $settings['host_list'];
+				$raw_agent_list = $settings['agent_list'];
 
 			} elseif ( $insert === true && $type === 'whitelist' ) { //insert item into whitelist
 
@@ -444,9 +446,12 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 				return false;
 
-			} else {
+			} else { //we're saving options from the ban users page
 
-				$list = $list;
+				$default        = $input['default'];
+				$enabled        = $input['enabled'];
+				$raw_host_list  = $input['host_list'];
+				$raw_agent_list = $input['agent_list'];
 
 			}
 
@@ -463,7 +468,99 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 				default:
 
-					//This is for servers that use .htaccess
+					if ( $default === 1 ) {
+						$default_list = file_get_contents( plugin_dir_path( __FILE__ ) . 'lists/hackrepair-apache.inc' );
+					} else {
+						$default_list = '';
+					}
+
+					$host_list  = '';
+					$agent_list = '';
+
+					if ( $enabled === 1 ) {
+
+						if ( is_array( $raw_host_list ) ) {
+
+							foreach ( $raw_host_list as $host ) {
+
+								$host_parts = array_reverse( explode( '.', trim( $host ) ) );
+
+								$mask = 0;
+
+								foreach ( $host_parts as $part ) {
+
+									if ( $part === '*' ) {
+										$mask = $mask + 8;
+									}
+
+									$converted_host = 'Deny from ' . str_replace( '*', '0', $host );
+
+									if ( $mask > 0 ) {
+										$converted_host .= '/' . $mask;
+									}
+
+									$converted_host .= PHP_EOL;
+
+								}
+
+								$host_list .= $converted_host;
+
+							}
+
+						}
+
+						if ( is_array( $raw_agent_list ) ) {
+
+							$count = 1;
+
+							foreach ( $raw_agent_list as $agent ) {
+
+								if ( $count < sizeof ( $agent ) ) {
+									$end = ' [NC,OR]' . PHP_EOL;
+								} else {
+									$end = '[NC]' . PHP_EOL;
+								}
+
+								$converted_agent = 'RewriteCond %{HTTP_USER_AGENT} ^' . trim( $agent ) . $end;
+
+								$agent_list .= $converted_agent;
+
+								$count++;
+
+							}
+
+						}
+
+					}
+
+					$rules = '';
+
+					if ( strlen( $default_list ) > 1 ) {
+
+						$rules .= $default_list;
+
+					}
+
+					if ( strlen( $host_list ) > 1 ) {
+
+						$rules .= 'Order allow, deny' . PHP_EOL;
+						$rules .= 'Allow from all' . PHP_EOL;
+						$rules .= $host_list;
+
+					}
+
+					if ( strlen( $agent_list ) > 1 ) {
+
+						$rules .= '<IfModule mod_rewrite.c>' . PHP_EOL;
+						$rules .= 'RewriteEngine On' . PHP_EOL;
+
+						$rules .= $agent_list;
+						$rules .= 'RewriteRule ^(.*)$ - [F,L]' . PHP_EOL;
+						$rules .= '</IfModule>' . PHP_EOL;
+
+					}
+
+					die ( $rules );
 
 					break;
 
@@ -527,13 +624,13 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			} else {
 
-				$input['host_list'] = implode( PHP_EOL, $good_ips );
+				$input['host_list'] = $good_ips;
 
 				$type    = 'updated';
 				$message = __( 'Settings Updated', 'better_wp_security' );
 
 				if ( $input['enabled'] === 1 ) {
-					$this->build_ban_list( $good_ips );
+					$this->build_ban_list( $input );
 				}
 
 			}
