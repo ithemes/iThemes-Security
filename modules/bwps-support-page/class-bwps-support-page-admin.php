@@ -12,8 +12,6 @@ if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
 
 		private function __construct( $core ) {
 
-			global $bwps_globals;
-
 			$this->core = $core;
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page

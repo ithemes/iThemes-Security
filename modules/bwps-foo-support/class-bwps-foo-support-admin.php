@@ -14,16 +14,13 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 		private static $instance = NULL;
 
 		private
-			$core,
 			$support_email;
 
-		private function __construct( $core ) {
+		private function __construct() {
 
 			global $bwps_globals;
 
 			$this->support_email = $bwps_globals['support_email'];
-
-			$this->core = $core;
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 
@@ -85,8 +82,6 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 		 * @return void
 		 */
 		public function metabox_sideboar_foo_support() {
-
-			global $bwps_globals;
 
 			$purchase_url = 'http://fooplugins.com/plugins/better-wp-security/';
 
@@ -158,14 +153,12 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 		/**
 		 * Start the BWPS Dashboard module
 		 *
-		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
-		 *
 		 * @return BWPS_Foo_Support                The instance of the BWPS_Foo_Support class
 		 */
-		public static function start( $core ) {
+		public static function start() {
 
 			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
-				self::$instance = new self( $core );
+				self::$instance = new self();
 			}
 
 			return self::$instance;

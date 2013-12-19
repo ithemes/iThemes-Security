@@ -13,8 +13,6 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 		private function __construct( $core ) {
 
-			global $bwps_globals;
-
 			$this->core     = $core;
 			$this->settings = get_site_option( 'bwps_ban_users' );
 

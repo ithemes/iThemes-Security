@@ -12,15 +12,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 		private static $instance = NULL;
 
 		private
-			$core,
 			$feed,
 			$paypal_id;
 
-		private function __construct( $core ) {
+		private function __construct() {
 
 			global $bwps_globals;
-
-			$this->core = $core;
 
 			$this->paypal_id = $bwps_globals['paypal_id'];
 			$this->feed        = $bwps_globals['website_feed'];
@@ -384,14 +381,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 		/**
 		 * Start the BWPS Dashboard module
 		 *
-		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
-		 *
 		 * @return Ithemes_BWPS_Dashboard_Admin            The instance of the Ithemes_BWPS_Dashboard_Admin class
 		 */
-		public static function start( $core ) {
+		public static function start() {
 
 			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
-				self::$instance = new self( $core );
+				self::$instance = new self();
 			}
 
 			return self::$instance;

@@ -8,15 +8,12 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 
 		private
 			$settings,
-			$core,
-			$away_file,
-			$page;
+			$away_file;
 
-		private function __construct( $core ) {
+		private function __construct() {
 
 			global $bwps_globals;
 
-			$this->core      = $core;
 			$this->settings  = get_site_option( 'bwps_away_mode' );
 			$this->away_file = $bwps_globals['upload_dir'] . '/bwps_away.confg'; //override file
 
@@ -137,14 +134,12 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 		/**
 		 * Start the Away Mode module
 		 *
-		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
-		 *
 		 * @return BWPS_Away_Mode                The instance of the BWPS_Away_Mode class
 		 */
-		public static function start( $core ) {
+		public static function start() {
 
 			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
-				self::$instance = new self( $core );
+				self::$instance = new self();
 			}
 
 			return self::$instance;
