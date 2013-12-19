@@ -459,8 +459,8 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			$server_type = $bwps_lib->get_server(); //Get the server type to build the right rules
 
 			//initialize lists so we can check later if we've used them
-			$host_list  = '';
-			$agent_list = '';
+			$host_list    = '';
+			$agent_list   = '';
 			$default_list = '';
 
 			//load the default blacklist if needed
@@ -480,7 +480,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 						$host_parts = array_reverse( explode( '.', trim( $host ) ) );
 
-						$mask = 0; //used to calculate netmask with wildcards
+						$mask           = 0; //used to calculate netmask with wildcards
 						$converted_host = ''; //initialze converted host
 
 						//convert hosts with wildcards to host with netmask and create rule lines
