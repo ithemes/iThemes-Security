@@ -589,13 +589,13 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			}
 
-			//create a proper array for writing
-			$rules = array(
-				'save'  => true,
-				'rules' =>  explode( PHP_EOL, $rules ),
-			);
-
 			if ( strlen( $rules ) > 1 ) { //is there even a reason to try writing to the file
+
+				//create a proper array for writing
+				$rules = array(
+					'save'  => true,
+					'rules' =>  explode( PHP_EOL, $rules ),
+				);
 
 				if ( new Ithemes_BWPS_Files( 'htaccess', 'Ban Users', $rules ) ) {
 					return true;
