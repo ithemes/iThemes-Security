@@ -19,7 +19,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 */
 		function __construct( $type, $section_name, $rules ) {
 
-			$this->type = $type; //the type of file or getrules
+			$this->type         = $type; //the type of file or getrules
 			$this->section_name = $section_name; // set the section name
 
 			//get the correct lock file or just execute a rules return
@@ -64,7 +64,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 						if ( is_array( $this->rules[$type][$this->section_name] ) ) { //see if an array exists for the given feature
 
-							$this->rules = array_merge( $this->rules[$type][$this->section_name], $rules[$this->section_name] );
+							$this->rules[$type][$this->section_name] = array_merge( $this->rules[$type][$this->section_name], $rules['rules'] );
 
 						} else {
 
@@ -108,7 +108,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			} else { //couldn't get lock
 
-
+				return false;
 
 			}
 
@@ -190,7 +190,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 		public function write_htaccess() {
 
-			global $bwps_lib;
+			global $bwps_lib, $wp_filesystem;
 
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
 
@@ -210,33 +210,34 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			$htaccess_file = $bwps_lib->get_htaccess();
 
-			global $wp_filesystem;
+			//make sure the file exists and create it if it doesn't
+			if ( ! $wp_filesystem->exists( $htaccess_file ) ) {
 
-			if ( $wp_filesystem->exists( $htaccess_file ) ) { //check wp-config.php exists where we think it should
+				$wp_filesystem->touch( $htaccess_file );
 
-				$htaccess_contents = $wp_filesystem->get_contents( $htaccess_file ); //get the contents of wp-config.php
+			}
 
-				if ( ! $htaccess_contents ) { //we couldn't get wp-config.php contents
+			$htaccess_contents = $wp_filesystem->get_contents( $htaccess_file ); //get the contents of the htaccess or nginx file
 
-					return false;
+			if ( ! $htaccess_contents ) { //we couldn't get the file contents
 
-				} else { //write out what we need to.
+				return false;
 
-					$rules_to_write = ''; //String of rules to insert into wp-config
+			} else { //write out what we need to.
 
-					foreach ( $this->rules as $check => $rule ) {
+				$rules_to_write = ''; //String of rules to insert into wp-config
 
-						if ( ( $check === 'Comment' && strstr( $htaccess_contents, $rule ) === false ) || strstr( $htaccess_contents, $check ) === false ) {
-							$rules_to_write .= $rule . PHP_EOL;
-						}
+				foreach ( $this->rules as $check => $rule ) {
 
+					if ( ( $check === 'Comment' && strstr( $htaccess_contents, $rule ) === false ) || strstr( $htaccess_contents, $check ) === false ) {
+						$rules_to_write .= $rule . PHP_EOL;
 					}
 
-					if ( strlen( $rules_to_write ) > 1 ) { //make sure we have something to write
+				}
 
-						$htaccess_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $htaccess_contents );
+				if ( strlen( $rules_to_write ) > 1 ) { //make sure we have something to write
 
-					}
+					$htaccess_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $htaccess_contents );
 
 				}
 
@@ -262,7 +263,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 */
 		public function write_wp_config() {
 
-			global $bwps_lib;
+			global $bwps_lib, $wp_filesystem;
 
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
 
@@ -281,8 +282,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			}
 
 			$config_file = $bwps_lib->get_config();
-
-			global $wp_filesystem;
 
 			if ( $wp_filesystem->exists( $config_file ) ) { //check wp-config.php exists where we think it should
 
