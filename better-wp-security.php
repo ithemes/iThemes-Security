@@ -67,7 +67,7 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 
 			//load core functionality for admin use
 			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-core.php' );
-			$this->core = Ithemes_BWPS_Core::start( $this );
+			$this->core = Ithemes_BWPS_Core::start();
 			
 		}
 

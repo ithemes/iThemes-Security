@@ -6,17 +6,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 		private static $instance = NULL; //instantiated instance of this plugin
 
-		private
-			$plugin;
-
 		/**
 		 * Loads core functionality across both admin and frontend.
 		 *
 		 * @param Ithemes_BWPS $plugin
 		 */
-		private function __construct( $plugin ) {
-
-			$this->plugin = $plugin; //Allow us to access plugin defaults throughout
+		private function __construct() {
 
 			$this->lock_file = trailingslashit( ABSPATH ) . 'config.lock';
 
@@ -267,14 +262,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		/**
 		 * Start the global library instance
 		 *
-		 * @param  [plugin_class]  $plugin       Instance of main plugin class
-		 *
 		 * @return Ithemes_BWPS_Lib          The instance of the Ithemes_BWPS_Lib class
 		 */
-		public static function start( $plugin ) {
+		public static function start() {
 
 			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
-				self::$instance = new self( $plugin );
+				self::$instance = new self();
 			}
 
 			return self::$instance;

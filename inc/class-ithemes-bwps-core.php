@@ -23,17 +23,15 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 *
 		 * @return void
 		 */
-		private function __construct( $plugin ) {
+		private function __construct() {
 
 			global $bwps_globals, $bwps_lib;
 
 			@ini_set( 'auto_detect_line_endings', true ); //Make certain we're using proper line endings
 
-			$this->plugin = $plugin; //Allow us to access plugin defaults throughout
-
 			//load utility functions
 			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-lib.php' );
-			$bwps_lib = Ithemes_BWPS_Lib::start( $this );
+			$bwps_lib = Ithemes_BWPS_Lib::start();
 
 			//load the text domain
 			load_plugin_textdomain( 'better_wp_security', false, $bwps_globals['plugin_dir'] . 'languages' );
@@ -453,14 +451,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		/**
 		 * Start the global admin instance
 		 *
-		 * @param  [plugin_class]  $plugin       Instance of main plugin class
-		 *
 		 * @return bwps_Core                       The instance of the bwps_Core class
 		 */
-		public static function start( $plugin ) {
+		public static function start() {
 
 			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
-				self::$instance = new self( $plugin );
+				self::$instance = new self();
 			}
 
 			return self::$instance;
