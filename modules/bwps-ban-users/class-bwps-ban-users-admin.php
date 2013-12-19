@@ -377,12 +377,25 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 		}
 
-		//Builds appropriate rules based on server type
-		private function build_rules() {
+		/**
+		 * Build the rewrite rules and sends them to the file writer
+		 *
+		 * @param array $ips array of IPs
+		 * @param array $agents array of user agents
+		 * @param bool[false] $insert is this inserting a single IP (true) or saving options
+		 */
+		private function build_ban_list( $ips, $agents, $insert = false ) {
 
 			global $bwps_lib;
 
 			$server_type = $bwps_lib->get_server();
+
+			if ( $insert === true ) {
+
+				$settings = get_site_option( 'bwps_ban_users' );
+				$ip_list = '';
+
+			}
 
 			switch ( $server_type ) {
 
@@ -418,37 +431,54 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			$addresses = explode( PHP_EOL, $input['host_list'] );
 
-			foreach ( $addresses as $address ) {
+			$bad_ips = array();
+			$good_ips = array();
 
-				$bwps_lib->validates_ip_address( $address );
+			foreach ( $addresses as $index => $address ) {
+
+				if ( strlen( trim( $address ) ) > 0 ) {
+
+					if ( $bwps_lib->validates_ip_address( $address ) === false ) {
+
+						$bad_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
+
+					} else {
+
+						$good_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
+
+					}
+
+				} else {
+					unset( $addresses[$index] );
+				}
 
 			}
 
+			$good_ips = array_unique( $good_ips );
 
-
-			if ( is_wp_error( $ips ) ) {
+			if ( sizeof( $bad_ips ) > 0 ) {
 
 				$input['enabled'] = 0; //disable ban users list
 
 				$type    = 'error';
 				$message = '';
 
-				if ( is_wp_error( $ips ) ) {
-
-					foreach ( $ips->get_error_messages() as $error ) {
-						$message .= $error . '<br />';
-					}
-
+				foreach ( $bad_ips as $bad_ip ) {
+					$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address.', 'better-wp-security' ) );
 				}
 
 				$message .= sprintf( '<br /><br />%s', __( 'Note that the ban users feature has been disabled until the errors are corrected.', 'better_wp_security' ) );
 
 			} else {
 
-				$input['host_list'] = $ips;
+				$input['host_list'] = implode( PHP_EOL, $good_ips );
 
 				$type    = 'updated';
 				$message = __( 'Settings Updated', 'better_wp_security' );
+
+				if ( $input['enabled'] === 1 ) {
+					$this->build_ban_list( $good_ips );
+				}
 
 			}
 

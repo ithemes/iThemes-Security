@@ -146,7 +146,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		public function validates_ip_address( $ip ) {
 
 			//validate list
-			$ip = filter_var( $ip, FILTER_SANITIZE_STRING );
+			$ip = trim( filter_var( $ip, FILTER_SANITIZE_STRING ) );
 			$ip_parts      = explode( '.', $ip );
 			$error_handler = NULL;
 			$is_ip          = 0;
@@ -164,7 +164,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 					switch ( $part_count ) {
 
-						case 1:
+						case 1: //1st octet
 
 							if ( $part === '*' || strstr( $part, '/' ) ) {
 
@@ -174,7 +174,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 							break;
 
-						case 2:
+						case 2: //2nd octet
 
 							if ( $part === '*' ) {
 
@@ -188,7 +188,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 							break;
 
-						case 3:
+						case 3: //3rd octet
 
 							if ( $part !== '*' ) {
 
@@ -200,7 +200,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 							} elseif ( strstr( $part, '/' ) ) {
 
-									return false;
+								return false;
 
 							} else {
 
@@ -210,7 +210,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 							break;
 
-						default:
+						default: //4th octet and netmask
 
 							if ( $part !== '*' ) {
 
