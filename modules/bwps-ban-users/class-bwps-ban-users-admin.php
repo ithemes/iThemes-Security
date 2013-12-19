@@ -581,7 +581,6 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 					$rules .= '<IfModule mod_rewrite.c>' . PHP_EOL;
 					$rules .= 'RewriteEngine On' . PHP_EOL;
-
 					$rules .= $agent_list;
 					$rules .= 'RewriteRule ^(.*)$ - [F,L]' . PHP_EOL;
 					$rules .= '</IfModule>' . PHP_EOL;
