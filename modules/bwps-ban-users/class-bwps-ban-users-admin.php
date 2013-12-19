@@ -73,9 +73,8 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function add_admin_meta_boxes( $available_pages ) {
 
-			//add metaboxes
 			add_meta_box(
-				'away_mode_options',
+				'ban_users_options',
 				__( 'Configure Banned User Settings', 'better_wp_security' ),
 				array( $this, 'metabox_advanced_settings' ),
 				'security_page_toplevel_page_bwps-ban_users',
@@ -142,6 +141,14 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function initialize_admin() {
 
+			//default blacklist section
+			add_settings_section(
+				'ban_users_default',
+				__( 'Default Blacklist', 'better_wp_security' ),
+				array( $this, 'sandbox_general_options_callback' ),
+				'security_page_toplevel_page_bwps-ban_users'
+			);
+
 			//Enabled section
 			add_settings_section(
 				'ban_users_enabled',
@@ -156,6 +163,15 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 				__( 'Configure Ban Users', 'better_wp_security' ),
 				array( $this, 'sandbox_general_options_callback' ),
 				'security_page_toplevel_page_bwps-ban_users'
+			);
+
+			//default list field
+			add_settings_field(
+				'bwps_ban_users[default]',
+				__( 'Enable Default Blacklist', 'better_wp_security' ),
+				array( $this, 'ban_users_default' ),
+				'security_page_toplevel_page_bwps-ban_users',
+				'ban_users_default'
 			);
 
 			//enabled field
@@ -231,6 +247,31 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			$content = '<input type="checkbox" id="bwps_ban_users_enabled" name="bwps_ban_users[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
 			$content .= '<label for="bwps_ban_users_enabled"> ' . __( 'Check this box to enable ban users', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos hackrepair list Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function ban_users_default( $args ) {
+
+			//disable the option if away mode is in the past
+			if ( isset( $this->settings['default'] ) && $this->settings['default'] === 1 ) {
+				$default = 1;
+			} else {
+				$default = 0;
+			}
+
+			$content = '<p>' . __( 'As a getting-started point you can include the excellent blacklist developed by Jim Walker of <a href="http://hackrepair.com/blog/how-to-block-bots-from-seeing-your-website-bad-bots-and-drive-by-hacks-explained" target="_blank">HackRepair.com</a>.', 'better-wp-security' ) . '</p>';
+			$content .= '<br />';
+			$content .= '<input type="checkbox" id="bwps_ban_users_default" name="bwps_ban_users[default]" value="1" ' . checked( 1, $default, false ) . '/>';
+			$content .= '<label for="bwps_ban_users_default"> ' . __( 'Check this box to enable HackRepair.com\'s blacklist feature', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -380,22 +421,37 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		/**
 		 * Build the rewrite rules and sends them to the file writer
 		 *
-		 * @param array $ips array of IPs
-		 * @param array $agents array of user agents
-		 * @param bool[false] $insert is this inserting a single IP (true) or saving options
+		 * @param array  $list array of IPs or User Agents
+		 * @param string $type type of list, ip, whitelist or agent
+		 * @param        bool  [false] $insert is this inserting a single IP (true) or saving options
 		 */
-		private function build_ban_list( $ips, $agents, $insert = false ) {
+		private function build_ban_list( $list, $type = 'ip', $insert = false ) {
 
 			global $bwps_lib;
 
-			$server_type = $bwps_lib->get_server();
-
-			if ( $insert === true ) {
+			//setup data structure to save
+			if ( $insert === true && $type === 'ip' ) { //blocking ip on the fly
 
 				$settings = get_site_option( 'bwps_ban_users' );
-				$ip_list = '';
+
+			} elseif ( $insert === true && $type === 'whitelist' ) { //insert item into whitelist
+
+				//placeholder for later (may be handy with sync
+
+				return false;
+
+			} elseif ( $insert === true && $type === 'agent' ) { //we don't ever want to block user agents on the fly.
+
+				return false;
+
+			} else {
+
+				$list = $list;
 
 			}
+
+			//manage and save according to the correct server type
+			$server_type = $bwps_lib->get_server();
 
 			switch ( $server_type ) {
 
@@ -412,7 +468,6 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 					break;
 
 			}
-
 
 		}
 
@@ -431,7 +486,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			$addresses = explode( PHP_EOL, $input['host_list'] );
 
-			$bad_ips = array();
+			$bad_ips  = array();
 			$good_ips = array();
 
 			foreach ( $addresses as $index => $address ) {
