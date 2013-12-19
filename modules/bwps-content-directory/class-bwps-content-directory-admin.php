@@ -274,6 +274,8 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 
 			}
 
+			$this->settings = true; //this tells the form field that all went well.
+
 			add_settings_error(
 				'bwps_admin_notices',
 				esc_attr( 'settings_updated' ),
