@@ -13,11 +13,9 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 
 		private function __construct( $core ) {
 
-			global $bwps_globals;
-
 			$this->core = $core;
 
-			if ( ! strstr( WP_CONTENT_DIR, 'wp-content' ) || ! strstr( WP_CONTENT_URL, 'wp-content' ) ) {
+			if ( strpos( WP_CONTENT_DIR, 'wp-content' ) === false || strpos( WP_CONTENT_URL, 'wp-content' ) === false ) {
 				$this->settings = true;
 			} else {
 				$this->settings = false;

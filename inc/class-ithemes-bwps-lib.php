@@ -124,15 +124,15 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 			$server_raw = strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) );
 
 			//figure out what server they're using
-			if ( strstr( $server_raw, 'apache' ) ) {
+			if ( strpos( $server_raw, 'apache' ) !== false ) {
 
 				return 'apache';
 
-			} elseif ( strstr( $server_raw, 'nginx' ) ) {
+			} elseif ( strpos( $server_raw, 'nginx' ) !== false ) {
 
 				return 'nginx';
 
-			} elseif ( strstr( $server_raw, 'litespeed' ) ) {
+			} elseif ( strpos( $server_raw, 'litespeed' ) !== false ) {
 
 				return 'litespeed';
 
@@ -166,7 +166,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 				if ( $good_ip == true ) {
 
-					if ( ( is_numeric( $part ) && $part <= 255 && $part >= 0 ) || $part === '*' || ( $part_count === 3 && strstr( $part, '/' ) ) ) {
+					if ( ( is_numeric( $part ) && $part <= 255 && $part >= 0 ) || $part === '*' || ( $part_count === 3 && strpos( $part, '/' ) !== false ) ) {
 						$is_ip ++;
 					}
 
@@ -174,7 +174,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 						case 1: //1st octet
 
-							if ( $part === '*' || strstr( $part, '/' ) ) {
+							if ( $part === '*' || strpos( $part, '/' ) !== false ) {
 
 								return false;
 
@@ -188,7 +188,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 								$found_wildcard = true;
 
-							} elseif ( strstr( $part, '/' ) ) {
+							} elseif ( strpos( $part, '/' ) !== false ) {
 
 								return false;
 
@@ -206,7 +206,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 								}
 
-							} elseif ( strstr( $part, '/' ) ) {
+							} elseif ( strpos( $part, '/' ) !== false ) {
 
 								return false;
 
@@ -226,7 +226,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 									return false;
 
-								} elseif ( strstr( $part, '/' ) ){
+								} elseif ( strpos( $part, '/' ) !== false ) {
 
 									$netmask = intval( substr( $part, ( strpos( $part, '/' ) + 1 ) ) );
 
@@ -250,7 +250,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 			}
 
-			if ( ( strstr( $ip, '/' ) && ip2long( trim( substr( $ip, 0, strpos( $ip, '/' ) ) ) ) === false )  || ( ! strstr( $ip, '/' ) && ip2long( trim( str_replace( '*', '0', $ip ) ) ) === false ) ) { //invalid ip
+			if ( ( strpos( $ip, '/' ) !== false && ip2long( trim( substr( $ip, 0, strpos( $ip, '/' ) ) ) ) === false )  || ( strpos( $ip, '/' ) === false && ip2long( trim( str_replace( '*', '0', $ip ) ) ) === false ) ) { //invalid ip
 
 				return false;
 
