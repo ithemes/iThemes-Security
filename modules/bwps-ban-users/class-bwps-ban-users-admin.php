@@ -427,7 +427,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			global $bwps_lib;
 
-			//setup data structure to save
+			//setup data structures to write. These are simply lists of all IPs and hosts as well as options to check
 			if ( $insert === true && $type === 'ip' ) { //blocking ip on the fly
 
 				$settings       = get_site_option( 'bwps_ban_users' );
@@ -435,6 +435,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 				$enabled        = $settings['enabled'];
 				$raw_host_list  = $settings['host_list'];
 				$raw_agent_list = $settings['agent_list'];
+				$raw_white_list = $settings['white_list']; //as it's on the fly we'll have to compare.
 
 			} elseif ( $insert === true && $type === 'whitelist' ) { //insert item into whitelist
 
@@ -455,42 +456,47 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			}
 
-			//manage and save according to the correct server type
-			$server_type = $bwps_lib->get_server();
+			$server_type = $bwps_lib->get_server(); //Get the server type to build the right rules
 
+			//initialize lists so we can check later if we've used them
+			$host_list  = '';
+			$agent_list = '';
+			$default_list = '';
+
+			//load the default blacklist if needed
 			if ( $default === 1 && $server_type === 'nginx' ) {
 				$default_list = file_get_contents( plugin_dir_path( __FILE__ ) . 'lists/hackrepair-nginx.inc' );
 			} elseif ( $default === 1 ) {
 				$default_list = file_get_contents( plugin_dir_path( __FILE__ ) . 'lists/hackrepair-apache.inc' );
-			} else {
-				$default_list = '';
 			}
 
-			$host_list  = '';
-			$agent_list = '';
-
+			//Only process other lists if the feature has been enabled
 			if ( $enabled === 1 ) {
 
+				//process hosts list
 				if ( is_array( $raw_host_list ) ) {
 
 					foreach ( $raw_host_list as $host ) {
 
 						$host_parts = array_reverse( explode( '.', trim( $host ) ) );
 
-						$mask = 0;
+						$mask = 0; //used to calculate netmask with wildcards
+						$converted_host = ''; //initialze converted host
 
+						//convert hosts with wildcards to host with netmask and create rule lines
 						foreach ( $host_parts as $part ) {
 
 							if ( $part === '*' ) {
 								$mask = $mask + 8;
 							}
 
-							if ( $server_type === 'nginx' ) {
+							if ( $server_type === 'nginx' ) { //NGINX rules
 								$converted_host = 'Deny from ' . str_replace( '*', '0', $host );
-							} else {
+							} else { //rules for all other servers
 								$converted_host = "\tdeny " . str_replace( '*', '0', $host );
 							}
 
+							//Apply a mask if we had to convert
 							if ( $mask > 0 ) {
 								$converted_host .= '/' . $mask;
 							}
@@ -499,31 +505,33 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 						}
 
-						$host_list .= $converted_host;
+						$host_list .= $converted_host; //build large string of all hosts
 
 					}
 
 				}
 
+				//Process the agents list
 				if ( is_array( $raw_agent_list ) ) {
 
-					$count = 1;
+					$count = 1; //to help us find the last one
 
 					foreach ( $raw_agent_list as $agent ) {
 
+						//if it isn't the last rule make sure we add an or
 						if ( $count < sizeof( $agent ) ) {
 							$end = ' [NC,OR]' . PHP_EOL;
 						} else {
 							$end = '[NC]' . PHP_EOL;
 						}
 
-						if ( $server_type === 'nginx' ) {
+						if ( $server_type === 'nginx' ) { //NGINX rule
 							$converted_agent = 'if ($http_user_agent ~* "^' . trim( $agent ) . '"){ return 403; }' . PHP_EOL;
-						} else {
+						} else { //Rule for all other servers
 							$converted_agent = 'RewriteCond %{HTTP_USER_AGENT} ^' . trim( $agent ) . $end;
 						}
 
-						$agent_list .= $converted_agent;
+						$agent_list .= $converted_agent; //build large string of all agents
 
 						$count ++;
 
@@ -533,17 +541,19 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			}
 
-			$rules = '';
+			$rules = ''; //initialize rules
 
+			//Start with default rules if we have them
 			if ( strlen( $default_list ) > 1 ) {
 
 				$rules .= $default_list;
 
 			}
 
+			//Add banned host lists
 			if ( strlen( $host_list ) > 1 ) {
 
-				if ( $server_type === 'nginx' ) {
+				if ( $server_type === 'nginx' ) { //NGINX rules
 
 					$rules .= 'location / {' . PHP_EOL;
 					$rules .= $host_list;
@@ -560,9 +570,10 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			}
 
+			//Add banned user agents
 			if ( strlen( $agent_list ) > 1 ) {
 
-				if ( $server_type === 'nginx' ) {
+				if ( $server_type === 'nginx' ) { //NGINX rules
 
 					$rules .= $agent_list;
 
@@ -579,10 +590,18 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			}
 
-			if ( new Ithemes_BWPS_Files( 'htaccess', 'Ban Users', $rules ) ) {
+			if ( strlen( $rules ) > 1 ) { //is there even a reason to try writing to the file
+
+				if ( new Ithemes_BWPS_Files( 'htaccess', 'Ban Users', $rules ) ) {
+					return true;
+				} else {
+					return false;
+				}
+
+			} else { //there's nothing to write so that was easy
+
 				return true;
-			} else {
-				return false;
+
 			}
 
 		}
