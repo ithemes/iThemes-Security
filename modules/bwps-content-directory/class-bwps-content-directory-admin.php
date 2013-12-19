@@ -245,28 +245,30 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 				$old_dir = WP_CONTENT_DIR;
 				$new_dir = trailingslashit( ABSPATH ) . $dir_name;
 
-				//if ( true == false ) {
-				if ( ! rename( $old_dir, $new_dir ) ) { //make sure renaming the directory was successful
+				$rules = array(
+					'save'  => false,
+					'rules' => array(
+						'rules' => array(
+							'Comment'        => "//Do not delete these. Doing so WILL break your site.",
+							'WP_CONTENT_DIR' => "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
+							'WP_CONTENT_URL' => "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );",
+						),
+					),
+				);
 
-					$type    = 'error';
-					$message = __( 'WordPress was unable to rename your wp-content directory. Please check with your server administrator and try again.', 'better_wp_security' );
+				if ( new Ithemes_BWPS_Files( 'wpconfig', 'Content Directory', $rules ) ) {
+
+					if ( ! rename( $old_dir, $new_dir ) ) { //make sure renaming the directory was successful
+
+						$type    = 'error';
+						$message = __( 'WordPress was unable to rename your wp-content directory. Please check with your server administrator and try again.', 'better_wp_security' );
+
+					}
 
 				} else {
 
-					$rules = array(
-						'save'  => false,
-						'rules' => array(
-							'rules' => array(
-								'Comment'        => "//Do not delete these. Doing so WILL break your site.",
-								'WP_CONTENT_DIR' => "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
-								'WP_CONTENT_URL' => "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );",
-							),
-						),
-					);
-
-					$success = new Ithemes_BWPS_Files( 'wpconfig', 'Content Directory', $rules );
-
-					$this->settings = true;
+					$type    = 'error';
+					$message = __( 'WordPress was unable to rename your wp-content directory. Please check with your server administrator and try again.', 'better_wp_security' );
 
 				}
 
