@@ -286,7 +286,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function ban_users_host_list( $args ) {
 
-			$default = '';
+			$host_list = '';
 
 			//disable the option if away mode is in the past
 			if ( isset( $this->settings['host_list'] ) && is_array( $this->settings['host_list'] ) && sizeof( $this->settings['host_list'] ) >= 1 ) {
