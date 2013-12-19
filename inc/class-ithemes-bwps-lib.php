@@ -220,7 +220,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 								} elseif ( strstr( $part, '/' ) ){
 
-									$netmask = substr( $part, strpos( $part, '/' ) );
+									$netmask = intval( substr( $part, ( strpos( $part, '/' ) + 1 ) ) );
 
 									if ( ! is_numeric( $netmask ) && 1 > $netmask && 31 < $netmask ) {
 
@@ -242,7 +242,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 			}
 
-			if ( ip2long( trim( str_replace( '*', '0', $ip ) ) ) == false ) { //invalid ip
+			if ( ( strstr( $ip, '/' ) && ip2long( trim( substr( $ip, 0, strpos( $ip, '/' ) ) ) ) === false )  || ( ! strstr( $ip, '/' ) && ip2long( trim( str_replace( '*', '0', $ip ) ) ) === false ) ) { //invalid ip
 
 				return false;
 
