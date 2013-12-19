@@ -4,15 +4,9 @@ if ( ! class_exists( 'BWPS_Foo_Support_Setup' ) ) {
 
 	class BWPS_Foo_Support_Setup {
 
-		private
-			$hook;
-
 		function __construct() {
 
 			global $bwps_setup_action;
-
-			//Important, this must be manually set in each module
-			$this->hook = 'bwps';
 
 			if ( isset( $bwps_setup_action ) ) {
 
@@ -63,10 +57,10 @@ if ( ! class_exists( 'BWPS_Foo_Support_Setup' ) ) {
 
 			$this->execute_deactivate();
 
-			delete_site_option( $this->hook . '_licensekey' );
-			delete_site_option( $this->hook . '_valid' );
-			delete_site_option( $this->hook . '_valid_expires' );
-			delete_site_option( $this->hook . '_lasterror' );
+			delete_site_option( 'bwps_licensekey' );
+			delete_site_option( 'bwps_valid' );
+			delete_site_option( 'bwps_valid_expires' );
+			delete_site_option( 'bwps_lasterror' );
 
 		}
 

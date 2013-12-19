@@ -9,9 +9,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 	class Ithemes_BWPS_Setup {
 
-		private
-			$hook;
-
 		/**
 		 * Establish setup object
 		 *

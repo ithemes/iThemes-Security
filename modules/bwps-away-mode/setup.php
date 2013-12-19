@@ -4,15 +4,9 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 
 	class BWPS_Away_Mode_Setup {
 
-		private
-			$hook;
-
 		function __construct() {
 
 			global $bwps_setup_action;
-
-			//Important, this must be manually set in each module
-			$this->hook = 'bwps';
 
 			if ( isset( $bwps_setup_action ) ) {
 
@@ -46,7 +40,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 		 */
 		function execute_activate() {
 
-			$options = get_site_option( $this->hook . '_away_mode' );
+			$options = get_site_option( 'bwps_away_mode' );
 
 			$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
 
@@ -84,7 +78,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 
 			$this->execute_deactivate();
 
-			delete_site_option( $this->hook . '_away_mode' );
+			delete_site_option( 'bwps_away_mode' );
 
 		}
 

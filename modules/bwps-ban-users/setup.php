@@ -4,15 +4,9 @@ if ( ! class_exists( 'BWPS_Ban_Users_Setup' ) ) {
 
 	class BWPS_Ban_Users_Setup {
 
-		private
-			$hook;
-
 		function __construct() {
 
 			global $bwps_setup_action;
-
-			//Important, this must be manually set in each module
-			$this->hook = 'bwps';
 
 			if ( isset( $bwps_setup_action ) ) {
 
@@ -65,7 +59,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Setup' ) ) {
 
 			$this->execute_deactivate();
 
-			delete_site_option( $this->hook . '_ban_users' );
+			delete_site_option( 'bwps_ban_users' );
 
 		}
 
