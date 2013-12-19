@@ -483,6 +483,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			global $bwps_lib;
 
 			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
+			$input['default'] = intval( $input['default'] == 1 ? 1 : 0 );
 
 			$addresses = explode( PHP_EOL, $input['host_list'] );
 
