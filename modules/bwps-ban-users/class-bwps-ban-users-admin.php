@@ -591,7 +591,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			if ( strlen( $rules ) > 1 ) { //is there even a reason to try writing to the file
 
-				if ( new Ithemes_BWPS_Files( 'htaccess', 'Ban Users', $rules ) ) {
+				if ( new Ithemes_BWPS_Files( 'htaccess', 'Ban Users', explode( PHP_EOL, $rules ) ) ) {
 					return true;
 				} else {
 					return false;
