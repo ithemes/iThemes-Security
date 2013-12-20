@@ -149,7 +149,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 			add_settings_section(
 				'away_mode_enabled',
 				__( 'Configure Away Mode', 'better_wp_security' ),
-				array( $this, 'sandbox_general_options_callback' ),
+				array( $this, 'empty_callback_function' ),
 				'security_page_toplevel_page_bwps-away_mode'
 			);
 
@@ -157,7 +157,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 			add_settings_section(
 				'away_mode_settings',
 				__( 'Configure Away Mode', 'better_wp_security' ),
-				array( $this, 'sandbox_general_options_callback' ),
+				array( $this, 'empty_callback_function' ),
 				'security_page_toplevel_page_bwps-away_mode'
 			);
 
@@ -229,14 +229,9 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 		}
 
 		/**
-		 * Settings section callback
-		 *
-		 * Can be used for an introductory setction or other output. Currently is used by both settings sections.
-		 *
-		 * @return void
+		 * Empty callback function
 		 */
-		public function sandbox_general_options_callback() {
-		}
+		public function empty_callback_function() {}
 
 		/**
 		 * echos Enabled Field
@@ -571,6 +566,8 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 				$message,
 				$type
 			);
+
+			die( var_dump( $input ) );
 
 			return $input;
 

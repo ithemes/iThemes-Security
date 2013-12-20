@@ -143,7 +143,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			add_settings_section(
 				'ban_users_default',
 				__( 'Default Blacklist', 'better_wp_security' ),
-				array( $this, 'sandbox_general_options_callback' ),
+				array( $this, 'empty_callback_function' ),
 				'security_page_toplevel_page_bwps-ban_users'
 			);
 
@@ -151,7 +151,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			add_settings_section(
 				'ban_users_enabled',
 				__( 'Configure Ban Users', 'better_wp_security' ),
-				array( $this, 'sandbox_general_options_callback' ),
+				array( $this, 'empty_callback_function' ),
 				'security_page_toplevel_page_bwps-ban_users'
 			);
 
@@ -159,7 +159,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			add_settings_section(
 				'ban_users_settings',
 				__( 'Configure Ban Users', 'better_wp_security' ),
-				array( $this, 'sandbox_general_options_callback' ),
+				array( $this, 'empty_callback_function' ),
 				'security_page_toplevel_page_bwps-ban_users'
 			);
 
@@ -218,14 +218,9 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		}
 
 		/**
-		 * Settings section callback
-		 *
-		 * Can be used for an introductory setction or other output. Currently is used by both settings sections.
-		 *
-		 * @return void
+		 * Empty callback function
 		 */
-		public function sandbox_general_options_callback() {
-		}
+		public function empty_callback_function() {}
 
 		/**
 		 * echos Enabled Field
