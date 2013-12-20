@@ -137,7 +137,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			$this->do_modules();
 
-			do_action( $this->hook . '_set_plugin_data' );
+			do_action( 'bwps_set_plugin_data' );
 
 		}
 
