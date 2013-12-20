@@ -564,7 +564,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 				} else {
 
-					$rules .= 'Order allow, deny' . PHP_EOL;
+					$rules .= 'Order allow,deny' . PHP_EOL;
 					$rules .= $host_list;
 					$rules .= 'Allow from all' . PHP_EOL;
 
@@ -621,10 +621,14 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			global $bwps_lib;
 
-			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
-			$input['default'] = intval( $input['default'] == 1 ? 1 : 0 );
+			$input['enabled'] = ( isset( $input['enabled'] ) && $input['enabled'] == 1  ? 1 : 0 );
+			$input['default'] = ( isset( $input['default'] ) && $input['default'] == 1  ? 1 : 0 );
 
-			$addresses = explode( PHP_EOL, $input['host_list'] );
+			if ( isset( $input['host_list'] ) && ! is_array( $input['host_list'] ) ) {
+				$addresses = explode( PHP_EOL, $input['host_list'] );
+			} else {
+				$addresses = array();
+			}
 
 			$bad_ips  = array();
 			$good_ips = array();

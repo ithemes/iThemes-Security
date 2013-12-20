@@ -16,11 +16,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 * @param string $type         type of file to write: htaccess, wpconfig or getrules to just return existing rules
 		 * @param string $section_name name of section or feature of rules
 		 * @param array  $rules        array of rules to write
+		 * @param bool   $insert       merge rules with existing rules
 		 */
-		function __construct( $type, $section_name, $rules ) {
+		function __construct( $type, $section_name, $rules, $insert = false ) {
 
 			$this->type         = $type; //the type of file or getrules
 			$this->section_name = $section_name; // set the section name
+			$this->insert       = $insert; //Whether we inserting into existing rules or not
 
 			//get the correct lock file or just execute a rules return
 			switch ( $this->type ) {
@@ -59,7 +61,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				//Get rules from other sections from the database
 				$this->rules = get_site_option( 'bwps_rewrites' );
 
-				if ( is_array( $this->rules ) ) { //make sure the rules retrieved from the database are an array
+				if ( is_array( $this->rules ) && $this->insert === true ) { //make sure the rules retrieved from the database are an array
 
 					if ( is_array( $this->rules[$type] ) ) { //see if an array exists for the given type
 
@@ -86,7 +88,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				}
 
 				//Set the rules priority for sorting or 10 for default
-				if ( isset( $rules['piority'] ) ) {
+				if ( isset( $rules['priority'] ) ) {
 					$this->rules[$type][$this->section_name]['priority'] = $rules['priority'];
 				} else {
 					$this->rules[$type][$this->section_name]['priority'] = 10;
@@ -120,35 +122,49 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 		}
 
+		/**
+		 * Builds server appropriate rewrite rules
+		 * 
+		 * @return [type] The rewrite rules to use
+		 */
 		public function build_htaccess() {
 
-			if ( $action === true && strpos( $config_contents, $rule ) === false ) { //if we're adding the rule and it isn't already there
+			$saved_contents = get_site_option( 'bwps_rewrites' );
 
-				if ( strpos( $config_contents, '// Added by Better WP Security' ) === false ) { //if there are other Better WP Security rules already present
+			$rewrite_rules = $saved_contents['htaccess']; //only get the htaccess portion
 
-					$config_contents = str_replace( '<?php', '<?php' . PHP_EOL . '// Added by Better WP Security' . PHP_EOL . $rule . PHP_EOL, $config_contents );
+			uasort( $rewrite_rules, array( $this, 'priority_sort' ) ); //sort by priority
 
-				} else {
+			foreach ( $rewrite_rules as $key => $value ) {
 
-					$config_contents = str_replace( '// Added by Better WP Security', '// Added by Better WP Security' . PHP_EOL . $rule, $config_contents );
+				$out_values[] = "\t# BEGIN " . $key; //add section header
 
+				foreach( $value['rules'] as $rule ) {
+					$out_values[] = "\t\t" . $rule; //write all the rules
 				}
 
-			} elseif ( $action === false ) { //we're deleting a rule
-
-				if ( strpos( $config_contents, $rule ) === false ) { //it's already been deleted
-
-					return false;
-
-				} else {
-
-					$config_contents = str_replace( $rule . PHP_EOL, '', $config_contents );
-
-				}
+				$out_values[] = "\t# END " . $key; //add section footer
 
 			}
 
-			return $config_contents;
+			return $out_values;
+
+		}
+
+		/**
+		 * Compare values of a and b for sorting
+		 * 
+		 * @param  string $a value a
+		 * @param  string $b value b
+		 * @return int    -1 if a less than b, 0 if they're equal or 1 if a is greater
+		 */
+		private function priority_sort( $a, $b ) {
+
+			if( $a['priority'] == $b['priority'] ) {
+				return 0;
+			}
+
+			return $a['priority'] > $b['priority'] ? 1 : -1;
 
 		}
 
@@ -165,7 +181,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 				if ( @posix_getsid( $pid ) !== false ) {
 
-					return false; //file is locked for writing
+					return true; //file is locked for writing
 
 				}
 
@@ -201,6 +217,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			global $bwps_lib, $wp_filesystem;
 
+			$rule_open = '# BEGIN Better WP Security #';
+			$rule_close = '# END Better WP Security #';
+
 			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
 
 			$form_fields = array( 'save' );
@@ -228,19 +247,19 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			$htaccess_contents = $wp_filesystem->get_contents( $htaccess_file ); //get the contents of the htaccess or nginx file
 
-			if ( ! $htaccess_contents ) { //we couldn't get the file contents
+			if ( $htaccess_contents === false ) { //we couldn't get the file contents
 
 				return false;
 
 			} else { //write out what we need to.
 
 				$lines = explode( PHP_EOL, $htaccess_contents ); //create an array to make this easier
-				$rules_to_write = ''; //String of rules to insert into file
+				$rules_to_write = $this->build_htaccess(); //String of rules to insert into file
 				$state = false;
 
 				foreach ( $lines as $line_number => $line ) { //for each line in the file
 
-					if ( strpos( $line, '# BEGIN ' . $this->section_name ) !== false ) { //if we're at the beginning of the section
+					if ( strpos( $line, $rule_open ) !== false ) { //if we're at the beginning of the section
 						$state = true;
 					}
 
@@ -250,33 +269,25 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 					}
 
-					if ( strpos( $line, '# END ' . $this->section_name ) !== false ) { //see if we're at the end of the section
+					if ( strpos( $line, $rule_close ) !== false ) { //see if we're at the end of the section
 						$state = true;
 					}
 
 				}
 
-				foreach ( $this->rules as $check => $rule ) {
+				if ( sizeof( $rules_to_write ) > 0 ) { //make sure we have something to write
 
-					if ( ( $check === 'Comment' && strpos( $htaccess_contents, $rule ) === false ) || strpos( $htaccess_contents, $check ) === false ) {
-						$rules_to_write .= $rule . PHP_EOL;
+					$htaccess_contents = $rule_open . PHP_EOL . implode( PHP_EOL, $rules_to_write ) . implode( PHP_EOL, $lines ) . $rule_close . PHP_EOL;
+
+				}
+
+				//Actually write the new content to wp-config.
+				if ( $htaccess_contents !== false ) {
+
+					if ( ! $wp_filesystem->put_contents( $htaccess_file, $htaccess_contents, FS_CHMOD_FILE ) ) {
+						return false;
 					}
 
-				}
-
-				if ( strlen( $rules_to_write ) > 1 ) { //make sure we have something to write
-
-					$htaccess_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $htaccess_contents );
-
-				}
-
-			}
-
-			//Actually write the new content to wp-config.
-			if ( $htaccess_contents !== false ) {
-
-				if ( ! $wp_filesystem->put_contents( $htaccess_file, $htaccess_contents, FS_CHMOD_FILE ) ) {
-					return false;
 				}
 
 			}
