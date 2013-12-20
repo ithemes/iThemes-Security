@@ -489,9 +489,9 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 							}
 
 							if ( $server_type === 'nginx' ) { //NGINX rules
-								$converted_host = 'Deny from ' . str_replace( '*', '0', $host );
-							} else { //rules for all other servers
 								$converted_host = "\tdeny " . str_replace( '*', '0', $host );
+							} else { //rules for all other servers
+								$converted_host = 'Deny from ' . str_replace( '*', '0', $host );
 							}
 
 							//Apply a mask if we had to convert
@@ -565,17 +565,17 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 				} else {
 
 					$rules .= 'Order allow, deny' . PHP_EOL;
-					$rules .= 'Allow from all' . PHP_EOL;
 					$rules .= $host_list;
+					$rules .= 'Allow from all' . PHP_EOL;
 
 				}
 
 			}
 
 			//Add banned user agents
-			if ( strlen( $agent_list ) > 1 || strlen( $host_list ) > 1 ) {
+			if ( strlen( $agent_list ) > 1 ) {
 
-				if ( strlen( $default_list ) > 1 ) {
+				if ( strlen( $default_list ) > 1 || strlen( $host_list ) > 1 ) {
 					$rules .= PHP_EOL;
 				}
 
