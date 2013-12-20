@@ -551,6 +551,10 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			//Add banned host lists
 			if ( strlen( $host_list ) > 1 ) {
 
+				if ( strlen( $default_list ) > 1 ) {
+					$rules .= PHP_EOL;
+				}
+
 				if ( $server_type === 'nginx' ) { //NGINX rules
 
 					$rules .= 'location / {' . PHP_EOL;
@@ -569,7 +573,11 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			}
 
 			//Add banned user agents
-			if ( strlen( $agent_list ) > 1 ) {
+			if ( strlen( $agent_list ) > 1 || strlen( $host_list ) > 1 ) {
+
+				if ( strlen( $default_list ) > 1 ) {
+					$rules .= PHP_EOL;
+				}
 
 				if ( $server_type === 'nginx' ) { //NGINX rules
 
