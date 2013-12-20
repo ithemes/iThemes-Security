@@ -181,7 +181,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 				if ( @posix_getsid( $pid ) !== false ) {
 
-					return true; //file is locked for writing
+					return false; //file is locked for writing
 
 				}
 
