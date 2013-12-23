@@ -440,6 +440,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 				$enabled        = $settings['enabled'];
 				$raw_host_list  = $settings['host_list'];
 				$raw_agent_list = $settings['agent_list'];
+				$raw_white_list = $settings['white_list'];
 
 			} elseif ( $insert === true && $type === 'whitelist' ) { //insert item into whitelist
 
@@ -457,6 +458,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 				$enabled        = $input['enabled'];
 				$raw_host_list  = $input['host_list'];
 				$raw_agent_list = $input['agent_list'];
+				$raw_white_list = $input['white_list'];
 
 			}
 
@@ -482,23 +484,10 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 					foreach ( $raw_host_list as $host ) {
 
-						$host_parts = array_reverse( explode( '.', trim( $host ) ) );
-
-						$mask           = 0; //used to calculate netmask with wildcards
 						$host_rule = ''; //initialze converted host
-						$converted_host = str_replace( '*', '0', $host );
+						$converted_host = $bwps_lib->ip_wild_to_mask( $host );
 
-						//convert hosts with wildcards to host with netmask and create rule lines
-						foreach ( $host_parts as $part ) {
-
-							if ( $part === '*' ) {
-								$mask = $mask + 8;
-							}
-
-							//Apply a mask if we had to convert
-							if ( $mask > 0 ) {
-								$converted_host .= '/' . $mask;
-							}
+						if( ! $this->is_ip_whitelisted( $converted_host, $raw_white_list ) ) {
 
 							if ( $server_type === 'nginx' ) { //NGINX rules
 								$host_rule = "\tdeny " . $converted_host;
@@ -506,11 +495,9 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 								$host_rule = 'Deny from ' . $converted_host;
 							}
 
-							$host_rule .= PHP_EOL;
+							$host_list .= $host_rule . PHP_EOL; //build large string of all hosts
 
 						}
-
-						$host_list .= $host_rule; //build large string of all hosts
 
 					}
 
@@ -796,6 +783,87 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			//send them back to the away mode options page
 			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_bwps-away_mode', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
+
+		}
+
+		/**
+		 * Determines whether a given IP address is whitelisted
+		 * 
+		 * @param  string  $ip_to_check  ip to check
+		 * @param  array   $white_ips    ip list to compare to if not yet saved to options
+		 * @return boolean               true if whitelisted or false
+		 */
+		private function is_ip_whitelisted( $ip_to_check, $white_ips = null ) {
+
+			global $bwps_lib;
+
+			if ( $white_ips === null ) {
+
+				$settings = get_site_option( 'bwps_ban_users' );
+
+				$white_ips = $settings['white_list'];
+
+			}
+
+			foreach ( $white_ips as $white_ip ) {
+
+				$converted_white_ip = $bwps_lib->ip_wild_to_mask( $white_ip );
+
+				$check_range = $bwps_lib->cidr_to_range( $converted_white_ip );
+				$ip_range = $bwps_lib->cidr_to_range( $ip_to_check );
+
+				if( sizeof( $check_range ) === 2 ) { //range to check
+
+					$check_min = ip2long( $check_range[0] );
+					$check_max = ip2long( $check_range[1] );
+
+					if ( sizeof( $ip_range ) === 2 ) {
+
+						$ip_min = ip2long( $ip_range[0] );
+						$ip_max = ip2long( $ip_range[1] );
+
+						if ( ( $check_min < $ip_min && $ip_min < $check_max ) || ( $check_min < $ip_max && $ip_max < $check_max ) ) {
+							return true;
+						}
+
+					} else { 
+
+						$ip = ip2long( $ip_range[0] );
+
+						if ( $check_min < $ip && $ip < $check_max ) {
+							return true;
+						}
+
+					}
+
+				} else { //single ip to check
+
+					$check = ip2long( $check_range[0] );
+
+					if ( sizeof( $ip_range ) === 2  ) {
+
+						$ip_min = ip2long( $ip_range[0] );
+						$ip_max = ip2long( $ip_range[1] );
+
+						if ( $ip_min < $check && $check < $ip_max ) {
+							return true;
+						}
+
+					} else { 
+
+						$ip = ip2long( $ip_range[0] );
+
+						if ( $check == $ip ) {
+							return true;
+						}
+
+					}
+
+				}
+
+			}
+
+			return false;
 
 		}
 
