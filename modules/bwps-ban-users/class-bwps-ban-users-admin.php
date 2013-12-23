@@ -281,7 +281,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			$host_list = '';
 
-			//disable the option if away mode is in the past
+			//Convert and show the host list
 			if ( isset( $this->settings['host_list'] ) && is_array( $this->settings['host_list'] ) && sizeof( $this->settings['host_list'] ) >= 1 ) {
 
 				$host_list = implode( PHP_EOL, $this->settings['host_list'] );
@@ -315,14 +315,20 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function ban_users_agent_list( $args ) {
 
-			//disable the option if away mode is in the past
-			if ( isset( $this->settings['agent_list'] ) && strlen( $this->settings['agent_list'] ) > 1 ) {
-				$default = $this->settings['agent_list'];
-			} else {
-				$default = '';
+			$agent_list = '';
+
+			//Convert and show the agent list
+			if ( isset( $this->settings['agent_list'] ) && is_array( $this->settings['agent_list'] ) && sizeof( $this->settings['agent_list'] ) >= 1 ) {
+
+				$agent_list = implode( PHP_EOL, $this->settings['agent_list'] );
+
+			} elseif ( isset( $this->settings['agent_list'] ) && ! is_array( $this->settings['agent_list'] ) && strlen( $this->settings['agent_list'] ) > 1 ) {
+
+				$agent_list = $this->settings['agent_list'];
+
 			}
 
-			$content = '<textarea id="bwps_ban_users_agent_list" name="bwps_ban_users[agent_list]" rows="10" cols="50">' . $default . '</textarea>';
+			$content = '<textarea id="bwps_ban_users_agent_list" name="bwps_ban_users[agent_list]" rows="10" cols="50">' . $agent_list . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', 'better_wp_security' ) . '</p>';
 			$content .= '<ul><em>';
 			$content .= '<li>' . __( 'Enter only 1 user agent per line.', 'better_wp_security' ) . '</li>';
@@ -341,14 +347,20 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function ban_users_white_list( $args ) {
 
-			//disable the option if away mode is in the past
-			if ( isset( $this->settings['white_list'] ) && strlen( $this->settings['white_list'] ) > 1 ) {
-				$default = $this->settings['white_list'];
-			} else {
-				$default = '';
+			$white_list = '';
+
+			//Convert and show the agent list
+			if ( isset( $this->settings['white_list'] ) && is_array( $this->settings['white_list'] ) && sizeof( $this->settings['white_list'] ) >= 1 ) {
+
+				$white_list = implode( PHP_EOL, $this->settings['white_list'] );
+
+			} elseif ( isset( $this->settings['white_list'] ) && ! is_array( $this->settings['white_list'] ) && strlen( $this->settings['white_list'] ) > 1 ) {
+
+				$white_list = $this->settings['white_list'];
+
 			}
 
-			$content = '<textarea id="bwps_ban_users_white_list" name="bwps_ban_users[white_list]" rows="10" cols="50">' . $default . '</textarea>';
+			$content = '<textarea id="bwps_ban_users_white_list" name="bwps_ban_users[white_list]" rows="10" cols="50">' . $white_list . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be banned from your site. This will keep you from locking yourself out of any features if you should trigger a lockout. Please note this does not override away mode.', 'better_wp_security' ) . '</p>';
 			$content .= '<ul><em>';
 			$content .= '<li>' . __( 'You may white list users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
@@ -616,9 +628,82 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			global $bwps_lib;
 
+			$no_errors = false; //start out assuming they entered a bad IP somewhere
+
+			//Sanitize checkbox features
 			$input['enabled'] = ( isset( $input['enabled'] ) && $input['enabled'] == 1  ? 1 : 0 );
 			$input['default'] = ( isset( $input['default'] ) && $input['default'] == 1  ? 1 : 0 );
 
+			//process agent list
+			if ( isset( $input['agent_list'] ) && ! is_array( $input['agent_list'] ) ) {
+				$agents = explode( PHP_EOL, $input['agent_list'] );
+			} else {
+				$agents = array();
+			}
+
+			$good_agents = array();
+
+			foreach ( $agents as $agent ) {
+				$good_agents[] = quotemeta( sanitize_text_field( $agent ) );
+			}
+
+			$input['agent_list'] = $good_agents;
+
+			//Process white list
+			if ( isset( $input['white_list'] ) && ! is_array( $input['white_list'] ) ) {
+				$white_listed_addresses = explode( PHP_EOL, $input['white_list'] );
+			} else {
+				$white_listed_addresses = array();
+			}
+
+			$bad_white_listed_ips  = array();
+			$raw_white_listed_ips = array();
+
+			foreach ( $white_listed_addresses as $index => $address ) {
+
+				if ( strlen( trim( $address ) ) > 0 ) {
+
+					if ( $bwps_lib->validates_ip_address( $address ) === false ) {
+
+						$bad_white_listed_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
+
+					}
+
+					$raw_white_listed_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
+
+				} else {
+					unset( $white_listed_addresses[$index] );
+				}
+
+			}
+
+			$raw_white_listed_ips = array_unique( $raw_white_listed_ips );
+
+			if ( sizeof( $bad_white_listed_ips ) > 0 ) {
+
+				$input['enabled'] = 0; //disable ban users list
+
+				$type    = 'error';
+				$message = '';
+
+				$message .= sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'better_wp_security' ) );
+
+				foreach ( $bad_white_listed_ips as $bad_ip ) {
+					$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address in the whitelist users box.', 'better-wp-security' ) );
+				}
+
+			} else {
+
+				$type    = 'updated';
+				$message = __( 'Settings Updated', 'better_wp_security' );
+
+				$no_errors = true;
+
+			}
+
+			$input['white_list'] = $raw_white_listed_ips;
+
+			//Process hosts list
 			if ( isset( $input['host_list'] ) && ! is_array( $input['host_list'] ) ) {
 				$addresses = explode( PHP_EOL, $input['host_list'] );
 			} else {
@@ -626,7 +711,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			}
 
 			$bad_ips  = array();
-			$good_ips = array();
+			$raw_ips = array();
 
 			foreach ( $addresses as $index => $address ) {
 
@@ -636,11 +721,9 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 						$bad_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
 
-					} else {
-
-						$good_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
-
 					}
+
+					$raw_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
 
 				} else {
 					unset( $addresses[$index] );
@@ -648,32 +731,34 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			}
 
-			$good_ips = array_unique( $good_ips );
+			$raw_ips = array_unique( $raw_ips );
 
 			if ( sizeof( $bad_ips ) > 0 ) {
 
 				$input['enabled'] = 0; //disable ban users list
 
 				$type    = 'error';
-				$message = '';
-
+				if ( $no_errors === true ) {
+					$message .= sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'better_wp_security' ) );
+				}
+				
 				foreach ( $bad_ips as $bad_ip ) {
-					$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address.', 'better-wp-security' ) );
+					$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address in the ban users box.', 'better-wp-security' ) );
 				}
 
-				$message .= sprintf( '<br /><br />%s', __( 'Note that the ban users feature has been disabled until the errors are corrected.', 'better_wp_security' ) );
-
 			} else {
-
-				$input['host_list'] = $good_ips;
 
 				$type    = 'updated';
 				$message = __( 'Settings Updated', 'better_wp_security' );
 
-				if ( $input['enabled'] === 1 ) {
-					$this->build_ban_list( $input );
-				}
+				$no_errors = true;
 
+			}
+
+			$input['host_list'] = $raw_ips;
+
+			if ( $input['enabled'] === 1 && $no_errors === true ) {
+				$this->build_ban_list( $input );
 			}
 
 			add_settings_error(
