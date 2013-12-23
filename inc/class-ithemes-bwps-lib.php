@@ -256,6 +256,44 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		}
 
 		/**
+		 * Converts IP with * wildcards to one with a netmask instead
+		 * 
+		 * @param  string $ip ip to convert
+		 * 
+		 * @return string     the converted ip
+		 */
+		public function ip_wild_to_mask( $ip ) {
+
+			$host_parts = array_reverse( explode( '.', trim( $ip ) ) );
+
+			if ( strpos( $ip, '*' ) ) {
+
+				$mask           = 0; //used to calculate netmask with wildcards
+				$converted_host = str_replace( '*', '0', $ip );
+
+				//convert hosts with wildcards to host with netmask and create rule lines
+				foreach ( $host_parts as $part ) {
+
+					if ( $part === '*' ) {
+						$mask = $mask + 8;
+					}
+
+					//Apply a mask if we had to convert
+					if ( $mask > 0 ) {
+						$converted_host .= '/' . $mask;
+					}
+
+				}
+
+				return $converted_host;
+
+			} 
+
+			return $ip;
+
+		}
+
+		/**
 		 * Start the global library instance
 		 *
 		 * @return Ithemes_BWPS_Lib          The instance of the Ithemes_BWPS_Lib class
