@@ -42,6 +42,21 @@ if ( ! class_exists( 'BWPS_Away_Mode_Setup' ) ) {
 
 			$options = get_site_option( 'bwps_away_mode' );
 
+			if ( $options === false ) {
+
+				$defaults = array(
+					'enabled' => 0,
+					'type' => 0,
+					'start_date' => 1,
+					'start_time' => 1,
+					'end_date' => 1,
+					'end_time' => 1,
+				);
+
+				add_site_option( 'bwps_away_mode', $defaults );
+
+			}
+
 			$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
 
 			$away_file = $upload_dir['basedir'] . '/bwps_away.confg'; //override file
