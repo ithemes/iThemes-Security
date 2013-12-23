@@ -175,9 +175,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 
 				$module_folder = $modules_folder . '/' . $module;
 
-				if ( $module !== '.' && $module !== '..' && is_dir( $module_folder ) && file_exists( $module_folder . '/init.php' ) ) {
+				if ( $module !== '.' && $module !== '..' && is_dir( $module_folder ) && file_exists( $module_folder . '/index.php' ) ) {
 
-					require_once( $module_folder . '/init.php' );
+					require_once( $module_folder . '/index.php' );
 
 				}
 
