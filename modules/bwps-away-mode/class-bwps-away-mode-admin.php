@@ -567,8 +567,6 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 				$type
 			);
 
-			die( var_dump( $input ) );
-
 			return $input;
 
 		}
