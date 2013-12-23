@@ -497,6 +497,12 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 							$host_list .= $host_rule . PHP_EOL; //build large string of all hosts
 
+						} else {
+
+							/**
+							 * @todo warn the user the ip to be banned is whitelisted
+							 */
+
 						}
 
 					}
