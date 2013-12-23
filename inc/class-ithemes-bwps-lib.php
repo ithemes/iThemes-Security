@@ -313,7 +313,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 	  			$range[] = long2ip( ( ip2long( $cidr[0] ) ) & ( (-1 << ( 32 - (int) $cidr[1] ) ) ) );
 	  			$range[] = long2ip( ( ip2long( $cidr[0] ) ) + pow( 2, ( 32 - (int) $cidr[1] ) ) - 1 );
 
-	  		} else {
+	  		} else { //if not a range just return the original ip
 
 	  			$range[] = $cidr;
 
