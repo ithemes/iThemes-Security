@@ -561,7 +561,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 					$rules .= 'Order allow,deny' . PHP_EOL;
 					$rules .= $host_list;
-					$rules .= 'Allow from all' . PHP_EOL;
+					$rules .= 'Allow from all';
 
 				}
 
