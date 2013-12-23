@@ -294,6 +294,36 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		}
 
 		/**
+		 * Converts CIDR to ip range.
+		 *
+		 * Modified from function at http://stackoverflow.com/questions/4931721/getting-list-ips-from-cidr-notation-in-php
+		 * as it was far more elegant than my own solution
+		 * 
+		 * @param  string $cidr cidr notation to convert
+		 * @return array        range of ips returned
+		 */
+		public function cidr_to_range( $cidr ) {
+			
+			$range = array();
+
+			if ( strpos( $cidr, '/' ) ) {
+
+	  			$cidr = explode( '/', $cidr );
+
+	  			$range[] = long2ip( ( ip2long( $cidr[0] ) ) & ( (-1 << ( 32 - (int) $cidr[1] ) ) ) );
+	  			$range[] = long2ip( ( ip2long( $cidr[0] ) ) + pow( 2, ( 32 - (int) $cidr[1] ) ) - 1 );
+
+	  		} else {
+
+	  			$range[] = $cidr;
+
+	  		}
+
+	  		return $range;
+
+	  	}
+
+		/**
 		 * Start the global library instance
 		 *
 		 * @return Ithemes_BWPS_Lib          The instance of the Ithemes_BWPS_Lib class
