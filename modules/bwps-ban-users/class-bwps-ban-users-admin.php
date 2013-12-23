@@ -811,6 +811,8 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			}
 
+			$white_ips[] = $bwps_lib->get_ip(); //add current user ip to whitelist to check automatically
+
 			foreach ( $white_ips as $white_ip ) {
 
 				$converted_white_ip = $bwps_lib->ip_wild_to_mask( $white_ip );
