@@ -787,7 +787,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		}
 
 		/**
-		 * Determines whether a given IP address is whitelisted
+		 * Determines whether a given IP address is whitelisted and checks current user ip
 		 * 
 		 * @param  string  $ip_to_check  ip to check
 		 * @param  array   $white_ips    ip list to compare to if not yet saved to options
@@ -805,12 +805,31 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			}
 
+			$ip_range = $bwps_lib->cidr_to_range( $ip_to_check );
+			$current_ip = $bwps_lib->get_ip(); //the user's IP (so we don't ban them)
+
+			if ( sizeof( $ip_range ) === 1 ) {
+				
+				if ( $current_ip == $ip_range[0] ) {
+					return true;
+				}
+
+			} else {
+
+				$ip_min = ip2long( $ip_range[0] );
+				$ip_max = ip2long( $ip_range[1] );
+
+				if ( $ip_min < $current_ip && $ip_max < $current_ip ) {
+					return true;
+				}
+
+			}
+
 			foreach ( $white_ips as $white_ip ) {
 
 				$converted_white_ip = $bwps_lib->ip_wild_to_mask( $white_ip );
 
 				$check_range = $bwps_lib->cidr_to_range( $converted_white_ip );
-				$ip_range = $bwps_lib->cidr_to_range( $ip_to_check );
 
 				if( sizeof( $check_range ) === 2 ) { //range to check
 
@@ -818,9 +837,6 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 					$check_max = ip2long( $check_range[1] );
 
 					if ( sizeof( $ip_range ) === 2 ) {
-
-						$ip_min = ip2long( $ip_range[0] );
-						$ip_max = ip2long( $ip_range[1] );
 
 						if ( ( $check_min < $ip_min && $ip_min < $check_max ) || ( $check_min < $ip_max && $ip_max < $check_max ) ) {
 							return true;
@@ -841,9 +857,6 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 					$check = ip2long( $check_range[0] );
 
 					if ( sizeof( $ip_range ) === 2  ) {
-
-						$ip_min = ip2long( $ip_range[0] );
-						$ip_max = ip2long( $ip_range[1] );
 
 						if ( $ip_min < $check && $check < $ip_max ) {
 							return true;
