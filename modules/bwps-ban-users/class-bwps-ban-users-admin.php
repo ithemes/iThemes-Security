@@ -440,7 +440,6 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 				$enabled        = $settings['enabled'];
 				$raw_host_list  = $settings['host_list'];
 				$raw_agent_list = $settings['agent_list'];
-				$raw_white_list = $settings['white_list']; //as it's on the fly we'll have to compare.
 
 			} elseif ( $insert === true && $type === 'whitelist' ) { //insert item into whitelist
 
@@ -486,7 +485,8 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 						$host_parts = array_reverse( explode( '.', trim( $host ) ) );
 
 						$mask           = 0; //used to calculate netmask with wildcards
-						$converted_host = ''; //initialze converted host
+						$host_rule = ''; //initialze converted host
+						$converted_host = str_replace( '*', '0', $host );
 
 						//convert hosts with wildcards to host with netmask and create rule lines
 						foreach ( $host_parts as $part ) {
@@ -495,22 +495,22 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 								$mask = $mask + 8;
 							}
 
-							if ( $server_type === 'nginx' ) { //NGINX rules
-								$converted_host = "\tdeny " . str_replace( '*', '0', $host );
-							} else { //rules for all other servers
-								$converted_host = 'Deny from ' . str_replace( '*', '0', $host );
-							}
-
 							//Apply a mask if we had to convert
 							if ( $mask > 0 ) {
 								$converted_host .= '/' . $mask;
 							}
 
-							$converted_host .= PHP_EOL;
+							if ( $server_type === 'nginx' ) { //NGINX rules
+								$host_rule = "\tdeny " . $converted_host;
+							} else { //rules for all other servers
+								$host_rule = 'Deny from ' . $converted_host;
+							}
+
+							$host_rule .= PHP_EOL;
 
 						}
 
-						$host_list .= $converted_host; //build large string of all hosts
+						$host_list .= $host_rule; //build large string of all hosts
 
 					}
 
@@ -523,20 +523,24 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 					foreach ( $raw_agent_list as $agent ) {
 
-						//if it isn't the last rule make sure we add an or
-						if ( $count < sizeof( $agent ) ) {
-							$end = ' [NC,OR]' . PHP_EOL;
-						} else {
-							$end = '[NC]' . PHP_EOL;
-						}
+						if ( strlen( trim( $agent ) ) > 1 ) { 
 
-						if ( $server_type === 'nginx' ) { //NGINX rule
-							$converted_agent = 'if ($http_user_agent ~* "^' . trim( $agent ) . '"){ return 403; }' . PHP_EOL;
-						} else { //Rule for all other servers
-							$converted_agent = 'RewriteCond %{HTTP_USER_AGENT} ^' . trim( $agent ) . $end;
-						}
+							//if it isn't the last rule make sure we add an or
+							if ( $count < sizeof( $agent ) ) {
+								$end = ' [NC,OR]' . PHP_EOL;
+							} else {
+								$end = '[NC]' . PHP_EOL;
+							}
 
-						$agent_list .= $converted_agent; //build large string of all agents
+							if ( $server_type === 'nginx' ) { //NGINX rule
+								$converted_agent = 'if ($http_user_agent ~* "^' . trim( $agent ) . '"){ return 403; }' . PHP_EOL;
+							} else { //Rule for all other servers
+								$converted_agent = 'RewriteCond %{HTTP_USER_AGENT} ^' . trim( $agent ) . $end;
+							}
+
+							$agent_list .= $converted_agent; //build large string of all agents
+
+						}
 
 						$count ++;
 
