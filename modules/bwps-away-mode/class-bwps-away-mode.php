@@ -18,7 +18,9 @@ if ( ! class_exists( 'BWPS_Away_Mode' ) ) {
 			$this->away_file = $bwps_globals['upload_dir'] . '/bwps_away.confg'; //override file
 
 			//Execute module functions on admin init
-			add_action( 'admin_init', array( $this, 'execute_module_functions' ) );
+			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 ) {
+				add_action( 'admin_init', array( $this, 'execute_module_functions' ) );
+			}
 
 		}
 
