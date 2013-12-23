@@ -255,10 +255,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 		}
 
-		public function validate_bad_agents( $agents ) {
-
-		}
-
 		/**
 		 * Start the global library instance
 		 *
