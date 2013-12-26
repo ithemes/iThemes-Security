@@ -125,7 +125,7 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 		 */
 		public function initialize_admin() {
 
-			if ( ! $this->settings === true && isset( $_POST['bwps_one_time_save'] ) ) {
+			if ( ! $this->settings === true && isset( $_POST['bwps_one_time_save'] ) && $_POST['bwps_one_time_save'] == 'content_directory' ) {
 
 				if ( ! wp_verify_nonce( $_POST['wp_nonce'], 'BWPS_admin_save' ) ) {
 
