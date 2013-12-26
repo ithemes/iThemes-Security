@@ -139,11 +139,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			do_action( 'bwps_set_plugin_data' );
 
-			if ( new Ithemes_BWPS_Files( 'activate' ) ) {
-				return true;
-			} else {
-				return false;
-			}
+			new Ithemes_BWPS_Files( 'activate' );
 
 		}
 
@@ -173,11 +169,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			$this->do_modules();
 
-			if ( new Ithemes_BWPS_Files( 'deactivate' ) ) {
-				return true;
-			} else {
-				return false;
-			}
+			new Ithemes_BWPS_Files( 'activate' );
 
 		}
 
