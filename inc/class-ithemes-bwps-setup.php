@@ -167,6 +167,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			$this->do_modules();
 
+			if ( new Ithemes_BWPS_Files( 'deactivate' ) ) {
+				return true;
+			} else {
+				return false;
+			}
+
 		}
 
 		/**

@@ -13,12 +13,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		/**
 		 * Create and manage wp_config.php or .htaccess rewrites
 		 *
-		 * @param string $type         type of file to write: htaccess, wpconfig or getrules to just return existing rules
+		 * @param string $type         type of file to write: htaccess, wpconfig, deactivate or getrules to just return existing rules
 		 * @param string $section_name name of section or feature of rules
 		 * @param array  $rules        array of rules to write
 		 * @param bool   $insert       merge rules with existing rules
 		 */
-		function __construct( $type, $section_name, $rules, $insert = false ) {
+		function __construct( $type, $section_name = null, $rules = null, $insert = false ) {
 
 			$this->type         = $type; //the type of file or getrules
 			$this->section_name = $section_name; // set the section name
@@ -41,6 +41,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 					return $this->build_htaccess();
 					break;
+
+				case 'deactivate': 
+
+					$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
+					return $this->delete_htaccess();
 
 				default:
 
@@ -205,6 +210,84 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			}
 
 			return false;
+
+		}
+
+		/**
+		 * Delete htaccess rules when plugin is deactivated
+		 * 
+		 * @return bool true on success of false
+		 */
+		public function delete_htaccess() {
+
+			global $bwps_lib, $wp_filesystem;
+
+			$rule_open = '# BEGIN Better WP Security #';
+			$rule_close = '# END Better WP Security #';
+
+			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
+
+			$form_fields = array( 'save' );
+			$method      = '';
+
+			if ( false === ( $creds = request_filesystem_credentials( $url, $method, false, false, $form_fields ) ) ) {
+				return false; // stop the normal page form from displaying
+			}
+
+			if ( ! WP_Filesystem( $creds ) ) {
+				// our credentials were no good, ask the user for them again
+				request_filesystem_credentials( $url, $method, true, false, $form_fields );
+
+				return false;
+			}
+
+			$htaccess_file = $bwps_lib->get_htaccess();
+
+			//make sure the file exists and create it if it doesn't
+			if ( ! $wp_filesystem->exists( $htaccess_file ) ) {
+
+				$wp_filesystem->touch( $htaccess_file );
+
+			}
+
+			$htaccess_contents = $wp_filesystem->get_contents( $htaccess_file ); //get the contents of the htaccess or nginx file
+
+			if ( $htaccess_contents === false ) { //we couldn't get the file contents
+
+				return false;
+
+			} else { //write out what we need to.
+
+				$lines = explode( PHP_EOL, $htaccess_contents ); //create an array to make this easier
+				$state = false;
+
+				foreach ( $lines as $line_number => $line ) { //for each line in the file
+
+					if ( strpos( $line, $rule_open ) !== false ) { //if we're at the beginning of the section
+						$state = true;
+					}
+
+					if ( $state == true ) { //as long as we're not in the section keep writing
+
+						unset( $lines[$line_number] );
+
+					}
+
+					if ( strpos( $line, $rule_close ) !== false ) { //see if we're at the end of the section
+						$state = true;
+					}
+
+				}
+
+				$htaccess_contents = implode( PHP_EOL, $lines );
+
+				if ( ! $wp_filesystem->put_contents( $htaccess_file, $htaccess_contents, FS_CHMOD_FILE ) ) {
+					return false;
+				}
+
+			}
+
+			return true;
 
 		}
 
