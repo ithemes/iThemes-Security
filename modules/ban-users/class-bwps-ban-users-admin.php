@@ -93,7 +93,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_bwps-ban_users' ) !== false ) {
 
-				wp_enqueue_script( 'bwps_ban_users_js', $bwps_globals['plugin_url'] . 'modules/bwps-ban-users/js/admin-ban_users.js', 'jquery', $bwps_globals['plugin_build'] );
+				wp_enqueue_script( 'bwps_ban_users_js', $bwps_globals['plugin_url'] . 'modules/ban-users/js/admin-ban_users.js', 'jquery', $bwps_globals['plugin_build'] );
 
 			}
 
