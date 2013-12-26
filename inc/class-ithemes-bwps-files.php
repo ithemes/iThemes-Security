@@ -20,6 +20,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 */
 		function __construct( $type, $section_name = null, $rules = null, $insert = false ) {
 
+			global $bwps_lib;
+
 			$this->type         = $type; //the type of file or getrules
 			$this->section_name = $section_name; // set the section name
 			$this->insert       = $insert; //Whether we inserting into existing rules or not
@@ -42,15 +44,19 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 					return $this->build_htaccess();
 					break;
 
-				case 'deactivate': 
+				case 'deactivate': //plugin deactivation
 
-					$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
-					return $this->delete_htaccess();
+					if ( $bwps_lib->get_server() != 'nginx' ) {
+						$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
+						return $this->delete_htaccess();
+					}
 
-				case 'activate':
+				case 'activate': //plugin activation
 
-					$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
-					return $this->write_htaccess();
+					if ( $bwps_lib->get_server() != 'nginx' ) {
+						$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
+						return $this->write_htaccess();
+					}
 
 				default:
 
