@@ -99,7 +99,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 
 			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_bwps-away_mode' ) !== false ) {
 
-				wp_enqueue_script( 'bwps_away_mode_js', $bwps_globals['plugin_url'] . 'modules/bwps-away-mode/js/admin-away.js', 'jquery', $bwps_globals['plugin_build'] );
+				wp_enqueue_script( 'bwps_away_mode_js', $bwps_globals['plugin_url'] . 'modules/away-mode/js/admin-away.js', 'jquery', $bwps_globals['plugin_build'] );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
 			}
 
