@@ -29,6 +29,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( 'bwps_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
@@ -85,6 +86,26 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 				'advanced',
 				'core'
 			);
+
+		}
+
+		/**
+		 * Add SSL Javascript
+		 *
+		 * @return void
+		 */
+		public function admin_script() {
+
+			global $bwps_globals;
+
+			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_bwps-ssl' ) !== false ) {
+
+				wp_enqueue_script( 'bwps_ssl_js', $bwps_globals['plugin_url'] . 'modules/ssl/js/admin-ssl.js', 'jquery', $bwps_globals['plugin_build'] );
+
+    			//make sure the text of the warning is translatable
+   				wp_localize_script( 'bwps_ssl_js', 'ssl_warning_text', array( 'text' => __( 'Are you sure you want to enable SSL? If your server does not support SSL you will be locked out of your WordPress Dashboard.', 'better-wp-security' ) ) );
+				
+			}
 
 		}
 
@@ -227,7 +248,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 				$login = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_ssl_login" name="bwps_ssl[login]" value="1" ' . checked( 1, $login, false ) . '/>';
+			$content = '<input onchange="forcessl()" type="checkbox" id="bwps_ssl_login" name="bwps_ssl[login]" value="1" ' . checked( 1, $login, false ) . '/>';
 			$content .= '<label for="bwps_ssl_login"> ' . __( 'Forces all logins to be served only over a secure SSL connection.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
@@ -249,7 +270,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 				$admin = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_ssl_admin" name="bwps_ssl[admin]" value="1" ' . checked( 1, $admin, false ) . '/>';
+			$content = '<input onchange="forcessl()" type="checkbox" id="bwps_ssl_admin" name="bwps_ssl[admin]" value="1" ' . checked( 1, $admin, false ) . '/>';
 			$content .= '<label for="bwps_ssl_admin"> ' . __( 'Forces all of the WordPress dashboard to be served only over a secure SSL connection.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
@@ -328,55 +349,13 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
+			//Assume this is going to work by default
+			$type    = 'updated';
+			$message = __( 'Settings Updated', 'better_wp_security' );
 
-			$input['type'] = intval( $input['type'] == 1 ? 1 : 2 );
-
-			//we don't need to process this again if it is a multisite installation
-			if ( ! is_multisite() ) {
-
-				$input['start'] = strtotime( $input['start']['date'] . ' ' . $input['start']['hour'] . ':' . $input['start']['minute'] . ' ' . $input['start']['sel'] );
-				$input['end']   = strtotime( $input['end']['date'] . ' ' . $input['end']['hour'] . ':' . $input['end']['minute'] . ' ' . $input['end']['sel'] );
-
-			}
-
-			if ( $this->module->check_away( true, $input ) === true ) {
-
-				$input['enabled'] = 0; //disable away mode
-
-				$type    = 'error';
-				$message = __( 'Invalid time listed. The time entered would lock you out of your site now. Please try again.', 'better_wp_security' );
-
-			} elseif ( $input['type'] === 2 && $input['end'] < $input['start'] ) {
-
-				$input['enabled'] = 0; //disable away mode
-
-				$type    = 'error';
-				$message = __( 'Invalid time listed. The start time selected is after the end time selected.', 'better_wp_security' );
-
-			} elseif ( $input['type'] === 2 && $input['end'] < current_time( 'timestamp' ) ) {
-
-				$input['enabled'] = 0; //disable away mode
-
-				$type    = 'error';
-				$message = __( 'Invalid time listed. The period selected already ended.', 'better_wp_security' );
-
-			} else {
-
-				$type    = 'updated';
-				$message = __( 'Settings Updated', 'better_wp_security' );
-
-			}
-
-			if ( $input['enabled'] == 1 && ! file_exists( $this->away_file ) ) {
-
-				@file_put_contents( $this->away_file, 'true' );
-
-			} else {
-
-				@unlink( $this->away_file );
-
-			}
+			$input['login'] = intval( $input['login'] == 1 ? 1 : 0 );
+			$input['admin'] = intval( $input['admin'] == 1 ? 1 : 0 );
+			$input['frontend'] = isset( $input['frontend'] ) ? $input['frontend'] : 0 );
 
 			add_settings_error(
 				'bwps_admin_notices',
