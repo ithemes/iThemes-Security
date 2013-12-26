@@ -140,6 +140,42 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		}
 
 		/**
+		 * Determine whether the server supports SSL (shared cert not supported
+		 * 
+		 * @return bool true if ssl is supported or false
+		 */
+		public function get_ssl() {
+
+			$timeout = 5; //timeout for the request
+			$url = str_replace( 'http://', 'https://', get_bloginfo( 'url' ) );
+			$site_title = trim( get_bloginfo() );
+
+			$request = curl_init();
+
+			curl_setopt( $request, CURLOPT_RETURNTRANSFER, 1 );
+			curl_setopt( $request, CURLOPT_VERBOSE, 1 );
+			curl_setopt( $request, CURLOPT_HEADER, 1 );
+			curl_setopt( $request, CURLOPT_URL, $url );
+			curl_setopt( $request, CURLOPT_RETURNTRANSFER, 1 );
+			curl_setopt( $request, CURLOPT_CONNECTTIMEOUT, $timeout );
+
+			$data = curl_exec( $request );	
+	
+			$header_size = curl_getinfo( $request, CURLINFO_HEADER_SIZE );
+			$http_code = intval( curl_getinfo( $request, CURLINFO_HTTP_CODE ) );
+			$body = substr( $data, $header_size );
+
+			preg_match( '/<title>(.+)<\/title>/', $body, $matches );
+
+			if( $http_code === 200 && isset( $matches[1] ) && trim( $matches[1] ) == $site_title ) {
+				return true;
+			} else {
+				return false;
+			}
+
+		}
+
+		/**
 		 * Validates a list of ip addresses
 		 *
 		 * @param string $ip string of hosts to check
