@@ -141,11 +141,15 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		/**
 		 * Builds server appropriate rewrite rules
 		 * 
-		 * @return [type] The rewrite rules to use
+		 * @return array|bool The rewrite rules to use or false if there are none
 		 */
 		public function build_htaccess() {
 
 			$saved_contents = get_site_option( 'bwps_rewrites' );
+
+			if ( $saved_contents === false ) {
+				return false;
+			}
 
 			$rewrite_rules = $saved_contents['htaccess']; //only get the htaccess portion
 
@@ -311,6 +315,14 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			global $bwps_lib, $wp_filesystem;
 
+			$rules_to_write = $this->build_htaccess(); //String of rules to insert into 
+
+			if ( $rules_to_write === false ) { //if there is nothing to write just return true
+
+				return true;
+
+			}
+
 			$rule_open = '# BEGIN Better WP Security #';
 			$rule_close = '# END Better WP Security #';
 
@@ -348,7 +360,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			} else { //write out what we need to.
 
 				$lines = explode( PHP_EOL, $htaccess_contents ); //create an array to make this easier
-				$rules_to_write = $this->build_htaccess(); //String of rules to insert into file
 				$state = false;
 
 				foreach ( $lines as $line_number => $line ) { //for each line in the file
