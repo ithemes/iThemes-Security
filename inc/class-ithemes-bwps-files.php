@@ -13,7 +13,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		/**
 		 * Create and manage wp_config.php or .htaccess rewrites
 		 *
-		 * @param string $type         type of file to write: htaccess, wpconfig, deactivate or getrules to just return existing rules
+		 * @param string $type         type of file to write: htaccess, wpconfig, activate, deactivate or getrules to just return existing rules
 		 * @param string $section_name name of section or feature of rules
 		 * @param array  $rules        array of rules to write
 		 * @param bool   $insert       merge rules with existing rules
@@ -46,6 +46,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 					$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
 					return $this->delete_htaccess();
+
+				case 'activate':
+
+					$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
+					return $this->write_htaccess();
 
 				default:
 

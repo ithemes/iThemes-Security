@@ -139,6 +139,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			do_action( 'bwps_set_plugin_data' );
 
+			if ( new Ithemes_BWPS_Files( 'activate' ) ) {
+				return true;
+			} else {
+				return false;
+			}
+
 		}
 
 		/**
