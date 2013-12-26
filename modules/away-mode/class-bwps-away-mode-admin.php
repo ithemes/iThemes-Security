@@ -23,7 +23,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 			$this->away_file = $bwps_globals['upload_dir'] . '/bwps_away.confg'; //override file
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( 'bwps_page_top', array( $this, 'add_away_mode_intro' ) ); //add page intro and information
+			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
@@ -428,7 +428,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 		 *
 		 * @return void
 		 */
-		public function add_away_mode_intro( $screen ) {
+		public function add_module_intro( $screen ) {
 
 			if ( $screen === 'security_page_toplevel_page_bwps-away_mode' ) { //only display on away mode page
 

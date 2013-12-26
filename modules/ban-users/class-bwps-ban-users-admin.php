@@ -17,7 +17,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			$this->settings = get_site_option( 'bwps_ban_users' );
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( 'bwps_page_top', array( $this, 'ban_users_intro' ) ); //add page intro and information
+			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 			//add_filter( 'bwps_wp_config_rules', array( $this, 'wp_config_rule' ) ); //build wp_config.php rules
@@ -379,7 +379,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 *
 		 * @return void
 		 */
-		public function ban_users_intro( $screen ) {
+		public function add_module_intro( $screen ) {
 
 			if ( $screen === 'security_page_toplevel_page_bwps-ban_users' ) { //only display on away mode page
 
