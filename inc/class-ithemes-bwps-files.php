@@ -440,18 +440,45 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				} else { //write out what we need to.
 
 					$rules_to_write = ''; //String of rules to insert into wp-config
+					$replace = false; //assume we're note replacing anything to start with
 
 					foreach ( $this->rules['rules'] as $check => $rule ) {
 
-						if ( ( $check === 'Comment' && strpos( $config_contents, $rule ) === false ) || strpos( $config_contents, $check ) === false ) {
+						if ( $check === 'replace' && $rule === true ) {
+							$replace = true;
+						}
+
+						if ( $check !== 'replace' && ( $replace === true || ( $check === 'Comment' && strpos( $config_contents, $rule ) === false ) || strpos( $config_contents, $check ) === false ) ) {
 							$rules_to_write .= $rule . PHP_EOL;
+						}
+
+						if ( $replace === true ) {
+
+							$search_text = $check;
+
 						}
 
 					}
 
 					if ( strlen( $rules_to_write ) > 1 ) { //make sure we have something to write
 
-						$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $config_contents );
+						if ( $replace === false ) {
+
+							$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $config_contents );
+
+						} else {
+
+							$config_array = explode( PHP_EOL, $config_contents );
+
+							foreach ( $config_array as $line ) {
+
+								if ( strpos( $line, $search_text ) ) {
+									$config_contents = str_replace( $line . PHP_EOL, $rules_to_write, $config_contents );
+								}
+
+							}
+
+						}
 
 					}
 

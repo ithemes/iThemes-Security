@@ -17,7 +17,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 
 			$this->core = $core;
 
-			if ( $wpdb->base_prefix != 'wp_' ) {
+			if ( $wpdb->base_prefix === 'wp_' ) {
 				$this->settings = true;
 			} else {
 				$this->settings = false;
@@ -71,19 +71,15 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 		 */
 		public function add_admin_meta_boxes() {
 
-			if ( ! $this->settings === true ) {
-
-				//add metaboxes
-				add_meta_box(
-					'database_prefix_options',
-					__( 'Change Database Prefix', 'better_wp_security' ),
-					array( $this, 'metabox_advanced_settings' ),
-					'security_page_toplevel_page_bwps-database_prefix',
-					'advanced',
-					'core'
-				);
-
-			}
+			//add metaboxes
+			add_meta_box(
+				'database_prefix_options',
+				__( 'Change Database Prefix', 'better_wp_security' ),
+				array( $this, 'metabox_advanced_settings' ),
+				'security_page_toplevel_page_bwps-database_prefix',
+				'advanced',
+				'core'
+			);
 
 		}
 
@@ -96,7 +92,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 
 			$link = 'admin.php?page=toplevel_page_bwps-database_prefix';
 
-			if ( $this->settings === true ) {
+			if ( $this->settings !== true ) {
 
 				$status_array = 'safe-medium';
 				$status       = array(
@@ -127,7 +123,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 		 */
 		public function initialize_admin() {
 
-			if ( isset( $_POST['bwps_one_time_save'] ) ) {
+			if ( isset( $_POST['bwps_one_time_save'] ) && $_POST['bwps_one_time_save'] == 'database_prefix' ) {
 
 				if ( ! wp_verify_nonce( $_POST['wp_nonce'], 'BWPS_admin_save' ) ) {
 
@@ -171,7 +167,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 
 			global $wpdb;
 
-			if ( $this->settings !== true ) { //Show the correct info
+			if ( $this->settings === true ) { //Show the correct info
 
 				?>
 				<p><strong><?php _e( 'Your database is using the default table prefix', 'better-wp-security' ); ?> <em>wp_</em>. <?php _e( 'You should change this.', 'better-wp-security' ); ?></strong></p>
@@ -179,8 +175,10 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 
 			} else {
 
+				$prefix = $this->settings === false ? $wpdb->base_prefix : $this->settings;
+
 				?>
-				<p><?php _e( 'Your current database table prefix is', 'better-wp-security' ); ?> <strong><em><?php echo $wpdb->base_prefix; ?></em></strong></p>
+				<p><?php _e( 'Your current database table prefix is', 'better-wp-security' ); ?> <strong><em><?php echo $prefix; ?></em></strong></p>
 				<?php
 
 			}
@@ -189,7 +187,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 
 			<form method="post" action="">
 				<?php wp_nonce_field( 'BWPS_admin_save', 'wp_nonce' ); ?>
-				<input type="hidden" name="bwps_one_time_save" value="content_directory"/>
+				<input type="hidden" name="bwps_one_time_save" value="database_prefix"/>
 				<p><?php _e( 'Press the button below to generate a random database prefix value and update all of your tables accordingly.', 'better-wp-security' ); ?></p>
 				<p class="submit">
 					<input type="submit" class="button-primary" value="<?php _e( 'Change Database Table Prefix', 'better-wp-security' ); ?>"/>
@@ -314,7 +312,8 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 				'save'  => false,
 				'rules' => array(
 					'rules' => array(
-						'table_prefix'        => "\$table_prefix = '" . $newPrefix . "'",
+						'replace'		=> true,
+						'table_prefix'	=> "\$table_prefix = '" . $newPrefix . "';",
 					),
 				),
 			);
@@ -326,7 +325,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 
 			}
 
-			$this->settings = false; //this tells the form field that all went well.
+			$this->settings = $newPrefix; //this tells the form field that all went well.
 
 			add_settings_error(
 				'bwps_admin_notices',
