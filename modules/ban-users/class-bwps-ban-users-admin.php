@@ -27,7 +27,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
-				add_action( 'network_admin_edit_bwps_away_mode', array( $this, 'save_network_options' ) ); //save multisite options
+				add_action( 'network_admin_edit_bwps_ban_users', array( $this, 'save_network_options' ) ); //save multisite options
 			}
 
 		}
