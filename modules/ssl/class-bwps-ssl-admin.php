@@ -242,7 +242,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function ssl_login( $args ) {
 
-			if ( isset( $this->settings['login'] ) && $this->settings['login'] === 1 ) {
+			if ( FORCE_SSL_LOGIN === true ) {
 				$login = 1;
 			} else {
 				$login = 0;
@@ -264,7 +264,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function ssl_admin( $args ) {
 
-			if ( isset( $this->settings['admin'] ) && $this->settings['admin'] === 1 ) {
+			if ( FORCE_SSL_ADMIN === true ) {
 				$admin = 1;
 			} else {
 				$admin = 0;
@@ -353,9 +353,35 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'better_wp_security' );
 
-			$input['login'] = intval( $input['login'] == 1 ? 1 : 0 );
-			$input['admin'] = intval( $input['admin'] == 1 ? 1 : 0 );
-			$input['frontend'] = isset( $input['frontend'] ) ? $input['frontend'] : 0 );
+			$input['frontend'] = isset( $input['frontend'] ) ? intval( $input['frontend'] ) : 0;
+
+			$rule_array = array(
+				'Comment'        => "//The entries below were created by Better WP Security to enforce SSL",
+			);
+
+			if ( $input['login'] === 1 ) {
+				define( 'FORCE_SSL_LOGIN', true );
+				$rule_array['FORCE_SSL_LOGIN'] = "define( 'FORCE_SSL_LOGIN', true );";
+			}
+
+			if ( $input['admin'] === 1 ) {
+				define( 'FORCE_SSL_ADMIN', true );
+				$rule_array['FORCE_SSL_ADMIN'] = "define( 'FORCE_SSL_ADMIN', true );";
+			}
+
+			$rules = array(
+				'save'  => false,
+				'rules' => array(
+					'rules' => $rule_array,
+				),
+			);
+
+			if ( ! new Ithemes_BWPS_Files( 'wpconfig', 'SSL', $rules ) ) {
+
+				$type    = 'error';
+				$message = __( 'WordPress was unable to save the SSL options to wp-config.php. Please check with your server administrator and try again.', 'better_wp_security' );
+
+			}
 
 			add_settings_error(
 				'bwps_admin_notices',
@@ -375,18 +401,22 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			if ( isset( $_POST['bwps_away_mode']['enabled'] ) ) {
-				$settings['enabled'] = intval( $_POST['bwps_away_mode']['enabled'] == 1 ? 1 : 0 );
+			if ( isset( $_POST['bwps_ssl']['login'] ) ) {
+				$settings['login'] = intval( $_POST['bwps_ssl']['login'] == 1 ? 1 : 0 );
 			}
 
-			$settings['type']  = intval( $_POST['bwps_away_mode']['type'] ) === 1 ? 1 : 2;
-			$settings['start'] = strtotime( $_POST['bwps_away_mode']['start']['date'] . ' ' . $_POST['bwps_away_mode']['start']['hour'] . ':' . $_POST['bwps_away_mode']['start']['minute'] . ' ' . $_POST['bwps_away_mode']['start']['sel'] );
-			$settings['end']   = strtotime( $_POST['bwps_away_mode']['end']['date'] . ' ' . $_POST['bwps_away_mode']['end']['hour'] . ':' . $_POST['bwps_away_mode']['end']['minute'] . ' ' . $_POST['bwps_away_mode']['end']['sel'] );
+			if ( isset( $_POST['bwps_ssl']['admin'] ) ) {
+				$settings['admin'] = intval( $_POST['bwps_ssl']['admin'] == 1 ? 1 : 0 );
+			}
 
-			update_site_option( 'bwps_away_mode', $settings ); //we must manually save network options
+			if ( isset( $_POST['bwps_ssl']['frontend'] ) ) {
+				$settings['frontend'] = intval( $_POST['bwps_ssl']['frontend'] == 1 ? 1 : 0 );
+			}
+
+			update_site_option( 'bwps_ssl', $settings ); //we must manually save network options
 
 			//send them back to the away mode options page
-			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_bwps-away_mode', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
+			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_bwps-ssl', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
 
 		}
