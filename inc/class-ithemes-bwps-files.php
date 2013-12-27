@@ -440,45 +440,79 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				} else { //write out what we need to.
 
 					$rules_to_write = ''; //String of rules to insert into wp-config
+					$rules_to_delete = false; //assume we're not deleting anything to start
 					$replace = false; //assume we're note replacing anything to start with
 
-					foreach ( $this->rules['rules'] as $check => $rule ) {
+					foreach ( $this->rules['rules'] as $rule ) {
 
-						if ( $check === 'replace' && $rule === true ) {
-							$replace = true;
-						}
+						if ( ( $rule['type'] === 'add' || $rule['type'] === 'replace' ) && $rule['rule'] !== false && strpos( $config_contents, $rule['search_text'] ) === false ) {
 
-						if ( $check !== 'replace' && ( $replace === true || ( $check === 'Comment' && strpos( $config_contents, $rule ) === false ) || strpos( $config_contents, $check ) === false ) ) {
-							$rules_to_write .= $rule . PHP_EOL;
-						}
+							$rules_to_write .= $rule['rule'] . PHP_EOL;
 
-						if ( $replace === true ) {
+						} elseif ( $rule['type'] === 'replace' && $rule['rule'] !== false && strpos( $config_contents, $rule['search_text'] ) !== false ) {
 
-							$search_text = $check;
+							$replace = $rule['search_text'];
+							$rules_to_write .= $rule['rule'];
+
+						} elseif ( $rule['type'] === 'delete' && $rule['rule'] === false ) {
+
+							if ( $rules_to_delete === false ) {
+								$rules_to_delete = array();
+							}
+
+							$rules_to_delete[] = $rule;
 
 						}
 
 					}
 
-					if ( strlen( $rules_to_write ) > 1 ) { //make sure we have something to write
+					if ( $replace === false && strlen( $rules_to_write ) > 1 ) {
 
-						if ( $replace === false ) {
+						$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $config_contents );
 
-							$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $config_contents );
+					} elseif ( $replace !== false || is_array( $rules_to_delete ) ) {
 
+						$config_array = explode( PHP_EOL, $config_contents );
+
+						if ( is_array( $rules_to_delete ) ) {
+							$delete_count = 0;
+							$delete_total = sizeof( $rules_to_delete );
 						} else {
+							$delete_total = 0;
+							$delete_count = 0;
+						}
 
-							$config_array = explode( PHP_EOL, $config_contents );
+						foreach ( $config_array as $line_number => $line ) {
 
-							foreach ( $config_array as $line ) {
+							if ( strpos( $line, $replace ) !== false ) {
+								$config_array[$line_number] = $rules_to_write;
+							}
 
-								if ( strpos( $line, $search_text ) ) {
-									$config_contents = str_replace( $line . PHP_EOL, $rules_to_write, $config_contents );
+							if ( $delete_count < $delete_total ) {
+							
+								foreach ( $rules_to_delete as $rule ) {
+
+									$found = false;
+
+									if ( strpos( $line, $rule['search_text'] ) !== false ) {
+
+										unset( $config_array[$line_number] );
+										$delete_count++;
+										$found = true;
+
+									}
+
+									if ( $found === true ) {
+										break;
+									}
+
 								}
 
 							}
 
 						}
+
+						$config_contents = implode( PHP_EOL, $config_array );
 
 					}
 

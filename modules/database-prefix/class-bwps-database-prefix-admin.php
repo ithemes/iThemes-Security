@@ -312,8 +312,11 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 				'save'  => false,
 				'rules' => array(
 					'rules' => array(
-						'replace'		=> true,
-						'table_prefix'	=> "\$table_prefix = '" . $newPrefix . "';",
+						array( 
+							'type' =>	'replace',
+							'search_text' => 'table_prefix',
+							'rule'	=> "\$table_prefix = '" . $newPrefix . "';",
+						),
 					),
 				),
 			);

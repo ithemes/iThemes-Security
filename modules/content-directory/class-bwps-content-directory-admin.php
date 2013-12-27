@@ -249,9 +249,21 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 					'save'  => false,
 					'rules' => array(
 						'rules' => array(
-							'Comment'        => "//Do not delete these. Doing so WILL break your site.",
-							'WP_CONTENT_DIR' => "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
-							'WP_CONTENT_URL' => "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );",
+							array(
+								'type'			=> 'add',
+								'search_text'	=> 'Comment',   
+								'rule'			=> "//Do not delete these. Doing so WILL break your site.",
+							),
+							array(
+								'type'			=> 'add',
+								'search_text'	=> 'WP_CONTENT_DIR',     
+								'rule'			=> "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
+							),
+							array(
+								'type'			=> 'add',
+								'search_text'	=> 'WP_CONTENT_URL',    
+								'rule'			=> "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );",
+							),
 						),
 					),
 				);

@@ -355,18 +355,37 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 
 			$input['frontend'] = isset( $input['frontend'] ) ? intval( $input['frontend'] ) : 0;
 
-			$rule_array = array(
-				'Comment'        => "//The entries below were created by Better WP Security to enforce SSL",
-			);
+			$rule_array = array();
 
-			if ( $input['login'] === 1 ) {
+			if ( isset( $input['login'] ) && $input['login'] == 1 ) {
 				define( 'FORCE_SSL_LOGIN', true );
 				$rule_array['FORCE_SSL_LOGIN'] = "define( 'FORCE_SSL_LOGIN', true );";
+				$has_login = true;
+			} else {
+				define( 'FORCE_SSL_LOGIN', false );
+				$rule_array['FORCE_SSL_LOGIN'] = false;
+				$has_login = false;
 			}
 
-			if ( $input['admin'] === 1 ) {
+			if ( isset( $input['admin'] ) && $input['admin'] == 1 ) {
 				define( 'FORCE_SSL_ADMIN', true );
 				$rule_array['FORCE_SSL_ADMIN'] = "define( 'FORCE_SSL_ADMIN', true );";
+				$has_admin = true;
+			} else {
+				define( 'FORCE_SSL_ADMIN', false );
+				$rule_array['FORCE_SSL_ADMIN'] = false;
+				$has_admin = false;
+
+			}
+
+			if ( $has_login === false && $has_admin == false ) {
+
+				$rule_array = array( '//The entries below were created by Better WP Security to enforce SSL' => false ) + $rule_array;
+
+			} else {
+
+				$rule_array = array( 'Comment' => '//The entries below were created by Better WP Security to enforce SSL' ) + $rule_array;
+
 			}
 
 			$rules = array(
