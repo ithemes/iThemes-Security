@@ -223,9 +223,9 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 
 			$content = '<select id="bwps_ssl_frontend" name="bwps_ssl[frontend]">';
 			
-			$content .= '<option value="0" ' . selected( $frontent, '0' ) . '>' . __( 'Off', 'better-wp-security' ) . '</option>';
-			$content .= '<option value="1" ' . selected( $frontent, '1' ) . '>' . __( 'Per Content', 'better-wp-security' ) . '</option>';
-			$content .= '<option value="2" ' . selected( $frontent, '2' ) . '>' . __( 'Whole Site', 'better-wp-security' ) . '</option>';
+			$content .= '<option value="0" ' . selected( $frontend, '0' ) . '>' . __( 'Off', 'better-wp-security' ) . '</option>';
+			$content .= '<option value="1" ' . selected( $frontend, '1' ) . '>' . __( 'Per Content', 'better-wp-security' ) . '</option>';
+			$content .= '<option value="2" ' . selected( $frontend, '2' ) . '>' . __( 'Whole Site', 'better-wp-security' ) . '</option>';
 			$content .= '</select><br />';
 			$content .= '<label for="bwps_ssl_frontend"> ' . __( 'Enables secure SSL connection for the front-end (public parts of your site). Turning this off will disable front-end SSL control, turning this on "Per Content" will place a checkbox on the edit page for all posts and pages (near the publish settings) allowing you to turn on SSL for selected pages or posts, and selecting "Whole Site" will force the whole site to use SSL (not recommended unless you have a really good reason to use it).', 'better_wp_security' ) . '</label>';
 
@@ -242,7 +242,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function ssl_login( $args ) {
 
-			if ( FORCE_SSL_LOGIN === true ) {
+			if ( isset( $this->settings['login'] ) && $this->settings['login'] === 1 ) {
 				$login = 1;
 			} else {
 				$login = 0;
@@ -264,7 +264,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function ssl_admin( $args ) {
 
-			if ( FORCE_SSL_ADMIN === true ) {
+			if ( isset( $this->settings['admin'] ) && $this->settings['admin'] === 1 ) {
 				$admin = 1;
 			} else {
 				$admin = 0;
@@ -354,37 +354,74 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			$message = __( 'Settings Updated', 'better_wp_security' );
 
 			$input['frontend'] = isset( $input['frontend'] ) ? intval( $input['frontend'] ) : 0;
+			$input['login'] = isset( $input['login'] ) ? intval( $input['login'] ) : 0;
+			$input['admin'] = isset( $input['admin'] ) ? intval( $input['admin'] ) : 0;
 
 			$rule_array = array();
 
-			if ( isset( $input['login'] ) && $input['login'] == 1 ) {
-				define( 'FORCE_SSL_LOGIN', true );
-				$rule_array['FORCE_SSL_LOGIN'] = "define( 'FORCE_SSL_LOGIN', true );";
+			if ( $input['login'] == 1 ) {
+
+				$rule_array[] = array(
+					'type'			=> 'add',
+					'search_text'	=> 'FORCE_SSL_LOGIN',
+					'rule'			=> "define( 'FORCE_SSL_LOGIN', true );",
+				);
+
 				$has_login = true;
+
 			} else {
-				define( 'FORCE_SSL_LOGIN', false );
-				$rule_array['FORCE_SSL_LOGIN'] = false;
+
+				$rule_array[] = array(
+					'type'			=> 'delete',
+					'search_text'	=> 'FORCE_SSL_LOGIN',
+					'rule'			=> false,
+				);
+
 				$has_login = false;
+
 			}
 
-			if ( isset( $input['admin'] ) && $input['admin'] == 1 ) {
-				define( 'FORCE_SSL_ADMIN', true );
-				$rule_array['FORCE_SSL_ADMIN'] = "define( 'FORCE_SSL_ADMIN', true );";
+			if ( $input['admin'] == 1 ) {
+
+				$rule_array[] = array(
+					'type'			=> 'add',
+					'search_text'	=> 'FORCE_SSL_ADMIN',
+					'rule'			=> "define( 'FORCE_SSL_ADMIN', true );",
+				);
+
 				$has_admin = true;
+
 			} else {
-				define( 'FORCE_SSL_ADMIN', false );
-				$rule_array['FORCE_SSL_ADMIN'] = false;
+
+				$rule_array[] = array(
+					'type'			=> 'delete',
+					'search_text'	=> 'FORCE_SSL_ADMIN',
+					'rule'			=> false,
+				);
+
 				$has_admin = false;
 
 			}
 
 			if ( $has_login === false && $has_admin == false ) {
 
-				$rule_array = array( '//The entries below were created by Better WP Security to enforce SSL' => false ) + $rule_array;
+				$comment = array(
+					'type'			=> 'delete',
+					'search_text'	=> '//The entries below were created by Better WP Security to enforce SSL',
+					'rule'			=> false,
+				);
+
+				array_unshift( $rule_array, $comment );
 
 			} else {
 
-				$rule_array = array( 'Comment' => '//The entries below were created by Better WP Security to enforce SSL' ) + $rule_array;
+				$comment = array(
+					'type'			=> 'add',
+					'search_text'	=> '//The entries below were created by Better WP Security to enforce SSL',
+					'rule'			=> '//The entries below were created by Better WP Security to enforce SSL',
+				);
+
+				array_unshift( $rule_array, $comment );
 
 			}
 
