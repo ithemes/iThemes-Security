@@ -183,36 +183,45 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			//disable directory browsing field
 			add_settings_field(
-				'bwps_advanced_tweaks[disable_directory_browsing]',
+				'bwps_advanced_tweaks[directory_browsing]',
 				__( 'Disable Directory Browsing', 'better_wp_security' ),
-				array( $this, 'advanced_tweaks_server_disable_directory_browsing' ),
+				array( $this, 'advanced_tweaks_server_directory_browsing' ),
 				'security_page_toplevel_page_bwps-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
 
 			//filter request methods field
 			add_settings_field(
-				'bwps_advanced_tweaks[filter_methods]',
+				'bwps_advanced_tweaks[request_methods]',
 				__( 'Filter Request Methods', 'better_wp_security' ),
-				array( $this, 'advanced_tweaks_server_filter_methods' ),
+				array( $this, 'advanced_tweaks_server_request_methods' ),
 				'security_page_toplevel_page_bwps-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
 
 			//Filter Suspicious Query Strings field
 			add_settings_field(
-				'bwps_advanced_tweaks[filter_suspicious_query_strings]',
+				'bwps_advanced_tweaks[suspicious_query_strings]',
 				__( 'Filter Suspicious Query Strings', 'better_wp_security' ),
-				array( $this, 'advanced_tweaks_server_filter_suspicious_query_strings' ),
+				array( $this, 'advanced_tweaks_server_suspicious_query_strings' ),
 				'security_page_toplevel_page_bwps-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
 
 			//Filter Non-English Characters field
 			add_settings_field(
-				'bwps_advanced_tweaks[filter_non_english_characters]',
+				'bwps_advanced_tweaks[non_english_characters]',
 				__( 'Filter Non-English Characters', 'better_wp_security' ),
-				array( $this, 'advanced_tweaks_server_filter_non_english_characters' ),
+				array( $this, 'advanced_tweaks_server_non_english_characters' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
+
+			//Filter Long URL Strings field
+			add_settings_field(
+				'bwps_advanced_tweaks[long_url_strings]',
+				__( 'Filter Long URL Strings', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_server_long_url_strings' ),
 				'security_page_toplevel_page_bwps-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
@@ -290,16 +299,16 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 *
 		 * @return void
 		 */
-		public function advanced_tweaks_server_disable_directory_browsing( $args ) {
+		public function advanced_tweaks_server_directory_browsing( $args ) {
 
-			if ( isset( $this->settings['disable_directory_browsing'] ) && $this->settings['disable_directory_browsing'] === 1 ) {
-				$disable_directory_browsing = 1;
+			if ( isset( $this->settings['directory_browsing'] ) && $this->settings['directory_browsing'] === 1 ) {
+				$directory_browsing = 1;
 			} else {
-				$disable_directory_browsing = 0;
+				$directory_browsing = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_disable_directory_browsing" name="bwps_advanced_tweaks[disable_directory_browsing]" value="1" ' . checked( 1, $disable_directory_browsing, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_protect_files"> ' . __( 'Prevents users from seeing a list of files in a directory when no index file is present.', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_directory_browsing" name="bwps_advanced_tweaks[directory_browsing]" value="1" ' . checked( 1, $directory_browsing, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_directory_browsing"> ' . __( 'Prevents users from seeing a list of files in a directory when no index file is present.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -312,16 +321,16 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 *
 		 * @return void
 		 */
-		public function advanced_tweaks_server_filter_methods( $args ) {
+		public function advanced_tweaks_server_request_methods( $args ) {
 
-			if ( isset( $this->settings['filter_methods'] ) && $this->settings['filter_methods'] === 1 ) {
-				$filter_methods = 1;
+			if ( isset( $this->settings['request_methods'] ) && $this->settings['request_methods'] === 1 ) {
+				$request_methods = 1;
 			} else {
-				$filter_methods = 0;
+				$request_methods = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_filter_methods" name="bwps_advanced_tweaks[filter_methods]" value="1" ' . checked( 1, $filter_methods, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_filter_methods"> ' . __( 'Filter out hits with the trace, delete, or track request methods.', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_request_methods" name="bwps_advanced_tweaks[request_methods]" value="1" ' . checked( 1, $request_methods, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_request_methods"> ' . __( 'Filter out hits with the trace, delete, or track request methods.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -334,16 +343,16 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 *
 		 * @return void
 		 */
-		public function advanced_tweaks_server_filter_suspicious_query_strings( $args ) {
+		public function advanced_tweaks_server_suspicious_query_strings( $args ) {
 
-			if ( isset( $this->settings['filter_suspicious_query_strings'] ) && $this->settings['filter_suspicious_query_strings'] === 1 ) {
-				$filter_suspicious_query_strings = 1;
+			if ( isset( $this->settings['suspicious_query_strings'] ) && $this->settings['suspicious_query_strings'] === 1 ) {
+				$suspicious_query_strings = 1;
 			} else {
-				$filter_suspicious_query_strings = 0;
+				$suspicious_query_strings = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_filter_suspicious_query_strings" name="bwps_advanced_tweaks[filter_suspicious_query_strings]" value="1" ' . checked( 1, $filter_suspicious_query_strings, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_filter_suspicious_query_strings"> ' . __( 'Filter out suspicious query strings in the URL. These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_suspicious_query_strings" name="bwps_advanced_tweaks[suspicious_query_strings]" value="1" ' . checked( 1, $suspicious_query_strings, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_suspicious_query_strings"> ' . __( 'Filter out suspicious query strings in the URL. These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -356,16 +365,38 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 *
 		 * @return void
 		 */
-		public function advanced_tweaks_server_filter_non_english_characters( $args ) {
+		public function advanced_tweaks_server_non_english_characters( $args ) {
 
-			if ( isset( $this->settings['filter_non_english_characters'] ) && $this->settings['filter_non_english_characters'] === 1 ) {
-				$filter_non_english_characters = 1;
+			if ( isset( $this->settings['non_english_characters'] ) && $this->settings['non_english_characters'] === 1 ) {
+				$non_english_characters = 1;
 			} else {
-				$filter_non_english_characters = 0;
+				$non_english_characters = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_filter_non_english_characters" name="bwps_advanced_tweaks[filter_non_english_characters]" value="1" ' . checked( 1, $filter_non_english_characters, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_filter_non_english_characters"> ' . __( 'Filter out non-english characters from the query string. This should not be used on non-english sites and only works when "Filter Suspicious Query String" has been selected.', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_non_english_characters" name="bwps_advanced_tweaks[non_english_characters]" value="1" ' . checked( 1, $non_english_characters, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_non_english_characters"> ' . __( 'Filter out non-english characters from the query string. This should not be used on non-english sites and only works when "Filter Suspicious Query String" has been selected.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Long URL Strings Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_server_long_url_strings( $args ) {
+
+			if ( isset( $this->settings['long_url_strings'] ) && $this->settings['long_url_strings'] === 1 ) {
+				$long_url_strings = 1;
+			} else {
+				$long_url_strings = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_long_url_strings" name="bwps_advanced_tweaks[long_url_strings]" value="1" ' . checked( 1, $long_url_strings, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_long_url_strings"> ' . __( 'Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -432,10 +463,11 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? 1 : 0 );
 			$input['protect_files'] = ( isset( $input['protect_files'] ) && intval( $input['protect_files'] == 1 ) ? 1 : 0 );
-			$input['disable_directory_browsing'] = ( isset( $input['disable_directory_browsing'] ) && intval( $input['disable_directory_browsing'] == 1 ) ? 1 : 0 );
-			$input['filter_methods'] = ( isset( $input['filter_methods'] ) && intval( $input['filter_methods'] == 1 ) ? 1 : 0 );
-			$input['filter_suspicious_query_strings'] = ( isset( $input['filter_suspicious_query_strings'] ) && intval( $input['filter_suspicious_query_strings'] == 1 ) ? 1 : 0 );
-			$input['filter_non_english_characters'] = ( isset( $input['filter_non_english_characters'] ) && intval( $input['filter_non_english_characters'] == 1 ) ? 1 : 0 );
+			$input['directory_browsing'] = ( isset( $input['directory_browsing'] ) && intval( $input['directory_browsing'] == 1 ) ? 1 : 0 );
+			$input['request_methods'] = ( isset( $input['request_methods'] ) && intval( $input['request_methods'] == 1 ) ? 1 : 0 );
+			$input['suspicious_query_strings'] = ( isset( $input['suspicious_query_strings'] ) && intval( $input['suspicious_query_strings'] == 1 ) ? 1 : 0 );
+			$input['non_english_characters'] = ( isset( $input['non_english_characters'] ) && intval( $input['non_english_characters'] == 1 ) ? 1 : 0 );
+			$input['long_url_strings'] = ( isset( $input['long_url_strings'] ) && intval( $input['long_url_strings'] == 1 ) ? 1 : 0 );
 
 			add_settings_error(
 				'bwps_admin_notices',
@@ -457,10 +489,12 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			$settings['enabled'] = ( isset( $_POST['bwps_advanced_tweaks']['enabled'] ) && intval( $_POST['bwps_advanced_tweaks']['enabled'] == 1 ) ? 1 : 0 );
 			$settings['protect_files'] = ( isset( $_POST['bwps_advanced_tweaks']['protect_files'] ) && intval( $_POST['bwps_advanced_tweaks']['protect_files'] == 1 ) ? 1 : 0 );
-			$settings['disable_directory_browsing'] = ( isset( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] ) && intval( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] == 1 ) ? 1 : 0 );
-			$settings['filter_methods'] = ( isset( $_POST['bwps_advanced_tweaks']['filter_methods'] ) && intval( $_POST['bwps_advanced_tweaks']['filter_methods'] == 1 ) ? 1 : 0 );
-			$settings['filter_suspicious_query_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['filter_suspicious_query_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['filter_suspicious_query_strings'] == 1 ) ? 1 : 0 );
-			$settings['filter_non_english_characters'] = ( isset( $_POST['bwps_advanced_tweaks']['filter_non_english_characters'] ) && intval( $_POST['bwps_advanced_tweaks']['filter_non_english_characters'] == 1 ) ? 1 : 0 );
+			$settings['directory_browsing'] = ( isset( $_POST['bwps_advanced_tweaks']['directory_browsing'] ) && intval( $_POST['bwps_advanced_tweaks']['directory_browsing'] == 1 ) ? 1 : 0 );
+			$settings['request_methods'] = ( isset( $_POST['bwps_advanced_tweaks']['request_methods'] ) && intval( $_POST['bwps_advanced_tweaks']['request_methods'] == 1 ) ? 1 : 0 );
+			$settings['suspicious_query_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['suspicious_query_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['suspicious_query_strings'] == 1 ) ? 1 : 0 );
+			$settings['non_english_characters'] = ( isset( $_POST['bwps_advanced_tweaks']['non_english_characters'] ) && intval( $_POST['bwps_advanced_tweaks']['non_english_characters'] == 1 ) ? 1 : 0 );
+			$settings['long_url_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['long_url_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['long_url_strings'] == 1 ) ? 1 : 0 );
+			$settings['long_url_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['long_url_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['remove_write_permissions'] == 1 ) ? 1 : 0 );
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
 
