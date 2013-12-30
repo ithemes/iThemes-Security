@@ -93,7 +93,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_bwps-advanced_tweaks' ) !== false ) {
 
-				wp_enqueue_script( 'bwps_advanced_tweaks_js', $bwps_globals['plugin_url'] . 'modules/advanced-tweaks/js/admin-advanced_tweaks.js', 'jquery', $bwps_globals['plugin_build'] );
+				wp_enqueue_script( 'bwps_advanced_tweaks_js', $bwps_globals['plugin_url'] . 'modules/advanced-tweaks/js/admin-advanced-tweaks.js', 'jquery', $bwps_globals['plugin_build'] );
 
 			}
 
@@ -139,29 +139,37 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function initialize_admin() {
 
-			//Enabled section
+			//Enabled Advanced Tweaks
 			add_settings_section(
-				'ban_users_enabled',
-				__( 'Configure Ban Users', 'better_wp_security' ),
+				'advanced_tweaks_enabled',
+				__( 'Enable Advanced Tweaks', 'better_wp_security' ),
 				array( $this, 'empty_callback_function' ),
-				'security_page_toplevel_page_bwps-ban_users'
+				'security_page_toplevel_page_bwps-advanced_tweaks'
 			);
 
-			//primary settings section
+			//server settings section
 			add_settings_section(
-				'advanced_tweaks_settings',
-				__( 'Configure Advanced Tweaks', 'better_wp_security' ),
-				array( $this, 'empty_callback_function' ),
+				'advanced_tweaks_server',
+				__( 'Configure Server Tweaks', 'better_wp_security' ),
+				array( $this, 'server_tweaks_intro' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks'
+			);
+
+			//WordPress settings section
+			add_settings_section(
+				'advanced_tweaks_wordpress',
+				__( 'Configure WordPress Tweaks', 'better_wp_security' ),
+				array( $this, 'wordpress_tweaks_intro' ),
 				'security_page_toplevel_page_bwps-advanced_tweaks'
 			);
 
 			//enabled field
 			add_settings_field(
 				'bwps_advanced_tweaks[enabled]',
-				__( 'Enable Ban Users', 'better_wp_security' ),
+				__( 'Enable Advanced Security Tweaks', 'better_wp_security' ),
 				array( $this, 'advanced_tweaks_enabled' ),
 				'security_page_toplevel_page_bwps-advanced_tweaks',
-				'advanced_tweaks_settings'
+				'advanced_tweaks_enabled'
 			);
 
 			//Register the settings field for the entire module
@@ -178,6 +186,14 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function empty_callback_function() {}
 
+		public function server_tweaks_intro() {
+			echo '<h2 class="settings-section-header">' . __( 'Server Tweaks', 'better-wp-security' ) . '</h2>';
+		}
+
+		public function wordpress_tweaks_intro() {
+			echo '<h2 class="settings-section-header">' . __( 'WordPress Tweaks', 'better-wp-security' ) . '</h2>';
+		}
+
 		/**
 		 * echos Enabled Field
 		 *
@@ -193,8 +209,8 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$enabled = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_ban_users_enabled" name="bwps_ban_users[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="bwps_ban_users_enabled"> ' . __( 'Check this box to enable ban users', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_enabled" name="bwps_advanced_tweaks[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_enabled"> ' . __( 'Check this box to enable advanced security tweaks. Remember, some of these tweaks might conflict with other plugins or your theme so test your site after enabling each setting.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -209,7 +225,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			if ( $screen === 'security_page_toplevel_page_bwps-advanced_tweaks' ) { //only display on away mode page
 
-				$content = '<p>' . __( '', 'better_wp_security' ) . '</p>';
+				$content = '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site. The reason we list them as advanced though is that each fix, while blocking common forms of attack against your site, can also block legitimate plugins and themes that rely on the same techniques. When turning on the settings below we recommend you enable them 1 by 1 and test your site in between to make sure everything is working as expected.', 'better_wp_security' ) . '</p>';
 
 				echo $content;
 
@@ -255,6 +271,18 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 * @return Array         Sanitized array
 		 */
 		public function sanitize_module_input( $input ) {
+
+			$type    = 'updated';
+			$message = __( 'Settings Updated', 'better_wp_security' );
+
+			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
+
+			add_settings_error(
+				'bwps_admin_notices',
+				esc_attr( 'settings_updated' ),
+				$message,
+				$type
+			);
 
 			return $input;
 

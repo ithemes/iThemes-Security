@@ -45,7 +45,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 			if ( $options === false ) {
 
 				$defaults = array(
-					
+					'enabled'	=> 0,
 				);
 
 				add_site_option( 'bwps_advanced_tweaks', $defaults );
