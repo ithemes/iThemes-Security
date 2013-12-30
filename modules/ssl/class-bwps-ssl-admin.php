@@ -11,17 +11,17 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			$core,
 			$module,
 			$page,
-			$ssl_support;
+			$ssl_support,
+			$has_ssl;
 
 		private function __construct( $core, $module ) {
 
 			global $bwps_lib;
 
-			$this->core      = $core;
-			$this->module	 = $module;
-			$this->settings  = get_site_option( 'bwps_ssl' );
-
-			$bwps_lib->get_ssl();
+			$this->core			= $core;
+			$this->module		= $module;
+			$this->settings		= get_site_option( 'bwps_ssl' );
+			$this->has_ssl		= $bwps_lib->get_ssl();
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
@@ -36,6 +36,67 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 				add_action( 'network_admin_edit_bwps_ssl', array( $this, 'save_network_options' ) ); //save multisite options
 			}
 
+			if ( $this->settings['frontend'] == 1 ) {
+
+				add_action( 'post_submitbox_misc_actions', array( $this, 'ssl_enable_per_content' ) );
+				add_action( 'save_post', array( $this, 'save_post' ) );
+			
+			}
+
+		}
+
+		/**
+		 * Add checkbox to post meta for SSL
+		 * 
+		 * @return void
+		 */
+		function ssl_enable_per_content() {
+		
+			global $post;
+			
+			wp_nonce_field( 'BWPS_Admin_Save','wp_nonce' );
+			
+			$enabled = false;
+			
+			if ( $post->ID ) {
+				$enabled = get_post_meta( $post->ID, 'bwps_enable_ssl', true );
+			}
+			
+			$content = '<div id="bwps" class="misc-pub-section">';
+			$content .= '<label for="enable_ssl">Enable SSL:</label> ';
+			$content .= '<input type="checkbox" value="1" name="enable_ssl" id="enable_ssl"' . checked( 1, $enabled, false ) . ' />';
+			$content .= '</div>';
+
+			echo $content;
+		
+		}
+
+		/**
+		 * Save post meta for SSL selection
+		 * 
+		 * @param  int $id	post id
+		 * @return bool		value of bwps_enable_ssl
+		 */
+		function save_post( $id ) {
+		
+			if ( isset( $_POST['wp_nonce'] ) ) {
+				
+				if ( ! wp_verify_nonce( $_POST['wp_nonce'], 'BWPS_Admin_Save' ) || ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) || ( $_POST['post_type'] == 'page' && ! current_user_can( 'edit_page', $id ) ) || ( $_POST['post_type'] == 'post' && ! current_user_can( 'edit_post', $id ) ) ) {
+					return $id;
+				}
+			
+				$bwps_enable_ssl = ( ( isset( $_POST['enable_ssl'] ) &&  $_POST['enable_ssl'] == true ) ? true : false );
+			
+				if ( $bwps_enable_ssl ) {
+					update_post_meta( $id, 'bwps_enable_ssl', true );
+				} else {
+					update_post_meta( $id, 'bwps_enable_ssl', false );
+				}
+			
+				return $bwps_enable_ssl;
+		
+			}
+		
 		}
 
 		/**
@@ -221,15 +282,13 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 				$frontend = 0;
 			}
 
-			$content = '<select id="bwps_ssl_frontend" name="bwps_ssl[frontend]">';
+			echo '<select id="bwps_ssl_frontend" name="bwps_ssl[frontend]">';
 			
-			$content .= '<option value="0" ' . selected( $frontend, '0' ) . '>' . __( 'Off', 'better-wp-security' ) . '</option>';
-			$content .= '<option value="1" ' . selected( $frontend, '1' ) . '>' . __( 'Per Content', 'better-wp-security' ) . '</option>';
-			$content .= '<option value="2" ' . selected( $frontend, '2' ) . '>' . __( 'Whole Site', 'better-wp-security' ) . '</option>';
-			$content .= '</select><br />';
-			$content .= '<label for="bwps_ssl_frontend"> ' . __( 'Enables secure SSL connection for the front-end (public parts of your site). Turning this off will disable front-end SSL control, turning this on "Per Content" will place a checkbox on the edit page for all posts and pages (near the publish settings) allowing you to turn on SSL for selected pages or posts, and selecting "Whole Site" will force the whole site to use SSL (not recommended unless you have a really good reason to use it).', 'better_wp_security' ) . '</label>';
-
-			echo $content;
+			echo '<option value="0" ' . selected( $frontend, '0' ) . '>' . __( 'Off', 'better-wp-security' ) . '</option>';
+			echo '<option value="1" ' . selected( $frontend, '1' ) . '>' . __( 'Per Content', 'better-wp-security' ) . '</option>';
+			echo '<option value="2" ' . selected( $frontend, '2' ) . '>' . __( 'Whole Site', 'better-wp-security' ) . '</option>';
+			echo '</select><br />';
+			echo '<label for="bwps_ssl_frontend"> ' . __( 'Enables secure SSL connection for the front-end (public parts of your site). Turning this off will disable front-end SSL control, turning this on "Per Content" will place a checkbox on the edit page for all posts and pages (near the publish settings) allowing you to turn on SSL for selected pages or posts, and selecting "Whole Site" will force the whole site to use SSL (not recommended unless you have a really good reason to use it).', 'better_wp_security' ) . '</label>';
 
 		}
 
