@@ -391,21 +391,10 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			if ( isset( $_POST['bwps_advanced_tweaks']['enabled'] ) ) {
-				$settings['enabled'] = intval( $_POST['bwps_advanced_tweaks']['enabled'] == 1 ? 1 : 0 );
-			}
-
-			if ( isset( $_POST['bwps_advanced_tweaks']['protect_files'] ) ) {
-				$settings['protect_files'] = intval( $_POST['bwps_advanced_tweaks']['protect_files'] == 1 ? 1 : 0 );
-			}
-
-			if ( isset( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] ) ) {
-				$settings['disable_directory_browsing'] = intval( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] == 1 ? 1 : 0 );
-			}
-
-			if ( isset( $_POST['bwps_advanced_tweaks']['filter_methods'] ) ) {
-				$settings['filter_methods'] = intval( $_POST['filter_methods']['filter_methods'] == 1 ? 1 : 0 );
-			}
+			$settings['enabled'] = ( isset( $_POST['bwps_advanced_tweaks']['enabled'] ) && intval( $_POST['bwps_advanced_tweaks']['enabled'] == 1 ) ? 1 : 0 );
+			$settings['protect_files'] = ( isset( $_POST['bwps_advanced_tweaks']['protect_files'] ) && intval( $_POST['bwps_advanced_tweaks']['protect_files'] == 1 ) ? 1 : 0 );
+			$settings['disable_directory_browsing'] = ( isset( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] ) && intval( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] == 1 ) ? 1 : 0 );
+			$settings['filter_methods'] = ( isset( $_POST['bwps_advanced_tweaks']['filter_methods'] ) && intval( $_POST['bwps_advanced_tweaks']['filter_methods'] == 1 ) ? 1 : 0 );
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
 
