@@ -510,9 +510,8 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
-
-			$input['type'] = intval( $input['type'] == 1 ? 1 : 2 );
+			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? 1 : 0 );
+			$input['type'] = ( isset( $input['type'] ) && intval( $input['type'] == 1 ) ? 1 : 2 );
 
 			//we don't need to process this again if it is a multisite installation
 			if ( ! is_multisite() ) {
@@ -578,13 +577,8 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			if ( isset( $_POST['bwps_away_mode']['enabled'] ) ) {
-				$settings['enabled'] = intval( $_POST['bwps_away_mode']['enabled'] == 1 ? 1 : 0 );
-			}
-
-			if ( isset( $_POST['bwps_away_mode']['type'] ) ) {
-				$settings['type']  = intval( $_POST['bwps_away_mode']['type'] ) === 1 ? 1 : 2;
-			}
+			$settings['enabled'] = ( isset( $_POST['bwps_away_mode']['enabled'] ) && intval( $_POST['bwps_away_mode']['enabled'] == 1 ) ? 1 : 0 );
+			$settings['type'] = ( isset( $_POST['bwps_away_mode']['type'] ) && intval( $_POST['bwps_away_mode']['type'] == 1 ) ? 1 : 2 );
 			
 			$settings['start'] = strtotime( $_POST['bwps_away_mode']['start']['date'] . ' ' . $_POST['bwps_away_mode']['start']['hour'] . ':' . $_POST['bwps_away_mode']['start']['minute'] . ' ' . $_POST['bwps_away_mode']['start']['sel'] );
 			$settings['end']   = strtotime( $_POST['bwps_away_mode']['end']['date'] . ' ' . $_POST['bwps_away_mode']['end']['hour'] . ':' . $_POST['bwps_away_mode']['end']['minute'] . ' ' . $_POST['bwps_away_mode']['end']['sel'] );

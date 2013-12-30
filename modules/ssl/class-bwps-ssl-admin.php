@@ -516,17 +516,9 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			if ( isset( $_POST['bwps_ssl']['login'] ) ) {
-				$settings['login'] = intval( $_POST['bwps_ssl']['login'] == 1 ? 1 : 0 );
-			}
-
-			if ( isset( $_POST['bwps_ssl']['admin'] ) ) {
-				$settings['admin'] = intval( $_POST['bwps_ssl']['admin'] == 1 ? 1 : 0 );
-			}
-
-			if ( isset( $_POST['bwps_ssl']['frontend'] ) ) {
-				$settings['frontend'] = intval( $_POST['bwps_ssl']['frontend'] == 1 ? 1 : 0 );
-			}
+			$settings['login'] = ( isset( $_POST['bwps_ssl']['login'] ) && intval( $_POST['bwps_ssl']['login'] == 1 ) ? 1 : 0 );
+			$settings['admin'] = ( isset( $_POST['bwps_ssl']['admin'] ) && intval( $_POST['bwps_ssl']['admin'] == 1 ) ? 1 : 0 );
+			$settings['frontend'] = isset( $_POST['bwps_ssl']['frontend'] ) ? intval( $_POST['bwps_ssl']['frontend'] ) : 0;
 
 			update_site_option( 'bwps_ssl', $settings ); //we must manually save network options
 

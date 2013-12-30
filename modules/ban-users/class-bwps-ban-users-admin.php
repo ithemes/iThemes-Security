@@ -632,8 +632,8 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			$no_errors = false; //start out assuming they entered a bad IP somewhere
 
 			//Sanitize checkbox features
-			$input['enabled'] = ( isset( $input['enabled'] ) && $input['enabled'] == 1  ? 1 : 0 );
-			$input['default'] = ( isset( $input['default'] ) && $input['default'] == 1  ? 1 : 0 );
+			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? 1 : 0 );
+			$input['default'] = ( isset( $input['default'] ) && intval( $input['default'] == 1 ) ? 1 : 0 );
 
 			//process agent list
 			if ( isset( $input['agent_list'] ) && ! is_array( $input['agent_list'] ) ) {
@@ -780,15 +780,9 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			if ( isset( $_POST['bwps_away_mode']['enabled'] ) ) {
-				$settings['enabled'] = intval( $_POST['bwps_away_mode']['enabled'] == 1 ? 1 : 0 );
-			}
+			$settings['enabled'] = ( isset( $_POST['bwps_ban_users']['enabled'] ) && intval( $_POST['bwps_ban_users']['enabled'] == 1 ) ? 1 : 0 );
 
-			$settings['type']  = intval( $_POST['bwps_away_mode']['type'] ) === 1 ? 1 : 2;
-			$settings['start'] = strtotime( $_POST['bwps_away_mode']['start']['date'] . ' ' . $_POST['bwps_away_mode']['start']['hour'] . ':' . $_POST['bwps_away_mode']['start']['minute'] . ' ' . $_POST['bwps_away_mode']['start']['sel'] );
-			$settings['end']   = strtotime( $_POST['bwps_away_mode']['end']['date'] . ' ' . $_POST['bwps_away_mode']['end']['hour'] . ':' . $_POST['bwps_away_mode']['end']['minute'] . ' ' . $_POST['bwps_away_mode']['end']['sel'] );
-
-			update_site_option( 'bwps_away_mode', $settings ); //we must manually save network options
+			update_site_option( 'bwps_ban_users', $settings ); //we must manually save network options
 
 			//send them back to the away mode options page
 			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_bwps-away_mode', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
