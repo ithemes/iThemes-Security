@@ -231,7 +231,6 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function ban_users_enabled( $args ) {
 
-			//disable the option if away mode is in the past
 			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 ) {
 				$enabled = 1;
 			} else {
@@ -254,7 +253,6 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function ban_users_default( $args ) {
 
-			//disable the option if away mode is in the past
 			if ( isset( $this->settings['default'] ) && $this->settings['default'] === 1 ) {
 				$default = 1;
 			} else {
