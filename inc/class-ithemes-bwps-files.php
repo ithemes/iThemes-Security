@@ -146,6 +146,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		public function build_htaccess() {
 
 			$saved_contents = get_site_option( 'bwps_rewrites' );
+			$out_values = array();
 
 			if ( $saved_contents === false ) {
 				return false;
@@ -157,17 +158,25 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			foreach ( $rewrite_rules as $key => $value ) {
 
-				$out_values[] = "\t# BEGIN " . $key; //add section header
+				if ( is_array( $value['rules'] ) && sizeof( $value['rules'] ) > 0 ) {
 
-				foreach( $value['rules'] as $rule ) {
-					$out_values[] = "\t\t" . $rule; //write all the rules
+					$out_values[] = "\t# BEGIN " . $key; //add section header
+
+					foreach( $value['rules'] as $rule ) {
+						$out_values[] = "\t\t" . $rule; //write all the rules
+					}
+
+					$out_values[] = "\t# END " . $key; //add section footer
+
 				}
-
-				$out_values[] = "\t# END " . $key; //add section footer
 
 			}
 
-			return $out_values;
+			if ( sizeof( $out_values ) > 0 ) {
+				return $out_values;
+			} else {
+				return false;
+			}
 
 		}
 
@@ -317,9 +326,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			$rules_to_write = $this->build_htaccess(); //String of rules to insert into 
 
-			if ( $rules_to_write === false ) { //if there is nothing to write just return true
+			if ( $rules_to_write === false ) { //if there is nothing to write make sure we clean up the file
 
-				return true;
+				return $this->delete_htaccess();
 
 			}
 
