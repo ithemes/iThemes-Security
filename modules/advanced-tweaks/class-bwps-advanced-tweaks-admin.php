@@ -226,6 +226,15 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_server'
 			);
 
+			//Remove File Writing Permissions field
+			add_settings_field(
+				'bwps_advanced_tweaks[write_permissions]',
+				__( 'Remove File Writing Permissions', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_server_write_permissions' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_bwps-advanced_tweaks',
@@ -403,6 +412,28 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		}
 
 		/**
+		 * echos Remove write permissions Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_server_write_permissions( $args ) {
+
+			if ( isset( $this->settings['write_permissions'] ) && $this->settings['write_permissions'] === 1 ) {
+				$write_permissions = 1;
+			} else {
+				$write_permissions = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_write_permissions" name="bwps_advanced_tweaks[write_permissions]" value="1" ' . checked( 1, $write_permissions, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_write_permissions"> ' . __( 'Prevents scripts and users from being able to write to the wp-config.php file and .htaccess file. Note that in the case of this and many plugins this can be overcome however it still does make the files more secure. Turning this on will set the UNIX file permissions to 0444 on these files and turning it off will set the permissions to 0644.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * Build and echo the away mode description
 		 *
 		 * @return void
@@ -468,6 +499,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['suspicious_query_strings'] = ( isset( $input['suspicious_query_strings'] ) && intval( $input['suspicious_query_strings'] == 1 ) ? 1 : 0 );
 			$input['non_english_characters'] = ( isset( $input['non_english_characters'] ) && intval( $input['non_english_characters'] == 1 ) ? 1 : 0 );
 			$input['long_url_strings'] = ( isset( $input['long_url_strings'] ) && intval( $input['long_url_strings'] == 1 ) ? 1 : 0 );
+			$input['write_permissions'] = ( isset( $input['write_permissions'] ) && intval( $input['write_permissions'] == 1 ) ? 1 : 0 );
 
 			add_settings_error(
 				'bwps_admin_notices',
@@ -494,7 +526,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$settings['suspicious_query_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['suspicious_query_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['suspicious_query_strings'] == 1 ) ? 1 : 0 );
 			$settings['non_english_characters'] = ( isset( $_POST['bwps_advanced_tweaks']['non_english_characters'] ) && intval( $_POST['bwps_advanced_tweaks']['non_english_characters'] == 1 ) ? 1 : 0 );
 			$settings['long_url_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['long_url_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['long_url_strings'] == 1 ) ? 1 : 0 );
-			$settings['long_url_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['long_url_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['remove_write_permissions'] == 1 ) ? 1 : 0 );
+			$settings['write_permissions'] = ( isset( $_POST['bwps_advanced_tweaks']['write_permissions'] ) && intval( $_POST['bwps_advanced_tweaks']['write_permissions'] == 1 ) ? 1 : 0 );
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
 
