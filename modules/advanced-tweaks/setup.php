@@ -50,6 +50,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 					'disable_directory_browsing' => 0,
 					'filter_methods' => 0,
 					'filter_suspicious_query_strings' => 0,
+					'filter_non_english_characters' => 0,
 				);
 
 				add_site_option( 'bwps_advanced_tweaks', $defaults );

@@ -208,6 +208,15 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_server'
 			);
 
+			//Filter Non-English Characters field
+			add_settings_field(
+				'bwps_advanced_tweaks[filter_non_english_characters]',
+				__( 'Filter Non-English Characters', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_server_filter_non_english_characters' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_bwps-advanced_tweaks',
@@ -319,7 +328,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		}
 
 		/**
-		 * echos Filter Request MethodsField
+		 * echos Filter Suspicious Query Strings Field
 		 *
 		 * @param  array $args field arguements
 		 *
@@ -335,6 +344,28 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_filter_suspicious_query_strings" name="bwps_advanced_tweaks[filter_suspicious_query_strings]" value="1" ' . checked( 1, $filter_suspicious_query_strings, false ) . '/>';
 			$content .= '<label for="bwps_advanced_tweaks_server_filter_suspicious_query_strings"> ' . __( 'Filter out suspicious query strings in the URL. These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Filter Non-English Characters Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_server_filter_non_english_characters( $args ) {
+
+			if ( isset( $this->settings['filter_non_english_characters'] ) && $this->settings['filter_non_english_characters'] === 1 ) {
+				$filter_non_english_characters = 1;
+			} else {
+				$filter_non_english_characters = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_filter_non_english_characters" name="bwps_advanced_tweaks[filter_non_english_characters]" value="1" ' . checked( 1, $filter_non_english_characters, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_filter_non_english_characters"> ' . __( 'Filter out non-english characters from the query string. This should not be used on non-english sites and only works when "Filter Suspicious Query String" has been selected.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -404,6 +435,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['disable_directory_browsing'] = ( isset( $input['disable_directory_browsing'] ) && intval( $input['disable_directory_browsing'] == 1 ) ? 1 : 0 );
 			$input['filter_methods'] = ( isset( $input['filter_methods'] ) && intval( $input['filter_methods'] == 1 ) ? 1 : 0 );
 			$input['filter_suspicious_query_strings'] = ( isset( $input['filter_suspicious_query_strings'] ) && intval( $input['filter_suspicious_query_strings'] == 1 ) ? 1 : 0 );
+			$input['filter_non_english_characters'] = ( isset( $input['filter_non_english_characters'] ) && intval( $input['filter_non_english_characters'] == 1 ) ? 1 : 0 );
 
 			add_settings_error(
 				'bwps_admin_notices',
@@ -428,6 +460,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$settings['disable_directory_browsing'] = ( isset( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] ) && intval( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] == 1 ) ? 1 : 0 );
 			$settings['filter_methods'] = ( isset( $_POST['bwps_advanced_tweaks']['filter_methods'] ) && intval( $_POST['bwps_advanced_tweaks']['filter_methods'] == 1 ) ? 1 : 0 );
 			$settings['filter_suspicious_query_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['filter_suspicious_query_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['filter_suspicious_query_strings'] == 1 ) ? 1 : 0 );
+			$settings['filter_non_english_characters'] = ( isset( $_POST['bwps_advanced_tweaks']['filter_non_english_characters'] ) && intval( $_POST['bwps_advanced_tweaks']['filter_non_english_characters'] == 1 ) ? 1 : 0 );
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
 
