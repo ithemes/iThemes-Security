@@ -169,7 +169,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			$this->do_modules();
 
-			new Ithemes_BWPS_Files( 'activate' );
+			new Ithemes_BWPS_Files( 'deactivate' );
 
 		}
 
