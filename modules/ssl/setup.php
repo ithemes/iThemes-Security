@@ -58,8 +58,8 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 
 				$defaults = array(
 					'frontend'	=> 0,
-					'admin'		=> $admin;
-					'login'		=> $login;
+					'admin'		=> $admin,
+					'login'		=> $login,
 				);
 
 				add_site_option( 'bwps_ssl', $defaults );
