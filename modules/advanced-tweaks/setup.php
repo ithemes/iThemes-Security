@@ -46,6 +46,8 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 
 				$defaults = array(
 					'enabled'	=> 0,
+					'protect_files' => 0,
+					'disable_directory_browsing' => 0,
 				);
 
 				add_site_option( 'bwps_advanced_tweaks', $defaults );

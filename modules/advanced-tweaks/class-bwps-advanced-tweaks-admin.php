@@ -172,6 +172,24 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_enabled'
 			);
 
+			//protect files field
+			add_settings_field(
+				'bwps_advanced_tweaks[protect_files]',
+				__( 'Protect System Files', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_server_protect_files' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
+
+			//protect files field
+			add_settings_field(
+				'bwps_advanced_tweaks[disable_directory_browsing]',
+				__( 'Disable Directory Browsing', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_server_disable_directory_browsing' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_bwps-advanced_tweaks',
@@ -211,6 +229,50 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			$content = '<input type="checkbox" id="bwps_advanced_tweaks_enabled" name="bwps_advanced_tweaks[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
 			$content .= '<label for="bwps_advanced_tweaks_enabled"> ' . __( 'Check this box to enable advanced security tweaks. Remember, some of these tweaks might conflict with other plugins or your theme so test your site after enabling each setting.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Protect Files Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_server_protect_files( $args ) {
+
+			if ( isset( $this->settings['protect_files'] ) && $this->settings['protect_files'] === 1 ) {
+				$protect_files = 1;
+			} else {
+				$protect_files = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_protect_files" name="bwps_advanced_tweaks[protect_files]" value="1" ' . checked( 1, $protect_files, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_protect_files"> ' . __( 'Prevent public access to readme.html, readme.txt, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Disable Directory Browsing Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_server_disable_directory_browsing( $args ) {
+
+			if ( isset( $this->settings['disable_directory_browsing'] ) && $this->settings['disable_directory_browsing'] === 1 ) {
+				$disable_directory_browsing = 1;
+			} else {
+				$disable_directory_browsing = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_disable_directory_browsing" name="bwps_advanced_tweaks[disable_directory_browsing]" value="1" ' . checked( 1, $disable_directory_browsing, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_protect_files"> ' . __( 'Prevents users from seeing a list of files in a directory when no index file is present.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -276,6 +338,8 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$message = __( 'Settings Updated', 'better_wp_security' );
 
 			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
+			$input['protect_files'] = intval( $input['protect_files'] == 1 ? 1 : 0 );
+			$input['disable_directory_browsing'] = intval( $input['disable_directory_browsing'] == 1 ? 1 : 0 );
 
 			add_settings_error(
 				'bwps_admin_notices',
@@ -297,6 +361,14 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			if ( isset( $_POST['bwps_advanced_tweaks']['enabled'] ) ) {
 				$settings['enabled'] = intval( $_POST['bwps_advanced_tweaks']['enabled'] == 1 ? 1 : 0 );
+			}
+
+			if ( isset( $_POST['bwps_advanced_tweaks']['protect_files'] ) ) {
+				$settings['protect_files'] = intval( $_POST['bwps_advanced_tweaks']['protect_files'] == 1 ? 1 : 0 );
+			}
+
+			if ( isset( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] ) ) {
+				$settings['disable_directory_browsing'] = intval( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] == 1 ? 1 : 0 );
 			}
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
