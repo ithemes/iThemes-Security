@@ -551,20 +551,20 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			}
 
 			//Add banned host lists
-			if ( strlen( $host_list ) > 1 ) {
+			if ( strlen( $host_list ) > 1 || strlen( $default_list ) ) {
 
 				if ( strlen( $default_list ) > 1 ) {
 					$rules .= PHP_EOL;
 				}
 
-				if ( $server_type === 'nginx' ) { //NGINX rules
+				if ( $server_type === 'nginx' && strlen( $host_list ) > 1 ) { //NGINX rules
 
 					$rules .= 'location / {' . PHP_EOL;
 					$rules .= $host_list;
 					$rules .= "\tallow all" . PHP_EOL;
 					$rules .= '}' . PHP_EOL;
 
-				} else {
+				} elseif ( strlen( $host_list ) > 1 ) {
 
 					$rules .= 'Order allow,deny' . PHP_EOL;
 					$rules .= $host_list;
@@ -597,11 +597,17 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			}
 
+			if ( strlen( $rules ) > 0 ) {
+				$rules = explode( PHP_EOL, $rules );
+			} else {
+				$rules = false;
+			}
+
 			//create a proper array for writing
 			$rules = array(
 				'priority' => 1,
 				'save'     => true,
-				'rules'    => explode( PHP_EOL, $rules ),
+				'rules'    => $rules,
 			);
 
 			if ( new Ithemes_BWPS_Files( 'htaccess', 'Ban Users', $rules ) ) {
@@ -752,7 +758,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			$input['host_list'] = $raw_ips;
 
-			if ( $input['enabled'] === 1 && $no_errors === true ) {
+			if ( $no_errors === true ) {
 				$this->build_ban_list( $input );
 			}
 
