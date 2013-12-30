@@ -181,11 +181,20 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_server'
 			);
 
-			//protect files field
+			//disable directory browsing field
 			add_settings_field(
 				'bwps_advanced_tweaks[disable_directory_browsing]',
 				__( 'Disable Directory Browsing', 'better_wp_security' ),
 				array( $this, 'advanced_tweaks_server_disable_directory_browsing' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
+
+			//filter request methods field
+			add_settings_field(
+				'bwps_advanced_tweaks[filter_methods]',
+				__( 'Filter Request Methods', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_server_filter_methods' ),
 				'security_page_toplevel_page_bwps-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
@@ -279,6 +288,28 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		}
 
 		/**
+		 * echos Filter Request MethodsField
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_server_filter_methods( $args ) {
+
+			if ( isset( $this->settings['filter_methods'] ) && $this->settings['filter_methods'] === 1 ) {
+				$filter_methods = 1;
+			} else {
+				$filter_methods = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_filter_methods" name="bwps_advanced_tweaks[filter_methods]" value="1" ' . checked( 1, $filter_methods, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_filter_methods"> ' . __( 'Filter out hits with the trace, delete, or track request methods.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * Build and echo the away mode description
 		 *
 		 * @return void
@@ -337,9 +368,10 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'better_wp_security' );
 
-			$input['enabled'] = intval( $input['enabled'] == 1 ? 1 : 0 );
-			$input['protect_files'] = intval( $input['protect_files'] == 1 ? 1 : 0 );
-			$input['disable_directory_browsing'] = intval( $input['disable_directory_browsing'] == 1 ? 1 : 0 );
+			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? 1 : 0 );
+			$input['protect_files'] = ( isset( $input['protect_files'] ) && intval( $input['protect_files'] == 1 ) ? 1 : 0 );
+			$input['disable_directory_browsing'] = ( isset( $input['disable_directory_browsing'] ) && intval( $input['disable_directory_browsing'] == 1 ) ? 1 : 0 );
+			$input['filter_methods'] = ( isset( $input['filter_methods'] ) && intval( $input['filter_methods'] == 1 ) ? 1 : 0 );
 
 			add_settings_error(
 				'bwps_admin_notices',
@@ -369,6 +401,10 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			if ( isset( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] ) ) {
 				$settings['disable_directory_browsing'] = intval( $_POST['bwps_advanced_tweaks']['disable_directory_browsing'] == 1 ? 1 : 0 );
+			}
+
+			if ( isset( $_POST['bwps_advanced_tweaks']['filter_methods'] ) ) {
+				$settings['filter_methods'] = intval( $_POST['filter_methods']['filter_methods'] == 1 ? 1 : 0 );
 			}
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
