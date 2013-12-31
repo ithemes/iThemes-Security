@@ -299,9 +299,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[random_version]',
-				__( 'Display Random Version', 'better_wp_security' ),
-				array( $this, 'advanced_tweaks_wordpress_random_version' ),
+				'bwps_advanced_tweaks[disable_xmlrpc]',
+				__( 'Disable XML-RPC', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_wordpress_disable_xmlrpc' ),
 				'security_page_toplevel_page_bwps-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
@@ -703,22 +703,22 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		}
 
 		/**
-		 * echos Display Random Version Field
+		 * echos Disable XML-RPC Field
 		 *
 		 * @param  array $args field arguements
 		 *
 		 * @return void
 		 */
-		public function advanced_tweaks_wordpress_random_version( $args ) {
+		public function advanced_tweaks_wordpress_disable_xmlrpc( $args ) {
 
-			if ( isset( $this->settings['random_version'] ) && $this->settings['random_version'] === 1 ) {
-				$random_version = 1;
+			if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] === 1 ) {
+				$disable_xmlrpc = 1;
 			} else {
-				$random_version = 0;
+				$disable_xmlrpc = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_random_version" name="bwps_advanced_tweaks[random_version]" value="1" ' . checked( 1, $random_version, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_random_version"> ' . __( 'Displays a random version number to visitors who are not logged in at all points where version number must be used and removes the version completely from where it can.', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_disable_xmlrpc" name="bwps_advanced_tweaks[disable_xmlrpc]" value="1" ' . checked( 1, $disable_xmlrpc, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_disable_xmlrpc"> ' . __( 'Disables all XML-RPC functionality. XML-RPC is a feature WordPress uses to connect to remote services and is often taken advantage of by attackers.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -800,7 +800,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['comment_spam'] = ( isset( $input['comment_spam'] ) && intval( $input['comment_spam'] == 1 ) ? 1 : 0 );
 			$input['random_version'] = ( isset( $input['random_version'] ) && intval( $input['random_version'] == 1 ) ? 1 : 0 );
 			$input['file_editor'] = ( isset( $input['file_editor'] ) && intval( $input['file_editor'] == 1 ) ? 1 : 0 );
-			$input['random_version'] = ( isset( $input['random_version'] ) && intval( $input['random_version'] == 1 ) ? 1 : 0 );
+			$input['disable_xmlrpc'] = ( isset( $input['disable_xmlrpc'] ) && intval( $input['disable_xmlrpc'] == 1 ) ? 1 : 0 );
 
 			add_settings_error(
 				'bwps_admin_notices',
@@ -837,7 +837,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$settings['comment_spam'] = ( isset( $_POST['bwps_advanced_tweaks']['comment_spam'] ) && intval( $_POST['bwps_advanced_tweaks']['comment_spam'] == 1 ) ? 1 : 0 );
 			$settings['random_version'] = ( isset( $_POST['bwps_advanced_tweaks']['random_version'] ) && intval( $_POST['bwps_advanced_tweaks']['random_version'] == 1 ) ? 1 : 0 );
 			$settings['file_editor'] = ( isset( $_POST['bwps_advanced_tweaks']['file_editor'] ) && intval( $_POST['bwps_advanced_tweaks']['file_editor'] == 1 ) ? 1 : 0 );
-			$settings['random_version'] = ( isset( $_POST['bwps_advanced_tweaks']['random_version'] ) && intval( $_POST['bwps_advanced_tweaks']['random_version'] == 1 ) ? 1 : 0 );
+			$settings['disable_xmlrpc'] = ( isset( $_POST['bwps_advanced_tweaks']['disable_xmlrpc'] ) && intval( $_POST['bwps_advanced_tweaks']['disable_xmlrpc'] == 1 ) ? 1 : 0 );
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
 
