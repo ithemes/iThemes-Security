@@ -60,6 +60,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 					'plugin_updates' => 0,
 					'core_updates' => 0,
 					'comment_spam' => 0,
+					'random_version' => 0,
 				);
 
 				add_site_option( 'bwps_advanced_tweaks', $defaults );
