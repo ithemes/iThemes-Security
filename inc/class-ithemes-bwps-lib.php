@@ -43,6 +43,39 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		}
 
 		/**
+		 * Return primary domain from given url
+		 *
+		 * Returns primary domsin name (without subdomains) of given URL
+		 *
+		 * @param string $address address to filter
+		 * @param boolean $apache[true] does this require an apache style wildcard
+		 * @return string domain name
+		 *
+		 **/		
+		function get_domain( $address, $apache = true ) {
+		
+			preg_match( "/^(http:\/\/)?([^\/]+)/i", $address, $matches );
+			$host = $matches[2];
+			preg_match( "/[^\.\/]+\.[^\.\/]+$/", $host, $matches );
+
+			if ( $apache == true ) {
+				$wc = '(.*)';
+			} else {
+				$wc = '*.';
+			}
+
+			// multisite domain mapping compatibility. when hide login is enabled, 
+			// rewrite rules redirect valid POST requests from MAPPED_DOMAIN/wp-login.php?SECRET_KEY
+			// because they aren't coming from the "top-level" domain. blog_id 1, the parent site,
+			// is a completely different, unrelated domain in this configuration.
+			if ( is_multisite() && function_exists( 'domain_mapping_warning' ) ) {
+				return $wc;
+			} else {
+				return $wc . $matches[0] ;
+			}
+		}
+
+		/**
 		 * Determine whether we're on the login page or not
 		 *
 		 * @return bool true if is login page else false
