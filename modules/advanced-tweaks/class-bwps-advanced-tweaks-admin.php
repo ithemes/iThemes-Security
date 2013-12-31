@@ -1094,8 +1094,60 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['file_editor'] = ( isset( $input['file_editor'] ) && intval( $input['file_editor'] == 1 ) ? 1 : 0 );
 			$input['disable_xmlrpc'] = ( isset( $input['disable_xmlrpc'] ) && intval( $input['disable_xmlrpc'] == 1 ) ? 1 : 0 );
 
+			//build and send htaccess rules
+			if ( $this->build_htaccess_rules( $input ) === false ) {
 
-			$this->build_htaccess_rules( $input );
+				$type    = 'error';
+				$message = __( 'WordPress was unable to save the your options to .htaccess. Please check with your server administrator and try again.', 'better_wp_security' );
+
+			}
+
+			//write to wp-config.php if we need to
+			$rule_array = array();
+
+			if ( $input['file_editor'] == 1 ) {
+
+				$rule_array[] = array(
+					'type'			=> 'add',
+					'search_text'	=> '//The entry below were created by Better WP Security to disable the file editor',
+					'rule'			=> '//The entry below were created by Better WP Security to disable the file editor',
+				);
+
+				$rule_array[] = array(
+					'type'			=> 'add',
+					'search_text'	=> 'DISALLOW_FILE_EDIT',
+					'rule'			=> "define( 'DISALLOW_FILE_EDIT', true );",
+				);
+
+			} else {
+
+				$rule_array[] = array(
+					'type'			=> 'delete',
+					'search_text'	=> '//The entry below were created by Better WP Security to disable the file editor',
+					'rule'			=> false,
+				);
+
+				$rule_array[] = array(
+					'type'			=> 'delete',
+					'search_text'	=> 'DISALLOW_FILE_EDIT',
+					'rule'			=> false,
+				);
+
+			}
+
+			$rules = array(
+				'save'  => false,
+				'rules' => array(
+					'rules' => $rule_array,
+				),
+			);
+
+			if ( ! new Ithemes_BWPS_Files( 'wpconfig', 'Advanced Tweaks', $rules ) ) {
+
+				$type    = 'error';
+				$message = __( 'WordPress was unable to save your options to wp-config.php. Please check with your server administrator and try again.', 'better_wp_security' );
+
+			}
 
 			add_settings_error(
 				'bwps_admin_notices',
