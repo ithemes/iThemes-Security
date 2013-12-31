@@ -274,6 +274,14 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_wordpress'
 			);
 
+			add_settings_field(
+				'bwps_advanced_tweaks[comment_spam]',
+				__( 'Reduce Comment Spam', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_wordpress_comment_spam' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'advanced_tweaks_wordpress'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_bwps-advanced_tweaks',
@@ -605,6 +613,28 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		}
 
 		/**
+		 * echos Reduce Comment Spam Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_wordpress_comment_spam( $args ) {
+
+			if ( isset( $this->settings['comment_spam'] ) && $this->settings['comment_spam'] === 1 ) {
+				$comment_spam = 1;
+			} else {
+				$comment_spam = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_comment_spam" name="bwps_advanced_tweaks[comment_spam]" value="1" ' . checked( 1, $comment_spam, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_comment_spam"> ' . __( 'This option will cut down on comment spam by denying comments from bots with no referrer or without a user-agent identified.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * Build and echo the away mode description
 		 *
 		 * @return void
@@ -677,6 +707,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['theme_updates'] = ( isset( $input['theme_updates'] ) && intval( $input['theme_updates'] == 1 ) ? 1 : 0 );
 			$input['plugin_updates'] = ( isset( $input['plugin_updates'] ) && intval( $input['plugin_updates'] == 1 ) ? 1 : 0 );
 			$input['core_updates'] = ( isset( $input['core_updates'] ) && intval( $input['core_updates'] == 1 ) ? 1 : 0 );
+			$input['comment_spam'] = ( isset( $input['comment_spam'] ) && intval( $input['comment_spam'] == 1 ) ? 1 : 0 );
 
 			add_settings_error(
 				'bwps_admin_notices',
@@ -710,6 +741,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$settings['theme_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['theme_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['theme_updates'] == 1 ) ? 1 : 0 );
 			$settings['plugin_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['plugin_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['plugin_updates'] == 1 ) ? 1 : 0 );
 			$settings['core_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['core_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['core_updates'] == 1 ) ? 1 : 0 );
+			$settings['comment_spam'] = ( isset( $_POST['bwps_advanced_tweaks']['comment_spam'] ) && intval( $_POST['bwps_advanced_tweaks']['comment_spam'] == 1 ) ? 1 : 0 );
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
 
