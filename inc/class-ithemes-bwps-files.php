@@ -541,6 +541,15 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 									if ( strpos( $line, $rule['search_text'] ) !== false ) {
 
 										unset( $config_array[$line_number] );
+
+										//delete the following line(s) if they is blank
+										$count = 1;
+										while ( strlen( trim( $config_array[$line_number + $count] ) ) < 1 ) {
+											unset( $config_array[$line_number + 1] );
+											$count++;
+
+										}
+
 										$delete_count++;
 										$found = true;
 
