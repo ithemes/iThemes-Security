@@ -408,7 +408,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['file_editor'] === 1 ) {
+			if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -1009,7 +1009,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_file_editor( $args ) {
 
-			if ( isset( $this->settings['file_editor'] ) && $this->settings['file_editor'] === 1 ) {
+			if ( isset( $this->settings['file_editor'] ) && $this->settings['file_editor'] === 1 && defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
 				$file_editor = 1;
 			} else {
 				$file_editor = 0;
