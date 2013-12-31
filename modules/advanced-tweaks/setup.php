@@ -57,6 +57,8 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 					'wlwmanifest_header' => 0,
 					'edituri_header' => 0,
 					'theme_updates' => 0,
+					'plugin_updates' => 0,
+					'core_updates' => 0,
 				);
 
 				add_site_option( 'bwps_advanced_tweaks', $defaults );
