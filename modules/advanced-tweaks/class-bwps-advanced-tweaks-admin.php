@@ -108,11 +108,31 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			$link = 'admin.php?page=toplevel_page_bwps-advanced_tweaks';
 
-			if ( $this->settings['enabled'] === 1 ) {
+			if ( $this->settings['protect_files'] === 1 ) {
+
+				$status_array = 'safe-medium';
+				$status       = array(
+					'text' => __( 'You are protecting common WordPress files from access.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'medium';
+				$status       = array(
+					'text' => __( 'You are not protecting common WordPress files from access. Click here to protect WordPress files.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['directory_browsing'] === 1 ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'You are blocking known bad hosts and agents with the ban users tool.', 'better_wp_security' ),
+					'text' => __( 'You have successfully disabled directory browsing on your site.', 'better_wp_security' ),
 					'link' => $link,
 				);
 
@@ -120,7 +140,307 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'You are not blocking any users that are known to be a problem. Consider turning on the Ban Users feature.', 'better_wp_security' ),
+					'text' => __( 'You have not disabled directory browsing on your site. Click here to prevent a user from seeing every file present in your WordPress site.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['request_methods'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'You are blocking HTTP request methods you do not need.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'You are not blocking HTTP request methods you do not need. Click here to block extra HTTP request methods that WordPress should not normally need.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['suspicious_query_strings'] === 1 ) {
+
+				$status_array = 'safe-medium';
+				$status       = array(
+					'text' => __( 'Your WordPress site is blocking suspicious looking information in the URL.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'medium';
+				$status       = array(
+					'text' => __( 'Your WordPress site is not blocking suspicious looking information in the URL. Click here to block users from trying to execute code that they should not be able to execute.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['non_english_characters'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Your WordPress site is blocking non-english characters in the URL.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Your WordPress site is not blocking non-english characters in the URL. Click here to fix this.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['long_url_strings'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Your installation does not accept long URLs.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities. Click here to fix this.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['write_permissions'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Wp-config.php and .htacess are not writeable.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Wp-config.php and .htacess are writeable. This can lead to vulnerabilities. Click here to fix this.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['generator_tag'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is not publishing its version number to the world.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is publishing its version number to the world. Click here to fix this.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['wlwmanifest_header'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is not publishing the Windows Live Writer header.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is publishing the Windows Live Writer header. Click here to fix this.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['edituri_header'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is not publishing the really simple discovery header.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is publishing the really simple discovery header. Click here to fix this.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['theme_updates'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is not telling users who cannot update themes about theme updates.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is telling users who cannot update themes about theme updates. Click here to fix this.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['plugin_updates'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is not telling users who cannot update plugins about plugin updates.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is telling users who cannot update plugins about plugin updates. Click here to fix this.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['core_updates'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is not telling users who cannot update WordPress core about WordPress core updates.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is telling users who cannot update WordPress core about WordPress core updates. Click here to fix this.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['comment_spam'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is not allowing users without a user agent to post comments.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Your WordPress installation is allowing users without a user agent to post comments. Fix this to reduce comment spam.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['random_version'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Version information is obscured to all non admin users.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Users may still be able to get version information from various plugins and themes. Click here to fix this.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['file_editor'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'Users cannot edit plugin and themes files directly from within the WordPress Dashboard.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'Users can edit plugin and themes files directly from within the WordPress Dashboard. Click here to fix this.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['disable_xmlrpc'] === 1 ) {
+
+				$status_array = 'safe-low';
+				$status       = array(
+					'text' => __( 'XML-RPC is not available on your WordPress installation.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'low';
+				$status       = array(
+					'text' => __( 'XML-RPC is available on your WordPress installation. Attackers can use this feature to attack your site. Click here to disable access to XML-RPC.', 'better_wp_security' ),
 					'link' => $link,
 				);
 
