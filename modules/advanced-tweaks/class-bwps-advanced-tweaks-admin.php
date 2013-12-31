@@ -235,6 +235,15 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_server'
 			);
 
+			//Remove File Writing Permissions field
+			add_settings_field(
+				'bwps_advanced_tweaks[generator_tag]',
+				__( 'Remove WordPress Generator Meta Tag', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_server_generator_tag' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'advanced_tweaks_wordpress'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_bwps-advanced_tweaks',
@@ -434,6 +443,28 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		}
 
 		/**
+		 * echos Remove WordPress Generator Meta Tag Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_server_generator_tag( $args ) {
+
+			if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] === 1 ) {
+				$generator_tag = 1;
+			} else {
+				$generator_tag = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_generator_tag" name="bwps_advanced_tweaks[generator_tag]" value="1" ' . checked( 1, $generator_tag, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_generator_tag"> ' . __( 'Removes the <meta name="generator" content="WordPress [version]" /> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * Build and echo the away mode description
 		 *
 		 * @return void
@@ -500,6 +531,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['non_english_characters'] = ( isset( $input['non_english_characters'] ) && intval( $input['non_english_characters'] == 1 ) ? 1 : 0 );
 			$input['long_url_strings'] = ( isset( $input['long_url_strings'] ) && intval( $input['long_url_strings'] == 1 ) ? 1 : 0 );
 			$input['write_permissions'] = ( isset( $input['write_permissions'] ) && intval( $input['write_permissions'] == 1 ) ? 1 : 0 );
+			$input['generator_tag'] = ( isset( $input['generator_tag'] ) && intval( $input['generator_tag'] == 1 ) ? 1 : 0 );
 
 			add_settings_error(
 				'bwps_admin_notices',
@@ -527,6 +559,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$settings['non_english_characters'] = ( isset( $_POST['bwps_advanced_tweaks']['non_english_characters'] ) && intval( $_POST['bwps_advanced_tweaks']['non_english_characters'] == 1 ) ? 1 : 0 );
 			$settings['long_url_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['long_url_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['long_url_strings'] == 1 ) ? 1 : 0 );
 			$settings['write_permissions'] = ( isset( $_POST['bwps_advanced_tweaks']['write_permissions'] ) && intval( $_POST['bwps_advanced_tweaks']['write_permissions'] == 1 ) ? 1 : 0 );
+			$settings['generator_tag'] = ( isset( $_POST['bwps_advanced_tweaks']['generator_tag'] ) && intval( $_POST['bwps_advanced_tweaks']['generator_tag'] == 1 ) ? 1 : 0 );
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
 

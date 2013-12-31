@@ -52,6 +52,8 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 					'suspicious_query_strings' => 0,
 					'non_english_characters' => 0,
 					'long_url_strings' => 0,
+					'write_permissions' => 0,
+					'generator_tag' => 0,
 				);
 
 				add_site_option( 'bwps_advanced_tweaks', $defaults );
