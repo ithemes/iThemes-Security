@@ -55,13 +55,19 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		function get_domain( $address, $apache = true ) {
 		
 			preg_match( "/^(http:\/\/)?([^\/]+)/i", $address, $matches );
+
 			$host = $matches[2];
+
 			preg_match( "/[^\.\/]+\.[^\.\/]+$/", $host, $matches );
 
 			if ( $apache == true ) {
 				$wc = '(.*)';
 			} else {
 				$wc = '*.';
+			}
+
+			if ( ! is_array( $matches ) ) {
+				return false;
 			}
 
 			// multisite domain mapping compatibility. when hide login is enabled, 
