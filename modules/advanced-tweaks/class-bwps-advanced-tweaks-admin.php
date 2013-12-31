@@ -887,7 +887,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 					$rules .= 
 						"<IfModule mod_rewrite.c>" . PHP_EOL .
-						PHP_EOL . "\tRewriteEngine On" . PHP_EOL;
+						"\tRewriteEngine On" . PHP_EOL;
 
 				}
 
@@ -1036,7 +1036,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				if ( $server_type !== 'nginx' ) { //non NGINX rules
 
 					$rules .= 
-						PHP_EOL . "</IfModule>" . PHP_EOL;
+						"</IfModule>";
 
 				}
 

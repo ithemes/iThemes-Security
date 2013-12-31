@@ -160,13 +160,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 				if ( is_array( $value['rules'] ) && sizeof( $value['rules'] ) > 0 ) {
 
-					$out_values[] = PHP_EOL . "\t# BEGIN " . $key . PHP_EOL; //add section header
+					$out_values[] = "\t# BEGIN " . $key; //add section header
 
 					foreach( $value['rules'] as $rule ) {
 						$out_values[] = "\t\t" . $rule; //write all the rules
 					}
 
-					$out_values[] = PHP_EOL . "\t# END " . $key . PHP_EOL; //add section footer
+					$out_values[] = "\t# END " . $key; //add section footer
 
 				}
 
