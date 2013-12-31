@@ -101,6 +101,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 
 				wp_enqueue_script( 'bwps_away_mode_js', $bwps_globals['plugin_url'] . 'modules/away-mode/js/admin-away.js', 'jquery', $bwps_globals['plugin_build'] );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
+				wp_enqueue_style( 'jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css' );
 			}
 
 		}
@@ -221,14 +222,6 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 				'bwps_away_mode',
 				array( $this, 'sanitize_module_input' )
 			);
-
-			//Add the date picker style on the away mode page
-			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_bwps-away_mode' ) !== false ) {
-
-				wp_enqueue_script( 'jquery-ui-datepicker' );
-				wp_enqueue_style( 'jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css' );
-
-			}
 
 		}
 
