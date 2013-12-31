@@ -139,7 +139,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function initialize_admin() {
 
-			//Enabled Advanced Tweaks
+			//Add Settings sections
 			add_settings_section(
 				'advanced_tweaks_enabled',
 				__( 'Enable Advanced Tweaks', 'better_wp_security' ),
@@ -147,7 +147,6 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'security_page_toplevel_page_bwps-advanced_tweaks'
 			);
 
-			//server settings section
 			add_settings_section(
 				'advanced_tweaks_server',
 				__( 'Configure Server Tweaks', 'better_wp_security' ),
@@ -155,7 +154,6 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'security_page_toplevel_page_bwps-advanced_tweaks'
 			);
 
-			//WordPress settings section
 			add_settings_section(
 				'advanced_tweaks_wordpress',
 				__( 'Configure WordPress Tweaks', 'better_wp_security' ),
@@ -163,7 +161,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'security_page_toplevel_page_bwps-advanced_tweaks'
 			);
 
-			//enabled field
+			//Add settings fields
 			add_settings_field(
 				'bwps_advanced_tweaks[enabled]',
 				__( 'Enable Advanced Security Tweaks', 'better_wp_security' ),
@@ -172,7 +170,6 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_enabled'
 			);
 
-			//protect files field
 			add_settings_field(
 				'bwps_advanced_tweaks[protect_files]',
 				__( 'Protect System Files', 'better_wp_security' ),
@@ -181,7 +178,6 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_server'
 			);
 
-			//disable directory browsing field
 			add_settings_field(
 				'bwps_advanced_tweaks[directory_browsing]',
 				__( 'Disable Directory Browsing', 'better_wp_security' ),
@@ -190,7 +186,6 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_server'
 			);
 
-			//filter request methods field
 			add_settings_field(
 				'bwps_advanced_tweaks[request_methods]',
 				__( 'Filter Request Methods', 'better_wp_security' ),
@@ -199,7 +194,6 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_server'
 			);
 
-			//Filter Suspicious Query Strings field
 			add_settings_field(
 				'bwps_advanced_tweaks[suspicious_query_strings]',
 				__( 'Filter Suspicious Query Strings', 'better_wp_security' ),
@@ -208,7 +202,6 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_server'
 			);
 
-			//Filter Non-English Characters field
 			add_settings_field(
 				'bwps_advanced_tweaks[non_english_characters]',
 				__( 'Filter Non-English Characters', 'better_wp_security' ),
@@ -217,7 +210,6 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_server'
 			);
 
-			//Filter Long URL Strings field
 			add_settings_field(
 				'bwps_advanced_tweaks[long_url_strings]',
 				__( 'Filter Long URL Strings', 'better_wp_security' ),
@@ -226,7 +218,6 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_server'
 			);
 
-			//Remove File Writing Permissions field
 			add_settings_field(
 				'bwps_advanced_tweaks[write_permissions]',
 				__( 'Remove File Writing Permissions', 'better_wp_security' ),
@@ -235,11 +226,18 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				'advanced_tweaks_server'
 			);
 
-			//Remove File Writing Permissions field
 			add_settings_field(
 				'bwps_advanced_tweaks[generator_tag]',
 				__( 'Remove WordPress Generator Meta Tag', 'better_wp_security' ),
-				array( $this, 'advanced_tweaks_server_generator_tag' ),
+				array( $this, 'advanced_tweaks_wordpress_generator_tag' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'advanced_tweaks_wordpress'
+			);
+
+			add_settings_field(
+				'bwps_advanced_tweaks[wlwmanifest_header]',
+				__( 'Remove Windows Live Writer Header', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_wordpress_wlwmanifest_header' ),
 				'security_page_toplevel_page_bwps-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
@@ -449,7 +447,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 *
 		 * @return void
 		 */
-		public function advanced_tweaks_server_generator_tag( $args ) {
+		public function advanced_tweaks_wordpress_generator_tag( $args ) {
 
 			if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] === 1 ) {
 				$generator_tag = 1;
@@ -459,6 +457,28 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_generator_tag" name="bwps_advanced_tweaks[generator_tag]" value="1" ' . checked( 1, $generator_tag, false ) . '/>';
 			$content .= '<label for="bwps_advanced_tweaks_server_generator_tag"> ' . __( 'Removes the <meta name="generator" content="WordPress [version]" /> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Remove Windows Live Writer Header Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_wordpress_wlwmanifest_header( $args ) {
+
+			if ( isset( $this->settings['wlwmanifest_header'] ) && $this->settings['wlwmanifest_header'] === 1 ) {
+				$wlwmanifest_header = 1;
+			} else {
+				$wlwmanifest_header = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_wlwmanifest_header" name="bwps_advanced_tweaks[wlwmanifest_header]" value="1" ' . checked( 1, $wlwmanifest_header, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_wlwmanifest_header"> ' . __( 'Removes the Windows Live Writer header. This is not needed if you do not use Windows Live Writer or other blogging clients that rely on this file.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -532,6 +552,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['long_url_strings'] = ( isset( $input['long_url_strings'] ) && intval( $input['long_url_strings'] == 1 ) ? 1 : 0 );
 			$input['write_permissions'] = ( isset( $input['write_permissions'] ) && intval( $input['write_permissions'] == 1 ) ? 1 : 0 );
 			$input['generator_tag'] = ( isset( $input['generator_tag'] ) && intval( $input['generator_tag'] == 1 ) ? 1 : 0 );
+			$input['wlwmanifest_header'] = ( isset( $input['wlwmanifest_header'] ) && intval( $input['wlwmanifest_header'] == 1 ) ? 1 : 0 );
 
 			add_settings_error(
 				'bwps_admin_notices',
@@ -560,6 +581,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$settings['long_url_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['long_url_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['long_url_strings'] == 1 ) ? 1 : 0 );
 			$settings['write_permissions'] = ( isset( $_POST['bwps_advanced_tweaks']['write_permissions'] ) && intval( $_POST['bwps_advanced_tweaks']['write_permissions'] == 1 ) ? 1 : 0 );
 			$settings['generator_tag'] = ( isset( $_POST['bwps_advanced_tweaks']['generator_tag'] ) && intval( $_POST['bwps_advanced_tweaks']['generator_tag'] == 1 ) ? 1 : 0 );
+			$settings['wlwmanifest_header'] = ( isset( $_POST['bwps_advanced_tweaks']['wlwmanifest_header'] ) && intval( $_POST['bwps_advanced_tweaks']['wlwmanifest_header'] == 1 ) ? 1 : 0 );
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
 
