@@ -771,6 +771,298 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 		}
 
+		private function build_htaccess_rules( $input ) {
+
+			global $bwps_lib;
+
+			$server_type = $bwps_lib->get_server(); //Get the server type to build the right rules
+
+			$rules = ''; //initialize all rules to blank string
+
+			//Process Protect Files Rules
+			if ( $input['protect_files'] == 1 ) {
+
+				if ( $server_type === 'nginx' ) { //NGINX rules
+
+					$rules .= 
+						"\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'better-wp-security' ) . PHP_EOL .
+						"\tlocation ~ /\.ht { deny all; }" . PHP_EOL .
+						"\tlocation ~ wp-config.php { deny all; }" . PHP_EOL .
+						"\tlocation ~ readme.html { deny all; }" . PHP_EOL .
+						"\tlocation ~ readme.txt { deny all; }" . PHP_EOL .
+						"\tlocation ~ /install.php { deny all; }" . PHP_EOL .
+						"\tlocation ^wp-includes/(.*).php { deny all }" . PHP_EOL .
+   						"\tlocation ^/wp-admin/includes(.*)$ { deny all }" . PHP_EOL;
+
+				} else { //rules for all other servers
+
+					$rules .= 
+						"# " . __( 'Rules to block access to WordPress specific files', 'better-wp-security' ) . PHP_EOL .
+						"<files .htaccess>" . PHP_EOL .
+							"\tOrder allow,deny" .  PHP_EOL .
+							"\tDeny from all" . PHP_EOL .
+						"</files>" . PHP_EOL .
+						"<files readme.html>" . PHP_EOL .
+							"\tOrder allow,deny" . PHP_EOL .
+							"\tDeny from all" . PHP_EOL .
+						"</files>" . PHP_EOL .
+						"<files readme.txt>" . PHP_EOL .
+							"\tOrder allow,deny" . PHP_EOL .
+							"\tDeny from all" . PHP_EOL .
+						"</files>" . PHP_EOL .
+						"<files install.php>" . PHP_EOL .
+							"\tOrder allow,deny" . PHP_EOL .
+							"\tDeny from all" . PHP_EOL .
+						"</files>" . PHP_EOL .
+						"<files wp-config.php>" . PHP_EOL .
+							"\tOrder allow,deny" . PHP_EOL .
+							"\tDeny from all" . PHP_EOL .
+						"</files>" . PHP_EOL;
+					
+				}
+
+			}
+
+			//Rules to disanle XMLRPC
+			if ( $input['disable_xmlrpc'] == 1 ) {
+
+				if ( strlen( $rules ) > 1 ) {
+					$rules .= PHP_EOL;
+				}
+
+				$rules .= "# " . __( 'Rules to disable XML-RPC', 'better-wp-security' ) . PHP_EOL;
+
+				if ( $server_type === 'nginx' ) { //NGINX rules
+
+					$rules .= 
+						"\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'better-wp-security' ) . PHP_EOL .
+   						"\tlocation ^/xmlrpc.php { deny all }" . PHP_EOL;
+
+				} else { //rules for all other servers
+
+					$rules .= 
+						"<files xmlrpc.php>" . PHP_EOL .
+							"\tOrder allow,deny" . PHP_EOL .
+							"\tDeny from all" . PHP_EOL .
+						"</files>" . PHP_EOL;
+					
+				}
+
+			}
+
+			//Primary Rules for Directory Browsing
+			if ( $input['directory_browsing'] == 1 ) {
+
+				if ( strlen( $rules ) > 1 ) {
+					$rules .= PHP_EOL;
+				}
+
+				$rules .= "# " . __( 'Rules to disable directory browsing', 'better-wp-security' ) . PHP_EOL;
+
+				if ( $server_type === 'nginx' ) { //NGINX rules
+
+					$rules .= "location / {" . PHP_EOL .
+						"\tautoindex off;" . PHP_EOL .
+                		"\troot " . ABSPATH . ";" . PHP_EOL .
+						"}" . PHP_EOL;
+
+				} else { //rules for all other servers
+
+					$rules .= 
+						"Options -Indexes" . PHP_EOL;
+					
+				}
+
+			}
+
+			//Apache rewrite rules (and related NGINX rules)
+			if ( $input['protect_files'] == 1 || $input['request_methods'] == 1 || $input['suspicious_query_strings'] == 1 || $input['non_english_characters'] == 1 || $input['comment_spam'] == 1 ) {
+
+				if ( strlen( $rules ) > 1 ) {
+					$rules .= PHP_EOL;
+				}
+
+				//Open Apache rewrite rules
+				if ( $server_type !== 'nginx' ) {
+
+					$rules .= 
+						"<IfModule mod_rewrite.c>" . PHP_EOL .
+						PHP_EOL . "\tRewriteEngine On" . PHP_EOL;
+
+				}
+
+				//Rewrite Rules for Protect Files
+				if ( $input['protect_files'] == 1 && $server_type !== 'nginx' ) {
+
+					$rules .= PHP_EOL . "\t# " . __( 'Rules to protect wp-includes', 'better-wp-security' ) . PHP_EOL;
+
+					$rules .= 
+						"\tRewriteRule ^wp-admin/includes/ - [F,L]" . PHP_EOL .
+						"\tRewriteRule !^wp-includes/ - [S=3]" . PHP_EOL .
+						"\tRewriteCond %{SCRIPT_FILENAME} !^(.*)wp-includes/ms-files.php" . PHP_EOL .
+						"\tRewriteRule ^wp-includes/[^/]+\.php$ - [F,L]" . PHP_EOL .
+						"\tRewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]" . PHP_EOL .
+						"\tRewriteRule ^wp-includes/theme-compat/ - [F,L]" . PHP_EOL;
+
+				}
+
+				//Apache rewrite rules for disable http methods
+				if ( $input['request_methods'] == 1 ) {
+
+					$rules .= PHP_EOL . "\t# " . __( 'Rules to block unneeded HTTP methods', 'better-wp-security' ) . PHP_EOL;
+
+					if ( $server_type === 'nginx' ) { //NGINX rules
+						
+						$rules .= 
+							"\tif (\$request_method ~* \"^(TRACE|DELETE|TRACK)\"){ return 403; }" . PHP_EOL;
+
+					} else { //rules for all other servers
+						
+						$rules .= 
+							"\tRewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK) [NC]" . PHP_EOL .
+							"\tRewriteRule ^(.*)$ - [F,L]" . PHP_EOL;
+
+					}
+					
+				}
+
+				//Process suspicious query rules
+				if ( $input['suspicious_query_strings'] == 1 ) {
+
+					$rules .= PHP_EOL . "\t# " . __( 'Rules to block suspicious URIs', 'better-wp-security' ) . PHP_EOL;
+
+					if ( $server_type === 'nginx' ) { //NGINX rules
+
+						"\tset \$susquery 0;" . PHP_EOL .
+						"\tif (\$args ~* \"\\.\\./\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \".(bash|git|hg|log|svn|swp|cvs)\") { set \$susquery 1; }" .PHP_EOL .
+						"\tif (\$args ~* \"etc/passwd\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"boot.ini\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"ftp:\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"http:\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"https:\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(<|%3C).*script.*(>|%3E)\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"mosConfig_[a-zA-Z_]{1,21}(=|%3D)\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"base64_encode\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(%24&x)\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(\\[|\\]|\\(|\\)|<|>|ê|\\\"|;|\?|\*|=$)\"){ set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;|%24&x)\"){ set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(127.0)\") { set \$susquery 1; }" . PHP_EOL .
+						"\tif (\$args ~* \"(globals|encode|localhost|loopback)\") { set \$susquery 1; }" .PHP_EOL .
+						"\tif (\$args ~* \"(request|select|insert|concat|union|declare)\") { set \$susquery 1; }" . PHP_EOL;
+						"\tif (\$susquery = 1) { return 403; }" . PHP_EOL;
+
+					} else { //rules for all other servers
+
+						$rules .= 
+							"\tRewriteCond %{QUERY_STRING} \.\.\/ [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} ^.*\.(bash|git|hg|log|svn|swp|cvs) [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} etc/passwd [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} boot\.ini [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} ftp\:  [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} http\:  [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} https\:  [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|%3D) [NC,OR]" . PHP_EOL . 
+							"\tRewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} ^.*(\[|\]|\(|\)|<|>|ê|\"|;|\?|\*|=$).* [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} ^.*(&#x22;|&#x27;|&#x3C;|&#x3E;|&#x5C;|&#x7B;|&#x7C;).* [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} ^.*(%24&x).* [NC,OR]" .  PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} ^.*(127\.0).* [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} ^.*(request|select|concat|insert|union|declare).* [NC]" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} !^loggedout=true" . PHP_EOL .
+							"\tRewriteCond %{QUERY_STRING} !^action=rp" . PHP_EOL .
+							"\tRewriteCond %{HTTP_COOKIE} !^.*wordpress_logged_in_.*$" . PHP_EOL .
+							"\tRewriteCond %{HTTP_REFERER} !^http://maps\.googleapis\.com(.*)$" . PHP_EOL .
+							"\tRewriteRule ^(.*)$ - [F,L]" . PHP_EOL;
+						
+					}
+
+				}
+
+				//Process filtering of foreign characters
+				if ( $input['non_english_characters'] == 1 ) {
+
+					$rules .= PHP_EOL . "\t# " . __( 'Rules to block foreign characters in URLs', 'better-wp-security' ) . PHP_EOL;
+
+					if ( $server_type === 'nginx' ) { //NGINX rules
+
+						$rules .= 
+							"\tif (\$args ~* \"(%0|%A|%B|%C|%D|%E|%F)\") { return 403; }" . PHP_EOL;
+
+					} else { //rules for all other servers
+
+						$rules .=
+							"\tRewriteCond %{QUERY_STRING} ^.*(%0|%A|%B|%C|%D|%E|%F).* [NC]" . PHP_EOL .
+							"\tRewriteRule ^(.*)$ - [F,L]" . PHP_EOL;
+						
+					}
+
+				}
+
+				//Process Comment spam rules
+				if ( $input['comment_spam'] == 1 ) {
+
+					$rules .= PHP_EOL . "\t# " . __( 'Rules to help reduce spam', 'better-wp-security' ) . PHP_EOL;
+
+					if ( $server_type === 'nginx' ) { //NGINX rules
+
+						$rules .=
+							"\tlocation /wp-comments-post.php {" . PHP_EOL .
+		  					"\t\tvalid_referers jetpack.wordpress.com/jetpack-comment/ " . $bwps_lib->get_domain( get_site_url(), false ) . ";" . PHP_EOL .
+		  					"\t\tset \$rule_0 0;" . PHP_EOL .
+							"\t\tif (\$request_method ~ \"POST\"){ set \$rule_0 1\$rule_0; }" . PHP_EOL .
+		 					"\t\tif (\$invalid_referer) { set \$rule_0 2\$rule_0; }" . PHP_EOL .
+							"\t\tif (\$http_user_agent ~ \"^$\"){ set \$rule_0 3\$rule_0; }" . PHP_EOL .
+							"\t\tif (\$rule_0 = \"3210\") { return 403; }" . PHP_EOL .
+							"\t}";
+
+						} else { //rules for all other servers
+
+						$rules .= 
+							"\tRewriteCond %{REQUEST_METHOD} POST" . PHP_EOL .
+							"\tRewriteCond %{REQUEST_URI} ^(.*)wp-comments-post\.php*" . PHP_EOL .
+							"\tRewriteCond %{HTTP_REFERER} !^" . $bwps_lib->get_domain( get_site_url() ) . ".* " . PHP_EOL .
+							"\tRewriteCond %{HTTP_REFERER} !^http://jetpack\.wordpress\.com/jetpack-comment/ [OR]" . PHP_EOL .
+							"\tRewriteCond %{HTTP_USER_AGENT} ^$" . PHP_EOL . 
+							"\tRewriteRule ^(.*)$ - [F,L]" . PHP_EOL;
+
+						}
+
+				}
+
+				//Close Apache Rewrite rules
+				if ( $server_type !== 'nginx' ) { //non NGINX rules
+
+					$rules .= 
+						PHP_EOL . "</IfModule>" . PHP_EOL;
+
+				}
+
+			}
+
+			if ( strlen( $rules ) > 0 ) {
+				$rules = explode( PHP_EOL, $rules );
+			} else {
+				$rules = false;
+			}
+
+			//create a proper array for writing
+			$rules = array(
+				'priority' => 10,
+				'save'     => true,
+				'rules'    => $rules,
+			);
+
+			if ( new Ithemes_BWPS_Files( 'htaccess', 'Advanced Tweaks', $rules ) ) {
+				return true;
+			} else {
+				return false;
+			}
+
+		}
+
 		/**
 		 * Sanitize and validate input
 		 *
@@ -801,6 +1093,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['random_version'] = ( isset( $input['random_version'] ) && intval( $input['random_version'] == 1 ) ? 1 : 0 );
 			$input['file_editor'] = ( isset( $input['file_editor'] ) && intval( $input['file_editor'] == 1 ) ? 1 : 0 );
 			$input['disable_xmlrpc'] = ( isset( $input['disable_xmlrpc'] ) && intval( $input['disable_xmlrpc'] == 1 ) ? 1 : 0 );
+
+
+			$this->build_htaccess_rules( $input );
 
 			add_settings_error(
 				'bwps_admin_notices',
