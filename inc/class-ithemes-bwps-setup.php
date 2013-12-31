@@ -135,9 +135,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			$bwps_setup_action = 'activate';
 
-			$this->do_modules();
-
 			do_action( 'bwps_set_plugin_data' );
+
+			$this->do_modules();
 
 			new Ithemes_BWPS_Files( 'activate' );
 
@@ -163,13 +163,19 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		function deactivate_execute() {
 
-			global $bwps_setup_action;
+			global $bwps_setup_action, $bwps_lib;
 
 			$bwps_setup_action = 'deactivate';
 
 			$this->do_modules();
 
 			new Ithemes_BWPS_Files( 'deactivate' );
+
+			//Reset initial file permissions
+			$bwps_data = get_site_option( 'bwps_data' );
+
+			@chmod( $bwps_lib->get_htaccess(), $bwps_data['htaccess_perms'] );
+			@chmod( $bwps_lib->get_config(),  $bwps_data['config_perms'] );
 
 		}
 
