@@ -1072,6 +1072,8 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
+			global $bwps_lib;
+
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'better_wp_security' );
 
@@ -1146,6 +1148,22 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$type    = 'error';
 				$message = __( 'WordPress was unable to save your options to wp-config.php. Please check with your server administrator and try again.', 'better_wp_security' );
+
+			}
+
+			//Process file writing option
+			$config_file = $bwps_lib->get_config();
+			$rewrite_file = $bwps_lib->get_htaccess();
+
+			if ( $input['write_permissions'] == 1 ) {
+
+				@chmod( $config_file, 0444 );
+				@chmod( $rewrite_file, 0444 );
+
+			} else {
+
+				@chmod( $config_file, 0644 );
+				@chmod( $rewrite_file, 0644 );
 
 			}
 

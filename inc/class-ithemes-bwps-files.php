@@ -267,6 +267,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			$htaccess_file = $bwps_lib->get_htaccess();
 
+			//Make sure we can write to the file
+			$perms = substr( sprintf( '%o', fileperms( $htaccess_file ) ), -4 );
+
+			if ( $perms == '0444' ) {
+				@chmod( $htaccess_file, 0644 );
+			}
+
 			//make sure the file exists and create it if it doesn't
 			if ( ! $wp_filesystem->exists( $htaccess_file ) ) {
 
@@ -311,6 +318,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			}
 
+			//reset file permissions if we changed them
+			if ( $perms == '0444' ) {
+				@chmod( $htaccess_file, 0444 );
+			}
+
 			return true;
 
 		}
@@ -352,6 +364,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			}
 
 			$htaccess_file = $bwps_lib->get_htaccess();
+
+			//Make sure we can write to the file
+			$perms = substr( sprintf( '%o', fileperms( $htaccess_file ) ), -4 );
+
+			if ( $perms == '0444' ) {
+				@chmod( $htaccess_file, 0644 );
+			}
 
 			//make sure the file exists and create it if it doesn't
 			if ( ! $wp_filesystem->exists( $htaccess_file ) ) {
@@ -406,6 +425,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			}
 
+			//reset file permissions if we changed them
+			if ( $perms == '0444' ) {
+				@chmod( $htaccess_file, 0444 );
+			}
+
 			return true;
 
 		}
@@ -437,6 +461,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			}
 
 			$config_file = $bwps_lib->get_config();
+
+			//Make sure we can write to the file
+			$perms = substr( sprintf( '%o', fileperms( $config_file ) ), -4 );
+
+			if ( $perms == '0444' ) {
+				@chmod( $config_file, 0644 );
+			}
 
 			if ( $wp_filesystem->exists( $config_file ) ) { //check wp-config.php exists where we think it should
 
@@ -540,6 +571,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 					return false;
 				}
 
+			}
+
+			//reset file permissions if we changed them
+			if ( $perms == '0444' ) {
+				@chmod( $config_file, 0444 );
 			}
 
 			return true;
