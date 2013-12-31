@@ -244,8 +244,16 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			add_settings_field(
 				'bwps_advanced_tweaks[edituri_header]',
-				__( 'emove EditURI Header', 'better_wp_security' ),
+				__( 'Remove EditURI Header', 'better_wp_security' ),
 				array( $this, 'advanced_tweaks_wordpress_edituri_header' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'advanced_tweaks_wordpress'
+			);
+
+			add_settings_field(
+				'bwps_advanced_tweaks[theme_updates]',
+				__( 'Hide Theme Update Notifications', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_wordpress_theme_updates' ),
 				'security_page_toplevel_page_bwps-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
@@ -515,6 +523,28 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		}
 
 		/**
+		 * echos Hide Theme Update Notifications Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_wordpress_theme_updates( $args ) {
+
+			if ( isset( $this->settings['theme_updates'] ) && $this->settings['theme_updates'] === 1 ) {
+				$theme_updates = 1;
+			} else {
+				$theme_updates = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_theme_updates" name="bwps_advanced_tweaks[theme_updates]" value="1" ' . checked( 1, $theme_updates, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_theme_updates"> ' . __( 'Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * Build and echo the away mode description
 		 *
 		 * @return void
@@ -584,6 +614,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['generator_tag'] = ( isset( $input['generator_tag'] ) && intval( $input['generator_tag'] == 1 ) ? 1 : 0 );
 			$input['wlwmanifest_header'] = ( isset( $input['wlwmanifest_header'] ) && intval( $input['wlwmanifest_header'] == 1 ) ? 1 : 0 );
 			$input['edituri_header'] = ( isset( $input['edituri_header'] ) && intval( $input['edituri_header'] == 1 ) ? 1 : 0 );
+			$input['theme_updates'] = ( isset( $input['theme_updates'] ) && intval( $input['theme_updates'] == 1 ) ? 1 : 0 );
 
 			add_settings_error(
 				'bwps_admin_notices',
@@ -614,6 +645,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$settings['generator_tag'] = ( isset( $_POST['bwps_advanced_tweaks']['generator_tag'] ) && intval( $_POST['bwps_advanced_tweaks']['generator_tag'] == 1 ) ? 1 : 0 );
 			$settings['wlwmanifest_header'] = ( isset( $_POST['bwps_advanced_tweaks']['wlwmanifest_header'] ) && intval( $_POST['bwps_advanced_tweaks']['wlwmanifest_header'] == 1 ) ? 1 : 0 );
 			$settings['edituri_header'] = ( isset( $_POST['bwps_advanced_tweaks']['edituri_header'] ) && intval( $_POST['bwps_advanced_tweaks']['edituri_header'] == 1 ) ? 1 : 0 );
+			$settings['theme_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['theme_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['theme_updates'] == 1 ) ? 1 : 0 );
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
 
