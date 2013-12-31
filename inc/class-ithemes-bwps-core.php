@@ -336,7 +336,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		function save_plugin_data() {
 
-			global $bwps_globals;
+			global $bwps_globals, $bwps_lib;
 
 			$save_data = false; //flag to avoid saving data if we don't have to
 
@@ -351,6 +351,18 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			//update the activated time if we need to in order to tell when the plugin was installed
 			if ( ! isset( $plugin_data['activatestamp'] ) ) {
 				$plugin_data['activatestamp'] = time();
+				$save_data                    = true;
+			}
+
+			//Get initial .htaccess permissions
+			if ( ! isset( $plugin_data['htaccess_perms'] ) ) {
+				$plugin_data['htaccess_perms'] = substr( sprintf( '%o', fileperms( $bwps_lib->get_htaccess() ) ), -4 );
+				$save_data                    = true;
+			}
+
+			//Get initial wp-config.php permissions
+			if ( ! isset( $plugin_data['config_perms'] ) ) {
+				$plugin_data['config_perms'] = substr( sprintf( '%o', fileperms( $bwps_lib->get_config() ) ), -4 );
 				$save_data                    = true;
 			}
 
