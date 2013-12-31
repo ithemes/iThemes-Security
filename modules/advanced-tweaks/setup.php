@@ -44,6 +44,12 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 
 			if ( $options === false ) {
 
+				if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
+					$file_editor = true;
+				} else {
+					$file_editor = false;
+				}
+
 				$defaults = array(
 					'enabled'					=> 0,
 					'protect_files'				=> 0,
@@ -61,7 +67,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 					'core_updates'				=> 0,
 					'comment_spam'				=> 0,
 					'random_version'			=> 0,
-					'file_editor'				=> 0,
+					'file_editor'				=> $file_editor,
 					'disable_xmlrpc'			=> 0,
 				);
 
