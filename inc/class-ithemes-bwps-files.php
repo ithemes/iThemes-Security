@@ -127,8 +127,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 * @return bool       true on success, false on failure
 		 */
 		public function save_rewrites( $type = null ) {
-
-			$this->write_rewrites();
 			
 			if ( $this->get__file_lock( 'htaccess') ) {
 
