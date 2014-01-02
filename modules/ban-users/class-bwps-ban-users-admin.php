@@ -424,15 +424,29 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 * @param array  $input array of options, ips, etc
 		 * @param string $type  type of list, ip, whitelist or agent
 		 * @param        bool   [false] $insert is this inserting a single IP (true) or saving options
+		 *
+		 * @return array array of rules to send to file writer
 		 */
-		private function build_ban_list( $input, $type = 'ip', $insert = false ) {
+		private function build_ban_list( $input = null, $type = 'ip', $insert = false ) {
 
 			global $bwps_lib;
+
+			//Get the rules from the database if input wasn't sent
+			if ( $input === null ) {
+
+				$settings = get_site_option( 'bwps_ban_users' );
+
+			} else {
+
+				$settings = $input;
+
+			}
 
 			//setup data structures to write. These are simply lists of all IPs and hosts as well as options to check
 			if ( $insert === true && $type === 'ip' ) { //blocking ip on the fly
 
 				$settings       = get_site_option( 'bwps_ban_users' );
+
 				$default        = $settings['default'];
 				$enabled        = $settings['enabled'];
 				$raw_host_list  = $settings['host_list'];
@@ -451,11 +465,11 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			} else { //we're saving options from the ban users page
 
-				$default        = $input['default'];
-				$enabled        = $input['enabled'];
-				$raw_host_list  = $input['host_list'];
-				$raw_agent_list = $input['agent_list'];
-				$raw_white_list = $input['white_list'];
+				$default        = $settings['default'];
+				$enabled        = $settings['enabled'];
+				$raw_host_list  = $settings['host_list'];
+				$raw_agent_list = $settings['agent_list'];
+				$raw_white_list = $settings['white_list'];
 
 			}
 
@@ -609,11 +623,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 				'rules'    => $rules,
 			);
 
-			if ( new Ithemes_BWPS_Files( 'htaccess', 'Ban Users', $rules ) ) {
-				return true;
-			} else {
-				return false;
-			}
+			return $rules;
 
 		}
 
@@ -738,6 +748,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 				$input['enabled'] = 0; //disable ban users list
 
 				$type    = 'error';
+
 				if ( $no_errors === true ) {
 					$message .= sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'better_wp_security' ) );
 				}
@@ -758,7 +769,16 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			$input['host_list'] = $raw_ips;
 
 			if ( $no_errors === true ) {
-				$this->build_ban_list( $input );
+
+				$rules = $this->build_ban_list( $input );
+
+				if ( ! new Ithemes_BWPS_Files( 'htaccess', 'Ban Users', $rules ) ) {
+
+					$type    = 'error';
+					$message = __( 'Better WP Security could not write the required rewrite rules. You will have to enter them manually.', 'better_wp_security' );
+
+				} 
+
 			}
 
 			add_settings_error(
