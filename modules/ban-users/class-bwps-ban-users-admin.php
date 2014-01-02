@@ -619,7 +619,6 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			//create a proper array for writing
 			$rules = array(
 				'priority' => 1,
-				'save'     => true,
 				'rules'    => $rules,
 			);
 
