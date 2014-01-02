@@ -119,13 +119,42 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			if ( is_array( $rules ) ) {
 
-				$this->wpconfig_rules = $rules;
-				return true;
+				//Loop through each rule we send and have to find duplicates
+				foreach ( $rules as $rule ) {
 
-			} else {
+					$found = false;
 
-				return false;
-				
+					if ( is_array( $rule ) ) {
+
+						foreach ( $this->wpconfig_rules as $key => $wpconfig_rule ) {
+							
+							if ( $rule['name'] == $wpconfig_rule['name'] ) {
+
+								$found = true;
+								$this->wpconfig_rules[$key] = $rule;
+
+							}
+
+							if ( $found === true ) { //don't keep looping if we don't have to
+								break;
+							}
+
+						}
+
+						if ( $found === false ) {
+
+							$this->wpconfig_rules[] = $rule;
+
+						} else {
+
+							break;
+
+						}
+
+					}
+
+				}
+
 			}
 
 		}
@@ -148,6 +177,31 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			}
 
 			$this->release_file_lock( 'htaccess');
+
+			return $success;
+
+		}
+
+		/**
+		 * Saves all wpconfig rules to wp-config.php
+		 * 
+		 * @return bool       true on success, false on failure
+		 */
+		public function save_wpconfig( $type = null ) {
+
+			$this->write_wpconfig();
+			
+			if ( $this->get__file_lock( 'wpconfig') ) {
+
+				$success = $this->write_wpconfig(); //save the return value for success/error flag
+
+			} else { //return false if we can't get a file lock
+
+				return false;
+
+			}
+
+			$this->release_file_lock( 'wpconfig');
 
 			return $success;
 
@@ -391,7 +445,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 *
 		 * @return bool true on success, false on failure
 		 */
-		private function write_wp_config() {
+		private function write_wpconfig() {
 
 			global $bwps_lib, $wp_filesystem;
 
@@ -436,26 +490,30 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 					$replace = false; //assume we're note replacing anything to start with
 
 					//build the rules we need to write, replace or delete
-					foreach ( $this->rules['rules'] as $rule ) {
+					foreach ( $this->wpconfig_rules as $section_rule ) {
 
-						if ( ( $rule['type'] === 'add' || $rule['type'] === 'replace' ) && $rule['rule'] !== false && strpos( $config_contents, $rule['search_text'] ) === false ) { //new rule or replacing a rule that doesn't exist
+						foreach ( $section_rule['rules'] as $rule ) {
 
-							$rules_to_write .= $rule['rule'] . PHP_EOL;
+							if ( ( $rule['type'] === 'add' || $rule['type'] === 'replace' ) && $rule['rule'] !== false && strpos( $config_contents, $rule['search_text'] ) === false ) { //new rule or replacing a rule that doesn't exist
 
-						} elseif ( $rule['type'] === 'replace' && $rule['rule'] !== false && strpos( $config_contents, $rule['search_text'] ) !== false ) {
+								$rules_to_write .= $rule['rule'] . PHP_EOL;
 
-							//Replacing a rule that does exist. Note this will only work on one rule at a time
-							$replace = $rule['search_text'];
-							$rules_to_write .= $rule['rule'];
+							} elseif ( $rule['type'] === 'replace' && $rule['rule'] !== false && strpos( $config_contents, $rule['search_text'] ) !== false ) {
 
-						} elseif ( $rule['type'] === 'delete' && $rule['rule'] === false ) {
+								//Replacing a rule that does exist. Note this will only work on one rule at a time
+								$replace = $rule['search_text'];
+								$rules_to_write .= $rule['rule'];
 
-							//deleting a rule.
-							if ( $rules_to_delete === false ) {
-								$rules_to_delete = array();
+							} elseif ( $rule['type'] === 'delete' && $rule['rule'] === false ) {
+
+								//deleting a rule.
+								if ( $rules_to_delete === false ) {
+									$rules_to_delete = array();
+								}
+
+								$rules_to_delete[] = $rule;
+
 							}
-
-							$rules_to_delete[] = $rule;
 
 						}
 
