@@ -25,13 +25,17 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		private function __construct() {
 
-			global $bwps_globals, $bwps_lib;
+			global $bwps_globals, $bwps_lib, $bwps_files;
 
 			@ini_set( 'auto_detect_line_endings', true ); //Make certain we're using proper line endings
 
 			//load utility functions
 			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-lib.php' );
 			$bwps_lib = Ithemes_BWPS_Lib::start();
+
+			//load file utility functions
+			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-files.php' );
+			$bwps_files = Ithemes_BWPS_Files::start();
 
 			//load the text domain
 			load_plugin_textdomain( 'better_wp_security', false, $bwps_globals['plugin_dir'] . 'languages' );

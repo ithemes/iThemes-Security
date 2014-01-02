@@ -309,7 +309,8 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 			}
 
 			$rules = array(
-				'save'  => false,
+				'type'  => 'wpconfig',
+				'name'	=> 'Database Prefix',
 				'rules' => array(
 					'rules' => array(
 						array( 
@@ -321,7 +322,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 				),
 			);
 
-			if ( ! new Ithemes_BWPS_Files( 'wpconfig', 'Database Prefix', $rules ) ) {
+			if ( ! new Ithemes_BWPS_Files( $rules ) ) {
 
 				$type    = 'error';
 				$message = __( 'WordPress was unable to rename your rename the database table in your wp-config.php file. Please check with your server administrator and try again.', 'better_wp_security' );

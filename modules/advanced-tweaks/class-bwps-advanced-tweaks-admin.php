@@ -16,6 +16,8 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$this->core     = $core;
 			$this->settings = get_site_option( 'bwps_advanced_tweaks' );
 
+			add_filter( 'bwps_file_rules', array( $this, 'build_rewrite_rules' ) );
+
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
@@ -1091,11 +1093,22 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 		}
 
-		private function build_htaccess_rules( $input ) {
+		/**
+		 * Build rewrite rules
+		 * 
+		 * @param  array $input  options to build rules from
+		 * @return array         rules to write
+		 */
+		public function build_rewrite_rules( $rules_array, $input = null ) {
 
 			global $bwps_lib;
 
 			$server_type = $bwps_lib->get_server(); //Get the server type to build the right rules
+
+			//Get the rules from the database if input wasn't sent
+			if ( $input === null ) {
+				$input = get_site_option( 'bwps_advanced_tweaks' );
+			}
 
 			$rules = ''; //initialize all rules to blank string
 
@@ -1374,17 +1387,14 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			}
 
 			//create a proper array for writing
-			$rules = array(
-				'priority' => 10,
-				'save'     => true,
-				'rules'    => $rules,
+			$rules_array[] = array(
+				'type'		=> 'htaccess',
+				'priority'	=> 10,
+				'name'		=> 'Advanced Tweaks',
+				'rules'		=> $rules,
 			);
 
-			if ( new Ithemes_BWPS_Files( 'htaccess', 'Advanced Tweaks', $rules ) ) {
-				return true;
-			} else {
-				return false;
-			}
+			return $rules_array;
 
 		}
 
@@ -1397,7 +1407,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			global $bwps_lib;
+			global $bwps_lib, $bwps_files;
 
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'better_wp_security' );
@@ -1421,11 +1431,27 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['file_editor'] = ( isset( $input['file_editor'] ) && intval( $input['file_editor'] == 1 ) ? 1 : 0 );
 			$input['disable_xmlrpc'] = ( isset( $input['disable_xmlrpc'] ) && intval( $input['disable_xmlrpc'] == 1 ) ? 1 : 0 );
 
+			$rules = $this->build_rewrite_rules( array(), $input );
+
+			$bwps_files->set_rewrites( $rules );
+			$bwps_files->save_rewrites();
+
 			//build and send htaccess rules
-			if ( $this->build_htaccess_rules( $input ) === false ) {
+			if ( $rules === false ) {
 
 				$type    = 'error';
 				$message = __( 'WordPress was unable to save the your options to .htaccess. Please check with your server administrator and try again.', 'better_wp_security' );
+
+			} else {
+
+				add_filter( 'bwps_file_rules', $rules );
+
+				if ( ! new Ithemes_BWPS_Files( $rules ) ) {
+					
+					$type    = 'error';
+					$message = __( 'WordPress was unable to save the your options to .htaccess. Please check with your server administrator and try again.', 'better_wp_security' );
+
+				}
 
 			}
 
@@ -1463,13 +1489,14 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			}
 
 			$rules = array(
-				'save'  => false,
-				'rules' => array(
-					'rules' => $rule_array,
+				'type'	=> 'wpconfig',
+				'name'	=> 'Advanced Tweaks',
+				'rules'	=> array(
+					'rules'	=> $rule_array,
 				),
 			);
 
-			if ( ! new Ithemes_BWPS_Files( 'wpconfig', 'Advanced Tweaks', $rules ) ) {
+			if ( ! new Ithemes_BWPS_Files( $rules ) ) {
 
 				$type    = 'error';
 				$message = __( 'WordPress was unable to save your options to wp-config.php. Please check with your server administrator and try again.', 'better_wp_security' );

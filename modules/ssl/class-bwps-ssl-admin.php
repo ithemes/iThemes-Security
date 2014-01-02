@@ -485,13 +485,14 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			}
 
 			$rules = array(
-				'save'  => false,
+				'type'  => 'wpconfig',
+				'name'	=> 'SSL',
 				'rules' => array(
 					'rules' => $rule_array,
 				),
 			);
 
-			if ( ! new Ithemes_BWPS_Files( 'wpconfig', 'SSL', $rules ) ) {
+			if ( ! new Ithemes_BWPS_Files( $rules ) ) {
 
 				$type    = 'error';
 				$message = __( 'WordPress was unable to save the SSL options to wp-config.php. Please check with your server administrator and try again.', 'better_wp_security' );

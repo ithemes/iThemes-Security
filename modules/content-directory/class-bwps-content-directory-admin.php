@@ -246,7 +246,8 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 				$new_dir = trailingslashit( ABSPATH ) . $dir_name;
 
 				$rules = array(
-					'save'  => false,
+					'type'  => 'wpconfig',
+					'name'	=> 'Content Directory',
 					'rules' => array(
 						'rules' => array(
 							array(
@@ -268,7 +269,7 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 					),
 				);
 
-				if ( new Ithemes_BWPS_Files( 'wpconfig', 'Content Directory', $rules ) ) {
+				if ( new Ithemes_BWPS_Files( $rules ) ) {
 
 					if ( ! rename( $old_dir, $new_dir ) ) { //make sure renaming the directory was successful
 

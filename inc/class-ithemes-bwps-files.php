@@ -4,137 +4,143 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 	class Ithemes_BWPS_Files {
 
-		private
-			$lock_file,
-			$section_name,
-			$rules,
-			$type;
+		private static $instance = NULL; //instantiated instance of this plugin
+
+		private 
+			$rewrite_rules,
+			$wpconfig_rules,
+			$rewrite_lock_file,
+			$wpconfig_lock_file;
 
 		/**
 		 * Create and manage wp_config.php or .htaccess rewrites
 		 *
-		 * @param string $type         type of file to write: htaccess, wpconfig, activate, deactivate or getrules to just return existing rules
-		 * @param string $section_name name of section or feature of rules
-		 * @param array  $rules        array of rules to write
-		 * @param bool   $insert       merge rules with existing rules
+		 * @param string  $list        array of rules to write
 		 */
-		function __construct( $type, $section_name = null, $rules = null, $insert = false ) {
+		function __construct() {
+
+			add_action( 'plugins_loaded', array( $this, 'file_writer_init' ) );
+
+		}
+
+		/**
+		 * Initialize file writer and rules arrays
+		 * 
+		 * @return void
+		 */
+		public function file_writer_init() {
 
 			global $bwps_lib;
 
-			$this->type         = $type; //the type of file or getrules
-			$this->section_name = $section_name; // set the section name
-			$this->insert       = $insert; //Whether we inserting into existing rules or not
+			$all_rules = array(); //initialize rules array
+			$this->rewrite_rules = array(); //rewrite rules that will need to be written
+			$this->wpconfig_rules = array(); //wp-config rules that will need to be written
+			
+			$this->rewrite_lock_file = trailingslashit( ABSPATH ) . 'bwps_rewrites.lock';
+			$this->wpconfig_lock_file = trailingslashit( ABSPATH ) . 'bwps_config.lock';
 
-			//get the correct lock file or just execute a rules return
-			switch ( $this->type ) {
+			$all_rules = apply_filters( 'bwps_file_rules', $all_rules );
 
-				case 'wpconfig': //we're writing to wp-config.php
+			if ( sizeof( $all_rules ) > 0 ) {
 
-					$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_wpconfig.lock';
-					break;
+				foreach ( $all_rules as $rule ) {
 
-				case 'htaccess': //we're writing to .htaccess or just displaying rules
+					if ( $rule['type'] === 'htaccess' ) {
 
-					$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
-					break;
+						$this->rewrite_rules[] = $rule;
 
-				case 'getrules': //we're just displaying rules
+					} elseif ( $rule['type'] === 'wpconfig' ) {
 
-					return $this->build_htaccess();
-					break;
+						$this->wpconfig_rules[] = $rule;
 
-				case 'deactivate': //plugin deactivation
-
-					if ( $bwps_lib->get_server() != 'nginx' ) {
-						$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
-						return $this->delete_htaccess();
 					}
 
-				case 'activate': //plugin activation
-
-					if ( $bwps_lib->get_server() != 'nginx' ) {
-						$this->lock_file = trailingslashit( ABSPATH ) . 'bwps_htaccess.lock';
-						return $this->write_htaccess();
-					}
-
-				default:
-
-					return false;
+				}
 
 			}
 
-			if ( ! is_array( $rules ) ) { //verify rules is an array
+		}
 
-				return false;
+		/**
+		 * Sets rewrite rules (if updated after initialization)
+		 * 
+		 * @param rules $rules array of rules to add or replace
+		 */
+		public function set_rewrites( $rules ) {
 
-			} elseif ( isset( $rules['save'] ) && $rules['save'] === false ) { //if save is false we're not saving the rules to the database (the user can't change them later)
+			if ( is_array( $rules ) ) {
 
-				$this->rules = $rules['rules'];
+				foreach ( $rules as $rule ) {
 
-			} else { //make sure the rules themselves were sent as an array
+					if ( is_array( $rule ) ) {
 
-				//Get rules from other sections from the database
-				$this->rules = get_site_option( 'bwps_rewrites' );
+						$found = false;
 
-				if ( is_array( $this->rules ) && $this->insert === true ) { //make sure the rules retrieved from the database are an array
+						foreach ( $this->rewrite_rules as $key => $rewrite_rule ) {
+							
+							if ( $rule['name'] == $rewrite_rule['name'] ) {
 
-					if ( is_array( $this->rules[$type] ) ) { //see if an array exists for the given type
+								$found = true;
+								$this->rewrite_rules[$key] = $rule;
 
-						if ( is_array( $this->rules[$type][$this->section_name] ) && isset( $this->rules[$type][$this->section_name]['rules'] ) && is_array( $this->rules[$type][$this->section_name]['rules'] ) ) { //see if an array exists for the given feature
-
-							$this->rules[$type][$this->section_name]['rules'] = array_merge( $this->rules[$type][$this->section_name]['rules'], $rules['rules'] );
-
-						} else {
-
-							$this->rules[$type][$this->section_name]['rules'] = $rules['rules'];
+							}
 
 						}
 
-					} else {
+						if ( $found === false ) {
 
-						$this->rules[$type][$this->section_name]['rules'] = $rules['rules'];
+							$this->rewrite_rules[] = $rule;
+
+						}
 
 					}
 
-				} else { //saved rules aren't an array so just create our own
-
-					$this->rules[$type][$this->section_name]['rules'] = $rules['rules'];
-
 				}
-
-				//Set the rules priority for sorting or 10 for default
-				if ( isset( $rules['priority'] ) ) {
-					$this->rules[$type][$this->section_name]['priority'] = $rules['priority'];
-				} else {
-					$this->rules[$type][$this->section_name]['priority'] = 10;
-				}
-
-				update_site_option( 'bwps_rewrites', $this->rules ); //save new array rules to database
 
 			}
 
-			if ( $this->get_lock( $this->type ) === true ) {
+		}
 
-				if ( ( $this->type === 'wpconfig' && $this->write_wp_config() === true ) || ( $this->type === 'htaccess' && $this->write_htaccess() === true ) ) {
+		/**
+		 * Sets wp-config.php rules (if updated after initialization)
+		 * 
+		 * @param rules $rules array of rules to add or replace
+		 */
+		public function set_wpconfig( $rules ) {
 
-					$this->release_lock( $this->type );
+			if ( is_array( $rules ) ) {
 
-					return true;
+				$this->wpconfig_rules = $rules;
+				return true;
 
-				} else {
-
-					$this->release_lock( $this->type );
-
-				}
-
-			} else { //couldn't get lock
+			} else {
 
 				return false;
-
+				
 			}
 
-			return false;
+		}
+
+		/**
+		 * Saves all rewrite rules to htaccess or similar file
+		 * 
+		 * @return bool       true on success, false on failure
+		 */
+		public function save_rewrites( $type = null ) {
+
+			$this->write_rewrites();
+			
+			if ( $this->get__file_lock( 'htaccess') ) {
+
+				$this->write_rewrites();
+
+			} else {
+				return false;
+			}
+
+			$this->release_file_lock( 'htaccess');
+
+			return true;
 
 		}
 
@@ -143,16 +149,10 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 * 
 		 * @return array|bool The rewrite rules to use or false if there are none
 		 */
-		public function build_htaccess() {
+		private function build_rewrites() {
 
-			$saved_contents = get_site_option( 'bwps_rewrites' );
 			$out_values = array();
-
-			if ( $saved_contents === false ) {
-				return false;
-			}
-
-			$rewrite_rules = $saved_contents['htaccess']; //only get the htaccess portion
+			$rewrite_rules = $this->rewrite_rules; //only get the htaccess portion
 
 			uasort( $rewrite_rules, array( $this, 'priority_sort' ) ); //sort by priority
 
@@ -160,13 +160,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 				if ( is_array( $value['rules'] ) && sizeof( $value['rules'] ) > 0 ) {
 
-					$out_values[] = "\t# BEGIN " . $key; //add section header
+					$out_values[] = "\t# BEGIN " . $value['name']; //add section header
 
 					foreach( $value['rules'] as $rule ) {
 						$out_values[] = "\t\t" . $rule; //write all the rules
 					}
 
-					$out_values[] = "\t# END " . $key; //add section footer
+					$out_values[] = "\t# END " . $value['name']; //add section footer
 
 				}
 
@@ -181,68 +181,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		}
 
 		/**
-		 * Compare values of a and b for sorting
-		 * 
-		 * @param  string $a value a
-		 * @param  string $b value b
-		 * @return int    -1 if a less than b, 0 if they're equal or 1 if a is greater
-		 */
-		private function priority_sort( $a, $b ) {
-
-			if( $a['priority'] == $b['priority'] ) {
-				return 0;
-			}
-
-			return $a['priority'] > $b['priority'] ? 1 : -1;
-
-		}
-
-		/**
-		 * Attempt to get a lock for atomic operations
-		 *
-		 * @return bool true if lock was achieved, else false
-		 */
-		public function get_lock() {
-
-			if ( file_exists( $this->lock_file ) ) {
-
-				$pid = @file_get_contents( $this->lock_file );
-
-				if ( @posix_getsid( $pid ) !== false ) {
-
-					return false; //file is locked for writing
-
-				}
-
-			}
-
-			@file_put_contents( $this->lock_file, getmypid() );
-
-			return true; //file lock was achieved
-
-		}
-
-		/**
-		 * Release the lock
-		 *
-		 * @return bool true if released, false otherwise
-		 */
-		public function release_lock() {
-
-			if ( ! file_exists( $this->lock_file ) || @unlink( $this->lock_file ) ) {
-				return true;
-			}
-
-			return false;
-
-		}
-
-		/**
 		 * Delete htaccess rules when plugin is deactivated
 		 * 
 		 * @return bool true on success of false
 		 */
-		public function delete_htaccess() {
+		private function delete_rewrites() {
 
 			global $bwps_lib, $wp_filesystem;
 
@@ -332,15 +275,15 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 *
 		 * @return bool true on success, false on failure
 		 */
-		public function write_htaccess() {
+		private function write_rewrites() {
 
 			global $bwps_lib, $wp_filesystem;
 
-			$rules_to_write = $this->build_htaccess(); //String of rules to insert into 
+			$rules_to_write = $this->build_rewrites(); //String of rules to insert into 
 
 			if ( $rules_to_write === false ) { //if there is nothing to write make sure we clean up the file
 
-				return $this->delete_htaccess();
+				return $this->delete_rewrites();
 
 			}
 
@@ -439,7 +382,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 *
 		 * @return bool true on success, false on failure
 		 */
-		public function write_wp_config() {
+		private function write_wp_config() {
 
 			global $bwps_lib, $wp_filesystem;
 
@@ -588,6 +531,98 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			}
 
 			return true;
+
+		}
+
+		/**
+		 * Attempt to get a lock for atomic operations
+		 *
+		 * @param string $type type of file lock, htaccess or wpconfig
+		 *
+		 * @return bool true if lock was achieved, else false
+		 */
+		private function get__file_lock( $type ) {
+
+			if ( $type === 'htaccess' ) {
+				$lock_file = $this->rewrite_lock_file;
+			} elseif ( $type === 'wpconfig' ) {
+				$lock_file = $this->wpconfig_lock_file;
+			} else {
+				return false;
+			}
+
+			if ( file_exists( $lock_file ) ) {
+
+				$pid = @file_get_contents( $lock_file );
+
+				if ( @posix_getsid( $pid ) !== false ) {
+
+					return false; //file is locked for writing
+
+				}
+
+			}
+
+			@file_put_contents( $lock_file, getmypid() );
+
+			return true; //file lock was achieved
+
+		}
+
+		/**
+		 * Release the lock
+		 *
+		 * @param string $type type of file lock, htaccess or wpconfig
+		 *
+		 * @return bool true if released, false otherwise
+		 */
+		private function release_file_lock( $type ) {
+
+			if ( $type === 'htaccess' ) {
+				$lock_file = $this->rewrite_lock_file;
+			} elseif ( $type === 'wpconfig' ) {
+				$lock_file = $this->wpconfig_lock_file;
+			} else {
+				return false;
+			}
+
+			if ( ! file_exists( $lock_file ) || @unlink( $lock_file ) ) {
+				return true;
+			}
+
+			return false;
+
+		}
+
+		/**
+		 * Sorts given arrays py priority key
+		 * 
+		 * @param  string $a value a
+		 * @param  string $b value b
+		 * @return int    -1 if a less than b, 0 if they're equal or 1 if a is greater
+		 */
+		private function priority_sort( $a, $b ) {
+
+			if( $a['priority'] == $b['priority'] ) {
+				return 0;
+			}
+
+			return $a['priority'] > $b['priority'] ? 1 : -1;
+
+		}
+
+		/**
+		 * Start the global library instance
+		 *
+		 * @return Ithemes_BWPS_Files          The instance of the Ithemes_BWPS_Files class
+		 */
+		public static function start() {
+
+			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
+				self::$instance = new self();
+			}
+
+			return self::$instance;
 
 		}
 

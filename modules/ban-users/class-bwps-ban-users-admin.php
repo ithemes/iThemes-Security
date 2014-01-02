@@ -16,6 +16,8 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			$this->core     = $core;
 			$this->settings = get_site_option( 'bwps_ban_users' );
 
+			add_filter( 'bwps_file_rules', array( $this, 'build_rewrite_rules' ) );
+
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
@@ -421,57 +423,27 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		/**
 		 * Build the rewrite rules and sends them to the file writer
 		 *
+		 * @param array  $rules_array array of rules to modify
 		 * @param array  $input array of options, ips, etc
-		 * @param string $type  type of list, ip, whitelist or agent
-		 * @param        bool   [false] $insert is this inserting a single IP (true) or saving options
 		 *
 		 * @return array array of rules to send to file writer
 		 */
-		private function build_rewrite_rules( $input = null, $type = 'ip', $insert = false ) {
+		public function build_rewrite_rules( $rules_array, $input = null ) {
 
 			global $bwps_lib;
 
-			//Get the rules from the database if input wasn't sent
-			if ( $input === null ) {
-
-				$settings = get_site_option( 'bwps_ban_users' );
-
-			} else {
-
-				$settings = $input;
-
-			}
-
 			//setup data structures to write. These are simply lists of all IPs and hosts as well as options to check
-			if ( $insert === true && $type === 'ip' ) { //blocking ip on the fly
+			if ( $input === null ) { //blocking ip on the fly
 
-				$settings       = get_site_option( 'bwps_ban_users' );
-
-				$default        = $settings['default'];
-				$enabled        = $settings['enabled'];
-				$raw_host_list  = $settings['host_list'];
-				$raw_agent_list = $settings['agent_list'];
-				$raw_white_list = $settings['white_list'];
-
-			} elseif ( $insert === true && $type === 'whitelist' ) { //insert item into whitelist
-
-				//placeholder for later (may be handy with sync
-
-				return false;
-
-			} elseif ( $insert === true && $type === 'agent' ) { //we don't ever want to block user agents on the fly.
-
-				return false;
-
-			} else { //we're saving options from the ban users page
-
-				$default        = $settings['default'];
-				$enabled        = $settings['enabled'];
-				$raw_host_list  = $settings['host_list'];
-				$raw_agent_list = $settings['agent_list'];
-				$raw_white_list = $settings['white_list'];
+				$input = get_site_option( 'bwps_ban_users' );
 
 			}
+
+			$default        = $input['default'];
+			$enabled        = $input['enabled'];
+			$raw_host_list  = $input['host_list'];
+			$raw_agent_list = $input['agent_list'];
+			$raw_white_list = $input['white_list'];
 
 			$server_type = $bwps_lib->get_server(); //Get the server type to build the right rules
 
@@ -617,12 +589,33 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			}
 
 			//create a proper array for writing
-			$rules = array(
-				'priority' => 1,
-				'rules'    => $rules,
+			$rules_array[] = array(
+				'type'		=> 'htaccess',
+				'priority'	=> 1,
+				'name'		=> 'Ban Users',
+				'rules'		=> $rules,
 			);
 
-			return $rules;
+			return $rules_array;
+
+		}
+
+		private function insert_ip( $ip, $ban_list = null, $white_list = null) {
+
+			$settings = get_site_option('bwps_ban_users');
+
+			if ( $ban_list !== null ) {
+
+				$ban_list = $settings['ban_list'];
+
+			}
+
+			if ( $white_list !== null ) {
+
+				$white_list = $settings['white_list'];
+
+			}
+			
 
 		}
 
@@ -635,7 +628,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			global $bwps_lib;
+			global $bwps_lib, $bwps_files;
 
 			$no_errors = false; //start out assuming they entered a bad IP somewhere
 
@@ -769,9 +762,11 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			if ( $no_errors === true ) {
 
-				$rules = $this->build_rewrite_rules( $input );
+				$rules = $this->build_rewrite_rules( array(), $input );
 
-				if ( ! new Ithemes_BWPS_Files( 'htaccess', 'Ban Users', $rules ) ) {
+				$bwps_files->set_rewrites( $rules );
+
+				if ( ! $bwps_files->save_rewrites() ) {
 
 					$type    = 'error';
 					$message = __( 'Better WP Security could not write the required rewrite rules. You will have to enter them manually.', 'better_wp_security' );
