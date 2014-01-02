@@ -427,7 +427,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 *
 		 * @return array array of rules to send to file writer
 		 */
-		private function build_ban_list( $input = null, $type = 'ip', $insert = false ) {
+		private function build_rewrite_rules( $input = null, $type = 'ip', $insert = false ) {
 
 			global $bwps_lib;
 
@@ -769,7 +769,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			if ( $no_errors === true ) {
 
-				$rules = $this->build_ban_list( $input );
+				$rules = $this->build_rewrite_rules( $input );
 
 				if ( ! new Ithemes_BWPS_Files( 'htaccess', 'Ban Users', $rules ) ) {
 
