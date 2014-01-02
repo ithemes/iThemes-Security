@@ -70,11 +70,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			if ( is_array( $rules ) ) {
 
+				//Loop through each rule we send and have to find duplicates
 				foreach ( $rules as $rule ) {
 
-					if ( is_array( $rule ) ) {
+					$found = false;
 
-						$found = false;
+					if ( is_array( $rule ) ) {
 
 						foreach ( $this->rewrite_rules as $key => $rewrite_rule ) {
 							
@@ -85,11 +86,19 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 							}
 
+							if ( $found === true ) { //don't keep looping if we don't have to
+								break;
+							}
+
 						}
 
 						if ( $found === false ) {
 
 							$this->rewrite_rules[] = $rule;
+
+						} else {
+
+							break;
 
 						}
 
@@ -130,15 +139,17 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			
 			if ( $this->get__file_lock( 'htaccess') ) {
 
-				$this->write_rewrites();
+				$success = $this->write_rewrites(); //save the return value for success/error flag
 
-			} else {
+			} else { //return false if we can't get a file lock
+
 				return false;
+
 			}
 
 			$this->release_file_lock( 'htaccess');
 
-			return true;
+			return $success;
 
 		}
 
