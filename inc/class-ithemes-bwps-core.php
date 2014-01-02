@@ -194,15 +194,15 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 
 			global $bwps_globals;
 
-			$this->admin_tabs['bwps'] = $bwps_globals['dashboard_title']; //set a tab for the dashboard
+			$this->admin_tabs['bwps'] = __( 'Dashboard', 'better-wp-security' ); //set a tab for the dashboard
 
 			$this->page_hooks[] = add_menu_page(
-				$bwps_globals['dashboard_title'],
-				$bwps_globals['menu_name'],
+				__( 'Dashboard', 'better-wp-security' ),
+				__( 'Security', 'better-wp-security' ),
 				$bwps_globals['plugin_access_lvl'],
 				'bwps',
 				array( $this, 'render_page' ),
-				$bwps_globals['menu_icon']
+				plugin_dir_url( $bwps_globals['plugin_file'] ) . 'img/shield-small.png'
 			);
 
 			$this->page_hooks = apply_filters( 'bwps_add_admin_sub_pages', $this->page_hooks );
@@ -213,7 +213,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			global $submenu;
 
 			if ( isset( $submenu['bwps'] ) ) {
-				$submenu['bwps'][0][0] = $bwps_globals['dashboard_title'];
+				$submenu['bwps'][0][0] = __( 'Dashboard', 'better-wp-security' );
 			}
 
 			foreach ( $this->page_hooks as $page_hook ) {
@@ -281,12 +281,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			?>
 
 			<div class="wrap">
-
-				<?php if ( isset( $this->plugin->top_level_menu ) && $this->plugin->top_level_menu === true ) { ?>
-					<h2><?php echo $bwps_globals['plugin_name'] . ' - ' . get_admin_page_title(); ?></h2>
-				<?php } else { ?>
-					<h2><?php echo get_admin_page_title(); ?></h2>
-				<?php } ?>
+	
+				<h2><?php echo $bwps_globals['plugin_name'] . ' - ' . get_admin_page_title(); ?></h2>
 
 				<?php
 				if ( isset ( $_GET['page'] ) ) {

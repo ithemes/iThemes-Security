@@ -24,15 +24,7 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 
 		public //see documentation upon instantiation 
 			$core,
-			$dashboard_menu_title,
-			$dashboard_page_name,
-			$bwps_globals,
-			$menu_icon,
-			$menu_name,
-			$settings_menu_title,
-			$settings_page,
-			$settings_page_name,
-			$top_level_menu;
+			$bwps_globals;
 
 		/**
 		 * Default plugin execution used for settings defaults and loading components
@@ -47,22 +39,13 @@ if ( ! class_exists( 'Ithemes_BWPS' ) ) {
 
 			//Set plugin defaults
 			$bwps_globals = array(
-				'paypal_id'				=> 'V647NGJSBC882', //Paypal ID for plugin donations
 				'plugin_build'			=> 4001, //plugin build number - used to trigger updates
-				'plugin_file'			=> __FILE__, //the main plugin file
 				'plugin_access_lvl' 	=> 'manage_options', //Access level required to access plugin options
-				'plugin_dir' 			=> plugin_dir_path( __FILE__ ), //the path of the plugin directory
-				'plugin_homepage' 		=> 'http://ithemes.com', //The plugins homepage on WordPress.org
 				'plugin_name' 			=> __( 'Better WP Security', 'better_wp_security' ), //the name of the plugin
+				'plugin_file'			=> __FILE__, //the main plugin file
+				'plugin_dir' 			=> plugin_dir_path( __FILE__ ), //the path of the plugin directory
 				'plugin_url' 			=> plugin_dir_url( __FILE__ ), //the URL of the plugin directory
-				'support_page' 			=> 'http://wordpress.org/support/plugin/better-wp-security/', //address of the WordPress support forums for the plugin
-				'support_email'			=> 'support.bwps@fooplugins.com', //Email address support forms should be sent to
-				'wordpress_page'		=> 'http://wordpress.org/extend/plugins/better-wp-security/', //plugin's page in the WordPress.org Repos
 				'upload_dir'			=> $upload_dir['basedir'], // the upload directory for the WordPress installation
-				'website_feed'			=> 'http://ithemes.com/blog/feed/',//Feed from plugin homepage
-				'menu_name'				=> __( 'Security', 'better_wp_security' ), //main menu item name
-				'menu_icon'				=> plugin_dir_url( __FILE__ ) . 'img/shield-small.png', //image icon
-				'dashboard_title'		=> __( 'Dashboard', 'better_wp_security' ), //the name of the dashboard menu item (if different "Dashboard")
 			);
 
 			//load core functionality for admin use

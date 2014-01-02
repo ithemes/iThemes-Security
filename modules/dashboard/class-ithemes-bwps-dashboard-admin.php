@@ -17,10 +17,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 		private function __construct() {
 
-			global $bwps_globals;
-
-			$this->paypal_id = $bwps_globals['paypal_id'];
-			$this->feed        = $bwps_globals['website_feed'];
+			$this->paypal_id = 'V647NGJSBC882'; //Donation ID for paypal
+			$this->feed        = 'http://ithemes.com/blog/feed/'; //Feed location for sidebar
 
 			//add sharing reminder
 			add_action( 'admin_init', array( $this, 'share_reminder' ) );
@@ -165,12 +163,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 				//Go to the WordPress page to let them rate it.
 				if ( isset( $_GET['bwps_lets_rate'] ) ) {
-					wp_redirect( $bwps_globals['wordpress_page'], '302' );
+					wp_redirect( 'http://wordpress.org/extend/plugins/better-wp-security/', '302' );
 				}
 
 				//Compose a Tweet
 				if ( isset( $_GET['bwps_lets_tweet'] ) ) {
-					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $bwps_globals['plugin_name'] . ' for WordPress by @iThemes and you should too - ' . $bwps_globals['plugin_homepage'] ), '302' );
+					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $bwps_globals['plugin_name'] . ' for WordPress by @iThemes and you should too - ' . 'http://ithemes.com' ), '302' );
 				}
 
 			}
@@ -210,10 +208,10 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 			$content .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="' . $this->paypal_id . '"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
 			$content .= '<p>' . __( 'Short on funds?', 'better_wp_security' ) . '</p>';
 			$content .= '<ul>';
-			$content .= '<li><a href="' . $bwps_globals['wordpress_page'] . '" target="_blank">' . sprintf( __( 'Rate %s 5★\'s on WordPress.org', 'better_wp_security' ), $bwps_globals['plugin_name'] ) . '</a></li>';
-			$content .= '<li>' . sprintf( __( 'Talk about it on your site and link back to the %splugin page', 'better_wp_security' ), '<a href="' . $bwps_globals['plugin_homepage'] . '" target="_blank">' ) . '</a></li>';
-			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( sprintf( __( 'I use %s for WordPress by %s and you should too - %s' ), $bwps_globals['plugin_name'], '@ithemes', $bwps_globals['plugin_homepage'] ) ) . '" target="_blank">' . __( 'Tweet about it. ', 'better_wp_security' ) . '</a></li>';
-			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( sprintf( __( 'I use %s for WordPress by %s and you should too - %s' ), $bwps_globals['plugin_name'], '@ithemes', $bwps_globals['plugin_homepage'] ) ) . '" target="_blank">' . __( 'Tweet about it. ', 'better_wp_security' ) . '</a></li>';
+			$content .= '<li><a href="http://wordpress.org/extend/plugins/better-wp-security/" target="_blank">' . sprintf( __( 'Rate %s 5★\'s on WordPress.org', 'better_wp_security' ), $bwps_globals['plugin_name'] ) . '</a></li>';
+			$content .= '<li>' . sprintf( __( 'Talk about it on your site and link back to the %splugin page', 'better_wp_security' ), '<a href="http://ithemes.com" target="_blank">' ) . '</a></li>';
+			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( sprintf( __( 'I use %s for WordPress by %s and you should too - %s' ), $bwps_globals['plugin_name'], '@ithemes', 'http://ithemes.com' ) ) . '" target="_blank">' . __( 'Tweet about it. ', 'better_wp_security' ) . '</a></li>';
+			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( sprintf( __( 'I use %s for WordPress by %s and you should too - %s' ), $bwps_globals['plugin_name'], '@ithemes', 'http://ithemes.com' ) . '" target="_blank">' . __( 'Tweet about it. ', 'better_wp_security' ) . '</a></li>';
 			$content .= '</ul>';
 
 			echo $content;

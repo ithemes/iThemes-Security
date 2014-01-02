@@ -18,9 +18,7 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 
 		private function __construct() {
 
-			global $bwps_globals;
-
-			$this->support_email = $bwps_globals['support_email'];
+			$this->support_email = 'support.bwps@fooplugins.com';
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 
