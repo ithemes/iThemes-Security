@@ -204,7 +204,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 		 */
 		public function process_database_prefix() {
 
-			global $wpdb;
+			global $wpdb, $bwps_files;
 
 			$checkPrefix = true;//Assume the first prefix we generate is unique
 
@@ -308,21 +308,22 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 						
 			}
 
-			$rules = array(
+			$rules[] = array(
 				'type'  => 'wpconfig',
 				'name'	=> 'Database Prefix',
-				'rules' => array(
-					'rules' => array(
+				'rules' =>
+					array( 
 						array( 
-							'type' =>	'replace',
-							'search_text' => 'table_prefix',
-							'rule'	=> "\$table_prefix = '" . $newPrefix . "';",
+							'type'			=> 'replace',
+							'search_text'	=> 'table_prefix',
+							'rule'			=> "\$table_prefix = '" . $newPrefix . "';",
 						),
 					),
-				),
 			);
 
-			if ( ! new Ithemes_BWPS_Files( $rules ) ) {
+			$bwps_files->set_wpconfig( $rules );
+
+			if ( ! $bwps_files->save_wpconfig() ) {
 
 				$type    = 'error';
 				$message = __( 'WordPress was unable to rename your rename the database table in your wp-config.php file. Please check with your server administrator and try again.', 'better_wp_security' );
