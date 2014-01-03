@@ -69,6 +69,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 					'random_version'			=> 0,
 					'file_editor'				=> $file_editor,
 					'disable_xmlrpc'			=> 0,
+					'uploads_php'				=> 0,
 				);
 
 				add_site_option( 'bwps_advanced_tweaks', $defaults );
