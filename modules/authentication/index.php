@@ -9,4 +9,4 @@ if ( ! class_exists( 'BWPS_Authentication_admin' ) ) {
 }
 
 $away_mode = BWPS_Authentication::start();
-BWPS_Authentication_Admin::start();
+BWPS_Authentication_Admin::start( $this );
