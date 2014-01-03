@@ -23,7 +23,7 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
+			//add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( 'bwps_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
@@ -72,6 +72,14 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 			if ( ! $this->settings === true ) {
 
 				//add metaboxes
+				add_meta_box(
+					'content_directory_description',
+					__( 'Description', 'better_wp_security' ),
+					array( $this, 'add_module_intro' ),
+					'security_page_toplevel_page_bwps-content_directory',
+					'normal',
+					'core'
+				);
 				add_meta_box(
 					'content_directory_options',
 					__( 'Change Content Directory', 'better_wp_security' ),
@@ -148,8 +156,6 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 		 */
 		public function add_module_intro( $screen ) {
 
-			if ( $screen === 'security_page_toplevel_page_bwps-content_directory' ) { //only display on away mode page
-
 				if ( $this->settings !== true ) {
 
 					$content = '<p>' . __( 'By default WordPress puts all your content including images, plugins, themes, uploads, and more in a directory called "wp-content". This makes it easy to scan for vulnerable files on your WordPress installation as an attacker already knows where the vulnerable files will be at. As there are many plugins and themes with security vulnerabilities moving this folder can make it harder for an attacker to find problems with your site as scans of your site\'s file system will not produce any results.', 'better-wp-security' ) . '</p>';
@@ -177,8 +183,6 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 				}
 
 				echo $content;
-
-			}
 
 		}
 

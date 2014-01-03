@@ -23,7 +23,7 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 			$this->away_file = $bwps_globals['upload_dir'] . '/bwps_away.confg'; //override file
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
+			//add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
@@ -77,6 +77,14 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 		public function add_admin_meta_boxes( $available_pages ) {
 
 			//add metaboxes
+			add_meta_box(
+				'away_mode_description',
+				__( 'Description', 'better_wp_security' ),
+				array( $this, 'add_module_intro' ),
+				'security_page_toplevel_page_bwps-away_mode',
+				'normal',
+				'core'
+			);
 			add_meta_box(
 				'away_mode_options',
 				__( 'Configure Away Mode', 'better_wp_security' ),
@@ -427,8 +435,6 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 		 */
 		public function add_module_intro( $screen ) {
 
-			if ( $screen === 'security_page_toplevel_page_bwps-away_mode' ) { //only display on away mode page
-
 				$content = '<p>' . __( 'As most sites are only updated at certain times of the day it is not always necessary to provide access to the WordPress dashboard 24 hours a day, 7 days a week. The options below will allow you to disable access to the WordPress Dashboard for the specified period. In addition to limiting exposure to attackers this could also be useful to disable site access based on a schedule for classroom or other reasons.', 'better_wp_security' ) . '</p>';
 
 				if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) {
@@ -463,8 +469,6 @@ if ( ! class_exists( 'BWPS_Away_Mode_Admin' ) ) {
 
 					echo $content;
 				}
-
-			}
 
 		}
 
