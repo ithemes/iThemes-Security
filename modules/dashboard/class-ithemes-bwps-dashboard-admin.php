@@ -49,6 +49,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 					'core'
 				);
 
+/*
 				add_meta_box(
 					'ithemes_publicize',
 					__( 'Support Better WP Security', 'better_wp_security' ),
@@ -75,6 +76,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 					'side',
 					'core'
 				);
+*/
 
 			}
 
