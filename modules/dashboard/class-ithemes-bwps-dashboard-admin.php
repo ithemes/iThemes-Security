@@ -41,6 +41,15 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 				//add metaboxes
 				add_meta_box(
+					'bwps_status_feed',
+					__( 'Security Status Feed', 'better_wp_security' ),
+					array( $this, 'metabox_status_feed' ),
+					$page,
+					'priority_side',
+					'core'
+				);
+
+				add_meta_box(
 					'ithemes_publicize',
 					__( 'Support Better WP Security', 'better_wp_security' ),
 					array( $this, 'metabox_sidebar_publicize' ),
@@ -260,6 +269,46 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 			echo $content;
 
 		}
+		
+		/**
+		 * Display the Security Status feed
+		 *
+		 * @return void
+		 */
+		public function metabox_status_feed() {
+
+			$content  =		'<div class="bwps-status-feed-item">';
+			$content .=			'<p>This is here so you can see the markup/styling for the feed items</p>';
+			$content .=		'</div>';
+			
+			$content .= 	'<div class="bwps-status-feed-item urgent">';
+			$content .=			'<p>Change username "admin" to something else.</p>';
+			$content .=			'<div class="bwps-status-feed-actions">';
+			$content .=				'<p class="bwps-why"><a href="#">Why Change This?</a></p>';
+			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
+			$content .=			'</div>';
+			$content .=		'</div>';
+			
+			$content .= 	'<div class="bwps-status-feed-item completed">';
+			$content .=			'<div class="bwps-status-feed-completed-message">';
+			$content .=				'<p>User ID 1 changed!</p>';
+			$content .=			'</div>';
+			$content .=			'<div class="bwps-status-feed-actions">';
+			$content .=				'<p><input class="button-secondary" name="submit" type="submit" value="Undo"></p>';
+			$content .=			'</div>';
+			$content .=		'</div>';
+				
+				
+			$content .=		'<div class="bwps-status-feed-item recommended">';
+			$content .=			'<p>You should hide the WordPress admin area.</p>';
+			$content .=			'<div class="bwps-status-feed-actions">';
+			$content .=				'<p class="bwps-why"><a href="#">Why Change This?</a></p>';
+			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
+			$content .=			'</div>';
+			$content .=		'</div>';
+				
+			echo $content;
+		}
 
 		/**
 		 * Display security status
@@ -280,50 +329,19 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 			);
 
 			$statuses = apply_filters( 'bwps_add_dashboard_status', $statuses );
+			
+			if ( isset ( $statuses['safe-high'] ) || isset ( $statuses['safe-medium'] ) || isset ( $statuses['safe-low'] ) ) {
 
-			if ( isset ( $statuses['high'] ) || isset( $statuses['safe-high'] ) ) {
+				printf( '<h2>%s</h2>', __( 'Completed', 'better_wp_security' ) );
+				_e( 'These are items that you have successfuly secured.', 'better_wp_security' );
 
-				printf( '<h2>%s</h2>', __( 'High Priority', 'better_wp_security' ) );
-				_e( 'These are items that should be secured immediately.', 'better_wp_security' );
-
-				echo '<ol class="statuslist">';
-
-				if ( isset ( $statuses['high'] ) ) {
-
-					foreach ( $statuses['high'] as $status ) {
-
-						printf( '<li> <strong><a  style="color: red;" href="%s">%s</a></strong></li>', $status['link'], $status['text'] );
-
-					}
-
-				}
+				echo '<ul class="statuslist completed">';
 
 				if ( isset ( $statuses['safe-high'] ) ) {
 
 					foreach ( $statuses['safe-high'] as $status ) {
 
-						printf( '<li> <a  style="color: green;" href="%s">%s</a></li>', $status['link'], $status['text'] );
-
-					}
-
-				}
-
-				echo '</ol>';
-
-			}
-
-			if ( isset ( $statuses['medium'] ) || isset( $statuses['safe-medium'] ) ) {
-
-				printf( '<h2>%s</h2>', __( 'Medium Priority', 'better_wp_security' ) );
-				_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'better_wp_security' );
-
-				echo '<ol class="statuslist">';
-
-				if ( isset ( $statuses['medium'] ) ) {
-
-					foreach ( $statuses['medium'] as $status ) {
-
-						printf( '<li> <strong><a  style="color: orange;" href="%s">%s</a></strong></li>', $status['link'], $status['text'] );
+						printf( '<li>%s</li>', $status['text'] );
 
 					}
 
@@ -333,28 +351,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 					foreach ( $statuses['safe-medium'] as $status ) {
 
-						printf( '<li> <a  style="color: green;" href="%s">%s</a></li>', $status['link'], $status['text'] );
-
-					}
-
-				}
-
-				echo '</ol>';
-
-			}
-
-			if ( isset ( $statuses['low'] ) || isset( $statuses['safe-low'] ) ) {
-
-				printf( '<h2>%s</h2>', __( 'Low Priority', 'better_wp_security' ) );
-				_e( 'These are items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'better_wp_security' );
-
-				echo '<ol class="statuslist">';
-
-				if ( isset ( $statuses['low'] ) ) {
-
-					foreach ( $statuses['low'] as $status ) {
-
-						printf( '<li> <strong><a  style="color: blue;" href="%s">%s</a></strong></li>', $status['link'], $status['text'] );
+						printf( '<li>%s</li>', $status['text'] );
 
 					}
 
@@ -364,13 +361,76 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 					foreach ( $statuses['safe-low'] as $status ) {
 
-						printf( '<li> <a  style="color: green;" href="%s">%s</a></li>', $status['link'], $status['text'] );
+						printf( '<li><p>%s</p></li>', $status['text'] );
 
 					}
 
 				}
 
-				echo '</ol>';
+				echo '</ul>';
+
+			}
+
+			if ( isset ( $statuses['high'] ) ) {
+
+				printf( '<h2>%s</h2>', __( 'High Priority', 'better_wp_security' ) );
+				_e( 'These are items that should be secured immediately.', 'better_wp_security' );
+
+				echo '<ul class="statuslist recommended">';
+
+				if ( isset ( $statuses['high'] ) ) {
+
+					foreach ( $statuses['high'] as $status ) {
+
+						printf( '<li><p>%s</p><div class="bwps_status_action"><a class="button-primary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
+
+					}
+
+				}
+
+				echo '</ul>';
+
+			}
+
+			if ( isset ( $statuses['medium'] ) ) {
+
+				printf( '<h2>%s</h2>', __( 'Medium Priority', 'better_wp_security' ) );
+				_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'better_wp_security' );
+
+				echo '<ul class="statuslist recommended">';
+
+				if ( isset ( $statuses['medium'] ) ) {
+
+					foreach ( $statuses['medium'] as $status ) {
+
+						printf( '<li><p>%s</p><div class="bwps_status_action"><a class="button-primary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
+
+					}
+
+				}
+
+				echo '</ul>';
+
+			}
+
+			if ( isset ( $statuses['low'] ) ) {
+
+				printf( '<h2>%s</h2>', __( 'Low Priority', 'better_wp_security' ) );
+				_e( 'These are items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'better_wp_security' );
+
+				echo '<ul class="statuslist additional">';
+
+				if ( isset ( $statuses['low'] ) ) {
+
+					foreach ( $statuses['low'] as $status ) {
+
+						printf( '<li><p>%s</p><div class="bwps_status_action"><a class="button-secondary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
+
+					}
+
+				}
+
+				echo '</ul>';
 
 			}
 
