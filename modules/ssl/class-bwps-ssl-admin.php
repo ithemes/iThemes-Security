@@ -26,7 +26,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			add_filter( 'bwps_file_rules', array( $this, 'build_wpconfig_rules' ) );
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
+			//add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
@@ -141,6 +141,14 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		public function add_admin_meta_boxes( $available_pages ) {
 
 			//add metaboxes
+			add_meta_box(
+				'ssl_description',
+				__( 'Description', 'better_wp_security' ),
+				array( $this, 'add_module_intro' ),
+				'security_page_toplevel_page_bwps-ssl',
+				'normal',
+				'core'
+			);
 			add_meta_box(
 				'ssl_options',
 				__( 'Configure SSL', 'better_wp_security' ),
@@ -349,8 +357,6 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 
 			global $bwps_lib;
 
-			if ( $screen === 'security_page_toplevel_page_bwps-ssl' ) { //only display on away mode page
-
 				$content = '<p>' . __( 'Secure Socket Layers (aka SSL) is a technology that is used to encrypt the data sent between your server or host and the visitor to your web page. When activated it makes it almost impossible for an attacker to intercept data in transit therefore making the transmission of form, password, or other encrypted data much safer.', 'better-wp-security' ) . '</p>';
 				$content .= '<p>' . __( 'Better WP Security gives you the option of turning on SSL (if your server or host support it) for all or part of your site. The options below allow you to automatically use SSL for major parts of your site, the login page, the admin dashboard, or the site as a whole. You can also turn on SSL for any post or page by editing the content you want to use SSL in and selecting "Enable SSL" in the publishing options of the content in question.', 'better-wp-security' ) . '</p>';
 				$content .= '<p>' . __( 'While this plugin does give you the option of encrypting everything please note this might not be for you. SSL does add overhead to your site which will increase download times slightly. Therefore we recommend you enable SSL at a minimum on the login page, then on the whole admin section, finally on individual pages or posts with forms that require sensitive information.', 'better-wp-security' ) . '</p>';
@@ -363,11 +369,9 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 
 					$content .= sprintf( '<h4 style="color: blue; text-align: center; border-bottom: none; font-size: 130%%;">%s</h4>', __( 'WARNING: Your server does appear to support SSL. Using these features without SSL support on your server or host will cause some or all of your site to become unavailable.', 'better-wp-security' ) );	
 
-				}		
+				}
 
 				echo $content;
-
-			}
 
 		}
 

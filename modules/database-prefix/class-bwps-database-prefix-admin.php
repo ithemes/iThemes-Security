@@ -25,7 +25,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
+			//add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( 'bwps_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
@@ -72,6 +72,14 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 		public function add_admin_meta_boxes() {
 
 			//add metaboxes
+			add_meta_box(
+				'database_prefix_description',
+				__( 'Description', 'better_wp_security' ),
+				array( $this, 'add_module_intro' ),
+				'security_page_toplevel_page_bwps-database_prefix',
+				'normal',
+				'core'
+			);
 			add_meta_box(
 				'database_prefix_options',
 				__( 'Change Database Prefix', 'better_wp_security' ),
@@ -146,15 +154,11 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 		 */
 		public function add_module_intro( $screen ) {
 
-			if ( $screen === 'security_page_toplevel_page_bwps-database_prefix' ) { //only display on away mode page
-
 				$content = '<p>' . __( 'By default WordPress assigns the prefix "wp_" to all the tables in the database where your content, users, and objects live. For potential attackers this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% or so of sites are already known. Changing this makes it more difficult for tools that are trying to take advantage of vulnerabilites in other places to affect the database of your site.', 'better-wp-security' ) . '</p>';
 				$content .= '<p>' . __( 'Please note that the use of this tool requires quite a bit of system memory which my be more than some hosts can handle. If you back your database up you can\'t do any permanent damage but without a proper backup you risk breaking your site and having to perform a rather difficult fix.', 'better-wp-security' ) . '</p>';
 				$content .= sprintf( '<p style="text-align: center; font-size: 130%%; font-weight: bold; color: blue;">%s: <a href="?page=better-wp-security-databasebackup">%s</a> %s</p>', __( 'WARNING', 'better-wp-security' ), __( 'BACKUP YOUR DATABASE', 'better-wp-security' ), __( 'BEFORE USING THIS TOOL!', 'better-wp-security' ) );
 				
 				echo $content;
-
-			}
 
 		}
 

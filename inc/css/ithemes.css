@@ -16,7 +16,142 @@ div.inside ul li {
 	font-weight: bold;
 }
 
-ul.statuslist,
-ol.statuslist {
+
+/***************************************
+	Move sidebar to left
+****************************************/
+
+#poststuff #post-body.columns-2 {
+	margin-right: 0;
+	margin-left: 350px;
+}
+#post-body.columns-2 #postbox-container-1 {
+	float: left;
+	margin-left: -350px;
+	width: 100%;
+	max-width: 330px;
+}
+#post-body.columns-2 #postbox-container-2 {
+	float: right;
+	width: 100%;
+}
+#poststuff h2.nav-tab-wrapper {
+	margin-top: 0;
+	padding-bottom: 0;
 	padding-left: 10px;
+}
+
+
+/***************************************
+	Dashboard Security Status List
+****************************************/
+
+#bwps_status ul {
+	list-style-position: inside;
+	margin: 1em 0;
+	border: 1px solid #ebebeb;
+	padding: 0;
+}
+#bwps_status ul li {
+	padding: .5em 1em;
+	margin: 0;
+	border-bottom: 1px solid #ebebeb;
+	overflow:hidden;
+}
+#bwps_status ul li:last-child {
+	border-bottom: none;
+}
+#bwps_status ul.completed li {
+	border-left: 5px solid #baffbf;
+}
+#bwps_status ul.recommended li {
+	border-left: 5px solid #ffd4d4;
+}
+#bwps_status ul.additional li {
+	border-left: 5px solid #daf4ff;
+}
+#bwps_status ul li p {
+	float:left;
+	width: 75%;
+	margin: 0;
+	padding: .3em 0;
+}
+#bwps_status ul li .bwps_status_action {
+	float:right;
+	width: 20%;
+	margin-left: 5%;
+	text-align: right;
+}
+#bwps_status ul li .button-primary {
+	vertical-align: middle;
+}
+
+/***************************************
+	Security Status Feed
+****************************************/
+
+#bwps_status_feed .inside {
+	padding: 0;
+	margin: 0;
+}
+
+#bwps_status_feed .bwps-status-feed-item {
+	padding: .25em 1em;
+	overflow:hidden;
+}
+
+#bwps_status_feed .bwps-status-feed-item.urgent {
+	background: #ffd4d4;
+	border-bottom: 1px solid #ca8383;
+}
+
+#bwps_status_feed .bwps-status-feed-item.completed {
+	background: #baffbf url(../img/completed-star.png) 15px 15px no-repeat;
+	border-bottom: 1px solid #82b285;
+	padding-left: 45px;
+}
+
+#bwps_status_feed .bwps-status-feed-item.recommended {
+	background: #daf4ff;
+	border-bottom: 1px solid #95cfe6;
+}
+
+#bwps_status_feed .bwps-status-feed-actions {
+	margin: .75em 0 0 0;
+	overflow:hidden;
+}
+
+#bwps_status_feed .bwps-status-feed-actions p {
+	float:right;
+	margin: 0 0 .5em 0;
+}
+
+#bwps_status_feed .bwps-status-feed-actions p.bwps-why {
+	float:left;
+	margin-top: .5em;
+}
+
+#bwps_status_feed .bwps-status-feed-actions .bwps-why-explained {
+	clear:both;
+	display: block;
+	overflow:hidden;
+	padding: 1em;
+	margin-bottom: 1em;
+	background: #fff;
+	border: 1px solid #95cfe6;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#bwps_status_feed .urgent .bwps-why a{color: #9c3e3e;}
+#bwps_status_feed .recommended .bwps-why a{color: #1b789e;}
+
+#bwps_status_feed .bwps-status-feed-item.completed .bwps-status-feed-completed-message {
+	float:left;
+	width: 75%;
+}
+#bwps_status_feed .bwps-status-feed-item.completed .bwps-status-feed-actions {
+	float:right;
+	width: 25%;
 }

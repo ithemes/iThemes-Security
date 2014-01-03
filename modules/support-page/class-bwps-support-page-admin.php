@@ -15,7 +15,7 @@ if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
 			$this->core = $core;
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( 'bwps_page_top', array( $this, 'add_support_intro' ) ); //add page intro and information
+			//add_action( 'bwps_page_top', array( $this, 'add_support_intro' ) ); //add page intro and information
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 
@@ -60,6 +60,15 @@ if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
 		public function add_admin_meta_boxes() {
 
 			add_meta_box(
+				'bwps_system_info_description',
+				__( 'Description', 'better_wp_security' ),
+				array( $this, 'add_support_intro' ),
+				'security_page_toplevel_page_bwps-support',
+				'normal',
+				'core'
+			);
+
+			add_meta_box(
 				'bwps_system_info',
 				__( 'System Information', 'better_wp_security' ),
 				array( $this, 'metabox_normal_system' ),
@@ -88,13 +97,9 @@ if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
 		 */
 		public function add_support_intro( $screen ) {
 
-			if ( $screen === 'security_page_toplevel_page_bwps-support' ) { //only display on away mode page
-
 				$content = 'Support Information';
 
 				echo $content;
-
-			}
 
 		}
 
