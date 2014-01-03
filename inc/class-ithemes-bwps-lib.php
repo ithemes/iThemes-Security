@@ -76,8 +76,10 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 			// is a completely different, unrelated domain in this configuration.
 			if ( is_multisite() && function_exists( 'domain_mapping_warning' ) ) {
 				return $wc;
-			} else {
+			} elseif( isset( $matches[0] ) ) {
 				return $wc . $matches[0] ;
+			} else {
+				return false;
 			}
 		}
 
