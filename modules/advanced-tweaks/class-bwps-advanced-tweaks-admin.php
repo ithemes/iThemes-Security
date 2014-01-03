@@ -1315,7 +1315,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				}
 
 				//Apache rewrite rules (and related NGINX rules)
-				if ( $input['protect_files'] == 1 || $input['request_methods'] == 1 || $input['suspicious_query_strings'] == 1 || $input['non_english_characters'] == 1 || $input['comment_spam'] == 1 ) {
+				if ( $input['protect_files'] == 1 || $input['uploads_php'] == 1 || $input['request_methods'] == 1 || $input['suspicious_query_strings'] == 1 || $input['non_english_characters'] == 1 || $input['comment_spam'] == 1 ) {
 
 					if ( strlen( $rules ) > 1 ) {
 						$rules .= PHP_EOL;
@@ -1342,6 +1342,25 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 							"\tRewriteRule ^wp-includes/[^/]+\.php$ - [F,L]" . PHP_EOL .
 							"\tRewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]" . PHP_EOL .
 							"\tRewriteRule ^wp-includes/theme-compat/ - [F,L]" . PHP_EOL;
+
+					}
+
+					//Rewrite Rules for Disable PHP in Uploads
+					if ( $input['uploads_php'] == 1 ) {
+
+						$rules .= PHP_EOL . "\t# " . __( 'Rules to prevent php execution in uploads', 'better-wp-security' ) . PHP_EOL;
+
+						if ( $server_type !== 'nginx' ) {
+						
+							$rules .= 
+								"\tRewriteRule ^(.*)/uploads/(.*).php(.?) - [F,L]" . PHP_EOL;
+
+						} else { //rules for all other servers
+
+							$rules .= 
+								"\tlocation ^(.*)/uploads/(.*).php(.?){ deny all }" . PHP_EOL;
+						
+						}
 
 					}
 
