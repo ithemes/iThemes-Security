@@ -23,6 +23,8 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			$this->settings		= get_site_option( 'bwps_ssl' );
 			$this->has_ssl		= $bwps_lib->get_ssl();
 
+			add_filter( 'bwps_file_rules', array( $this, 'build_wpconfig_rules' ) );
+
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
@@ -400,27 +402,21 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		}
 
 		/**
-		 * Sanitize and validate input
-		 *
-		 * @param  Array $input array of input fields
-		 *
-		 * @return Array         Sanitized array
+		 * Build wp-config.php rules
+		 * 
+		 * @param  array $input  options to build rules from
+		 * @return array         rules to write
 		 */
-		public function sanitize_module_input( $input ) {
+		public function build_wpconfig_rules( $rules_array, $input = null ) {
 
-			//Assume this is going to work by default
-			$type    = 'updated';
-			$message = __( 'Settings Updated', 'better_wp_security' );
-
-			$input['frontend'] = isset( $input['frontend'] ) ? intval( $input['frontend'] ) : 0;
-			$input['login'] = isset( $input['login'] ) ? intval( $input['login'] ) : 0;
-			$input['admin'] = isset( $input['admin'] ) ? intval( $input['admin'] ) : 0;
-
-			$rule_array = array();
+			//Get the rules from the database if input wasn't sent
+			if ( $input === null ) {
+				$input = get_site_option( 'bwps_ssl' );
+			}
 
 			if ( $input['login'] == 1 ) {
 
-				$rule_array[] = array(
+				$rules[] = array(
 					'type'			=> 'add',
 					'search_text'	=> 'FORCE_SSL_LOGIN',
 					'rule'			=> "define( 'FORCE_SSL_LOGIN', true );",
@@ -430,7 +426,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 
 			} else {
 
-				$rule_array[] = array(
+				$rules[] = array(
 					'type'			=> 'delete',
 					'search_text'	=> 'FORCE_SSL_LOGIN',
 					'rule'			=> false,
@@ -442,7 +438,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 
 			if ( $input['admin'] == 1 ) {
 
-				$rule_array[] = array(
+				$rules[] = array(
 					'type'			=> 'add',
 					'search_text'	=> 'FORCE_SSL_ADMIN',
 					'rule'			=> "define( 'FORCE_SSL_ADMIN', true );",
@@ -452,7 +448,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 
 			} else {
 
-				$rule_array[] = array(
+				$rules[] = array(
 					'type'			=> 'delete',
 					'search_text'	=> 'FORCE_SSL_ADMIN',
 					'rule'			=> false,
@@ -470,8 +466,6 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 					'rule'			=> false,
 				);
 
-				array_unshift( $rule_array, $comment );
-
 			} else {
 
 				$comment = array(
@@ -480,19 +474,44 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 					'rule'			=> '//The entries below were created by Better WP Security to enforce SSL',
 				);
 
-				array_unshift( $rule_array, $comment );
-
 			}
 
-			$rules = array(
-				'type'  => 'wpconfig',
+			array_unshift( $rules, $comment );
+
+			$rules_array[] = array(
+				'type'	=> 'wpconfig',
 				'name'	=> 'SSL',
-				'rules' => array(
-					'rules' => $rule_array,
-				),
+				'rules'	=> $rules,
 			);
 
-			if ( ! new Ithemes_BWPS_Files( $rules ) ) {
+			return $rules_array;
+
+		}
+
+		/**
+		 * Sanitize and validate input
+		 *
+		 * @param  Array $input array of input fields
+		 *
+		 * @return Array         Sanitized array
+		 */
+		public function sanitize_module_input( $input ) {
+
+			global $bwps_files;
+
+			//Assume this is going to work by default
+			$type    = 'updated';
+			$message = __( 'Settings Updated', 'better_wp_security' );
+
+			$input['frontend'] = isset( $input['frontend'] ) ? intval( $input['frontend'] ) : 0;
+			$input['login'] = isset( $input['login'] ) ? intval( $input['login'] ) : 0;
+			$input['admin'] = isset( $input['admin'] ) ? intval( $input['admin'] ) : 0;
+
+			$rules = $this->build_wpconfig_rules( array(), $input );
+
+			$bwps_files->set_wpconfig( $rules );
+
+			if ( ! $bwps_files->save_wpconfig() ) {
 
 				$type    = 'error';
 				$message = __( 'WordPress was unable to save the SSL options to wp-config.php. Please check with your server administrator and try again.', 'better_wp_security' );
