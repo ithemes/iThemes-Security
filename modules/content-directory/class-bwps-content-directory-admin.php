@@ -219,10 +219,55 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 		}
 
 		/**
+		 * Build wp-config.php rules
+		 * 
+		 * @param  array $input  options to build rules from
+		 * @return array         rules to write
+		 */
+		public function build_wpconfig_rules( $rules_array, $input = null ) {
+
+			//Get the rules from the database if input wasn't sent
+			if ( $input === null ) {
+				return $rules_array;
+			}
+
+			$new_dir = trailingslashit( ABSPATH ) . $input;
+
+			$rules[] = array(
+				'type'			=> 'add',
+				'search_text'	=> '//Do not delete these. Doing so WILL break your site.',   
+				'rule'			=> "//Do not delete these. Doing so WILL break your site.",
+			);
+
+			$rules[] = array(
+				'type'			=> 'add',
+				'search_text'	=> 'WP_CONTENT_URL',    
+				'rule'			=> "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $input . "' );",
+			);
+
+			$rules[] = array(
+				'type'			=> 'add',
+				'search_text'	=> 'WP_CONTENT_DIR',     
+				'rule'			=> "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
+			);
+
+			$rules_array[] = array(
+				'type'	=> 'wpconfig',
+				'name'	=> 'Content Directory',
+				'rules'	=> $rules,
+			);
+
+			return $rules_array;
+
+		}
+
+		/**
 		 * Sanitize and validate input
 		 *
 		 */
 		public function process_directory() {
+
+			global $bwps_files;
 
 			$dir_name = sanitize_file_name( $_POST['name'] );
 
@@ -245,31 +290,11 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 				$old_dir = WP_CONTENT_DIR;
 				$new_dir = trailingslashit( ABSPATH ) . $dir_name;
 
-				$rules = array(
-					'type'  => 'wpconfig',
-					'name'	=> 'Content Directory',
-					'rules' => array(
-						'rules' => array(
-							array(
-								'type'			=> 'add',
-								'search_text'	=> 'Comment',   
-								'rule'			=> "//Do not delete these. Doing so WILL break your site.",
-							),
-							array(
-								'type'			=> 'add',
-								'search_text'	=> 'WP_CONTENT_DIR',     
-								'rule'			=> "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
-							),
-							array(
-								'type'			=> 'add',
-								'search_text'	=> 'WP_CONTENT_URL',    
-								'rule'			=> "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $dir_name . "' );",
-							),
-						),
-					),
-				);
+				$rules = $this->build_wpconfig_rules( array(), $dir_name );
 
-				if ( new Ithemes_BWPS_Files( $rules ) ) {
+				$bwps_files->set_wpconfig( $rules );
+
+				if ( $bwps_files->save_wpconfig() ) {
 
 					if ( ! rename( $old_dir, $new_dir ) ) { //make sure renaming the directory was successful
 
