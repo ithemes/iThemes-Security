@@ -20,3 +20,31 @@ ul.statuslist,
 ol.statuslist {
 	padding-left: 10px;
 }
+
+
+/***************************************
+	Move sidebar to left
+****************************************/
+
+#poststuff #post-body.columns-2 {
+	margin-right: 0;
+	margin-left: 350px;
+}
+
+#post-body.columns-2 #postbox-container-1 {
+	float: left;
+	margin-left: -350px;
+	width: 100%;
+	max-width: 330px;
+}
+
+#post-body.columns-2 #postbox-container-2 {
+	float: right;
+	width: 100%;
+}
+
+#poststuff h2.nav-tab-wrapper {
+	margin-top: 0;
+	padding-bottom: 0;
+	padding-left: 10px;
+}

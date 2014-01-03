@@ -289,14 +289,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 				<h2><?php echo $bwps_globals['plugin_name'] . ' - ' . get_admin_page_title(); ?></h2>
 
 				<?php
-				if ( isset ( $_GET['page'] ) ) {
-					$this->admin_tabs( $_GET['page'] );
-				} else {
-					$this->admin_tabs();
-				}
-				?>
-
-				<?php
 				wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
 				wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
 				?>
@@ -311,6 +303,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 						</div>
 
 						<div id="postbox-container-2" class="postbox-container">
+							<?php
+							if ( isset ( $_GET['page'] ) ) {
+								$this->admin_tabs( $_GET['page'] );
+							} else {
+								$this->admin_tabs();
+							}
+							?>
 							<?php do_action( 'bwps_page_top', $screen ); ?>
 							<?php do_meta_boxes( $screen, 'normal', NULL ); ?>
 							<?php do_action( 'bwps_page_middle', $screen ); ?>
