@@ -450,6 +450,26 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
+			if ( $this->settings['uploads_php'] === 1 ) {
+
+				$status_array = 'safe-medium';
+				$status       = array(
+					'text' => __( 'Users cannot execute PHP from the uploads folder.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'medium';
+				$status       = array(
+					'text' => __( 'Users can execute PHP from the uploads folder. Click here to fix.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
 			return $statuses;
 
 		}
@@ -626,6 +646,14 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				array( $this, 'advanced_tweaks_wordpress_disable_xmlrpc' ),
 				'security_page_toplevel_page_bwps-advanced_tweaks',
 				'advanced_tweaks_wordpress'
+			);
+
+			add_settings_field(
+				'bwps_advanced_tweaks[uploads_php]',
+				__( 'Disable PHP in Uploads', 'better_wp_security' ),
+				array( $this, 'advanced_tweaks_wordpress_uploads_php' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'advanced_tweaks_server'
 			);
 
 			//Register the settings field for the entire module
@@ -1041,6 +1069,28 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_disable_xmlrpc" name="bwps_advanced_tweaks[disable_xmlrpc]" value="1" ' . checked( 1, $disable_xmlrpc, false ) . '/>';
 			$content .= '<label for="bwps_advanced_tweaks_server_disable_xmlrpc"> ' . __( 'Disables all XML-RPC functionality. XML-RPC is a feature WordPress uses to connect to remote services and is often taken advantage of by attackers.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Disable PHP In Uploads Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_wordpress_uploads_php( $args ) {
+
+			if ( isset( $this->settings['uploads_php'] ) && $this->settings['uploads_php'] === 1 ) {
+				$uploads_php = 1;
+			} else {
+				$uploads_php = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_uploads_php" name="bwps_advanced_tweaks[uploads_php]" value="1" ' . checked( 1, $uploads_php, false ) . '/>';
+			$content .= '<label for="bwps_advanced_tweaks_server_uploads_php"> ' . __( 'Disable PHP execution in the uploads directory. This will prevent uploading of malicious scripts to uploads.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -1483,6 +1533,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['random_version'] = ( isset( $input['random_version'] ) && intval( $input['random_version'] == 1 ) ? 1 : 0 );
 			$input['file_editor'] = ( isset( $input['file_editor'] ) && intval( $input['file_editor'] == 1 ) ? 1 : 0 );
 			$input['disable_xmlrpc'] = ( isset( $input['disable_xmlrpc'] ) && intval( $input['disable_xmlrpc'] == 1 ) ? 1 : 0 );
+			$input['uploads_php'] = ( isset( $input['uploads_php'] ) && intval( $input['uploads_php'] == 1 ) ? 1 : 0 );
 
 			$rules = $this->build_rewrite_rules( array(), $input );
 			$bwps_files->set_rewrites( $rules );
@@ -1558,6 +1609,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$settings['random_version'] = ( isset( $_POST['bwps_advanced_tweaks']['random_version'] ) && intval( $_POST['bwps_advanced_tweaks']['random_version'] == 1 ) ? 1 : 0 );
 			$settings['file_editor'] = ( isset( $_POST['bwps_advanced_tweaks']['file_editor'] ) && intval( $_POST['bwps_advanced_tweaks']['file_editor'] == 1 ) ? 1 : 0 );
 			$settings['disable_xmlrpc'] = ( isset( $_POST['bwps_advanced_tweaks']['disable_xmlrpc'] ) && intval( $_POST['bwps_advanced_tweaks']['disable_xmlrpc'] == 1 ) ? 1 : 0 );
+			$settings['uploads_php'] = ( isset( $_POST['bwps_advanced_tweaks']['uploads_php'] ) && intval( $_POST['bwps_advanced_tweaks']['uploads_php'] == 1 ) ? 1 : 0 );
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
 
