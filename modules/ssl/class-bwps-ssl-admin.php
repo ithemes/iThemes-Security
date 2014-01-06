@@ -363,11 +363,11 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 
 				if ( $bwps_lib->get_ssl() === false ) {
 
-					$content .= sprintf( '<h4 style="color: red; text-align: center; border-bottom: none; font-size: 130%%;">%s</h4>', __( 'WARNING: Your server does not appear to support SSL. Your server MUST support SSL to use these features. Using these features without SSL support on your server or host will cause some or all of your site to become unavailable.', 'better-wp-security' ) );		
+					$content .= sprintf( '<div class="bwps-warning-message"><span>%s: </span>%s</div>', __( 'WARNING', 'better-wp-security' ), __( 'Your server does not appear to support SSL. Your server MUST support SSL to use these features. Using these features without SSL support on your server or host will cause some or all of your site to become unavailable.', 'better-wp-security' ) );
 
 				} else {
 
-					$content .= sprintf( '<h4 style="color: blue; text-align: center; border-bottom: none; font-size: 130%%;">%s</h4>', __( 'WARNING: Your server does appear to support SSL. Using these features without SSL support on your server or host will cause some or all of your site to become unavailable.', 'better-wp-security' ) );	
+					$content .= sprintf( '<div class="bwps-warning-message"><span>%s: </span>%s</div>', __( 'WARNING', 'better-wp-security' ), __( 'Your server does appear to support SSL. Using these features without SSL support on your server or host will cause some or all of your site to become unavailable.', 'better-wp-security' ) );
 
 				}
 
