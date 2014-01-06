@@ -208,7 +208,7 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 								<?php //username field ?>
 								<input id="name" name="name" type="text" value="wp-content"/>
 
-								<p><?php _e( 'Enter a new directory name to replace "wp-content." You may need to log in again after performing this operation.', 'better-wp-security' ); ?></p>
+								<p class="description"><?php _e( 'Enter a new directory name to replace "wp-content." You may need to log in again after performing this operation.', 'better-wp-security' ); ?></p>
 							</td>
 						</tr>
 					</table>

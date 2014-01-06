@@ -12,8 +12,14 @@ div.inside ul li {
 	line-height:16px;
 }
 
-.form-table th {
-	font-weight: bold;
+.form-table th,
+.form-table td label {
+	font-weight: 600;
+}
+
+#poststuff h2.settings-section-header {
+	padding: 1em 0;
+	border-top: 1px solid #efefef;
 }
 
 
