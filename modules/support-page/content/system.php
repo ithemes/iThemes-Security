@@ -4,7 +4,7 @@
 	$htaccess = $bwps_lib->get_htaccess();
 ?>
 
-<ul>
+<ul class="bwps-support">
 	<li>
 		<h4><?php _e( 'User Information', 'better-wp-security' ); ?></h4>
 		<ul>

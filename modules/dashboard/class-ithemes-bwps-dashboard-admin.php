@@ -343,7 +343,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 					foreach ( $statuses['safe-high'] as $status ) {
 
-						printf( '<li>%s</li>', $status['text'] );
+						printf( '<li><p>%s</p></li>', $status['text'] );
 
 					}
 
@@ -353,7 +353,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 					foreach ( $statuses['safe-medium'] as $status ) {
 
-						printf( '<li>%s</li>', $status['text'] );
+						printf( '<li><p>%s</p></li>', $status['text'] );
 
 					}
 
