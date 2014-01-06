@@ -85,6 +85,17 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 		 */
 		function execute_deactivate() {
 
+			global $bwps_lib;
+
+			if ( isset( $bwps_data['htaccess_perms'] ) ) {
+				@chmod( $bwps_lib->get_htaccess(), $bwps_data['htaccess_perms'] );
+			}
+
+			if ( isset( $bwps_data['config_perms'] ) ) {
+				@chmod( $bwps_lib->get_config(),  $bwps_data['config_perms'] );
+			}
+				
+
 		}
 
 		/**

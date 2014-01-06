@@ -163,7 +163,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		function deactivate_execute() {
 
-			global $bwps_setup_action, $bwps_lib;
+			global $bwps_setup_action;
 
 			$bwps_setup_action = 'deactivate';
 
@@ -173,9 +173,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			//Reset initial file permissions
 			$bwps_data = get_site_option( 'bwps_data' );
-
-			@chmod( $bwps_lib->get_htaccess(), $bwps_data['htaccess_perms'] );
-			@chmod( $bwps_lib->get_config(),  $bwps_data['config_perms'] );
 
 		}
 

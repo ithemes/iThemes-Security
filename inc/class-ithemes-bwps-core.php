@@ -355,13 +355,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 
 			//Get initial .htaccess permissions
 			if ( ! isset( $plugin_data['htaccess_perms'] ) ) {
-				$plugin_data['htaccess_perms'] = substr( sprintf( '%o', fileperms( $bwps_lib->get_htaccess() ) ), -4 );
+				$plugin_data['htaccess_perms'] = decoct( fileperms( $bwps_lib->get_htaccess() ) & 0777 );
 				$save_data                    = true;
 			}
 
 			//Get initial wp-config.php permissions
 			if ( ! isset( $plugin_data['config_perms'] ) ) {
-				$plugin_data['config_perms'] = substr( sprintf( '%o', fileperms( $bwps_lib->get_config() ) ), -4 );
+				$plugin_data['config_perms'] = decoct( fileperms( $bwps_lib->get_config() ) & 0777 );
 				$save_data                    = true;
 			}
 
