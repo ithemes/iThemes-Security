@@ -19,7 +19,6 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			add_filter( 'bwps_file_rules', array( $this, 'build_rewrite_rules' ) );
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			//add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
@@ -81,6 +80,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 				'normal',
 				'core'
 			);
+			
 			add_meta_box(
 				'ban_users_options',
 				__( 'Configure Banned User Settings', 'better_wp_security' ),

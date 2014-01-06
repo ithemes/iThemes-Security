@@ -26,7 +26,6 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			add_filter( 'bwps_file_rules', array( $this, 'build_wpconfig_rules' ) );
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			//add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
@@ -149,6 +148,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 				'normal',
 				'core'
 			);
+			
 			add_meta_box(
 				'ssl_options',
 				__( 'Configure SSL', 'better_wp_security' ),

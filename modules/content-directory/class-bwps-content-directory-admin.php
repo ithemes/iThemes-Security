@@ -23,7 +23,6 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			//add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( 'bwps_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
@@ -80,6 +79,7 @@ if ( ! class_exists( 'BWPS_Content_Directory_Admin' ) ) {
 					'normal',
 					'core'
 				);
+				
 				add_meta_box(
 					'content_directory_options',
 					__( 'Change Content Directory', 'better_wp_security' ),
