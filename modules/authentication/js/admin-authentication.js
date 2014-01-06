@@ -16,6 +16,20 @@ jQuery( document ).ready( function () {
 
 	} ).change();
 
+	jQuery( "#bwps_authentication_strong_passwords_enabled" ).change( function() {
+
+		if ( jQuery( "#bwps_authentication_strong_passwords_enabled" ).is( ':checked' ) ) {
+
+			jQuery( "#authentication_strong_passwords-settings" ).show();
+
+		} else {
+
+			jQuery( "#authentication_strong_passwords-settings" ).hide();
+
+		}
+
+	} ).change();
+
 	jQuery( "#bwps_authentication_away_mode_type" ).change( function() {
 
 		if ( jQuery( "#bwps_authentication_away_mode_type" ).val() == "2" ) {

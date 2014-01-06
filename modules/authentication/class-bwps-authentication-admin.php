@@ -163,9 +163,16 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			);
 
 			add_settings_section(
-				'authentication_strong_passwords',
+				'authentication_strong_passwords-enabled',
 				__( 'Enforce Strong Passwords', 'better_wp_security' ),
 				array( $this, 'strong_passwords_header' ),
+				'security_page_toplevel_page_bwps-authentication'
+			);
+
+			add_settings_section(
+				'authentication_strong_passwords-settings',
+				__( 'Enforce Strong Passwords', 'better_wp_security' ),
+				array( $this, 'empty_callback_function' ),
 				'security_page_toplevel_page_bwps-authentication'
 			);
 
@@ -188,6 +195,23 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 				__( 'Away Mode', 'better_wp_security' ),
 				array( $this, 'empty_callback_function' ),
 				'security_page_toplevel_page_bwps-authentication'
+			);
+
+			//Strong Passwords Fields
+			add_settings_field(
+				'bwps_authentication[strong_passwords-enabled]',
+				__( 'Enable Strong Passwords', 'better_wp_security' ),
+				array( $this, 'strong_passwords_enabled' ),
+				'security_page_toplevel_page_bwps-authentication',
+				'authentication_strong_passwords-enabled'
+			);
+
+			add_settings_field(
+				'bwps_authentication[strong_passwords-roll]',
+				__( 'Select Roll for Strong Passwords', 'better_wp_security' ),
+				array( $this, 'strong_passwords_role' ),
+				'security_page_toplevel_page_bwps-authentication',
+				'authentication_strong_passwords-settings'
 			);
 
 			//Away Mode Fields
@@ -326,7 +350,58 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		}
 
 		/**
-		 * echos Enabled Field
+		 * echos Enable Strong Passwords Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function strong_passwords_enabled( $args ) {
+
+			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] === 1 ) {
+				$enabled = 1;
+			} else {
+				$enabled = 0;
+			}
+
+			$content = '<input type="checkbox" id="bwps_authentication_strong_passwords_enabled" name="bwps_authentication[strong_passwords-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="bwps_authentication_strong_passwords_enabled"> ' . __( 'Check this box to enable strong password enforcement.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Strong Passwords Role Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function strong_passwords_role( $args ) {
+
+			if ( isset( $this->settings['strong_passwords-roll'] ) ) {
+				$roll =  $this->settings['strong_passwords-roll'];
+			} else {
+				$roll = 'administrator';
+			}
+
+			$content = '<select name="bwps_authentication[strong_passwords-roll]" id="bwps_authentication_strong_passwords_roll">';
+			$content .= '<option value="administrator" ' . selected( $roll, 'administrator', false ) . '>' . translate_user_role( 'Administrator' ) . '</option>';
+			$content .= '<option value="editor" ' . selected( $roll, 'editor', false ) . '>' . translate_user_role( 'Editor' ) . '</option>';
+			$content .= '<option value="author" ' . selected( $roll, 'author', false ) . '>' . translate_user_role( 'Author' ) . '</option>';
+			$content .= '<option value="contributor" ' . selected( $roll, 'contributor', false ) . '>' . translate_user_role( 'Contributor' ) . '</option>';
+			$content .= '<option value="subscriber" ' . selected( $roll, 'subscriber', false ) . '>' . translate_user_role( 'Subscriber' ) . '</option>';
+			$content .= '</select>';
+			$content .= '<label for="bwps_authentication_strong_passwords_roll"> ' . __( 'Minimum role at which a user must choose a strong password. For more information on WordPress roles and capabilities please see', 'better-wp-security' ) . ' <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p></label>';
+			$content .= '<p class="warningtext">' . __( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', 'better-wp-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Enable Away Mode Field
 		 *
 		 * @param  array $args field arguements
 		 *
@@ -570,6 +645,13 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
+			//process strong passwords settings
+			$input['strong_passwords-enabled'] = ( isset( $input['strong_passwords-enabled'] ) && intval( $input['strong_passwords-enabled'] == 1 ) ? 1 : 0 );
+			if ( isset( $input['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $input['strong_passwords-roll'] ) ) ) {
+				$input['strong_passwords-roll'] = wp_strip_all_tags( $input['strong_passwords-roll'] );
+			}
+
+			//process away mode settings
 			$input['away_mode-enabled'] = ( isset( $input['away_mode-enabled'] ) && intval( $input['away_mode-enabled'] == 1 ) ? 1 : 0 );
 			$input['away_mode-type'] = ( isset( $input['away_mode-type'] ) && intval( $input['away_mode-ype'] == 1 ) ? 1 : 2 );
 
@@ -639,9 +721,13 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
+			$settings['strong_passwords-enabled'] = ( isset( $_POST['bwps_authentication']['strong_passwords-enabled'] ) && intval( $_POST['bwps_authentication']['strong_passwords-enabled'] == 1 ) ? 1 : 0 );
+			if ( isset( $_POST['bwps_authentication']['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $_POST['bwps_authentication']['strong_passwords-roll'] ) ) ) {
+				$settings['strong_passwords-roll'] = wp_strip_all_tags( $_POST['bwps_authentication']['strong_passwords-roll'] );
+			}
+
 			$settings['away_mode-enabled'] = ( isset( $_POST['bwps_authentication']['away_mode-enabled'] ) && intval( $_POST['bwps_authentication']['away_mode-enabled'] == 1 ) ? 1 : 0 );
 			$settings['away_mode-type'] = ( isset( $_POST['bwps_authentication']['away_mode-type'] ) && intval( $_POST['bwps_authentication']['away_mode-type'] == 1 ) ? 1 : 2 );
-			
 			$settings['away_mode-start'] = strtotime( $_POST['bwps_authentication']['start']['date'] . ' ' . $_POST['bwps_authentication']['start']['hour'] . ':' . $_POST['bwps_authentication']['start']['minute'] . ' ' . $_POST['bwps_authentication']['start']['sel'] );
 			$settings['away_mode-end']   = strtotime( $_POST['bwps_authentication']['end']['date'] . ' ' . $_POST['bwps_authentication']['end']['hour'] . ':' . $_POST['bwps_authentication']['end']['minute'] . ' ' . $_POST['bwps_authentication']['end']['sel'] );
 
