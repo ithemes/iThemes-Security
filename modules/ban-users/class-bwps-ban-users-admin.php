@@ -176,7 +176,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			//default list field
 			add_settings_field(
 				'bwps_ban_users[default]',
-				__( 'Enable Default Blacklist', 'better_wp_security' ),
+				__( 'Default Blacklist', 'better_wp_security' ),
 				array( $this, 'ban_users_default' ),
 				'security_page_toplevel_page_bwps-ban_users',
 				'ban_users_default'
@@ -185,7 +185,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			//enabled field
 			add_settings_field(
 				'bwps_ban_users[enabled]',
-				__( 'Enable Ban Users', 'better_wp_security' ),
+				__( 'Ban Users', 'better_wp_security' ),
 				array( $this, 'ban_users_enabled' ),
 				'security_page_toplevel_page_bwps-ban_users',
 				'ban_users_enabled'
@@ -248,7 +248,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			}
 
 			$content = '<input type="checkbox" id="bwps_ban_users_enabled" name="bwps_ban_users[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="bwps_ban_users_enabled"> ' . __( 'Check this box to enable ban users', 'better_wp_security' ) . '</label>';
+			$content .= '<label for="bwps_ban_users_enabled"> ' . __( 'Enable ban users', 'better_wp_security' ) . '</label>';
 
 			echo $content;
 
@@ -269,10 +269,9 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 				$default = 0;
 			}
 
-			$content = '<p>' . __( 'As a getting-started point you can include the excellent blacklist developed by Jim Walker of <a href="http://hackrepair.com/blog/how-to-block-bots-from-seeing-your-website-bad-bots-and-drive-by-hacks-explained" target="_blank">HackRepair.com</a>.', 'better-wp-security' ) . '</p>';
-			$content .= '<br />';
-			$content .= '<input type="checkbox" id="bwps_ban_users_default" name="bwps_ban_users[default]" value="1" ' . checked( 1, $default, false ) . '/>';
-			$content .= '<label for="bwps_ban_users_default"> ' . __( 'Check this box to enable HackRepair.com\'s blacklist feature', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="bwps_ban_users_default" name="bwps_ban_users[default]" value="1" ' . checked( 1, $default, false ) . '/>';
+			$content .= '<label for="bwps_ban_users_default"> ' . __( 'Enable HackRepair.com\'s blacklist feature', 'better_wp_security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'As a getting-started point you can include the excellent blacklist developed by Jim Walker of <a href="http://hackrepair.com/blog/how-to-block-bots-from-seeing-your-website-bad-bots-and-drive-by-hacks-explained" target="_blank">HackRepair.com</a>.', 'better-wp-security' ) . '</p>';
 
 			echo $content;
 
@@ -302,13 +301,13 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			$content = '<textarea id="bwps_ban_users_host_list" name="bwps_ban_users[host_list]" rows="10" cols="50">' . $host_list . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be allowed access to your site. Note you cannot ban yourself.', 'better_wp_security' ) . '</p>';
-			$content .= '<ul><em>';
+			$content .= '<ul>';
 			$content .= '<li>' . __( 'You may ban users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
 			$content .= '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.', 'better_wp_security' ) . '</li>';
 			$content .= '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'better_wp_security' ) . '</li>';
 			$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'better_wp_security' ) . '</a></li>';
 			$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'better_wp_security' ) . '</li>';
-			$content .= '</em></ul>';
+			$content .= '</ul>';
 
 			echo $content;
 
@@ -338,9 +337,9 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			$content = '<textarea id="bwps_ban_users_agent_list" name="bwps_ban_users[agent_list]" rows="10" cols="50">' . $agent_list . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter user agents that will not be allowed access to your site.', 'better_wp_security' ) . '</p>';
-			$content .= '<ul><em>';
+			$content .= '<ul>';
 			$content .= '<li>' . __( 'Enter only 1 user agent per line.', 'better_wp_security' ) . '</li>';
-			$content .= '</em></ul>';
+			$content .= '</ul>';
 
 			echo $content;
 
@@ -370,13 +369,13 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			$content = '<textarea id="bwps_ban_users_white_list" name="bwps_ban_users[white_list]" rows="10" cols="50">' . $white_list . '</textarea>';
 			$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be banned from your site. This will keep you from locking yourself out of any features if you should trigger a lockout. Please note this does not override away mode.', 'better_wp_security' ) . '</p>';
-			$content .= '<ul><em>';
+			$content .= '<ul>';
 			$content .= '<li>' . __( 'You may white list users by individual IP address or IP address range.', 'better_wp_security' ) . '</li>';
 			$content .= '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.', 'better_wp_security' ) . '</li>';
 			$content .= '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'better_wp_security' ) . '</li>';
 			$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'better_wp_security' ) . '</a></li>';
 			$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'better_wp_security' ) . '</li>';
-			$content .= '</em></ul>';
+			$content .= '</ul>';
 
 			echo $content;
 

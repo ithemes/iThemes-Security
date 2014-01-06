@@ -248,7 +248,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			//enabled field
 			add_settings_field(
 				'bwps_ssl[login]',
-				__( 'Force SSL for Login', 'better_wp_security' ),
+				__( 'SSL for Login', 'better_wp_security' ),
 				array( $this, 'ssl_login' ),
 				'security_page_toplevel_page_bwps-ssl',
 				'ssl_settings'
@@ -257,7 +257,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			//enabled field
 			add_settings_field(
 				'bwps_ssl[admin]',
-				__( 'Force SSL for Dashboard', 'better_wp_security' ),
+				__( 'SSL for Dashboard', 'better_wp_security' ),
 				array( $this, 'ssl_admin' ),
 				'security_page_toplevel_page_bwps-ssl',
 				'ssl_settings'
@@ -298,7 +298,8 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			echo '<option value="1" ' . selected( $frontend, '1' ) . '>' . __( 'Per Content', 'better-wp-security' ) . '</option>';
 			echo '<option value="2" ' . selected( $frontend, '2' ) . '>' . __( 'Whole Site', 'better-wp-security' ) . '</option>';
 			echo '</select><br />';
-			echo '<label for="bwps_ssl_frontend"> ' . __( 'Enables secure SSL connection for the front-end (public parts of your site). Turning this off will disable front-end SSL control, turning this on "Per Content" will place a checkbox on the edit page for all posts and pages (near the publish settings) allowing you to turn on SSL for selected pages or posts, and selecting "Whole Site" will force the whole site to use SSL (not recommended unless you have a really good reason to use it).', 'better_wp_security' ) . '</label>';
+			echo '<label for="bwps_ssl_frontend"> ' . __( 'Front End SSL Mode', 'better_wp_security' ) . '</label>';
+			echo '<p class="description">' . __( 'Enables secure SSL connection for the front-end (public parts of your site). Turning this off will disable front-end SSL control, turning this on "Per Content" will place a checkbox on the edit page for all posts and pages (near the publish settings) allowing you to turn on SSL for selected pages or posts, and selecting "Whole Site" will force the whole site to use SSL (not recommended unless you have a really good reason to use it' ) . '</p>';
 
 		}
 
@@ -318,7 +319,8 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			}
 
 			$content = '<input onchange="forcessl()" type="checkbox" id="bwps_ssl_login" name="bwps_ssl[login]" value="1" ' . checked( 1, $login, false ) . '/>';
-			$content .= '<label for="bwps_ssl_login"> ' . __( 'Forces all logins to be served only over a secure SSL connection.', 'better_wp_security' ) . '</label>';
+			$content .= '<label for="bwps_ssl_login">' . __( 'Force SSL for Login', 'better_wp_security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Forces all logins to be served only over a secure SSL connection.', 'better_wp_security' ) . '</p>';
 
 			echo $content;
 
@@ -340,7 +342,8 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			}
 
 			$content = '<input onchange="forcessl()" type="checkbox" id="bwps_ssl_admin" name="bwps_ssl[admin]" value="1" ' . checked( 1, $admin, false ) . '/>';
-			$content .= '<label for="bwps_ssl_admin"> ' . __( 'Forces all of the WordPress dashboard to be served only over a secure SSL connection.', 'better_wp_security' ) . '</label>';
+			$content .= '<label for="bwps_ssl_admin">' . __( 'Force SSL for Dashboard', 'better_wp_security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Forces all logins to be served only over a secure SSL connection.', 'better_wp_security' ) . '</p>';
 
 			echo $content;
 
