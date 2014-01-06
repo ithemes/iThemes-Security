@@ -354,13 +354,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			}
 
 			//Get initial .htaccess permissions
-			if ( ! isset( $plugin_data['htaccess_perms'] ) ) {
+			if ( ! isset( $plugin_data['htaccess_perms'] ) && file_exists( $bwps_lib->get_htaccess() ) ) {
 				$plugin_data['htaccess_perms'] = decoct( fileperms( $bwps_lib->get_htaccess() ) & 0777 );
 				$save_data                    = true;
 			}
 
 			//Get initial wp-config.php permissions
-			if ( ! isset( $plugin_data['config_perms'] ) ) {
+			if ( ! isset( $plugin_data['config_perms'] ) && file_exists( $bwps_lib->get_config() ) ) {
 				$plugin_data['config_perms'] = decoct( fileperms( $bwps_lib->get_config() ) & 0777 );
 				$save_data                    = true;
 			}

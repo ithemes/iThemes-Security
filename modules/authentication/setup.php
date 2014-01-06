@@ -69,6 +69,20 @@ if ( ! class_exists( 'BWPS_Authentication_Setup' ) ) {
 		 */
 		function execute_deactivate() {
 
+			global $bwps_lib;
+
+			$data = get_site_option( 'bwps_data' );
+
+			//reset .htaccess permissions to what they were when we started
+			if ( isset( $data['htaccess_perms'] ) && file_exists( $bwps_lib->get_htaccess() ) ) {
+				@chmod( $bwps_lib->get_htaccess(), $data['htaccess_perms'] );
+			}
+
+			//reset config persmissions to what they were when we started
+			if ( isset( $data['config_perms'] ) && file_exists( $bwps_lib->get_config() ) ) {
+				@chmod( $bwps_lib->get_config(), $data['config_perms'] );
+			}
+
 		}
 
 		/**
