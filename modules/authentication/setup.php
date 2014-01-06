@@ -45,7 +45,12 @@ if ( ! class_exists( 'BWPS_Authentication_Setup' ) ) {
 			if ( $options === false ) {
 
 				$defaults = array(
-					'enabled'					=> 0,
+					'away_mode-enabled'			=> 0,
+					'away_mode-type'			=> 0,
+					'away_mode-start_date'		=> 1,
+					'away_mode-start_time'		=> 1,
+					'away_mode-end_date'		=> 1,
+					'away_mode-end_time'		=> 1,
 					
 				);
 
