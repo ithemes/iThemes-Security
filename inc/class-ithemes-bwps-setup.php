@@ -139,8 +139,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			$this->do_modules();
 
-			new Ithemes_BWPS_Files( 'activate' );
-
 		}
 
 		/**
@@ -168,8 +166,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 			$bwps_setup_action = 'deactivate';
 
 			$this->do_modules();
-
-			new Ithemes_BWPS_Files( 'deactivate' );
 
 			//Reset initial file permissions
 			$bwps_data = get_site_option( 'bwps_data' );
