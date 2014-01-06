@@ -25,7 +25,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		private function __construct() {
 
-			global $bwps_globals, $bwps_lib, $bwps_files;
+			global $bwps_globals, $bwps_lib, $bwps_files, $bwps_logger;
 
 			@ini_set( 'auto_detect_line_endings', true ); //Make certain we're using proper line endings
 
@@ -36,6 +36,10 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			//load file utility functions
 			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-files.php' );
 			$bwps_files = Ithemes_BWPS_Files::start();
+
+			//load logging functions
+			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-logger.php' );
+			$bwps_logger = Ithemes_BWPS_Logger::start();
 
 			//load the text domain
 			load_plugin_textdomain( 'better_wp_security', false, $bwps_globals['plugin_dir'] . 'languages' );
