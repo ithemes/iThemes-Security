@@ -15,9 +15,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 			$this->lock_file = trailingslashit( ABSPATH ) . 'config.lock';
 
-			//load file utility classes
-			require( dirname( __FILE__ ) . '/class-ithemes-bwps-files.php' );
-
 		}
 
 		/**
