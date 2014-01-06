@@ -20,7 +20,6 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			add_filter( 'bwps_file_rules', array( $this, 'build_wpconfig_rules' ) );
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
@@ -72,6 +71,15 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 * @param array $available_pages array of available page_hooks
 		 */
 		public function add_admin_meta_boxes( $available_pages ) {
+
+			add_meta_box(
+				'advanced_tweaks_description',
+				__( 'Description', 'better_wp_security' ),
+				array( $this, 'add_module_intro' ),
+				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'normal',
+				'core'
+			);
 
 			add_meta_box(
 				'advanced_tweaks_options',
@@ -1103,13 +1111,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function add_module_intro( $screen ) {
 
-			if ( $screen === 'security_page_toplevel_page_bwps-advanced_tweaks' ) { //only display on away mode page
+			$content = '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site. The reason we list them as advanced though is that each fix, while blocking common forms of attack against your site, can also block legitimate plugins and themes that rely on the same techniques. When turning on the settings below we recommend you enable them 1 by 1 and test your site in between to make sure everything is working as expected.', 'better_wp_security' ) . '</p>';
 
-				$content = '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site. The reason we list them as advanced though is that each fix, while blocking common forms of attack against your site, can also block legitimate plugins and themes that rely on the same techniques. When turning on the settings below we recommend you enable them 1 by 1 and test your site in between to make sure everything is working as expected.', 'better_wp_security' ) . '</p>';
-
-				echo $content;
-
-			}
+			echo $content;
 
 		}
 
