@@ -123,6 +123,34 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			$link = 'admin.php?page=toplevel_page_bwps-authentication';
 
+			if ( $this->settings['strong_passwords-enabled'] === 1 && $this->settings['strong_passwords-roll'] == 'subscriber' ) {
+
+				$status_array = 'safe-medium';
+				$status = array(
+					'text' => __( 'You are enforcing strong passwords for all users.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} elseif ( $this->settings['strong_passwords-enabled'] === 1  ) {
+
+				$status_array = 'low';
+				$status = array(
+					'text' => __( 'You are enforcing strong passwords, but not for all users.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'medium';
+				$status = array(
+					'text' => __( 'You are not enforcing strong passwords for any users.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
 			if ( $this->settings['away_mode-enabled'] === 1 ) {
 
 				$status_array = 'safe-medium';
