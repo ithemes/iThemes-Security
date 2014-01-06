@@ -174,3 +174,35 @@ div.inside ul li {
 .bwps-warning-message span {
 	font-weight: bold;
 }
+
+/***************************************
+	Support Page List
+****************************************/
+
+.inside .bwps-support {
+	margin: 0;
+}
+
+.inside .bwps-support li {
+	list-style: none;
+}
+
+.inside .bwps-support li h4 {
+	background: #ebebeb;
+	padding: 1em;
+	margin-bottom: 0;
+}
+
+.inside .bwps-support li ul {
+	border: 1px solid #ebebeb;
+	margin: 0;
+}
+
+.inside .bwps-support li li {
+	padding: .5em 1em .5em 2em;
+	margin: 0;
+}
+
+.inside .bwps-support li li:nth-child(2n+1) {
+	background: #fafafa;
+}
