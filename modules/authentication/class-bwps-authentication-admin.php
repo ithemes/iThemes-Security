@@ -681,7 +681,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			//process away mode settings
 			$input['away_mode-enabled'] = ( isset( $input['away_mode-enabled'] ) && intval( $input['away_mode-enabled'] == 1 ) ? 1 : 0 );
-			$input['away_mode-type'] = ( isset( $input['away_mode-type'] ) && intval( $input['away_mode-ype'] == 1 ) ? 1 : 2 );
+			$input['away_mode-type'] = ( isset( $input['away_mode-type'] ) && intval( $input['away_mode-type'] == 1 ) ? 1 : 2 );
 
 			//we don't need to process this again if it is a multisite installation
 			if ( ! is_multisite() ) {
