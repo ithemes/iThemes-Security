@@ -155,3 +155,22 @@ div.inside ul li {
 	float:right;
 	width: 25%;
 }
+
+/***************************************
+	Warnings/Notices
+****************************************/
+
+.bwps-warning-message {
+	display: block;
+	clear:both;
+	font-size: 1.125em;
+	margin: 1.5em 0;
+	padding: 1em;
+	border-left: 4px solid #ca8383;
+	background: #ffd4d4;
+	color: #9c3e3e;
+}
+
+.bwps-warning-message span {
+	font-weight: bold;
+}

@@ -156,8 +156,8 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 
 				$content = '<p>' . __( 'By default WordPress assigns the prefix "wp_" to all the tables in the database where your content, users, and objects live. For potential attackers this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% or so of sites are already known. Changing this makes it more difficult for tools that are trying to take advantage of vulnerabilites in other places to affect the database of your site.', 'better-wp-security' ) . '</p>';
 				$content .= '<p>' . __( 'Please note that the use of this tool requires quite a bit of system memory which my be more than some hosts can handle. If you back your database up you can\'t do any permanent damage but without a proper backup you risk breaking your site and having to perform a rather difficult fix.', 'better-wp-security' ) . '</p>';
-				$content .= sprintf( '<p style="text-align: center; font-size: 130%%; font-weight: bold; color: blue;">%s: <a href="?page=better-wp-security-databasebackup">%s</a> %s</p>', __( 'WARNING', 'better-wp-security' ), __( 'BACKUP YOUR DATABASE', 'better-wp-security' ), __( 'BEFORE USING THIS TOOL!', 'better-wp-security' ) );
-				
+				$content .= sprintf( '<div class="bwps-warning-message"><span>%s: </span><a href="?page=better-wp-security-databasebackup">%s</a> %s</div>', __( 'WARNING', 'better_wp_security' ), __( 'Backup your database', 'better_wp_security' ), __('before using this tool.', 'better_wp_security' ) );
+
 				echo $content;
 
 		}
