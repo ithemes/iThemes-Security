@@ -432,7 +432,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 *
 		 * @return array array of rules to send to file writer
 		 */
-		public function build_rewrite_rules( $rules_array, $input = null ) {
+		public static function build_rewrite_rules( $rules_array, $input = null ) {
 
 			global $bwps_lib;
 
@@ -474,7 +474,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 						$host_rule = ''; //initialze converted host
 						$converted_host = $bwps_lib->ip_wild_to_mask( $host );
 
-						if( ! $this->is_ip_whitelisted( $converted_host, $raw_white_list ) ) {
+						if( ! BWPS_Ban_Users_Admin::is_ip_whitelisted( $converted_host, $raw_white_list ) ) {
 
 							if ( $server_type === 'nginx' ) { //NGINX rules
 								$host_rule = "\tdeny " . $converted_host;
@@ -814,7 +814,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 * @param  array   $white_ips    ip list to compare to if not yet saved to options
 		 * @return boolean               true if whitelisted or false
 		 */
-		private function is_ip_whitelisted( $ip_to_check, $white_ips = null ) {
+		public static function is_ip_whitelisted( $ip_to_check, $white_ips = null ) {
 
 			global $bwps_lib;
 

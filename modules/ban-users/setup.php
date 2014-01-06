@@ -40,6 +40,8 @@ if ( ! class_exists( 'BWPS_Ban_Users_Setup' ) ) {
 		 */
 		function execute_activate() {
 
+			global $bwps_files;
+
 			$options = get_site_option( 'bwps_ban_users' );
 
 			if ( $options === false ) {
@@ -55,6 +57,10 @@ if ( ! class_exists( 'BWPS_Ban_Users_Setup' ) ) {
 				add_site_option( 'bwps_ban_users', $defaults );
 
 			}
+
+			$rewrite_rules = BWPS_Ban_Users_Admin::build_rewrite_rules( array() );
+
+			$bwps_files->set_rewrites( $rewrite_rules );
 
 		}
 
