@@ -77,17 +77,21 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 					if ( is_array( $rule ) ) {
 
-						foreach ( $this->rewrite_rules as $key => $rewrite_rule ) {
-							
-							if ( $rule['name'] == $rewrite_rule['name'] ) {
+						if ( sizeof( $this->rewrite_rules ) > 0 ) {
 
-								$found = true;
-								$this->rewrite_rules[$key] = $rule;
+							foreach ( $this->rewrite_rules as $key => $rewrite_rule ) {
+								
+								if ( $rule['name'] == $rewrite_rule['name'] ) {
 
-							}
+									$found = true;
+									$this->rewrite_rules[$key] = $rule;
 
-							if ( $found === true ) { //don't keep looping if we don't have to
-								break;
+								}
+
+								if ( $found === true ) { //don't keep looping if we don't have to
+									break;
+								}
+
 							}
 
 						}
@@ -126,17 +130,21 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 					if ( is_array( $rule ) ) {
 
-						foreach ( $this->wpconfig_rules as $key => $wpconfig_rule ) {
-							
-							if ( $rule['name'] == $wpconfig_rule['name'] ) {
+						if ( sizeof( $this->rewrite_rules ) > 0 ) {
 
-								$found = true;
-								$this->wpconfig_rules[$key] = $rule;
+							foreach ( $this->wpconfig_rules as $key => $wpconfig_rule ) {
+								
+								if ( $rule['name'] == $wpconfig_rule['name'] ) {
 
-							}
+									$found = true;
+									$this->wpconfig_rules[$key] = $rule;
 
-							if ( $found === true ) { //don't keep looping if we don't have to
-								break;
+								}
+
+								if ( $found === true ) { //don't keep looping if we don't have to
+									break;
+								}
+
 							}
 
 						}
@@ -202,6 +210,19 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 			$this->release_file_lock( 'wpconfig');
 
 			return $success;
+
+		}
+
+		public function do_activate() {
+
+			$this->save_wpconfig();
+			$this->save_rewrites();
+
+		}
+
+		public function do_deactivate() {
+
+			$this->delete_rewrites();
 
 		}
 

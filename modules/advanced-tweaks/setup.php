@@ -40,6 +40,8 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 		 */
 		function execute_activate() {
 
+			global $bwps_files;
+
 			$options = get_site_option( 'bwps_advanced_tweaks' );
 
 			if ( $options === false ) {
@@ -75,6 +77,12 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 				add_site_option( 'bwps_advanced_tweaks', $defaults );
 
 			}
+
+			$config_rules = BWPS_Advanced_Tweaks_Admin::build_wpconfig_rules( array() );
+			$rewrite_rules = BWPS_Advanced_Tweaks_Admin::build_rewrite_rules( array() );
+
+			$bwps_files->set_wpconfig( $config_rules );
+			$bwps_files->set_rewrites( $rewrite_rules );
 
 		}
 

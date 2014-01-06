@@ -1172,7 +1172,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 * @param  array $input  options to build rules from
 		 * @return array         rules to write
 		 */
-		public function build_wpconfig_rules( $rules_array, $input = null ) {
+		public static function build_wpconfig_rules( $rules_array, $input = null ) {
 
 			//Get the rules from the database if input wasn't sent
 			if ( $input === null ) {
@@ -1225,7 +1225,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 * @param  array $input  options to build rules from
 		 * @return array         rules to write
 		 */
-		public function build_rewrite_rules( $rules_array, $input = null ) {
+		public static function build_rewrite_rules( $rules_array, $input = null ) {
 
 			global $bwps_lib;
 

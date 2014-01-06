@@ -124,7 +124,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 */
 		function activate_execute( $updating = false ) {
 
-			global $bwps_setup_action;
+			global $bwps_setup_action, $bwps_files;
 
 			//if this is multisite make sure they're network activating or die
 			if ( defined( 'BWPS_NEW_INSTALL' ) && BWPS_NEW_INSTALL == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
@@ -138,6 +138,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 			do_action( 'bwps_set_plugin_data' );
 
 			$this->do_modules();
+
+			$bwps_files->do_activate();
 
 		}
 
@@ -161,11 +163,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		function deactivate_execute() {
 
-			global $bwps_setup_action;
+			global $bwps_setup_action, $bwps_files;
 
 			$bwps_setup_action = 'deactivate';
 
 			$this->do_modules();
+
+			$bwps_files->do_deactivate();
 
 			//Reset initial file permissions
 			$bwps_data = get_site_option( 'bwps_data' );
