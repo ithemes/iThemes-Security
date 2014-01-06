@@ -17,7 +17,6 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			$this->settings = get_site_option( 'bwps_authentication' );
 
 			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( 'bwps_page_top', array( $this, 'add_module_intro' ) ); //add page intro and information
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
@@ -71,6 +70,15 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		public function add_admin_meta_boxes( $available_pages ) {
 
 			add_meta_box(
+				'authentication_description',
+				__( 'Description', 'better_wp_security' ),
+				array( $this, 'add_module_intro' ),
+				'security_page_toplevel_page_bwps-authentication',
+				'normal',
+				'core'
+			);
+
+			add_meta_box(
 				'authentication_options',
 				__( 'Configure Authentication', 'better_wp_security' ),
 				array( $this, 'metabox_advanced_settings' ),
@@ -107,7 +115,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			$link = 'admin.php?page=toplevel_page_bwps-authentication';
 
-			if ( $this->settings['protect_files'] === 1 ) {
+			if ( $this->settings['enabled'] === 1 ) {
 
 				$status_array = 'safe-medium';
 				$status       = array(
@@ -198,13 +206,10 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function add_module_intro( $screen ) {
 
-			if ( $screen === 'security_page_toplevel_page_bwps-authentication' ) { //only display on away mode page
+			$content = '<p>' . __( 'The below settings control who and how users can log in to the WordPress Dashboard. Turning on settings below can greatly increase the security of your WordPress website by preventing many of the common attacks that go after weaknesses in the standard login system.', 'better_wp_security' ) . '</p>';
+			$content .= '<p>' . __( 'Please keep in mind the following settings are designed to work primarily with the standard login system. If you have any plugins or a theme that has changed anything already please test your site after turning on the below settings to verify there are no conflicts.', 'better_wp_security' ) . '</p>';
 
-				$content = '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site. The reason we list them as advanced though is that each fix, while blocking common forms of attack against your site, can also block legitimate plugins and themes that rely on the same techniques. When turning on the settings below we recommend you enable them 1 by 1 and test your site in between to make sure everything is working as expected.', 'better_wp_security' ) . '</p>';
-
-				echo $content;
-
-			}
+			echo $content;
 
 		}
 
