@@ -19,11 +19,14 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 
 			//require strong passwords if turned on
 			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] == 1 ) {
-				add_action( 'user_profile_update_errors',  array( $this, 'strong_passwords' ), 0, 3 );
+				add_action( 'user_profile_update_errors',  array( $this, 'enforce_strong_password' ), 0, 3 );
 				
 				if ( isset( $_GET['action'] ) && ( $_GET['action'] == 'rp' || $_GET['action'] == 'resetpass' ) && isset( $_GET['login'] ) ) {
-					add_action( 'login_head', array( $this, 'password_reset' ) );
+					add_action( 'login_head', array( $this, 'enforce_strong_password' ) );
 				}
+
+				add_action( 'admin_enqueue_scripts', array( $this, 'login_script_js' ) );
+                add_action( 'login_enqueue_scripts', array( $this, 'login_script_js' ) );
 
 			}
 
@@ -129,120 +132,19 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 		}
 
 		/**
-		 * Require strong password on password reset screen
-		 *
-		 * Forces a strong password on the password reset screen (if required)
-		 *
-		 **/
-		function password_reset() {
-				
-			//determine the minimum role for enforcement
-			$minRole = $this->settings['strong_passwords-roll'];
-			
-			//all the standard roles and level equivalents
-			$availableRoles = array(
-				"administrator"	=> "8",
-				"editor" 		=> "5",
-				"author" 		=> "2",
-				"contributor" 	=> "1",
-				"subscriber" 	=> "0"
-			);
-				
-			//roles and subroles
-			$rollists = array(
-				"administrator" => array("subscriber", "author", "contributor","editor"),
-				"editor" =>  array("subscriber", "author", "contributor"),
-				"author" =>  array("subscriber", "contributor"),
-				"contributor" =>  array("subscriber"),
-				"subscriber" => array()
-			);
-				
-			$enforce = true;
-			$args = func_get_args();
-			$userID = $_GET['login'];
-			
-			if ( $userID ) {  //if updating an existing user
-			
-				if ( $userInfo = get_user_by( 'login', $userID ) ) {
-				
-					foreach ( $userInfo->roles as $capability => $value ) {
-						if ( $availableRoles[$capability] < $availableRoles[$minRole] ) {  
-							$enforce = false;  
-						}
-					}  
-				
-				} else {  //a new user
-			
-					if ( in_array( $_POST["role"],  $rollists[$minRole]) ) {  
-						$enforce = false;  
-					}  
-				
-				}
-			
-			} 
-			
-			if ( $enforce == true ) {
-				?>
+		 * Enqueue script to check password strength
+		 * 
+		 * @return void
+		 */
+		public function login_script_js() {
 
-				<script type="text/javascript">
-					jQuery( document ).ready( function( $ ) {
-						$( '#resetpassform' ).submit( function() {
-							if ( ! $( '#pass-strength-result' ).hasClass( 'strong' ) ) {
-								alert( '<?php _e( "Sorry, but you must enter a strong password", "better-wp-security" ); ?>' );
-								return false;
-							}
-						});
-					});
-				</script>
+			global $bwps_globals;
 
-				<?php 
-				}
-
-		}
-
-		/**
-		 * Calculates password strength
-		 *
-		 * Calculates strength of password entered using same algorithm
-		 * as WordPress password meter
-		 *
-		 * @param string $i password to check
-		 * @param string $f unknown
-		 * @return int numerical strength of the password entered
-		 **/
-		function password_strength( $i, $f ) {  
-		
-			$h = 1; $e = 2; $b = 3; $a = 4; $d = 0; $g = null; $c = null; 
-			 
-			if ( strlen( $i ) < 4 )  
-				return $h;  
-				
-			if ( strtolower( $i ) == strtolower( $f ) )  
-				return $e;  
-				
-			if ( preg_match( "/[0-9]/", $i ) )  
-				$d += 10;  
-				
-			if ( preg_match( "/[a-z]/", $i ) )  
-				$d += 26;  
-				
-			if ( preg_match( "/[A-Z]/", $i ) )  
-				$d += 26;  
-				
-			if ( preg_match( "/[^a-zA-Z0-9]/", $i ) )  
-				$d += 31;  
-				
-			$g = log( pow( $d, strlen( $i ) ) );  
-			$c = $g / log( 2 );  
+			wp_enqueue_script( 'bwps_authentication', $bwps_globals['plugin_url'] . 'modules/authentication/js/authentication.js', 'jquery', $bwps_globals['plugin_build'] );
 			
-			if ( $c < 40 )  
-				return $e;  
-				
-			if ( $c < 56 )  
-				return $b;  
-				
-			return $a;  
-			
+			//make sure the text of the warning is translatable
+   			wp_localize_script( 'bwps_authentication', 'strong_password_error_text', array( 'text' => __( 'Sorry, but you must enter a strong password.', 'better-wp-security' ) ) );
+
 		}
 
 		/**
@@ -254,7 +156,7 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 		 * @return object WordPress error object
 		 *
 		 **/
-		function strong_passwords( $errors ) {  
+		function enforce_strong_password( $errors ) {  
 				
 			//determine the minimum role for enforcement
 			$minRole = $this->settings['strong_passwords-roll'];
@@ -277,9 +179,9 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 				'subscriber' 	=> array(),
 			);
 				
-			$enforce = true;
+			$password_meets_requirements = false;
 			$args = func_get_args();
-			$userID = $args[2]->user_login; 
+			$userID = isset( $args[2]->user_login ) ? $args[2]->user_login : $_GET['login']; 
 			
 			if ( $userID ) {  //if updating an existing user
 			
@@ -287,26 +189,47 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 				
 					foreach ( $userInfo->roles as $capability ) {
 
-						if ( $availableRoles[$capability] < $availableRoles[$minRole] ) {  
-							$enforce = false;  
+						if ( $availableRoles[$capability] >= $availableRoles[$minRole] ) {  
+							$password_meets_requirements = true;  
 						}
 						
 					}  
 				
 				} else {  //a new user
 
-					if ( ! empty( $_POST['role'] ) && in_array( $_POST["role"],  $rollists[$minRole]) ) {
-						$enforce = false;  
+					if ( ! empty( $_POST['role'] ) && ! in_array( $_POST["role"],  $rollists[$minRole] ) ) {
+						$password_meets_requirements = true;  
 					}  
 				
 				}
 			
 			} 
+
+			if ( $password_meets_requirements === true ) {
+				?>
+
+				<script type="text/javascript">
+					jQuery( document ).ready( function() {
+						jQuery( '#resetpassform' ).submit( function() {
+							if ( ! jQuery( '#pass-strength-result' ).hasClass( 'strong' ) ) {
+								alert( '<?php _e( "Sorry, but you must enter a strong password", "better-wp-security" ); ?>' );
+								return false;
+							}
+						} );
+					} );
+				</script>
+
+				<?php
+			}
 				
-			//add to error array if the password does not meet requirements
-			if ( $enforce && !$errors->get_error_data( 'pass' ) && $_POST['pass1'] && $this->password_strength( $_POST['pass1'], isset( $_POST['user_login'] ) ? $_POST['user_login'] : $userID ) != 4 ) {  
-				$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' , 'better-wp-security' ) );  
-			}  
+			if ( ! isset( $_GET['action'] ) ) {
+			
+				//add to error array if the password does not meet requirements
+				if ( $password_meets_requirements && ! $errors->get_error_data( 'pass' ) && isset( $_POST['pass1'] ) && isset( $_POST['password_strength'] ) &&  $_POST['password_strength'] != 'strong' ) {  
+					$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' , 'better-wp-security' ) );  
+				}  
+
+			}
 
 			return $errors;  
 		}
