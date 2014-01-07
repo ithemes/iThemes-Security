@@ -25,18 +25,22 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			switch ( $case ) {
 				case 'activate': //active plugin
+					define( 'BWPS_DO_ACTIVATION', true );
 					$this->activate_execute( $upgrading );
 					break;
 
 				case 'upgrade': //active plugin
+					define( 'BWPS_DO_UPGRADE', true );
 					$this->upgrade_execute();
 					break;
 
 				case 'deactivate': //deactivate plugin
+					define( 'BWPS_DO_DEACTIVATE', true );
 					$this->deactivate_execute();
 					break;
 
 				case 'uninstall': //uninstall plugin
+					define( 'BWPS_DO_UNINSTALL', true );
 					$this->uninstall_execute();
 					break;
 			}
@@ -73,8 +77,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 *
 		 **/
 		static function on_activate() {
-
-			define( 'BWPS_NEW_INSTALL', true );
 
 			new Ithemes_BWPS_Setup( 'activate' );
 
@@ -127,7 +129,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 			global $bwps_setup_action, $bwps_files;
 
 			//if this is multisite make sure they're network activating or die
-			if ( defined( 'BWPS_NEW_INSTALL' ) && BWPS_NEW_INSTALL == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
+			if ( defined( 'BWPS_DO_ACTIVATION' ) && BWPS_DO_ACTIVATION == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
 
 				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', 'better-wp-security' ) );
 
@@ -190,6 +192,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			delete_site_option( 'bwps_data' );
 			delete_site_option( 'bwps_rewrites' );
+			delete_site_option( 'bwps_initials' );
 
 			if ( function_exists( 'apc_store' ) ) {
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.

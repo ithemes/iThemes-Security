@@ -62,13 +62,15 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 			if ( $options === false ) {
 
 				if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
-					$file_editor = true;
+					$enabled = 1;
+					$file_editor = 1;
 				} else {
-					$file_editor = false;
+					$enabled = 0;
+					$file_editor = 0;
 				}
 
 				$defaults = array(
-					'enabled'					=> 0,
+					'enabled'					=> $enabled,
 					'protect_files'				=> 0,
 					'directory_browsing'		=> 0,
 					'request_methods'			=> 0,

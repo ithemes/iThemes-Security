@@ -66,19 +66,19 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 			if ( $options === false ) {
 
 				if ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) {
-					$login = 1;
+					$login = true;
 				} else {
-					$login = 0;
+					$login = false;
 				}
 
 				if ( defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) {
-					$admin = 1;
+					$admin = true;
 				} else {
-					$admin = 0;
+					$admin = false;
 				}
 
 				$defaults = array(
-					'frontend'	=> 0,
+					'frontend'	=> false,
 					'admin'		=> $admin,
 					'login'		=> $login,
 				);
