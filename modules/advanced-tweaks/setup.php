@@ -43,6 +43,21 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 			global $bwps_files;
 
 			$options = get_site_option( 'bwps_advanced_tweaks' );
+			$initials = get_site_option( 'bwps_initials' );
+
+			if ( $initials === false ) {
+
+				$initials = array();
+
+			}
+
+			if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
+				$initials['file_editor'] = true;
+			} else {
+				$initials['file_editor'] = false;
+			}
+
+			update_site_option( 'bwps_initials', $initials );
 
 			if ( $options === false ) {
 

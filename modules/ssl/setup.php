@@ -41,6 +41,27 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 		function execute_activate() {
 
 			$options = get_site_option( 'bwps_ssl' );
+			$initials = get_site_option( 'bwps_initials' );
+
+			if ( $initials === false ) {
+
+				$initials = array();
+
+			}
+
+			if ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) {
+				$initials['login'] = true;
+			} else {
+				$initials['login'] = false;
+			}
+
+			if ( defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) {
+				$initials['admin'] = true;
+			} else {
+				$initials['admin'] = false;
+			}
+
+			update_site_option( 'bwps_initials', $initials );
 
 			if ( $options === false ) {
 
