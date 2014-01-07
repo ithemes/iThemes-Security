@@ -18,7 +18,7 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 			$this->away_file = $bwps_globals['upload_dir'] . '/bwps_away.confg'; //override file
 
 			//require strong passwords if turned on
-			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] == 1 ) {
+			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] == true ) {
 				add_action( 'user_profile_update_errors',  array( $this, 'enforce_strong_password' ), 0, 3 );
 				
 				if ( isset( $_GET['action'] ) && ( $_GET['action'] == 'rp' || $_GET['action'] == 'resetpass' ) && isset( $_GET['login'] ) ) {
@@ -31,7 +31,7 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 			}
 
 			//Execute module functions on admin init
-			if ( isset( $this->settings['away_mode-enabled'] ) && $this->settings['away_mode-enabled'] === 1 ) {
+			if ( isset( $this->settings['away_mode-enabled'] ) && $this->settings['away_mode-enabled'] === true ) {
 				add_action( 'admin_init', array( $this, 'execute_module_functions' ) );
 			}
 

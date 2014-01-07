@@ -118,7 +118,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			$link = 'admin.php?page=toplevel_page_bwps-advanced_tweaks';
 
-			if ( $this->settings['protect_files'] === 1 ) {
+			if ( $this->settings['protect_files'] === true ) {
 
 				$status_array = 'safe-medium';
 				$status       = array(
@@ -138,7 +138,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['directory_browsing'] === 1 ) {
+			if ( $this->settings['directory_browsing'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -158,7 +158,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['request_methods'] === 1 ) {
+			if ( $this->settings['request_methods'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -178,7 +178,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['suspicious_query_strings'] === 1 ) {
+			if ( $this->settings['suspicious_query_strings'] === true ) {
 
 				$status_array = 'safe-medium';
 				$status       = array(
@@ -198,7 +198,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['non_english_characters'] === 1 ) {
+			if ( $this->settings['non_english_characters'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -218,7 +218,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['long_url_strings'] === 1 ) {
+			if ( $this->settings['long_url_strings'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -238,7 +238,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['write_permissions'] === 1 ) {
+			if ( $this->settings['write_permissions'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -258,7 +258,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['generator_tag'] === 1 ) {
+			if ( $this->settings['generator_tag'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -278,7 +278,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['wlwmanifest_header'] === 1 ) {
+			if ( $this->settings['wlwmanifest_header'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -298,7 +298,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['edituri_header'] === 1 ) {
+			if ( $this->settings['edituri_header'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -318,7 +318,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['theme_updates'] === 1 ) {
+			if ( $this->settings['theme_updates'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -338,7 +338,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['plugin_updates'] === 1 ) {
+			if ( $this->settings['plugin_updates'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -358,7 +358,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['core_updates'] === 1 ) {
+			if ( $this->settings['core_updates'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -378,7 +378,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['comment_spam'] === 1 ) {
+			if ( $this->settings['comment_spam'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -398,7 +398,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['random_version'] === 1 ) {
+			if ( $this->settings['random_version'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -438,7 +438,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['disable_xmlrpc'] === 1 ) {
+			if ( $this->settings['disable_xmlrpc'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -458,7 +458,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['uploads_php'] === 1 ) {
+			if ( $this->settings['uploads_php'] === true ) {
 
 				$status_array = 'safe-medium';
 				$status       = array(
@@ -695,7 +695,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_enabled( $args ) {
 
-			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 ) {
+			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true ) {
 				$enabled = 1;
 			} else {
 				$enabled = 0;
@@ -718,7 +718,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_server_protect_files( $args ) {
 
-			if ( isset( $this->settings['protect_files'] ) && $this->settings['protect_files'] === 1 ) {
+			if ( isset( $this->settings['protect_files'] ) && $this->settings['protect_files'] === true ) {
 				$protect_files = 1;
 			} else {
 				$protect_files = 0;
@@ -741,7 +741,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_server_directory_browsing( $args ) {
 
-			if ( isset( $this->settings['directory_browsing'] ) && $this->settings['directory_browsing'] === 1 ) {
+			if ( isset( $this->settings['directory_browsing'] ) && $this->settings['directory_browsing'] === true ) {
 				$directory_browsing = 1;
 			} else {
 				$directory_browsing = 0;
@@ -764,7 +764,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_server_request_methods( $args ) {
 
-			if ( isset( $this->settings['request_methods'] ) && $this->settings['request_methods'] === 1 ) {
+			if ( isset( $this->settings['request_methods'] ) && $this->settings['request_methods'] === true ) {
 				$request_methods = 1;
 			} else {
 				$request_methods = 0;
@@ -787,7 +787,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_server_suspicious_query_strings( $args ) {
 
-			if ( isset( $this->settings['suspicious_query_strings'] ) && $this->settings['suspicious_query_strings'] === 1 ) {
+			if ( isset( $this->settings['suspicious_query_strings'] ) && $this->settings['suspicious_query_strings'] === true ) {
 				$suspicious_query_strings = 1;
 			} else {
 				$suspicious_query_strings = 0;
@@ -810,7 +810,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_server_non_english_characters( $args ) {
 
-			if ( isset( $this->settings['non_english_characters'] ) && $this->settings['non_english_characters'] === 1 ) {
+			if ( isset( $this->settings['non_english_characters'] ) && $this->settings['non_english_characters'] === true ) {
 				$non_english_characters = 1;
 			} else {
 				$non_english_characters = 0;
@@ -833,7 +833,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_server_long_url_strings( $args ) {
 
-			if ( isset( $this->settings['long_url_strings'] ) && $this->settings['long_url_strings'] === 1 ) {
+			if ( isset( $this->settings['long_url_strings'] ) && $this->settings['long_url_strings'] === true ) {
 				$long_url_strings = 1;
 			} else {
 				$long_url_strings = 0;
@@ -856,7 +856,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_server_write_permissions( $args ) {
 
-			if ( isset( $this->settings['write_permissions'] ) && $this->settings['write_permissions'] === 1 ) {
+			if ( isset( $this->settings['write_permissions'] ) && $this->settings['write_permissions'] === true ) {
 				$write_permissions = 1;
 			} else {
 				$write_permissions = 0;
@@ -879,7 +879,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_uploads_php( $args ) {
 
-			if ( isset( $this->settings['uploads_php'] ) && $this->settings['uploads_php'] === 1 ) {
+			if ( isset( $this->settings['uploads_php'] ) && $this->settings['uploads_php'] === true ) {
 				$uploads_php = 1;
 			} else {
 				$uploads_php = 0;
@@ -902,7 +902,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_generator_tag( $args ) {
 
-			if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] === 1 ) {
+			if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] === true ) {
 				$generator_tag = 1;
 			} else {
 				$generator_tag = 0;
@@ -925,7 +925,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_wlwmanifest_header( $args ) {
 
-			if ( isset( $this->settings['wlwmanifest_header'] ) && $this->settings['wlwmanifest_header'] === 1 ) {
+			if ( isset( $this->settings['wlwmanifest_header'] ) && $this->settings['wlwmanifest_header'] === true ) {
 				$wlwmanifest_header = 1;
 			} else {
 				$wlwmanifest_header = 0;
@@ -948,7 +948,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_edituri_header( $args ) {
 
-			if ( isset( $this->settings['edituri_header'] ) && $this->settings['edituri_header'] === 1 ) {
+			if ( isset( $this->settings['edituri_header'] ) && $this->settings['edituri_header'] === true ) {
 				$edituri_header = 1;
 			} else {
 				$edituri_header = 0;
@@ -971,7 +971,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_theme_updates( $args ) {
 
-			if ( isset( $this->settings['theme_updates'] ) && $this->settings['theme_updates'] === 1 ) {
+			if ( isset( $this->settings['theme_updates'] ) && $this->settings['theme_updates'] === true ) {
 				$theme_updates = 1;
 			} else {
 				$theme_updates = 0;
@@ -994,7 +994,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_plugin_updates( $args ) {
 
-			if ( isset( $this->settings['plugin_updates'] ) && $this->settings['plugin_updates'] === 1 ) {
+			if ( isset( $this->settings['plugin_updates'] ) && $this->settings['plugin_updates'] === true ) {
 				$plugin_updates = 1;
 			} else {
 				$plugin_updates = 0;
@@ -1017,7 +1017,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_core_updates( $args ) {
 
-			if ( isset( $this->settings['core_updates'] ) && $this->settings['core_updates'] === 1 ) {
+			if ( isset( $this->settings['core_updates'] ) && $this->settings['core_updates'] === true ) {
 				$core_updates = 1;
 			} else {
 				$core_updates = 0;
@@ -1040,7 +1040,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_comment_spam( $args ) {
 
-			if ( isset( $this->settings['comment_spam'] ) && $this->settings['comment_spam'] === 1 ) {
+			if ( isset( $this->settings['comment_spam'] ) && $this->settings['comment_spam'] === true ) {
 				$comment_spam = 1;
 			} else {
 				$comment_spam = 0;
@@ -1063,7 +1063,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_random_version( $args ) {
 
-			if ( isset( $this->settings['random_version'] ) && $this->settings['random_version'] === 1 ) {
+			if ( isset( $this->settings['random_version'] ) && $this->settings['random_version'] === true ) {
 				$random_version = 1;
 			} else {
 				$random_version = 0;
@@ -1086,7 +1086,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_file_editor( $args ) {
 
-			if ( isset( $this->settings['file_editor'] ) && $this->settings['file_editor'] === 1 && defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
+			if ( isset( $this->settings['file_editor'] ) && $this->settings['file_editor'] === true && defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
 				$file_editor = 1;
 			} else {
 				$file_editor = 0;
@@ -1109,7 +1109,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function advanced_tweaks_wordpress_disable_xmlrpc( $args ) {
 
-			if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] === 1 ) {
+			if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] === true ) {
 				$disable_xmlrpc = 1;
 			} else {
 				$disable_xmlrpc = 0;
@@ -1174,38 +1174,73 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public static function build_wpconfig_rules( $rules_array, $input = null ) {
 
-			//Get the rules from the database if input wasn't sent
-			if ( $input === null ) {
-				$input = get_site_option( 'bwps_advanced_tweaks' );
-			}
+			$deactivating = false;
 
-			if ( $input['file_editor'] == 1 && $input['enabled'] == 1 ) {
+			//Return options to default on deactivation
+			if ( defined( 'BWPS_DO_DEACTIVATE' ) && BWPS_DO_DEACTIVATE === true ) {
 
-				$rule[] = array(
-					'type'			=> 'add',
-					'search_text'	=> '//The entry below were created by Better WP Security to disable the file editor',
-					'rule'			=> '//The entry below were created by Better WP Security to disable the file editor',
-				);
+				$input = array();
 
-				$rule[] = array(
-					'type'			=> 'add',
-					'search_text'	=> 'DISALLOW_FILE_EDIT',
-					'rule'			=> "define( 'DISALLOW_FILE_EDIT', true );",
-				);
+				$deactivating = true;
+
+				$initials = get_site_option( 'bwps_initials' );
+
+				if ( isset( $initials['file_editor'] ) && $initials['file_editor'] === false ) {
+					$input['file_editor'] = false;
+					$input['enabled'] = false;
+				} else {
+					$input['file_editor'] = true;
+					$input['enabled'] = true;
+				}
 
 			} else {
 
-				$rule[] = array(
-					'type'			=> 'delete',
-					'search_text'	=> '//The entry below were created by Better WP Security to disable the file editor',
-					'rule'			=> false,
-				);
+				//Get the rules from the database if input wasn't sent
+				if ( $input === null ) {
+					$input = get_site_option( 'bwps_advanced_tweaks' );
+				}
 
-				$rule[] = array(
-					'type'			=> 'delete',
-					'search_text'	=> 'DISALLOW_FILE_EDIT',
-					'rule'			=> false,
-				);
+			}
+
+			$comment_add = array(
+				'type'			=> 'add',
+				'search_text'	=> '//The entry below were created by Better WP Security to disable the file editor',
+				'rule'			=> '//The entry below were created by Better WP Security to disable the file editor',
+			);
+
+			$comment_remove = array(
+				'type'			=> 'delete',
+				'search_text'	=> '//The entry below were created by Better WP Security to disable the file editor',
+				'rule'			=> false,
+			);
+
+			$rule_add = array(
+				'type'			=> 'add',
+				'search_text'	=> 'DISALLOW_FILE_EDIT',
+				'rule'			=> "define( 'DISALLOW_FILE_EDIT', true );",
+			);
+
+			$rule_remove = array(
+				'type'			=> 'delete',
+				'search_text'	=> 'DISALLOW_FILE_EDIT',
+				'rule'			=> false,
+			);
+
+			if ( $input['file_editor'] == true && $input['enabled'] == true ) {
+
+				if ( $deactivating === true ) {
+					$rule[] = $comment_remove;
+				} else {
+					$rule[] = $comment_add;
+				}
+
+				$rule[] = $rule_add;
+
+			} else {
+
+				$rule[] = $comment_remove;
+
+				$rule[] = $rule_remove;
 
 			}
 
@@ -1239,10 +1274,10 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$rules = ''; //initialize all rules to blank string
 
 			//don't add any rules if the module hasn't been enabled
-			if ( $input['enabled'] == 1 ) {
+			if ( $input['enabled'] == true ) {
 
 				//Process Protect Files Rules
-				if ( $input['protect_files'] == 1 ) {
+				if ( $input['protect_files'] == true ) {
 
 					if ( $server_type === 'nginx' ) { //NGINX rules
 
@@ -1286,7 +1321,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				}
 
 				//Rules to disanle XMLRPC
-				if ( $input['disable_xmlrpc'] == 1 ) {
+				if ( $input['disable_xmlrpc'] == true ) {
 
 					if ( strlen( $rules ) > 1 ) {
 						$rules .= PHP_EOL;
@@ -1313,7 +1348,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				}
 
 				//Primary Rules for Directory Browsing
-				if ( $input['directory_browsing'] == 1 ) {
+				if ( $input['directory_browsing'] == true ) {
 
 					if ( strlen( $rules ) > 1 ) {
 						$rules .= PHP_EOL;
@@ -1338,7 +1373,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				}
 
 				//Apache rewrite rules (and related NGINX rules)
-				if ( $input['protect_files'] == 1 || $input['uploads_php'] == 1 || $input['request_methods'] == 1 || $input['suspicious_query_strings'] == 1 || $input['non_english_characters'] == 1 || $input['comment_spam'] == 1 ) {
+				if ( $input['protect_files'] == true || $input['uploads_php'] == true || $input['request_methods'] == true || $input['suspicious_query_strings'] == true || $input['non_english_characters'] == true || $input['comment_spam'] == true ) {
 
 					if ( strlen( $rules ) > 1 ) {
 						$rules .= PHP_EOL;
@@ -1354,7 +1389,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					}
 
 					//Rewrite Rules for Protect Files
-					if ( $input['protect_files'] == 1 && $server_type !== 'nginx' ) {
+					if ( $input['protect_files'] == true && $server_type !== 'nginx' ) {
 
 						$rules .= PHP_EOL . "\t# " . __( 'Rules to protect wp-includes', 'better-wp-security' ) . PHP_EOL;
 
@@ -1369,7 +1404,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					}
 
 					//Rewrite Rules for Disable PHP in Uploads
-					if ( $input['uploads_php'] == 1 ) {
+					if ( $input['uploads_php'] == true ) {
 
 						$rules .= PHP_EOL . "\t# " . __( 'Rules to prevent php execution in uploads', 'better-wp-security' ) . PHP_EOL;
 
@@ -1388,7 +1423,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					}
 
 					//Apache rewrite rules for disable http methods
-					if ( $input['request_methods'] == 1 ) {
+					if ( $input['request_methods'] == true ) {
 
 						$rules .= PHP_EOL . "\t# " . __( 'Rules to block unneeded HTTP methods', 'better-wp-security' ) . PHP_EOL;
 
@@ -1408,7 +1443,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					}
 
 					//Process suspicious query rules
-					if ( $input['suspicious_query_strings'] == 1 ) {
+					if ( $input['suspicious_query_strings'] == true ) {
 
 						$rules .= PHP_EOL . "\t# " . __( 'Rules to block suspicious URIs', 'better-wp-security' ) . PHP_EOL;
 
@@ -1463,7 +1498,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					}
 
 					//Process filtering of foreign characters
-					if ( $input['non_english_characters'] == 1 ) {
+					if ( $input['non_english_characters'] == true ) {
 
 						$rules .= PHP_EOL . "\t# " . __( 'Rules to block foreign characters in URLs', 'better-wp-security' ) . PHP_EOL;
 
@@ -1483,7 +1518,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					}
 
 					//Process Comment spam rules
-					if ( $input['comment_spam'] == 1 ) {
+					if ( $input['comment_spam'] == true ) {
 
 						$rules .= PHP_EOL . "\t# " . __( 'Rules to help reduce spam', 'better-wp-security' ) . PHP_EOL;
 
@@ -1557,25 +1592,25 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'better_wp_security' );
 
-			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? 1 : 0 );
-			$input['protect_files'] = ( isset( $input['protect_files'] ) && intval( $input['protect_files'] == 1 ) ? 1 : 0 );
-			$input['directory_browsing'] = ( isset( $input['directory_browsing'] ) && intval( $input['directory_browsing'] == 1 ) ? 1 : 0 );
-			$input['request_methods'] = ( isset( $input['request_methods'] ) && intval( $input['request_methods'] == 1 ) ? 1 : 0 );
-			$input['suspicious_query_strings'] = ( isset( $input['suspicious_query_strings'] ) && intval( $input['suspicious_query_strings'] == 1 ) ? 1 : 0 );
-			$input['non_english_characters'] = ( isset( $input['non_english_characters'] ) && intval( $input['non_english_characters'] == 1 ) ? 1 : 0 );
-			$input['long_url_strings'] = ( isset( $input['long_url_strings'] ) && intval( $input['long_url_strings'] == 1 ) ? 1 : 0 );
-			$input['write_permissions'] = ( isset( $input['write_permissions'] ) && intval( $input['write_permissions'] == 1 ) ? 1 : 0 );
-			$input['generator_tag'] = ( isset( $input['generator_tag'] ) && intval( $input['generator_tag'] == 1 ) ? 1 : 0 );
-			$input['wlwmanifest_header'] = ( isset( $input['wlwmanifest_header'] ) && intval( $input['wlwmanifest_header'] == 1 ) ? 1 : 0 );
-			$input['edituri_header'] = ( isset( $input['edituri_header'] ) && intval( $input['edituri_header'] == 1 ) ? 1 : 0 );
-			$input['theme_updates'] = ( isset( $input['theme_updates'] ) && intval( $input['theme_updates'] == 1 ) ? 1 : 0 );
-			$input['plugin_updates'] = ( isset( $input['plugin_updates'] ) && intval( $input['plugin_updates'] == 1 ) ? 1 : 0 );
-			$input['core_updates'] = ( isset( $input['core_updates'] ) && intval( $input['core_updates'] == 1 ) ? 1 : 0 );
-			$input['comment_spam'] = ( isset( $input['comment_spam'] ) && intval( $input['comment_spam'] == 1 ) ? 1 : 0 );
-			$input['random_version'] = ( isset( $input['random_version'] ) && intval( $input['random_version'] == 1 ) ? 1 : 0 );
-			$input['file_editor'] = ( isset( $input['file_editor'] ) && intval( $input['file_editor'] == 1 ) ? 1 : 0 );
-			$input['disable_xmlrpc'] = ( isset( $input['disable_xmlrpc'] ) && intval( $input['disable_xmlrpc'] == 1 ) ? 1 : 0 );
-			$input['uploads_php'] = ( isset( $input['uploads_php'] ) && intval( $input['uploads_php'] == 1 ) ? 1 : 0 );
+			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
+			$input['protect_files'] = ( isset( $input['protect_files'] ) && intval( $input['protect_files'] == 1 ) ? true : false );
+			$input['directory_browsing'] = ( isset( $input['directory_browsing'] ) && intval( $input['directory_browsing'] == 1 ) ? true : false );
+			$input['request_methods'] = ( isset( $input['request_methods'] ) && intval( $input['request_methods'] == 1 ) ? true : false );
+			$input['suspicious_query_strings'] = ( isset( $input['suspicious_query_strings'] ) && intval( $input['suspicious_query_strings'] == 1 ) ? true : false );
+			$input['non_english_characters'] = ( isset( $input['non_english_characters'] ) && intval( $input['non_english_characters'] == 1 ) ? true : false );
+			$input['long_url_strings'] = ( isset( $input['long_url_strings'] ) && intval( $input['long_url_strings'] == 1 ) ? true : false );
+			$input['write_permissions'] = ( isset( $input['write_permissions'] ) && intval( $input['write_permissions'] == 1 ) ? true : false );
+			$input['generator_tag'] = ( isset( $input['generator_tag'] ) && intval( $input['generator_tag'] == 1 ) ? true : false );
+			$input['wlwmanifest_header'] = ( isset( $input['wlwmanifest_header'] ) && intval( $input['wlwmanifest_header'] == 1 ) ? true : false );
+			$input['edituri_header'] = ( isset( $input['edituri_header'] ) && intval( $input['edituri_header'] == 1 ) ? true : false );
+			$input['theme_updates'] = ( isset( $input['theme_updates'] ) && intval( $input['theme_updates'] == 1 ) ? true : false );
+			$input['plugin_updates'] = ( isset( $input['plugin_updates'] ) && intval( $input['plugin_updates'] == 1 ) ? true : false );
+			$input['core_updates'] = ( isset( $input['core_updates'] ) && intval( $input['core_updates'] == 1 ) ? true : false );
+			$input['comment_spam'] = ( isset( $input['comment_spam'] ) && intval( $input['comment_spam'] == 1 ) ? true : false );
+			$input['random_version'] = ( isset( $input['random_version'] ) && intval( $input['random_version'] == 1 ) ? true : false );
+			$input['file_editor'] = ( isset( $input['file_editor'] ) && intval( $input['file_editor'] == 1 ) ? true : false );
+			$input['disable_xmlrpc'] = ( isset( $input['disable_xmlrpc'] ) && intval( $input['disable_xmlrpc'] == 1 ) ? true : false );
+			$input['uploads_php'] = ( isset( $input['uploads_php'] ) && intval( $input['uploads_php'] == 1 ) ? true : false );
 
 			$rules = $this->build_rewrite_rules( array(), $input );
 			$bwps_files->set_rewrites( $rules );
@@ -1603,7 +1638,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$config_file = $bwps_lib->get_config();
 			$rewrite_file = $bwps_lib->get_htaccess();
 
-			if ( $input['write_permissions'] == 1 ) {
+			if ( $input['write_permissions'] == true ) {
 
 				@chmod( $config_file, 0444 );
 				@chmod( $rewrite_file, 0444 );
@@ -1633,25 +1668,25 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['enabled'] = ( isset( $_POST['bwps_advanced_tweaks']['enabled'] ) && intval( $_POST['bwps_advanced_tweaks']['enabled'] == 1 ) ? 1 : 0 );
-			$settings['protect_files'] = ( isset( $_POST['bwps_advanced_tweaks']['protect_files'] ) && intval( $_POST['bwps_advanced_tweaks']['protect_files'] == 1 ) ? 1 : 0 );
-			$settings['directory_browsing'] = ( isset( $_POST['bwps_advanced_tweaks']['directory_browsing'] ) && intval( $_POST['bwps_advanced_tweaks']['directory_browsing'] == 1 ) ? 1 : 0 );
-			$settings['request_methods'] = ( isset( $_POST['bwps_advanced_tweaks']['request_methods'] ) && intval( $_POST['bwps_advanced_tweaks']['request_methods'] == 1 ) ? 1 : 0 );
-			$settings['suspicious_query_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['suspicious_query_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['suspicious_query_strings'] == 1 ) ? 1 : 0 );
-			$settings['non_english_characters'] = ( isset( $_POST['bwps_advanced_tweaks']['non_english_characters'] ) && intval( $_POST['bwps_advanced_tweaks']['non_english_characters'] == 1 ) ? 1 : 0 );
-			$settings['long_url_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['long_url_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['long_url_strings'] == 1 ) ? 1 : 0 );
-			$settings['write_permissions'] = ( isset( $_POST['bwps_advanced_tweaks']['write_permissions'] ) && intval( $_POST['bwps_advanced_tweaks']['write_permissions'] == 1 ) ? 1 : 0 );
-			$settings['generator_tag'] = ( isset( $_POST['bwps_advanced_tweaks']['generator_tag'] ) && intval( $_POST['bwps_advanced_tweaks']['generator_tag'] == 1 ) ? 1 : 0 );
-			$settings['wlwmanifest_header'] = ( isset( $_POST['bwps_advanced_tweaks']['wlwmanifest_header'] ) && intval( $_POST['bwps_advanced_tweaks']['wlwmanifest_header'] == 1 ) ? 1 : 0 );
-			$settings['edituri_header'] = ( isset( $_POST['bwps_advanced_tweaks']['edituri_header'] ) && intval( $_POST['bwps_advanced_tweaks']['edituri_header'] == 1 ) ? 1 : 0 );
-			$settings['theme_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['theme_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['theme_updates'] == 1 ) ? 1 : 0 );
-			$settings['plugin_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['plugin_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['plugin_updates'] == 1 ) ? 1 : 0 );
-			$settings['core_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['core_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['core_updates'] == 1 ) ? 1 : 0 );
-			$settings['comment_spam'] = ( isset( $_POST['bwps_advanced_tweaks']['comment_spam'] ) && intval( $_POST['bwps_advanced_tweaks']['comment_spam'] == 1 ) ? 1 : 0 );
-			$settings['random_version'] = ( isset( $_POST['bwps_advanced_tweaks']['random_version'] ) && intval( $_POST['bwps_advanced_tweaks']['random_version'] == 1 ) ? 1 : 0 );
-			$settings['file_editor'] = ( isset( $_POST['bwps_advanced_tweaks']['file_editor'] ) && intval( $_POST['bwps_advanced_tweaks']['file_editor'] == 1 ) ? 1 : 0 );
-			$settings['disable_xmlrpc'] = ( isset( $_POST['bwps_advanced_tweaks']['disable_xmlrpc'] ) && intval( $_POST['bwps_advanced_tweaks']['disable_xmlrpc'] == 1 ) ? 1 : 0 );
-			$settings['uploads_php'] = ( isset( $_POST['bwps_advanced_tweaks']['uploads_php'] ) && intval( $_POST['bwps_advanced_tweaks']['uploads_php'] == 1 ) ? 1 : 0 );
+			$settings['enabled'] = ( isset( $_POST['bwps_advanced_tweaks']['enabled'] ) && intval( $_POST['bwps_advanced_tweaks']['enabled'] == 1 ) ? true : false );
+			$settings['protect_files'] = ( isset( $_POST['bwps_advanced_tweaks']['protect_files'] ) && intval( $_POST['bwps_advanced_tweaks']['protect_files'] == 1 ) ? true : false );
+			$settings['directory_browsing'] = ( isset( $_POST['bwps_advanced_tweaks']['directory_browsing'] ) && intval( $_POST['bwps_advanced_tweaks']['directory_browsing'] == 1 ) ? true : false );
+			$settings['request_methods'] = ( isset( $_POST['bwps_advanced_tweaks']['request_methods'] ) && intval( $_POST['bwps_advanced_tweaks']['request_methods'] == 1 ) ? true : false );
+			$settings['suspicious_query_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['suspicious_query_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['suspicious_query_strings'] == 1 ) ? true : false );
+			$settings['non_english_characters'] = ( isset( $_POST['bwps_advanced_tweaks']['non_english_characters'] ) && intval( $_POST['bwps_advanced_tweaks']['non_english_characters'] == 1 ) ? true : false );
+			$settings['long_url_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['long_url_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['long_url_strings'] == 1 ) ? true : false );
+			$settings['write_permissions'] = ( isset( $_POST['bwps_advanced_tweaks']['write_permissions'] ) && intval( $_POST['bwps_advanced_tweaks']['write_permissions'] == 1 ) ? true : false );
+			$settings['generator_tag'] = ( isset( $_POST['bwps_advanced_tweaks']['generator_tag'] ) && intval( $_POST['bwps_advanced_tweaks']['generator_tag'] == 1 ) ? true : false );
+			$settings['wlwmanifest_header'] = ( isset( $_POST['bwps_advanced_tweaks']['wlwmanifest_header'] ) && intval( $_POST['bwps_advanced_tweaks']['wlwmanifest_header'] == 1 ) ? true : false );
+			$settings['edituri_header'] = ( isset( $_POST['bwps_advanced_tweaks']['edituri_header'] ) && intval( $_POST['bwps_advanced_tweaks']['edituri_header'] == 1 ) ? true : false );
+			$settings['theme_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['theme_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['theme_updates'] == 1 ) ? true : false );
+			$settings['plugin_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['plugin_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['plugin_updates'] == 1 ) ? true : false );
+			$settings['core_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['core_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['core_updates'] == 1 ) ? true : false );
+			$settings['comment_spam'] = ( isset( $_POST['bwps_advanced_tweaks']['comment_spam'] ) && intval( $_POST['bwps_advanced_tweaks']['comment_spam'] == 1 ) ? true : false );
+			$settings['random_version'] = ( isset( $_POST['bwps_advanced_tweaks']['random_version'] ) && intval( $_POST['bwps_advanced_tweaks']['random_version'] == 1 ) ? true : false );
+			$settings['file_editor'] = ( isset( $_POST['bwps_advanced_tweaks']['file_editor'] ) && intval( $_POST['bwps_advanced_tweaks']['file_editor'] == 1 ) ? true : false );
+			$settings['disable_xmlrpc'] = ( isset( $_POST['bwps_advanced_tweaks']['disable_xmlrpc'] ) && intval( $_POST['bwps_advanced_tweaks']['disable_xmlrpc'] == 1 ) ? true : false );
+			$settings['uploads_php'] = ( isset( $_POST['bwps_advanced_tweaks']['uploads_php'] ) && intval( $_POST['bwps_advanced_tweaks']['uploads_php'] == 1 ) ? true : false );
 
 			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
 

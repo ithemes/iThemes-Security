@@ -118,7 +118,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			$link = 'admin.php?page=toplevel_page_bwps-ban_users';
 
-			if ( $this->settings['enabled'] === 1 ) {
+			if ( $this->settings['enabled'] === true ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
@@ -241,7 +241,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function ban_users_enabled( $args ) {
 
-			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 ) {
+			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === true ) {
 				$enabled = 1;
 			} else {
 				$enabled = 0;
@@ -263,7 +263,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function ban_users_default( $args ) {
 
-			if ( isset( $this->settings['default'] ) && $this->settings['default'] === 1 ) {
+			if ( isset( $this->settings['default'] ) && $this->settings['default'] === true ) {
 				$default = 1;
 			} else {
 				$default = 0;
@@ -457,14 +457,14 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			$default_list = '';
 
 			//load the default blacklist if needed
-			if ( $default === 1 && $server_type === 'nginx' ) {
+			if ( $default === true && $server_type === 'nginx' ) {
 				$default_list = file_get_contents( plugin_dir_path( __FILE__ ) . 'lists/hackrepair-nginx.inc' );
-			} elseif ( $default === 1 ) {
+			} elseif ( $default === true ) {
 				$default_list = file_get_contents( plugin_dir_path( __FILE__ ) . 'lists/hackrepair-apache.inc' );
 			}
 
 			//Only process other lists if the feature has been enabled
-			if ( $enabled === 1 ) {
+			if ( $enabled === true ) {
 
 				//process hosts list
 				if ( is_array( $raw_host_list ) ) {
@@ -637,8 +637,8 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 			$no_errors = false; //start out assuming they entered a bad IP somewhere
 
 			//Sanitize checkbox features
-			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? 1 : 0 );
-			$input['default'] = ( isset( $input['default'] ) && intval( $input['default'] == 1 ) ? 1 : 0 );
+			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
+			$input['default'] = ( isset( $input['default'] ) && intval( $input['default'] == 1 ) ? true : false );
 
 			//process agent list
 			if ( isset( $input['agent_list'] ) && ! is_array( $input['agent_list'] ) ) {
@@ -687,7 +687,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			if ( sizeof( $bad_white_listed_ips ) > 0 ) {
 
-				$input['enabled'] = 0; //disable ban users list
+				$input['enabled'] = false; //disable ban users list
 
 				$type    = 'error';
 				$message = '';
@@ -741,7 +741,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 
 			if ( sizeof( $bad_ips ) > 0 ) {
 
-				$input['enabled'] = 0; //disable ban users list
+				$input['enabled'] = false; //disable ban users list
 
 				$type    = 'error';
 
@@ -797,7 +797,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['enabled'] = ( isset( $_POST['bwps_ban_users']['enabled'] ) && intval( $_POST['bwps_ban_users']['enabled'] == 1 ) ? 1 : 0 );
+			$settings['enabled'] = ( isset( $_POST['bwps_ban_users']['enabled'] ) && intval( $_POST['bwps_ban_users']['enabled'] == 1 ) ? true : false );
 
 			update_site_option( 'bwps_ban_users', $settings ); //we must manually save network options
 

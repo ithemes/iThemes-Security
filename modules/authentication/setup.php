@@ -45,10 +45,10 @@ if ( ! class_exists( 'BWPS_Authentication_Setup' ) ) {
 			if ( $options === false ) {
 
 				$defaults = array(
-					'strong_passwords-enabled'	=> 0,
+					'strong_passwords-enabled'	=> false,
 					'strong_passwords-roll'		=> 'administrator',
-					'away_mode-enabled'			=> 0,
-					'away_mode-type'			=> 0,
+					'away_mode-enabled'			=> false,
+					'away_mode-type'			=> false,
 					'away_mode-start_date'		=> 1,
 					'away_mode-start_time'		=> 1,
 					'away_mode-end_date'		=> 1,

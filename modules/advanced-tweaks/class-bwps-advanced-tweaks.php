@@ -13,25 +13,25 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks' ) ) {
 
 			$this->settings  = get_site_option( 'bwps_advanced_tweaks' );
 
-			if ( $this->settings['enabled'] == 1 ) { //make sure the module was enabled
+			if ( $this->settings['enabled'] == true ) { //make sure the module was enabled
 
 				//remove wp-generator meta tag
-				if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] == 1 ) { 
+				if ( isset( $this->settings['generator_tag'] ) && $this->settings['generator_tag'] == true ) { 
 					remove_action( 'wp_head', 'wp_generator' );
 				}
 				
 				//remove wlmanifest link if turned on
-				if ( isset( $this->settings['wlwmanifest_header'] ) && $this->settings['wlwmanifest_header'] == 1 ) {
+				if ( isset( $this->settings['wlwmanifest_header'] ) && $this->settings['wlwmanifest_header'] == true ) {
 					remove_action( 'wp_head', 'wlwmanifest_link' );
 				}
 				
 				//remove rsd link from header if turned on
-				if ( isset( $this->settings['edituri_header'] ) && $this->settings['edituri_header'] == 1 ) {
+				if ( isset( $this->settings['edituri_header'] ) && $this->settings['edituri_header'] == true ) {
 					remove_action( 'wp_head', 'rsd_link' );
 				}
 				
 				//ban extra-long urls if turned on
-				if ( isset( $this->settings['long_url_strings'] ) && $this->settings['long_url_strings'] == 1 && ! is_admin() ) {
+				if ( isset( $this->settings['long_url_strings'] ) && $this->settings['long_url_strings'] == true && ! is_admin() ) {
 				
 					if ( 
 						! strpos( $_SERVER['REQUEST_URI'], 'infinity=scrolling&action=infinite_scroll' ) &&
@@ -56,27 +56,27 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks' ) ) {
 				}
 
 				//display random number for wordpress version if turned on
-				if ( isset( $this->settings['random_version'] ) && $this->settings['random_version'] == 1 ) {
+				if ( isset( $this->settings['random_version'] ) && $this->settings['random_version'] == true ) {
 					add_action( 'plugins_loaded', array( $this, 'random_version' ) );
 				}
 				
 				//remove theme update notifications if turned on
-				if ( isset( $this->settings['theme_updates'] ) && $this->settings['theme_updates'] == 1 ) {
+				if ( isset( $this->settings['theme_updates'] ) && $this->settings['theme_updates'] == true ) {
 					add_action( 'plugins_loaded', array( $this, 'theme_updates' ) );
 				}
 				
 				//remove plugin update notifications if turned on
-				if ( isset( $this->settings['plugin_updates'] ) && $this->settings['plugin_updates'] == 1 ) {
+				if ( isset( $this->settings['plugin_updates'] ) && $this->settings['plugin_updates'] == true ) {
 					add_action( 'plugins_loaded', array( $this, 'public_updates' ) );
 				}
 				
 				//remove core update notifications if turned on
-				if ( isset( $this->settings['core_updates'] ) && $this->settings['core_updates'] == 1 ) {
+				if ( isset( $this->settings['core_updates'] ) && $this->settings['core_updates'] == true ) {
 					add_action( 'plugins_loaded', array( $this, 'core_updates' ) );
 				}
 
 				//Disable XML-RPC
-				if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == 1 ) {
+				if ( isset( $this->settings['disable_xmlrpc'] ) && $this->settings['disable_xmlrpc'] == true ) {
 					add_filter( 'xmlrpc_enabled', '__return_false' );
 				}
 

@@ -312,7 +312,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function ssl_login( $args ) {
 
-			if ( isset( $this->settings['login'] ) && $this->settings['login'] === 1 && defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) {
+			if ( isset( $this->settings['login'] ) && $this->settings['login'] === true && defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) {
 				$login = 1;
 			} else {
 				$login = 0;
@@ -335,7 +335,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function ssl_admin( $args ) {
 
-			if ( isset( $this->settings['admin'] ) && $this->settings['admin'] === 1 && defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) {
+			if ( isset( $this->settings['admin'] ) && $this->settings['admin'] === true && defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) {
 				$admin = 1;
 			} else {
 				$admin = 0;
@@ -421,7 +421,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 				$input = get_site_option( 'bwps_ssl' );
 			}
 
-			if ( $input['login'] == 1 ) {
+			if ( $input['login'] == true ) {
 
 				$rules[] = array(
 					'type'			=> 'add',
@@ -443,7 +443,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 
 			}
 
-			if ( $input['admin'] == 1 ) {
+			if ( $input['admin'] == true ) {
 
 				$rules[] = array(
 					'type'			=> 'add',
@@ -511,8 +511,8 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 			$message = __( 'Settings Updated', 'better_wp_security' );
 
 			$input['frontend'] = isset( $input['frontend'] ) ? intval( $input['frontend'] ) : 0;
-			$input['login'] = isset( $input['login'] ) ? intval( $input['login'] ) : 0;
-			$input['admin'] = isset( $input['admin'] ) ? intval( $input['admin'] ) : 0;
+			$input['login'] = ( isset( $input['login'] ) && intval( $input['login'] == 1 ) ? true : false );
+			$input['admin'] = ( isset( $input['admin'] ) && intval( $input['admin'] == 1 ) ? true : false );
 
 			$rules = $this->build_wpconfig_rules( array(), $input );
 
@@ -543,8 +543,8 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['login'] = ( isset( $_POST['bwps_ssl']['login'] ) && intval( $_POST['bwps_ssl']['login'] == 1 ) ? 1 : 0 );
-			$settings['admin'] = ( isset( $_POST['bwps_ssl']['admin'] ) && intval( $_POST['bwps_ssl']['admin'] == 1 ) ? 1 : 0 );
+			$settings['login'] = ( isset( $_POST['bwps_ssl']['login'] ) && intval( $_POST['bwps_ssl']['login'] == 1 ) ? true : false );
+			$settings['admin'] = ( isset( $_POST['bwps_ssl']['admin'] ) && intval( $_POST['bwps_ssl']['admin'] == 1 ) ? true : false );
 			$settings['frontend'] = isset( $_POST['bwps_ssl']['frontend'] ) ? intval( $_POST['bwps_ssl']['frontend'] ) : 0;
 
 			update_site_option( 'bwps_ssl', $settings ); //we must manually save network options

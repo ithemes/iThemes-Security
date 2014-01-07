@@ -47,8 +47,8 @@ if ( ! class_exists( 'BWPS_Ban_Users_Setup' ) ) {
 			if ( $options === false ) {
 
 				$defaults = array(
-					'enabled' => 0,
-					'default' => 0,
+					'enabled' => false,
+					'default' => false,
 					'host_list' => 1,
 					'agent_list' => 1,
 					'white_list' => 1,

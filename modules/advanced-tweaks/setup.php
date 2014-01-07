@@ -62,33 +62,33 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 			if ( $options === false ) {
 
 				if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
-					$enabled = 1;
-					$file_editor = 1;
+					$enabled = true;
+					$file_editor = true;
 				} else {
-					$enabled = 0;
-					$file_editor = 0;
+					$enabled = false;
+					$file_editor = false;
 				}
 
 				$defaults = array(
 					'enabled'					=> $enabled,
-					'protect_files'				=> 0,
-					'directory_browsing'		=> 0,
-					'request_methods'			=> 0,
-					'suspicious_query_strings'	=> 0,
-					'non_english_characters'	=> 0,
-					'long_url_strings'			=> 0,
-					'write_permissions'			=> 0,
-					'generator_tag'				=> 0,
-					'wlwmanifest_header'		=> 0,
-					'edituri_header'			=> 0,
-					'theme_updates'				=> 0,
-					'plugin_updates'			=> 0,
-					'core_updates'				=> 0,
-					'comment_spam'				=> 0,
-					'random_version'			=> 0,
+					'protect_files'				=> false,
+					'directory_browsing'		=> false,
+					'request_methods'			=> false,
+					'suspicious_query_strings'	=> false,
+					'non_english_characters'	=> false,
+					'long_url_strings'			=> false,
+					'write_permissions'			=> false,
+					'generator_tag'				=> false,
+					'wlwmanifest_header'		=> false,
+					'edituri_header'			=> false,
+					'theme_updates'				=> false,
+					'plugin_updates'			=> false,
+					'core_updates'				=> false,
+					'comment_spam'				=> false,
+					'random_version'			=> false,
 					'file_editor'				=> $file_editor,
-					'disable_xmlrpc'			=> 0,
-					'uploads_php'				=> 0,
+					'disable_xmlrpc'			=> false,
+					'uploads_php'				=> false,
 				);
 
 				add_site_option( 'bwps_advanced_tweaks', $defaults );

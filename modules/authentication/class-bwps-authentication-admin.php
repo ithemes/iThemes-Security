@@ -131,7 +131,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 					'link' => $link,
 				);
 
-			} elseif ( $this->settings['strong_passwords-enabled'] === 1  ) {
+			} elseif ( $this->settings['strong_passwords-enabled'] === true  ) {
 
 				$status_array = 'low';
 				$status = array(
@@ -151,7 +151,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['away_mode-enabled'] === 1 ) {
+			if ( $this->settings['away_mode-enabled'] === true ) {
 
 				$status_array = 'safe-medium';
 				$status = array(
@@ -386,7 +386,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function strong_passwords_enabled( $args ) {
 
-			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] === 1 ) {
+			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] === true ) {
 				$enabled = 1;
 			} else {
 				$enabled = 0;
@@ -438,7 +438,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		public function away_mode_enabled( $args ) {
 
 			//disable the option if away mode is in the past
-			if ( isset( $this->settings['away_mode-enabled'] ) && $this->settings['away_mode-enabled'] === 1 && ( $this->settings['away_mode-type'] == 1 || ( $this->settings['away_mode-end'] > current_time( 'timestamp' ) || $this->settings['away_mode-type'] === 2 ) ) ) {
+			if ( isset( $this->settings['away_mode-enabled'] ) && $this->settings['away_mode-enabled'] === true && ( $this->settings['away_mode-type'] == 1 || ( $this->settings['away_mode-end'] > current_time( 'timestamp' ) || $this->settings['away_mode-type'] === 2 ) ) ) {
 				$enabled = 1;
 			} else {
 				$enabled = 0;
@@ -674,13 +674,13 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		public function sanitize_module_input( $input ) {
 
 			//process strong passwords settings
-			$input['strong_passwords-enabled'] = ( isset( $input['strong_passwords-enabled'] ) && intval( $input['strong_passwords-enabled'] == 1 ) ? 1 : 0 );
+			$input['strong_passwords-enabled'] = ( isset( $input['strong_passwords-enabled'] ) && intval( $input['strong_passwords-enabled'] == 1 ) ? true : false );
 			if ( isset( $input['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $input['strong_passwords-roll'] ) ) ) {
 				$input['strong_passwords-roll'] = wp_strip_all_tags( $input['strong_passwords-roll'] );
 			}
 
 			//process away mode settings
-			$input['away_mode-enabled'] = ( isset( $input['away_mode-enabled'] ) && intval( $input['away_mode-enabled'] == 1 ) ? 1 : 0 );
+			$input['away_mode-enabled'] = ( isset( $input['away_mode-enabled'] ) && intval( $input['away_mode-enabled'] == 1 ) ? true : false );
 			$input['away_mode-type'] = ( isset( $input['away_mode-type'] ) && intval( $input['away_mode-type'] == 1 ) ? 1 : 2 );
 
 			//we don't need to process this again if it is a multisite installation
@@ -695,21 +695,21 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			if ( $this->module->check_away( true, $input ) === true ) {
 
-				$input['away_mode-enabled'] = 0; //disable away mode
+				$input['away_mode-enabled'] = false; //disable away mode
 
 				$type    = 'error';
 				$message = __( 'Invalid time listed. The time entered would lock you out of your site now. Please try again.', 'better_wp_security' );
 
 			} elseif ( $input['away_mode-type'] === 2 && $input['away_mode-end'] < $input['away_mode-start'] ) {
 
-				$input['away_mode-enabled'] = 0; //disable away mode
+				$input['away_mode-enabled'] = false; //disable away mode
 
 				$type    = 'error';
 				$message = __( 'Invalid time listed. The start time selected is after the end time selected.', 'better_wp_security' );
 
 			} elseif ( $input['away_mode-type'] === 2 && $input['away_mode-end'] < current_time( 'timestamp' ) ) {
 
-				$input['away_mode-enabled'] = 0; //disable away mode
+				$input['away_mode-enabled'] = false; //disable away mode
 
 				$type    = 'error';
 				$message = __( 'Invalid time listed. The period selected already ended.', 'better_wp_security' );
@@ -749,12 +749,12 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['strong_passwords-enabled'] = ( isset( $_POST['bwps_authentication']['strong_passwords-enabled'] ) && intval( $_POST['bwps_authentication']['strong_passwords-enabled'] == 1 ) ? 1 : 0 );
+			$settings['strong_passwords-enabled'] = ( isset( $_POST['bwps_authentication']['strong_passwords-enabled'] ) && intval( $_POST['bwps_authentication']['strong_passwords-enabled'] == 1 ) ? true : false );
 			if ( isset( $_POST['bwps_authentication']['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $_POST['bwps_authentication']['strong_passwords-roll'] ) ) ) {
 				$settings['strong_passwords-roll'] = wp_strip_all_tags( $_POST['bwps_authentication']['strong_passwords-roll'] );
 			}
 
-			$settings['away_mode-enabled'] = ( isset( $_POST['bwps_authentication']['away_mode-enabled'] ) && intval( $_POST['bwps_authentication']['away_mode-enabled'] == 1 ) ? 1 : 0 );
+			$settings['away_mode-enabled'] = ( isset( $_POST['bwps_authentication']['away_mode-enabled'] ) && intval( $_POST['bwps_authentication']['away_mode-enabled'] == 1 ) ? true : false );
 			$settings['away_mode-type'] = ( isset( $_POST['bwps_authentication']['away_mode-type'] ) && intval( $_POST['bwps_authentication']['away_mode-type'] == 1 ) ? 1 : 2 );
 			$settings['away_mode-start'] = strtotime( $_POST['bwps_authentication']['start']['date'] . ' ' . $_POST['bwps_authentication']['start']['hour'] . ':' . $_POST['bwps_authentication']['start']['minute'] . ' ' . $_POST['bwps_authentication']['start']['sel'] );
 			$settings['away_mode-end']   = strtotime( $_POST['bwps_authentication']['end']['date'] . ' ' . $_POST['bwps_authentication']['end']['hour'] . ':' . $_POST['bwps_authentication']['end']['minute'] . ' ' . $_POST['bwps_authentication']['end']['sel'] );

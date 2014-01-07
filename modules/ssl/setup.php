@@ -78,7 +78,7 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 				}
 
 				$defaults = array(
-					'frontend'	=> false,
+					'frontend'	=> 0,
 					'admin'		=> $admin,
 					'login'		=> $login,
 				);
