@@ -196,6 +196,10 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 * @return bool       true on success, false on failure
 		 */
 		public function save_wpconfig( $type = null ) {
+
+			$success = $this->write_wpconfig(); //save the return value for success/error flag
+
+			return $success;
 			
 			if ( $this->get__file_lock( 'wpconfig') ) {
 
@@ -506,6 +510,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				} else { //write out what we need to.
 
 					$rules_to_write = ''; //String of rules to insert into wp-config
+					$rule_to_replace = ''; //String containing a rule to be replaced
 					$rules_to_delete = false; //assume we're not deleting anything to start
 					$replace = false; //assume we're note replacing anything to start with
 
@@ -514,7 +519,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 						foreach ( $section_rule['rules'] as $rule ) {
 
-							if ( ( $rule['type'] === 'add' || $rule['type'] === 'replace' ) && $rule['rule'] !== false && strpos( $config_contents, $rule['search_text'] ) === false ) { //new rule or replacing a rule that doesn't exist
+							$found = false;
+
+							if ( ( $rule['type'] === 'add' ) && $rule['rule'] !== false ) { //new rule or replacing a rule that doesn't exist
 
 								$rules_to_write .= $rule['rule'] . PHP_EOL;
 
@@ -522,9 +529,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 								//Replacing a rule that does exist. Note this will only work on one rule at a time
 								$replace = $rule['search_text'];
-								$rules_to_write .= $rule['rule'];
+								$rule_to_replace .= $rule['rule'];
+								$found = true;
 
-							} elseif ( $rule['type'] === 'delete' && $rule['rule'] === false ) {
+							}
+
+							if ( $found !== true ) {
 
 								//deleting a rule.
 								if ( $rules_to_delete === false ) {
@@ -539,12 +549,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 					}
 
-					//Adding a new rule or replacing rules that don't exist
-					if ( $replace === false && strlen( $rules_to_write ) > 1 ) {
-
-						$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $config_contents );
-
-					} elseif ( $replace !== false || is_array( $rules_to_delete ) ) {
+					//delete and replace
+					if ( $replace !== false || is_array( $rules_to_delete ) ) {
 
 						$config_array = explode( PHP_EOL, $config_contents );
 
@@ -559,14 +565,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 						foreach ( $config_array as $line_number => $line ) {
 
 							if ( strpos( $line, $replace ) !== false ) {
-								$config_array[$line_number] = $rules_to_write;
+								$config_array[$line_number] = $rule_to_replace;
 							}
 
 							if ( $delete_count < $delete_total ) {
 							
 								foreach ( $rules_to_delete as $rule ) {
-
-									$found = false;
 
 									if ( strpos( $line, $rule['search_text'] ) !== false ) {
 
@@ -581,13 +585,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 										}
 
 										$delete_count++;
-										$found = true;
 
-									}
-
-									if ( $found === true ) {
-										break;
-									}
+									}	
 
 								}
 
@@ -596,6 +595,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 						}
 
 						$config_contents = implode( PHP_EOL, $config_array );
+
+					}
+
+					//Adding a new rule or replacing rules that don't exist
+					if ( strlen( $rules_to_write ) > 1 ) {
+
+						$config_contents = str_replace( '<?php' . PHP_EOL, '<?php' . PHP_EOL . $rules_to_write . PHP_EOL, $config_contents );
 
 					}
 
