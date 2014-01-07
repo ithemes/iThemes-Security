@@ -416,9 +416,37 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function build_wpconfig_rules( $rules_array, $input = null ) {
 
-			//Get the rules from the database if input wasn't sent
-			if ( $input === null ) {
-				$input = get_site_option( 'bwps_ssl' );
+			//Return options to default on deactivation
+			if ( $rules_array === false ) {
+
+				$input = array();
+				$rules_array = array();
+
+				$deactivating = true;
+
+				$initials = get_site_option( 'bwps_initials' );
+
+				if ( isset( $initials['login'] ) && $initials['login'] === false ) {
+					$input['login'] = false;
+				} else {
+					$input['login'] = true;
+				}
+
+				if ( isset( $initials['admin'] ) && $initials['admin'] === false ) {
+					$input['admin'] = false;
+				} else {
+					$input['admin'] = true;
+				}
+
+			} else {
+
+				$deactivating = false;
+
+				//Get the rules from the database if input wasn't sent
+				if ( $input === null ) {
+					$input = get_site_option( 'bwps_ssl' );
+				}
+
 			}
 
 			if ( $input['login'] == true ) {
@@ -465,7 +493,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 
 			}
 
-			if ( $has_login === false && $has_admin == false ) {
+			if ( ( $has_login === false && $has_admin == false ) || $deactivating === true ) {
 
 				$comment = array(
 					'type'			=> 'delete',

@@ -96,6 +96,11 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 		 */
 		function execute_deactivate() {
 
+			global $bwps_files;
+
+			$config_rules = BWPS_Advanced_Tweaks_Admin::build_wpconfig_rules( false );
+			$bwps_files->set_wpconfig( $config_rules );
+
 		}
 
 		/**
@@ -108,6 +113,7 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 			$this->execute_deactivate();
 
 			delete_site_option( 'bwps_ssl' );
+			
 			delete_metadata( 'post', null, 'bwps_enable_ssl', null, true );
 
 		}
