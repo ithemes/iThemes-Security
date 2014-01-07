@@ -137,6 +137,14 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			}
 
+			if ( get_site_option( 'bwps_data' ) === false ) {
+				add_site_option( 'bwps_data', array(), false );
+			}
+
+			if ( get_site_option( 'bwps_initials' ) === false ) {
+				add_site_option( 'bwps_initials', array(), false );
+			}
+
 			$bwps_setup_action = 'activate';
 
 			do_action( 'bwps_set_plugin_data' );
@@ -175,8 +183,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			$bwps_files->do_deactivate();
 
-			//Reset initial file permissions
-			$bwps_data = get_site_option( 'bwps_data' );
+			if ( function_exists( 'apc_store' ) ) {
+				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
+			}
 
 		}
 
@@ -195,7 +204,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 			$bwps_files->do_deactivate();
 
 			delete_site_option( 'bwps_data' );
-			delete_site_option( 'bwps_rewrites' );
 			delete_site_option( 'bwps_initials' );
 
 			if ( function_exists( 'apc_store' ) ) {

@@ -45,12 +45,6 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 			$options = get_site_option( 'bwps_advanced_tweaks' );
 			$initials = get_site_option( 'bwps_initials' );
 
-			if ( $initials === false ) {
-
-				$initials = array();
-
-			}
-
 			if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
 				$initials['file_editor'] = true;
 			} else {
@@ -114,6 +108,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 
 			$config_rules = BWPS_Advanced_Tweaks_Admin::build_wpconfig_rules( false );
 			$bwps_files->set_wpconfig( $config_rules );
+
+			//Reset initial file permissions
+			$bwps_data = get_site_option( 'bwps_data' );
 
 			if ( isset( $bwps_data['htaccess_perms'] ) ) {
 				@chmod( $bwps_lib->get_htaccess(), $bwps_data['htaccess_perms'] );

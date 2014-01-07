@@ -43,12 +43,6 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 			$options = get_site_option( 'bwps_ssl' );
 			$initials = get_site_option( 'bwps_initials' );
 
-			if ( $initials === false ) {
-
-				$initials = array();
-
-			}
-
 			if ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) {
 				$initials['login'] = true;
 			} else {
