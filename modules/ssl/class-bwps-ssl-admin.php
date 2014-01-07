@@ -312,7 +312,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function ssl_login( $args ) {
 
-			if ( isset( $this->settings['login'] ) && $this->settings['login'] === true && defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) {
+			if ( isset( $this->settings['login'] ) && $this->settings['login'] === true ) {
 				$login = 1;
 			} else {
 				$login = 0;
@@ -335,7 +335,7 @@ if ( ! class_exists( 'BWPS_SSL_Admin' ) ) {
 		 */
 		public function ssl_admin( $args ) {
 
-			if ( isset( $this->settings['admin'] ) && $this->settings['admin'] === true && defined( 'FORCE_SSL_ADMIN' ) && FORCE_SSL_ADMIN === true ) {
+			if ( isset( $this->settings['admin'] ) && $this->settings['admin'] === true ) {
 				$admin = 1;
 			} else {
 				$admin = 0;
