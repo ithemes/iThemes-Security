@@ -110,7 +110,10 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 		 */
 		function execute_deactivate() {
 
-			global $bwps_lib;
+			global $bwps_lib, $bwps_files;
+
+			$config_rules = BWPS_Advanced_Tweaks_Admin::build_wpconfig_rules( false );
+			$bwps_files->set_wpconfig( $config_rules );
 
 			if ( isset( $bwps_data['htaccess_perms'] ) ) {
 				@chmod( $bwps_lib->get_htaccess(), $bwps_data['htaccess_perms'] );

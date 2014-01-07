@@ -25,22 +25,18 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			switch ( $case ) {
 				case 'activate': //active plugin
-					define( 'BWPS_DO_ACTIVATION', true );
 					$this->activate_execute( $upgrading );
 					break;
 
 				case 'upgrade': //active plugin
-					define( 'BWPS_DO_UPGRADE', true );
 					$this->upgrade_execute();
 					break;
 
 				case 'deactivate': //deactivate plugin
-					define( 'BWPS_DO_DEACTIVATE', true );
 					$this->deactivate_execute();
 					break;
 
 				case 'uninstall': //uninstall plugin
-					define( 'BWPS_DO_UNINSTALL', true );
 					$this->uninstall_execute();
 					break;
 			}
@@ -78,6 +74,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		static function on_activate() {
 
+			define( 'BWPS_DO_ACTIVATION', true );
+
 			new Ithemes_BWPS_Setup( 'activate' );
 
 		}
@@ -89,9 +87,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		static function on_deactivate() {
 
 			if ( defined( 'BWPS_DEVELOPMENT' ) && BWPS_DEVELOPMENT == true ) { //set BWPS_DEVELOPMENT to true to reset settings on deactivation for development
+
 				$case = 'uninstall';
+
 			} else {
+
 				$case = 'deactivate';
+
 			}
 
 			new Ithemes_BWPS_Setup( $case );
@@ -184,11 +186,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		function uninstall_execute() {
 
-			global $bwps_setup_action;
+			global $bwps_setup_action, $bwps_files;
 
 			$bwps_setup_action = 'uninstall';
 
 			$this->do_modules();
+
+			$bwps_files->do_deactivate();
 
 			delete_site_option( 'bwps_data' );
 			delete_site_option( 'bwps_rewrites' );

@@ -1174,12 +1174,11 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public static function build_wpconfig_rules( $rules_array, $input = null ) {
 
-			$deactivating = false;
-
 			//Return options to default on deactivation
-			if ( defined( 'BWPS_DO_DEACTIVATE' ) && BWPS_DO_DEACTIVATE === true ) {
+			if ( $rules_array === false ) {
 
 				$input = array();
+				$rules_array = array();
 
 				$deactivating = true;
 
@@ -1194,6 +1193,8 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				}
 
 			} else {
+
+				$deactivating = false;
 
 				//Get the rules from the database if input wasn't sent
 				if ( $input === null ) {

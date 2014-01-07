@@ -223,6 +223,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		public function do_deactivate() {
 
 			$this->delete_rewrites();
+			$this->save_wpconfig();
 
 		}
 
