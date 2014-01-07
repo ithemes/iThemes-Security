@@ -15,7 +15,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		/**
 		 * Create and manage wp_config.php or .htaccess rewrites
 		 *
-		 * @param string  $list        array of rules to write
 		 */
 		function __construct() {
 
@@ -169,10 +168,10 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 		/**
 		 * Saves all rewrite rules to htaccess or similar file
-		 * 
+		 *
 		 * @return bool       true on success, false on failure
 		 */
-		public function save_rewrites( $type = null ) {
+		public function save_rewrites() {
 			
 			if ( $this->get__file_lock( 'htaccess') ) {
 
@@ -195,7 +194,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 * 
 		 * @return bool       true on success, false on failure
 		 */
-		public function save_wpconfig( $type = null ) {
+		public function save_wpconfig() {
 
 			$success = $this->write_wpconfig(); //save the return value for success/error flag
 
@@ -217,6 +216,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 		}
 
+		/**
+		 * Execute activation functions
+		 * 
+		 * @return void
+		 */
 		public function do_activate() {
 
 			$this->save_wpconfig();
@@ -224,6 +228,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 		}
 
+		/**
+		 * Execute deactivation functions
+		 * 
+		 * @return void
+		 */
 		public function do_deactivate() {
 
 			$this->delete_rewrites();
@@ -692,6 +701,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 * 
 		 * @param  string $a value a
 		 * @param  string $b value b
+		 * 
 		 * @return int    -1 if a less than b, 0 if they're equal or 1 if a is greater
 		 */
 		private function priority_sort( $a, $b ) {
