@@ -759,7 +759,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			global $wp_rewrite
+			global $wp_rewrite;
 
 			//process strong passwords settings
 			$input['strong_passwords-enabled'] = ( isset( $input['strong_passwords-enabled'] ) && intval( $input['strong_passwords-enabled'] == 1 ) ? true : false );
@@ -844,6 +844,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
+			global $wp_rewrite;
+
 			$settings['strong_passwords-enabled'] = ( isset( $_POST['bwps_authentication']['strong_passwords-enabled'] ) && intval( $_POST['bwps_authentication']['strong_passwords-enabled'] == 1 ) ? true : false );
 			if ( isset( $_POST['bwps_authentication']['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $_POST['bwps_authentication']['strong_passwords-roll'] ) ) ) {
 				$settings['strong_passwords-roll'] = wp_strip_all_tags( $_POST['bwps_authentication']['strong_passwords-roll'] );
@@ -858,8 +860,6 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			$settings['away_mode-end']   = strtotime( $_POST['bwps_authentication']['end']['date'] . ' ' . $_POST['bwps_authentication']['end']['hour'] . ':' . $_POST['bwps_authentication']['end']['minute'] . ' ' . $_POST['bwps_authentication']['end']['sel'] );
 
 			update_site_option( 'bwps_authentication', $settings ); //we must manually save network options
-
-			global $wp_rewrite
 
 			//Call flush_rules() as a method of the $wp_rewrite object
 			$wp_rewrite->flush_rules( false );
