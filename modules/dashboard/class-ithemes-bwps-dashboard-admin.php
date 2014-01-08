@@ -100,7 +100,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 			global $bwps_globals;
 
-			wp_register_style( 'bwps_admin_dashboard', $bwps_globals['plugin_url'] . 'modules/ithemes-bwps-dashboard/css/dashboard.css' );
+			wp_register_style( 'bwps_admin_dashboard', $bwps_globals['plugin_url'] . 'modules/dashboard/css/dashboard.css' );
 
 			add_action( $bwps_globals['plugin_url'] . 'enqueue_admin_styles', array( $this, 'enqueue_admin_css' ) );
 
