@@ -367,6 +367,19 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 
 		}
 
+		public function set_404() {
+
+			global $wp_query;
+
+			status_header( 404 );
+
+			$wp_query->set_404();
+			$page_404 = get_404_template();
+
+			require( $page_404 );
+
+		}
+
 		/**
 		 * Converts CIDR to ip range.
 		 *
