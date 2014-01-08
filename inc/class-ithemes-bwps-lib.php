@@ -42,7 +42,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		/**
 		 * Return primary domain from given url
 		 *
-		 * Returns primary domsin name (without subdomains) of given URL
+		 * Returns primary domain name (without subdomains) of given URL
 		 *
 		 * @param string $address address to filter
 		 * @param boolean $apache[true] does this require an apache style wildcard
