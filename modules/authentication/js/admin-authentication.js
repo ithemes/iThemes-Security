@@ -30,6 +30,24 @@ jQuery( document ).ready( function () {
 
 	} ).change();
 
+	jQuery( "#bwps_authentication_hide_backend_enabled" ).change( function() {
+
+		if ( jQuery( "#bwps_authentication_hide_backend_enabled" ).is( ':checked' ) ) {
+
+			jQuery( "#authentication_hide_backend-settings" ).show();
+
+		} else {
+
+			jQuery( "#authentication_hide_backend-settings" ).hide();
+
+		}
+
+	} ).change();
+
+	if ( jQuery( 'p.noPermalinks' ).length ) {
+		jQuery( "#authentication_hide_backend-settings" ).hide();
+	}
+
 	jQuery( "#bwps_authentication_away_mode_type" ).change( function() {
 
 		if ( jQuery( "#bwps_authentication_away_mode_type" ).val() == "2" ) {

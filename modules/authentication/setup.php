@@ -48,6 +48,8 @@ if ( ! class_exists( 'BWPS_Authentication_Setup' ) ) {
 					'strong_passwords-enabled'	=> false,
 					'strong_passwords-roll'		=> 'administrator',
 					'away_mode-enabled'			=> false,
+					'hide_backend-enabled'		=> false,
+					'hide_backend-slug'			=> 'login',
 					'away_mode-type'			=> false,
 					'away_mode-start_date'		=> 1,
 					'away_mode-start_time'		=> 1,
