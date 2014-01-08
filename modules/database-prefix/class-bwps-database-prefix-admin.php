@@ -225,7 +225,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 				
 				//generate remaning characters
 				for ( $i = 0; $i < $prelength; $i++ ) {
-					$newPrefix .= $avail[rand( 0, 34 )];
+					$newPrefix .= $avail[rand( 0, 35 )];
 				}
 				
 				//complete with underscore
