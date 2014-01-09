@@ -333,20 +333,6 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 
 		}
 		
-
-		/**
-		 * Displays a hidden key field to help verify login referrer
-		 *
-		 * @return void;
-		 */
-		public function add_hide_backend_key() {
-
-			$content = '<input type="hidden" name="bwps_hide_key" value="' . $this->settings['hide_backend-key'] . '" />';
-
-			echo $content;
-
-		}
-		
 		/**
 		 * Removes the admin bar class from the body tag
 		 * 
