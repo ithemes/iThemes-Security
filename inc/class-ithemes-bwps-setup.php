@@ -183,6 +183,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			$bwps_files->do_deactivate();
 
+			flush_rewrite_rules();
+
 			if ( function_exists( 'apc_store' ) ) {
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
 			}
@@ -205,6 +207,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			delete_site_option( 'bwps_data' );
 			delete_site_option( 'bwps_initials' );
+
+			flush_rewrite_rules();
 
 			if ( function_exists( 'apc_store' ) ) {
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
