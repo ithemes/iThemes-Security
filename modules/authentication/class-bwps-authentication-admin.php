@@ -211,6 +211,13 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			);
 
 			add_settings_section(
+				'authentication_admin_user',
+				__( 'Secure Admin User', 'better_wp_security' ),
+				array( $this, 'admin_user_header' ),
+				'security_page_toplevel_page_bwps-authentication'
+			);
+
+			add_settings_section(
 				'authentication_strong_passwords-enabled',
 				__( 'Enforce Strong Passwords', 'better_wp_security' ),
 				array( $this, 'strong_passwords_header' ),
@@ -250,6 +257,23 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 				__( 'Away Mode', 'better_wp_security' ),
 				array( $this, 'empty_callback_function' ),
 				'security_page_toplevel_page_bwps-authentication'
+			);
+
+			//Admin User Fields
+			add_settings_field(
+				'bwps_authentication[admin_user-username]',
+				__( 'Change Admin Username', 'better_wp_security' ),
+				array( $this, 'admin_user_username' ),
+				'security_page_toplevel_page_bwps-authentication',
+				'authentication_admin_user'
+			);
+
+			add_settings_field(
+				'bwps_authentication[admin_user-userid]',
+				__( 'Change User ID 1', 'better_wp_security' ),
+				array( $this, 'admin_user_userid' ),
+				'security_page_toplevel_page_bwps-authentication',
+				'authentication_admin_user'
 			);
 
 			//Strong Passwords Fields
@@ -368,6 +392,18 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		}
 
 		/**
+		 * Echo the Admin User Header
+		 */
+		public function admin_user_header() {
+
+			$content =  '<h2 class="settings-section-header">' . __( 'Secure Admin User', 'better-wp-security' ) . '</h2>';
+			$content .= '<p>' . __( 'This feature will improve the security of your WordPress installation by removing common user attributes that can be used to target your site.', 'better-wp-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * Echo the Strong Passwords Header
 		 */
 		public function strong_passwords_header() {
@@ -432,6 +468,38 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				echo $content;
 			}
+
+		}
+
+		/**
+		 * echos Admin User Username Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function admin_user_username( $args ) {
+
+			$content = '<input name="bwps_authentication[admin_user-slug]" id="bwps_authentication_admin_user_username" value="" type="text"><br />';
+			$content .= '<label for="bwps_authentication_admin_user_username"> ' . __( 'Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Admin User UserID Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function admin_user_userid( $args ) {
+
+			$content = '<input type="checkbox" id="bwps_authentication_admin_user_userid" name="bwps_authentication[admin_user-userid]" value="1" />';
+			$content .= '<label for="bwps_authentication_admin_user_userid"> ' . __( 'Check this box to change the id of the user with id 1.', 'better_wp_security' ) . '</label>';
+
+			echo $content;
 
 		}
 
