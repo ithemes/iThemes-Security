@@ -558,7 +558,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			} else {
 
-				$content = '<input name="bwps_authentication[hide_backend-register]" id="bwps_authentication_strong_passwords_register" value="' . sanitize_title( $this->settings['hide_backend-register'] ) . '" type="text"><br />';
+				$content = '<input name="bwps_authentication[hide_backend-register]" id="bwps_authentication_strong_passwords_register" value="' . ( $this->settings['hide_backend-register'] !== 'wp-register.php' ? sanitize_title( $this->settings['hide_backend-register'] ) : 'wp-register.php' ) . '" type="text"><br />';
 				$content .= '<em><span style="color: #666666;"><strong>' . __( 'Registration URL:', 'better-wp-security' ) . '</strong> ' . trailingslashit( get_option( 'siteurl' ) ) . '</span><span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-register'] ) . '</span></em>';
 
 			}
@@ -842,7 +842,12 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			//Process hide backend settings
 			$input['hide_backend-enabled'] = ( isset( $input['hide_backend-enabled'] ) && intval( $input['hide_backend-enabled'] == 1 ) ? true : false );
 			$input['hide_backend-slug'] = sanitize_title( $input['hide_backend-slug'] );
-			$input['hide_backend-register'] = sanitize_title( $input['hide_backend-register'] );
+
+			if ( $input['hide_backend-register'] !== 'wp-register.php' ) {
+				$input['hide_backend-register'] = sanitize_title( $input['hide_backend-register'] );
+			} else {
+				$input['hide_backend-register'] = 'wp-register.php';
+			}
 
 			$forbidden_slugs = array(
 				'admin',
@@ -852,7 +857,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 				'wp-admin'
 			);
 
-			if ( in_array( $input[''], $forbidden_slugs ) ) {
+			if ( in_array( $input[''], $forbidden_slugs ) && $input['hide_backend-enabled'] === true ) {
 				
 				$type    = 'error';
 				$message = __( 'Invalid hide login slug used. The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'better_wp_security' );
@@ -860,7 +865,6 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			} else {
 
 				add_rewrite_rule( $input['hide_backend-slug'] . '/?$', 'wp-login.php', 'top' );
-				flush_rewrite_rules();
 
 			}
 
@@ -915,6 +919,12 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 				@unlink( $this->away_file );
 
 			}
+
+			if ( $input['hide_backend-register'] != 'wp-register.php' && $input['hide_backend-enabled'] === true ) {
+				add_rewrite_rule( $input['hide_backend-register'] . '/?$', $input['hide_backend-slug'] . '?action=register', 'top' ); //Login rewrite rule				
+			}
+
+			flush_rewrite_rules();
 
 			add_settings_error(
 				'bwps_admin_notices',

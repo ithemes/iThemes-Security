@@ -260,11 +260,8 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 			$url_info = parse_url( $_SERVER['REQUEST_URI'] );
 			$login_path = site_url( $this->settings['hide_backend-slug'], 'relative' );
 
-			add_rewrite_rule( $this->settings['hide_backend-slug'] . '/?$', 'wp-login.php', 'top' );
-			flush_rewrite_rules();
-
-			//redirect wp-admin to 404 when not logged in
-			if ( is_admin() && is_user_logged_in() !== true ) {
+			//redirect wp-admin and wp-register.php to 404 when not logged in
+			if ( ( is_admin() && is_user_logged_in() !== true ) || ( $this->settings['hide_backend-register'] != 'wp-register.php' && strpos( $_SERVER['REQUEST_URI'] , 'wp-register.php' ) !== false ) ) {
 				$bwps_lib->set_404();
 			}
 
