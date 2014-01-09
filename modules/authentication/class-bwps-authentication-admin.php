@@ -260,8 +260,16 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			add_settings_field(
 				'bwps_authentication[hide_backend-slug]',
-				__( 'New Login Slug', 'better_wp_security' ),
+				__( 'Login Slug', 'better_wp_security' ),
 				array( $this, 'hide_backend_slug' ),
+				'security_page_toplevel_page_bwps-authentication',
+				'authentication_hide_backend-settings'
+			);
+
+			add_settings_field(
+				'bwps_authentication[hide_backend-register]',
+				__( 'Register Slug', 'better_wp_security' ),
+				array( $this, 'hide_backend_register' ),
 				'security_page_toplevel_page_bwps-authentication',
 				'authentication_hide_backend-settings'
 			);
@@ -508,6 +516,30 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 				$content = '<input name="bwps_authentication[hide_backend-slug]" id="bwps_authentication_strong_passwords_slug" value="' . sanitize_title( $this->settings['hide_backend-slug'] ) . '" type="text"><br />';
 				$content .= '<em><span style="color: #666666;"><strong>' . __( 'Login URL:', 'better-wp-security' ) . '</strong> ' . trailingslashit( get_option( 'siteurl' ) ) . '</span><span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-slug'] ) . '</span></em>';
 				$content .= '<p>' . __( 'The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'better-wp-security' ) . '</p>';
+
+			}
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Register Slug  Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function hide_backend_register( $args ) {
+
+			if ( ( get_option( 'permalink_structure' ) == ''  || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) {
+
+				$content = '';
+
+			} else {
+
+				$content = '<input name="bwps_authentication[hide_backend-register]" id="bwps_authentication_strong_passwords_register" value="' . sanitize_title( $this->settings['hide_backend-register'] ) . '" type="text"><br />';
+				$content .= '<em><span style="color: #666666;"><strong>' . __( 'Registration URL:', 'better-wp-security' ) . '</strong> ' . trailingslashit( get_option( 'siteurl' ) ) . '</span><span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-register'] ) . '</span></em>';
 
 			}
 
@@ -790,8 +822,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			//Process hide backend settings
 			$input['hide_backend-enabled'] = ( isset( $input['hide_backend-enabled'] ) && intval( $input['hide_backend-enabled'] == 1 ) ? true : false );
 			$input['hide_backend-slug'] = sanitize_title( $input['hide_backend-slug'] );
-				
-			$input['hide_backend-key'] = $this->generate_key();
+			$input['hide_backend-register'] = sanitize_title( $input['hide_backend-register'] );
 
 			$forbidden_slugs = array(
 				'admin',
@@ -890,7 +921,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			$settings['hide_backend-enabled'] = ( isset( $_POST['bwps_authentication']['hide_backend-enabled'] ) && intval( $_POST['bwps_authentication']['hide_backend-enabled'] == 1 ) ? true : false );
 			$settings['hide_backend-slug'] = sanitize_title( $_POST['bwps_authentication']['hide_backend-slug'] );
-			$settings['hide_backend-key'] = $this->generate_key();
+			$settings['hide_backend-register'] = sanitize_title( $_POST['bwps_authentication']['hide_backend-register'] );
 
 			$settings['away_mode-enabled'] = ( isset( $_POST['bwps_authentication']['away_mode-enabled'] ) && intval( $_POST['bwps_authentication']['away_mode-enabled'] == 1 ) ? true : false );
 			$settings['away_mode-type'] = ( isset( $_POST['bwps_authentication']['away_mode-type'] ) && intval( $_POST['bwps_authentication']['away_mode-type'] == 1 ) ? 1 : 2 );
