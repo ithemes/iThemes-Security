@@ -357,18 +357,6 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 				$save_data                    = true;
 			}
 
-			//Get initial .htaccess permissions
-			if ( ! isset( $plugin_data['htaccess_perms'] ) && file_exists( $bwps_lib->get_htaccess() ) ) {
-				$plugin_data['htaccess_perms'] = decoct( fileperms( $bwps_lib->get_htaccess() ) & 0777 );
-				$save_data                    = true;
-			}
-
-			//Get initial wp-config.php permissions
-			if ( ! isset( $plugin_data['config_perms'] ) && file_exists( $bwps_lib->get_config() ) ) {
-				$plugin_data['config_perms'] = decoct( fileperms( $bwps_lib->get_config() ) & 0777 );
-				$save_data                    = true;
-			}
-
 			//update the options table if we have to
 			if ( $save_data === true ) {
 				update_site_option( 'bwps_data', $plugin_data );

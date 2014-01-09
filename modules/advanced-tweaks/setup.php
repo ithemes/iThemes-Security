@@ -109,16 +109,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 			$config_rules = BWPS_Advanced_Tweaks_Admin::build_wpconfig_rules( false );
 			$bwps_files->set_wpconfig( $config_rules );
 
-			//Reset initial file permissions
-			$bwps_data = get_site_option( 'bwps_data' );
-
-			if ( isset( $bwps_data['htaccess_perms'] ) ) {
-				@chmod( $bwps_lib->get_htaccess(), $bwps_data['htaccess_perms'] );
-			}
-
-			if ( isset( $bwps_data['config_perms'] ) ) {
-				@chmod( $bwps_lib->get_config(),  $bwps_data['config_perms'] );
-			}
+			//Reset recommended file permissions
+			@chmod( $bwps_lib->get_htaccess(), '0644' );
+			@chmod( $bwps_lib->get_config(),  '0644' );
 				
 
 		}
