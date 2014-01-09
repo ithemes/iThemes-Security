@@ -353,7 +353,10 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 			?>
 				<div id="mc_embed_signup">
 					<form action="http://ithemes.us2.list-manage.com/subscribe/post?u=7acf83c7a47b32c740ad94a4e&amp;id=5176bfed9e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-						<p><?php _e( 'Signup to get the latest WP security updates and news and releases from iThemes.', 'better-wp-security'); ?></p>
+						<div style="text-align: center;">
+							<img src="<?php echo BWPS_PU; ?>/lib/bit51/images/security-pocketguide-sidebar.png" width="145" height="187" alt="WordPress Security - A Pocket Guide">
+						</div>
+						<p><?php _e( 'Get quick tips for securing your site + the latest WordPress security updates, news and releases from iThemes.', 'better-wp-security'); ?></p>
 						<div id="mce-responses" class="clear">
 							<div class="response" id="mce-error-response" style="display:none"></div>
 							<div class="response" id="mce-success-response" style="display:none"></div>
@@ -361,14 +364,14 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 							<label for="mce-EMAIL" style="display: block;margin-bottom: 3px;"><?php _e( 'Email Address', 'better-wp-security' ); ?></label>
 							<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="email@domain.com">
 							<br/><br/>
-							<input type="submit" value="<?php _e( 'Subscribe', 'better-wp-security' ); ?>" name="subscribe" id="mc-embedded-subscribe" class="button button-primary">
+							<input style="background: #A8D657; border-color: #8FB944; color: #4c5559;" type="submit" value="<?php _e( 'Subscribe', 'better-wp-security' ); ?>" name="subscribe" id="mc-embedded-subscribe" class="button button-primary">
 					</form>
 				</div>
 			<?php
 			
 			$content = ob_get_clean();
 			
-			$this->postbox( 'email-signup', __( 'Get WP Security Updates' , $this->hook ), $content ); //setup the postbox
+			$this->postbox( 'email-signup', __( 'Download Our WordPress Security Pocket Guide' , $this->hook ), $content ); //setup the postbox
 		}
 
 		/**
@@ -625,69 +628,6 @@ if ( ! class_exists( 'Bit51Foo' ) ) {
 				//Compose a Tweet
 				if ( isset( $_GET['bit51_lets_tweet'] ) ) {
 					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $this->pluginname . ' for WordPress by @bit51 and you should too - ' . $this->homepage ) , '302' );
-				}
-				
-			}
-			
-		}/**
-		 * Display (and hide) iThemes Survey reminder
-		 *
-		 * Adds reminder to take the iThemes Security survey
-		 *
-		 **/
-		function ithemes_survey() {
-		
-			global $blog_id; //get the current blog id
-			
-			if ( is_multisite() && ( $blog_id != 1 || ! current_user_can( 'manage_network_options' ) ) ) { //only display to network admin if in multisite
-				return;
-			}
-			
-			$options = get_option( $this->plugindata );
-			$settings = get_option( $this->primarysettings );
-			
-			//this is called at a strange point in WP so we need to bring in some data
-			global $plugname;
-			global $plughook;
-			global $plugopts;
-			$plugname = $this->pluginname;
-			$plughook = $this->hook;
-			$plugopts = $this->plugin_options_url();
-			
-			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
-			if ( ! isset( $options['no_survey'] ) && isset( $settings['initial_backup'] ) && $settings['initial_backup'] == 1 && isset( $settings['initial_filewrite'] ) && $settings['initial_filewrite'] == 1 ) {
-			
-				if ( ! function_exists( 'bit51_plugin_ithemes_survey' ) ) {
-			
-					function bit51_plugin_ithemes_survey(){
-				
-						global $plugname;
-						global $plughook;
-						global $plugopts;
-					
-					    echo '<div class="updated">
-				       <p>' . __( 'Help iThemes improve Better WP Security.', 'better-wp-security' ) . ' ' . $plugname . ' ' . __( 'Please take our short survey to help serve you better.', 'better-wp-security' ) . '</p> <p><input type="button" class="button " value="' . __( 'Take the Survey', 'better-wp-security' ) . '" onclick="document.location.href=\'?bwps_take_ithemes_survey=yes&_wpnonce=' .  wp_create_nonce('bwps_nag') . '\';"> <input type="button" class="button " value="' . __( 'Don\'t Ask Again', 'better-wp-security' ) . '" onclick="document.location.href=\'?bwps_ithemes_survey_nag=off&_wpnonce=' .  wp_create_nonce( 'bwps_nag' ) . '\';"></p>
-					    </div>';
-				    
-					}
-				
-				}
-				
-				add_action( 'admin_notices', 'bit51_plugin_ithemes_survey' ); //register notification
-				
-			}
-			
-			//if they've clicked a button hide the notice
-			if ( ( isset( $_GET['bwps_ithemes_survey_nag'] ) || isset( $_GET['bwps_take_ithemes_survey'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bwps_nag' ) ) {
-			
-				$options = get_option( $this->plugindata );
-				$options['no_survey'] = 1;
-				update_option( $this->plugindata, $options );
-				remove_action( 'admin_notices', 'bit51_plugin_ithemes_survey' );
-				
-				//They agreed to take the survey. Take them there.
-				if ( isset( $_GET['bwps_take_ithemes_survey'] ) ) {
-					wp_redirect( 'http://ithemes.com/better-wp-security-survey/', '302' );
 				}
 				
 			}

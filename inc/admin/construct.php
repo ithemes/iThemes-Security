@@ -29,9 +29,6 @@ if ( ! class_exists( 'bwps_admin_construct' ) ) {
 			//add donation reminder
 			add_action( 'admin_init', array( $this, 'ask' ) );	
 
-			//add survey reminder
-			add_action( 'admin_init', array( $this, 'ithemes_survey' ) );	
-
 			//don't execute anything but SSL for InfiniteWP
 			if ( $isIWP === false ) {
 		
