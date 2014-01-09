@@ -50,7 +50,7 @@ if ( ! class_exists( 'BWPS_Authentication_Setup' ) ) {
 					'away_mode-enabled'			=> false,
 					'hide_backend-enabled'		=> false,
 					'hide_backend-slug'			=> 'wplogin',
-					'hide_backend-register'		=> 'register',
+					'hide_backend-register'		=> 'wp-register.php',
 					'away_mode-type'			=> false,
 					'away_mode-start_date'		=> 1,
 					'away_mode-start_time'		=> 1,
