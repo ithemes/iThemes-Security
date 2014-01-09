@@ -1,5 +1,5 @@
 
-=== Better WP Security ===
+=== iThemes Security ===
 Contributors: ithemes, ChrisWiegman, mattdanner, chrisbliss18
 Donate link: http://ithemes.com
 Tags: security, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, FooPlugins
@@ -16,21 +16,21 @@ Released under the terms of the GNU General Public License.
 
 = #1 WORDPRESS SECURITY PLUGIN =
 
-= Better WP Security now by iThemes =
+= iThemes Security now by iThemes =
 
-Get ready for Better WP Security to get even better! It's now being maintained and developed full-time by Chris Wiegman for <a href="http://ithemes.com">iThemes</a>. Not only will this take Better WP Security to the next level but it will bring a new level of security to the best ecommerce solution on the market, <a href="http://ithemes.com/exchange/">iThemes Exchange</a> as well as all of iThemes excellent <a href="http://ithemes.com/find/plugins/">plugins</a> and <a href="http://ithemes.com/find/themes/">themes</a>.
+Get ready for iThemes Security to get even better! It's now being maintained and developed full-time by Chris Wiegman for <a href="http://ithemes.com">iThemes</a>. Not only will this take iThemes Security to the next level but it will bring a new level of security to the best ecommerce solution on the market, <a href="http://ithemes.com/exchange/">iThemes Exchange</a> as well as all of iThemes excellent <a href="http://ithemes.com/find/plugins/">plugins</a> and <a href="http://ithemes.com/find/themes/">themes</a>.
 
-Better WP Security takes the best WordPress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without having to worry about conflicting features or the possibility of missing anything on your site.
+iThemes Security takes the best WordPress security features and techniques and combines them in a single plugin thereby ensuring that as many security holes as possible are patched without having to worry about conflicting features or the possibility of missing anything on your site.
 
-With one-click activation for most features as well as advanced features for experienced users Better WP Security can help protect any site.
+With one-click activation for most features as well as advanced features for experienced users iThemes Security can help protect any site.
 
 = Professional Installation and Support Now Available =
 
-Need help or want to make sure your setup is as secure as possible? Professional support is now available! <a href="http://fooplugins.com/plugins/better-wp-security/">Purchase support or installation today through our partner FooPlugins</a>
+Need help or want to make sure your setup is as secure as possible? Professional support is now available! <a href="http://fooplugins.com/plugins/ithemes-security/">Purchase support or installation today through our partner FooPlugins</a>
 
 = Obscure =
 
-As most WordPress attacks are a result of plugin vulnerabilities, weak passwords, and obsolete software. Better WP Security will hide the places those vulnerabilities live keeping an attacker from learning too much about your site and keeping them away from sensitive areas like login, admin, etc.
+As most WordPress attacks are a result of plugin vulnerabilities, weak passwords, and obsolete software. iThemes Security will hide the places those vulnerabilities live keeping an attacker from learning too much about your site and keeping them away from sensitive areas like login, admin, etc.
 
 * Remove the meta "Generator" tag
 * Change the urls for WordPress dashboard including login, admin, and more
@@ -62,14 +62,14 @@ Just hiding parts of your site is helpful but won't stop everything. After we hi
 
 = Detect =
 
-Should all the protection fail Better WP Security will still monitor your site and report attempts to scan it (automatically blocking suspicious users) as well as any changes to the filesystem that might indicate a compromise.
+Should all the protection fail iThemes Security will still monitor your site and report attempts to scan it (automatically blocking suspicious users) as well as any changes to the filesystem that might indicate a compromise.
 
 * Detect bots and other attempts to search for vulnerabilities
 * Monitor filesystem for unauthorized changes
 
 = Recover =
 
-Finally, should the worst happen Better WP Security will make regular backups of your WordPress database (should you choose to do so) allowing you to get back online quickly in the event someone should compromise your site.
+Finally, should the worst happen iThemes Security will make regular backups of your WordPress database (should you choose to do so) allowing you to get back online quickly in the event someone should compromise your site.
 
 * Create and email database backups on a customizable schedule
 
@@ -108,32 +108,32 @@ Please read the installation instructions and FAQ before installing this plugin.
 
 == Installation ==
 
-Don't want to configure Better WP Security yourself but still want to make sure your site is secure as possible? <a href="http://fooplugins.com/plugins/better-wp-security/" target="_blank">Purchase premium installation and configuration for Better WP Security</a>
+Don't want to configure iThemes Security yourself but still want to make sure your site is secure as possible? <a href="http://fooplugins.com/plugins/ithemes-security/" target="_blank">Purchase premium installation and configuration for iThemes Security</a>
 
 1. Backup your Wordpress database, config file, and .htaccess file
 2. Upload the zip file to the `/wp-content/plugins/` directory
 3. Unzip
 4. Activate the plugin through the 'Plugins' menu in WordPress
-5. Visit the Better security menu for checklist and options
+5. Visit the Security menu for checklist and options
 
 NOTE: It is possible that something will break due to the complexity of the changes made by this plugin. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
 
 == Frequently Asked Questions ==
 
-= Why does Better WP Security require WordPress the latest WordPress version? Can't I use a slightly older version? =
+= Why does iThemes Security require WordPress the latest WordPress version? Can't I use a slightly older version? =
 * One of the best practices a WordPress site owner can do to keep their site secure is to keep your software up to date. Because of this fact I do not test this plugin in anything but the latest stable version of WordPress and will only guarantee it works in the latest version.
 
 = Will this completely stop all attacks on my site? =
-* Of course not. Better WP Security is designed to help improve the security of your WordPress installation from many common attack methods. It can no way prevent every possible attack on your website. Nothing replaces diligence and good practice. This plugin just makes it a little easier for you to apply both.
+* Of course not. iThemes Security is designed to help improve the security of your WordPress installation from many common attack methods. It can no way prevent every possible attack on your website. Nothing replaces diligence and good practice. This plugin just makes it a little easier for you to apply both.
 
 = Is "one-click" protection good enough? =
-* While one-click protection will go a long way to helping reduce the risk of attack on your site, the more features you can activate the better off you are. If you have a plugin or theme that conflicts with a feature of Better WP Security then just turn off the offending feature. It is better to use as much as you can than to not use anything at all.
+* While one-click protection will go a long way to helping reduce the risk of attack on your site, the more features you can activate the better off you are. If you have a plugin or theme that conflicts with a feature of iThemes Security then just turn off the offending feature. It is better to use as much as you can than to not use anything at all.
 
 = Is this only for new sites or can I use it on existing sites too? =
 * Many of the changes made by this plugin are complex and can break existing sites. While it can be installed in either a new or existing site I cannot stress enough the importance of making a backup of your existing site before applying any of the options in this plugin.
 
 = Will this work on all servers and hosts? =
-* Better WP Security requires Apache or LiteSpeed and mod_rewrite or NGINX to work.
+* iThemes Security requires Apache or LiteSpeed and mod_rewrite or NGINX to work.
 * While this plugin should work on all hosts with Apache or LiteSpeed and mod_rewrite or NGINX it has been known to experience problems in shared hosting environments where it runs out of resources such as available CPU or RAM. For this reason it is extremely important that you make a backup of your site before installing on any existing site as, if you run out of resources during an operation such as renaming your database table, you may need your backup to be able to restore access to your site.
 * Finally, please make sure you have adequate RAM if you plan to use the file change detector of make large backups.
 
@@ -144,13 +144,13 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Yes.
 
 = Can I help? =
-* Of course! I am in constant need of testers and I would be more than happy to add the right contributor. In addition, I could always use help with translations for internationalization. <a href="http://ithemes.com/contributing-to-better-wp-security/">For more information on contributing to Better WP Security visit iThemes</a>.
+* Of course! I am in constant need of testers and I would be more than happy to add the right contributor. In addition, I could always use help with translations for internationalization. <a href="http://ithemes.com/contributing-to-ithemes-security/">For more information on contributing to iThemes Security visit iThemes</a>.
 
 = Will this break my site? =
 * It is possible that something will break. That said, under no circumstances do I release this plugin with any warranty, implied or otherwise, and at no time will I take any responsibility for any damage that might arise from the use of this plugin. REMEMBER TO ALWAYS BACKUP BEFORE TRYING NEW SOFTWARE!
 * Note that renaming the wp-content directory will not update the path in existing content. Use this feature only on new sites or in a situation where you can easily update all existing links.
-* <a href="http://ithemes.com/fixing-better-wp-security-lockouts/">Fixing Better WP Security Lockouts</a>
-* <a href="http://ithemes.com/what-is-changed-by-better-wp-security/">What is Changed By Better WP Security</a>
+* <a href="http://ithemes.com/fixing-ithemes-security-lockouts/">Fixing iThemes Security Lockouts</a>
+* <a href="http://ithemes.com/what-is-changed-by-ithemes-security/">What is Changed By iThemes Security</a>
 
 = I've enabled the Enforce SSL option and it broke my site. How do I get back in? =
 * Open your wp-config.php file in a text editor and remove the following 2 lines:
@@ -158,7 +158,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * define('FORCE_SSL_ADMIN', true);
 
 = Where can I get help if something goes wrong? =
-* Free support is available by reading the <a href="http://wordpress.org/plugins/better-wp-security//" target="_blank">plugin documentation</a> or may be available with the help of the community in the <a href="http://wordpress.org/support/plugin/better-wp-security" target="_blank">WordPress.org support forums</a> (this is community provided support as iThemes does not monitor the WordPress.org support forums). If you need more formal support you can <a href="http://fooplugins.com/plugins/better-wp-security/" target="_blank">purchase a premium support ticket</a> on a per-incident basis.
+* Free support is available by reading the <a href="http://wordpress.org/plugins/ithemes-security//" target="_blank">plugin documentation</a> or may be available with the help of the community in the <a href="http://wordpress.org/support/plugin/ithemes-security" target="_blank">WordPress.org support forums</a> (this is community provided support as iThemes does not monitor the WordPress.org support forums). If you need more formal support you can <a href="http://fooplugins.com/plugins/ithemes-security/" target="_blank">purchase a premium support ticket</a> on a per-incident basis.
 
 == Screenshots ==
 
@@ -175,7 +175,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 = 3.6.1 =
 * Fixed iThemes image path for case-sensitive
-* Add iThemes BWPS survey to help plan further updates
+* Add iThemes ITSEC survey to help plan further updates
 * Added Customizable email to support form
 
 = 3.6 =
@@ -203,7 +203,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Updated Turkish translation by <a href="http://hakanertr.wordpress.com">Hakan Er</a>
 * Updated shield logo by Martin Halachev
 * Minor fixes for strict warnings occuring when on PHP 5.4
-* Fix for lstat error for files in the better-wp-security/backups/ directory
+* Fix for lstat error for files in the ithemes-security/backups/ directory
 * Fixed an error that prevented manual filecheck
 
 = 3.5.4 =
@@ -293,7 +293,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * Other minor bugfixes and refactoring
 
 = 3.4.4 =
-* fixed input vulnerability found at http://packetstormsecurity.org/files/116317/Better-WP-Security-3.4.3-Cross-Site-Scripting.html
+* fixed input vulnerability found at http://packetstormsecurity.org/files/116317/ithemes-security-3.4.3-Cross-Site-Scripting.html
 * fixed email address in footer information on backup screen
 * file check exclusions should now work properly for individual files.
 * One-click protection is now part of the install script.
@@ -481,7 +481,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 * LiteSpeed support
 * Better update support (not relying on activation hook anymore)
 * Added abstract keyword to bit51.php
-* Removed bwps references in bit51.php
+* Removed itsec references in bit51.php
 * updated .pot file
 
 = 3.0.7 =
@@ -708,7 +708,7 @@ NOTE: It is possible that something will break due to the complexity of the chan
 
 * Removed hotlinking protection as it has been deemed to be outside the scope of this project
 * Removed protocol from hide backend htaccess rules for consistency between http and https
-* Combined all httaccess rules into single Better WP Security Block
+* Combined all httaccess rules into single iThemes Security Block
 * 404 check now ignores all logged in users
 
 = 0.13.BETA =

@@ -5,9 +5,9 @@
  * @version 1.0
  */
 
-if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
+if ( ! class_exists( 'ITSEC_Setup' ) ) {
 
-	class Ithemes_BWPS_Setup {
+	class ITSEC_Setup {
 
 		/**
 		 * Establish setup object
@@ -74,9 +74,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		static function on_activate() {
 
-			define( 'BWPS_DO_ACTIVATION', true );
+			define( 'ITSEC_DO_ACTIVATION', true );
 
-			new Ithemes_BWPS_Setup( 'activate' );
+			new ITSEC_Setup( 'activate' );
 
 		}
 
@@ -86,7 +86,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		static function on_deactivate() {
 
-			if ( defined( 'BWPS_DEVELOPMENT' ) && BWPS_DEVELOPMENT == true ) { //set BWPS_DEVELOPMENT to true to reset settings on deactivation for development
+			if ( defined( 'ITSEC_DEVELOPMENT' ) && ITSEC_DEVELOPMENT == true ) { //set ITSEC_DEVELOPMENT to true to reset settings on deactivation for development
 
 				$case = 'uninstall';
 
@@ -96,7 +96,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 
 			}
 
-			new Ithemes_BWPS_Setup( $case );
+			new ITSEC_Setup( $case );
 		}
 
 		/**
@@ -105,7 +105,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		static function on_uninstall() {
 
-			new Ithemes_BWPS_Setup( 'uninstall' );
+			new ITSEC_Setup( 'uninstall' );
 
 		}
 
@@ -115,7 +115,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		static function on_upgrade() {
 
-			new Ithemes_BWPS_Setup( 'upgrade' );
+			new ITSEC_Setup( 'upgrade' );
 
 		}
 
@@ -128,30 +128,30 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 */
 		function activate_execute( $updating = false ) {
 
-			global $bwps_setup_action, $bwps_files;
+			global $itsec_setup_action, $itsec_files;
 
 			//if this is multisite make sure they're network activating or die
-			if ( defined( 'BWPS_DO_ACTIVATION' ) && BWPS_DO_ACTIVATION == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
+			if ( defined( 'ITSEC_DO_ACTIVATION' ) && ITSEC_DO_ACTIVATION == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
 
-				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', 'better-wp-security' ) );
+				die ( __( '<strong>ERROR</strong>: You must activate this plugin from the network dashboard.', 'ithemes-security' ) );
 
 			}
 
-			if ( get_site_option( 'bwps_data' ) === false ) {
-				add_site_option( 'bwps_data', array(), false );
+			if ( get_site_option( 'itsec_data' ) === false ) {
+				add_site_option( 'itsec_data', array(), false );
 			}
 
-			if ( get_site_option( 'bwps_initials' ) === false ) {
-				add_site_option( 'bwps_initials', array(), false );
+			if ( get_site_option( 'itsec_initials' ) === false ) {
+				add_site_option( 'itsec_initials', array(), false );
 			}
 
-			$bwps_setup_action = 'activate';
+			$itsec_setup_action = 'activate';
 
-			do_action( 'bwps_set_plugin_data' );
+			do_action( 'itsec_set_plugin_data' );
 
 			$this->do_modules();
 
-			$bwps_files->do_activate();
+			$itsec_files->do_activate();
 
 		}
 
@@ -161,9 +161,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 */
 		function upgrade_execute() {
 
-			global $bwps_setup_action;
+			global $itsec_setup_action;
 
-			$bwps_setup_action = 'upgrade';
+			$itsec_setup_action = 'upgrade';
 
 			$this->do_modules();
 
@@ -175,13 +175,13 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		function deactivate_execute() {
 
-			global $bwps_setup_action, $bwps_files;
+			global $itsec_setup_action, $itsec_files;
 
-			$bwps_setup_action = 'deactivate';
+			$itsec_setup_action = 'deactivate';
 
 			$this->do_modules();
 
-			$bwps_files->do_deactivate();
+			$itsec_files->do_deactivate();
 
 			flush_rewrite_rules();
 
@@ -197,16 +197,16 @@ if ( ! class_exists( 'Ithemes_BWPS_Setup' ) ) {
 		 **/
 		function uninstall_execute() {
 
-			global $bwps_setup_action, $bwps_files;
+			global $itsec_setup_action, $itsec_files;
 
-			$bwps_setup_action = 'uninstall';
+			$itsec_setup_action = 'uninstall';
 
 			$this->do_modules();
 
-			$bwps_files->do_deactivate();
+			$itsec_files->do_deactivate();
 
-			delete_site_option( 'bwps_data' );
-			delete_site_option( 'bwps_initials' );
+			delete_site_option( 'itsec_data' );
+			delete_site_option( 'itsec_initials' );
 
 			flush_rewrite_rules();
 

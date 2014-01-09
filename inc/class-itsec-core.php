@@ -5,9 +5,9 @@
  * @version 1.0
  */
 
-if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
+if ( ! class_exists( 'ITSEC_Core' ) ) {
 
-	final class Ithemes_BWPS_Core {
+	final class ITSEC_Core {
 
 		private static $instance = NULL; //instantiated instance of this plugin
 
@@ -19,30 +19,30 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		/**
 		 * Loads core functionality across both admin and frontend.
 		 *
-		 * @param Ithemes_BWPS $plugin
+		 * @param Ithemes_ITSEC $plugin
 		 *
 		 * @return void
 		 */
 		private function __construct() {
 
-			global $bwps_globals, $bwps_lib, $bwps_files, $bwps_logger;
+			global $itsec_globals, $itsec_lib, $itsec_files, $itsec_logger;
 
 			@ini_set( 'auto_detect_line_endings', true ); //Make certain we're using proper line endings
 
 			//load utility functions
-			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-lib.php' );
-			$bwps_lib = Ithemes_BWPS_Lib::start();
+			require_once( $itsec_globals['plugin_dir'] . 'inc/class-itsec-lib.php' );
+			$itsec_lib = ITSEC_Lib::start();
 
 			//load file utility functions
-			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-files.php' );
-			$bwps_files = Ithemes_BWPS_Files::start();
+			require_once( $itsec_globals['plugin_dir'] . 'inc/class-itsec-files.php' );
+			$itsec_files = ITSEC_Files::start();
 
 			//load logging functions
-			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-logger.php' );
-			$bwps_logger = Ithemes_BWPS_Logger::start();
+			require_once( $itsec_globals['plugin_dir'] . 'inc/class-itsec-logger.php' );
+			$itsec_logger = ITSEC_Logger::start();
 
 			//load the text domain
-			load_plugin_textdomain( 'better_wp_security', false, $bwps_globals['plugin_dir'] . 'languages' );
+			load_plugin_textdomain( 'ithemes-security', false, $itsec_globals['plugin_dir'] . 'languages' );
 
 			$this->load_modules(); //load all modules
 
@@ -52,25 +52,25 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 			}
 
 			//require plugin setup information
-			require_once( $bwps_globals['plugin_dir'] . 'inc/class-ithemes-bwps-setup.php' );
-			register_activation_hook( $bwps_globals['plugin_file'], array( 'Ithemes_BWPS_Setup', 'on_activate' ) );
-			register_deactivation_hook( $bwps_globals['plugin_file'], array( 'Ithemes_BWPS_Setup', 'on_deactivate' ) );
-			register_uninstall_hook( $bwps_globals['plugin_file'], array( 'Ithemes_BWPS_Setup', 'on_uninstall' ) );
+			require_once( $itsec_globals['plugin_dir'] . 'inc/class-itsec-setup.php' );
+			register_activation_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Setup', 'on_activate' ) );
+			register_deactivation_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Setup', 'on_deactivate' ) );
+			register_uninstall_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Setup', 'on_uninstall' ) );
 
 			//Determine if we need to run upgrade scripts
-			$plugin_data = get_option( 'bwps_data' );
+			$plugin_data = get_option( 'itsec_data' );
 
 			if ( $plugin_data !== false ) { //if plugin data does exist
 
 				//see if the saved build version is older than the current build version
-				if ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $bwps_globals['plugin_build'] ) {
-					Ithemes_BWPS_Setup::on_activate( $plugin_data['build'] ); //run upgrade scripts
+				if ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $itsec_globals['plugin_build'] ) {
+					Ithemes_ITSEC_Setup::on_activate( $plugin_data['build'] ); //run upgrade scripts
 				}
 
 			}
 
 			//save plugin information
-			add_action( 'bwps_set_plugin_data', array( $this, 'save_plugin_data' ) );
+			add_action( 'itsec_set_plugin_data', array( $this, 'save_plugin_data' ) );
 
 		}
 
@@ -81,7 +81,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		public function admin_notices() {
 
-			settings_errors( 'bwps_admin_notices' );
+			settings_errors( 'itsec_admin_notices' );
 
 		}
 
@@ -111,19 +111,19 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		public function execute_admin_init() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
-			wp_register_style( 'bwps_admin_styles', $bwps_globals['plugin_url'] . 'inc/css/ithemes.css' );
-			do_action( 'bwps_admin_init' ); //execute modules init scripts
+			wp_register_style( 'itsec_admin_styles', $itsec_globals['plugin_url'] . 'inc/css/ithemes.css' );
+			do_action( 'itsec_admin_init' ); //execute modules init scripts
 
 		}
 
 		public function admin_tabs( $current = NULL ) {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
 			if ( $current == NULL ) {
-				$current = 'bwps';
+				$current = 'itsec';
 			}
 
 			echo '<div id="icon-themes" class="icon32"><br></div>';
@@ -156,10 +156,10 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		public function enqueue_admin_styles() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
-			wp_enqueue_style( 'bwps_admin_styles' );
-			do_action( $bwps_globals['plugin_url'] . 'enqueue_admin_styles' );
+			wp_enqueue_style( 'itsec_admin_styles' );
+			do_action( $itsec_globals['plugin_url'] . 'enqueue_admin_styles' );
 
 		}
 
@@ -173,9 +173,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		public function load_modules() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
-			$modules_folder = $bwps_globals['plugin_dir'] . 'modules';
+			$modules_folder = $itsec_globals['plugin_dir'] . 'modules';
 
 			$modules = scandir( $modules_folder );
 
@@ -200,28 +200,28 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		public function setup_primary_admin() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
-			$this->admin_tabs['bwps'] = __( 'Dashboard', 'better-wp-security' ); //set a tab for the dashboard
+			$this->admin_tabs['itsec'] = __( 'Dashboard', 'ithemes-security' ); //set a tab for the dashboard
 
 			$this->page_hooks[] = add_menu_page(
-				__( 'Dashboard', 'better-wp-security' ),
-				__( 'Security', 'better-wp-security' ),
-				$bwps_globals['plugin_access_lvl'],
-				'bwps',
+				__( 'Dashboard', 'ithemes-security' ),
+				__( 'Security', 'ithemes-security' ),
+				$itsec_globals['plugin_access_lvl'],
+				'itsec',
 				array( $this, 'render_page' ),
-				plugin_dir_url( $bwps_globals['plugin_file'] ) . 'img/shield-small.png'
+				plugin_dir_url( $itsec_globals['plugin_file'] ) . 'img/shield-small.png'
 			);
 
-			$this->page_hooks = apply_filters( 'bwps_add_admin_sub_pages', $this->page_hooks );
+			$this->page_hooks = apply_filters( 'itsec_add_admin_sub_pages', $this->page_hooks );
 
-			$this->admin_tabs = apply_filters( 'bwps_add_admin_tabs', $this->admin_tabs );
+			$this->admin_tabs = apply_filters( 'itsec_add_admin_tabs', $this->admin_tabs );
 
 			//Make the dashboard is named correctly
 			global $submenu;
 
-			if ( isset( $submenu['bwps'] ) ) {
-				$submenu['bwps'][0][0] = __( 'Dashboard', 'better-wp-security' );
+			if ( isset( $submenu['itsec'] ) ) {
+				$submenu['itsec'][0][0] = __( 'Dashboard', 'ithemes-security' );
 			}
 
 			foreach ( $this->page_hooks as $page_hook ) {
@@ -241,9 +241,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		public function page_actions() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
-			do_action( 'bwps_add_admin_meta_boxes', $this->page_hooks );
+			do_action( 'itsec_add_admin_meta_boxes', $this->page_hooks );
 
 			//Set two columns for all plugins using this framework
 			add_screen_option( 'layout_columns', array( 'max' => 2, 'default' => 2 ) );
@@ -278,7 +278,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		public function render_page() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
 			if ( is_multisite() ) {
 				$screen = substr( get_current_screen()->id, 0, strpos( get_current_screen()->id, '-network' ) );
@@ -290,7 +290,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 
 			<div class="wrap">
 	
-				<h2><?php echo $bwps_globals['plugin_name'] . ' - ' . get_admin_page_title(); ?></h2>
+				<h2><?php echo $itsec_globals['plugin_name'] . ' - ' . get_admin_page_title(); ?></h2>
 
 				<?php
 				wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
@@ -314,11 +314,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 								$this->admin_tabs();
 							}
 							?>
-							<?php do_action( 'bwps_page_top', $screen ); ?>
+							<?php do_action( 'itsec_page_top', $screen ); ?>
 							<?php do_meta_boxes( $screen, 'normal', NULL ); ?>
-							<?php do_action( 'bwps_page_middle', $screen ); ?>
+							<?php do_action( 'itsec_page_middle', $screen ); ?>
 							<?php do_meta_boxes( $screen, 'advanced', NULL ); ?>
-							<?php do_action( 'bwps_page_bottom', $screen ); ?>
+							<?php do_action( 'itsec_page_bottom', $screen ); ?>
 						</div>
 
 					</div>
@@ -339,15 +339,15 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		 */
 		function save_plugin_data() {
 
-			global $bwps_globals, $bwps_lib;
+			global $itsec_globals, $itsec_lib;
 
 			$save_data = false; //flag to avoid saving data if we don't have to
 
-			$plugin_data = get_site_option( 'bwps_data' );
+			$plugin_data = get_site_option( 'itsec_data' );
 
 			//Update the build number if we need to
-			if ( ! isset( $plugin_data['build'] ) || ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $bwps_globals['plugin_build'] ) ) {
-				$plugin_data['build'] = $bwps_globals['plugin_build'];
+			if ( ! isset( $plugin_data['build'] ) || ( isset( $plugin_data['build'] ) && $plugin_data['build'] !== $itsec_globals['plugin_build'] ) ) {
+				$plugin_data['build'] = $itsec_globals['plugin_build'];
 				$save_data            = true;
 			}
 
@@ -359,7 +359,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 
 			//update the options table if we have to
 			if ( $save_data === true ) {
-				update_site_option( 'bwps_data', $plugin_data );
+				update_site_option( 'itsec_data', $plugin_data );
 			}
 
 		}
@@ -454,7 +454,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Core' ) ) {
 		/**
 		 * Start the global admin instance
 		 *
-		 * @return bwps_Core                       The instance of the bwps_Core class
+		 * @return itsec_Core                       The instance of the itsec_Core class
 		 */
 		public static function start() {
 

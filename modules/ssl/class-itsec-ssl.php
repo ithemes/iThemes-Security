@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'BWPS_SSL' ) ) {
+if ( ! class_exists( 'ITSEC_SSL' ) ) {
 
-	class BWPS_SSL {
+	class ITSEC_SSL {
 
 		private static $instance = NULL;
 
@@ -11,7 +11,7 @@ if ( ! class_exists( 'BWPS_SSL' ) ) {
 
 		private function __construct() {
 
-			$this->settings  = get_site_option( 'bwps_ssl' );
+			$this->settings  = get_site_option( 'itsec_ssl' );
 
 			//Don't redirect any SSL if SSL is turned off.
 			if ( isset( $this->settings['frontend'] ) && $this->settings['frontend']  >= 1 ) {
@@ -48,7 +48,7 @@ if ( ! class_exists( 'BWPS_SSL' ) ) {
 						
 			if ( is_singular() && $this->settings['frontend'] == 1 ) {
 				
-				$requiressl = get_post_meta( $post->ID, 'bwps_enable_ssl', true );
+				$requiressl = get_post_meta( $post->ID, 'itsec_enable_ssl', true );
 				
 				if ( ( $requiressl == true && ! $this->is_ssl() ) || ( $requiressl != true && $this->is_ssl() ) ) {
 				
@@ -75,7 +75,7 @@ if ( ! class_exists( 'BWPS_SSL' ) ) {
 		/**
 		 * Start the Away Mode module
 		 *
-		 * @return BWPS_SSL                The instance of the BWPS_SSL class
+		 * @return ITSEC_SSL                The instance of the ITSEC_SSL class
 		 */
 		public static function start() {
 

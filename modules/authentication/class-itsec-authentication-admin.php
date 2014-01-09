@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
+if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
-	class BWPS_Authentication_Admin {
+	class ITSEC_Authentication_Admin {
 
 		private static $instance = NULL;
 
@@ -15,23 +15,23 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 		private function __construct( $core, $module ) {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
 			$this->core      = $core;
 			$this->module	 = $module;
-			$this->settings  = get_site_option( 'bwps_authentication' );
-			$this->away_file = $bwps_globals['upload_dir'] . '/bwps_away.confg'; //override file
+			$this->settings  = get_site_option( 'itsec_authentication' );
+			$this->away_file = $itsec_globals['upload_dir'] . '/itsec_away.confg'; //override file
 
-			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
-			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
-			add_filter( 'bwps_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
-				add_action( 'network_admin_edit_bwps_authentication', array( $this, 'save_network_options' ) ); //save multisite options
+				add_action( 'network_admin_edit_itsec_authentication', array( $this, 'save_network_options' ) ); //save multisite options
 			}
 
 		}
@@ -39,19 +39,19 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		/**
 		 * Register subpage for Away Mode
 		 *
-		 * @param array $available_pages array of BWPS settings pages
+		 * @param array $available_pages array of ITSEC settings pages
 		 */
 		public function add_sub_page( $available_pages ) {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
 			$this->page = $available_pages[0] . '-authentication';
 
 			$available_pages[] = add_submenu_page(
-				'bwps',
-				__( 'Authentication', 'better_wp_security' ),
-				__( 'Authentication', 'better_wp_security' ),
-				$bwps_globals['plugin_access_lvl'],
+				'itsec',
+				__( 'Authentication', 'ithemes-security' ),
+				__( 'Authentication', 'ithemes-security' ),
+				$itsec_globals['plugin_access_lvl'],
 				$available_pages[0] . '-authentication',
 				array( $this->core, 'render_page' )
 			);
@@ -62,7 +62,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 		public function add_admin_tab( $tabs ) {
 
-			$tabs[$this->page] = __( 'Auth', 'better_wp_security' );
+			$tabs[$this->page] = __( 'Auth', 'ithemes-security' );
 
 			return $tabs;
 
@@ -77,18 +77,18 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			add_meta_box(
 				'authentication_description',
-				__( 'Description', 'better_wp_security' ),
+				__( 'Description', 'ithemes-security' ),
 				array( $this, 'add_module_intro' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'normal',
 				'core'
 			);
 
 			add_meta_box(
 				'authentication_options',
-				__( 'Configure Authentication Security', 'better_wp_security' ),
+				__( 'Configure Authentication Security', 'ithemes-security' ),
 				array( $this, 'metabox_advanced_settings' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'advanced',
 				'core'
 			);
@@ -102,11 +102,11 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function admin_script() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
-			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_bwps-authentication' ) !== false ) {
+			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-authentication' ) !== false ) {
 
-				wp_enqueue_script( 'bwps_authentication_js', $bwps_globals['plugin_url'] . 'modules/authentication/js/admin-authentication.js', 'jquery', $bwps_globals['plugin_build'] );
+				wp_enqueue_script( 'itsec_authentication_js', $itsec_globals['plugin_url'] . 'modules/authentication/js/admin-authentication.js', 'jquery', $itsec_globals['plugin_build'] );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
 				wp_enqueue_style( 'jquery-style', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css' );
 
@@ -121,13 +121,13 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function dashboard_status( $statuses ) {
 
-			$link = 'admin.php?page=toplevel_page_bwps-authentication';
+			$link = 'admin.php?page=toplevel_page_itsec-authentication';
 
 			if ( $this->settings['strong_passwords-enabled'] === 1 && $this->settings['strong_passwords-roll'] == 'subscriber' ) {
 
 				$status_array = 'safe-medium';
 				$status = array(
-					'text' => __( 'You are enforcing strong passwords for all users.', 'better_wp_security' ),
+					'text' => __( 'You are enforcing strong passwords for all users.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -135,7 +135,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				$status_array = 'low';
 				$status = array(
-					'text' => __( 'You are enforcing strong passwords, but not for all users.', 'better_wp_security' ),
+					'text' => __( 'You are enforcing strong passwords, but not for all users.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -143,7 +143,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				$status_array = 'medium';
 				$status = array(
-					'text' => __( 'You are not enforcing strong passwords for any users.', 'better_wp_security' ),
+					'text' => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -155,7 +155,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				$status_array = 'safe-medium';
 				$status = array(
-					'text' => __( 'Your WordPress Dashboard is hidden.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress Dashboard is hidden.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -163,7 +163,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				$status_array = 'medium';
 				$status = array(
-					'text' => __( 'Your WordPress Dashboard is using the default addresses. This can make a brute force attack much easier.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress Dashboard is using the default addresses. This can make a brute force attack much easier.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -175,7 +175,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				$status_array = 'safe-medium';
 				$status = array(
-					'text' => __( 'Away Mode is enabled and your WordPress Dashboard is not available when you will not be needing it.', 'better_wp_security' ),
+					'text' => __( 'Away Mode is enabled and your WordPress Dashboard is not available when you will not be needing it.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -183,7 +183,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				$status_array = 'medium';
 				$status = array(
-					'text' => __( 'Your WordPress Dashboard is available 24/7. Do you really update 24 hours a day? Consider using Away Mode.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress Dashboard is available 24/7. Do you really update 24 hours a day? Consider using Away Mode.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -195,7 +195,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				$status_array = 'safe-high';
 				$status = array(
-					'text' => __( 'The <em>admin</em> user has been removed or renamed.', 'better_wp_security' ),
+					'text' => __( 'The <em>admin</em> user has been removed or renamed.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -203,7 +203,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				$status_array = 'high';
 				$status = array(
-					'text' => __( 'The <em>admin</em> user still exists.', 'better_wp_security' ),
+					'text' => __( 'The <em>admin</em> user still exists.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -225,58 +225,58 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			//Add Settings sections
 			add_settings_section(
 				'authentication_brute_force',
-				__( 'Brute Force Protection', 'better_wp_security' ),
+				__( 'Brute Force Protection', 'ithemes-security' ),
 				array( $this, 'brute_force_header' ),
-				'security_page_toplevel_page_bwps-authentication'
+				'security_page_toplevel_page_itsec-authentication'
 			);
 
 			add_settings_section(
 				'authentication_admin_user',
-				__( 'Secure Admin User', 'better_wp_security' ),
+				__( 'Secure Admin User', 'ithemes-security' ),
 				array( $this, 'admin_user_header' ),
-				'security_page_toplevel_page_bwps-authentication'
+				'security_page_toplevel_page_itsec-authentication'
 			);
 
 			add_settings_section(
 				'authentication_strong_passwords-enabled',
-				__( 'Enforce Strong Passwords', 'better_wp_security' ),
+				__( 'Enforce Strong Passwords', 'ithemes-security' ),
 				array( $this, 'strong_passwords_header' ),
-				'security_page_toplevel_page_bwps-authentication'
+				'security_page_toplevel_page_itsec-authentication'
 			);
 
 			add_settings_section(
 				'authentication_strong_passwords-settings',
-				__( 'Enforce Strong Passwords', 'better_wp_security' ),
+				__( 'Enforce Strong Passwords', 'ithemes-security' ),
 				array( $this, 'empty_callback_function' ),
-				'security_page_toplevel_page_bwps-authentication'
+				'security_page_toplevel_page_itsec-authentication'
 			);
 
 			add_settings_section(
 				'authentication_hide_backend-enabled',
-				__( 'Hide Login and Admin', 'better_wp_security' ),
+				__( 'Hide Login and Admin', 'ithemes-security' ),
 				array( $this, 'hide_backend_header' ),
-				'security_page_toplevel_page_bwps-authentication'
+				'security_page_toplevel_page_itsec-authentication'
 			);
 
 			add_settings_section(
 				'authentication_hide_backend-settings',
-				__( 'Hide Login and Admin', 'better_wp_security' ),
+				__( 'Hide Login and Admin', 'ithemes-security' ),
 				array( $this, 'empty_callback_function' ),
-				'security_page_toplevel_page_bwps-authentication'
+				'security_page_toplevel_page_itsec-authentication'
 			);
 
 			add_settings_section(
 				'authentication_away_mode-enabled',
-				__( 'Away Mode', 'better_wp_security' ),
+				__( 'Away Mode', 'ithemes-security' ),
 				array( $this, 'away_mode_header' ),
-				'security_page_toplevel_page_bwps-authentication'
+				'security_page_toplevel_page_itsec-authentication'
 			);
 
 			add_settings_section(
 				'authentication_away_mode-settings',
-				__( 'Away Mode', 'better_wp_security' ),
+				__( 'Away Mode', 'ithemes-security' ),
 				array( $this, 'empty_callback_function' ),
-				'security_page_toplevel_page_bwps-authentication'
+				'security_page_toplevel_page_itsec-authentication'
 			);
 
 			//Admin User Fields
@@ -284,119 +284,119 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			if ( username_exists( 'admin' ) ) {
 
 				add_settings_field(
-					'bwps_authentication[admin_user-username]',
-					__( 'Change Admin Username', 'better_wp_security' ),
+					'itsec_authentication[admin_user-username]',
+					__( 'Change Admin Username', 'ithemes-security' ),
 					array( $this, 'admin_user_username' ),
-					'security_page_toplevel_page_bwps-authentication',
+					'security_page_toplevel_page_itsec-authentication',
 					'authentication_admin_user'
 				);
 
 			}
 
 			add_settings_field(
-				'bwps_authentication[admin_user-userid]',
-				__( 'Change User ID 1', 'better_wp_security' ),
+				'itsec_authentication[admin_user-userid]',
+				__( 'Change User ID 1', 'ithemes-security' ),
 				array( $this, 'admin_user_userid' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_admin_user'
 			);
 
 			//Strong Passwords Fields
 			add_settings_field(
-				'bwps_authentication[strong_passwords-enabled]',
-				__( 'Enable Strong Passwords', 'better_wp_security' ),
+				'itsec_authentication[strong_passwords-enabled]',
+				__( 'Enable Strong Passwords', 'ithemes-security' ),
 				array( $this, 'strong_passwords_enabled' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_strong_passwords-enabled'
 			);
 
 			add_settings_field(
-				'bwps_authentication[strong_passwords-roll]',
-				__( 'Select Roll for Strong Passwords', 'better_wp_security' ),
+				'itsec_authentication[strong_passwords-roll]',
+				__( 'Select Roll for Strong Passwords', 'ithemes-security' ),
 				array( $this, 'strong_passwords_role' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_strong_passwords-settings'
 			);
 
 			//Hide Backend Fields
 			add_settings_field(
-				'bwps_authentication[hide_backend-enabled]',
-				__( 'Enable Hide Backend', 'better_wp_security' ),
+				'itsec_authentication[hide_backend-enabled]',
+				__( 'Enable Hide Backend', 'ithemes-security' ),
 				array( $this, 'hide_backend_enabled' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_hide_backend-enabled'
 			);
 
 			add_settings_field(
-				'bwps_authentication[hide_backend-slug]',
-				__( 'Login Slug', 'better_wp_security' ),
+				'itsec_authentication[hide_backend-slug]',
+				__( 'Login Slug', 'ithemes-security' ),
 				array( $this, 'hide_backend_slug' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_hide_backend-settings'
 			);
 
 			add_settings_field(
-				'bwps_authentication[hide_backend-register]',
-				__( 'Register Slug', 'better_wp_security' ),
+				'itsec_authentication[hide_backend-register]',
+				__( 'Register Slug', 'ithemes-security' ),
 				array( $this, 'hide_backend_register' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_hide_backend-settings'
 			);
 
 			//Away Mode Fields
 			add_settings_field(
-				'bwps_authentication[away_mode-enabled]',
-				__( 'Enable Away Mode', 'better_wp_security' ),
+				'itsec_authentication[away_mode-enabled]',
+				__( 'Enable Away Mode', 'ithemes-security' ),
 				array( $this, 'away_mode_enabled' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_away_mode-enabled'
 			);
 
 			add_settings_field(
-				'bwps_authentication[away_mode-type]',
-				__( 'Type of Restriction', 'better_wp_security' ),
+				'itsec_authentication[away_mode-type]',
+				__( 'Type of Restriction', 'ithemes-security' ),
 				array( $this, 'away_mode_type' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_away_mode-settings'
 			);
 
 			add_settings_field(
-				'bwps_authentication[away_mode-start_date]',
-				__( 'Start Date', 'better_wp_security' ),
+				'itsec_authentication[away_mode-start_date]',
+				__( 'Start Date', 'ithemes-security' ),
 				array( $this, 'away_mode_start_date' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_away_mode-settings'
 			);
 
 			add_settings_field(
-				'bwps_authentication[away_mode-start_time]',
-				__( 'Start Time', 'better_wp_security' ),
+				'itsec_authentication[away_mode-start_time]',
+				__( 'Start Time', 'ithemes-security' ),
 				array( $this, 'away_mode_start_time' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_away_mode-settings'
 			);
 
 			add_settings_field(
-				'bwps_authentication[away_mode-end_date]',
-				__( 'End Date', 'better_wp_security' ),
+				'itsec_authentication[away_mode-end_date]',
+				__( 'End Date', 'ithemes-security' ),
 				array( $this, 'away_mode_end_date' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_away_mode-settings'
 			);
 
 			//end time field
 			add_settings_field(
-				'bwps_authentication[away_mode-end_time]',
-				__( 'End Time', 'better_wp_security' ),
+				'itsec_authentication[away_mode-end_time]',
+				__( 'End Time', 'ithemes-security' ),
 				array( $this, 'away_mode_end_time' ),
-				'security_page_toplevel_page_bwps-authentication',
+				'security_page_toplevel_page_itsec-authentication',
 				'authentication_away_mode-settings'
 			);
 
 			//Register the settings field for the entire module
 			register_setting(
-				'security_page_toplevel_page_bwps-authentication',
-				'bwps_authentication',
+				'security_page_toplevel_page_itsec-authentication',
+				'itsec_authentication',
 				array( $this, 'sanitize_module_input' )
 			);
 
@@ -412,7 +412,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function brute_force_header() {
 
-			echo '<h2 class="settings-section-header">' . __( 'Brute Force Protection', 'better-wp-security' ) . '</h2>';
+			echo '<h2 class="settings-section-header">' . __( 'Brute Force Protection', 'ithemes-security' ) . '</h2>';
 
 		}
 
@@ -421,8 +421,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function admin_user_header() {
 
-			$content =  '<h2 class="settings-section-header">' . __( 'Secure Admin User', 'better-wp-security' ) . '</h2>';
-			$content .= '<p>' . __( 'This feature will improve the security of your WordPress installation by removing common user attributes that can be used to target your site.', 'better-wp-security' ) . '</p>';
+			$content =  '<h2 class="settings-section-header">' . __( 'Secure Admin User', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( 'This feature will improve the security of your WordPress installation by removing common user attributes that can be used to target your site.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -433,8 +433,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function strong_passwords_header() {
 
-			$content =  '<h2 class="settings-section-header">' . __( 'Enforce Strong Passwords', 'better-wp-security' ) . '</h2>';
-			$content .= '<p>' . __( 'Force users to use strong passwords as rated by the WordPress password meter.', 'better-wp-security' ) . '</p>';
+			$content =  '<h2 class="settings-section-header">' . __( 'Enforce Strong Passwords', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( 'Force users to use strong passwords as rated by the WordPress password meter.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -445,8 +445,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function hide_backend_header() {
 
-			$content =  '<h2 class="settings-section-header">' . __( 'Hide the Login Page', 'better-wp-security' ) . '</h2>';
-			$content .= '<p>' . __( 'Hides the login and admin pages making them harder to find by automated attacks and making them easier for users unfamiliar with the WordPress platform.', 'better-wp-security' ) . '</p>';
+			$content =  '<h2 class="settings-section-header">' . __( 'Hide the Login Page', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( 'Hides the login and admin pages making them harder to find by automated attacks and making them easier for users unfamiliar with the WordPress platform.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -457,9 +457,9 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function away_mode_header() {
 
-			$content =  '<h2 class="settings-section-header">' . __( 'Configure Away Mode', 'better-wp-security' ) . '</h2>';
+			$content =  '<h2 class="settings-section-header">' . __( 'Configure Away Mode', 'ithemes-security' ) . '</h2>';
 
-			$content .= '<p>' . __( 'As most sites are only updated at certain times of the day it is not always necessary to provide access to the WordPress dashboard 24 hours a day, 7 days a week. The options below will allow you to disable access to the WordPress Dashboard for the specified period. In addition to limiting exposure to attackers this could also be useful to disable site access based on a schedule for classroom or other reasons.', 'better_wp_security' ) . '</p>';
+			$content .= '<p>' . __( 'As most sites are only updated at certain times of the day it is not always necessary to provide access to the WordPress dashboard 24 hours a day, 7 days a week. The options below will allow you to disable access to the WordPress Dashboard for the specified period. In addition to limiting exposure to attackers this could also be useful to disable site access based on a schedule for classroom or other reasons.', 'ithemes-security' ) . '</p>';
 
 			if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) {
 				$currdate = date_i18n( 'l, d F Y' . ' ' . get_option( 'time_format' ), current_time( 'timestamp' ) );
@@ -467,7 +467,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 				$currdate = date( 'g:i a \o\n l F jS, Y', current_time( 'timestamp' ) );
 			}
 
-			$content .= '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is %s. If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'better_wp_security' ), '<a href="options-general.php">', '</a>', '<strong style="color: #f00; font-size: 150%;"><em>' . $currdate . '</em></strong>', '<a href="options-general.php">', '</a>' ) . '</p>';
+			$content .= '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is %s. If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'ithemes-security' ), '<a href="options-general.php">', '</a>', '<strong style="color: #f00; font-size: 150%;"><em>' . $currdate . '</em></strong>', '<a href="options-general.php">', '</a>' ) . '</p>';
 
 			echo $content;
 
@@ -476,20 +476,20 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				$content = '<hr />';
 
-				$content .= sprintf( '<p><strong>%s</strong></p>', __( 'Away mode is currently enabled.', 'better_wp_security' ) );
+				$content .= sprintf( '<p><strong>%s</strong></p>', __( 'Away mode is currently enabled.', 'ithemes-security' ) );
 
 				//Create the appropriate notification based on daily or one time use
 				if ( $this->settings['type'] === 1 ) {
 
-					$content .= sprintf( '<p>' . __( 'The dashboard of this website will become unavailable %s%s%s from %s%s%s until %s%s%s.', 'better_wp_security' ) . '</p>', '<strong>', __( 'every day', 'better_wp_security' ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['end'] ), '</strong>' );
+					$content .= sprintf( '<p>' . __( 'The dashboard of this website will become unavailable %s%s%s from %s%s%s until %s%s%s.', 'ithemes-security' ) . '</p>', '<strong>', __( 'every day', 'ithemes-security' ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['end'] ), '</strong>' );
 
 				} else {
 
-					$content .= sprintf( '<p>' . __( 'The dashboard of this website will become unavailable from %s%s%s on %s%s%s until %s%s%s on %s%s%s.', 'better_wp_security' ) . '</p>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'date_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['end'] ), '</strong>', '<strong>', date_i18n( get_option( 'date_format' ), $this->settings['end'] ), '</strong>' );
+					$content .= sprintf( '<p>' . __( 'The dashboard of this website will become unavailable from %s%s%s on %s%s%s until %s%s%s on %s%s%s.', 'ithemes-security' ) . '</p>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'date_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['end'] ), '</strong>', '<strong>', date_i18n( get_option( 'date_format' ), $this->settings['end'] ), '</strong>' );
 
 				}
 
-				$content .= '<p>' . __( 'You will not be able to log into this website when the site is unavailable.', 'better_wp_security' ) . '</p>';
+				$content .= '<p>' . __( 'You will not be able to log into this website when the site is unavailable.', 'ithemes-security' ) . '</p>';
 
 				echo $content;
 			}
@@ -505,8 +505,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function admin_user_username( $args ) {
 
-			$content = '<input name="bwps_authentication[admin_user-username]" id="bwps_authentication_admin_user_username" value="" type="text"><br />';
-			$content .= '<label for="bwps_authentication_admin_user_username"> ' . __( 'Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', 'better_wp_security' ) . '</label>';
+			$content = '<input name="itsec_authentication[admin_user-username]" id="itsec_authentication_admin_user_username" value="" type="text"><br />';
+			$content .= '<label for="itsec_authentication_admin_user_username"> ' . __( 'Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -521,8 +521,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function admin_user_userid( $args ) {
 
-			$content = '<input type="checkbox" id="bwps_authentication_admin_user_userid" name="bwps_authentication[admin_user-userid]" value="1" />';
-			$content .= '<label for="bwps_authentication_admin_user_userid"> ' . __( 'Check this box to change the id of the user with id 1.', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="itsec_authentication_admin_user_userid" name="itsec_authentication[admin_user-userid]" value="1" />';
+			$content .= '<label for="itsec_authentication_admin_user_userid"> ' . __( 'Check this box to change the id of the user with id 1.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -543,8 +543,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 				$enabled = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_authentication_strong_passwords_enabled" name="bwps_authentication[strong_passwords-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="bwps_authentication_strong_passwords_enabled"> ' . __( 'Check this box to enable strong password enforcement.', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="itsec_authentication_strong_passwords_enabled" name="itsec_authentication[strong_passwords-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_authentication_strong_passwords_enabled"> ' . __( 'Check this box to enable strong password enforcement.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -565,15 +565,15 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 				$roll = 'administrator';
 			}
 
-			$content = '<select name="bwps_authentication[strong_passwords-roll]" id="bwps_authentication_strong_passwords_roll">';
+			$content = '<select name="itsec_authentication[strong_passwords-roll]" id="itsec_authentication_strong_passwords_roll">';
 			$content .= '<option value="administrator" ' . selected( $roll, 'administrator', false ) . '>' . translate_user_role( 'Administrator' ) . '</option>';
 			$content .= '<option value="editor" ' . selected( $roll, 'editor', false ) . '>' . translate_user_role( 'Editor' ) . '</option>';
 			$content .= '<option value="author" ' . selected( $roll, 'author', false ) . '>' . translate_user_role( 'Author' ) . '</option>';
 			$content .= '<option value="contributor" ' . selected( $roll, 'contributor', false ) . '>' . translate_user_role( 'Contributor' ) . '</option>';
 			$content .= '<option value="subscriber" ' . selected( $roll, 'subscriber', false ) . '>' . translate_user_role( 'Subscriber' ) . '</option>';
 			$content .= '</select>';
-			$content .= '<label for="bwps_authentication_strong_passwords_roll"> ' . __( 'Minimum role at which a user must choose a strong password. For more information on WordPress roles and capabilities please see', 'better-wp-security' ) . ' <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p></label>';
-			$content .= '<p class="warningtext">' . __( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', 'better-wp-security' ) . '</p>';
+			$content .= '<label for="itsec_authentication_strong_passwords_roll"> ' . __( 'Minimum role at which a user must choose a strong password. For more information on WordPress roles and capabilities please see', 'ithemes-security' ) . ' <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p></label>';
+			$content .= '<p class="warningtext">' . __( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -592,7 +592,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				$adminurl = is_multisite() ? admin_url() . 'network/' : admin_url();
 
-				$content = sprintf( '<p class="noPermalinks">%s <a href="%soptions-permalink.php">%s</a> %s</p>', __( 'You must turn on', 'better-wp-security' ), $adminurl, __( 'WordPress permalinks', 'better-wp-security' ), __( 'to use this feature.', 'better-wp-security' ) );				
+				$content = sprintf( '<p class="noPermalinks">%s <a href="%soptions-permalink.php">%s</a> %s</p>', __( 'You must turn on', 'ithemes-security' ), $adminurl, __( 'WordPress permalinks', 'ithemes-security' ), __( 'to use this feature.', 'ithemes-security' ) );				
 
 			} else {
 
@@ -602,8 +602,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 					$enabled = 0;
 				}
 
-				$content = '<input type="checkbox" id="bwps_authentication_hide_backend_enabled" name="bwps_authentication[hide_backend-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-				$content .= '<label for="bwps_authentication_hide_backend_enabled"> ' . __( 'Check this box to enable the hide backend feature.', 'better_wp_security' ) . '</label>';
+				$content = '<input type="checkbox" id="itsec_authentication_hide_backend_enabled" name="itsec_authentication[hide_backend-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+				$content .= '<label for="itsec_authentication_hide_backend_enabled"> ' . __( 'Check this box to enable the hide backend feature.', 'ithemes-security' ) . '</label>';
 
 			} 
 
@@ -626,9 +626,9 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			} else {
 
-				$content = '<input name="bwps_authentication[hide_backend-slug]" id="bwps_authentication_strong_passwords_slug" value="' . sanitize_title( $this->settings['hide_backend-slug'] ) . '" type="text"><br />';
-				$content .= '<em><span style="color: #666666;"><strong>' . __( 'Login URL:', 'better-wp-security' ) . '</strong> ' . trailingslashit( get_option( 'siteurl' ) ) . '</span><span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-slug'] ) . '</span></em>';
-				$content .= '<p>' . __( 'The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'better-wp-security' ) . '</p>';
+				$content = '<input name="itsec_authentication[hide_backend-slug]" id="itsec_authentication_strong_passwords_slug" value="' . sanitize_title( $this->settings['hide_backend-slug'] ) . '" type="text"><br />';
+				$content .= '<em><span style="color: #666666;"><strong>' . __( 'Login URL:', 'ithemes-security' ) . '</strong> ' . trailingslashit( get_option( 'siteurl' ) ) . '</span><span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-slug'] ) . '</span></em>';
+				$content .= '<p>' . __( 'The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'ithemes-security' ) . '</p>';
 
 			}
 
@@ -651,8 +651,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			} else {
 
-				$content = '<input name="bwps_authentication[hide_backend-register]" id="bwps_authentication_strong_passwords_register" value="' . ( $this->settings['hide_backend-register'] !== 'wp-register.php' ? sanitize_title( $this->settings['hide_backend-register'] ) : 'wp-register.php' ) . '" type="text"><br />';
-				$content .= '<em><span style="color: #666666;"><strong>' . __( 'Registration URL:', 'better-wp-security' ) . '</strong> ' . trailingslashit( get_option( 'siteurl' ) ) . '</span><span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-register'] ) . '</span></em>';
+				$content = '<input name="itsec_authentication[hide_backend-register]" id="itsec_authentication_strong_passwords_register" value="' . ( $this->settings['hide_backend-register'] !== 'wp-register.php' ? sanitize_title( $this->settings['hide_backend-register'] ) : 'wp-register.php' ) . '" type="text"><br />';
+				$content .= '<em><span style="color: #666666;"><strong>' . __( 'Registration URL:', 'ithemes-security' ) . '</strong> ' . trailingslashit( get_option( 'siteurl' ) ) . '</span><span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-register'] ) . '</span></em>';
 
 			}
 
@@ -676,8 +676,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 				$enabled = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_authentication_away_mode_enabled" name="bwps_authentication[away_mode-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="bwps_authentication_away_mode_enabled"> ' . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="itsec_authentication_away_mode_enabled" name="itsec_authentication[away_mode-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_authentication_away_mode_enabled"> ' . __( 'Check this box to enable away mode', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -702,8 +702,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			}
 
 			//Date Field
-			$content = '<input class="end_date_field" type="text" id="bwps_authentication_away_mode_end_date" name="bwps_authentication[end][date]" value="' . date( 'm/d/y', $end ) . '"/>';
-			$content .= '<label class="end_date_field" for="bwps_authentication_away_mode_end_date"> ' . __( 'Set the date at which the admin dashboard should become available', 'better_wp_security' ) . '</label>';
+			$content = '<input class="end_date_field" type="text" id="itsec_authentication_away_mode_end_date" name="itsec_authentication[end][date]" value="' . date( 'm/d/y', $end ) . '"/>';
+			$content .= '<label class="end_date_field" for="itsec_authentication_away_mode_end_date"> ' . __( 'Set the date at which the admin dashboard should become available', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -728,7 +728,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			}
 
 			//Hour Field
-			$content = '<select name="bwps_authentication[end][hour]" id="bwps_authentication_away_mod_end_time">';
+			$content = '<select name="itsec_authentication[end][hour]" id="itsec_authentication_away_mod_end_time">';
 
 			for ( $i = 1; $i <= 12; $i ++ ) {
 				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $end ), $i, false ) . '>' . $i . '</option>';
@@ -737,7 +737,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			$content .= '</select>';
 
 			//Minute Field
-			$content .= '<select name="bwps_authentication[end][minute]" id="bwps_authentication_away_mod_end_time">';
+			$content .= '<select name="itsec_authentication[end][minute]" id="itsec_authentication_away_mod_end_time">';
 
 			for ( $i = 0; $i <= 59; $i ++ ) {
 
@@ -747,11 +747,11 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			$content .= '</select>';
 
 			//AM/PM Field
-			$content .= '<select name="bwps_authentication[end][sel]" id="bwps_authentication">';
-			$content .= '<option value="am" ' . selected( date( 'a', $end ), 'am', false ) . '>' . __( 'am', 'better_wp_security' ) . '</option>';
-			$content .= '<option value="pm" ' . selected( date( 'a', $end ), 'pm', false ) . '>' . __( 'pm', 'better_wp_security' ) . '</option>';
+			$content .= '<select name="itsec_authentication[end][sel]" id="itsec_authentication">';
+			$content .= '<option value="am" ' . selected( date( 'a', $end ), 'am', false ) . '>' . __( 'am', 'ithemes-security' ) . '</option>';
+			$content .= '<option value="pm" ' . selected( date( 'a', $end ), 'pm', false ) . '>' . __( 'pm', 'ithemes-security' ) . '</option>';
 			$content .= '</select>';
-			$content .= '<label for="bwps_authentication_away_mod_end_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'better_wp_security' ) . '</label>';
+			$content .= '<label for="itsec_authentication_away_mod_end_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -776,8 +776,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			}
 
 			//Date Field
-			$content = '<input class="start_date_field" type="text" id="bwps_authentication_away_mode_start_date" name="bwps_authentication[start][date]" value="' . date( 'm/d/y', $start ) . '"/>';
-			$content .= '<label class="start_date_field" for="bwps_authentication_away_mode_start_date"> ' . __( 'Set the date at which the admin dashboard should become unavailable', 'better_wp_security' ) . '</label>';
+			$content = '<input class="start_date_field" type="text" id="itsec_authentication_away_mode_start_date" name="itsec_authentication[start][date]" value="' . date( 'm/d/y', $start ) . '"/>';
+			$content .= '<label class="start_date_field" for="itsec_authentication_away_mode_start_date"> ' . __( 'Set the date at which the admin dashboard should become unavailable', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -802,7 +802,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			}
 
 			//Hour Field
-			$content = '<select name="bwps_authentication[start][hour]" id="bwps_authentication_away_mod_start_time">';
+			$content = '<select name="itsec_authentication[start][hour]" id="itsec_authentication_away_mod_start_time">';
 
 			for ( $i = 1; $i <= 12; $i ++ ) {
 				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $start ), $i, false ) . '>' . $i . '</option>';
@@ -811,7 +811,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			$content .= '</select>';
 
 			//Minute Field
-			$content .= '<select name="bwps_authentication[start][minute]" id="bwps_authentication_away_mod_start_time">';
+			$content .= '<select name="itsec_authentication[start][minute]" id="itsec_authentication_away_mod_start_time">';
 
 			for ( $i = 0; $i <= 59; $i ++ ) {
 
@@ -821,11 +821,11 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			$content .= '</select>';
 
 			//AM/PM Field
-			$content .= '<select name="bwps_authentication[start][sel]" id="bwps_authentication_away_mod_start_time">';
-			$content .= '<option value="am" ' . selected( date( 'a', $start ), 'am', false ) . '>' . __( 'am', 'better_wp_security' ) . '</option>';
-			$content .= '<option value="pm" ' . selected( date( 'a', $start ), 'pm', false ) . '>' . __( 'pm', 'better_wp_security' ) . '</option>';
+			$content .= '<select name="itsec_authentication[start][sel]" id="itsec_authentication_away_mod_start_time">';
+			$content .= '<option value="am" ' . selected( date( 'a', $start ), 'am', false ) . '>' . __( 'am', 'ithemes-security' ) . '</option>';
+			$content .= '<option value="pm" ' . selected( date( 'a', $start ), 'pm', false ) . '>' . __( 'pm', 'ithemes-security' ) . '</option>';
 			$content .= '</select>';
-			$content .= '<label for="bwps_authentication_away_mod_start_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'better_wp_security' ) . '</label>';
+			$content .= '<label for="itsec_authentication_away_mod_start_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -840,11 +840,11 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function away_mode_type( $args ) {
 
-			$content = '<select name="bwps_authentication[away_mode-type]" id="bwps_authentication_away_mode_type">';
-			$content .= '<option value="1" ' . selected( $this->settings['away_mode-type'], 1, false ) . '>' . __( 'Daily', 'better_wp_security' ) . '</option>';
-			$content .= '<option value="2" ' . selected( $this->settings['away_mode-type'], 2, false ) . '>' . __( 'One Time', 'better_wp_security' ) . '</option>';
+			$content = '<select name="itsec_authentication[away_mode-type]" id="itsec_authentication_away_mode_type">';
+			$content .= '<option value="1" ' . selected( $this->settings['away_mode-type'], 1, false ) . '>' . __( 'Daily', 'ithemes-security' ) . '</option>';
+			$content .= '<option value="2" ' . selected( $this->settings['away_mode-type'], 2, false ) . '>' . __( 'One Time', 'ithemes-security' ) . '</option>';
 			$content .= '</select>';
-			$content .= '<label for="bwps_authentication_away_mode_type"> ' . __( 'Check this box to enable away mode', 'better_wp_security' ) . '</label>';
+			$content .= '<label for="itsec_authentication_away_mode_type"> ' . __( 'Check this box to enable away mode', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -857,8 +857,8 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function add_module_intro( $screen ) {
 
-			$content = '<p>' . __( 'The below settings control who and how users can log in to the WordPress Dashboard. Turning on settings below can greatly increase the security of your WordPress website by preventing many of the common attacks that go after weaknesses in the standard login system.', 'better_wp_security' ) . '</p>';
-			$content .= '<p>' . __( 'Please keep in mind the following settings are designed to work primarily with the standard login system. If you have any plugins or a theme that has changed anything already please test your site after turning on the below settings to verify there are no conflicts.', 'better_wp_security' ) . '</p>';
+			$content = '<p>' . __( 'The below settings control who and how users can log in to the WordPress Dashboard. Turning on settings below can greatly increase the security of your WordPress website by preventing many of the common attacks that go after weaknesses in the standard login system.', 'ithemes-security' ) . '</p>';
+			$content .= '<p>' . __( 'Please keep in mind the following settings are designed to work primarily with the standard login system. If you have any plugins or a theme that has changed anything already please test your site after turning on the below settings to verify there are no conflicts.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -873,20 +873,20 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			//set appropriate action for multisite or standard site
 			if ( is_multisite() ) {
-				$action = 'edit.php?action=bwps_authentication';
+				$action = 'edit.php?action=itsec_authentication';
 			} else {
 				$action = 'options.php';
 			}
 
 			printf( '<form name="%s" method="post" action="%s">', get_current_screen()->id, $action );
 
-			$this->core->do_settings_sections( 'security_page_toplevel_page_bwps-authentication', false );
+			$this->core->do_settings_sections( 'security_page_toplevel_page_itsec-authentication', false );
 
 			echo '<p>' . PHP_EOL;
 
-			settings_fields( 'security_page_toplevel_page_bwps-authentication' );
+			settings_fields( 'security_page_toplevel_page_itsec-authentication' );
 
-			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'better_wp_security' ) . '" />' . PHP_EOL;
+			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'ithemes-security' ) . '" />' . PHP_EOL;
 
 			echo '</p>' . PHP_EOL;
 
@@ -1019,7 +1019,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			if ( in_array( $input[''], $forbidden_slugs ) && $input['hide_backend-enabled'] === true ) {
 				
 				$type    = 'error';
-				$message = __( 'Invalid hide login slug used. The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'better_wp_security' );
+				$message = __( 'Invalid hide login slug used. The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'ithemes-security' );
 
 			} else {
 
@@ -1044,33 +1044,33 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			if ( $usersuccess === false ) {
 
 				$type    = 'error';
-				$message = __( 'The new admin username you entered is invalid. Please check the name and try again.', 'better_wp_security' );
+				$message = __( 'The new admin username you entered is invalid. Please check the name and try again.', 'ithemes-security' );
 
 			} elseif ( $this->module->check_away( true, $input ) === true ) {
 
 				$input['away_mode-enabled'] = false; //disable away mode
 
 				$type    = 'error';
-				$message = __( 'Invalid time listed. The time entered would lock you out of your site now. Please try again.', 'better_wp_security' );
+				$message = __( 'Invalid time listed. The time entered would lock you out of your site now. Please try again.', 'ithemes-security' );
 
 			} elseif ( $input['away_mode-type'] === 2 && $input['away_mode-end'] < $input['away_mode-start'] ) {
 
 				$input['away_mode-enabled'] = false; //disable away mode
 
 				$type    = 'error';
-				$message = __( 'Invalid time listed. The start time selected is after the end time selected.', 'better_wp_security' );
+				$message = __( 'Invalid time listed. The start time selected is after the end time selected.', 'ithemes-security' );
 
 			} elseif ( $input['away_mode-type'] === 2 && $input['away_mode-end'] < current_time( 'timestamp' ) ) {
 
 				$input['away_mode-enabled'] = false; //disable away mode
 
 				$type    = 'error';
-				$message = __( 'Invalid time listed. The period selected already ended.', 'better_wp_security' );
+				$message = __( 'Invalid time listed. The period selected already ended.', 'ithemes-security' );
 
 			} else {
 
 				$type    = 'updated';
-				$message = __( 'Settings Updated', 'better_wp_security' );
+				$message = __( 'Settings Updated', 'ithemes-security' );
 
 			}
 
@@ -1091,7 +1091,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			flush_rewrite_rules();
 
 			add_settings_error(
-				'bwps_admin_notices',
+				'itsec_admin_notices',
 				esc_attr( 'settings_updated' ),
 				$message,
 				$type
@@ -1108,24 +1108,24 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['strong_passwords-enabled'] = ( isset( $_POST['bwps_authentication']['strong_passwords-enabled'] ) && intval( $_POST['bwps_authentication']['strong_passwords-enabled'] == 1 ) ? true : false );
-			if ( isset( $_POST['bwps_authentication']['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $_POST['bwps_authentication']['strong_passwords-roll'] ) ) ) {
-				$settings['strong_passwords-roll'] = wp_strip_all_tags( $_POST['bwps_authentication']['strong_passwords-roll'] );
+			$settings['strong_passwords-enabled'] = ( isset( $_POST['itsec_authentication']['strong_passwords-enabled'] ) && intval( $_POST['itsec_authentication']['strong_passwords-enabled'] == 1 ) ? true : false );
+			if ( isset( $_POST['itsec_authentication']['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $_POST['itsec_authentication']['strong_passwords-roll'] ) ) ) {
+				$settings['strong_passwords-roll'] = wp_strip_all_tags( $_POST['itsec_authentication']['strong_passwords-roll'] );
 			}
 
-			$settings['hide_backend-enabled'] = ( isset( $_POST['bwps_authentication']['hide_backend-enabled'] ) && intval( $_POST['bwps_authentication']['hide_backend-enabled'] == 1 ) ? true : false );
-			$settings['hide_backend-slug'] = sanitize_title( $_POST['bwps_authentication']['hide_backend-slug'] );
-			$settings['hide_backend-register'] = sanitize_title( $_POST['bwps_authentication']['hide_backend-register'] );
+			$settings['hide_backend-enabled'] = ( isset( $_POST['itsec_authentication']['hide_backend-enabled'] ) && intval( $_POST['itsec_authentication']['hide_backend-enabled'] == 1 ) ? true : false );
+			$settings['hide_backend-slug'] = sanitize_title( $_POST['itsec_authentication']['hide_backend-slug'] );
+			$settings['hide_backend-register'] = sanitize_title( $_POST['itsec_authentication']['hide_backend-register'] );
 
-			$settings['away_mode-enabled'] = ( isset( $_POST['bwps_authentication']['away_mode-enabled'] ) && intval( $_POST['bwps_authentication']['away_mode-enabled'] == 1 ) ? true : false );
-			$settings['away_mode-type'] = ( isset( $_POST['bwps_authentication']['away_mode-type'] ) && intval( $_POST['bwps_authentication']['away_mode-type'] == 1 ) ? 1 : 2 );
-			$settings['away_mode-start'] = strtotime( $_POST['bwps_authentication']['start']['date'] . ' ' . $_POST['bwps_authentication']['start']['hour'] . ':' . $_POST['bwps_authentication']['start']['minute'] . ' ' . $_POST['bwps_authentication']['start']['sel'] );
-			$settings['away_mode-end']   = strtotime( $_POST['bwps_authentication']['end']['date'] . ' ' . $_POST['bwps_authentication']['end']['hour'] . ':' . $_POST['bwps_authentication']['end']['minute'] . ' ' . $_POST['bwps_authentication']['end']['sel'] );
+			$settings['away_mode-enabled'] = ( isset( $_POST['itsec_authentication']['away_mode-enabled'] ) && intval( $_POST['itsec_authentication']['away_mode-enabled'] == 1 ) ? true : false );
+			$settings['away_mode-type'] = ( isset( $_POST['itsec_authentication']['away_mode-type'] ) && intval( $_POST['itsec_authentication']['away_mode-type'] == 1 ) ? 1 : 2 );
+			$settings['away_mode-start'] = strtotime( $_POST['itsec_authentication']['start']['date'] . ' ' . $_POST['itsec_authentication']['start']['hour'] . ':' . $_POST['itsec_authentication']['start']['minute'] . ' ' . $_POST['itsec_authentication']['start']['sel'] );
+			$settings['away_mode-end']   = strtotime( $_POST['itsec_authentication']['end']['date'] . ' ' . $_POST['itsec_authentication']['end']['hour'] . ':' . $_POST['itsec_authentication']['end']['minute'] . ' ' . $_POST['itsec_authentication']['end']['sel'] );
 
-			update_site_option( 'bwps_authentication', $settings ); //we must manually save network options
+			update_site_option( 'itsec_authentication', $settings ); //we must manually save network options
 
 			//send them back to the away mode options page
-			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_bwps-authentication', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
+			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_itsec-authentication', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
 
 		}
@@ -1133,10 +1133,10 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		/**
 		 * Start the System Tweaks Admin Module
 		 *
-		 * @param Ithemes_BWPS_Core $core Instance of core plugin class
-		 * @param BWPS_Authentication $module Instance of the authentication module class
+		 * @param Ithemes_ITSEC_Core $core Instance of core plugin class
+		 * @param ITSEC_Authentication $module Instance of the authentication module class
 		 *
-		 * @return BWPS_Authentication_Admin                The instance of the BWPS_Authentication_Admin class
+		 * @return ITSEC_Authentication_Admin                The instance of the ITSEC_Authentication_Admin class
 		 */
 		public static function start( $core, $module ) {
 

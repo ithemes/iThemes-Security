@@ -1,6 +1,6 @@
 jQuery( document ).ready( function () {
 
-    jQuery( '#bwps_ssl_admin, #bwps_ssl_login' ).change( function () {
+    jQuery( '#itsec_ssl_admin, #itsec_ssl_login' ).change( function () {
 
         if ( this.checked ) {
 

@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'Ithemes_BWPS_Logger' ) ) {
+if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
-	class Ithemes_BWPS_Logger {
+	class ITSEC_Logger {
 
 		private static $instance = NULL; //instantiated instance of this plugin
 
@@ -13,7 +13,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Logger' ) ) {
 		/**
 		 * Start the global library instance
 		 *
-		 * @return Ithemes_BWPS_Logger         The instance of the Ithemes_BWPS_Logger class
+		 * @return ITSEC_Logger         The instance of the ITSEC_Logger class
 		 */
 		public static function start() {
 

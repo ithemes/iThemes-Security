@@ -1,7 +1,7 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
-	require( dirname( __FILE__ ) . '/class-bwps-foo-support-admin.php' );
+if ( ! class_exists( 'ITSEC_Foo_Support_Admin' ) ) {
+	require( dirname( __FILE__ ) . '/class-itsec-foo-support-admin.php' );
 }
 
-BWPS_Foo_Support_Admin::start();
+ITSEC_Foo_Support_Admin::start();

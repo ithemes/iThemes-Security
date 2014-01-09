@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
+if ( ! class_exists( 'ITSEC_Support_Page_Admin' ) ) {
 
-	class BWPS_Support_Page_Admin {
+	class ITSEC_Support_Page_Admin {
 
 		private static $instance = NULL;
 
@@ -14,28 +14,28 @@ if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
 
 			$this->core = $core;
 
-			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
-			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 
 		}
 
 		/**
 		 * Register subpage for Away Mode
 		 *
-		 * @param array $available_pages array of BWPS settings pages
+		 * @param array $available_pages array of ITSEC settings pages
 		 */
 		public function add_sub_page( $available_pages ) {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
 			$this->page = $available_pages[0] . '-support';
 
 			$available_pages[] = add_submenu_page(
-				'bwps',
-				__( 'Support', 'better_wp_security' ),
-				__( 'Support', 'better_wp_security' ),
-				$bwps_globals['plugin_access_lvl'],
+				'itsec',
+				__( 'Support', 'ithemes-security' ),
+				__( 'Support', 'ithemes-security' ),
+				$itsec_globals['plugin_access_lvl'],
 				$available_pages[0] . '-support',
 				array( $this->core, 'render_page' )
 			);
@@ -46,7 +46,7 @@ if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
 
 		public function add_admin_tab( $tabs ) {
 
-			$tabs[$this->page] = __( 'Support', 'better_wp_security' );
+			$tabs[$this->page] = __( 'Support', 'ithemes-security' );
 
 			return $tabs;
 
@@ -59,19 +59,19 @@ if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
 		public function add_admin_meta_boxes() {
 
 			add_meta_box(
-				'bwps_system_info_description',
-				__( 'Description', 'better_wp_security' ),
+				'itsec_system_info_description',
+				__( 'Description', 'ithemes-security' ),
 				array( $this, 'add_support_intro' ),
-				'security_page_toplevel_page_bwps-support',
+				'security_page_toplevel_page_itsec-support',
 				'normal',
 				'core'
 			);
 
 			add_meta_box(
-				'bwps_system_info',
-				__( 'System Information', 'better_wp_security' ),
+				'itsec_system_info',
+				__( 'System Information', 'ithemes-security' ),
 				array( $this, 'metabox_normal_system' ),
-				'security_page_toplevel_page_bwps-support',
+				'security_page_toplevel_page_itsec-support',
 				'normal',
 				'core'
 			);
@@ -105,9 +105,9 @@ if ( ! class_exists( 'BWPS_Support_Page_Admin' ) ) {
 		/**
 		 * Start the Support module
 		 *
-		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
+		 * @param  Ithemes_ITSEC_Core $core Instance of core plugin class
 		 *
-		 * @return BWPS_Support_Page_Admin                The instance of the BWPS_Support_Page_Admin class
+		 * @return ITSEC_Support_Page_Admin                The instance of the ITSEC_Support_Page_Admin class
 		 */
 		public static function start( $core ) {
 

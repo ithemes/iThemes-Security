@@ -1,16 +1,16 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Foo_Support_Setup' ) ) {
+if ( ! class_exists( 'ITSEC_Foo_Support_Setup' ) ) {
 
-	class BWPS_Foo_Support_Setup {
+	class ITSEC_Foo_Support_Setup {
 
 		function __construct() {
 
-			global $bwps_setup_action;
+			global $itsec_setup_action;
 
-			if ( isset( $bwps_setup_action ) ) {
+			if ( isset( $itsec_setup_action ) ) {
 
-				switch ( $bwps_setup_action ) {
+				switch ( $itsec_setup_action ) {
 
 					case 'activate':
 						$this->execute_activate();
@@ -57,10 +57,10 @@ if ( ! class_exists( 'BWPS_Foo_Support_Setup' ) ) {
 
 			$this->execute_deactivate();
 
-			delete_site_option( 'bwps_licensekey' );
-			delete_site_option( 'bwps_valid' );
-			delete_site_option( 'bwps_valid_expires' );
-			delete_site_option( 'bwps_lasterror' );
+			delete_site_option( 'itsec_licensekey' );
+			delete_site_option( 'itsec_valid' );
+			delete_site_option( 'itsec_valid_expires' );
+			delete_site_option( 'itsec_lasterror' );
 
 		}
 
@@ -76,4 +76,4 @@ if ( ! class_exists( 'BWPS_Foo_Support_Setup' ) ) {
 
 }
 
-new BWPS_Foo_Support_Setup();
+new ITSEC_Foo_Support_Setup();

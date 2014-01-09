@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Authentication' ) ) {
+if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 
-	class BWPS_Authentication {
+	class ITSEC_Authentication {
 
 		private static $instance = NULL;
 
@@ -12,10 +12,10 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 
 		private function __construct() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
-			$this->settings  = get_site_option( 'bwps_authentication' );
-			$this->away_file = $bwps_globals['upload_dir'] . '/bwps_away.confg'; //override file
+			$this->settings  = get_site_option( 'itsec_authentication' );
+			$this->away_file = $itsec_globals['upload_dir'] . '/itsec_away.confg'; //override file
 
 			//require strong passwords if turned on
 			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] == true ) {
@@ -75,7 +75,7 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 
 			}
 
-			$transaway = get_site_transient( 'bwps_away' );
+			$transaway = get_site_transient( 'itsec_away' );
 
 			//if transient indicates away go ahead and lock them out
 			if ( $form === false && $transaway === true && file_exists( $this->away_file ) ) {
@@ -127,11 +127,11 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 
 					if ( $form === false ) {
 
-						if ( get_site_transient( 'bwps_away' ) === true ) {
-							delete_site_transient( 'bwps_away' );
+						if ( get_site_transient( 'itsec_away' ) === true ) {
+							delete_site_transient( 'itsec_away' );
 						}
 
-						set_site_transient( 'bwps_away', true, $remaining );
+						set_site_transient( 'itsec_away', true, $remaining );
 
 					}
 
@@ -152,12 +152,12 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 		 */
 		public function login_script_js() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
-			wp_enqueue_script( 'bwps_authentication', $bwps_globals['plugin_url'] . 'modules/authentication/js/authentication.js', 'jquery', $bwps_globals['plugin_build'] );
+			wp_enqueue_script( 'itsec_authentication', $itsec_globals['plugin_url'] . 'modules/authentication/js/authentication.js', 'jquery', $itsec_globals['plugin_build'] );
 			
 			//make sure the text of the warning is translatable
-   			wp_localize_script( 'bwps_authentication', 'strong_password_error_text', array( 'text' => __( 'Sorry, but you must enter a strong password.', 'better-wp-security' ) ) );
+   			wp_localize_script( 'itsec_authentication', 'strong_password_error_text', array( 'text' => __( 'Sorry, but you must enter a strong password.', 'ithemes-security' ) ) );
 
 		}
 
@@ -226,7 +226,7 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 					jQuery( document ).ready( function() {
 						jQuery( '#resetpassform' ).submit( function() {
 							if ( ! jQuery( '#pass-strength-result' ).hasClass( 'strong' ) ) {
-								alert( '<?php _e( "Sorry, but you must enter a strong password", "better-wp-security" ); ?>' );
+								alert( '<?php _e( "Sorry, but you must enter a strong password", "ithemes-security" ); ?>' );
 								return false;
 							}
 						} );
@@ -240,7 +240,7 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 			
 				//add to error array if the password does not meet requirements
 				if ( $password_meets_requirements && ! $errors->get_error_data( 'pass' ) && isset( $_POST['pass1'] ) && isset( $_POST['password_strength'] ) &&  $_POST['password_strength'] != 'strong' ) {  
-					$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' , 'better-wp-security' ) );  
+					$errors->add( 'pass', __( '<strong>ERROR</strong>: You MUST Choose a password that rates at least <em>Strong</em> on the meter. Your setting have NOT been saved.' , 'ithemes-security' ) );  
 				}  
 
 			}
@@ -255,14 +255,14 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 		 */
 		public function execute_hide_backend() {
 
-			global $bwps_lib;
+			global $itsec_lib;
 
 			$url_info = parse_url( $_SERVER['REQUEST_URI'] );
 			$login_path = site_url( $this->settings['hide_backend-slug'], 'relative' );
 
 			//redirect wp-admin and wp-register.php to 404 when not logged in
 			if ( ( is_admin() && is_user_logged_in() !== true ) || ( $this->settings['hide_backend-register'] != 'wp-register.php' && strpos( $_SERVER['REQUEST_URI'] , 'wp-register.php' ) !== false ) ) {
-				$bwps_lib->set_404();
+				$itsec_lib->set_404();
 			}
 
 			if ( $url_info['path'] === $login_path ) {
@@ -282,11 +282,11 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 		 */
 		public function execute_hide_backend_login() {
 
-			global $bwps_lib;
+			global $itsec_lib;
 
 			if ( strpos( $_SERVER['REQUEST_URI'], 'wp-login.php' ) ) { //are we on the login page
 
-				$bwps_lib->set_404();
+				$itsec_lib->set_404();
 
 			}
 
@@ -373,7 +373,7 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 		/**
 		 * Start the Authentication module
 		 *
-		 * @return BWPS_Authentication                The instance of the BWPS_Authentication class
+		 * @return ITSEC_Authentication                The instance of the ITSEC_Authentication class
 		 */
 		public static function start() {
 

@@ -1,15 +1,15 @@
 <?php
 
-if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
+if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
-	final class Ithemes_BWPS_Lib {
+	final class ITSEC_Lib {
 
 		private static $instance = NULL; //instantiated instance of this plugin
 
 		/**
 		 * Loads core functionality across both admin and frontend.
 		 *
-		 * @param Ithemes_BWPS $plugin
+		 * @param Ithemes_ITSEC $plugin
 		 */
 		private function __construct() {
 
@@ -415,7 +415,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 		/**
 		 * Start the global library instance
 		 *
-		 * @return Ithemes_BWPS_Lib          The instance of the Ithemes_BWPS_Lib class
+		 * @return ITSEC_Lib          The instance of the ITSEC_Lib class
 		 */
 		public static function start() {
 

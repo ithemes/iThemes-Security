@@ -1,16 +1,16 @@
 <?php
 
-if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
+if ( ! class_exists( 'ITSEC_SSL_Setup' ) ) {
 
-	class BWPS_SSL_Setup {
+	class ITSEC_SSL_Setup {
 
 		function __construct() {
 
-			global $bwps_setup_action;
+			global $itsec_setup_action;
 
-			if ( isset( $bwps_setup_action ) ) {
+			if ( isset( $itsec_setup_action ) ) {
 
-				switch ( $bwps_setup_action ) {
+				switch ( $itsec_setup_action ) {
 
 					case 'activate':
 						$this->execute_activate();
@@ -40,8 +40,8 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 		 */
 		function execute_activate() {
 
-			$options = get_site_option( 'bwps_ssl' );
-			$initials = get_site_option( 'bwps_initials' );
+			$options = get_site_option( 'itsec_ssl' );
+			$initials = get_site_option( 'itsec_initials' );
 
 			if ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) {
 				$initials['login'] = true;
@@ -55,7 +55,7 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 				$initials['admin'] = false;
 			}
 
-			update_site_option( 'bwps_initials', $initials );
+			update_site_option( 'itsec_initials', $initials );
 
 			if ( $options === false ) {
 
@@ -77,7 +77,7 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 					'login'		=> $login,
 				);
 
-				add_site_option( 'bwps_ssl', $defaults );
+				add_site_option( 'itsec_ssl', $defaults );
 
 			}
 
@@ -90,10 +90,10 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 		 */
 		function execute_deactivate() {
 
-			global $bwps_files;
+			global $itsec_files;
 
-			$config_rules = BWPS_Advanced_Tweaks_Admin::build_wpconfig_rules( false );
-			$bwps_files->set_wpconfig( $config_rules );
+			$config_rules = ITSEC_Advanced_Tweaks_Admin::build_wpconfig_rules( false );
+			$itsec_files->set_wpconfig( $config_rules );
 
 		}
 
@@ -106,9 +106,9 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 
 			$this->execute_deactivate();
 
-			delete_site_option( 'bwps_ssl' );
+			delete_site_option( 'itsec_ssl' );
 			
-			delete_metadata( 'post', null, 'bwps_enable_ssl', null, true );
+			delete_metadata( 'post', null, 'itsec_enable_ssl', null, true );
 
 		}
 
@@ -125,4 +125,4 @@ if ( ! class_exists( 'BWPS_SSL_Setup' ) ) {
 
 }
 
-new BWPS_SSL_Setup();
+new ITSEC_SSL_Setup();

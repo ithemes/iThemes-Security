@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
+if ( ! class_exists( 'ITSEC_Database_Prefix_Admin' ) ) {
 
-	class BWPS_Database_Prefix_Admin {
+	class ITSEC_Database_Prefix_Admin {
 
 		private static $instance = NULL;
 
@@ -24,29 +24,29 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 			}
 
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
-			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
-			add_filter( 'bwps_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
 		}
 
 		/**
 		 * Register subpage for Away Mode
 		 *
-		 * @param array $available_pages array of BWPS settings pages
+		 * @param array $available_pages array of ITSEC settings pages
 		 */
 		public function add_sub_page( $available_pages ) {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
 			$this->page = $available_pages[0] . '-database_prefix';
 
 			$available_pages[] = add_submenu_page(
-				'bwps',
-				__( 'Database Prefix', 'better_wp_security' ),
-				__( 'Database Prefix', 'better_wp_security' ),
-				$bwps_globals['plugin_access_lvl'],
+				'itsec',
+				__( 'Database Prefix', 'ithemes-security' ),
+				__( 'Database Prefix', 'ithemes-security' ),
+				$itsec_globals['plugin_access_lvl'],
 				$available_pages[0] . '-database_prefix',
 				array( $this->core, 'render_page' )
 			);
@@ -57,7 +57,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 
 		public function add_admin_tab( $tabs ) {
 
-			$tabs[$this->page] = __( 'Prefix', 'better_wp_security' );
+			$tabs[$this->page] = __( 'Prefix', 'ithemes-security' );
 
 			return $tabs;
 
@@ -73,18 +73,18 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 			//add metaboxes
 			add_meta_box(
 				'database_prefix_description',
-				__( 'Description', 'better_wp_security' ),
+				__( 'Description', 'ithemes-security' ),
 				array( $this, 'add_module_intro' ),
-				'security_page_toplevel_page_bwps-database_prefix',
+				'security_page_toplevel_page_itsec-database_prefix',
 				'normal',
 				'core'
 			);
 			
 			add_meta_box(
 				'database_prefix_options',
-				__( 'Change Database Prefix', 'better_wp_security' ),
+				__( 'Change Database Prefix', 'ithemes-security' ),
 				array( $this, 'metabox_advanced_settings' ),
-				'security_page_toplevel_page_bwps-database_prefix',
+				'security_page_toplevel_page_itsec-database_prefix',
 				'advanced',
 				'core'
 			);
@@ -98,13 +98,13 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 		 */
 		public function dashboard_status( $statuses ) {
 
-			$link = 'admin.php?page=toplevel_page_bwps-database_prefix';
+			$link = 'admin.php?page=toplevel_page_itsec-database_prefix';
 
 			if ( $this->settings !== true ) {
 
 				$status_array = 'safe-medium';
 				$status       = array(
-					'text' => sprintf( '%s wp_.', __( 'Your database table prefix is not using', 'better_wp_security' ) ),
+					'text' => sprintf( '%s wp_.', __( 'Your database table prefix is not using', 'ithemes-security' ) ),
 					'link' => $link,
 				);
 
@@ -112,7 +112,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 
 				$status_array = 'medium';
 				$status       = array(
-					'text' => sprintf( '%s wp_.', __( 'Your database table prefix should not be', 'better_wp_security' ) ),
+					'text' => sprintf( '%s wp_.', __( 'Your database table prefix should not be', 'ithemes-security' ) ),
 					'link' => $link,
 				);
 
@@ -131,9 +131,9 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 		 */
 		public function initialize_admin() {
 
-			if ( isset( $_POST['bwps_one_time_save'] ) && $_POST['bwps_one_time_save'] == 'database_prefix' ) {
+			if ( isset( $_POST['itsec_one_time_save'] ) && $_POST['itsec_one_time_save'] == 'database_prefix' ) {
 
-				if ( ! wp_verify_nonce( $_POST['wp_nonce'], 'BWPS_admin_save' ) ) {
+				if ( ! wp_verify_nonce( $_POST['wp_nonce'], 'ITSEC_admin_save' ) ) {
 
 					die( 'Security error!' );
 
@@ -154,9 +154,9 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 		 */
 		public function add_module_intro( $screen ) {
 
-				$content = '<p>' . __( 'By default WordPress assigns the prefix "wp_" to all the tables in the database where your content, users, and objects live. For potential attackers this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% or so of sites are already known. Changing this makes it more difficult for tools that are trying to take advantage of vulnerabilites in other places to affect the database of your site.', 'better-wp-security' ) . '</p>';
-				$content .= '<p>' . __( 'Please note that the use of this tool requires quite a bit of system memory which my be more than some hosts can handle. If you back your database up you can\'t do any permanent damage but without a proper backup you risk breaking your site and having to perform a rather difficult fix.', 'better-wp-security' ) . '</p>';
-				$content .= sprintf( '<div class="bwps-warning-message"><span>%s: </span><a href="?page=better-wp-security-databasebackup">%s</a> %s</div>', __( 'WARNING', 'better_wp_security' ), __( 'Backup your database', 'better_wp_security' ), __('before using this tool.', 'better_wp_security' ) );
+				$content = '<p>' . __( 'By default WordPress assigns the prefix "wp_" to all the tables in the database where your content, users, and objects live. For potential attackers this means it is easier to write scripts that can target WordPress databases as all the important table names for 95% or so of sites are already known. Changing this makes it more difficult for tools that are trying to take advantage of vulnerabilites in other places to affect the database of your site.', 'ithemes-security' ) . '</p>';
+				$content .= '<p>' . __( 'Please note that the use of this tool requires quite a bit of system memory which my be more than some hosts can handle. If you back your database up you can\'t do any permanent damage but without a proper backup you risk breaking your site and having to perform a rather difficult fix.', 'ithemes-security' ) . '</p>';
+				$content .= sprintf( '<div class="itsec-warning-message"><span>%s: </span><a href="?page=ithemes-security-databasebackup">%s</a> %s</div>', __( 'WARNING', 'ithemes-security' ), __( 'Backup your database', 'ithemes-security' ), __('before using this tool.', 'ithemes-security' ) );
 
 				echo $content;
 
@@ -174,7 +174,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 			if ( $this->settings === true ) { //Show the correct info
 
 				?>
-				<p><strong><?php _e( 'Your database is using the default table prefix', 'better-wp-security' ); ?> <em>wp_</em>. <?php _e( 'You should change this.', 'better-wp-security' ); ?></strong></p>
+				<p><strong><?php _e( 'Your database is using the default table prefix', 'ithemes-security' ); ?> <em>wp_</em>. <?php _e( 'You should change this.', 'ithemes-security' ); ?></strong></p>
 				<?php
 
 			} else {
@@ -182,7 +182,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 				$prefix = $this->settings === false ? $wpdb->base_prefix : $this->settings;
 
 				?>
-				<p><?php _e( 'Your current database table prefix is', 'better-wp-security' ); ?> <strong><em><?php echo $prefix; ?></em></strong></p>
+				<p><?php _e( 'Your current database table prefix is', 'ithemes-security' ); ?> <strong><em><?php echo $prefix; ?></em></strong></p>
 				<?php
 
 			}
@@ -190,11 +190,11 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 			?>
 
 			<form method="post" action="">
-				<?php wp_nonce_field( 'BWPS_admin_save', 'wp_nonce' ); ?>
-				<input type="hidden" name="bwps_one_time_save" value="database_prefix"/>
-				<p><?php _e( 'Press the button below to generate a random database prefix value and update all of your tables accordingly.', 'better-wp-security' ); ?></p>
+				<?php wp_nonce_field( 'ITSEC_admin_save', 'wp_nonce' ); ?>
+				<input type="hidden" name="itsec_one_time_save" value="database_prefix"/>
+				<p><?php _e( 'Press the button below to generate a random database prefix value and update all of your tables accordingly.', 'ithemes-security' ); ?></p>
 				<p class="submit">
-					<input type="submit" class="button-primary" value="<?php _e( 'Change Database Table Prefix', 'better-wp-security' ); ?>"/>
+					<input type="submit" class="button-primary" value="<?php _e( 'Change Database Table Prefix', 'ithemes-security' ); ?>"/>
 				</p>
 			</form>
 
@@ -208,7 +208,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 		 */
 		public function process_database_prefix() {
 
-			global $wpdb, $bwps_files;
+			global $wpdb, $itsec_files;
 
 			$checkPrefix = true;//Assume the first prefix we generate is unique
 
@@ -239,7 +239,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 
 			//assume this will work
 			$type    = 'updated';
-			$message = __( 'Settings Updated', 'better_wp_security' );
+			$message = __( 'Settings Updated', 'ithemes-security' );
 
 			$tables = $wpdb->get_results( 'SHOW TABLES LIKE "' . $wpdb->base_prefix . '%"', ARRAY_N ); //retrieve a list of all tables in the DB
 					
@@ -252,7 +252,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 				if ( $wpdb->query( 'RENAME TABLE `' . $wpdb->base_prefix . $table . '` TO `' . $newPrefix . $table . '`;' ) === false ) {
 
 					$type    = 'error';
-					$message = sprintf( '%s %s%s. %s', __( 'Error: Could not rename table', 'better-wp-security' ), $wpdb->base_prefix, $table, __( 'You may have to rename the table manually.', 'better-wp-security' ) );
+					$message = sprintf( '%s %s%s. %s', __( 'Error: Could not rename table', 'ithemes-security' ), $wpdb->base_prefix, $table, __( 'You may have to rename the table manually.', 'ithemes-security' ) );
 						
 				}
 						
@@ -286,7 +286,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 			if ( $upOpts === false ) { //set an error
 
 				$type    = 'error';
-				$message = __( 'Could not update prefix references in options table.', 'better_wp_security' );
+				$message = __( 'Could not update prefix references in options table.', 'ithemes-security' );
 						
 			}
 										
@@ -304,7 +304,7 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 					if ( $result == false ) {
 
 						$type    = 'error';
-						$message = __( 'Could not update prefix references in usermeta table.', 'better_wp_security' );
+						$message = __( 'Could not update prefix references in usermeta table.', 'ithemes-security' );
 								
 					}
 							
@@ -325,19 +325,19 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 					),
 			);
 
-			$bwps_files->set_wpconfig( $rules );
+			$itsec_files->set_wpconfig( $rules );
 
-			if ( ! $bwps_files->save_wpconfig() ) {
+			if ( ! $itsec_files->save_wpconfig() ) {
 
 				$type    = 'error';
-				$message = __( 'WordPress was unable to rename your rename the database table in your wp-config.php file. Please check with your server administrator and try again.', 'better_wp_security' );
+				$message = __( 'WordPress was unable to rename your rename the database table in your wp-config.php file. Please check with your server administrator and try again.', 'ithemes-security' );
 
 			}
 
 			$this->settings = $newPrefix; //this tells the form field that all went well.
 
 			add_settings_error(
-				'bwps_admin_notices',
+				'itsec_admin_notices',
 				esc_attr( 'settings_updated' ),
 				$message,
 				$type
@@ -348,9 +348,9 @@ if ( ! class_exists( 'BWPS_Database_Prefix_Admin' ) ) {
 		/**
 		 * Start the Content Directory module
 		 *
-		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
+		 * @param  Ithemes_ITSEC_Core $core Instance of core plugin class
 		 *
-		 * @return BWPS_Database_Prefix_Admin                The instance of the BWPS_Database_Prefix_Admin class
+		 * @return ITSEC_Database_Prefix_Admin                The instance of the ITSEC_Database_Prefix_Admin class
 		 */
 		public static function start( $core ) {
 

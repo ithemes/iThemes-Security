@@ -1,7 +1,7 @@
 <?php
 
-if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
-	require( dirname( __FILE__ ) . '/class-ithemes-bwps-dashboard-admin.php' );
+if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
+	require( dirname( __FILE__ ) . '/class-itsec-dashboard-admin.php' );
 }
 
-Ithemes_BWPS_Dashboard_Admin::start();
+ITSEC_Dashboard_Admin::start();

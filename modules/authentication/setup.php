@@ -1,16 +1,16 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Authentication_Setup' ) ) {
+if ( ! class_exists( 'ITSEC_Authentication_Setup' ) ) {
 
-	class BWPS_Authentication_Setup {
+	class ITSEC_Authentication_Setup {
 
 		function __construct() {
 
-			global $bwps_setup_action;
+			global $itsec_setup_action;
 
-			if ( isset( $bwps_setup_action ) ) {
+			if ( isset( $itsec_setup_action ) ) {
 
-				switch ( $bwps_setup_action ) {
+				switch ( $itsec_setup_action ) {
 
 					case 'activate':
 						$this->execute_activate();
@@ -40,7 +40,7 @@ if ( ! class_exists( 'BWPS_Authentication_Setup' ) ) {
 		 */
 		function execute_activate() {
 
-			$options = get_site_option( 'bwps_authentication' );
+			$options = get_site_option( 'itsec_authentication' );
 
 			if ( $options === false ) {
 
@@ -59,7 +59,7 @@ if ( ! class_exists( 'BWPS_Authentication_Setup' ) ) {
 					
 				);
 
-				add_site_option( 'bwps_authentication', $defaults );
+				add_site_option( 'itsec_authentication', $defaults );
 
 			}
 
@@ -72,18 +72,18 @@ if ( ! class_exists( 'BWPS_Authentication_Setup' ) ) {
 		 */
 		function execute_deactivate() {
 
-			global $bwps_lib;
+			global $itsec_lib;
 
-			$data = get_site_option( 'bwps_data' );
+			$data = get_site_option( 'itsec_data' );
 
 			//reset .htaccess permissions to what they were when we started
-			if ( isset( $data['htaccess_perms'] ) && file_exists( $bwps_lib->get_htaccess() ) ) {
-				@chmod( $bwps_lib->get_htaccess(), $data['htaccess_perms'] );
+			if ( isset( $data['htaccess_perms'] ) && file_exists( $itsec_lib->get_htaccess() ) ) {
+				@chmod( $itsec_lib->get_htaccess(), $data['htaccess_perms'] );
 			}
 
 			//reset config persmissions to what they were when we started
-			if ( isset( $data['config_perms'] ) && file_exists( $bwps_lib->get_config() ) ) {
-				@chmod( $bwps_lib->get_config(), $data['config_perms'] );
+			if ( isset( $data['config_perms'] ) && file_exists( $itsec_lib->get_config() ) ) {
+				@chmod( $itsec_lib->get_config(), $data['config_perms'] );
 			}
 
 		}
@@ -97,7 +97,7 @@ if ( ! class_exists( 'BWPS_Authentication_Setup' ) ) {
 
 			$this->execute_deactivate();
 
-			delete_site_option( 'bwps_authentication' );
+			delete_site_option( 'itsec_authentication' );
 
 		}
 
@@ -114,4 +114,4 @@ if ( ! class_exists( 'BWPS_Authentication_Setup' ) ) {
 
 }
 
-new BWPS_Authentication_Setup();
+new ITSEC_Authentication_Setup();

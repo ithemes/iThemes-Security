@@ -1,16 +1,16 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
+if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Setup' ) ) {
 
-	class BWPS_Advanced_Tweaks_Setup {
+	class ITSEC_Advanced_Tweaks_Setup {
 
 		function __construct() {
 
-			global $bwps_setup_action;
+			global $itsec_setup_action;
 
-			if ( isset( $bwps_setup_action ) ) {
+			if ( isset( $itsec_setup_action ) ) {
 
-				switch ( $bwps_setup_action ) {
+				switch ( $itsec_setup_action ) {
 
 					case 'activate':
 						$this->execute_activate();
@@ -40,10 +40,10 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 		 */
 		function execute_activate() {
 
-			global $bwps_files;
+			global $itsec_files;
 
-			$options = get_site_option( 'bwps_advanced_tweaks' );
-			$initials = get_site_option( 'bwps_initials' );
+			$options = get_site_option( 'itsec_advanced_tweaks' );
+			$initials = get_site_option( 'itsec_initials' );
 
 			if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
 				$initials['file_editor'] = true;
@@ -51,7 +51,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 				$initials['file_editor'] = false;
 			}
 
-			update_site_option( 'bwps_initials', $initials );
+			update_site_option( 'itsec_initials', $initials );
 
 			if ( $options === false ) {
 
@@ -85,15 +85,15 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 					'uploads_php'				=> false,
 				);
 
-				add_site_option( 'bwps_advanced_tweaks', $defaults );
+				add_site_option( 'itsec_advanced_tweaks', $defaults );
 
 			}
 
-			$config_rules = BWPS_Advanced_Tweaks_Admin::build_wpconfig_rules( array() );
-			$rewrite_rules = BWPS_Advanced_Tweaks_Admin::build_rewrite_rules( array() );
+			$config_rules = ITSEC_Advanced_Tweaks_Admin::build_wpconfig_rules( array() );
+			$rewrite_rules = ITSEC_Advanced_Tweaks_Admin::build_rewrite_rules( array() );
 
-			$bwps_files->set_wpconfig( $config_rules );
-			$bwps_files->set_rewrites( $rewrite_rules );
+			$itsec_files->set_wpconfig( $config_rules );
+			$itsec_files->set_rewrites( $rewrite_rules );
 
 		}
 
@@ -104,14 +104,14 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 		 */
 		function execute_deactivate() {
 
-			global $bwps_lib, $bwps_files;
+			global $itsec_lib, $itsec_files;
 
-			$config_rules = BWPS_Advanced_Tweaks_Admin::build_wpconfig_rules( false );
-			$bwps_files->set_wpconfig( $config_rules );
+			$config_rules = ITSEC_Advanced_Tweaks_Admin::build_wpconfig_rules( false );
+			$itsec_files->set_wpconfig( $config_rules );
 
 			//Reset recommended file permissions
-			@chmod( $bwps_lib->get_htaccess(), '0644' );
-			@chmod( $bwps_lib->get_config(),  '0644' );
+			@chmod( $itsec_lib->get_htaccess(), '0644' );
+			@chmod( $itsec_lib->get_config(),  '0644' );
 				
 
 		}
@@ -125,7 +125,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 
 			$this->execute_deactivate();
 
-			delete_site_option( 'bwps_advanced_tweaks' );
+			delete_site_option( 'itsec_advanced_tweaks' );
 
 		}
 
@@ -142,4 +142,4 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Setup' ) ) {
 
 }
 
-new BWPS_Advanced_Tweaks_Setup();
+new ITSEC_Advanced_Tweaks_Setup();

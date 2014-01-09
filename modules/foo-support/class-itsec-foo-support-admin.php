@@ -7,9 +7,9 @@
 
 require_once( plugin_dir_path( __FILE__ ) . 'class-foolic-validation-v1_1.php' );
 
-if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
+if ( ! class_exists( 'ITSEC_Foo_Support_Admin' ) ) {
 
-	class BWPS_Foo_Support_Admin {
+	class ITSEC_Foo_Support_Admin {
 
 		private static $instance = NULL;
 
@@ -18,14 +18,14 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 
 		private function __construct() {
 
-			$this->support_email = 'support.bwps@fooplugins.com';
+			$this->support_email = 'support.itsec@fooplugins.com';
 
-			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 
-			add_filter( 'foolic_validation_include_css-bwps', array( $this, 'include_foolic_css' ) );
-			add_filter( 'foolic_validation_input_type-bwps', array( $this, 'change_foolic_input_type' ) );
-			new foolic_validation_v1_1( 'http://fooplugins.com/api/better-wp-security/check', 'bwps' );
-			add_action( 'wp_ajax_' . 'bwps_support', array( $this, 'ajax_submit_ticket' ) );
+			add_filter( 'foolic_validation_include_css-itsec', array( $this, 'include_foolic_css' ) );
+			add_filter( 'foolic_validation_input_type-itsec', array( $this, 'change_foolic_input_type' ) );
+			new foolic_validation_v1_1( 'http://fooplugins.com/api/ithemes-security/check', 'itsec' );
+			add_action( 'wp_ajax_' . 'itsec_support', array( $this, 'ajax_submit_ticket' ) );
 
 		}
 
@@ -40,8 +40,8 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 
 				//add metaboxes
 				add_meta_box(
-					'bwps_foo_support',
-					__( 'Need Help?', 'better_wp_security' ),
+					'itsec_foo_support',
+					__( 'Need Help?', 'ithemes-security' ),
 					array( $this, 'metabox_sideboar_foo_support' ),
 					$page,
 					'priority_side',
@@ -57,11 +57,11 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 		 *
 		 * @param  Screen $screen WordPress Screen object
 		 *
-		 * @return bool            make sure we're on a BWPS screen
+		 * @return bool            make sure we're on a ITSEC screen
 		 */
 		function include_foolic_css( $screen ) {
 
-			return $screen->id === 'toplevel_page_better_wp_security';
+			return $screen->id === 'toplevel_page_ithemes-security';
 		}
 
 		/**
@@ -81,9 +81,9 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 		 */
 		public function metabox_sideboar_foo_support() {
 
-			$purchase_url = 'http://fooplugins.com/plugins/better-wp-security/';
+			$purchase_url = 'http://fooplugins.com/plugins/ithemes-security/';
 
-			$data = apply_filters( 'foolic_get_validation_data-bwps', false );
+			$data = apply_filters( 'foolic_get_validation_data-itsec', false );
 
 			if ( $data === false ) {
 				return;
@@ -109,14 +109,14 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 
 			} else {
 
-				$content = '<strong>' . __( 'Need premium support or configuration?', 'better_wp_security' ) . '<br /><br /><a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase one-time premium support or installation', 'better_wp_security' ) . '</a>.</strong><br /><br />';
+				$content = '<strong>' . __( 'Need premium support or configuration?', 'ithemes-security' ) . '<br /><br /><a target="_blank" href="' . $purchase_url . '">' . __( 'Purchase one-time premium support or installation', 'ithemes-security' ) . '</a>.</strong><br /><br />';
 				$content .= $data['html'];
 
 			}
 
 			$content .= '<script type="text/javascript">
 							jQuery( function( $ ) {
-								$( document ).bind( "foolic-cleared-' . 'bwps", function() {
+								$( document ).bind( "foolic-cleared-' . 'itsec", function() {
 									window.location.reload();
 								} );
 
@@ -124,7 +124,7 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 									e.preventDefault();
 
 									if ($("#support_issue").val().length == 0) {
-										alert("' . __( 'Please describe the issue you are having', 'better_wp_security' ) . '");
+										alert("' . __( 'Please describe the issue you are having', 'ithemes-security' ) . '");
 										return;
 									}
 									$("#support_form").slideUp();
@@ -134,7 +134,7 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 
 									$.ajax({ url: ajaxurl, cache: false, type: "POST", data: data,
 										success: function (data) {
-											$(".support_message").removeClass("foolic-loading").html("<p>' . __( 'Thank you for submitting your support ticket. We will contact you shortly.', 'better_wp_security' ) . '</p>");
+											$(".support_message").removeClass("foolic-loading").html("<p>' . __( 'Thank you for submitting your support ticket. We will contact you shortly.', 'ithemes-security' ) . '</p>");
 										},
 										error: function(a,b,c) {
 											alert(a);
@@ -149,9 +149,9 @@ if ( ! class_exists( 'BWPS_Foo_Support_Admin' ) ) {
 		}
 
 		/**
-		 * Start the BWPS Dashboard module
+		 * Start the ITSEC Dashboard module
 		 *
-		 * @return BWPS_Foo_Support                The instance of the BWPS_Foo_Support class
+		 * @return ITSEC_Foo_Support                The instance of the ITSEC_Foo_Support class
 		 */
 		public static function start() {
 

@@ -1,16 +1,16 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Ban_Users_Setup' ) ) {
+if ( ! class_exists( 'ITSEC_Ban_Users_Setup' ) ) {
 
-	class BWPS_Ban_Users_Setup {
+	class ITSEC_Ban_Users_Setup {
 
 		function __construct() {
 
-			global $bwps_setup_action;
+			global $itsec_setup_action;
 
-			if ( isset( $bwps_setup_action ) ) {
+			if ( isset( $itsec_setup_action ) ) {
 
-				switch ( $bwps_setup_action ) {
+				switch ( $itsec_setup_action ) {
 
 					case 'activate':
 						$this->execute_activate();
@@ -40,9 +40,9 @@ if ( ! class_exists( 'BWPS_Ban_Users_Setup' ) ) {
 		 */
 		function execute_activate() {
 
-			global $bwps_files;
+			global $itsec_files;
 
-			$options = get_site_option( 'bwps_ban_users' );
+			$options = get_site_option( 'itsec_ban_users' );
 
 			if ( $options === false ) {
 
@@ -54,13 +54,13 @@ if ( ! class_exists( 'BWPS_Ban_Users_Setup' ) ) {
 					'white_list' => 1,
 				);
 
-				add_site_option( 'bwps_ban_users', $defaults );
+				add_site_option( 'itsec_ban_users', $defaults );
 
 			}
 
-			$rewrite_rules = BWPS_Ban_Users_Admin::build_rewrite_rules( array() );
+			$rewrite_rules = ITSEC_Ban_Users_Admin::build_rewrite_rules( array() );
 
-			$bwps_files->set_rewrites( $rewrite_rules );
+			$itsec_files->set_rewrites( $rewrite_rules );
 
 		}
 
@@ -82,7 +82,7 @@ if ( ! class_exists( 'BWPS_Ban_Users_Setup' ) ) {
 
 			$this->execute_deactivate();
 
-			delete_site_option( 'bwps_ban_users' );
+			delete_site_option( 'itsec_ban_users' );
 
 		}
 
@@ -99,4 +99,4 @@ if ( ! class_exists( 'BWPS_Ban_Users_Setup' ) ) {
 
 }
 
-new BWPS_Ban_Users_Setup();
+new ITSEC_Ban_Users_Setup();

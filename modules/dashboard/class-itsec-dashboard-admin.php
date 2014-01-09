@@ -5,9 +5,9 @@
  * @version 1.0
  */
 
-if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
+if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
-	class Ithemes_BWPS_Dashboard_Admin {
+	class ITSEC_Dashboard_Admin {
 
 		private static $instance = NULL;
 
@@ -24,9 +24,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 			add_action( 'admin_init', array( $this, 'share_reminder' ) );
 
 			//Add admin CSS
-			add_action( 'bwps_admin_init', array( $this, 'register_admin_css' ) );
+			add_action( 'itsec_admin_init', array( $this, 'register_admin_css' ) );
 
-			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 
 		}
 
@@ -41,8 +41,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 				//add metaboxes
 				add_meta_box(
-					'bwps_status_feed',
-					__( 'Security Status Feed', 'better_wp_security' ),
+					'itsec_status_feed',
+					__( 'Security Status Feed', 'ithemes-security' ),
 					array( $this, 'metabox_status_feed' ),
 					$page,
 					'priority_side',
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 /*
 				add_meta_box(
 					'ithemes_publicize',
-					__( 'Support Better WP Security', 'better_wp_security' ),
+					__( 'Support iThemes Security', 'ithemes-security' ),
 					array( $this, 'metabox_sidebar_publicize' ),
 					$page,
 					'side',
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 				add_meta_box(
 					'ithemes_contact_info',
-					__( 'iThemes on the Web', 'better_wp_security' ),
+					__( 'iThemes on the Web', 'ithemes-security' ),
 					array( $this, 'metabox_sidebar_contact' ),
 					$page,
 					'side',
@@ -70,7 +70,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 				add_meta_box(
 					'ithemes_latest',
-					__( 'The Latest from iThemes', 'better_wp_security' ),
+					__( 'The Latest from iThemes', 'ithemes-security' ),
 					array( $this, 'metabox_sidebar_latest' ),
 					$page,
 					'side',
@@ -81,10 +81,10 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 			}
 
 			add_meta_box(
-				'bwps_status',
-				__( 'Security Status', 'better_wp_security' ),
+				'itsec_status',
+				__( 'Security Status', 'ithemes-security' ),
 				array( $this, 'metabox_normal_status' ),
-				'toplevel_page_bwps',
+				'toplevel_page_itsec',
 				'normal',
 				'core'
 			);
@@ -98,17 +98,17 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 		 */
 		public function register_admin_css() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
-			wp_register_style( 'bwps_admin_dashboard', $bwps_globals['plugin_url'] . 'modules/dashboard/css/dashboard.css' );
+			wp_register_style( 'itsec_admin_dashboard', $itsec_globals['plugin_url'] . 'modules/dashboard/css/dashboard.css' );
 
-			add_action( $bwps_globals['plugin_url'] . 'enqueue_admin_styles', array( $this, 'enqueue_admin_css' ) );
+			add_action( $itsec_globals['plugin_url'] . 'enqueue_admin_styles', array( $this, 'enqueue_admin_css' ) );
 
 		}
 
 		public function enqueue_admin_css() {
 
-			wp_enqueue_style( 'bwps_admin_dashboard' );
+			wp_enqueue_style( 'itsec_admin_dashboard' );
 		}
 
 		/**
@@ -120,38 +120,38 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 		 **/
 		function share_reminder() {
 
-			global $blog_id, $bwps_globals;
+			global $blog_id, $itsec_globals;
 
-			$options = get_site_option( 'bwps_data' );
+			$options = get_site_option( 'itsec_data' );
 
 			//Gotta make sure this is available when needed
 			global $plugname;
 			global $plughook;
 			global $plugopts;
-			$plugname = $bwps_globals['plugin_name'];
-			$plughook = 'bwps';
-			$plugopts = admin_url( 'options-general.php?page=bwps' );
+			$plugname = $itsec_globals['plugin_name'];
+			$plughook = 'itsec';
+			$plugopts = admin_url( 'options-general.php?page=itsec' );
 
 			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
 			if ( ! isset( $options['no-nag'] ) && isset( $options['activatestamp'] ) && $options['activatestamp'] < ( current_time( 'timestamp' ) - 2952000 ) ) {
 
-				if ( ! function_exists( 'bwps_share_notice' ) ) {
+				if ( ! function_exists( 'itsec_share_notice' ) ) {
 
-					function bwps_share_notice() {
+					function itsec_share_notice() {
 
 						global $plugname, $plughook, $plugopts;
 
 						printf( '<div class="updated"><p>%s %s %s</p> <p><input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_lets_rate=yes&_wpnonce=%s\';">  <input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_lets_tweet=yes&_wpnonce=%s\';">  <input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_share_nag=off&_wpnonce=%s\';"></p></div>',
-							__( 'It looks like you\'ve been enjoying', 'better_wp_security' ),
+							__( 'It looks like you\'ve been enjoying', 'ithemes-security' ),
 							$plugname,
-							__( 'for at least 30 days. Would you please consider telling your friends about it?', 'better_wp_security' ),
-							__( 'Rate it 5★\'s', 'better_wp_security' ),
+							__( 'for at least 30 days. Would you please consider telling your friends about it?', 'ithemes-security' ),
+							__( 'Rate it 5★\'s', 'ithemes-security' ),
 							$plughook,
 							wp_create_nonce( $plughook . '-reminder' ),
-							__( 'Tell Your Followers', 'better_wp_security' ),
+							__( 'Tell Your Followers', 'ithemes-security' ),
 							$plughook,
 							wp_create_nonce( $plughook . '-reminder' ),
-							__( 'Don\'t Bug Me Again', 'better_wp_security' ),
+							__( 'Don\'t Bug Me Again', 'ithemes-security' ),
 							$plughook,
 							wp_create_nonce( $plughook . '-reminder' )
 						);
@@ -160,26 +160,26 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 				}
 
-				add_action( 'admin_notices', 'bwps_share_notice' ); //register notification
+				add_action( 'admin_notices', 'itsec_share_notice' ); //register notification
 
 			}
 
 			//if they've clicked a button hide the notice
-			if ( ( isset( $_GET['bwps_share_nag'] ) || isset( $_GET['bwps_lets_rate'] ) || isset( $_GET['bwps_lets_tweet'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bwps-reminder' ) ) {
+			if ( ( isset( $_GET['itsec_share_nag'] ) || isset( $_GET['itsec_lets_rate'] ) || isset( $_GET['itsec_lets_tweet'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'itsec-reminder' ) ) {
 
-				$options           = get_site_option( 'bwps_data' );
+				$options           = get_site_option( 'itsec_data' );
 				$options['no-nag'] = 1;
-				update_site_option( 'bwps_data', $options );
-				remove_action( 'admin_notices', 'bwps_share_notice' );
+				update_site_option( 'itsec_data', $options );
+				remove_action( 'admin_notices', 'itsec_share_notice' );
 
 				//Go to the WordPress page to let them rate it.
-				if ( isset( $_GET['bwps_lets_rate'] ) ) {
-					wp_redirect( 'http://wordpress.org/extend/plugins/better-wp-security/', '302' );
+				if ( isset( $_GET['itsec_lets_rate'] ) ) {
+					wp_redirect( 'http://wordpress.org/extend/plugins/ithemes-security/', '302' );
 				}
 
 				//Compose a Tweet
-				if ( isset( $_GET['bwps_lets_tweet'] ) ) {
-					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $bwps_globals['plugin_name'] . ' for WordPress by @iThemes and you should too - ' . 'http://ithemes.com' ), '302' );
+				if ( isset( $_GET['itsec_lets_tweet'] ) ) {
+					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $itsec_globals['plugin_name'] . ' for WordPress by @iThemes and you should too - ' . 'http://ithemes.com' ), '302' );
 				}
 
 			}
@@ -194,11 +194,11 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 		public function metabox_sidebar_contact() {
 
 			$content = '<ul>';
-			$content .= '<li class="facebook"><a href="https://www.facebook.com/ithemes" target="_blank">' . __( 'Like iThemes on Facebook', 'better_wp_security' ) . '</a></li>';
-			$content .= '<li class="twitter"><a href="http://twitter.com/ithemes" target="_blank">' . __( 'Follow iThemes on Twitter', 'better_wp_security' ) . '</a></li>';
-			$content .= '<li class="google"><a href="https://plus.google.com/b/100771929727041515430" target="_blank">' . __( 'Circle iThemes on Google+', 'better_wp_security' ) . '</a></li>';
+			$content .= '<li class="facebook"><a href="https://www.facebook.com/ithemes" target="_blank">' . __( 'Like iThemes on Facebook', 'ithemes-security' ) . '</a></li>';
+			$content .= '<li class="twitter"><a href="http://twitter.com/ithemes" target="_blank">' . __( 'Follow iThemes on Twitter', 'ithemes-security' ) . '</a></li>';
+			$content .= '<li class="google"><a href="https://plus.google.com/b/100771929727041515430" target="_blank">' . __( 'Circle iThemes on Google+', 'ithemes-security' ) . '</a></li>';
 
-			$content .= '<li class="subscribe"><a href="http://ithemes.com/subscribe" target="_blank">' . __( 'Subscribe to iThemes Updates', 'better_wp_security' ) . '</a></li>';
+			$content .= '<li class="subscribe"><a href="http://ithemes.com/subscribe" target="_blank">' . __( 'Subscribe to iThemes Updates', 'ithemes-security' ) . '</a></li>';
 
 			$content .= '</ul>';
 
@@ -213,16 +213,16 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 		 */
 		public function metabox_sidebar_publicize() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
-			$content = __( 'Have you found this plugin useful? Please help support it\'s continued development with a donation of $20, $50, or even $100.', 'better_wp_security' );
+			$content = __( 'Have you found this plugin useful? Please help support it\'s continued development with a donation of $20, $50, or even $100.', 'ithemes-security' );
 			$content .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="' . $this->paypal_id . '"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
-			$content .= '<p>' . __( 'Short on funds?', 'better_wp_security' ) . '</p>';
+			$content .= '<p>' . __( 'Short on funds?', 'ithemes-security' ) . '</p>';
 			$content .= '<ul>';
-			$content .= '<li><a href="http://wordpress.org/extend/plugins/better-wp-security/" target="_blank">' . sprintf( __( 'Rate %s 5★\'s on WordPress.org', 'better_wp_security' ), $bwps_globals['plugin_name'] ) . '</a></li>';
-			$content .= '<li>' . sprintf( __( 'Talk about it on your site and link back to the %splugin page', 'better_wp_security' ), '<a href="http://ithemes.com" target="_blank">' ) . '</a></li>';
-			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( sprintf( __( 'I use %s for WordPress by %s and you should too - %s' ), $bwps_globals['plugin_name'], '@ithemes', 'http://ithemes.com' ) ) . '" target="_blank">' . __( 'Tweet about it. ', 'better_wp_security' ) . '</a></li>';
-			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( sprintf( __( 'I use %s for WordPress by %s and you should too - %s' ), $bwps_globals['plugin_name'], '@ithemes', 'http://ithemes.com' ) ) . '" target="_blank">' . __( 'Tweet about it. ', 'better_wp_security' ) . '</a></li>';
+			$content .= '<li><a href="http://wordpress.org/extend/plugins/ithemes-security/" target="_blank">' . sprintf( __( 'Rate %s 5★\'s on WordPress.org', 'ithemes-security' ), $itsec_globals['plugin_name'] ) . '</a></li>';
+			$content .= '<li>' . sprintf( __( 'Talk about it on your site and link back to the %splugin page', 'ithemes-security' ), '<a href="http://ithemes.com" target="_blank">' ) . '</a></li>';
+			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( sprintf( __( 'I use %s for WordPress by %s and you should too - %s' ), $itsec_globals['plugin_name'], '@ithemes', 'http://ithemes.com' ) ) . '" target="_blank">' . __( 'Tweet about it. ', 'ithemes-security' ) . '</a></li>';
+			$content .= '<li><a href="http://twitter.com/home?status=' . urlencode( sprintf( __( 'I use %s for WordPress by %s and you should too - %s' ), $itsec_globals['plugin_name'], '@ithemes', 'http://ithemes.com' ) ) . '" target="_blank">' . __( 'Tweet about it. ', 'ithemes-security' ) . '</a></li>';
 			$content .= '</ul>';
 
 			echo $content;
@@ -248,7 +248,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 				if ( ! $feeditems ) {
 
-					$content .= '<li class="ithemes">' . __( 'I couldn\'t find any updates. If the problem persists please contact the feed owner', 'better_wp_security' ) . '</li>';
+					$content .= '<li class="ithemes">' . __( 'I couldn\'t find any updates. If the problem persists please contact the feed owner', 'ithemes-security' ) . '</li>';
 
 				} else {
 
@@ -265,7 +265,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 				$content .= '</ul>'; //end list
 
 			} else {
-				$content = __( 'It appears as if the feed is currently down. Please try again later', 'better_wp_security' );
+				$content = __( 'It appears as if the feed is currently down. Please try again later', 'ithemes-security' );
 			}
 
 			echo $content;
@@ -279,32 +279,32 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 		 */
 		public function metabox_status_feed() {
 
-			$content  =		'<div class="bwps-status-feed-item">';
+			$content  =		'<div class="itsec-status-feed-item">';
 			$content .=			'<p>This is here so you can see the markup/styling for the feed items</p>';
 			$content .=		'</div>';
 			
-			$content .= 	'<div class="bwps-status-feed-item urgent">';
+			$content .= 	'<div class="itsec-status-feed-item urgent">';
 			$content .=			'<p>Change username "admin" to something else.</p>';
-			$content .=			'<div class="bwps-status-feed-actions">';
-			$content .=				'<p class="bwps-why"><a href="#">Why Change This?</a></p>';
+			$content .=			'<div class="itsec-status-feed-actions">';
+			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
 			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
 			$content .=			'</div>';
 			$content .=		'</div>';
 			
-			$content .= 	'<div class="bwps-status-feed-item completed">';
-			$content .=			'<div class="bwps-status-feed-completed-message">';
+			$content .= 	'<div class="itsec-status-feed-item completed">';
+			$content .=			'<div class="itsec-status-feed-completed-message">';
 			$content .=				'<p>User ID 1 changed!</p>';
 			$content .=			'</div>';
-			$content .=			'<div class="bwps-status-feed-actions">';
+			$content .=			'<div class="itsec-status-feed-actions">';
 			$content .=				'<p><input class="button-secondary" name="submit" type="submit" value="Undo"></p>';
 			$content .=			'</div>';
 			$content .=		'</div>';
 				
 				
-			$content .=		'<div class="bwps-status-feed-item recommended">';
+			$content .=		'<div class="itsec-status-feed-item recommended">';
 			$content .=			'<p>You should hide the WordPress admin area.</p>';
-			$content .=			'<div class="bwps-status-feed-actions">';
-			$content .=				'<p class="bwps-why"><a href="#">Why Change This?</a></p>';
+			$content .=			'<div class="itsec-status-feed-actions">';
+			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
 			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
 			$content .=			'</div>';
 			$content .=		'</div>';
@@ -319,7 +319,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 		 */
 		public function metabox_normal_status() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
 			$statuses = array(
 				'safe-high' => array(),
@@ -330,12 +330,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 				'low' => array(),
 			);
 
-			$statuses = apply_filters( 'bwps_add_dashboard_status', $statuses );
+			$statuses = apply_filters( 'itsec_add_dashboard_status', $statuses );
 			
 			if ( isset ( $statuses['safe-high'] ) || isset ( $statuses['safe-medium'] ) || isset ( $statuses['safe-low'] ) ) {
 
-				printf( '<h2>%s</h2>', __( 'Completed', 'better_wp_security' ) );
-				_e( 'These are items that you have successfuly secured.', 'better_wp_security' );
+				printf( '<h2>%s</h2>', __( 'Completed', 'ithemes-security' ) );
+				_e( 'These are items that you have successfuly secured.', 'ithemes-security' );
 
 				echo '<ul class="statuslist completed">';
 
@@ -375,8 +375,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 			if ( isset ( $statuses['high'] ) ) {
 
-				printf( '<h2>%s</h2>', __( 'High Priority', 'better_wp_security' ) );
-				_e( 'These are items that should be secured immediately.', 'better_wp_security' );
+				printf( '<h2>%s</h2>', __( 'High Priority', 'ithemes-security' ) );
+				_e( 'These are items that should be secured immediately.', 'ithemes-security' );
 
 				echo '<ul class="statuslist recommended">';
 
@@ -384,7 +384,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 					foreach ( $statuses['high'] as $status ) {
 
-						printf( '<li><p>%s</p><div class="bwps_status_action"><a class="button-primary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
+						printf( '<li><p>%s</p><div class="itsec_status_action"><a class="button-primary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
 
 					}
 
@@ -396,8 +396,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 			if ( isset ( $statuses['medium'] ) ) {
 
-				printf( '<h2>%s</h2>', __( 'Medium Priority', 'better_wp_security' ) );
-				_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'better_wp_security' );
+				printf( '<h2>%s</h2>', __( 'Medium Priority', 'ithemes-security' ) );
+				_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'ithemes-security' );
 
 				echo '<ul class="statuslist recommended">';
 
@@ -405,7 +405,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 					foreach ( $statuses['medium'] as $status ) {
 
-						printf( '<li><p>%s</p><div class="bwps_status_action"><a class="button-primary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
+						printf( '<li><p>%s</p><div class="itsec_status_action"><a class="button-primary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
 
 					}
 
@@ -417,8 +417,8 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 			if ( isset ( $statuses['low'] ) ) {
 
-				printf( '<h2>%s</h2>', __( 'Low Priority', 'better_wp_security' ) );
-				_e( 'These are items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'better_wp_security' );
+				printf( '<h2>%s</h2>', __( 'Low Priority', 'ithemes-security' ) );
+				_e( 'These are items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'ithemes-security' );
 
 				echo '<ul class="statuslist additional">';
 
@@ -426,7 +426,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 
 					foreach ( $statuses['low'] as $status ) {
 
-						printf( '<li><p>%s</p><div class="bwps_status_action"><a class="button-secondary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
+						printf( '<li><p>%s</p><div class="itsec_status_action"><a class="button-secondary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
 
 					}
 
@@ -439,9 +439,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Dashboard_Admin' ) ) {
 		}
 
 		/**
-		 * Start the BWPS Dashboard module
+		 * Start the ITSEC Dashboard module
 		 *
-		 * @return Ithemes_BWPS_Dashboard_Admin            The instance of the Ithemes_BWPS_Dashboard_Admin class
+		 * @return ITSEC_Dashboard_Admin            The instance of the ITSEC_Dashboard_Admin class
 		 */
 		public static function start() {
 

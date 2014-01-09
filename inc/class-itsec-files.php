@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
+if ( ! class_exists( 'ITSEC_Files' ) ) {
 
-	class Ithemes_BWPS_Files {
+	class ITSEC_Files {
 
 		private static $instance = NULL; //instantiated instance of this plugin
 
@@ -29,16 +29,16 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 */
 		public function file_writer_init() {
 
-			global $bwps_lib;
+			global $itsec_lib;
 
 			$all_rules = array(); //initialize rules array
 			$this->rewrite_rules = array(); //rewrite rules that will need to be written
 			$this->wpconfig_rules = array(); //wp-config rules that will need to be written
 			
-			$this->rewrite_lock_file = trailingslashit( ABSPATH ) . 'bwps_rewrites.lock';
-			$this->wpconfig_lock_file = trailingslashit( ABSPATH ) . 'bwps_config.lock';
+			$this->rewrite_lock_file = trailingslashit( ABSPATH ) . 'itsec_rewrites.lock';
+			$this->wpconfig_lock_file = trailingslashit( ABSPATH ) . 'itsec_config.lock';
 
-			$all_rules = apply_filters( 'bwps_file_rules', $all_rules );
+			$all_rules = apply_filters( 'itsec_file_rules', $all_rules );
 
 			if ( sizeof( $all_rules ) > 0 ) {
 
@@ -283,12 +283,12 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 */
 		private function delete_rewrites() {
 
-			global $bwps_lib, $wp_filesystem;
+			global $itsec_lib, $wp_filesystem;
 
-			$rule_open = '# BEGIN Better WP Security #';
-			$rule_close = '# END Better WP Security #';
+			$rule_open = '# BEGIN iThemes WP Security #';
+			$rule_close = '# END iThemes WP Security #';
 
-			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
+			$url = wp_nonce_url( 'options.php?page=itsec_creds', 'itsec_write_wpconfig' );
 
 			$form_fields = array( 'save' );
 			$method      = '';
@@ -304,7 +304,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				return false;
 			}
 
-			$htaccess_file = $bwps_lib->get_htaccess();
+			$htaccess_file = $itsec_lib->get_htaccess();
 
 			//Make sure we can write to the file
 			$perms = substr( sprintf( '%o', fileperms( $htaccess_file ) ), -4 );
@@ -373,7 +373,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 */
 		private function write_rewrites() {
 
-			global $bwps_lib, $wp_filesystem;
+			global $itsec_lib, $wp_filesystem;
 
 			$rules_to_write = $this->build_rewrites(); //String of rules to insert into 
 
@@ -383,10 +383,10 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			}
 
-			$rule_open = '# BEGIN Better WP Security #';
-			$rule_close = '# END Better WP Security #';
+			$rule_open = '# BEGIN iThemes WP Security #';
+			$rule_close = '# END iThemes WP Security #';
 
-			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
+			$url = wp_nonce_url( 'options.php?page=itsec_creds', 'itsec_write_wpconfig' );
 
 			$form_fields = array( 'save' );
 			$method      = '';
@@ -402,7 +402,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 				return false;
 			}
 
-			$htaccess_file = $bwps_lib->get_htaccess();
+			$htaccess_file = $itsec_lib->get_htaccess();
 
 			//Make sure we can write to the file
 			$perms = substr( sprintf( '%o', fileperms( $htaccess_file ) ), -4 );
@@ -480,9 +480,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		 */
 		private function write_wpconfig() {
 
-			global $bwps_lib, $wp_filesystem;
+			global $itsec_lib, $wp_filesystem;
 
-			$url = wp_nonce_url( 'options.php?page=bwps_creds', 'bwps_write_wpconfig' );
+			$url = wp_nonce_url( 'options.php?page=itsec_creds', 'itsec_write_wpconfig' );
 
 			$form_fields = array( 'save' );
 			$method      = '';
@@ -499,7 +499,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 
 			}
 
-			$config_file = $bwps_lib->get_config();
+			$config_file = $itsec_lib->get_config();
 
 			//Make sure we can write to the file
 			$perms = substr( sprintf( '%o', fileperms( $config_file ) ), -4 );
@@ -717,7 +717,7 @@ if ( ! class_exists( 'Ithemes_BWPS_Files' ) ) {
 		/**
 		 * Start the global library instance
 		 *
-		 * @return Ithemes_BWPS_Files          The instance of the Ithemes_BWPS_Files class
+		 * @return ITSEC_Files          The instance of the ITSEC_Files class
 		 */
 		public static function start() {
 

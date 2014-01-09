@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
+if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 
-	class BWPS_Advanced_Tweaks_Admin {
+	class ITSEC_Advanced_Tweaks_Admin {
 
 		private static $instance = NULL;
 
@@ -14,21 +14,21 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		private function __construct( $core ) {
 
 			$this->core     = $core;
-			$this->settings = get_site_option( 'bwps_advanced_tweaks' );
+			$this->settings = get_site_option( 'itsec_advanced_tweaks' );
 
-			add_filter( 'bwps_file_rules', array( $this, 'build_rewrite_rules' ) );
-			add_filter( 'bwps_file_rules', array( $this, 'build_wpconfig_rules' ) );
+			add_filter( 'itsec_file_rules', array( $this, 'build_rewrite_rules' ) );
+			add_filter( 'itsec_file_rules', array( $this, 'build_wpconfig_rules' ) );
 
-			add_action( 'bwps_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-			add_filter( 'bwps_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
-			add_filter( 'bwps_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
-			add_filter( 'bwps_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
-				add_action( 'network_admin_edit_bwps_advanced_tweaks', array( $this, 'save_network_options' ) ); //save multisite options
+				add_action( 'network_admin_edit_itsec_advanced_tweaks', array( $this, 'save_network_options' ) ); //save multisite options
 			}
 
 		}
@@ -36,19 +36,19 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		/**
 		 * Register subpage for Away Mode
 		 *
-		 * @param array $available_pages array of BWPS settings pages
+		 * @param array $available_pages array of ITSEC settings pages
 		 */
 		public function add_sub_page( $available_pages ) {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
 			$this->page = $available_pages[0] . '-advanced_tweaks';
 
 			$available_pages[] = add_submenu_page(
-				'bwps',
-				__( 'Advanced Tweaks', 'better_wp_security' ),
-				__( 'Advanced Tweaks', 'better_wp_security' ),
-				$bwps_globals['plugin_access_lvl'],
+				'itsec',
+				__( 'Advanced Tweaks', 'ithemes-security' ),
+				__( 'Advanced Tweaks', 'ithemes-security' ),
+				$itsec_globals['plugin_access_lvl'],
 				$available_pages[0] . '-advanced_tweaks',
 				array( $this->core, 'render_page' )
 			);
@@ -59,7 +59,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 		public function add_admin_tab( $tabs ) {
 
-			$tabs[$this->page] = __( 'Tweaks', 'better_wp_security' );
+			$tabs[$this->page] = __( 'Tweaks', 'ithemes-security' );
 
 			return $tabs;
 
@@ -74,18 +74,18 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			add_meta_box(
 				'advanced_tweaks_description',
-				__( 'Description', 'better_wp_security' ),
+				__( 'Description', 'ithemes-security' ),
 				array( $this, 'add_module_intro' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'normal',
 				'core'
 			);
 
 			add_meta_box(
 				'advanced_tweaks_options',
-				__( 'Configure Advanced Security Tweaks', 'better_wp_security' ),
+				__( 'Configure Advanced Security Tweaks', 'ithemes-security' ),
 				array( $this, 'metabox_advanced_settings' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced',
 				'core'
 			);
@@ -99,11 +99,11 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function admin_script() {
 
-			global $bwps_globals;
+			global $itsec_globals;
 
-			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_bwps-advanced_tweaks' ) !== false ) {
+			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-advanced_tweaks' ) !== false ) {
 
-				wp_enqueue_script( 'bwps_advanced_tweaks_js', $bwps_globals['plugin_url'] . 'modules/advanced-tweaks/js/admin-advanced-tweaks.js', 'jquery', $bwps_globals['plugin_build'] );
+				wp_enqueue_script( 'itsec_advanced_tweaks_js', $itsec_globals['plugin_url'] . 'modules/advanced-tweaks/js/admin-advanced-tweaks.js', 'jquery', $itsec_globals['plugin_build'] );
 
 			}
 
@@ -116,13 +116,13 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function dashboard_status( $statuses ) {
 
-			$link = 'admin.php?page=toplevel_page_bwps-advanced_tweaks';
+			$link = 'admin.php?page=toplevel_page_itsec-advanced_tweaks';
 
 			if ( $this->settings['protect_files'] === true ) {
 
 				$status_array = 'safe-medium';
 				$status       = array(
-					'text' => __( 'You are protecting common WordPress files from access.', 'better_wp_security' ),
+					'text' => __( 'You are protecting common WordPress files from access.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -130,7 +130,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'medium';
 				$status       = array(
-					'text' => __( 'You are not protecting common WordPress files from access. Click here to protect WordPress files.', 'better_wp_security' ),
+					'text' => __( 'You are not protecting common WordPress files from access. Click here to protect WordPress files.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -142,7 +142,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'You have successfully disabled directory browsing on your site.', 'better_wp_security' ),
+					'text' => __( 'You have successfully disabled directory browsing on your site.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -150,7 +150,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'You have not disabled directory browsing on your site. Click here to prevent a user from seeing every file present in your WordPress site.', 'better_wp_security' ),
+					'text' => __( 'You have not disabled directory browsing on your site. Click here to prevent a user from seeing every file present in your WordPress site.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -162,7 +162,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'You are blocking HTTP request methods you do not need.', 'better_wp_security' ),
+					'text' => __( 'You are blocking HTTP request methods you do not need.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -170,7 +170,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'You are not blocking HTTP request methods you do not need. Click here to block extra HTTP request methods that WordPress should not normally need.', 'better_wp_security' ),
+					'text' => __( 'You are not blocking HTTP request methods you do not need. Click here to block extra HTTP request methods that WordPress should not normally need.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -182,7 +182,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-medium';
 				$status       = array(
-					'text' => __( 'Your WordPress site is blocking suspicious looking information in the URL.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress site is blocking suspicious looking information in the URL.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -190,7 +190,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'medium';
 				$status       = array(
-					'text' => __( 'Your WordPress site is not blocking suspicious looking information in the URL. Click here to block users from trying to execute code that they should not be able to execute.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress site is not blocking suspicious looking information in the URL. Click here to block users from trying to execute code that they should not be able to execute.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -202,7 +202,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Your WordPress site is blocking non-english characters in the URL.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress site is blocking non-english characters in the URL.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -210,7 +210,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Your WordPress site is not blocking non-english characters in the URL. Click here to fix this.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress site is not blocking non-english characters in the URL. Click here to fix this.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -222,7 +222,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Your installation does not accept long URLs.', 'better_wp_security' ),
+					'text' => __( 'Your installation does not accept long URLs.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -230,7 +230,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities. Click here to fix this.', 'better_wp_security' ),
+					'text' => __( 'Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities. Click here to fix this.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -242,7 +242,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Wp-config.php and .htacess are not writeable.', 'better_wp_security' ),
+					'text' => __( 'Wp-config.php and .htacess are not writeable.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -250,7 +250,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Wp-config.php and .htacess are writeable. This can lead to vulnerabilities. Click here to fix this.', 'better_wp_security' ),
+					'text' => __( 'Wp-config.php and .htacess are writeable. This can lead to vulnerabilities. Click here to fix this.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -262,7 +262,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is not publishing its version number to the world.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is not publishing its version number to the world.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -270,7 +270,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is publishing its version number to the world. Click here to fix this.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is publishing its version number to the world. Click here to fix this.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -282,7 +282,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is not publishing the Windows Live Writer header.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is not publishing the Windows Live Writer header.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -290,7 +290,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is publishing the Windows Live Writer header. Click here to fix this.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is publishing the Windows Live Writer header. Click here to fix this.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -302,7 +302,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is not publishing the really simple discovery header.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is not publishing the really simple discovery header.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -310,7 +310,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is publishing the really simple discovery header. Click here to fix this.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is publishing the really simple discovery header. Click here to fix this.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -322,7 +322,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is not telling users who cannot update themes about theme updates.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is not telling users who cannot update themes about theme updates.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -330,7 +330,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is telling users who cannot update themes about theme updates. Click here to fix this.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is telling users who cannot update themes about theme updates. Click here to fix this.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -342,7 +342,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is not telling users who cannot update plugins about plugin updates.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is not telling users who cannot update plugins about plugin updates.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -350,7 +350,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is telling users who cannot update plugins about plugin updates. Click here to fix this.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is telling users who cannot update plugins about plugin updates. Click here to fix this.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -362,7 +362,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is not telling users who cannot update WordPress core about WordPress core updates.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is not telling users who cannot update WordPress core about WordPress core updates.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -370,7 +370,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is telling users who cannot update WordPress core about WordPress core updates. Click here to fix this.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is telling users who cannot update WordPress core about WordPress core updates. Click here to fix this.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -382,7 +382,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is not allowing users without a user agent to post comments.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is not allowing users without a user agent to post comments.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -390,7 +390,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Your WordPress installation is allowing users without a user agent to post comments. Fix this to reduce comment spam.', 'better_wp_security' ),
+					'text' => __( 'Your WordPress installation is allowing users without a user agent to post comments. Fix this to reduce comment spam.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -402,7 +402,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Version information is obscured to all non admin users.', 'better_wp_security' ),
+					'text' => __( 'Version information is obscured to all non admin users.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -410,7 +410,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Users may still be able to get version information from various plugins and themes. Click here to fix this.', 'better_wp_security' ),
+					'text' => __( 'Users may still be able to get version information from various plugins and themes. Click here to fix this.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -422,7 +422,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'Users cannot edit plugin and themes files directly from within the WordPress Dashboard.', 'better_wp_security' ),
+					'text' => __( 'Users cannot edit plugin and themes files directly from within the WordPress Dashboard.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -430,7 +430,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'Users can edit plugin and themes files directly from within the WordPress Dashboard. Click here to fix this.', 'better_wp_security' ),
+					'text' => __( 'Users can edit plugin and themes files directly from within the WordPress Dashboard. Click here to fix this.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -442,7 +442,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-low';
 				$status       = array(
-					'text' => __( 'XML-RPC is not available on your WordPress installation.', 'better_wp_security' ),
+					'text' => __( 'XML-RPC is not available on your WordPress installation.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -450,7 +450,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'low';
 				$status       = array(
-					'text' => __( 'XML-RPC is available on your WordPress installation. Attackers can use this feature to attack your site. Click here to disable access to XML-RPC.', 'better_wp_security' ),
+					'text' => __( 'XML-RPC is available on your WordPress installation. Attackers can use this feature to attack your site. Click here to disable access to XML-RPC.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -462,7 +462,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'safe-medium';
 				$status       = array(
-					'text' => __( 'Users cannot execute PHP from the uploads folder.', 'better_wp_security' ),
+					'text' => __( 'Users cannot execute PHP from the uploads folder.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -470,7 +470,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$status_array = 'medium';
 				$status       = array(
-					'text' => __( 'Users can execute PHP from the uploads folder. Click here to fix.', 'better_wp_security' ),
+					'text' => __( 'Users can execute PHP from the uploads folder. Click here to fix.', 'ithemes-security' ),
 					'link' => $link,
 				);
 
@@ -492,182 +492,182 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			//Add Settings sections
 			add_settings_section(
 				'advanced_tweaks_enabled',
-				__( 'Enable Advanced Tweaks', 'better_wp_security' ),
+				__( 'Enable Advanced Tweaks', 'ithemes-security' ),
 				array( $this, 'empty_callback_function' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks'
+				'security_page_toplevel_page_itsec-advanced_tweaks'
 			);
 
 			add_settings_section(
 				'advanced_tweaks_server',
-				__( 'Configure Server Tweaks', 'better_wp_security' ),
+				__( 'Configure Server Tweaks', 'ithemes-security' ),
 				array( $this, 'server_tweaks_intro' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks'
+				'security_page_toplevel_page_itsec-advanced_tweaks'
 			);
 
 			add_settings_section(
 				'advanced_tweaks_wordpress',
-				__( 'Configure WordPress Tweaks', 'better_wp_security' ),
+				__( 'Configure WordPress Tweaks', 'ithemes-security' ),
 				array( $this, 'wordpress_tweaks_intro' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks'
+				'security_page_toplevel_page_itsec-advanced_tweaks'
 			);
 
 			//Add settings fields
 			add_settings_field(
-				'bwps_advanced_tweaks[enabled]',
-				__( 'Advanced Security Tweaks', 'better_wp_security' ),
+				'itsec_advanced_tweaks[enabled]',
+				__( 'Advanced Security Tweaks', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_enabled' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_enabled'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[protect_files]',
-				__( 'System Files', 'better_wp_security' ),
+				'itsec_advanced_tweaks[protect_files]',
+				__( 'System Files', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_server_protect_files' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[directory_browsing]',
-				__( 'Directory Browsing', 'better_wp_security' ),
+				'itsec_advanced_tweaks[directory_browsing]',
+				__( 'Directory Browsing', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_server_directory_browsing' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[request_methods]',
-				__( 'Request Methods', 'better_wp_security' ),
+				'itsec_advanced_tweaks[request_methods]',
+				__( 'Request Methods', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_server_request_methods' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[suspicious_query_strings]',
-				__( 'Suspicious Query Strings', 'better_wp_security' ),
+				'itsec_advanced_tweaks[suspicious_query_strings]',
+				__( 'Suspicious Query Strings', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_server_suspicious_query_strings' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[non_english_characters]',
-				__( 'Non-English Characters', 'better_wp_security' ),
+				'itsec_advanced_tweaks[non_english_characters]',
+				__( 'Non-English Characters', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_server_non_english_characters' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[long_url_strings]',
-				__( 'Long URL Strings', 'better_wp_security' ),
+				'itsec_advanced_tweaks[long_url_strings]',
+				__( 'Long URL Strings', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_server_long_url_strings' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[write_permissions]',
-				__( 'File Writing Permissions', 'better_wp_security' ),
+				'itsec_advanced_tweaks[write_permissions]',
+				__( 'File Writing Permissions', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_server_write_permissions' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[uploads_php]',
-				__( 'Uploads', 'better_wp_security' ),
+				'itsec_advanced_tweaks[uploads_php]',
+				__( 'Uploads', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_wordpress_uploads_php' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_server'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[generator_tag]',
-				__( 'Generator Meta Tag', 'better_wp_security' ),
+				'itsec_advanced_tweaks[generator_tag]',
+				__( 'Generator Meta Tag', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_wordpress_generator_tag' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[wlwmanifest_header]',
-				__( 'Windows Live Writer Header', 'better_wp_security' ),
+				'itsec_advanced_tweaks[wlwmanifest_header]',
+				__( 'Windows Live Writer Header', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_wordpress_wlwmanifest_header' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[edituri_header]',
-				__( 'EditURI Header', 'better_wp_security' ),
+				'itsec_advanced_tweaks[edituri_header]',
+				__( 'EditURI Header', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_wordpress_edituri_header' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[theme_updates]',
-				__( 'Theme Update Notifications', 'better_wp_security' ),
+				'itsec_advanced_tweaks[theme_updates]',
+				__( 'Theme Update Notifications', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_wordpress_theme_updates' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[plugin_updates]',
-				__( 'Plugin Update Notifications', 'better_wp_security' ),
+				'itsec_advanced_tweaks[plugin_updates]',
+				__( 'Plugin Update Notifications', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_wordpress_plugin_updates' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[core_updates]',
-				__( 'Core Update Notifications', 'better_wp_security' ),
+				'itsec_advanced_tweaks[core_updates]',
+				__( 'Core Update Notifications', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_wordpress_core_updates' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[comment_spam]',
-				__( 'Comment Spam', 'better_wp_security' ),
+				'itsec_advanced_tweaks[comment_spam]',
+				__( 'Comment Spam', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_wordpress_comment_spam' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[random_version]',
-				__( 'Display Random Version', 'better_wp_security' ),
+				'itsec_advanced_tweaks[random_version]',
+				__( 'Display Random Version', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_wordpress_random_version' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[file_editor]',
-				__( 'File Editor', 'better_wp_security' ),
+				'itsec_advanced_tweaks[file_editor]',
+				__( 'File Editor', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_wordpress_file_editor' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
 
 			add_settings_field(
-				'bwps_advanced_tweaks[disable_xmlrpc]',
-				__( 'XML-RPC', 'better_wp_security' ),
+				'itsec_advanced_tweaks[disable_xmlrpc]',
+				__( 'XML-RPC', 'ithemes-security' ),
 				array( $this, 'advanced_tweaks_wordpress_disable_xmlrpc' ),
-				'security_page_toplevel_page_bwps-advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
 
 			//Register the settings field for the entire module
 			register_setting(
-				'security_page_toplevel_page_bwps-advanced_tweaks',
-				'bwps_advanced_tweaks',
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'itsec_advanced_tweaks',
 				array( $this, 'sanitize_module_input' )
 			);
 
@@ -679,11 +679,11 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		public function empty_callback_function() {}
 
 		public function server_tweaks_intro() {
-			echo '<h2 class="settings-section-header">' . __( 'Server Tweaks', 'better-wp-security' ) . '</h2>';
+			echo '<h2 class="settings-section-header">' . __( 'Server Tweaks', 'ithemes-security' ) . '</h2>';
 		}
 
 		public function wordpress_tweaks_intro() {
-			echo '<h2 class="settings-section-header">' . __( 'WordPress Tweaks', 'better-wp-security' ) . '</h2>';
+			echo '<h2 class="settings-section-header">' . __( 'WordPress Tweaks', 'ithemes-security' ) . '</h2>';
 		}
 
 		/**
@@ -701,9 +701,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$enabled = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_enabled" name="bwps_advanced_tweaks[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_enabled">' . __( 'Enable Advanced Security Tweaks', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'Remember, some of these tweaks might conflict with other plugins or your theme so test your site after enabling each setting.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_enabled" name="itsec_advanced_tweaks[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_enabled">' . __( 'Enable Advanced Security Tweaks', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'Remember, some of these tweaks might conflict with other plugins or your theme so test your site after enabling each setting.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -724,9 +724,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$protect_files = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_protect_files" name="bwps_advanced_tweaks[protect_files]" value="1" ' . checked( 1, $protect_files, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_protect_files">' . __( 'Protect System Files', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'Prevent public access to readme.html, readme.txt, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_protect_files" name="itsec_advanced_tweaks[protect_files]" value="1" ' . checked( 1, $protect_files, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_protect_files">' . __( 'Protect System Files', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'Prevent public access to readme.html, readme.txt, wp-config.php, install.php, wp-includes, and .htaccess. These files can give away important information on your site and serve no purpose to the public once WordPress has been successfully installed.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -747,9 +747,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$directory_browsing = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_directory_browsing" name="bwps_advanced_tweaks[directory_browsing]" value="1" ' . checked( 1, $directory_browsing, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_directory_browsing">' . __( 'Disable Directory Browsing', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Prevents users from seeing a list of files in a directory when no index file is present.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_directory_browsing" name="itsec_advanced_tweaks[directory_browsing]" value="1" ' . checked( 1, $directory_browsing, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_directory_browsing">' . __( 'Disable Directory Browsing', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Prevents users from seeing a list of files in a directory when no index file is present.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -770,9 +770,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$request_methods = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_request_methods" name="bwps_advanced_tweaks[request_methods]" value="1" ' . checked( 1, $request_methods, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_request_methods">' . __( 'Filter Request Methods', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Filter out hits with the trace, delete, or track request methods.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_request_methods" name="itsec_advanced_tweaks[request_methods]" value="1" ' . checked( 1, $request_methods, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_request_methods">' . __( 'Filter Request Methods', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Filter out hits with the trace, delete, or track request methods.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -793,9 +793,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$suspicious_query_strings = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_suspicious_query_strings" name="bwps_advanced_tweaks[suspicious_query_strings]" value="1" ' . checked( 1, $suspicious_query_strings, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_suspicious_query_strings">' . __( 'Filter Suspicious Query Strings in the URL', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', 'better_wp_security' ) . '</label>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_suspicious_query_strings" name="itsec_advanced_tweaks[suspicious_query_strings]" value="1" ' . checked( 1, $suspicious_query_strings, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_suspicious_query_strings">' . __( 'Filter Suspicious Query Strings in the URL', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'These are very often signs of someone trying to gain access to your site but some plugins and themes can also be blocked.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -816,9 +816,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$non_english_characters = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_non_english_characters" name="bwps_advanced_tweaks[non_english_characters]" value="1" ' . checked( 1, $non_english_characters, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_non_english_characters">' . __( 'Filter Non-English Characters', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Filter out non-english characters from the query string. This should not be used on non-english sites and only works when "Filter Suspicious Query String" has been selected.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_non_english_characters" name="itsec_advanced_tweaks[non_english_characters]" value="1" ' . checked( 1, $non_english_characters, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_non_english_characters">' . __( 'Filter Non-English Characters', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Filter out non-english characters from the query string. This should not be used on non-english sites and only works when "Filter Suspicious Query String" has been selected.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -839,9 +839,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$long_url_strings = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_long_url_strings" name="bwps_advanced_tweaks[long_url_strings]" value="1" ' . checked( 1, $long_url_strings, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_long_url_strings">' . __( 'Filter Long URL Strings', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_long_url_strings" name="itsec_advanced_tweaks[long_url_strings]" value="1" ' . checked( 1, $long_url_strings, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_long_url_strings">' . __( 'Filter Long URL Strings', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Limits the number of characters that can be sent in the URL. Hackers often take advantage of long URLs to try to inject information into your database.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -862,9 +862,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$write_permissions = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_write_permissions" name="bwps_advanced_tweaks[write_permissions]" value="1" ' . checked( 1, $write_permissions, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_write_permissions">' . __( 'Remove File Writing Permissions', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Prevents scripts and users from being able to write to the wp-config.php file and .htaccess file. Note that in the case of this and many plugins this can be overcome however it still does make the files more secure. Turning this on will set the UNIX file permissions to 0444 on these files and turning it off will set the permissions to 0644.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_write_permissions" name="itsec_advanced_tweaks[write_permissions]" value="1" ' . checked( 1, $write_permissions, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_write_permissions">' . __( 'Remove File Writing Permissions', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Prevents scripts and users from being able to write to the wp-config.php file and .htaccess file. Note that in the case of this and many plugins this can be overcome however it still does make the files more secure. Turning this on will set the UNIX file permissions to 0444 on these files and turning it off will set the permissions to 0644.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -885,9 +885,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$uploads_php = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_uploads_php" name="bwps_advanced_tweaks[uploads_php]" value="1" ' . checked( 1, $uploads_php, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_uploads_php">' . __( 'Disable PHP in Uploads', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Disable PHP execution in the uploads directory. This will prevent uploading of malicious scripts to uploads.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_uploads_php" name="itsec_advanced_tweaks[uploads_php]" value="1" ' . checked( 1, $uploads_php, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_uploads_php">' . __( 'Disable PHP in Uploads', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Disable PHP execution in the uploads directory. This will prevent uploading of malicious scripts to uploads.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -908,9 +908,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$generator_tag = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_generator_tag" name="bwps_advanced_tweaks[generator_tag]" value="1" ' . checked( 1, $generator_tag, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_generator_tag">' . __( 'Remove WordPress Generator Meta Tag', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Removes the <code>&lt;meta name="generator" content="WordPress [version]" /&gt;</code></pre> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_generator_tag" name="itsec_advanced_tweaks[generator_tag]" value="1" ' . checked( 1, $generator_tag, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_generator_tag">' . __( 'Remove WordPress Generator Meta Tag', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Removes the <code>&lt;meta name="generator" content="WordPress [version]" /&gt;</code></pre> meta tag from your sites header. This process hides version information from a potential attacker making it more difficult to determine vulnerabilities.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -931,9 +931,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$wlwmanifest_header = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_wlwmanifest_header" name="bwps_advanced_tweaks[wlwmanifest_header]" value="1" ' . checked( 1, $wlwmanifest_header, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_wlwmanifest_header">' . __( 'Remove the Windows Live Writer header. ', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'This is not needed if you do not use Windows Live Writer or other blogging clients that rely on this file.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_wlwmanifest_header" name="itsec_advanced_tweaks[wlwmanifest_header]" value="1" ' . checked( 1, $wlwmanifest_header, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_wlwmanifest_header">' . __( 'Remove the Windows Live Writer header. ', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'This is not needed if you do not use Windows Live Writer or other blogging clients that rely on this file.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -954,9 +954,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$edituri_header = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_edituri_header" name="bwps_advanced_tweaks[edituri_header]" value="1" ' . checked( 1, $edituri_header, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_edituri_header">' . __( 'Remove the RSD (Really Simple Discovery) header. ', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Removes the RSD (Really Simple Discovery) header. If you don\'t integrate your blog with external XML-RPC services such as Flickr then the "RSD" function is pretty much useless to you.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_edituri_header" name="itsec_advanced_tweaks[edituri_header]" value="1" ' . checked( 1, $edituri_header, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_edituri_header">' . __( 'Remove the RSD (Really Simple Discovery) header. ', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Removes the RSD (Really Simple Discovery) header. If you don\'t integrate your blog with external XML-RPC services such as Flickr then the "RSD" function is pretty much useless to you.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -977,9 +977,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$theme_updates = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_theme_updates" name="bwps_advanced_tweaks[theme_updates]" value="1" ' . checked( 1, $theme_updates, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_theme_updates">' . __( 'Hide Theme Update Notifications', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_theme_updates" name="itsec_advanced_tweaks[theme_updates]" value="1" ' . checked( 1, $theme_updates, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_theme_updates">' . __( 'Hide Theme Update Notifications', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Hides theme update notifications from users who cannot update themes. Please note that this only makes a difference in multi-site installations.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -1000,9 +1000,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$plugin_updates = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_plugin_updates" name="bwps_advanced_tweaks[plugin_updates]" value="1" ' . checked( 1, $plugin_updates, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_plugin_updates">' . __( 'Hide Plugin Update Notifications', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Hides plugin update notifications from users who cannot update plugins. Please note that this only makes a difference in multi-site installations.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_plugin_updates" name="itsec_advanced_tweaks[plugin_updates]" value="1" ' . checked( 1, $plugin_updates, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_plugin_updates">' . __( 'Hide Plugin Update Notifications', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Hides plugin update notifications from users who cannot update plugins. Please note that this only makes a difference in multi-site installations.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -1023,9 +1023,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$core_updates = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_core_updates" name="bwps_advanced_tweaks[core_updates]" value="1" ' . checked( 1, $core_updates, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_core_updates">' . __( 'Hide Core Update Notifications', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Hides core update notifications from users who cannot update core. Please note that this only makes a difference in multi-site installations.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_core_updates" name="itsec_advanced_tweaks[core_updates]" value="1" ' . checked( 1, $core_updates, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_core_updates">' . __( 'Hide Core Update Notifications', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Hides core update notifications from users who cannot update core. Please note that this only makes a difference in multi-site installations.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -1046,9 +1046,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$comment_spam = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_comment_spam" name="bwps_advanced_tweaks[comment_spam]" value="1" ' . checked( 1, $comment_spam, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_comment_spam">' . __( 'Reduce Comment Spam', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'This option will cut down on comment spam by denying comments from bots with no referrer or without a user-agent identified.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_comment_spam" name="itsec_advanced_tweaks[comment_spam]" value="1" ' . checked( 1, $comment_spam, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_comment_spam">' . __( 'Reduce Comment Spam', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'This option will cut down on comment spam by denying comments from bots with no referrer or without a user-agent identified.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -1069,9 +1069,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$random_version = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_random_version" name="bwps_advanced_tweaks[random_version]" value="1" ' . checked( 1, $random_version, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_random_version">' . __( 'Display Random Version', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Displays a random version number to visitors who are not logged in at all points where version number must be used and removes the version completely from where it can.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_random_version" name="itsec_advanced_tweaks[random_version]" value="1" ' . checked( 1, $random_version, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_random_version">' . __( 'Display Random Version', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Displays a random version number to visitors who are not logged in at all points where version number must be used and removes the version completely from where it can.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -1092,9 +1092,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$file_editor = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_file_editor" name="bwps_advanced_tweaks[file_editor]" value="1" ' . checked( 1, $file_editor, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_file_editor">' . __( 'Disable File Editor', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_file_editor" name="itsec_advanced_tweaks[file_editor]" value="1" ' . checked( 1, $file_editor, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_file_editor">' . __( 'Disable File Editor', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Disables the file editor for plugins and themes requiring users to have access to the file system to modify files. Once activated you will need to manually edit theme and other files using a tool other than WordPress.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -1115,9 +1115,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 				$disable_xmlrpc = 0;
 			}
 
-			$content = '<input type="checkbox" id="bwps_advanced_tweaks_server_disable_xmlrpc" name="bwps_advanced_tweaks[disable_xmlrpc]" value="1" ' . checked( 1, $disable_xmlrpc, false ) . '/>';
-			$content .= '<label for="bwps_advanced_tweaks_server_disable_xmlrpc">' . __( 'Disable XML-RPC', 'better_wp_security' ) . '</label>';
-			$content .= '<p class="description">' . __( 'Disables all XML-RPC functionality. XML-RPC is a feature WordPress uses to connect to remote services and is often taken advantage of by attackers.', 'better_wp_security' ) . '</p>';
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_disable_xmlrpc" name="itsec_advanced_tweaks[disable_xmlrpc]" value="1" ' . checked( 1, $disable_xmlrpc, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_server_disable_xmlrpc">' . __( 'Disable XML-RPC', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Disables all XML-RPC functionality. XML-RPC is a feature WordPress uses to connect to remote services and is often taken advantage of by attackers.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -1130,7 +1130,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function add_module_intro( $screen ) {
 
-			$content = '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site. The reason we list them as advanced though is that each fix, while blocking common forms of attack against your site, can also block legitimate plugins and themes that rely on the same techniques. When turning on the settings below we recommend you enable them 1 by 1 and test your site in between to make sure everything is working as expected.', 'better_wp_security' ) . '</p>';
+			$content = '<p>' . __( 'These are advanced settings that may be utilized to further strengthen the security of your WordPress site. The reason we list them as advanced though is that each fix, while blocking common forms of attack against your site, can also block legitimate plugins and themes that rely on the same techniques. When turning on the settings below we recommend you enable them 1 by 1 and test your site in between to make sure everything is working as expected.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -1145,20 +1145,20 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 			//set appropriate action for multisite or standard site
 			if ( is_multisite() ) {
-				$action = 'edit.php?action=bwps_advanced_tweaks';
+				$action = 'edit.php?action=itsec_advanced_tweaks';
 			} else {
 				$action = 'options.php';
 			}
 
 			printf( '<form name="%s" method="post" action="%s">', get_current_screen()->id, $action );
 
-			$this->core->do_settings_sections( 'security_page_toplevel_page_bwps-advanced_tweaks', false );
+			$this->core->do_settings_sections( 'security_page_toplevel_page_itsec-advanced_tweaks', false );
 
 			echo '<p>' . PHP_EOL;
 
-			settings_fields( 'security_page_toplevel_page_bwps-advanced_tweaks' );
+			settings_fields( 'security_page_toplevel_page_itsec-advanced_tweaks' );
 
-			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'better_wp_security' ) . '" />' . PHP_EOL;
+			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'ithemes-security' ) . '" />' . PHP_EOL;
 
 			echo '</p>' . PHP_EOL;
 
@@ -1182,7 +1182,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				$deactivating = true;
 
-				$initials = get_site_option( 'bwps_initials' );
+				$initials = get_site_option( 'itsec_initials' );
 
 				if ( isset( $initials['file_editor'] ) && $initials['file_editor'] === false ) {
 					$input['file_editor'] = false;
@@ -1198,20 +1198,20 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 
 				//Get the rules from the database if input wasn't sent
 				if ( $input === null ) {
-					$input = get_site_option( 'bwps_advanced_tweaks' );
+					$input = get_site_option( 'itsec_advanced_tweaks' );
 				}
 
 			}
 
 			$comment_add = array(
 				'type'			=> 'add',
-				'search_text'	=> '//The entry below were created by Better WP Security to disable the file editor',
-				'rule'			=> '//The entry below were created by Better WP Security to disable the file editor',
+				'search_text'	=> '//The entry below were created by iThemes Security to disable the file editor',
+				'rule'			=> '//The entry below were created by iThemes Security to disable the file editor',
 			);
 
 			$comment_remove = array(
 				'type'			=> 'delete',
-				'search_text'	=> '//The entry below were created by Better WP Security to disable the file editor',
+				'search_text'	=> '//The entry below were created by iThemes Security to disable the file editor',
 				'rule'			=> false,
 			);
 
@@ -1263,13 +1263,13 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public static function build_rewrite_rules( $rules_array, $input = null ) {
 
-			global $bwps_lib;
+			global $itsec_lib;
 
-			$server_type = $bwps_lib->get_server(); //Get the server type to build the right rules
+			$server_type = $itsec_lib->get_server(); //Get the server type to build the right rules
 
 			//Get the rules from the database if input wasn't sent
 			if ( $input === null ) {
-				$input = get_site_option( 'bwps_advanced_tweaks' );
+				$input = get_site_option( 'itsec_advanced_tweaks' );
 			}
 
 			$rules = ''; //initialize all rules to blank string
@@ -1283,7 +1283,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					if ( $server_type === 'nginx' ) { //NGINX rules
 
 						$rules .= 
-							"\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'better-wp-security' ) . PHP_EOL .
+							"\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'ithemes-security' ) . PHP_EOL .
 							"\tlocation ~ /\.ht { deny all; }" . PHP_EOL .
 							"\tlocation ~ wp-config.php { deny all; }" . PHP_EOL .
 							"\tlocation ~ readme.html { deny all; }" . PHP_EOL .
@@ -1295,7 +1295,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					} else { //rules for all other servers
 
 						$rules .= 
-							"# " . __( 'Rules to block access to WordPress specific files', 'better-wp-security' ) . PHP_EOL .
+							"# " . __( 'Rules to block access to WordPress specific files', 'ithemes-security' ) . PHP_EOL .
 							"<files .htaccess>" . PHP_EOL .
 								"\tOrder allow,deny" .  PHP_EOL .
 								"\tDeny from all" . PHP_EOL .
@@ -1328,12 +1328,12 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 						$rules .= PHP_EOL;
 					}
 
-					$rules .= "# " . __( 'Rules to disable XML-RPC', 'better-wp-security' ) . PHP_EOL;
+					$rules .= "# " . __( 'Rules to disable XML-RPC', 'ithemes-security' ) . PHP_EOL;
 
 					if ( $server_type === 'nginx' ) { //NGINX rules
 
 						$rules .= 
-							"\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'better-wp-security' ) . PHP_EOL .
+							"\t# " . __( 'Rules to block access to WordPress specific files and wp-includes', 'ithemes-security' ) . PHP_EOL .
 	   						"\tlocation ^/xmlrpc.php { deny all }" . PHP_EOL;
 
 					} else { //rules for all other servers
@@ -1355,7 +1355,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 						$rules .= PHP_EOL;
 					}
 
-					$rules .= "# " . __( 'Rules to disable directory browsing', 'better-wp-security' ) . PHP_EOL;
+					$rules .= "# " . __( 'Rules to disable directory browsing', 'ithemes-security' ) . PHP_EOL;
 
 					if ( $server_type === 'nginx' ) { //NGINX rules
 
@@ -1392,7 +1392,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					//Rewrite Rules for Protect Files
 					if ( $input['protect_files'] == true && $server_type !== 'nginx' ) {
 
-						$rules .= PHP_EOL . "\t# " . __( 'Rules to protect wp-includes', 'better-wp-security' ) . PHP_EOL;
+						$rules .= PHP_EOL . "\t# " . __( 'Rules to protect wp-includes', 'ithemes-security' ) . PHP_EOL;
 
 						$rules .= 
 							"\tRewriteRule ^wp-admin/includes/ - [F,L]" . PHP_EOL .
@@ -1407,7 +1407,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					//Rewrite Rules for Disable PHP in Uploads
 					if ( $input['uploads_php'] == true ) {
 
-						$rules .= PHP_EOL . "\t# " . __( 'Rules to prevent php execution in uploads', 'better-wp-security' ) . PHP_EOL;
+						$rules .= PHP_EOL . "\t# " . __( 'Rules to prevent php execution in uploads', 'ithemes-security' ) . PHP_EOL;
 
 						if ( $server_type !== 'nginx' ) {
 						
@@ -1426,7 +1426,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					//Apache rewrite rules for disable http methods
 					if ( $input['request_methods'] == true ) {
 
-						$rules .= PHP_EOL . "\t# " . __( 'Rules to block unneeded HTTP methods', 'better-wp-security' ) . PHP_EOL;
+						$rules .= PHP_EOL . "\t# " . __( 'Rules to block unneeded HTTP methods', 'ithemes-security' ) . PHP_EOL;
 
 						if ( $server_type === 'nginx' ) { //NGINX rules
 							
@@ -1446,7 +1446,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					//Process suspicious query rules
 					if ( $input['suspicious_query_strings'] == true ) {
 
-						$rules .= PHP_EOL . "\t# " . __( 'Rules to block suspicious URIs', 'better-wp-security' ) . PHP_EOL;
+						$rules .= PHP_EOL . "\t# " . __( 'Rules to block suspicious URIs', 'ithemes-security' ) . PHP_EOL;
 
 						if ( $server_type === 'nginx' ) { //NGINX rules
 
@@ -1501,7 +1501,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					//Process filtering of foreign characters
 					if ( $input['non_english_characters'] == true ) {
 
-						$rules .= PHP_EOL . "\t# " . __( 'Rules to block foreign characters in URLs', 'better-wp-security' ) . PHP_EOL;
+						$rules .= PHP_EOL . "\t# " . __( 'Rules to block foreign characters in URLs', 'ithemes-security' ) . PHP_EOL;
 
 						if ( $server_type === 'nginx' ) { //NGINX rules
 
@@ -1521,13 +1521,13 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 					//Process Comment spam rules
 					if ( $input['comment_spam'] == true ) {
 
-						$rules .= PHP_EOL . "\t# " . __( 'Rules to help reduce spam', 'better-wp-security' ) . PHP_EOL;
+						$rules .= PHP_EOL . "\t# " . __( 'Rules to help reduce spam', 'ithemes-security' ) . PHP_EOL;
 
 						if ( $server_type === 'nginx' ) { //NGINX rules
 
 							$rules .=
 								"\tlocation /wp-comments-post.php {" . PHP_EOL .
-			  					"\t\tvalid_referers jetpack.wordpress.com/jetpack-comment/ " . $bwps_lib->get_domain( get_site_url(), false ) . ";" . PHP_EOL .
+			  					"\t\tvalid_referers jetpack.wordpress.com/jetpack-comment/ " . $itsec_lib->get_domain( get_site_url(), false ) . ";" . PHP_EOL .
 			  					"\t\tset \$rule_0 0;" . PHP_EOL .
 								"\t\tif (\$request_method ~ \"POST\"){ set \$rule_0 1\$rule_0; }" . PHP_EOL .
 			 					"\t\tif (\$invalid_referer) { set \$rule_0 2\$rule_0; }" . PHP_EOL .
@@ -1540,7 +1540,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 							$rules .= 
 								"\tRewriteCond %{REQUEST_METHOD} POST" . PHP_EOL .
 								"\tRewriteCond %{REQUEST_URI} ^(.*)wp-comments-post\.php*" . PHP_EOL .
-								"\tRewriteCond %{HTTP_REFERER} !^" . $bwps_lib->get_domain( get_site_url() ) . ".* " . PHP_EOL .
+								"\tRewriteCond %{HTTP_REFERER} !^" . $itsec_lib->get_domain( get_site_url() ) . ".* " . PHP_EOL .
 								"\tRewriteCond %{HTTP_REFERER} !^http://jetpack\.wordpress\.com/jetpack-comment/ [OR]" . PHP_EOL .
 								"\tRewriteCond %{HTTP_USER_AGENT} ^$" . PHP_EOL . 
 								"\tRewriteRule ^(.*)$ - [F,L]" . PHP_EOL;
@@ -1588,10 +1588,10 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			global $bwps_lib, $bwps_files;
+			global $itsec_lib, $itsec_files;
 
 			$type    = 'updated';
-			$message = __( 'Settings Updated', 'better_wp_security' );
+			$message = __( 'Settings Updated', 'ithemes-security' );
 
 			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
 			$input['protect_files'] = ( isset( $input['protect_files'] ) && intval( $input['protect_files'] == 1 ) ? true : false );
@@ -1614,30 +1614,30 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			$input['uploads_php'] = ( isset( $input['uploads_php'] ) && intval( $input['uploads_php'] == 1 ) ? true : false );
 
 			$rules = $this->build_rewrite_rules( array(), $input );
-			$bwps_files->set_rewrites( $rules );
+			$itsec_files->set_rewrites( $rules );
 
 			//build and send htaccess rules
-			if ( ! $bwps_files->save_rewrites() ) {
+			if ( ! $itsec_files->save_rewrites() ) {
 				
 				$type    = 'error';
-				$message = __( 'test WordPress was unable to save the your options to .htaccess. Please check with your server administrator and try again.', 'better_wp_security' );
+				$message = __( 'test WordPress was unable to save the your options to .htaccess. Please check with your server administrator and try again.', 'ithemes-security' );
 
 			}
 
 			$rules = $this->build_wpconfig_rules( array(), $input );
 
-			$bwps_files->set_wpconfig( $rules );
+			$itsec_files->set_wpconfig( $rules );
 
-			if ( ! $bwps_files->save_wpconfig() ) {
+			if ( ! $itsec_files->save_wpconfig() ) {
 
 				$type    = 'error';
-				$message = __( 'WordPress was unable to save your options to wp-config.php. Please check with your server administrator and try again.', 'better_wp_security' );
+				$message = __( 'WordPress was unable to save your options to wp-config.php. Please check with your server administrator and try again.', 'ithemes-security' );
 
 			}
 
 			//Process file writing option
-			$config_file = $bwps_lib->get_config();
-			$rewrite_file = $bwps_lib->get_htaccess();
+			$config_file = $itsec_lib->get_config();
+			$rewrite_file = $itsec_lib->get_htaccess();
 
 			if ( $input['write_permissions'] == true ) {
 
@@ -1652,7 +1652,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 			}
 
 			add_settings_error(
-				'bwps_admin_notices',
+				'itsec_admin_notices',
 				esc_attr( 'settings_updated' ),
 				$message,
 				$type
@@ -1669,30 +1669,30 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['enabled'] = ( isset( $_POST['bwps_advanced_tweaks']['enabled'] ) && intval( $_POST['bwps_advanced_tweaks']['enabled'] == 1 ) ? true : false );
-			$settings['protect_files'] = ( isset( $_POST['bwps_advanced_tweaks']['protect_files'] ) && intval( $_POST['bwps_advanced_tweaks']['protect_files'] == 1 ) ? true : false );
-			$settings['directory_browsing'] = ( isset( $_POST['bwps_advanced_tweaks']['directory_browsing'] ) && intval( $_POST['bwps_advanced_tweaks']['directory_browsing'] == 1 ) ? true : false );
-			$settings['request_methods'] = ( isset( $_POST['bwps_advanced_tweaks']['request_methods'] ) && intval( $_POST['bwps_advanced_tweaks']['request_methods'] == 1 ) ? true : false );
-			$settings['suspicious_query_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['suspicious_query_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['suspicious_query_strings'] == 1 ) ? true : false );
-			$settings['non_english_characters'] = ( isset( $_POST['bwps_advanced_tweaks']['non_english_characters'] ) && intval( $_POST['bwps_advanced_tweaks']['non_english_characters'] == 1 ) ? true : false );
-			$settings['long_url_strings'] = ( isset( $_POST['bwps_advanced_tweaks']['long_url_strings'] ) && intval( $_POST['bwps_advanced_tweaks']['long_url_strings'] == 1 ) ? true : false );
-			$settings['write_permissions'] = ( isset( $_POST['bwps_advanced_tweaks']['write_permissions'] ) && intval( $_POST['bwps_advanced_tweaks']['write_permissions'] == 1 ) ? true : false );
-			$settings['generator_tag'] = ( isset( $_POST['bwps_advanced_tweaks']['generator_tag'] ) && intval( $_POST['bwps_advanced_tweaks']['generator_tag'] == 1 ) ? true : false );
-			$settings['wlwmanifest_header'] = ( isset( $_POST['bwps_advanced_tweaks']['wlwmanifest_header'] ) && intval( $_POST['bwps_advanced_tweaks']['wlwmanifest_header'] == 1 ) ? true : false );
-			$settings['edituri_header'] = ( isset( $_POST['bwps_advanced_tweaks']['edituri_header'] ) && intval( $_POST['bwps_advanced_tweaks']['edituri_header'] == 1 ) ? true : false );
-			$settings['theme_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['theme_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['theme_updates'] == 1 ) ? true : false );
-			$settings['plugin_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['plugin_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['plugin_updates'] == 1 ) ? true : false );
-			$settings['core_updates'] = ( isset( $_POST['bwps_advanced_tweaks']['core_updates'] ) && intval( $_POST['bwps_advanced_tweaks']['core_updates'] == 1 ) ? true : false );
-			$settings['comment_spam'] = ( isset( $_POST['bwps_advanced_tweaks']['comment_spam'] ) && intval( $_POST['bwps_advanced_tweaks']['comment_spam'] == 1 ) ? true : false );
-			$settings['random_version'] = ( isset( $_POST['bwps_advanced_tweaks']['random_version'] ) && intval( $_POST['bwps_advanced_tweaks']['random_version'] == 1 ) ? true : false );
-			$settings['file_editor'] = ( isset( $_POST['bwps_advanced_tweaks']['file_editor'] ) && intval( $_POST['bwps_advanced_tweaks']['file_editor'] == 1 ) ? true : false );
-			$settings['disable_xmlrpc'] = ( isset( $_POST['bwps_advanced_tweaks']['disable_xmlrpc'] ) && intval( $_POST['bwps_advanced_tweaks']['disable_xmlrpc'] == 1 ) ? true : false );
-			$settings['uploads_php'] = ( isset( $_POST['bwps_advanced_tweaks']['uploads_php'] ) && intval( $_POST['bwps_advanced_tweaks']['uploads_php'] == 1 ) ? true : false );
+			$settings['enabled'] = ( isset( $_POST['itsec_advanced_tweaks']['enabled'] ) && intval( $_POST['itsec_advanced_tweaks']['enabled'] == 1 ) ? true : false );
+			$settings['protect_files'] = ( isset( $_POST['itsec_advanced_tweaks']['protect_files'] ) && intval( $_POST['itsec_advanced_tweaks']['protect_files'] == 1 ) ? true : false );
+			$settings['directory_browsing'] = ( isset( $_POST['itsec_advanced_tweaks']['directory_browsing'] ) && intval( $_POST['itsec_advanced_tweaks']['directory_browsing'] == 1 ) ? true : false );
+			$settings['request_methods'] = ( isset( $_POST['itsec_advanced_tweaks']['request_methods'] ) && intval( $_POST['itsec_advanced_tweaks']['request_methods'] == 1 ) ? true : false );
+			$settings['suspicious_query_strings'] = ( isset( $_POST['itsec_advanced_tweaks']['suspicious_query_strings'] ) && intval( $_POST['itsec_advanced_tweaks']['suspicious_query_strings'] == 1 ) ? true : false );
+			$settings['non_english_characters'] = ( isset( $_POST['itsec_advanced_tweaks']['non_english_characters'] ) && intval( $_POST['itsec_advanced_tweaks']['non_english_characters'] == 1 ) ? true : false );
+			$settings['long_url_strings'] = ( isset( $_POST['itsec_advanced_tweaks']['long_url_strings'] ) && intval( $_POST['itsec_advanced_tweaks']['long_url_strings'] == 1 ) ? true : false );
+			$settings['write_permissions'] = ( isset( $_POST['itsec_advanced_tweaks']['write_permissions'] ) && intval( $_POST['itsec_advanced_tweaks']['write_permissions'] == 1 ) ? true : false );
+			$settings['generator_tag'] = ( isset( $_POST['itsec_advanced_tweaks']['generator_tag'] ) && intval( $_POST['itsec_advanced_tweaks']['generator_tag'] == 1 ) ? true : false );
+			$settings['wlwmanifest_header'] = ( isset( $_POST['itsec_advanced_tweaks']['wlwmanifest_header'] ) && intval( $_POST['itsec_advanced_tweaks']['wlwmanifest_header'] == 1 ) ? true : false );
+			$settings['edituri_header'] = ( isset( $_POST['itsec_advanced_tweaks']['edituri_header'] ) && intval( $_POST['itsec_advanced_tweaks']['edituri_header'] == 1 ) ? true : false );
+			$settings['theme_updates'] = ( isset( $_POST['itsec_advanced_tweaks']['theme_updates'] ) && intval( $_POST['itsec_advanced_tweaks']['theme_updates'] == 1 ) ? true : false );
+			$settings['plugin_updates'] = ( isset( $_POST['itsec_advanced_tweaks']['plugin_updates'] ) && intval( $_POST['itsec_advanced_tweaks']['plugin_updates'] == 1 ) ? true : false );
+			$settings['core_updates'] = ( isset( $_POST['itsec_advanced_tweaks']['core_updates'] ) && intval( $_POST['itsec_advanced_tweaks']['core_updates'] == 1 ) ? true : false );
+			$settings['comment_spam'] = ( isset( $_POST['itsec_advanced_tweaks']['comment_spam'] ) && intval( $_POST['itsec_advanced_tweaks']['comment_spam'] == 1 ) ? true : false );
+			$settings['random_version'] = ( isset( $_POST['itsec_advanced_tweaks']['random_version'] ) && intval( $_POST['itsec_advanced_tweaks']['random_version'] == 1 ) ? true : false );
+			$settings['file_editor'] = ( isset( $_POST['itsec_advanced_tweaks']['file_editor'] ) && intval( $_POST['itsec_advanced_tweaks']['file_editor'] == 1 ) ? true : false );
+			$settings['disable_xmlrpc'] = ( isset( $_POST['itsec_advanced_tweaks']['disable_xmlrpc'] ) && intval( $_POST['itsec_advanced_tweaks']['disable_xmlrpc'] == 1 ) ? true : false );
+			$settings['uploads_php'] = ( isset( $_POST['itsec_advanced_tweaks']['uploads_php'] ) && intval( $_POST['itsec_advanced_tweaks']['uploads_php'] == 1 ) ? true : false );
 
-			update_site_option( 'bwps_advanced_tweaks', $settings ); //we must manually save network options
+			update_site_option( 'itsec_advanced_tweaks', $settings ); //we must manually save network options
 
 			//send them back to the away mode options page
-			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_bwps-advanced_tweaks', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
+			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_itsec-advanced_tweaks', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
 
 		}
@@ -1700,9 +1700,9 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks_Admin' ) ) {
 		/**
 		 * Start the System Tweaks Admin Module
 		 *
-		 * @param  Ithemes_BWPS_Core $core Instance of core plugin class
+		 * @param  Ithemes_ITSEC_Core $core Instance of core plugin class
 		 *
-		 * @return BWPS_Advanced_Tweaks_Admin                The instance of the BWPS_Advanced_Tweaks_Admin class
+		 * @return ITSEC_Advanced_Tweaks_Admin                The instance of the ITSEC_Advanced_Tweaks_Admin class
 		 */
 		public static function start( $core ) {
 

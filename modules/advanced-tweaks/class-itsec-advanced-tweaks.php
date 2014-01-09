@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Advanced_Tweaks' ) ) {
+if ( ! class_exists( 'ITSEC_Advanced_Tweaks' ) ) {
 
-	class BWPS_Advanced_Tweaks {
+	class ITSEC_Advanced_Tweaks {
 
 		private static $instance = NULL;
 
@@ -11,7 +11,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks' ) ) {
 
 		private function __construct() {
 
-			$this->settings  = get_site_option( 'bwps_advanced_tweaks' );
+			$this->settings  = get_site_option( 'itsec_advanced_tweaks' );
 
 			if ( $this->settings['enabled'] == true ) { //make sure the module was enabled
 
@@ -176,7 +176,7 @@ if ( ! class_exists( 'BWPS_Advanced_Tweaks' ) ) {
 		/**
 		 * Start the Away Mode module
 		 *
-		 * @return BWPS_Advanced_Tweaks                The instance of the BWPS_Advanced_Tweaks class
+		 * @return ITSEC_Advanced_Tweaks                The instance of the ITSEC_Advanced_Tweaks class
 		 */
 		public static function start() {
 

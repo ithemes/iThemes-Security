@@ -1,7 +1,7 @@
 <?php
 
-if ( ! class_exists( 'BWPS_Ban_Users_Admin' ) ) {
-	require( dirname( __FILE__ ) . '/class-bwps-ban-users-admin.php' );
+if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
+	require( dirname( __FILE__ ) . '/class-itsec-ban-users-admin.php' );
 }
 
-BWPS_Ban_Users_Admin::start( $this );
+ITSEC_Ban_Users_Admin::start( $this );
