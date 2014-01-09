@@ -376,7 +376,9 @@ if ( ! class_exists( 'Ithemes_BWPS_Lib' ) ) {
 			$wp_query->set_404();
 			$page_404 = get_404_template();
 
-			require( $page_404 );
+			require_once( $page_404 );
+
+			die();
 
 		}
 

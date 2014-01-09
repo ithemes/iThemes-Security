@@ -30,9 +30,24 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 
 			}
 
-			//Execute module functions on admin init
+			//Execute away mode functions on admin init
 			if ( isset( $this->settings['away_mode-enabled'] ) && $this->settings['away_mode-enabled'] === true ) {
-				add_action( 'admin_init', array( $this, 'execute_module_functions' ) );
+				add_action( 'admin_init', array( $this, 'execute_away_mode' ) );
+			}
+
+			//Execute module functions on frontend init
+			if ( $this->settings['hide_backend-enabled'] === true ) {
+
+				add_action( 'init', array( $this, 'execute_hide_backend' ) );
+				add_action( 'login_init', array( $this, 'execute_hide_backend_login' ) );
+				add_action( 'login_form', array( $this, 'add_hide_backend_key' ) );
+
+				add_filter( 'body_class', array( $this, 'remove_admin_bar' ) );
+				add_filter( 'wp_redirect', array( $this, 'filter_login_url' ), 10, 2 );
+				add_filter( 'site_url', array( $this, 'filter_login_url' ), 10, 2 );
+
+				remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
+
 			}
 
 		}
@@ -235,11 +250,133 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 		}
 
 		/**
-		 * Execute module functionality
+		 * Execute hide backend functionality
+		 * 
+		 * @return void
+		 */
+		public function execute_hide_backend() {
+
+			global $bwps_lib;
+
+			$url_info = parse_url( $_SERVER['REQUEST_URI'] );
+			$login_path = site_url( $this->settings['hide_backend-slug'], 'relative' );
+
+			add_rewrite_rule( $this->settings['hide_backend-slug'] . '/?$', 'wp-login.php', 'top' );
+			flush_rewrite_rules();
+
+			//redirect wp-admin to 404 when not logged in
+			if ( is_admin() && is_user_logged_in() !== true ) {
+				$bwps_lib->set_404();
+			}
+
+			if ( $url_info['path'] === $login_path ) {
+
+				status_header( 200 );
+
+				require_once( ABSPATH . 'wp-login.php' );
+
+			}
+
+		}
+
+		/**
+		 * Filter the old login page out
+		 * 
+		 * @return void
+		 */
+		public function execute_hide_backend_login() {
+
+			global $bwps_lib;
+
+			if ( strpos( $_SERVER['REQUEST_URI'], 'wp-login.php' ) ) { //are we on the login page
+
+				$bwps_lib->set_404();
+
+			}
+
+		}
+
+		/**
+		 * Filters redirects for currect login URL
+		 * 
+		 * @param  string $url  URL redirecting to
+		 * @param  string $path Path or status code (depending on which call used)
+		 * @return string       Correct redirect URL
+		 */
+		public function filter_login_url( $url, $path ) {
+
+			if ( strpos( $url, 'wp-login.php' ) !== false ) { //only run on wp-login.php
+					
+				$pos = strpos( $path, '?' );
+				$loc = $path;
+
+				if ( $pos === false ) {
+					$pos = strpos( $url, '?' );
+					$loc = $url;
+				}
+
+				if ( $pos === false ) {
+					$query = '';
+				} else {
+					$query = substr( $loc, $pos );
+				}
+
+				$login_url = site_url( $this->settings['hide_backend-slug'] ) . $query;
+				
+			} else { //not wp-login.php
+
+				$login_url = $url;
+
+			}
+
+			return $login_url;
+
+		}
+		
+
+		/**
+		 * Displays a hidden key field to help verify login referrer
+		 *
+		 * @return void;
+		 */
+		public function add_hide_backend_key() {
+
+			$content = '<input type="hidden" name="bwps_hide_key" value="' . $this->settings['hide_backend-key'] . '" />';
+
+			echo $content;
+
+		}
+		
+		/**
+		 * Removes the admin bar class from the body tag
+		 * 
+		 * @param  array $classes  body tag classes
+		 * @return array          body tag classes
+		 */
+		function remove_admin_bar( $classes ) {
+
+			if ( is_admin() && is_user_logged_in() !== true ) {
+
+				foreach ( $classes as $key => $value ) {
+					
+					if ( $value == 'admin-bar') {
+						unset( $classes[$key] );
+					}
+
+				}
+
+			}
+
+		    return $classes;
+
+		}
+
+		/**
+		 * Execute away mode functionality
 		 *
 		 * @return void
 		 */
-		public function execute_module_functions() {
+		public function execute_away_mode() {
 
 			//execute lockout if applicable
 			if ( $this->check_away() ) {

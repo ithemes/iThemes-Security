@@ -507,6 +507,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 				$content = '<input name="bwps_authentication[hide_backend-slug]" id="bwps_authentication_strong_passwords_slug" value="' . sanitize_title( $this->settings['hide_backend-slug'] ) . '" type="text"><br />';
 				$content .= '<em><span style="color: #666666;"><strong>' . __( 'Login URL:', 'better-wp-security' ) . '</strong> ' . trailingslashit( get_option( 'siteurl' ) ) . '</span><span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-slug'] ) . '</span></em>';
+				$content .= '<p>' . __( 'The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'better-wp-security' ) . '</p>';
 
 			}
 
@@ -748,7 +749,28 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 		}
 
-		
+		/**
+		 * Generate a pseudo-random key
+		 * 
+		 * @return string pseudo-random key
+		 */
+		private function generate_key() {
+
+			//Generate a random key to use
+			$avail = 'ABCDEFGHIJKLMNOFQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			$key = '';
+				
+			//length of hey
+			$key_length = rand( 20, 30 );
+				
+			//generate remaning characters
+			for ( $i = 0; $i < $key_length; $i++ ) {
+				$key  .= $avail[rand( 0, 61 )];
+			}
+
+			return esc_sql( $key );
+
+		}
 
 		/**
 		 * Sanitize and validate input
@@ -759,8 +781,6 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			global $wp_rewrite;
-
 			//process strong passwords settings
 			$input['strong_passwords-enabled'] = ( isset( $input['strong_passwords-enabled'] ) && intval( $input['strong_passwords-enabled'] == 1 ) ? true : false );
 			if ( isset( $input['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $input['strong_passwords-roll'] ) ) ) {
@@ -770,6 +790,28 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			//Process hide backend settings
 			$input['hide_backend-enabled'] = ( isset( $input['hide_backend-enabled'] ) && intval( $input['hide_backend-enabled'] == 1 ) ? true : false );
 			$input['hide_backend-slug'] = sanitize_title( $input['hide_backend-slug'] );
+				
+			$input['hide_backend-key'] = $this->generate_key();
+
+			$forbidden_slugs = array(
+				'admin',
+				'login',
+				'wp-login.php',
+				'dashboard',
+				'wp-admin'
+			);
+
+			if ( in_array( $input[''], $forbidden_slugs ) ) {
+				
+				$type    = 'error';
+				$message = __( 'Invalid hide login slug used. The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'better_wp_security' );
+
+			} else {
+
+				add_rewrite_rule( $input['hide_backend-slug'] . '/?$', 'wp-login.php', 'top' );
+				flush_rewrite_rules();
+
+			}
 
 			//process away mode settings
 			$input['away_mode-enabled'] = ( isset( $input['away_mode-enabled'] ) && intval( $input['away_mode-enabled'] == 1 ) ? true : false );
@@ -829,9 +871,6 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 				$message,
 				$type
 			);
-			
-			//Call flush_rules() as a method of the $wp_rewrite object
-			$wp_rewrite->flush_rules( false );
 
 			return $input;
 
@@ -844,8 +883,6 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			global $wp_rewrite;
-
 			$settings['strong_passwords-enabled'] = ( isset( $_POST['bwps_authentication']['strong_passwords-enabled'] ) && intval( $_POST['bwps_authentication']['strong_passwords-enabled'] == 1 ) ? true : false );
 			if ( isset( $_POST['bwps_authentication']['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $_POST['bwps_authentication']['strong_passwords-roll'] ) ) ) {
 				$settings['strong_passwords-roll'] = wp_strip_all_tags( $_POST['bwps_authentication']['strong_passwords-roll'] );
@@ -853,6 +890,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			$settings['hide_backend-enabled'] = ( isset( $_POST['bwps_authentication']['hide_backend-enabled'] ) && intval( $_POST['bwps_authentication']['hide_backend-enabled'] == 1 ) ? true : false );
 			$settings['hide_backend-slug'] = sanitize_title( $_POST['bwps_authentication']['hide_backend-slug'] );
+			$settings['hide_backend-key'] = $this->generate_key();
 
 			$settings['away_mode-enabled'] = ( isset( $_POST['bwps_authentication']['away_mode-enabled'] ) && intval( $_POST['bwps_authentication']['away_mode-enabled'] == 1 ) ? true : false );
 			$settings['away_mode-type'] = ( isset( $_POST['bwps_authentication']['away_mode-type'] ) && intval( $_POST['bwps_authentication']['away_mode-type'] == 1 ) ? 1 : 2 );
@@ -860,9 +898,6 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			$settings['away_mode-end']   = strtotime( $_POST['bwps_authentication']['end']['date'] . ' ' . $_POST['bwps_authentication']['end']['hour'] . ':' . $_POST['bwps_authentication']['end']['minute'] . ' ' . $_POST['bwps_authentication']['end']['sel'] );
 
 			update_site_option( 'bwps_authentication', $settings ); //we must manually save network options
-
-			//Call flush_rules() as a method of the $wp_rewrite object
-			$wp_rewrite->flush_rules( false );
 
 			//send them back to the away mode options page
 			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_bwps-authentication', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
