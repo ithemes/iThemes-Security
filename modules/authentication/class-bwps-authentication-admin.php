@@ -151,6 +151,26 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
+			if ( $this->settings['hide_backend-enabled'] === true ) {
+
+				$status_array = 'safe-medium';
+				$status = array(
+					'text' => __( 'Your WordPress Dashboard is hidden.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'medium';
+				$status = array(
+					'text' => __( 'Your WordPress Dashboard is using the default addresses. This can make a brute force attack much easier.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
 			if ( $this->settings['away_mode-enabled'] === true ) {
 
 				$status_array = 'safe-medium';
