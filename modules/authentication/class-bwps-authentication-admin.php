@@ -191,6 +191,26 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
+			if ( ! username_exists( 'admin') ) {
+
+				$status_array = 'safe-high';
+				$status = array(
+					'text' => __( 'The <em>admin</em> user has been removed or renamed.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'high';
+				$status = array(
+					'text' => __( 'The <em>admin</em> user still exists.', 'better_wp_security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
 			return $statuses;
 
 		}
@@ -260,13 +280,18 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 			);
 
 			//Admin User Fields
-			add_settings_field(
-				'bwps_authentication[admin_user-username]',
-				__( 'Change Admin Username', 'better_wp_security' ),
-				array( $this, 'admin_user_username' ),
-				'security_page_toplevel_page_bwps-authentication',
-				'authentication_admin_user'
-			);
+
+			if ( username_exists( 'admin' ) ) {
+
+				add_settings_field(
+					'bwps_authentication[admin_user-username]',
+					__( 'Change Admin Username', 'better_wp_security' ),
+					array( $this, 'admin_user_username' ),
+					'security_page_toplevel_page_bwps-authentication',
+					'authentication_admin_user'
+				);
+
+			}
 
 			add_settings_field(
 				'bwps_authentication[admin_user-userid]',
@@ -480,7 +505,7 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		 */
 		public function admin_user_username( $args ) {
 
-			$content = '<input name="bwps_authentication[admin_user-slug]" id="bwps_authentication_admin_user_username" value="" type="text"><br />';
+			$content = '<input name="bwps_authentication[admin_user-username]" id="bwps_authentication_admin_user_username" value="" type="text"><br />';
 			$content .= '<label for="bwps_authentication_admin_user_username"> ' . __( 'Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', 'better_wp_security' ) . '</label>';
 
 			echo $content;
@@ -893,6 +918,56 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 		}
 
 		/**
+		 * Renames the admin user in the database
+		 * 
+		 * @param  string $username the username to rename
+		 * @return bool             true on success or false
+		 */
+		private function rename_admin_user( $username = null ) {
+
+			global $wpdb;
+			
+			//sanitize the username
+			$newuser = sanitize_text_field( $username );
+			
+			if ( strlen( $newuser ) < 1 || $username === null ) { //if the username is blank or null
+			
+				return false;
+				
+			} else {	
+			
+				if ( validate_username( $newuser ) ) { //make sure username is valid
+				
+					if ( username_exists( $newuser ) ) { //if the user already exists return false
+					
+						return false;
+								
+					} else {
+								
+						//query main user table
+						$wpdb->query( "UPDATE `" . $wpdb->users . "` SET user_login = '" . esc_sql( $newuser ) . "' WHERE user_login='admin';" );
+						
+						if ( is_multisite() ) { //process sitemeta if we're in a multi-site situation
+						
+							$oldAdmins = $wpdb->get_var( "SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key = 'site_admins'" );
+							$newAdmins = str_replace( '5:"admin"', strlen( $newuser ) . ':"' . esc_sql( $newuser ) . '"', $oldAdmins );
+							$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . esc_sql( $newAdmins ) . "' WHERE meta_key = 'site_admins'" );
+							
+						}
+						
+					}
+					
+				} else { //not a valid username
+				
+					return false;
+				}
+			}
+			
+			wp_clear_auth_cookie();
+
+		}
+
+		/**
 		 * Sanitize and validate input
 		 *
 		 * @param  Array $input array of input fields
@@ -907,11 +982,27 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 				$input['strong_passwords-roll'] = wp_strip_all_tags( $input['strong_passwords-roll'] );
 			}
 
+			//Process admin user
+			$username = trim (sanitize_text_field( $input['admin_user-username'] ) );
+			unset( $input['admin_user-username'] );
+			$usersuccess = true;
+
+			if ( strlen( $username ) >= 1 ) {
+
+				$usersuccess = $this->rename_admin_user( $username );
+
+			}
+
 			//Process hide backend settings
 			$input['hide_backend-enabled'] = ( isset( $input['hide_backend-enabled'] ) && intval( $input['hide_backend-enabled'] == 1 ) ? true : false );
-			$input['hide_backend-slug'] = sanitize_title( $input['hide_backend-slug'] );
 
-			if ( $input['hide_backend-register'] !== 'wp-register.php' ) {
+			if ( isset( $input['hide_backend-slug'] ) ) {
+				$input['hide_backend-slug'] = sanitize_title( $input['hide_backend-slug'] );
+			} else {
+				$input['hide_backend-slug'] = 'wpplogin';
+			}
+
+			if ( isset( $input['hide_backend-register'] ) && $input['hide_backend-register'] !== 'wp-register.php' ) {
 				$input['hide_backend-register'] = sanitize_title( $input['hide_backend-register'] );
 			} else {
 				$input['hide_backend-register'] = 'wp-register.php';
@@ -950,7 +1041,12 @@ if ( ! class_exists( 'BWPS_Authentication_Admin' ) ) {
 
 			}
 
-			if ( $this->module->check_away( true, $input ) === true ) {
+			if ( $usersuccess === false ) {
+
+				$type    = 'error';
+				$message = __( 'The new admin username you entered is invalid. Please check the name and try again.', 'better_wp_security' );
+
+			} elseif ( $this->module->check_away( true, $input ) === true ) {
 
 				$input['away_mode-enabled'] = false; //disable away mode
 
