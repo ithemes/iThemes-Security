@@ -40,7 +40,6 @@ if ( ! class_exists( 'BWPS_Authentication' ) ) {
 
 				add_action( 'init', array( $this, 'execute_hide_backend' ) );
 				add_action( 'login_init', array( $this, 'execute_hide_backend_login' ) );
-				add_action( 'login_form', array( $this, 'add_hide_backend_key' ) );
 
 				add_filter( 'body_class', array( $this, 'remove_admin_bar' ) );
 				add_filter( 'wp_redirect', array( $this, 'filter_login_url' ), 10, 2 );
