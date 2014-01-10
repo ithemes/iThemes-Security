@@ -305,6 +305,13 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'security_page_toplevel_page_itsec-authentication'
 			);
 
+			add_settings_section(
+				'authentication_other',
+				__( 'Other Authentication Tweaks', 'ithemes-security' ),
+				array( $this, 'other_header' ),
+				'security_page_toplevel_page_itsec-authentication'
+			);
+
 			//Admin User Fields
 
 			if ( username_exists( 'admin' ) ) {
@@ -414,7 +421,6 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'authentication_away_mode-settings'
 			);
 
-			//end time field
 			add_settings_field(
 				'itsec_authentication[away_mode-end_time]',
 				__( 'End Time', 'ithemes-security' ),
@@ -422,6 +428,16 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'security_page_toplevel_page_itsec-authentication',
 				'authentication_away_mode-settings'
 			);
+
+			add_settings_field(
+				'itsec_authentication[other-login_errors]',
+				__( 'Disable Login Error Messages', 'ithemes-security' ),
+				array( $this, 'other_login_errors' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_other'
+			);
+
+			//Other Settings
 
 			//Register the settings field for the entire module
 			register_setting(
@@ -523,6 +539,18 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 				echo $content;
 			}
+
+		}
+
+		/**
+		 * Echo the "Other" Header
+		 */
+		public function other_header() {
+
+			$content =  '<h2 class="settings-section-header">' . __( 'Other Authentication Tweaks', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( 'Miscellaneous tweaks that can make it harder for an attacker to log into your WordPress website.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
 
 		}
 
@@ -881,6 +909,28 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		}
 
 		/**
+		 * echos Disable Login Errors Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function other_login_errors( $args ) {
+
+			if ( isset( $this->settings['other-login_errors'] ) && $this->settings['other-login_errors'] === true ) {
+				$enabled = 1;
+			} else {
+				$enabled = 0;
+			}
+
+			$content = '<input type="checkbox" id="itsec_authentication_other_login_errors" name="itsec_authentication[other-login_errors]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_authentication_other_login_errors"> ' . __( 'Prevents error messages from being displayed to a user upon a failed login attempt.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * Build and echo the away mode description
 		 *
 		 * @return void
@@ -1053,7 +1103,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			}
 
 			//Process admin user
-			$username = trim (sanitize_text_field( $input['admin_user-username'] ) );
+			$username = isset( $input['admin_user-username'] ) ? trim ( sanitize_text_field( $input['admin_user-username'] ) ) : null;
 			$change_id_1 = ( isset( $input['admin_user-userid'] ) && intval( $input['admin_user-userid'] == 1 ) ? true : false );
 			
 			unset( $input['admin_user-username'] );
@@ -1166,6 +1216,9 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				add_rewrite_rule( $input['hide_backend-register'] . '/?$', $input['hide_backend-slug'] . '?action=register', 'top' ); //Login rewrite rule				
 			}
 
+			//process other settings
+			$input['other-login_errors'] = ( isset( $input['other-login_errors'] ) && intval( $input['other-login_errors'] == 1 ) ? true : false );
+
 			flush_rewrite_rules();
 
 			add_settings_error(
@@ -1199,6 +1252,8 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$settings['away_mode-type'] = ( isset( $_POST['itsec_authentication']['away_mode-type'] ) && intval( $_POST['itsec_authentication']['away_mode-type'] == 1 ) ? 1 : 2 );
 			$settings['away_mode-start'] = strtotime( $_POST['itsec_authentication']['start']['date'] . ' ' . $_POST['itsec_authentication']['start']['hour'] . ':' . $_POST['itsec_authentication']['start']['minute'] . ' ' . $_POST['itsec_authentication']['start']['sel'] );
 			$settings['away_mode-end']   = strtotime( $_POST['itsec_authentication']['end']['date'] . ' ' . $_POST['itsec_authentication']['end']['hour'] . ':' . $_POST['itsec_authentication']['end']['minute'] . ' ' . $_POST['itsec_authentication']['end']['sel'] );
+
+			$settings['other-login_errors'] = ( isset( $_POST['itsec_authentication']['other-login_errors'] ) && intval( $_POST['itsec_authentication']['other-login_errors'] == 1 ) ? true : false );
 
 			update_site_option( 'itsec_authentication', $settings ); //we must manually save network options
 

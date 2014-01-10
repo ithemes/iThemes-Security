@@ -56,6 +56,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Setup' ) ) {
 					'away_mode-start_time'		=> 1,
 					'away_mode-end_date'		=> 1,
 					'away_mode-end_time'		=> 1,
+					'other-login_errors'		=> false,
 					
 				);
 
