@@ -279,18 +279,14 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 		 */
 		public function metabox_status_feed() {
 
-			$content  =		'<div class="itsec-status-feed-item">';
-			$content .=			'<p>This is here so you can see the markup/styling for the feed items</p>';
+			// Intro Text
+			$content  =		'<div class="itsec-status-feed-item intro">';
+			$content .=			'<p>';
+			$content .= 		__('We\'ve analyzed your site and determined that these simple changes will have the biggest impact in keeping your site safe and secure. Do these things first, then use the tabs to explore more advanced features.', 'ithemes-security' );
+			$content .=			'</p>';
 			$content .=		'</div>';
 			
-			$content .= 	'<div class="itsec-status-feed-item urgent">';
-			$content .=			'<p>Change username "admin" to something else.</p>';
-			$content .=			'<div class="itsec-status-feed-actions">';
-			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
-			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
-			$content .=			'</div>';
-			$content .=		'</div>';
-			
+			// Begin Feed Items 
 			$content .= 	'<div class="itsec-status-feed-item completed">';
 			$content .=			'<div class="itsec-status-feed-completed-message">';
 			$content .=				'<p>User ID 1 changed!</p>';
@@ -299,15 +295,64 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .=				'<p><input class="button-secondary" name="submit" type="submit" value="Undo"></p>';
 			$content .=			'</div>';
 			$content .=		'</div>';
-				
-				
-			$content .=		'<div class="itsec-status-feed-item recommended">';
+			
+			$content .= 	'<div class="itsec-status-feed-item completed">';
+			$content .=			'<div class="itsec-status-feed-completed-message">';
+			$content .=				'<p>Admin Username Changed!</p>';
+			$content .=			'</div>';
+			$content .=			'<div class="itsec-status-feed-actions">';
+			$content .=				'<p><input class="button-secondary" name="submit" type="submit" value="Undo"></p>';
+			$content .=			'</div>';
+			$content .=		'</div>';
+			
+			$content .=		'<div class="itsec-status-feed-item low-priority">';
 			$content .=			'<p>You should hide the WordPress admin area.</p>';
 			$content .=			'<div class="itsec-status-feed-actions">';
 			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
 			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
 			$content .=			'</div>';
 			$content .=		'</div>';
+			
+			$content .=		'<div class="itsec-status-feed-item low-priority">';
+			$content .=			'<p>You shouldn\'t let non-administrators see all available updates.</p>';
+			$content .=			'<div class="itsec-status-feed-actions">';
+			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
+			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
+			$content .=			'</div>';
+			$content .=		'</div>';
+			
+			$content .=		'<div class="itsec-status-feed-item notice">';
+			$content .=			'<p>Your site had 116 instances of 404 errors last week. This could be evidence of an attempted attack. Check your logs.</p>';
+			$content .=			'<div class="itsec-status-feed-actions">';
+			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
+			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
+			$content .=			'</div>';
+			$content .=		'</div>';
+			
+			$content .= 	'<div class="itsec-status-feed-item high-priority">';
+			$content .=			'<p>Change username "admin" to something else.</p>';
+			$content .=			'<div class="itsec-status-feed-actions">';
+			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
+			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
+			$content .=			'</div>';
+			$content .=		'</div>';
+			
+			$content .= 	'<div class="itsec-status-feed-item ithemes-message">';
+			$content .=			'<p>A friendly message from iThemes directing you to a blog post or new feature or something of the like.</p>';
+			$content .=			'<div class="itsec-status-feed-actions">';
+			$content .=				'<p><a class="button-primary">Check it out!</a></p>';
+			$content .=			'</div>';
+			$content .=		'</div>';
+			
+			
+			// Bottom Interchangeable Ad
+			$content .=		'<div class="itsec-status-feed-item closing">';
+			$content .=			'<p>';
+			//$content .= 		;
+			$content .=			'</p>';
+			$content .=		'</div>';
+			
+			
 				
 			echo $content;
 		}
