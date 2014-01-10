@@ -383,6 +383,35 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		}
 
 		/**
+		 * Checks if user exists
+		 *
+		 * Checks to see if WordPress user with given id exists
+		 *
+		 * @param int $id user id of user to check
+		 * @return bool true if user exists otherwise false
+		 *
+		 **/
+		function user_id_exists( $user_id ) {
+		
+			global $wpdb;
+			
+			//return false if username is null
+			if ( $user_id == '' ) {
+				return false;
+			}
+			
+			//queary the user table to see if the user is there
+			$userid = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='%s';", sanitize_text_field( $user_id ) ) );
+			
+			if ( $userid == $user_id ) {
+				return true;
+			} else {
+				return false;
+			}
+			
+		}
+
+		/**
 		 * Converts CIDR to ip range.
 		 *
 		 * Modified from function at http://stackoverflow.com/questions/4931721/getting-list-ips-from-cidr-notation-in-php
