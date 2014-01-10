@@ -367,6 +367,11 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 		}
 
+		/**
+		 * Forces the given page to a WordPress 404 error
+		 *
+		 * @return void
+		 */
 		public function set_404() {
 
 			global $wp_query;
