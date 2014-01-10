@@ -286,6 +286,8 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .=			'</p>';
 			$content .=		'</div>';
 			
+			
+			
 			// Begin Feed Items 
 			$content .= 	'<div class="itsec-status-feed-item completed">';
 			$content .=			'<div class="itsec-status-feed-completed-message">';
@@ -305,7 +307,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .=			'</div>';
 			$content .=		'</div>';
 			
-			$content .=		'<div class="itsec-status-feed-item low-priority">';
+			$content .=		'<div class="itsec-status-feed-item medium-priority">';
 			$content .=			'<p>You should hide the WordPress admin area.</p>';
 			$content .=			'<div class="itsec-status-feed-actions">';
 			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
@@ -313,7 +315,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .=			'</div>';
 			$content .=		'</div>';
 			
-			$content .=		'<div class="itsec-status-feed-item low-priority">';
+			$content .=		'<div class="itsec-status-feed-item medium-priority">';
 			$content .=			'<p>You shouldn\'t let non-administrators see all available updates.</p>';
 			$content .=			'<div class="itsec-status-feed-actions">';
 			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
@@ -376,7 +378,70 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			);
 
 			$statuses = apply_filters( 'itsec_add_dashboard_status', $statuses );
-			
+
+			if ( isset ( $statuses['high'][0] ) ) {
+
+				printf( '<h2>%s</h2>', __( 'High Priority', 'ithemes-security' ) );
+				_e( 'These are items that should be secured immediately.', 'ithemes-security' );
+
+				echo '<ul class="statuslist high-priority">';
+
+				if ( isset ( $statuses['high'] ) ) {
+
+					foreach ( $statuses['high'] as $status ) {
+
+						printf( '<li><p>%s</p><div class="itsec_status_action"><a class="button-primary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
+
+					}
+
+				}
+
+				echo '</ul>';
+
+			}
+
+			if ( isset ( $statuses['medium'][0] ) ) {
+
+				printf( '<h2>%s</h2>', __( 'Medium Priority', 'ithemes-security' ) );
+				_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'ithemes-security' );
+
+				echo '<ul class="statuslist medium-priority">';
+
+				if ( isset ( $statuses['medium'] ) ) {
+
+					foreach ( $statuses['medium'] as $status ) {
+
+						printf( '<li><p>%s</p><div class="itsec_status_action"><a class="button-primary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
+
+					}
+
+				}
+
+				echo '</ul>';
+
+			}
+
+			if ( isset ( $statuses['low'][0] ) ) {
+
+				printf( '<h2>%s</h2>', __( 'Low Priority', 'ithemes-security' ) );
+				_e( 'These are items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'ithemes-security' );
+
+				echo '<ul class="statuslist low-priority">';
+
+				if ( isset ( $statuses['low'] ) ) {
+
+					foreach ( $statuses['low'] as $status ) {
+
+						printf( '<li><p>%s</p><div class="itsec_status_action"><a class="button-secondary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
+
+					}
+
+				}
+
+				echo '</ul>';
+
+			}
+
 			if ( isset ( $statuses['safe-high'] ) || isset ( $statuses['safe-medium'] ) || isset ( $statuses['safe-low'] ) ) {
 
 				printf( '<h2>%s</h2>', __( 'Completed', 'ithemes-security' ) );
@@ -409,69 +474,6 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 					foreach ( $statuses['safe-low'] as $status ) {
 
 						printf( '<li><p>%s</p></li>', $status['text'] );
-
-					}
-
-				}
-
-				echo '</ul>';
-
-			}
-
-			if ( isset ( $statuses['high'] ) ) {
-
-				printf( '<h2>%s</h2>', __( 'High Priority', 'ithemes-security' ) );
-				_e( 'These are items that should be secured immediately.', 'ithemes-security' );
-
-				echo '<ul class="statuslist recommended">';
-
-				if ( isset ( $statuses['high'] ) ) {
-
-					foreach ( $statuses['high'] as $status ) {
-
-						printf( '<li><p>%s</p><div class="itsec_status_action"><a class="button-primary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
-
-					}
-
-				}
-
-				echo '</ul>';
-
-			}
-
-			if ( isset ( $statuses['medium'] ) ) {
-
-				printf( '<h2>%s</h2>', __( 'Medium Priority', 'ithemes-security' ) );
-				_e( 'These are items that should be secured if possible however they are not critical to the overall security of your site.', 'ithemes-security' );
-
-				echo '<ul class="statuslist recommended">';
-
-				if ( isset ( $statuses['medium'] ) ) {
-
-					foreach ( $statuses['medium'] as $status ) {
-
-						printf( '<li><p>%s</p><div class="itsec_status_action"><a class="button-primary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
-
-					}
-
-				}
-
-				echo '</ul>';
-
-			}
-
-			if ( isset ( $statuses['low'] ) ) {
-
-				printf( '<h2>%s</h2>', __( 'Low Priority', 'ithemes-security' ) );
-				_e( 'These are items that should be secured if, and only if, your plugins or theme do not conflict with their use.', 'ithemes-security' );
-
-				echo '<ul class="statuslist additional">';
-
-				if ( isset ( $statuses['low'] ) ) {
-
-					foreach ( $statuses['low'] as $status ) {
-
-						printf( '<li><p>%s</p><div class="itsec_status_action"><a class="button-secondary" href="%s">Fix it</a></div></li>', $status['text'], $status['link'] );
 
 					}
 

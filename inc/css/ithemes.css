@@ -63,13 +63,16 @@ div.inside ul li {
 	border-bottom: none;
 }
 #itsec_status ul.completed li {
-	border-left: 5px solid #baffbf;
+	border-left: 5px solid #c9c9c9;
 }
-#itsec_status ul.recommended li {
+#itsec_status ul.high-priority li {
 	border-left: 5px solid #ffd4d4;
 }
-#itsec_status ul.additional li {
-	border-left: 5px solid #daf4ff;
+#itsec_status ul.medium-priority li {
+	border-left: 5px solid #d9f4ff;
+}
+#itsec_status ul.low-priority li {
+	border-left: 5px solid #d9f4ff;
 }
 #itsec_status ul li p {
 	float:left;
@@ -120,12 +123,7 @@ div.inside ul li {
 	border-bottom: 1px solid #ca8383;
 }
 
-#itsec_status_feed .itsec-status-feed-item.low-priority {
-	background: #d9f4ff url(../img/flag16-blue.png) 15px 18px no-repeat;
-	border-bottom: 1px solid #95cfe6;
-}
-
-#itsec_status_feed .itsec-status-feed-item.low-priority {
+#itsec_status_feed .itsec-status-feed-item.medium-priority {
 	background: #d9f4ff url(../img/flag16-blue.png) 15px 18px no-repeat;
 	border-bottom: 1px solid #95cfe6;
 }
