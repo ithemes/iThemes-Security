@@ -49,6 +49,21 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 
 			}
 
+			//Process remove login errors
+			if ( $this->settings['other-login_errors'] === true ) {
+				add_filter( 'login_errors', array( $this, 'empty_return_function' ) );
+			}
+
+
+		}
+
+		/**
+		 * Returns null
+		 * 
+		 * @return null
+		 */
+		public function empty_return_function() {
+			return null;
 		}
 
 		/**
