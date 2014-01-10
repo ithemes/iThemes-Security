@@ -108,9 +108,9 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			//Settings Fields
 			add_settings_field(
-				'itsec_authentication[strong_passwords-enabled]',
-				__( 'Enable Strong Passwords', 'ithemes-security' ),
-				array( $this, 'empty_callback_function' ),
+				'itsec_global[notification_email]',
+				__( 'Notification Email', 'ithemes-security' ),
+				array( $this, 'notification_email' ),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -118,7 +118,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_itsec-global',
-				'itsec_authentication',
+				'itsec_global',
 				array( $this, 'sanitize_module_input' )
 			);
 
@@ -136,32 +136,12 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 *
 		 * @return void
 		 */
-		public function admin_user_username( $args ) {
+		public function notification_email( $args ) {
 
-			$content = '<input name="itsec_authentication[admin_user-username]" id="itsec_authentication_admin_user_username" value="" type="text"><br />';
-			$content .= '<label for="itsec_authentication_admin_user_username"> ' . __( 'Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', 'ithemes-security' ) . '</label>';
 
-			echo $content;
 
-		}
-
-		/**
-		 * echos Enable Strong Passwords Field
-		 *
-		 * @param  array $args field arguements
-		 *
-		 * @return void
-		 */
-		public function strong_passwords_enabled( $args ) {
-
-			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] === true ) {
-				$enabled = 1;
-			} else {
-				$enabled = 0;
-			}
-
-			$content = '<input type="checkbox" id="itsec_authentication_strong_passwords_enabled" name="itsec_authentication[strong_passwords-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_authentication_strong_passwords_enabled"> ' . __( 'Check this box to enable strong password enforcement.', 'ithemes-security' ) . '</label>';
+			$content = '<input name="itsec_global[notification_email]" id="itsec_global_notification_email" value="' . sanitize_email( $this->settings['notification_email'] ) . '" type="text"><br />';
+			$content .= '<label for="itsec_global_notification_email"> ' . __( 'The email address all security notifications will be sent to.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -174,9 +154,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 */
 		public function add_module_intro( $screen ) {
 
-			$content = '<p>' . __( 'The below settings control who and how users can log in to the WordPress Dashboard. Turning on settings below can greatly increase the security of your WordPress website by preventing many of the common attacks that go after weaknesses in the standard login system.', 'ithemes-security' ) . '</p>';
-			$content .= '<p>' . __( 'Please keep in mind the following settings are designed to work primarily with the standard login system. If you have any plugins or a theme that has changed anything already please test your site after turning on the below settings to verify there are no conflicts.', 'ithemes-security' ) . '</p>';
-
+			$content = '<p>' . __( 'The settings below are used throughout the iThemes Security system.', 'ithemes-security' ) . '</p>';
 			echo $content;
 
 		}
@@ -222,6 +200,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'ithemes-security' );
+
+			if ( isset( $input['notification_email'] ) ) {
+				$input['notification_email'] = sanitize_email( $input['notification_email'] );
+			}
 
 			add_settings_error(
 				'itsec_admin_notices',

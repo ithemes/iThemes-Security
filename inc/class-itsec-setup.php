@@ -145,6 +145,18 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 				add_site_option( 'itsec_initials', array(), false );
 			}
 
+			$options = get_site_option( 'itsec_global' );
+
+			if ( $options === false ) {
+
+				$defaults = array(
+					'notification_email'		=> get_option( 'admin_email' ),					
+				);
+
+				add_site_option( 'itsec_global', $defaults );
+
+			}
+
 			$itsec_setup_action = 'activate';
 
 			do_action( 'itsec_set_plugin_data' );
@@ -206,6 +218,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 			$itsec_files->do_deactivate();
 
 			delete_site_option( 'itsec_data' );
+			delete_site_option( 'itsec_global' );
 			delete_site_option( 'itsec_initials' );
 			delete_site_option( 'itsec_jquery_version' );
 
