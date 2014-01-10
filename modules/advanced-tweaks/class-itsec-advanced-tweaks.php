@@ -82,9 +82,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks' ) ) {
 
 			}
 
+			//Execute jQuery check
 			add_action( 'wp_print_scripts', array( $this, 'get_jquery_version' ) );
 
-			add_action( 'wp_enqueue_scripts', array( $this, 'current_jquery' ) );
+			if ( isset( $this->settings['safe_jquery'] ) && $this->settings['safe_jquery'] == true ) {
+				add_action( 'wp_enqueue_scripts', array( $this, 'current_jquery' ) );
+			}
 
 		}
 
