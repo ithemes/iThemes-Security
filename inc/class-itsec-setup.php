@@ -207,6 +207,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 
 			delete_site_option( 'itsec_data' );
 			delete_site_option( 'itsec_initials' );
+			delete_site_option( 'itsec_jquery_version' );
 
 			flush_rewrite_rules();
 

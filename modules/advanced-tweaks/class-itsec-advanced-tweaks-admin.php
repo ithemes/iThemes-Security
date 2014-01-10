@@ -116,6 +116,8 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 		 */
 		public function dashboard_status( $statuses ) {
 
+			global $itsec_lib;
+
 			$link = 'admin.php?page=toplevel_page_itsec-advanced_tweaks';
 
 			if ( $this->settings['protect_files'] === true ) {
@@ -478,6 +480,26 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
+			if ( $itsec_lib->safe_jquery_version() === true ) {
+
+				$status_array = 'safe-high';
+				$status = array(
+					'text' => __( 'The front page of your site is using a safe version of jQuery.', 'ithemes-security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'high';
+				$status = array(
+					'text' => __( 'The front page of your site is not using a safe version of jQuery or the version of jQuery cannot be determined.', 'ithemes-security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
 			return $statuses;
 
 		}
@@ -488,6 +510,8 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 		 * @return void
 		 */
 		public function initialize_admin() {
+
+			global $itsec_lib;
 
 			//Add Settings sections
 			add_settings_section(
@@ -663,6 +687,18 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 				'security_page_toplevel_page_itsec-advanced_tweaks',
 				'advanced_tweaks_wordpress'
 			);
+
+			if ( $itsec_lib->safe_jquery_version() !== true || $this->settings['safe_jquery'] === true ) {
+
+				add_settings_field(
+					'itsec_advanced_tweaks[safe_jquery]',
+					__( 'Replace jQuery With a Safe Version', 'ithemes-security' ),
+					array( $this, 'advanced_tweaks_wordpress_safe_jquery' ),
+					'security_page_toplevel_page_itsec-advanced_tweaks',
+					'advanced_tweaks_wordpress'
+				);
+
+			}
 
 			//Register the settings field for the entire module
 			register_setting(
@@ -1118,6 +1154,48 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			$content = '<input type="checkbox" id="itsec_advanced_tweaks_server_disable_xmlrpc" name="itsec_advanced_tweaks[disable_xmlrpc]" value="1" ' . checked( 1, $disable_xmlrpc, false ) . '/>';
 			$content .= '<label for="itsec_advanced_tweaks_server_disable_xmlrpc">' . __( 'Disable XML-RPC', 'ithemes-security' ) . '</label>';
 			$content .= '<p class="description">' . __( 'Disables all XML-RPC functionality. XML-RPC is a feature WordPress uses to connect to remote services and is often taken advantage of by attackers.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Replace jQuery Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function advanced_tweaks_wordpress_safe_jquery( $args ) {
+
+			global $itsec_lib;
+
+			if ( isset( $this->settings['safe_jquery'] ) && $this->settings['safe_jquery'] === true ) {
+				$safe_jquery = 1;
+			} else {
+				$safe_jquery = 0;
+			}
+
+			$raw_version = get_site_option( 'itsec_jquery_version' );
+
+			if ( $raw_version !== false ) {
+				$version = sanitize_text_field( $raw_version );
+			} else {
+				$version = 'undetermined';
+			}
+
+			if ( $itsec_lib->safe_jquery_version() === true ) {
+				$color = 'green';
+			} else {
+				$color = 'red';
+			}
+
+			$content = '<input type="checkbox" id="itsec_advanced_tweaks_wordpress_safe_jquery" name="itsec_advanced_tweaks[safe_jquery]" value="1" ' . checked( 1, $safe_jquery, false ) . '/>';
+			$content .= '<label for="itsec_advanced_tweaks_wordpress_safe_jquery">' . __( 'Enqueue a safe version of jQuery', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Remove the existing jQuery version used and replace it with a safe version (the version that comes default with WordPress).', 'ithemes-security' ) . '</p>';
+
+			$content .= '<p class="description" style="color: ' . $color . '">' . __( 'Your current jQuery version is ', 'ithemes-security' ) . $version . '.</p>';
+			$content .= '<p class="description">' . __( 'Note that this only checks the homepage of your site and only for users who are logged in. This is done intentionally to save resources. If you think this is in error click here to check again.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -1612,6 +1690,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			$input['file_editor'] = ( isset( $input['file_editor'] ) && intval( $input['file_editor'] == 1 ) ? true : false );
 			$input['disable_xmlrpc'] = ( isset( $input['disable_xmlrpc'] ) && intval( $input['disable_xmlrpc'] == 1 ) ? true : false );
 			$input['uploads_php'] = ( isset( $input['uploads_php'] ) && intval( $input['uploads_php'] == 1 ) ? true : false );
+			$input['safe_jquery'] = ( isset( $input['safe_jquery'] ) && intval( $input['safe_jquery'] == 1 ) ? true : false );
 
 			$rules = $this->build_rewrite_rules( array(), $input );
 			$itsec_files->set_rewrites( $rules );
@@ -1688,6 +1767,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			$settings['file_editor'] = ( isset( $_POST['itsec_advanced_tweaks']['file_editor'] ) && intval( $_POST['itsec_advanced_tweaks']['file_editor'] == 1 ) ? true : false );
 			$settings['disable_xmlrpc'] = ( isset( $_POST['itsec_advanced_tweaks']['disable_xmlrpc'] ) && intval( $_POST['itsec_advanced_tweaks']['disable_xmlrpc'] == 1 ) ? true : false );
 			$settings['uploads_php'] = ( isset( $_POST['itsec_advanced_tweaks']['uploads_php'] ) && intval( $_POST['itsec_advanced_tweaks']['uploads_php'] == 1 ) ? true : false );
+			$settings['safe_jquery'] = ( isset( $_POST['itsec_advanced_tweaks']['safe_jquery'] ) && intval( $_POST['itsec_advanced_tweaks']['safe_jquery'] == 1 ) ? true : false );
 
 			update_site_option( 'itsec_advanced_tweaks', $settings ); //we must manually save network options
 

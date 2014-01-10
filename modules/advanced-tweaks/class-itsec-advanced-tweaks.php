@@ -82,6 +82,23 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks' ) ) {
 
 			}
 
+			add_action( 'wp_print_scripts', array( $this, 'get_jquery_version' ) );
+
+			add_action( 'wp_enqueue_scripts', array( $this, 'current_jquery' ) );
+
+		}
+
+		public function current_jquery() {
+        
+			wp_deregister_script( 'jquery' );
+			wp_deregister_script( 'jquery-core' );
+
+			wp_register_script( 'jquery', false, array( 'jquery-core', 'jquery-migrate' ), '1.10.2' );
+			wp_register_script( 'jquery-core', '/wp-includes/js/jquery/jquery.js', false, '1.10.2' );
+			
+			wp_enqueue_script( 'jquery' );
+			wp_enqueue_script( 'jquery-core' );
+
 		}
 
 		/**
@@ -99,6 +116,26 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks' ) ) {
 				
 			}
 			
+		}
+
+		/**
+		 * Gets the version of jQuery enqueued
+		 * 
+		 * @return string|array versions of jQuery used ( array if multiple )
+		 */
+		function get_jquery_version(){
+
+			global $wp_scripts;
+
+			if ( ( is_home() || is_front_page() ) && is_user_logged_in() ) {
+
+				// Get the WP built-in version
+				$jquery_ver = $wp_scripts->registered['jquery']->ver;
+
+				update_site_option( 'itsec_jquery_version', $jquery_ver );
+
+			}
+
 		}
 
 		/**

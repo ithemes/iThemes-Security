@@ -83,6 +83,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Setup' ) ) {
 					'file_editor'				=> $file_editor,
 					'disable_xmlrpc'			=> false,
 					'uploads_php'				=> false,
+					'safe_jquery'				=> false,
 				);
 
 				add_site_option( 'itsec_advanced_tweaks', $defaults );

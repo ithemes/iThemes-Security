@@ -368,6 +368,23 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		}
 
 		/**
+		 * Checks if the jquery version saved is vulnerable to http://bugs.jquery.com/ticket/9521
+		 * 
+		 * @return bool true if known safe or false
+		 */
+		public function safe_jquery_version() {
+
+			$jquery_version = get_site_option( 'itsec_jquery_version' );
+
+			if ( $jquery_version !== false and version_compare( $jquery_version, '1.6.3', '>=' ) ) {
+				return true;
+			}
+
+			return false;
+
+		}
+
+		/**
 		 * Forces the given page to a WordPress 404 error
 		 *
 		 * @return void
