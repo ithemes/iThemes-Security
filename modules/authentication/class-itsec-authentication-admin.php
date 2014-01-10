@@ -211,6 +211,26 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
+			if ( ! username_exists( 'admin') ) {
+
+				$status_array = 'safe-medium';
+				$status = array(
+					'text' => __( 'The user with id 1 has been removed.', 'ithemes-security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'medium';
+				$status = array(
+					'text' => __( 'A user with id 1 still exists.', 'ithemes-security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
 			return $statuses;
 
 		}
@@ -222,6 +242,8 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function initialize_admin() {
 
+			global $itsec_lib;
+
 			//Add Settings sections
 			add_settings_section(
 				'authentication_brute_force',
@@ -230,12 +252,16 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'security_page_toplevel_page_itsec-authentication'
 			);
 
-			add_settings_section(
-				'authentication_admin_user',
-				__( 'Secure Admin User', 'ithemes-security' ),
-				array( $this, 'admin_user_header' ),
-				'security_page_toplevel_page_itsec-authentication'
-			);
+			if ( $itsec_lib->user_id_exists( 1 ) || username_exists( 'admin' ) ) {
+
+				add_settings_section(
+					'authentication_admin_user',
+					__( 'Secure Admin User', 'ithemes-security' ),
+					array( $this, 'admin_user_header' ),
+					'security_page_toplevel_page_itsec-authentication'
+				);
+
+			}
 
 			add_settings_section(
 				'authentication_strong_passwords-enabled',
@@ -293,13 +319,17 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			}
 
-			add_settings_field(
-				'itsec_authentication[admin_user-userid]',
-				__( 'Change User ID 1', 'ithemes-security' ),
-				array( $this, 'admin_user_userid' ),
-				'security_page_toplevel_page_itsec-authentication',
-				'authentication_admin_user'
-			);
+			if ( $itsec_lib->user_id_exists( 1 ) ) {
+
+				add_settings_field(
+					'itsec_authentication[admin_user-userid]',
+					__( 'Change User ID 1', 'ithemes-security' ),
+					array( $this, 'admin_user_userid' ),
+					'security_page_toplevel_page_itsec-authentication',
+					'authentication_admin_user'
+				);
+
+			}
 
 			//Strong Passwords Fields
 			add_settings_field(
@@ -918,52 +948,92 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		}
 
 		/**
-		 * Renames the admin user in the database
+		 * Changes Admin User
+		 *
+		 * Changes the username and id of the 1st user
+		 *
+		 * @param string $username the username to change if changing at the same time
+		 * @param bool $id whether to change the id as well
 		 * 
-		 * @param  string $username the username to rename
-		 * @return bool             true on success or false
-		 */
-		private function rename_admin_user( $username = null ) {
+		 * @return bool success or failure
+		 *
+		 **/
+		function change_admin_user( $username = null, $id = false ) {
 
 			global $wpdb;
-			
+
 			//sanitize the username
-			$newuser = sanitize_text_field( $username );
-			
-			if ( strlen( $newuser ) < 1 || $username === null ) { //if the username is blank or null
-			
-				return false;
-				
-			} else {	
-			
-				if ( validate_username( $newuser ) ) { //make sure username is valid
-				
-					if ( username_exists( $newuser ) ) { //if the user already exists return false
+			$new_user = sanitize_text_field( $username );
+
+			//Get the full user object
+			$user_object = get_user_by( 'id', '1' );
+
+			if ( $username !== null && validate_username( $new_user ) && username_exists( $new_user ) === null ) { //there is a valid username to change
+
+				if ( $id === true ) { //we're changing the id too so we'll set the username
+
+					$user_login = $new_user;
+
+				} else { // we're only changing the username
+
+					//query main user table
+					$wpdb->query( "UPDATE `" . $wpdb->users . "` SET user_login = '" . esc_sql( $new_user ) . "' WHERE user_login='admin';" );
 					
-						return false;
-								
-					} else {
-								
-						//query main user table
-						$wpdb->query( "UPDATE `" . $wpdb->users . "` SET user_login = '" . esc_sql( $newuser ) . "' WHERE user_login='admin';" );
-						
-						if ( is_multisite() ) { //process sitemeta if we're in a multi-site situation
-						
-							$oldAdmins = $wpdb->get_var( "SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key = 'site_admins'" );
-							$newAdmins = str_replace( '5:"admin"', strlen( $newuser ) . ':"' . esc_sql( $newuser ) . '"', $oldAdmins );
-							$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . esc_sql( $newAdmins ) . "' WHERE meta_key = 'site_admins'" );
-							
-						}
+					if ( is_multisite() ) { //process sitemeta if we're in a multi-site situation
+					
+						$oldAdmins = $wpdb->get_var( "SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key = 'site_admins'" );
+						$newAdmins = str_replace( '5:"admin"', strlen( $new_user ) . ':"' . esc_sql( $new_user ) . '"', $oldAdmins );
+						$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . esc_sql( $newAdmins ) . "' WHERE meta_key = 'site_admins'" );
 						
 					}
-					
-				} else { //not a valid username
-				
-					return false;
+
+					wp_clear_auth_cookie();
+
+					return true;
+
 				}
+
+			} elseif ( $username !== null ) { //username didn't validate
+
+				return false;
+
+			} else { //only changing the id
+
+				$user_login = $user_object->user_login;
+
 			}
-			
-			wp_clear_auth_cookie();
+
+			if ( $id === true ) { //change the user id
+				
+				$wpdb->query( "DELETE FROM `" . $wpdb->users . "` WHERE ID = 1;" );
+
+				$wpdb->insert(
+					$wpdb->users,
+					array(
+						'user_login'			=> $user_login,
+						'user_pass'				=> $user_object->user_pass,
+						'user_nicename'			=> $user_object->user_nicename,
+						'user_email'			=> $user_object->user_email,
+						'user_url'				=> $user_object->user_url,
+						'user_registered'		=> $user_object->user_registered,
+						'user_activation_key'	=> $user_object->user_activation_key,
+						'user_status'			=> $user_object->user_status,
+						'display_name'			=> $user_object->display_name
+					)
+				);
+				
+				$new_user = $wpdb->insert_id;
+
+				$wpdb->query( "UPDATE `" . $wpdb->posts . "` SET post_author = '" . $new_user . "' WHERE post_author = 1;" );
+				$wpdb->query( "UPDATE `" . $wpdb->usermeta . "` SET user_id = '" . $new_user . "' WHERE user_id = 1;" );
+				$wpdb->query( "UPDATE `" . $wpdb->comments . "` SET user_id = '" . $new_user . "' WHERE user_id = 1;" );
+				$wpdb->query( "UPDATE `" . $wpdb->links . "` SET link_owner = '" . $new_user . "' WHERE link_owner = 1;" );
+
+				wp_clear_auth_cookie();
+
+				return true;
+
+			}
 
 		}
 
@@ -984,12 +1054,20 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			//Process admin user
 			$username = trim (sanitize_text_field( $input['admin_user-username'] ) );
+			$change_id_1 = ( isset( $input['admin_user-userid'] ) && intval( $input['admin_user-userid'] == 1 ) ? true : false );
+			
 			unset( $input['admin_user-username'] );
-			$usersuccess = true;
+			unset( $input['admin_user-userid'] );
+			
+			$admin_success = true;
 
-			if ( strlen( $username ) >= 1 ) {
+			if ( strlen( $username ) >= 1  ) {
 
-				$usersuccess = $this->rename_admin_user( $username );
+				$admin_success = $this->change_admin_user( $username, $change_id_1 );
+
+			} elseif ( $change_id_1 === true ) {
+
+				$admin_success = $this->change_admin_user( null, $change_id_1 );
 
 			}
 
@@ -1041,10 +1119,10 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			}
 
-			if ( $usersuccess === false ) {
+			if ( $admin_success === false ) {
 
 				$type    = 'error';
-				$message = __( 'The new admin username you entered is invalid. Please check the name and try again.', 'ithemes-security' );
+				$message = __( 'The new admin username you entered is invalid or WordPress could not change the user id or username. Please check the name and try again.', 'ithemes-security' );
 
 			} elseif ( $this->module->check_away( true, $input ) === true ) {
 
