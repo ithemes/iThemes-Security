@@ -1195,7 +1195,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			$content .= '<p class="description">' . __( 'Remove the existing jQuery version used and replace it with a safe version (the version that comes default with WordPress).', 'ithemes-security' ) . '</p>';
 
 			$content .= '<p class="description" style="color: ' . $color . '">' . __( 'Your current jQuery version is ', 'ithemes-security' ) . $version . '.</p>';
-			$content .= '<p class="description">' . __( 'Note that this only checks the homepage of your site and only for users who are logged in. This is done intentionally to save resources. If you think this is in error click here to check again.', 'ithemes-security' ) . '</p>';
+			$content .= sprintf( '<p class="description">%s <a href="%s" target="_blank">%s</a>.</p>', __( 'Note that this only checks the homepage of your site and only for users who are logged in. This is done intentionally to save resources. If you think this is in error ', 'ithemes-security' ), site_url(), __( 'click here to check again.', 'ithemes-security' ));
 
 			echo $content;
 
