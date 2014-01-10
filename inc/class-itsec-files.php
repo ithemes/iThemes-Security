@@ -285,8 +285,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 			global $itsec_lib, $wp_filesystem;
 
-			$rule_open = '# BEGIN iThemes WP Security #';
-			$rule_close = '# END iThemes WP Security #';
+			$rule_open = '# BEGIN iThemes Security';
+			$rule_close = '# END iThemes Security';
 
 			$url = wp_nonce_url( 'options.php?page=itsec_creds', 'itsec_write_wpconfig' );
 
@@ -344,7 +344,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 					}
 
 					if ( strpos( $line, $rule_close ) !== false ) { //see if we're at the end of the section
-						$state = true;
+						$state = false;
 					}
 
 				}
@@ -383,8 +383,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 			}
 
-			$rule_open = '# BEGIN iThemes WP Security #';
-			$rule_close = '# END iThemes WP Security #';
+			$rule_open = '# BEGIN iThemes Security';
+			$rule_close = '# END iThemes Security';
 
 			$url = wp_nonce_url( 'options.php?page=itsec_creds', 'itsec_write_wpconfig' );
 
@@ -442,7 +442,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 					}
 
 					if ( strpos( $line, $rule_close ) !== false ) { //see if we're at the end of the section
-						$state = true;
+						$state = false;
 					}
 
 				}
