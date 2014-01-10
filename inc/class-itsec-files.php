@@ -449,7 +449,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 				if ( sizeof( $rules_to_write ) > 0 ) { //make sure we have something to write
 
-					$htaccess_contents = $rule_open . PHP_EOL . implode( PHP_EOL, $rules_to_write ) . implode( PHP_EOL, $lines ) . PHP_EOL . $rule_close . PHP_EOL;
+					$htaccess_contents = $rule_open . PHP_EOL . implode( PHP_EOL, $rules_to_write ) . PHP_EOL . $rule_close . PHP_EOL . implode( PHP_EOL, $lines );
 
 				}
 
