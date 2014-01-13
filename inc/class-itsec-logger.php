@@ -10,6 +10,18 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 		}
 
+		public function log_event() {
+
+		}
+
+		public function purge_logs() {
+
+		}
+
+		public function save_logs() {
+			
+		}
+
 		/**
 		 * Start the global library instance
 		 *
