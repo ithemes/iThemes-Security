@@ -138,9 +138,14 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 */
 		public function notification_email( $args ) {
 
+			if ( isset( $this->settings['notification_email'] ) && is_array( $this->settings['notification_email'] ) ) {
+				$emails = implode( PHP_EOL, $this->settings['notification_email'] );
+				$emails = sanitize_text_field( $emails );
+			} else {
+				$emails = '';
+			}
 
-
-			$content = '<input name="itsec_global[notification_email]" id="itsec_global_notification_email" value="' . sanitize_email( $this->settings['notification_email'] ) . '" type="text"><br />';
+			$content = '<textarea name="itsec_global[notification_email]" id="itsec_global_notification_email" rows="5" >' . $emails . '</textarea><br />';
 			$content .= '<label for="itsec_global_notification_email"> ' . __( 'The email address all security notifications will be sent to.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
@@ -202,7 +207,26 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$message = __( 'Settings Updated', 'ithemes-security' );
 
 			if ( isset( $input['notification_email'] ) ) {
-				$input['notification_email'] = sanitize_email( $input['notification_email'] );
+
+				$bad_emails = array();
+				$emails = explode( PHP_EOL, $input['notification_email'] );
+
+				foreach ( $emails as $email ) {
+
+					if ( is_email( trim( $email ) ) === false ) {
+						$bad_emails[] = $email;
+					}
+
+				}
+
+				if ( sizeof( $bad_emails ) > 0 ) {
+
+					$bad_addresses = implode( ', ', $bad_emails );
+					$type = 'error';
+					$message = __( 'The following email address(es) do not appear to be valid: ', 'ithemes-security' ) . $bad_addresses;
+				}
+
+				$input['notification_email'] = $emails;
 			}
 
 			add_settings_error(

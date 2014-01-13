@@ -150,7 +150,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 			if ( $options === false ) {
 
 				$defaults = array(
-					'notification_email'		=> get_option( 'admin_email' ),					
+					'notification_email'		=> array( get_option( 'admin_email' ) ),
 				);
 
 				add_site_option( 'itsec_global', $defaults );
