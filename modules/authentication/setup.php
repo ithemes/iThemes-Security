@@ -47,6 +47,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Setup' ) ) {
 				$defaults = array(
 					'brute_force-enabled'			=> false,
 					'brute_force-max_attempts_host'	=> 5,
+					'brute_force-max_attempts_user'	=> 10,
 					'strong_passwords-enabled'		=> false,
 					'strong_passwords-roll'			=> 'administrator',
 					'away_mode-enabled'				=> false,
