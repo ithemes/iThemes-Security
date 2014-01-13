@@ -51,6 +51,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Setup' ) ) {
 					'brute_force-check_period'		=> 5,
 					'brute_force-lockout_period'	=> 15,
 					'brute_force-blacklist'			=> true,
+					'brute_force-blacklist_count'	=> 3,
 					'strong_passwords-enabled'		=> false,
 					'strong_passwords-roll'			=> 'administrator',
 					'away_mode-enabled'				=> false,

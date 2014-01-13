@@ -368,6 +368,14 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'authentication_brute_force-settings'
 			);
 
+			add_settings_field(
+				'itsec_authentication[brute_force-blacklist_count]',
+				__( 'Blacklist Threshold', 'ithemes-security' ),
+				array( $this, 'brute_force_blacklist_count' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_brute_force-settings'
+			);
+
 			//Admin User Fields
 
 			if ( username_exists( 'admin' ) ) {
@@ -616,7 +624,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Enable Brute Force Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -638,7 +646,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Max Attempts per host  Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -660,7 +668,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Max Attempts per user  Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -682,7 +690,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Check Period Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -704,7 +712,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Lockout Period Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -726,7 +734,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Brute Force Blacklist Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -746,9 +754,31 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		}
 
 		/**
+		 * echos Blacklist Threshold Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function brute_force_blacklist_count( $args ) {
+
+			if ( isset( $this->settings['brute_force-blacklist_count'] ) ) {
+				$blacklist_count = absint( $this->settings['brute_force-blacklist_count'] ); 
+			} else {
+				$blacklist_count = 3;
+			}
+
+			$content = '<input name="itsec_authentication[brute_force-blacklist_count]" id="itsec_authentication_brute_force_blacklist_count" value="' . $blacklist_count . '" type="text"> ' . __( 'lockouts', 'ithemes-security' ) . '<br />';
+			$content .= '<label for="itsec_authentication_brute_force_blacklist_count"> ' . __( 'The number of lockouts per IP before the host is banned permanently from this site.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * echos Admin User Username Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -764,7 +794,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Admin User UserID Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -780,7 +810,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Enable Strong Passwords Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -802,7 +832,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Strong Passwords Role Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -831,7 +861,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Hide Backend  Enabled Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -863,7 +893,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Hide Backend Slug  Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -888,7 +918,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Register Slug  Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -912,7 +942,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Enable Away Mode Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -935,7 +965,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos End date field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -961,7 +991,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos End time field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -1009,7 +1039,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Start date field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -1035,7 +1065,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Start time field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -1083,7 +1113,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos type Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -1102,7 +1132,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * echos Disable Login Errors Field
 		 *
-		 * @param  array $args field arguements
+		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
@@ -1294,6 +1324,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$input['brute_force-check_period'] = isset( $input['brute_force-check_period'] ) ? absint( $input['brute_force-check_period'] ) : 5;
 			$input['brute_force-lockout_period'] = isset( $input['brute_force-lockout_period'] ) ? absint( $input['brute_force-lockout_period'] ) : 15;
 			$input['brute_force-blacklist'] = ( isset( $input['brute_force-blacklist'] ) && intval( $input['brute_force-blacklist'] == 1 ) ? true : false );
+			$input['brute_force-blacklist_count'] = isset( $input['brute_force-blacklist_count'] ) ? absint( $input['brute_force-blacklist_count'] ) : 3;
 
 			//process strong passwords settings
 			$input['strong_passwords-enabled'] = ( isset( $input['strong_passwords-enabled'] ) && intval( $input['strong_passwords-enabled'] == 1 ) ? true : false );
@@ -1444,6 +1475,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$settings['brute_force-check_period'] = isset( $_POST['itsec_authentication']['brute_force-check_period'] ) ? absint( $_POST['itsec_authentication']['brute_force-check_period'] ) : 5;
 			$settings['brute_force-lockout_period'] = isset( $_POST['itsec_authentication']['brute_force-lockout_period'] ) ? absint( $_POST['itsec_authentication']['brute_force-lockout_period'] ) : 15;
 			$settings['brute_force-blacklist'] = ( isset( $_POST['itsec_authentication']['brute_force-blacklist'] ) && intval( $_POST['itsec_authentication']['brute_force-blacklist'] == 1 ) ? true : false );
+			$settings['brute_force-blacklist_count'] = isset( $_POST['itsec_authentication']['brute_force-blacklist_count'] ) ? absint( $_POST['itsec_authentication']['brute_force-blacklist_count'] ) : 3;
 
 			$settings['strong_passwords-enabled'] = ( isset( $_POST['itsec_authentication']['strong_passwords-enabled'] ) && intval( $_POST['itsec_authentication']['strong_passwords-enabled'] == 1 ) ? true : false );
 			if ( isset( $_POST['itsec_authentication']['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $_POST['itsec_authentication']['strong_passwords-roll'] ) ) ) {
