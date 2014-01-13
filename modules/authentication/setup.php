@@ -48,6 +48,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Setup' ) ) {
 					'brute_force-enabled'			=> false,
 					'brute_force-max_attempts_host'	=> 5,
 					'brute_force-max_attempts_user'	=> 10,
+					'brute_force-check_period'		=> 5,
 					'strong_passwords-enabled'		=> false,
 					'strong_passwords-roll'			=> 'administrator',
 					'away_mode-enabled'				=> false,

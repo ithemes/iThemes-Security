@@ -344,6 +344,14 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'authentication_brute_force-settings'
 			);
 
+			add_settings_field(
+				'itsec_authentication[brute_force-check_period]',
+				__( 'Minutes to Remember Bad Login (check period)', 'ithemes-security' ),
+				array( $this, 'brute_force_check_period' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_brute_force-settings'
+			);
+
 			//Admin User Fields
 
 			if ( username_exists( 'admin' ) ) {
@@ -650,6 +658,28 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			$content = '<input name="itsec_authentication[brute_force-max_attempts_user]" id="itsec_authentication_brute_force_max_attempts_user" value="' . $max_attempts_user . '" type="text"> ' . __( 'attempts', 'ithemes-security' ) . '<br />';
 			$content .= '<label for="itsec_authentication_brute_force_max_attempts_user"> ' . __( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Check Period Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function brute_force_check_period( $args ) {
+
+			if ( isset( $this->settings['brute_force-check_period'] ) ) {
+				$check_period = absint( $this->settings['brute_force-check_period'] ); 
+			} else {
+				$check_period = 5;
+			}
+
+			$content = '<input name="itsec_authentication[brute_force-check_period]" id="itsec_authentication_brute_force_check_period" value="' . $check_period . '" type="text"> ' . __( 'minutes', 'ithemes-security' ) . '<br />';
+			$content .= '<label for="itsec_authentication_brute_force_check_period"> ' . __( 'The number of minutes in which bad logins should be remembered.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -1201,6 +1231,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$input['brute_force-enabled'] = ( isset( $input['brute_force-enabled'] ) && intval( $input['brute_force-enabled'] == 1 ) ? true : false );
 			$input['brute_force-max_attempts_host'] = isset( $input['brute_force-max_attempts_host'] ) ? absint( $input['brute_force-max_attempts_host'] ) : 5;
 			$input['brute_force-max_attempts_user'] = isset( $input['brute_force-max_attempts_user'] ) ? absint( $input['brute_force-max_attempts_user'] ) : 10;
+			$input['brute_force-check_period'] = isset( $input['brute_force-check_period'] ) ? absint( $input['brute_force-check_period'] ) : 5;
 
 			//process strong passwords settings
 			$input['strong_passwords-enabled'] = ( isset( $input['strong_passwords-enabled'] ) && intval( $input['strong_passwords-enabled'] == 1 ) ? true : false );
@@ -1348,6 +1379,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$settings['brute_force-enabled'] = ( isset( $_POST['itsec_authentication']['brute_force-enabled'] ) && intval( $_POST['itsec_authentication']['brute_force-enabled'] == 1 ) ? true : false );
 			$settings['brute_force-max_attempts_host'] = isset( $_POST['itsec_authentication']['brute_force-max_attempts_host'] ) ? absint( $_POST['itsec_authentication']['brute_force-max_attempts_host'] ) : 5;
 			$settings['brute_force-max_attempts_user'] = isset( $_POST['itsec_authentication']['brute_force-max_attempts_user'] ) ? absint( $_POST['itsec_authentication']['brute_force-max_attempts_user'] ) : 10;
+			$settings['brute_force-check_period'] = isset( $_POST['itsec_authentication']['brute_force-check_period'] ) ? absint( $_POST['itsec_authentication']['brute_force-check_period'] ) : 5;
 
 			$settings['strong_passwords-enabled'] = ( isset( $_POST['itsec_authentication']['strong_passwords-enabled'] ) && intval( $_POST['itsec_authentication']['strong_passwords-enabled'] == 1 ) ? true : false );
 			if ( isset( $_POST['itsec_authentication']['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $_POST['itsec_authentication']['strong_passwords-roll'] ) ) ) {
