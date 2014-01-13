@@ -173,6 +173,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 			$tables = "CREATE TABLE " . $wpdb->base_prefix . "itsec_log (
 				`log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 				`log_type` varchar(20) NOT NULL DEFAULT '',
+				`log_priority` int(2) NOT NULL DEFAULT 1,
 				`log_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 				`log_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 				`log_host` varchar(20),
@@ -183,6 +184,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 				`log_data` longtext,
 				PRIMARY KEY (`log_id`),
 				INDEX `log_type` USING HASH (`log_type`),
+				INDEX `log_priority` USING BTREE (`log_priority`),
 				INDEX `log_date` USING BTREE (`log_date`),
 				INDEX `log_host` USING HASH (`log_host`),
 				INDEX `log_username` USING HASH (`log_username`),
