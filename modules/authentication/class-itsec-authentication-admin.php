@@ -458,7 +458,10 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function brute_force_header() {
 
-			echo '<h2 class="settings-section-header">' . __( 'Brute Force Protection', 'ithemes-security' ) . '</h2>';
+			$content =  '<h2 class="settings-section-header">' . __( 'Brute Force Protection', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( 'If one had unlimited time and wanted to try an unlimited number of password combinations to get into your site they eventually would, right? This method of attach, known as a brute force attack, is something that WordPress is acutely susceptible by default as the system doesn\t care how many attempts a user makes to login. It will always let you try again. Enabling login limits will ban the host user from attempting to login again after the specified bad login threshold has been reached.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
 
 		}
 
