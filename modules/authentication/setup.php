@@ -45,18 +45,20 @@ if ( ! class_exists( 'ITSEC_Authentication_Setup' ) ) {
 			if ( $options === false ) {
 
 				$defaults = array(
-					'strong_passwords-enabled'	=> false,
-					'strong_passwords-roll'		=> 'administrator',
-					'away_mode-enabled'			=> false,
-					'hide_backend-enabled'		=> false,
-					'hide_backend-slug'			=> 'wplogin',
-					'hide_backend-register'		=> 'wp-register.php',
-					'away_mode-type'			=> false,
-					'away_mode-start_date'		=> 1,
-					'away_mode-start_time'		=> 1,
-					'away_mode-end_date'		=> 1,
-					'away_mode-end_time'		=> 1,
-					'other-login_errors'		=> false,
+					'brute_force-enabled'			=> false,
+					'brute_force-max_attempts_host'	=> 5,
+					'strong_passwords-enabled'		=> false,
+					'strong_passwords-roll'			=> 'administrator',
+					'away_mode-enabled'				=> false,
+					'hide_backend-enabled'			=> false,
+					'hide_backend-slug'				=> 'wplogin',
+					'hide_backend-register'			=> 'wp-register.php',
+					'away_mode-type'				=> false,
+					'away_mode-start_date'			=> 1,
+					'away_mode-start_time'			=> 1,
+					'away_mode-end_date'			=> 1,
+					'away_mode-end_time'			=> 1,
+					'other-login_errors'			=> false,
 					
 				);
 
