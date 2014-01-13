@@ -231,6 +231,26 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			array_push( $statuses[$status_array], $status );
 
+			if ( $this->settings['brute_force-enabled'] === true ) {
+
+				$status_array = 'safe-high';
+				$status = array(
+					'text' => __( 'Your login area is protected from brute force attacks.', 'ithemes-security' ),
+					'link' => $link,
+				);
+
+			} else {
+
+				$status_array = 'high';
+				$status = array(
+					'text' => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ),
+					'link' => $link,
+				);
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
 			return $statuses;
 
 		}
