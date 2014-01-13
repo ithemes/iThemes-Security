@@ -101,7 +101,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			//Add Settings sections
 			add_settings_section(
 				'global',
-				__( 'Brute Force Protection', 'ithemes-security' ),
+				__( 'Global Settings', 'ithemes-security' ),
 				array( $this, 'empty_callback_function' ),
 				'security_page_toplevel_page_itsec-global'
 			);
@@ -111,6 +111,14 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				'itsec_global[notification_email]',
 				__( 'Notification Email', 'ithemes-security' ),
 				array( $this, 'notification_email' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
+			add_settings_field(
+				'itsec_global[lockout_message]',
+				__( 'Lockout Message', 'ithemes-security' ),
+				array( $this, 'lockout_message' ),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -147,6 +155,28 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			$content = '<textarea name="itsec_global[notification_email]" id="itsec_global_notification_email" rows="5" >' . $emails . '</textarea><br />';
 			$content .= '<label for="itsec_global_notification_email"> ' . __( 'The email address all security notifications will be sent to.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Admin User Username Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function lockout_message( $args ) {
+
+			if ( isset( $this->settings['lockout_message'] ) ) {
+				$lockout_message = sanitize_text_field( $this->settings['lockout_message'] );
+			} else {
+				$lockout_message = __( 'error', 'ithemes-security' );
+			}
+
+			$content = '<textarea name="itsec_global[lockout_message]" id="itsec_global_lockout_message" rows="5" >' . $lockout_message . '</textarea><br />';
+			$content .= '<label for="itsec_global_lockout_message"> ' . __( 'The message to display to a user when they have been locked out.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -229,6 +259,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$input['notification_email'] = $emails;
 			}
 
+			$input['lockout_message'] = isset( $input['lockout_message'] ) ? sanitize_text_field( $input['lockout_message'] ): '';
+
 			add_settings_error(
 				'itsec_admin_notices',
 				esc_attr( 'settings_updated' ),
@@ -247,7 +279,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['strong_passwords-enabled'] = ( isset( $_POST['itsec_authentication']['strong_passwords-enabled'] ) && intval( $_POST['itsec_authentication']['strong_passwords-enabled'] == 1 ) ? true : false );
+			$settings['notification_email'] = isset( $_POST['itsec_authentication']['notification_email'] ) ? sanitize_text_field( $_POST['itsec_authentication']['notification_email'] ): '';
+			$settings['lockout_message'] = isset( $_POST['itsec_authentication']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['lockout_message'] ): '';
 
 			update_site_option( 'itsec_authentication', $settings ); //we must manually save network options
 
