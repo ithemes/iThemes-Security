@@ -128,7 +128,9 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 		 */
 		function activate_execute( $updating = false ) {
 
-			global $itsec_setup_action, $itsec_files;
+			global $itsec_setup_action, $itsec_files, $wpdb;
+
+			$itsec_setup_action = 'activate';
 
 			//if this is multisite make sure they're network activating or die
 			if ( defined( 'ITSEC_DO_ACTIVATION' ) && ITSEC_DO_ACTIVATION == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
@@ -157,7 +159,39 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 
 			}
 
-			$itsec_setup_action = 'activate';
+			$charset_collate = '';
+
+			if ( ! empty($wpdb->charset) ) {
+				$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+			}
+
+			if ( ! empty($wpdb->collate) ) {
+				$charset_collate .= " COLLATE $wpdb->collate";
+			}
+
+			//Set up log table
+			$tables = "CREATE TABLE " . $wpdb->base_prefix . "itsec_log (
+				`log_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+				`log_type` varchar(20) NOT NULL DEFAULT '',
+				`log_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+				`log_date_gmt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+				`log_host` varchar(20),
+				`log_username` varchar(20),
+				`log_user` bigint(20) UNSIGNED,
+				`log_url` varchar(255),
+				`log_referrer` varchar(255),
+				`log_data` longtext,
+				PRIMARY KEY (`log_id`),
+				INDEX `log_type` USING HASH (`log_type`),
+				INDEX `log_date` USING BTREE (`log_date`),
+				INDEX `log_host` USING HASH (`log_host`),
+				INDEX `log_username` USING HASH (`log_username`),
+				INDEX `log_user` USING HASH (`log_user`),
+				INDEX `log_url` USING HASH (`log_url`)
+				) " . $charset_collate . ";";
+			
+			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+			@dbDelta( $tables );
 
 			do_action( 'itsec_set_plugin_data' );
 
@@ -209,7 +243,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 		 **/
 		function uninstall_execute() {
 
-			global $itsec_setup_action, $itsec_files;
+			global $itsec_setup_action, $itsec_files, $wpdb;
 
 			$itsec_setup_action = 'uninstall';
 
@@ -223,6 +257,8 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 			delete_site_option( 'itsec_jquery_version' );
 
 			flush_rewrite_rules();
+
+			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "itsec_log`;" );
 
 			if ( function_exists( 'apc_store' ) ) {
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
