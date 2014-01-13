@@ -1,7 +1,5 @@
 <?php
 
-<?php
-
 if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 	class ITSEC_Lockout {
