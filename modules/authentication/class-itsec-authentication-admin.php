@@ -376,6 +376,14 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'authentication_brute_force-settings'
 			);
 
+			add_settings_field(
+				'itsec_authentication[brute_force-email]',
+				__( 'Email Lockout Notifications', 'ithemes-security' ),
+				array( $this, 'brute_force_email' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_brute_force-settings'
+			);
+
 			//Admin User Fields
 
 			if ( username_exists( 'admin' ) ) {
@@ -770,6 +778,28 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			$content = '<input name="itsec_authentication[brute_force-blacklist_count]" id="itsec_authentication_brute_force_blacklist_count" value="' . $blacklist_count . '" type="text"> ' . __( 'lockouts', 'ithemes-security' ) . '<br />';
 			$content .= '<label for="itsec_authentication_brute_force_blacklist_count"> ' . __( 'The number of lockouts per IP before the host is banned permanently from this site.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Brute Force Email Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function brute_force_email( $args ) {
+
+			if ( isset( $this->settings['brute_force-email'] ) && $this->settings['brute_force-email'] === false ) {
+				$email = 0;
+			} else {
+				$email = 1;
+			}
+
+			$content = '<input type="checkbox" id="itsec_authentication_brute_force_email" name="itsec_authentication[brute_force-email]" value="1" ' . checked( 1, $email, false ) . '/>';
+			$content .= sprintf( '<label for="itsec_authentication_brute_force_email">%s<a href="admin.php?page=toplevel_page_itsec-global">%s</a>%s</label>', __( 'Enabling this feature will trigger an email to be sent to the ', 'ithemes-security' ), __( 'notifications email address', 'ithemes-security' ), __( ' whenever a host or user is locked out of the system.', 'ithemes-security' ) );
 
 			echo $content;
 
@@ -1325,6 +1355,8 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$input['brute_force-lockout_period'] = isset( $input['brute_force-lockout_period'] ) ? absint( $input['brute_force-lockout_period'] ) : 15;
 			$input['brute_force-blacklist'] = ( isset( $input['brute_force-blacklist'] ) && intval( $input['brute_force-blacklist'] == 1 ) ? true : false );
 			$input['brute_force-blacklist_count'] = isset( $input['brute_force-blacklist_count'] ) ? absint( $input['brute_force-blacklist_count'] ) : 3;
+			$input['brute_force-email'] = ( isset( $input['brute_force-email'] ) && intval( $input['brute_force-email'] == 1 ) ? true : false );
+
 
 			//process strong passwords settings
 			$input['strong_passwords-enabled'] = ( isset( $input['strong_passwords-enabled'] ) && intval( $input['strong_passwords-enabled'] == 1 ) ? true : false );
@@ -1476,6 +1508,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$settings['brute_force-lockout_period'] = isset( $_POST['itsec_authentication']['brute_force-lockout_period'] ) ? absint( $_POST['itsec_authentication']['brute_force-lockout_period'] ) : 15;
 			$settings['brute_force-blacklist'] = ( isset( $_POST['itsec_authentication']['brute_force-blacklist'] ) && intval( $_POST['itsec_authentication']['brute_force-blacklist'] == 1 ) ? true : false );
 			$settings['brute_force-blacklist_count'] = isset( $_POST['itsec_authentication']['brute_force-blacklist_count'] ) ? absint( $_POST['itsec_authentication']['brute_force-blacklist_count'] ) : 3;
+			$settings['brute_force-email'] = ( isset( $_POST['itsec_authentication']['brute_force-email'] ) && intval( $_POST['itsec_authentication']['brute_force-email'] == 1 ) ? true : false );
 
 			$settings['strong_passwords-enabled'] = ( isset( $_POST['itsec_authentication']['strong_passwords-enabled'] ) && intval( $_POST['itsec_authentication']['strong_passwords-enabled'] == 1 ) ? true : false );
 			if ( isset( $_POST['itsec_authentication']['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $_POST['itsec_authentication']['strong_passwords-roll'] ) ) ) {
