@@ -328,6 +328,14 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'authentication_brute_force-enabled'
 			);
 
+			add_settings_field(
+				'itsec_authentication[brute_force-max_attempts_host]',
+				__( 'Max Login Attempts Per Host', 'ithemes-security' ),
+				array( $this, 'brute_force_max_attempts_host' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_brute_force-settings'
+			);
+
 			//Admin User Fields
 
 			if ( username_exists( 'admin' ) ) {
@@ -590,6 +598,28 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			$content = '<input type="checkbox" id="itsec_authentication_brute_force_enabled" name="itsec_authentication[brute_force-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
 			$content .= '<label for="itsec_authentication_brute_force_enabled"> ' . __( 'Check this box to enable brute force protection.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Max Attempts per host  Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function brute_force_max_attempts_host( $args ) {
+
+			if ( isset( $this->settings['brute_force-max_attempts_host'] ) ) {
+				$max_attempts_host = absint( $this->settings['brute_force-max_attempts_host'] ); 
+			} else {
+				$max_attempts_host = 5;
+			}
+
+			$content = '<input name="itsec_authentication[brute_force-max_attempts_host]" id="itsec_authentication_brute_force_max_attempts_host" value="' . $max_attempts_host . '" type="text"><br />';
+			$content .= '<label for="itsec_authentication_brute_force_max_attempts_host"> ' . __( 'The number of login attempts a user has before their host or computer is locked out of the system.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -1139,6 +1169,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			//process brute force settings
 			$input['brute_force-enabled'] = ( isset( $input['brute_force-enabled'] ) && intval( $input['brute_force-enabled'] == 1 ) ? true : false );
+			$input['brute_force-max_attempts_host'] = isset( $input['brute_force-max_attempts_host'] ) ? absint( $input['brute_force-max_attempts_host'] ) : 5;
 
 			//process strong passwords settings
 			$input['strong_passwords-enabled'] = ( isset( $input['strong_passwords-enabled'] ) && intval( $input['strong_passwords-enabled'] == 1 ) ? true : false );
@@ -1284,6 +1315,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		public function save_network_options() {
 
 			$settings['brute_force-enabled'] = ( isset( $_POST['itsec_authentication']['brute_force-enabled'] ) && intval( $_POST['itsec_authentication']['brute_force-enabled'] == 1 ) ? true : false );
+			$settings['brute_force-max_attempts_host'] = isset( $_POST['itsec_authentication']['brute_force-max_attempts_host'] ) ? absint( $_POST['itsec_authentication']['brute_force-max_attempts_host'] ) : 5;
 
 			$settings['strong_passwords-enabled'] = ( isset( $_POST['itsec_authentication']['strong_passwords-enabled'] ) && intval( $_POST['itsec_authentication']['strong_passwords-enabled'] == 1 ) ? true : false );
 			if ( isset( $_POST['itsec_authentication']['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $_POST['itsec_authentication']['strong_passwords-roll'] ) ) ) {
