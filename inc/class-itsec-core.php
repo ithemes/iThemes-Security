@@ -41,6 +41,10 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			require_once( $itsec_globals['plugin_dir'] . 'inc/class-itsec-logger.php' );
 			$itsec_logger = ITSEC_Logger::start();
 
+			//load lockout functions
+			require_once( $itsec_globals['plugin_dir'] . 'inc/class-itsec-lockout.php' );
+			$itsec_lockout = ITSEC_Lockout::start();
+
 			//load logging functions
 			require_once( $itsec_globals['plugin_dir'] . 'inc/class-itsec-global-settings.php' );
 			ITSEC_Global_Settings::start( $this );
