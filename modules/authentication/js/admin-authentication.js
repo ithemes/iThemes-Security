@@ -16,6 +16,20 @@ jQuery( document ).ready( function () {
 
 	} ).change();
 
+	jQuery( "#itsec_authentication_brute_force_enabled" ).change( function() {
+
+		if ( jQuery( "#itsec_authentication_brute_force_enabled" ).is( ':checked' ) ) {
+
+			jQuery( "#authentication_brute_force-settings" ).show();
+
+		} else {
+
+			jQuery( "#authentication_brute_force-settings" ).hide();
+
+		}
+
+	} ).change();
+
 	jQuery( "#itsec_authentication_strong_passwords_enabled" ).change( function() {
 
 		if ( jQuery( "#itsec_authentication_strong_passwords_enabled" ).is( ':checked' ) ) {
