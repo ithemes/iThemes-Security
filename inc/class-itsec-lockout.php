@@ -10,6 +10,18 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		}
 
+		public function lockout() {
+
+		}
+
+		public function check_lock() {
+
+		}
+
+		public function purge_lockouts() {
+			
+		}
+
 		/**
 		 * Start the global lockout instance
 		 *
