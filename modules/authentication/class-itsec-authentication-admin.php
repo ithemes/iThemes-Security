@@ -246,9 +246,16 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			//Add Settings sections
 			add_settings_section(
-				'authentication_brute_force',
-				__( 'Brute Force Protection', 'ithemes-security' ),
+				'authentication_brute_force-enabled',
+				__( 'Enable Brute Force Protection', 'ithemes-security' ),
 				array( $this, 'brute_force_header' ),
+				'security_page_toplevel_page_itsec-authentication'
+			);
+
+			add_settings_section(
+				'authentication_brute_force-settings',
+				__( 'Brute Force Protection Settings', 'ithemes-security' ),
+				array( $this, 'empty_callback_function' ),
 				'security_page_toplevel_page_itsec-authentication'
 			);
 
@@ -310,6 +317,15 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				__( 'Other Authentication Tweaks', 'ithemes-security' ),
 				array( $this, 'other_header' ),
 				'security_page_toplevel_page_itsec-authentication'
+			);
+
+			//Brute Force Protection Fields
+			add_settings_field(
+				'itsec_authentication[brute_force-enabled]',
+				__( 'Enable Brute Force Protection', 'ithemes-security' ),
+				array( $this, 'brute_force_enabled' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_brute_force-enabled'
 			);
 
 			//Admin User Fields
@@ -552,6 +568,28 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			$content =  '<h2 class="settings-section-header">' . __( 'Other Authentication Tweaks', 'ithemes-security' ) . '</h2>';
 			$content .= '<p>' . __( 'Miscellaneous tweaks that can make it harder for an attacker to log into your WordPress website.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Enable Brute Force Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function brute_force_enabled( $args ) {
+
+			if ( isset( $this->settings['brute_force-enabled'] ) && $this->settings['brute_force-enabled'] === true ) {
+				$enabled = 1;
+			} else {
+				$enabled = 0;
+			}
+
+			$content = '<input type="checkbox" id="itsec_authentication_brute_force_enabled" name="itsec_authentication[brute_force-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_authentication_brute_force_enabled"> ' . __( 'Check this box to enable brute force protection.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -1099,6 +1137,9 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
+			//process brute force settings
+			$input['brute_force-enabled'] = ( isset( $input['brute_force-enabled'] ) && intval( $input['brute_force-enabled'] == 1 ) ? true : false );
+
 			//process strong passwords settings
 			$input['strong_passwords-enabled'] = ( isset( $input['strong_passwords-enabled'] ) && intval( $input['strong_passwords-enabled'] == 1 ) ? true : false );
 			if ( isset( $input['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $input['strong_passwords-roll'] ) ) ) {
@@ -1241,6 +1282,8 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 * @return void
 		 */
 		public function save_network_options() {
+
+			$settings['brute_force-enabled'] = ( isset( $_POST['itsec_authentication']['brute_force-enabled'] ) && intval( $_POST['itsec_authentication']['brute_force-enabled'] == 1 ) ? true : false );
 
 			$settings['strong_passwords-enabled'] = ( isset( $_POST['itsec_authentication']['strong_passwords-enabled'] ) && intval( $_POST['itsec_authentication']['strong_passwords-enabled'] == 1 ) ? true : false );
 			if ( isset( $_POST['itsec_authentication']['strong_passwords-roll'] ) && ctype_alpha( wp_strip_all_tags( $_POST['itsec_authentication']['strong_passwords-roll'] ) ) ) {
