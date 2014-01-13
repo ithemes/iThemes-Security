@@ -626,7 +626,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				$max_attempts_host = 5;
 			}
 
-			$content = '<input name="itsec_authentication[brute_force-max_attempts_host]" id="itsec_authentication_brute_force_max_attempts_host" value="' . $max_attempts_host . '" type="text"><br />';
+			$content = '<input name="itsec_authentication[brute_force-max_attempts_host]" id="itsec_authentication_brute_force_max_attempts_host" value="' . $max_attempts_host . '" type="text"> ' . __( 'attempts', 'ithemes-security' ) . '<br />';
 			$content .= '<label for="itsec_authentication_brute_force_max_attempts_host"> ' . __( 'The number of login attempts a user has before their host or computer is locked out of the system.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
@@ -648,7 +648,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				$max_attempts_user = 10;
 			}
 
-			$content = '<input name="itsec_authentication[brute_force-max_attempts_user]" id="itsec_authentication_brute_force_max_attempts_user" value="' . $max_attempts_user . '" type="text"><br />';
+			$content = '<input name="itsec_authentication[brute_force-max_attempts_user]" id="itsec_authentication_brute_force_max_attempts_user" value="' . $max_attempts_user . '" type="text"> ' . __( 'attempts', 'ithemes-security' ) . '<br />';
 			$content .= '<label for="itsec_authentication_brute_force_max_attempts_user"> ' . __( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
