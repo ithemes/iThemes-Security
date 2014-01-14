@@ -7,9 +7,12 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		private static $instance = NULL; //instantiated instance of this plugin
 
 		private 
-			$types;
+			$settings
+
 
 		function __construct() {
+
+			$this->settings = get_site_option( 'itsec_global' );
 
 		}
 
@@ -21,7 +24,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		}
 
-		public function check_lock( $host = null, $user = null ) {
+		public function check_lockout( $host = null, $user = null ) {
 
 		}
 
