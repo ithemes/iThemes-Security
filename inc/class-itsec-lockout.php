@@ -6,15 +6,22 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		private static $instance = NULL; //instantiated instance of this plugin
 
+		private 
+			$types;
+
 		function __construct() {
 
 		}
 
-		public function lockout() {
+		public function lockout( $type, $reason, $host = null, $user = null ) {
+
+			global $wpdb;
+
+			
 
 		}
 
-		public function check_lock() {
+		public function check_lock( $host = null, $user = null ) {
 
 		}
 
