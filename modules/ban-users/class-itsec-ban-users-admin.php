@@ -30,6 +30,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 				add_action( 'network_admin_edit_itsec_ban_users', array( $this, 'save_network_options' ) ); //save multisite options
 			}
 
+			global $itsec_lockout;
+
+			$itsec_lockout->lockout( 1, 0 );
+
 		}
 
 		/**
@@ -427,12 +431,13 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 		/**
 		 * Build the rewrite rules and sends them to the file writer
 		 *
-		 * @param array  $rules_array array of rules to modify
-		 * @param array  $input array of options, ips, etc
+		 * @param array   $rules_  array array of rules to modify
+		 * @param array   $input   array of options, ips, etc
+		 * @param boolean $current whether the current IP can be included in the ban list
 		 *
 		 * @return array array of rules to send to file writer
 		 */
-		public static function build_rewrite_rules( $rules_array, $input = null ) {
+		public static function build_rewrite_rules( $rules_array, $input = null, $current = false ) {
 
 			global $itsec_lib;
 
@@ -474,7 +479,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 						$host_rule = ''; //initialze converted host
 						$converted_host = $itsec_lib->ip_wild_to_mask( $host );
 
-						if( ! ITSEC_Ban_Users_Admin::is_ip_whitelisted( $converted_host, $raw_white_list ) ) {
+						if( ! ITSEC_Ban_Users_Admin::is_ip_whitelisted( $converted_host, $raw_white_list, $current ) ) {
 
 							if ( $server_type === 'nginx' ) { //NGINX rules
 								$host_rule = "\tdeny " . $converted_host;
@@ -812,9 +817,11 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 		 * 
 		 * @param  string  $ip_to_check  ip to check
 		 * @param  array   $white_ips    ip list to compare to if not yet saved to options
+		 * @param  boolean $current      whether to whitelist the current ip or not (due to saving, etc)
+		 *  
 		 * @return boolean               true if whitelisted or false
 		 */
-		public static function is_ip_whitelisted( $ip_to_check, $white_ips = null ) {
+		public static function is_ip_whitelisted( $ip_to_check, $white_ips = null, $current = false ) {
 
 			global $itsec_lib;
 
@@ -826,7 +833,9 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 			}
 
-			$white_ips[] = $itsec_lib->get_ip(); //add current user ip to whitelist to check automatically
+			if ( $current === true ) {
+				$white_ips[] = $itsec_lib->get_ip(); //add current user ip to whitelist to check automatically
+			}
 
 			foreach ( $white_ips as $white_ip ) {
 
