@@ -152,8 +152,12 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 			if ( $options === false ) {
 
 				$defaults = array(
-					'notification_email'		=> array( get_option( 'admin_email' ) ),
-					'lockout_message'			=> __( 'error', 'ithemes-security' ),
+					'notification_email'			=> array( get_option( 'admin_email' ) ),
+					'lockout_message'				=> __( 'error', 'ithemes-security' ),
+					'blacklist'						=> true,
+					'blacklist_count'				=> 3,
+					'email_notifications'			=> true,
+					'lockout_period'				=> 15,
 				);
 
 				add_site_option( 'itsec_global', $defaults );

@@ -123,6 +123,38 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				'global'
 			);
 
+			add_settings_field(
+				'itsec_authentication[blacklist]',
+				__( 'Blacklist Repeat Offender', 'ithemes-security' ),
+				array( $this, 'blacklist' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
+			add_settings_field(
+				'itsec_authentication[blacklist_count]',
+				__( 'Blacklist Threshold', 'ithemes-security' ),
+				array( $this, 'blacklist_count' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
+			add_settings_field(
+				'itsec_authentication[lockout_period]',
+				__( 'Lockout Period', 'ithemes-security' ),
+				array( $this, 'lockout_period' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
+			add_settings_field(
+				'itsec_authentication[email_notifications]',
+				__( 'Email Lockout Notifications', 'ithemes-security' ),
+				array( $this, 'email_notifications' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_itsec-global',
@@ -177,6 +209,94 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			$content = '<textarea name="itsec_global[lockout_message]" id="itsec_global_lockout_message" rows="5" >' . $lockout_message . '</textarea><br />';
 			$content .= '<label for="itsec_global_lockout_message"> ' . __( 'The message to display to a user when they have been locked out.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Blacklist Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function blacklist( $args ) {
+
+			if ( isset( $this->settings['blacklist'] ) && $this->settings['blacklist'] === false ) {
+				$blacklist = 0;
+			} else {
+				$blacklist = 1;
+			}
+
+			$content = '<input type="checkbox" id="itsec_authentication_blacklist" name="itsec_authentication[blacklist]" value="1" ' . checked( 1, $blacklist, false ) . '/>';
+			$content .= '<label for="itsec_authentication_blacklist"> ' . __( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Blacklist Threshold Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function blacklist_count( $args ) {
+
+			if ( isset( $this->settings['blacklist_count'] ) ) {
+				$blacklist_count = absint( $this->settings['blacklist_count'] ); 
+			} else {
+				$blacklist_count = 3;
+			}
+
+			$content = '<input name="itsec_authentication[blacklist_count]" id="itsec_authentication_blacklist_count" value="' . $blacklist_count . '" type="text"> ' . __( 'lockouts', 'ithemes-security' ) . '<br />';
+			$content .= '<label for="itsec_authentication_blacklist_count"> ' . __( 'The number of lockouts per IP before the host is banned permanently from this site.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Lockout Period Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function lockout_period( $args ) {
+
+			if ( isset( $this->settings['lockout_period'] ) ) {
+				$lockout_period = absint( $this->settings['lockout_period'] ); 
+			} else {
+				$lockout_period = 15;
+			}
+
+			$content = '<input name="itsec_authentication[lockout_period]" id="itsec_authentication_lockout_period" value="' . $lockout_period . '" type="text"> ' . __( 'minutes', 'ithemes-security' ) . '<br />';
+			$content .= '<label for="itsec_authentication_lockout_period"> ' . __( 'The length of time a host or user will be banned from this site after hitting the limit of bad logins.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Lockout Email Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function email_notifications( $args ) {
+
+			if ( isset( $this->settings['email_notifications'] ) && $this->settings['email_notifications'] === false ) {
+				$email_notifications = 0;
+			} else {
+				$email_notifications = 1;
+			}
+
+			$content = '<input type="checkbox" id="itsec_authentication_email_notifications" name="itsec_authentication[email_notifications]" value="1" ' . checked( 1, $email_notifications, false ) . '/>';
+			$content .= sprintf( '<label for="itsec_authentication_email_notifications">%s<a href="admin.php?page=toplevel_page_itsec-global">%s</a>%s</label>', __( 'Enabling this feature will trigger an email to be sent to the ', 'ithemes-security' ), __( 'notifications email address', 'ithemes-security' ), __( ' whenever a host or user is locked out of the system.', 'ithemes-security' ) );
 
 			echo $content;
 
@@ -260,6 +380,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			}
 
 			$input['lockout_message'] = isset( $input['lockout_message'] ) ? sanitize_text_field( $input['lockout_message'] ): '';
+			$input['blacklist'] = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
+			$input['blacklist_count'] = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
+			$input['email_notifications'] = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
+			$input['lockout_period'] = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
 
 			add_settings_error(
 				'itsec_admin_notices',
@@ -281,6 +405,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			$settings['notification_email'] = isset( $_POST['itsec_authentication']['notification_email'] ) ? sanitize_text_field( $_POST['itsec_authentication']['notification_email'] ): '';
 			$settings['lockout_message'] = isset( $_POST['itsec_authentication']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['lockout_message'] ): '';
+			$settings['blacklist'] = ( isset( $_POST['itsec_authentication']['blacklist'] ) && intval( $_POST['itsec_authentication']['blacklist'] == 1 ) ? true : false );
+			$settings['blacklist_count'] = isset( $_POST['itsec_authentication']['blacklist_count'] ) ? absint( $_POST['itsec_authentication']['blacklist_count'] ) : 3;
+			$settings['lockout_period'] = isset( $_POST['itsec_authentication']['lockout_period'] ) ? absint( $_POST['itsec_authentication']['lockout_period'] ) : 15;
+			$settings['email_notifications'] = ( isset( $_POST['itsec_authentication']['email_notifications'] ) && intval( $_POST['itsec_authentication']['email_notifications'] == 1 ) ? true : false );
 
 			update_site_option( 'itsec_authentication', $settings ); //we must manually save network options
 
