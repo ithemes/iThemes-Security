@@ -19,24 +19,37 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		}
 
+		/**
+		 * Locks out given user or host
+		 * 
+		 * @param  string $type   The type of lockout (for user reference)
+		 * @param  string $reason Reason for lockout, for notifications
+		 * @param  string $host   Host to lock out
+		 * @param  int    $user   user id to lockout
+		 * 
+		 * @return void
+		 */
 		public function lockout( $type, $reason, $host = null, $user = null ) {
 
 			global $wpdb, $itsec_lib;
 
+			//Do we have a good host to lock out or not
 			if ( $host != null && ITSEC_Ban_Users_Admin::is_ip_whitelisted( sanitize_text_field( $host ) ) === false ) {
 				$good_host = $itsec_lib->validates_ip_address( $host );
 			} else {
 				$good_host = false;
 			}
 
+			//Do we have a valid user to lockout or not
 			if ( $user !== null ) {
 				$good_user = $itsec_lib->user_id_exists( intval( $user ) );
 			} else {
 				$good_user = false;
 			}
 
-			$blacklist_host = false;
+			$blacklist_host = false; //assume we're not permanently blcking the host
 
+			//Sanitize the data for later
 			$type = sanitize_text_field( $type );
 			$reason = sanitize_text_field( $reason );
 
@@ -46,14 +59,15 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 				if ( $host_count >= $this->settings['blacklist_count'] ) {
 
-					ITSEC_Ban_Users_Admin::insert_ip( sanitize_text_field( $host ) );
+					ITSEC_Ban_Users_Admin::insert_ip( sanitize_text_field( $host ) ); //Send it to the Ban Users module for banning
 
-					$blacklist_host = true;
+					$blacklist_host = true; //flag it so we don't do a temp ban as well
 
 				}
 
 			} 
 
+			//We have temp bans to perform
 			if ( $good_host === true || $good_user !== false ) {
 
 				$exp_seconds = ( intval( $this->settings['lockout_period'] ) * 60 );
