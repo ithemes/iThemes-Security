@@ -771,7 +771,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 			if ( $no_errors === true ) {
 
-				$rules = $this->build_rewrite_rules( array(), $input );
+				$rules = $this->build_rewrite_rules( array(), $input, $true );
 
 				$itsec_files->set_rewrites( $rules );
 

@@ -58,7 +58,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Setup' ) ) {
 
 			}
 
-			$rewrite_rules = ITSEC_Ban_Users_Admin::build_rewrite_rules( array() );
+			$rewrite_rules = ITSEC_Ban_Users_Admin::build_rewrite_rules( array(), null, true );
 
 			$itsec_files->set_rewrites( $rewrite_rules );
 
