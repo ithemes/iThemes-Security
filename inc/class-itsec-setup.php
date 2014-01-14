@@ -250,6 +250,8 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 
 			$itsec_setup_action = 'deactivate';
 
+			wp_clear_scheduled_hook( 'itsec_purge_lockouts' );
+
 			$this->do_modules();
 
 			$itsec_files->do_deactivate();

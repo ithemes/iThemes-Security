@@ -17,6 +17,13 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			$this->current_time = current_time( 'timestamp' ); 
 			$this->current_time_gmt = current_time( 'timestamp', 1 ); 
 
+			//Run database cleanup daily with cron
+			if ( ! wp_next_scheduled( 'itsec_purge_lockouts' ) ) {
+				wp_schedule_event( time(), 'daily', 'itsec_purge_lockouts' );
+			}
+
+			add_action( 'itsec_purge_lockouts', array( $this, 'purge_lockouts' ) );
+
 		}
 
 		/**
@@ -121,6 +128,10 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		}
 
 		public function purge_lockouts() {
+
+			global $wpdb;
+			
+			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` < '" . date( 'Y-m-d H:i:s', $this->current_time - 604800 ) . "';" );
 			
 		}
 
