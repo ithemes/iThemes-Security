@@ -127,6 +127,11 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		}
 
+		/**
+		 * Purges lockouts more than 7 days old from the database
+		 * 
+		 * @return void
+		 */
 		public function purge_lockouts() {
 
 			global $wpdb;
