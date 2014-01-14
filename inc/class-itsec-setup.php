@@ -192,6 +192,24 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 				INDEX `log_user` USING HASH (`log_user`),
 				INDEX `log_url` USING HASH (`log_url`)
 				) " . $charset_collate . ";";
+
+			//set up lockout table	
+			$tables .= "CREATE TABLE " . $wpdb->base_prefix . "itsec_lockouts (
+				`lockout_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+				`lockout_type` varchar(20) NOT NULL,
+				`lockout_start` datetime NOT NULL,
+				`lockout_start_gmt` datetime NOT NULL,
+				`lockout_expire` datetime NOT NULL,
+				`lockout_expire_gmt` datetime NOT NULL,
+				`lockout_host` varchar(20),
+				`lockout_user` bigint(20) UNSIGNED,
+				PRIMARY KEY (`lockout_id`),
+				INDEX `lockout_type` USING HASH (`lockout_type`) comment '',
+				INDEX `lockout_start` USING BTREE (`lockout_start`) comment '',
+				INDEX `lockout_expire` USING BTREE (`lockout_expire`) comment '',
+				INDEX `lockout_host` USING HASH (`lockout_host`) comment '',
+				INDEX `lockout_user` USING HASH (`lockout_user`) comment ''
+				) " . $charset_collate . ";";
 			
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			@dbDelta( $tables );
@@ -262,6 +280,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 			flush_rewrite_rules();
 
 			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "itsec_log`;" );
+			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "itsec_lockouts`;" );
 
 			if ( function_exists( 'apc_store' ) ) {
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
