@@ -14,8 +14,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		function __construct() {
 
 			$this->settings = get_site_option( 'itsec_global' );
-			$this->current_time = current_time( 'mysql' ); 
-			$this->current_time_gmt = current_time( 'mysql', 1 ); 
+			$this->current_time = current_time( 'timestamp' ); 
+			$this->current_time_gmt = current_time( 'timestamp', 1 ); 
 
 		}
 
@@ -36,7 +36,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		}
 
 		private function blacklist_host() {
-			
+
 		}
 
 		private function sent_lockout_email() {
