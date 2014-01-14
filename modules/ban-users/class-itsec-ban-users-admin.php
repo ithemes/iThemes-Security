@@ -30,10 +30,6 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 				add_action( 'network_admin_edit_itsec_ban_users', array( $this, 'save_network_options' ) ); //save multisite options
 			}
 
-			global $itsec_lockout;
-
-			$itsec_lockout->lockout( 1, 0 );
-
 		}
 
 		/**
@@ -609,7 +605,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 		}
 
-		private function insert_ip( $ip, $ban_list = null, $white_list = null) {
+		public static function insert_ip( $ip, $ban_list = null, $white_list = null) {
 
 			$settings = get_site_option('itsec_ban_users');
 
