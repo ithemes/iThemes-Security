@@ -7,12 +7,15 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		private static $instance = NULL; //instantiated instance of this plugin
 
 		private 
-			$settings
-
+			$settings,
+			$current_time,
+			$current_time_gmt;
 
 		function __construct() {
 
 			$this->settings = get_site_option( 'itsec_global' );
+			$this->current_time = current_time( 'mysql' ); 
+			$this->current_time_gmt = current_time( 'mysql', 1 ); 
 
 		}
 
@@ -30,6 +33,14 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		public function purge_lockouts() {
 			
+		}
+
+		private function blacklist_host() {
+			
+		}
+
+		private function sent_lockout_email() {
+
 		}
 
 		/**
