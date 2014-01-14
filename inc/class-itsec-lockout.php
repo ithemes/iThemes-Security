@@ -54,7 +54,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			} 
 
-			if ( $good_host === true || $good_user === true ) {
+			if ( $good_host === true || $good_user !== false ) {
 
 				$exp_seconds = ( intval( $this->settings['lockout_period'] ) * 60 );
 				$exp = date( 'Y-m-d H:i:s', $this->current_time + $exp_seconds );
@@ -77,7 +77,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 				}
 
-				if ( $good_user === true ) { //blacklist host and temp lockout user
+				if ( $good_user !== false ) { //blacklist host and temp lockout user
 					
 					$wpdb->insert(
 						$wpdb->base_prefix . 'itsec_lockouts',
