@@ -47,11 +47,11 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Setup' ) ) {
 			if ( $options === false ) {
 
 				$defaults = array(
-					'enabled' => false,
-					'default' => false,
-					'host_list' => 1,
-					'agent_list' => 1,
-					'white_list' => 1,
+					'enabled'		=> false,
+					'default'		=> false,
+					'host_list'		=> array(),
+					'agent_list'	=> array(),
+					'white_list'	=> array(),
 				);
 
 				add_site_option( 'itsec_ban_users', $defaults );
