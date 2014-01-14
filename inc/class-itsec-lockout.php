@@ -110,6 +110,10 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			}
 
+			if ( $this->settings['email_notifications'] === true ) { //send email notifications
+				$this->send_lockout_email( $good_host, $good_user, $reason );
+			}
+
 		}
 
 		public function check_lockout( $host = null, $user = null ) {
@@ -124,7 +128,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		}
 
-		private function sent_lockout_email() {
+		private function send_lockout_email( $host, $user, $reason ) {
 
 		}
 
