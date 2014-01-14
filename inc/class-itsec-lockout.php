@@ -21,16 +21,16 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		public function lockout( $type, $reason, $host = null, $user = null ) {
 
-			global $wpdb, $itse_lib;
+			global $wpdb, $itsec_lib;
 
-			if ( $host !== null && ITSEC_Ban_Users_Admin::is_ip_whitelisted( sanitize_text_field( $host ) ) === false ) {
-				$good_host = $bwps_lib->validates_ip_address( $host );
+			if ( $host != null && ITSEC_Ban_Users_Admin::is_ip_whitelisted( sanitize_text_field( $host ) ) === false ) {
+				$good_host = $itsec_lib->validates_ip_address( $host );
 			} else {
 				$good_host = false;
 			}
 
 			if ( $user !== null ) {
-				$good_user = $bwps_lib->user_id_exists( intval( $user ) );
+				$good_user = $itsec_lib->user_id_exists( intval( $user ) );
 			} else {
 				$good_user = false;
 			}
@@ -42,7 +42,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			if ( $this->settings['blacklist'] === true && $good_host === true ) { //permanent blacklist
 
-				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` > " . date( 'Y-m-d H:i:s', $this->current_time ) . " AND lockout_host='" . esc_sql( $host ) . "';" ) + 1;
+				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` > '" . date( 'Y-m-d H:i:s', $this->current_time ) . "' AND lockout_host='" . esc_sql( $host ) . "';" ) + 1;
 
 				if ( $host_count >= $this->settings['blacklist_count'] ) {
 
@@ -56,7 +56,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			if ( $good_host === true || $good_user === true ) {
 
-				$exp_seconds = ( intval( $this->settings( 'lockout_period' ) ) * 60 );
+				$exp_seconds = ( intval( $this->settings['lockout_period'] ) * 60 );
 				$exp = date( 'Y-m-d H:i:s', $this->current_time + $exp_seconds );
 				$exp_gmt = date( 'Y-m-d H:i:s', $this->current_time_gmt + $exp_seconds );
 
