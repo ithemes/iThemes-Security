@@ -25,7 +25,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 */
 		private function __construct() {
 
-			global $itsec_globals, $itsec_lib, $itsec_files, $itsec_logger;
+			global $itsec_globals, $itsec_lib, $itsec_files, $itsec_logger, $itsec_lockout;
 
 			@ini_set( 'auto_detect_line_endings', true ); //Make certain we're using proper line endings
 
