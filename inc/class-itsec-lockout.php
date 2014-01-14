@@ -23,8 +23,6 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			global $wpdb;
 
-			die ( var_dump( ITSEC_Ban_Users_Admin::is_ip_whitelisted( '131.23.02.131' ) ) );
-
 		}
 
 		public function check_lockout( $host = null, $user = null ) {
