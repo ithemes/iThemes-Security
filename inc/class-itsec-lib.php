@@ -18,6 +18,36 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		}
 
 		/**
+		 * Converts CIDR to ip range.
+		 *
+		 * Modified from function at http://stackoverflow.com/questions/4931721/getting-list-ips-from-cidr-notation-in-php
+		 * as it was far more elegant than my own solution
+		 * 
+		 * @param  string $cidr cidr notation to convert
+		 * @return array        range of ips returned
+		 */
+		public function cidr_to_range( $cidr ) {
+			
+			$range = array();
+
+			if ( strpos( $cidr, '/' ) ) {
+
+	  			$cidr = explode( '/', $cidr );
+
+	  			$range[] = long2ip( ( ip2long( $cidr[0] ) ) & ( (-1 << ( 32 - (int) $cidr[1] ) ) ) );
+	  			$range[] = long2ip( ( ip2long( $cidr[0] ) ) + pow( 2, ( 32 - (int) $cidr[1] ) ) - 1 );
+
+	  		} else { //if not a range just return the original ip
+
+	  			$range[] = $cidr;
+
+	  		}
+
+	  		return $range;
+
+	  	}
+
+		/**
 		 * Gets location of wp-config.php
 		 *
 		 * Finds and returns path to wp-config.php
@@ -49,7 +79,7 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		 * @return string domain name
 		 *
 		 **/		
-		function get_domain( $address, $apache = true ) {
+		public function get_domain( $address, $apache = true ) {
 		
 			preg_match( "/^(http:\/\/)?([^\/]+)/i", $address, $matches );
 
@@ -81,17 +111,6 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		}
 
 		/**
-		 * Determine whether we're on the login page or not
-		 *
-		 * @return bool true if is login page else false
-		 */
-		public function is_login_page() {
-
-			return in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) );
-
-		}
-
-		/**
 		 * Gets location of .htaccess
 		 *
 		 * Finds and returns path to .htaccess or nginx.conf if appropriate
@@ -111,7 +130,7 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 			}
 
-		}
+		}	
 
 		/**
 		 * Returns the actual IP address of the user
@@ -211,6 +230,121 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 				return false;
 			}
 
+		}
+
+		/**
+		 * Converts IP with * wildcards to one with a netmask instead
+		 * 
+		 * @param  string $ip ip to convert
+		 * 
+		 * @return string     the converted ip
+		 */
+		public function ip_wild_to_mask( $ip ) {
+
+			$host_parts = array_reverse( explode( '.', trim( $ip ) ) );
+
+			if ( strpos( $ip, '*' ) ) {
+
+				$mask           = 0; //used to calculate netmask with wildcards
+				$converted_host = str_replace( '*', '0', $ip );
+
+				//convert hosts with wildcards to host with netmask and create rule lines
+				foreach ( $host_parts as $part ) {
+
+					if ( $part === '*' ) {
+						$mask = $mask + 8;
+					}
+
+					//Apply a mask if we had to convert
+					if ( $mask > 0 ) {
+						$converted_host .= '/' . $mask;
+					}
+
+				}
+
+				return $converted_host;
+
+			} 
+
+			return $ip;
+
+		}
+
+		/**
+		 * Determine whether we're on the login page or not
+		 *
+		 * @return bool true if is login page else false
+		 */
+		public function is_login_page() {
+
+			return in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) );
+
+		}	
+
+		/**
+		 * Checks if the jquery version saved is vulnerable to http://bugs.jquery.com/ticket/9521
+		 * 
+		 * @return bool true if known safe or false
+		 */
+		public function safe_jquery_version() {
+
+			$jquery_version = get_site_option( 'itsec_jquery_version' );
+
+			if ( $jquery_version !== false and version_compare( $jquery_version, '1.6.3', '>=' ) ) {
+				return true;
+			}
+
+			return false;
+
+		}
+
+		/**
+		 * Forces the given page to a WordPress 404 error
+		 *
+		 * @return void
+		 */
+		public function set_404() {
+
+			global $wp_query;
+
+			status_header( 404 );
+
+			$wp_query->set_404();
+			$page_404 = get_404_template();
+
+			require_once( $page_404 );
+
+			die();
+
+		}
+
+		/**
+		 * Checks if user exists
+		 *
+		 * Checks to see if WordPress user with given id exists
+		 *
+		 * @param int $id user id of user to check
+		 * @return bool true if user exists otherwise false
+		 *
+		 **/
+		public function user_id_exists( $user_id ) {
+		
+			global $wpdb;
+			
+			//return false if username is null
+			if ( $user_id == '' ) {
+				return false;
+			}
+			
+			//queary the user table to see if the user is there
+			$userid = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='%s';", sanitize_text_field( $user_id ) ) );
+			
+			if ( $userid == $user_id ) {
+				return true;
+			} else {
+				return false;
+			}
+			
 		}
 
 		/**
@@ -327,141 +461,7 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 			return true; //ip is valid
 
-		}
-
-		/**
-		 * Converts IP with * wildcards to one with a netmask instead
-		 * 
-		 * @param  string $ip ip to convert
-		 * 
-		 * @return string     the converted ip
-		 */
-		public function ip_wild_to_mask( $ip ) {
-
-			$host_parts = array_reverse( explode( '.', trim( $ip ) ) );
-
-			if ( strpos( $ip, '*' ) ) {
-
-				$mask           = 0; //used to calculate netmask with wildcards
-				$converted_host = str_replace( '*', '0', $ip );
-
-				//convert hosts with wildcards to host with netmask and create rule lines
-				foreach ( $host_parts as $part ) {
-
-					if ( $part === '*' ) {
-						$mask = $mask + 8;
-					}
-
-					//Apply a mask if we had to convert
-					if ( $mask > 0 ) {
-						$converted_host .= '/' . $mask;
-					}
-
-				}
-
-				return $converted_host;
-
-			} 
-
-			return $ip;
-
-		}
-
-		/**
-		 * Checks if the jquery version saved is vulnerable to http://bugs.jquery.com/ticket/9521
-		 * 
-		 * @return bool true if known safe or false
-		 */
-		public function safe_jquery_version() {
-
-			$jquery_version = get_site_option( 'itsec_jquery_version' );
-
-			if ( $jquery_version !== false and version_compare( $jquery_version, '1.6.3', '>=' ) ) {
-				return true;
-			}
-
-			return false;
-
-		}
-
-		/**
-		 * Forces the given page to a WordPress 404 error
-		 *
-		 * @return void
-		 */
-		public function set_404() {
-
-			global $wp_query;
-
-			status_header( 404 );
-
-			$wp_query->set_404();
-			$page_404 = get_404_template();
-
-			require_once( $page_404 );
-
-			die();
-
-		}
-
-		/**
-		 * Checks if user exists
-		 *
-		 * Checks to see if WordPress user with given id exists
-		 *
-		 * @param int $id user id of user to check
-		 * @return bool true if user exists otherwise false
-		 *
-		 **/
-		function user_id_exists( $user_id ) {
-		
-			global $wpdb;
-			
-			//return false if username is null
-			if ( $user_id == '' ) {
-				return false;
-			}
-			
-			//queary the user table to see if the user is there
-			$userid = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='%s';", sanitize_text_field( $user_id ) ) );
-			
-			if ( $userid == $user_id ) {
-				return true;
-			} else {
-				return false;
-			}
-			
-		}
-
-		/**
-		 * Converts CIDR to ip range.
-		 *
-		 * Modified from function at http://stackoverflow.com/questions/4931721/getting-list-ips-from-cidr-notation-in-php
-		 * as it was far more elegant than my own solution
-		 * 
-		 * @param  string $cidr cidr notation to convert
-		 * @return array        range of ips returned
-		 */
-		public function cidr_to_range( $cidr ) {
-			
-			$range = array();
-
-			if ( strpos( $cidr, '/' ) ) {
-
-	  			$cidr = explode( '/', $cidr );
-
-	  			$range[] = long2ip( ( ip2long( $cidr[0] ) ) & ( (-1 << ( 32 - (int) $cidr[1] ) ) ) );
-	  			$range[] = long2ip( ( ip2long( $cidr[0] ) ) + pow( 2, ( 32 - (int) $cidr[1] ) ) - 1 );
-
-	  		} else { //if not a range just return the original ip
-
-	  			$range[] = $cidr;
-
-	  		}
-
-	  		return $range;
-
-	  	}
+		}		
 
 		/**
 		 * Start the global library instance
