@@ -21,6 +21,7 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 			if ( $this->settings['brute_force-enabled'] === true ) {
 				add_filter( 'authenticate', array( $this, 'execute_brute_force_no_password' ), 30, 3 );
 				//add_action( 'wp_login_failed', array( $this, 'execute_brute_force' ), 1, 1 );
+				add_filter( 'itsec_lockout_modules', array( $this, 'register_lockout' ) );
 			}
 
 			//require strong passwords if turned on
@@ -60,6 +61,27 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 				add_filter( 'login_errors', array( $this, 'empty_return_function' ) );
 			}
 
+
+		}
+
+		/**
+		 * Register Brute Force for lockout
+		 * 
+		 * @param  array $lockout_modules  array of lockout modules
+		 * 
+		 * @return array                   array of lockout modules
+		 */
+		public function register_lockout( $lockout_modules ) {
+
+			$lockout_modules[] = array(
+				'type'		=> 'brute_force',
+				'reason'	=> __( 'too many bad login attempts', 'ithemes-security' ),
+				'host'		=> $this->settings['brute_force-max_attempts_host'],
+				'user'		=> $this->settings['brute_force-max_attempts_user'],
+
+			);
+
+			return $lockout_modules;
 
 		}
 
