@@ -34,18 +34,45 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		}
 
-		public function do_lockout( $host = null, $user = null ) {
-
-		}
-
 		/**
-		 * Register modules that will use the lockout service
+		 * Checks if the host or user is locked out and executes lockout
+		 * 
+		 * @param  int $user the user id to check
 		 * 
 		 * @return void
 		 */
-		public function register_modules() {
+		public function check_lockout( $user = null ) {
 
-			$this->lockout_modules = apply_filters( 'itsec_lockout_modules', $this->lockout_modules );
+			global $wpdb, $itsec_lib;
+
+			$host = $itsec_lib->get_ip();
+	
+			$host_check = $wpdb->get_var( "SELECT `lockout_host` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt ) . "' AND `lockout_host`='" . $host . "';" );
+
+			if ( $user !== null && $itsec_lib->user_id_exists( intval( $user ) ) === true ) {
+
+				$user_check = $wpdb->get_var( "SELECT `lockout_user` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt ) . "' AND `lockout_user`=" . intval( $user ) . ";" );
+
+			} else {
+
+				$user_check = false;
+
+			}
+
+			if ( $host_check !== null ) {
+
+				wp_clear_auth_cookie();
+				@header( 'HTTP/1.0 418 I\'m a teapot' );
+				@header( 'Cache-Control: no-cache, must-revalidate' ); 
+				@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
+				die( $this->settings['lockout_message'] );
+
+			}
+
+
+		}
+
+		public function do_lockout( $host = null, $user = null ) {
 
 		}
 
@@ -155,44 +182,6 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		}
 
 		/**
-		 * Checks if the host or user is locked out and executes lockout
-		 * 
-		 * @param  int $user the user id to check
-		 * 
-		 * @return void
-		 */
-		public function check_lockout( $user = null ) {
-
-			global $wpdb, $itsec_lib;
-
-			$host = $itsec_lib->get_ip();
-	
-			$host_check = $wpdb->get_var( "SELECT `lockout_host` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt ) . "' AND `lockout_host`='" . $host . "';" );
-
-			if ( $user !== null && $itsec_lib->user_id_exists( intval( $user ) ) === true ) {
-
-				$user_check = $wpdb->get_var( "SELECT `lockout_user` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt ) . "' AND `lockout_user`=" . intval( $user ) . ";" );
-
-			} else {
-
-				$user_check = false;
-
-			}
-
-			if ( $host_check !== null ) {
-
-				wp_clear_auth_cookie();
-				@header( 'HTTP/1.0 418 I\'m a teapot' );
-				@header( 'Cache-Control: no-cache, must-revalidate' ); 
-				@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
-				die( $this->settings['lockout_message'] );
-
-			}
-
-
-		}
-
-		/**
 		 * Purges lockouts more than 7 days old from the database
 		 * 
 		 * @return void
@@ -204,6 +193,17 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` < '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - ( ( $this->settings['blacklist_period'] + 1 ) * 24 * 60 * 60 ) ) . "';" );
 			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` < '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - 86400  ) . "';" );
 			
+		}
+
+		/**
+		 * Register modules that will use the lockout service
+		 * 
+		 * @return void
+		 */
+		public function register_modules() {
+
+			$this->lockout_modules = apply_filters( 'itsec_lockout_modules', $this->lockout_modules );
+
 		}
 
 		/**
