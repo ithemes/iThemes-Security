@@ -67,7 +67,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 				$blacklist_period = isset( $this->settings['blacklist_period'] ) ? $this->settings['blacklist_period'] * 24 * 60 * 60 : 604800;
 
-				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` > '" . date( 'Y-m-d H:i:s', $this->current_time + $blacklist_period ) . "' AND `lockout_host`='" . esc_sql( $host ) . "';" );
+				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt + $blacklist_period ) . "' AND `lockout_host`='" . esc_sql( $host ) . "';" );
 
 				if ( $host_count >= $this->settings['blacklist_count'] ) {
 
@@ -147,11 +147,11 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			$host = $itsec_lib->get_ip();
 	
-			$host_check = $wpdb->get_var( "SELECT `lockout_host` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` > '" . date( 'Y-m-d H:i:s', $this->current_time ) . "' AND `lockout_host`='" . $host . "';" );
+			$host_check = $wpdb->get_var( "SELECT `lockout_host` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt ) . "' AND `lockout_host`='" . $host . "';" );
 
 			if ( $user !== null && $itsec_lib->user_id_exists( intval( $user ) ) === true ) {
 
-				$user_check = $wpdb->get_var( "SELECT `lockout_user` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` > '" . date( 'Y-m-d H:i:s', $this->current_time ) . "' AND `lockout_user`=" . intval( $user ) . ";" );
+				$user_check = $wpdb->get_var( "SELECT `lockout_user` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt ) . "' AND `lockout_user`=" . intval( $user ) . ";" );
 
 			} else {
 
@@ -181,7 +181,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			global $wpdb;
 			
-			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` < '" . date( 'Y-m-d H:i:s', $this->current_time - ( ( $this->settings['blacklist_period'] + 1 ) * 24 * 60 * 60 ) ). "';" );
+			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` < '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - ( ( $this->settings['blacklist_period'] + 1 ) * 24 * 60 * 60 ) ). "';" );
 			
 		}
 
