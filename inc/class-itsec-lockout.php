@@ -9,13 +9,16 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		private 
 			$settings,
 			$current_time,
-			$current_time_gmt;
+			$current_time_gmt,
+			$lockout_modules;
 
 		function __construct() {
 
 			$this->settings = get_site_option( 'itsec_global' );
 			$this->current_time = current_time( 'timestamp' ); 
-			$this->current_time_gmt = current_time( 'timestamp', 1 ); 
+			$this->current_time_gmt = current_time( 'timestamp', 1 );
+
+			$this->lockout_modules = array(); //array to hold information on modules using this feature
 
 			//Run database cleanup daily with cron
 			if ( ! wp_next_scheduled( 'itsec_purge_lockouts' ) ) {
@@ -27,12 +30,14 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			//Check for host lockouts
 			add_action( 'init', array( $this, 'check_lockout' ) );
 
-			add_action( 'init', array( $this, 'process_lockout_requests' ) );
+			add_action( 'plugins_loaded', array( $this, 'register_modules' ) );
 
 		}
 
-		public function process_lockout_requests() {
-			
+		public function register_modules() {
+
+			$this->lockout_modules = apply_filters( 'itsec_lockout_modules', $this->lockoust_modules );
+
 		}
 
 		/**
