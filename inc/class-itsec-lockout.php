@@ -34,6 +34,10 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		}
 
+		public function do_lockout( $host = null, $user = null ) {
+
+		}
+
 		/**
 		 * Register modules that will use the lockout service
 		 * 
