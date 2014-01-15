@@ -41,15 +41,15 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			global $wpdb, $itsec_lib;
 
 			//Do we have a good host to lock out or not
-			if ( $host != null && ITSEC_Ban_Users_Admin::is_ip_whitelisted( sanitize_text_field( $host ) ) === false ) {
-				$good_host = $itsec_lib->validates_ip_address( $host );
+			if ( $host != null && ITSEC_Ban_Users_Admin::is_ip_whitelisted( sanitize_text_field( $host ) ) === false && $itsec_lib->validates_ip_address( $host ) === true ) {
+				$good_host = sanitize_text_field( $host );
 			} else {
 				$good_host = false;
 			}
 
 			//Do we have a valid user to lockout or not
-			if ( $user !== null ) {
-				$good_user = $itsec_lib->user_id_exists( intval( $user ) );
+			if ( $user !== null && $itsec_lib->user_id_exists( intval( $user ) ) === true ) {
+				$good_user = intval( $user );
 			} else {
 				$good_user = false;
 			}
@@ -60,11 +60,13 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			$type = sanitize_text_field( $type );
 			$reason = sanitize_text_field( $reason );
 
-			if ( $this->settings['blacklist'] === true && $good_host === true ) { //permanent blacklist
+			if ( $this->settings['blacklist'] === true && $good_host !== false ) { //permanent blacklist
 
 				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` > '" . date( 'Y-m-d H:i:s', $this->current_time ) . "' AND lockout_host='" . esc_sql( $host ) . "';" ) + 1;
 
 				if ( $host_count >= $this->settings['blacklist_count'] ) {
+
+					$host_expiration = false;
 
 					ITSEC_Ban_Users_Admin::insert_ip( sanitize_text_field( $host ) ); //Send it to the Ban Users module for banning
 
@@ -75,13 +77,15 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			} 
 
 			//We have temp bans to perform
-			if ( $good_host === true || $good_user !== false ) {
+			if ( $good_host !== false || $good_user !== false ) {
 
 				$exp_seconds = ( intval( $this->settings['lockout_period'] ) * 60 );
-				$exp = date( 'Y-m-d H:i:s', $this->current_time + $exp_seconds );
-				$exp_gmt = date( 'Y-m-d H:i:s', $this->current_time_gmt + $exp_seconds );
+				$expiration = date( 'Y-m-d H:i:s', $this->current_time + $exp_seconds );
+				$expiration_gmt = date( 'Y-m-d H:i:s', $this->current_time_gmt + $exp_seconds );
 
-				if ( $good_host === true && $blacklist_host === false ) { //temp lockout host
+				if ( $good_host !== false && $blacklist_host === false ) { //temp lockout host
+
+					$host_expiration = $expiration;
 
 					$wpdb->insert(
 						$wpdb->base_prefix . 'itsec_lockouts',
@@ -89,8 +93,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 							'lockout_type'			=> $type,
 							'lockout_start'			=> date( 'Y-m-d H:i:s', $this->current_time ),
 							'lockout_start_gmt'		=> date( 'Y-m-d H:i:s', $this->current_time_gmt ),
-							'lockout_expire'		=> date( 'Y-m-d H:i:s', $this->current_time + $exp_seconds ),
-							'lockout_expire_gmt'	=> date( 'Y-m-d H:i:s', $this->current_time_gmt + $exp_seconds ),
+							'lockout_expire'		=> $expiration,
+							'lockout_expire_gmt'	=> $expiration_gmt,
 							'lockout_host'			=> sanitize_text_field( $host ),
 							'lockout_user'			=> '',
 						)
@@ -99,6 +103,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 				}
 
 				if ( $good_user !== false ) { //blacklist host and temp lockout user
+
+					$user_expiration = $expiration;
 					
 					$wpdb->insert(
 						$wpdb->base_prefix . 'itsec_lockouts',
@@ -106,8 +112,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 							'lockout_type'			=> $type,
 							'lockout_start'			=> date( 'Y-m-d H:i:s', $this->current_time ),
 							'lockout_start_gmt'		=> date( 'Y-m-d H:i:s', $this->current_time_gmt ),
-							'lockout_expire'		=> date( 'Y-m-d H:i:s', $this->current_time + $exp_seconds ),
-							'lockout_expire_gmt'	=> date( 'Y-m-d H:i:s', $this->current_time_gmt + $exp_seconds ),
+							'lockout_expire'		=> $expiration,
+							'lockout_expire_gmt'	=> $expiration_gmt,
 							'lockout_host'			=> '',
 							'lockout_user'			=> intval( $user ),
 						)
@@ -118,7 +124,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			}
 
 			if ( $this->settings['email_notifications'] === true ) { //send email notifications
-				$this->send_lockout_email( $good_host, $good_user, $reason );
+				$this->send_lockout_email( $good_host, $good_user, $host_expiration, $user_expiration, $reason );
 			}
 
 		}
@@ -140,7 +146,81 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			
 		}
 
-		private function send_lockout_email( $host, $user, $reason ) {
+		private function send_lockout_email( $host, $user, $host_expiration, $user_expiration, $reason ) {
+
+			$plural_text = __( 'has', 'ithemes-security' );
+
+			//Tell which host was locked out
+			if ( $host !== false ) {
+
+				$host_expiration_text = __( 'The host has been locked out ', 'ithemes-security' );
+
+				if ( $host_expiration === false ) {
+					$host_expiration_text .= __( 'permanently', 'ithemes-security' );
+				} else {
+					$host_expiration_text .= sprintf( '%s %s', __( 'until', 'ithemes-security' ), sanitize_text_field( $host_expiration ) );
+				}
+
+				$host_text = sprintf( '%s, <a href="http://ip-adress.com/ip_tracer/%s">%s</a>, ', __( 'host', 'ithemes-security' ), sanitize_text_field( $host ), sanitize_text_field( $host ) );
+
+			} else {
+
+				$host_expiration_text = '';
+				$host_text = '';
+
+			}
+
+			
+
+			$user_object = get_userdata( $user ); //try to get and actual user object
+
+			//Tell them which user was locked out
+			if ( $user_object !== false ) {
+
+				if ( $host_text === '' ) {
+
+					$user_expiration_text = sprintf( '%s %s.', __( 'The user has been locked out until', 'ithemes-security' ), sanitize_text_field( $user_expiration ) );
+
+					$user_text = sprintf( '%s, %s, ', __( 'user', 'ithemes-security' ), $user_object->user_login );
+
+				} else {
+
+					$user_expiration_text = sprintf( '%s %s.', __( 'and the user has been locked out until', 'ithemes-security' ), sanitize_text_field( $user_expiration ) );
+					$plural_text = __( 'have', 'ithemes-security' );
+					$user_text = sprintf( '%s, %s, ', __( 'and a user', 'ithemes-security' ), $user_object->user_login );
+				}
+
+			} else {
+				$user_expiration_text = '.';
+				$user_text = '';
+			}
+
+			$body = sprintf( 
+				'%s %s %s %s %s %s %s %s. %s %s', 
+				__( 'A', 'ithemes-security' ), 
+				$host_text, 
+				$user_text,
+				$plural_text,
+				__( ' been locked out of the WordPress site at', 'ithemes-security' ),
+				get_option( 'siteurl' ),
+				__( 'due to', 'ithemes-security' ),
+				sanitize_text_field( $reason ),
+				$host_expiration_text,
+				$user_expiration_text,
+				__( '', 'ithemes-security' )
+			);
+
+			die( $body );
+
+			$recipients = $this->settings['notification_email'];
+			$subject = '[' . get_option( 'siteurl' ) . '] ' . __( 'Site Lockout Notification', 'ithemes-security' );
+			$headers = 'From: ' . get_bloginfo( 'name' )  . ' <' . $toEmail . '>' . "\r\n\\";
+
+			foreach ( $recipients as $recipient ) {
+
+
+
+			}
 
 		}
 
