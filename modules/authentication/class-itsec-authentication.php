@@ -17,8 +17,13 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 			$this->settings  = get_site_option( 'itsec_authentication' );
 			$this->away_file = $itsec_globals['upload_dir'] . '/itsec_away.confg'; //override file
 
+			//execute login limits
+			if ( $this->settings['brute_force-enabled'] === true ) {
+				add_action( 'init', array( $this, 'execute_brute_force' ) );
+			}
+
 			//require strong passwords if turned on
-			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] == true ) {
+			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] === true ) {
 				add_action( 'user_profile_update_errors',  array( $this, 'enforce_strong_password' ), 0, 3 );
 				
 				if ( isset( $_GET['action'] ) && ( $_GET['action'] == 'rp' || $_GET['action'] == 'resetpass' ) && isset( $_GET['login'] ) ) {
@@ -55,6 +60,10 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 			}
 
 
+		}
+
+		public function execute_brute_force() {
+			
 		}
 
 		/**
