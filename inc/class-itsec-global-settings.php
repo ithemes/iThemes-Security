@@ -140,6 +140,14 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			);
 
 			add_settings_field(
+				'itsec_authentication[blacklist_period]',
+				__( 'Blacklist Lookback Period', 'ithemes-security' ),
+				array( $this, 'blacklist_period' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
+			add_settings_field(
 				'itsec_authentication[lockout_period]',
 				__( 'Lockout Period', 'ithemes-security' ),
 				array( $this, 'lockout_period' ),
@@ -253,6 +261,28 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			$content = '<input name="itsec_authentication[blacklist_count]" id="itsec_authentication_blacklist_count" value="' . $blacklist_count . '" type="text"> ' . __( 'lockouts', 'ithemes-security' ) . '<br />';
 			$content .= '<label for="itsec_authentication_blacklist_count"> ' . __( 'The number of lockouts per IP before the host is banned permanently from this site.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Blacklist Lookback Period Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function blacklist_period( $args ) {
+
+			if ( isset( $this->settings['blacklist_period'] ) ) {
+				$blacklist_period = absint( $this->settings['blacklist_period'] ); 
+			} else {
+				$blacklist_period = 7;
+			}
+
+			$content = '<input name="itsec_authentication[blacklist_period]" id="itsec_authentication_blacklist_period" value="' . $blacklist_period . '" type="text"> ' . __( 'days', 'ithemes-security' ) . '<br />';
+			$content .= '<label for="itsec_authentication_blacklist_period"> ' . __( 'How many days should a lockout be remembered to meet the blacklist count above.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -382,6 +412,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$input['lockout_message'] = isset( $input['lockout_message'] ) ? sanitize_text_field( $input['lockout_message'] ): '';
 			$input['blacklist'] = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
 			$input['blacklist_count'] = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
+			$input['blacklist_period'] = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
 			$input['email_notifications'] = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
 			$input['lockout_period'] = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
 
@@ -407,6 +438,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$settings['lockout_message'] = isset( $_POST['itsec_authentication']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['lockout_message'] ): '';
 			$settings['blacklist'] = ( isset( $_POST['itsec_authentication']['blacklist'] ) && intval( $_POST['itsec_authentication']['blacklist'] == 1 ) ? true : false );
 			$settings['blacklist_count'] = isset( $_POST['itsec_authentication']['blacklist_count'] ) ? absint( $_POST['itsec_authentication']['blacklist_count'] ) : 3;
+			$settings['blacklist_period'] = isset( $_POST['itsec_authentication']['blacklist_period'] ) ? absint( $_POST['itsec_authentication']['blacklist_period'] ) : 7;
 			$settings['lockout_period'] = isset( $_POST['itsec_authentication']['lockout_period'] ) ? absint( $_POST['itsec_authentication']['lockout_period'] ) : 15;
 			$settings['email_notifications'] = ( isset( $_POST['itsec_authentication']['email_notifications'] ) && intval( $_POST['itsec_authentication']['email_notifications'] == 1 ) ? true : false );
 

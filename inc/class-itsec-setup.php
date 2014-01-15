@@ -156,6 +156,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 					'lockout_message'		=> __( 'error', 'ithemes-security' ),
 					'blacklist'				=> true,
 					'blacklist_count'		=> 3,
+					'blacklist_period'		=> 7,
 					'email_notifications'	=> true,
 					'lockout_period'		=> 15,
 				);
