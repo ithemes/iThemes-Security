@@ -83,6 +83,22 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		}
 
 		/**
+		 * Prints the jQuery script to initiliase the metaboxes
+		 * Called on admin_footer-*
+		 *
+		 * @return void
+		 */
+		public function admin_footer_scripts() {
+
+			?>
+
+			<script type="text/javascript">postboxes.add_postbox_toggles( pagenow );</script>
+
+		<?php
+
+		}
+
+		/**
 		 * Displays plugin admin notices
 		 *
 		 * @return  void
@@ -94,38 +110,12 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		}
 
 		/**
-		 * Enque actions to build the admin pages
-		 *
+		 * Creates admin tabs
+		 * 
+		 * @param  string $current current tab id
+		 * 
 		 * @return void
 		 */
-		public function build_admin() {
-
-			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-
-			add_action( 'admin_init', array( $this, 'execute_admin_init' ) );
-
-			if ( is_multisite() ) { //must be network admin in multisite
-				add_action( 'network_admin_menu', array( $this, 'setup_primary_admin' ) );
-			} else {
-				add_action( 'admin_menu', array( $this, 'setup_primary_admin' ) );
-			}
-
-		}
-
-		/**
-		 * Registers admin styles and handles other items required at admin_init
-		 *
-		 * @return void
-		 */
-		public function execute_admin_init() {
-
-			global $itsec_globals;
-
-			wp_register_style( 'itsec_admin_styles', $itsec_globals['plugin_url'] . 'inc/css/ithemes.css' );
-			do_action( 'itsec_admin_init' ); //execute modules init scripts
-
-		}
-
 		public function admin_tabs( $current = NULL ) {
 
 			global $itsec_globals;
@@ -158,6 +148,75 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		}
 
 		/**
+		 * Enque actions to build the admin pages
+		 *
+		 * @return void
+		 */
+		public function build_admin() {
+
+			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+
+			add_action( 'admin_init', array( $this, 'execute_admin_init' ) );
+
+			if ( is_multisite() ) { //must be network admin in multisite
+				add_action( 'network_admin_menu', array( $this, 'setup_primary_admin' ) );
+			} else {
+				add_action( 'admin_menu', array( $this, 'setup_primary_admin' ) );
+			}
+
+		}
+
+		/**
+		 * Echos admin messages
+		 *
+		 * @return void
+		 *
+		 **/
+		public function display_admin_message() {
+
+			global $saved_messages;
+
+			echo $saved_messages;
+
+			unset( $saved_messages ); //delete any saved messages
+
+		}
+
+		/**
+		 * Prints out all settings sections added to a particular settings page
+		 *
+		 * adapted from core function for better styling within meta_box
+		 *
+		 *
+		 * @param string  $page       The slug name of the page whos settings sections you want to output
+		 * @param boolean $show_title Whether or not the title of the section should display: default true.
+		 */
+		public function do_settings_sections( $page, $show_title = true ) {
+
+			global $wp_settings_sections, $wp_settings_fields;
+
+			if ( ! isset( $wp_settings_sections ) || ! isset( $wp_settings_sections[$page] ) )
+				return;
+
+			foreach ( (array) $wp_settings_sections[$page] as $section ) {
+				if ( $section['title'] && $show_title === true )
+					echo "<h4>{$section['title']}</h4>\n";
+
+				if ( $section['callback'] )
+					call_user_func( $section['callback'], $section );
+
+				if ( ! isset( $wp_settings_fields ) || ! isset( $wp_settings_fields[$page] ) || ! isset( $wp_settings_fields[$page][$section['id']] ) )
+					continue;
+
+				echo '<table class="form-table" id="' . $section['id'] . '">';
+				do_settings_fields( $page, $section['id'] );
+				echo '</table>';
+
+			}
+
+		}
+
+		/**
 		 * Enqueues the styles for the admin area so WordPress can load them
 		 *
 		 * @return void
@@ -168,6 +227,20 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			wp_enqueue_style( 'itsec_admin_styles' );
 			do_action( $itsec_globals['plugin_url'] . 'enqueue_admin_styles' );
+
+		}
+
+		/**
+		 * Registers admin styles and handles other items required at admin_init
+		 *
+		 * @return void
+		 */
+		public function execute_admin_init() {
+
+			global $itsec_globals;
+
+			wp_register_style( 'itsec_admin_styles', $itsec_globals['plugin_url'] . 'inc/css/ithemes.css' );
+			do_action( 'itsec_admin_init' ); //execute modules init scripts
 
 		}
 
@@ -202,47 +275,6 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		}
 
 		/**
-		 * Handles the building of admin menus and calls required functions to render admin pages
-		 *
-		 * @return void
-		 */
-		public function setup_primary_admin() {
-
-			global $itsec_globals;
-
-			$this->admin_tabs['itsec'] = __( 'Dashboard', 'ithemes-security' ); //set a tab for the dashboard
-
-			$this->page_hooks[] = add_menu_page(
-				__( 'Dashboard', 'ithemes-security' ),
-				__( 'Security', 'ithemes-security' ),
-				$itsec_globals['plugin_access_lvl'],
-				'itsec',
-				array( $this, 'render_page' ),
-				plugin_dir_url( $itsec_globals['plugin_file'] ) . 'img/shield-small.png'
-			);
-
-			$this->page_hooks = apply_filters( 'itsec_add_admin_sub_pages', $this->page_hooks );
-
-			$this->admin_tabs = apply_filters( 'itsec_add_admin_tabs', $this->admin_tabs );
-
-			//Make the dashboard is named correctly
-			global $submenu;
-
-			if ( isset( $submenu['itsec'] ) ) {
-				$submenu['itsec'][0][0] = __( 'Dashboard', 'ithemes-security' );
-			}
-
-			foreach ( $this->page_hooks as $page_hook ) {
-
-				add_action( 'load-' . $page_hook, array( $this, 'page_actions' ) ); //Load page structure
-				add_action( 'admin_footer-' . $page_hook, array( $this, 'admin_footer_scripts' ) ); //Load postbox startup script to footer
-				add_action( 'admin_print_styles-' . $page_hook, array( $this, 'enqueue_admin_styles' ) ); //Load admin styles
-
-			}
-
-		}
-
-		/**
 		 * Enqueue JavaScripts for admin page rendering amd execute calls to add further meta_boxes
 		 *
 		 * @return void
@@ -260,22 +292,6 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			wp_enqueue_script( 'common' );
 			wp_enqueue_script( 'wp-lists' );
 			wp_enqueue_script( 'postbox' );
-
-		}
-
-		/**
-		 * Prints the jQuery script to initiliase the metaboxes
-		 * Called on admin_footer-*
-		 *
-		 * @return void
-		 */
-		function admin_footer_scripts() {
-
-			?>
-
-			<script type="text/javascript">postboxes.add_postbox_toggles( pagenow );</script>
-
-		<?php
 
 		}
 
@@ -345,7 +361,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 *
 		 * @return void
 		 */
-		function save_plugin_data() {
+		public function save_plugin_data() {
 
 			global $itsec_globals, $itsec_lib;
 
@@ -373,6 +389,47 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		}
 
 		/**
+		 * Handles the building of admin menus and calls required functions to render admin pages
+		 *
+		 * @return void
+		 */
+		public function setup_primary_admin() {
+
+			global $itsec_globals;
+
+			$this->admin_tabs['itsec'] = __( 'Dashboard', 'ithemes-security' ); //set a tab for the dashboard
+
+			$this->page_hooks[] = add_menu_page(
+				__( 'Dashboard', 'ithemes-security' ),
+				__( 'Security', 'ithemes-security' ),
+				$itsec_globals['plugin_access_lvl'],
+				'itsec',
+				array( $this, 'render_page' ),
+				plugin_dir_url( $itsec_globals['plugin_file'] ) . 'img/shield-small.png'
+			);
+
+			$this->page_hooks = apply_filters( 'itsec_add_admin_sub_pages', $this->page_hooks );
+
+			$this->admin_tabs = apply_filters( 'itsec_add_admin_tabs', $this->admin_tabs );
+
+			//Make the dashboard is named correctly
+			global $submenu;
+
+			if ( isset( $submenu['itsec'] ) ) {
+				$submenu['itsec'][0][0] = __( 'Dashboard', 'ithemes-security' );
+			}
+
+			foreach ( $this->page_hooks as $page_hook ) {
+
+				add_action( 'load-' . $page_hook, array( $this, 'page_actions' ) ); //Load page structure
+				add_action( 'admin_footer-' . $page_hook, array( $this, 'admin_footer_scripts' ) ); //Load postbox startup script to footer
+				add_action( 'admin_print_styles-' . $page_hook, array( $this, 'enqueue_admin_styles' ) ); //Load admin styles
+
+			}
+
+		}
+
+		/**
 		 * Setup and call admin messages
 		 *
 		 * Sets up messages and registers actions for WordPress admin messages
@@ -380,7 +437,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 * @param object $messages WordPress error object or string of message to display
 		 *
 		 **/
-		function show_admin_messages( $messages ) {
+		public function show_admin_messages( $messages ) {
 
 			global $saved_messages; //use global to transfer to add_action callback
 
@@ -406,56 +463,6 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//register appropriate message actions
 			add_action( 'admin_notices', array( $this, 'dispmessage' ) );
-
-		}
-
-		/**
-		 * Echos admin messages
-		 *
-		 * @return void
-		 *
-		 **/
-		function display_admin_message() {
-
-			global $saved_messages;
-
-			echo $saved_messages;
-
-			unset( $saved_messages ); //delete any saved messages
-
-		}
-
-		/**
-		 * Prints out all settings sections added to a particular settings page
-		 *
-		 * adapted from core function for better styling within meta_box
-		 *
-		 *
-		 * @param string  $page       The slug name of the page whos settings sections you want to output
-		 * @param boolean $show_title Whether or not the title of the section should display: default true.
-		 */
-		function do_settings_sections( $page, $show_title = true ) {
-
-			global $wp_settings_sections, $wp_settings_fields;
-
-			if ( ! isset( $wp_settings_sections ) || ! isset( $wp_settings_sections[$page] ) )
-				return;
-
-			foreach ( (array) $wp_settings_sections[$page] as $section ) {
-				if ( $section['title'] && $show_title === true )
-					echo "<h4>{$section['title']}</h4>\n";
-
-				if ( $section['callback'] )
-					call_user_func( $section['callback'], $section );
-
-				if ( ! isset( $wp_settings_fields ) || ! isset( $wp_settings_fields[$page] ) || ! isset( $wp_settings_fields[$page][$section['id']] ) )
-					continue;
-
-				echo '<table class="form-table" id="' . $section['id'] . '">';
-				do_settings_fields( $page, $section['id'] );
-				echo '</table>';
-
-			}
 
 		}
 
