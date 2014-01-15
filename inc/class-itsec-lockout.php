@@ -2,7 +2,7 @@
 
 if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
-	class ITSEC_Lockout {
+	final class ITSEC_Lockout {
 
 		private static $instance = NULL; //instantiated instance of this plugin
 
