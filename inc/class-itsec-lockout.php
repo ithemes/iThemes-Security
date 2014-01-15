@@ -24,6 +24,9 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			add_action( 'itsec_purge_lockouts', array( $this, 'purge_lockouts' ) );
 
+			//Check for host lockouts
+			add_action( 'init', array( $this, 'check_lockout' ) );
+
 		}
 
 		/**
@@ -62,7 +65,9 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			if ( $this->settings['blacklist'] === true && $good_host !== false ) { //permanent blacklist
 
-				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` > '" . date( 'Y-m-d H:i:s', $this->current_time ) . "' AND lockout_host='" . esc_sql( $host ) . "';" ) + 1;
+				$blacklist_period = isset( $this->settings['blacklist_period'] ) ? $this->settings['blacklist_period'] * 24 * 60 * 60 : 604800;
+
+				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` > '" . date( 'Y-m-d H:i:s', $this->current_time + $blacklist_period ) . "' AND `lockout_host`='" . esc_sql( $host ) . "';" );
 
 				if ( $host_count >= $this->settings['blacklist_count'] ) {
 
@@ -129,7 +134,41 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		}
 
-		public function check_lockout( $host = null, $user = null ) {
+		/**
+		 * Checks if the host or user is locked out and executes lockout
+		 * 
+		 * @param  int $user the user id to check
+		 * 
+		 * @return void
+		 */
+		public function check_lockout( $user = null ) {
+
+			global $wpdb, $itsec_lib;
+
+			$host = $itsec_lib->get_ip();
+	
+			$host_check = $wpdb->get_var( "SELECT `lockout_host` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` > '" . date( 'Y-m-d H:i:s', $this->current_time ) . "' AND `lockout_host`='" . $host . "';" );
+
+			if ( $user !== null && $itsec_lib->user_id_exists( intval( $user ) ) === true ) {
+
+				$user_check = $wpdb->get_var( "SELECT `lockout_user` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` > '" . date( 'Y-m-d H:i:s', $this->current_time ) . "' AND `lockout_user`=" . intval( $user ) . ";" );
+
+			} else {
+
+				$user_check = false;
+
+			}
+
+			if ( $host_check !== null ) {
+
+				wp_clear_auth_cookie();
+				@header( 'HTTP/1.0 418 I\'m a teapot' );
+				@header( 'Cache-Control: no-cache, must-revalidate' ); 
+				@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
+				die( $this->settings['lockout_message'] );
+
+			}
+
 
 		}
 
