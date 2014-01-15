@@ -146,6 +146,17 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			
 		}
 
+		/**
+		 * Sends an email to notify site admins of lockouts
+		 * 
+		 * @param  string $host            the host to lockout
+		 * @param  int    $user            the user id to lockout
+		 * @param  string $host_expiration when the host login expires
+		 * @param  string $user_expiration when the user lockout expires
+		 * @param  string $reason          the reason for the lockout to show to the user
+		 * 
+		 * @return void
+		 */
 		private function send_lockout_email( $host, $user, $host_expiration, $user_expiration, $reason ) {
 
 			$plural_text = __( 'has', 'ithemes-security' );
