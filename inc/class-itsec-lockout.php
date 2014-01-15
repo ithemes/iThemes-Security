@@ -27,6 +27,12 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			//Check for host lockouts
 			add_action( 'init', array( $this, 'check_lockout' ) );
 
+			add_action( 'init', array( $this, 'process_lockout_requests' ) );
+
+		}
+
+		public function process_lockout_requests() {
+			
 		}
 
 		/**
