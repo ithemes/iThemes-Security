@@ -182,7 +182,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			global $wpdb;
 			
 			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` < '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - ( ( $this->settings['blacklist_period'] + 1 ) * 24 * 60 * 60 ) ) . "';" );
-			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` < '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - 86400 . "';" );
+			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` < '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - 86400  ) . "';" );
 			
 		}
 
