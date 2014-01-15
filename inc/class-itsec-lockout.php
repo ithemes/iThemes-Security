@@ -34,9 +34,14 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		}
 
+		/**
+		 * Register modules that will use the lockout service
+		 * 
+		 * @return void
+		 */
 		public function register_modules() {
 
-			$this->lockout_modules = apply_filters( 'itsec_lockout_modules', $this->lockoust_modules );
+			$this->lockout_modules = apply_filters( 'itsec_lockout_modules', $this->lockout_modules );
 
 		}
 
