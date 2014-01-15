@@ -19,7 +19,8 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 
 			//execute login limits
 			if ( $this->settings['brute_force-enabled'] === true ) {
-				add_action( 'init', array( $this, 'execute_brute_force' ) );
+				add_filter( 'authenticate', array( $this, 'execute_brute_force_no_password' ), 30, 3 );
+				//add_action( 'wp_login_failed', array( $this, 'execute_brute_force' ), 1, 1 );
 			}
 
 			//require strong passwords if turned on
@@ -62,8 +63,17 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 
 		}
 
-		public function execute_brute_force() {
-			
+		public function execute_brute_force_no_password( $user, $username = '', $password = '' ) {
+
+			if ( is_a( $user, 'WP_User' ) ) { 
+				return $user;
+			}
+
+    		if ( isset( $_POST['wp-submit'] ) && ( empty( $username ) || empty( $password ) ) ) {
+
+        		
+    		}
+
 		}
 
 		/**
