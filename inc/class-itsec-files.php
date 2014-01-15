@@ -2,7 +2,7 @@
 
 if ( ! class_exists( 'ITSEC_Files' ) ) {
 
-	class ITSEC_Files {
+	final class ITSEC_Files {
 
 		private static $instance = NULL; //instantiated instance of this plugin
 
@@ -19,224 +19,6 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 		function __construct() {
 
 			add_action( 'plugins_loaded', array( $this, 'file_writer_init' ) );
-
-		}
-
-		/**
-		 * Initialize file writer and rules arrays
-		 * 
-		 * @return void
-		 */
-		public function file_writer_init() {
-
-			global $itsec_lib;
-
-			$all_rules = array(); //initialize rules array
-			$this->rewrite_rules = array(); //rewrite rules that will need to be written
-			$this->wpconfig_rules = array(); //wp-config rules that will need to be written
-			
-			$this->rewrite_lock_file = trailingslashit( ABSPATH ) . 'itsec_rewrites.lock';
-			$this->wpconfig_lock_file = trailingslashit( ABSPATH ) . 'itsec_config.lock';
-
-			$all_rules = apply_filters( 'itsec_file_rules', $all_rules );
-
-			if ( sizeof( $all_rules ) > 0 ) {
-
-				foreach ( $all_rules as $rule ) {
-
-					if ( $rule['type'] === 'htaccess' ) {
-
-						$this->rewrite_rules[] = $rule;
-
-					} elseif ( $rule['type'] === 'wpconfig' ) {
-
-						$this->wpconfig_rules[] = $rule;
-
-					}
-
-				}
-
-			}
-
-		}
-
-		/**
-		 * Sets rewrite rules (if updated after initialization)
-		 * 
-		 * @param rules $rules array of rules to add or replace
-		 */
-		public function set_rewrites( $rules ) {
-
-			if ( is_array( $rules ) ) {
-
-				//Loop through each rule we send and have to find duplicates
-				foreach ( $rules as $rule ) {
-
-					$found = false;
-
-					if ( is_array( $rule ) ) {
-
-						if ( sizeof( $this->rewrite_rules ) > 0 ) {
-
-							foreach ( $this->rewrite_rules as $key => $rewrite_rule ) {
-								
-								if ( $rule['name'] == $rewrite_rule['name'] ) {
-
-									$found = true;
-									$this->rewrite_rules[$key] = $rule;
-
-								}
-
-								if ( $found === true ) { //don't keep looping if we don't have to
-									break;
-								}
-
-							}
-
-						}
-
-						if ( $found === false ) {
-
-							$this->rewrite_rules[] = $rule;
-
-						} else {
-
-							break;
-
-						}
-
-					}
-
-				}
-
-			}
-
-		}
-
-		/**
-		 * Sets wp-config.php rules (if updated after initialization)
-		 * 
-		 * @param rules $rules array of rules to add or replace
-		 */
-		public function set_wpconfig( $rules ) {
-
-			if ( is_array( $rules ) ) {
-
-				//Loop through each rule we send and have to find duplicates
-				foreach ( $rules as $rule ) {
-
-					$found = false;
-
-					if ( is_array( $rule ) ) {
-
-						if ( sizeof( $this->rewrite_rules ) > 0 ) {
-
-							foreach ( $this->wpconfig_rules as $key => $wpconfig_rule ) {
-								
-								if ( $rule['name'] == $wpconfig_rule['name'] ) {
-
-									$found = true;
-									$this->wpconfig_rules[$key] = $rule;
-
-								}
-
-								if ( $found === true ) { //don't keep looping if we don't have to
-									break;
-								}
-
-							}
-
-						}
-
-						if ( $found === false ) {
-
-							$this->wpconfig_rules[] = $rule;
-
-						} else {
-
-							break;
-
-						}
-
-					}
-
-				}
-
-			}
-
-		}
-
-		/**
-		 * Saves all rewrite rules to htaccess or similar file
-		 *
-		 * @return bool       true on success, false on failure
-		 */
-		public function save_rewrites() {
-			
-			if ( $this->get__file_lock( 'htaccess') ) {
-
-				$success = $this->write_rewrites(); //save the return value for success/error flag
-
-			} else { //return false if we can't get a file lock
-
-				return false;
-
-			}
-
-			$this->release_file_lock( 'htaccess');
-
-			return $success;
-
-		}
-
-		/**
-		 * Saves all wpconfig rules to wp-config.php
-		 * 
-		 * @return bool       true on success, false on failure
-		 */
-		public function save_wpconfig() {
-
-			$success = $this->write_wpconfig(); //save the return value for success/error flag
-
-			return $success;
-			
-			if ( $this->get__file_lock( 'wpconfig') ) {
-
-				$success = $this->write_wpconfig(); //save the return value for success/error flag
-
-			} else { //return false if we can't get a file lock
-
-				return false;
-
-			}
-
-			$this->release_file_lock( 'wpconfig');
-
-			return $success;
-
-		}
-
-		/**
-		 * Execute activation functions
-		 * 
-		 * @return void
-		 */
-		public function do_activate() {
-
-			$this->save_wpconfig();
-			$this->save_rewrites();
-
-		}
-
-		/**
-		 * Execute deactivation functions
-		 * 
-		 * @return void
-		 */
-		public function do_deactivate() {
-
-			$this->delete_rewrites();
-			$this->save_wpconfig();
 
 		}
 
@@ -363,6 +145,302 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			}
 
 			return true;
+
+		}
+
+		/**
+		 * Execute activation functions
+		 * 
+		 * @return void
+		 */
+		public function do_activate() {
+
+			$this->save_wpconfig();
+			$this->save_rewrites();
+
+		}
+
+		/**
+		 * Execute deactivation functions
+		 * 
+		 * @return void
+		 */
+		public function do_deactivate() {
+
+			$this->delete_rewrites();
+			$this->save_wpconfig();
+
+		}
+
+		/**
+		 * Initialize file writer and rules arrays
+		 * 
+		 * @return void
+		 */
+		public function file_writer_init() {
+
+			global $itsec_lib;
+
+			$all_rules = array(); //initialize rules array
+			$this->rewrite_rules = array(); //rewrite rules that will need to be written
+			$this->wpconfig_rules = array(); //wp-config rules that will need to be written
+			
+			$this->rewrite_lock_file = trailingslashit( ABSPATH ) . 'itsec_rewrites.lock';
+			$this->wpconfig_lock_file = trailingslashit( ABSPATH ) . 'itsec_config.lock';
+
+			$all_rules = apply_filters( 'itsec_file_rules', $all_rules );
+
+			if ( sizeof( $all_rules ) > 0 ) {
+
+				foreach ( $all_rules as $rule ) {
+
+					if ( $rule['type'] === 'htaccess' ) {
+
+						$this->rewrite_rules[] = $rule;
+
+					} elseif ( $rule['type'] === 'wpconfig' ) {
+
+						$this->wpconfig_rules[] = $rule;
+
+					}
+
+				}
+
+			}
+
+		}
+
+		/**
+		 * Attempt to get a lock for atomic operations
+		 *
+		 * @param string $type type of file lock, htaccess or wpconfig
+		 *
+		 * @return bool true if lock was achieved, else false
+		 */
+		private function get__file_lock( $type ) {
+
+			if ( $type === 'htaccess' ) {
+				$lock_file = $this->rewrite_lock_file;
+			} elseif ( $type === 'wpconfig' ) {
+				$lock_file = $this->wpconfig_lock_file;
+			} else {
+				return false;
+			}
+
+			if ( file_exists( $lock_file ) ) {
+
+				$pid = @file_get_contents( $lock_file );
+
+				if ( @posix_getsid( $pid ) !== false ) {
+
+					return false; //file is locked for writing
+
+				}
+
+			}
+
+			@file_put_contents( $lock_file, getmypid() );
+
+			return true; //file lock was achieved
+
+		}
+
+		/**
+		 * Sorts given arrays py priority key
+		 * 
+		 * @param  string $a value a
+		 * @param  string $b value b
+		 * 
+		 * @return int    -1 if a less than b, 0 if they're equal or 1 if a is greater
+		 */
+		private function priority_sort( $a, $b ) {
+
+			if( $a['priority'] == $b['priority'] ) {
+				return 0;
+			}
+
+			return $a['priority'] > $b['priority'] ? 1 : -1;
+
+		}
+
+		/**
+		 * Release the lock
+		 *
+		 * @param string $type type of file lock, htaccess or wpconfig
+		 *
+		 * @return bool true if released, false otherwise
+		 */
+		private function release_file_lock( $type ) {
+
+			if ( $type === 'htaccess' ) {
+				$lock_file = $this->rewrite_lock_file;
+			} elseif ( $type === 'wpconfig' ) {
+				$lock_file = $this->wpconfig_lock_file;
+			} else {
+				return false;
+			}
+
+			if ( ! file_exists( $lock_file ) || @unlink( $lock_file ) ) {
+				return true;
+			}
+
+			return false;
+
+		}
+
+		/**
+		 * Saves all rewrite rules to htaccess or similar file
+		 *
+		 * @return bool       true on success, false on failure
+		 */
+		public function save_rewrites() {
+			
+			if ( $this->get__file_lock( 'htaccess') ) {
+
+				$success = $this->write_rewrites(); //save the return value for success/error flag
+
+			} else { //return false if we can't get a file lock
+
+				return false;
+
+			}
+
+			$this->release_file_lock( 'htaccess');
+
+			return $success;
+
+		}
+
+		/**
+		 * Saves all wpconfig rules to wp-config.php
+		 * 
+		 * @return bool       true on success, false on failure
+		 */
+		public function save_wpconfig() {
+
+			$success = $this->write_wpconfig(); //save the return value for success/error flag
+
+			return $success;
+			
+			if ( $this->get__file_lock( 'wpconfig') ) {
+
+				$success = $this->write_wpconfig(); //save the return value for success/error flag
+
+			} else { //return false if we can't get a file lock
+
+				return false;
+
+			}
+
+			$this->release_file_lock( 'wpconfig');
+
+			return $success;
+
+		}
+
+		/**
+		 * Sets rewrite rules (if updated after initialization)
+		 * 
+		 * @param rules $rules array of rules to add or replace
+		 */
+		public function set_rewrites( $rules ) {
+
+			if ( is_array( $rules ) ) {
+
+				//Loop through each rule we send and have to find duplicates
+				foreach ( $rules as $rule ) {
+
+					$found = false;
+
+					if ( is_array( $rule ) ) {
+
+						if ( sizeof( $this->rewrite_rules ) > 0 ) {
+
+							foreach ( $this->rewrite_rules as $key => $rewrite_rule ) {
+								
+								if ( $rule['name'] == $rewrite_rule['name'] ) {
+
+									$found = true;
+									$this->rewrite_rules[$key] = $rule;
+
+								}
+
+								if ( $found === true ) { //don't keep looping if we don't have to
+									break;
+								}
+
+							}
+
+						}
+
+						if ( $found === false ) {
+
+							$this->rewrite_rules[] = $rule;
+
+						} else {
+
+							break;
+
+						}
+
+					}
+
+				}
+
+			}
+
+		}
+
+		/**
+		 * Sets wp-config.php rules (if updated after initialization)
+		 * 
+		 * @param rules $rules array of rules to add or replace
+		 */
+		public function set_wpconfig( $rules ) {
+
+			if ( is_array( $rules ) ) {
+
+				//Loop through each rule we send and have to find duplicates
+				foreach ( $rules as $rule ) {
+
+					$found = false;
+
+					if ( is_array( $rule ) ) {
+
+						if ( sizeof( $this->rewrite_rules ) > 0 ) {
+
+							foreach ( $this->wpconfig_rules as $key => $wpconfig_rule ) {
+								
+								if ( $rule['name'] == $wpconfig_rule['name'] ) {
+
+									$found = true;
+									$this->wpconfig_rules[$key] = $rule;
+
+								}
+
+								if ( $found === true ) { //don't keep looping if we don't have to
+									break;
+								}
+
+							}
+
+						}
+
+						if ( $found === false ) {
+
+							$this->wpconfig_rules[] = $rule;
+
+						} else {
+
+							break;
+
+						}
+
+					}
+
+				}
+
+			}
 
 		}
 
@@ -633,84 +711,6 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			}
 
 			return true;
-
-		}
-
-		/**
-		 * Attempt to get a lock for atomic operations
-		 *
-		 * @param string $type type of file lock, htaccess or wpconfig
-		 *
-		 * @return bool true if lock was achieved, else false
-		 */
-		private function get__file_lock( $type ) {
-
-			if ( $type === 'htaccess' ) {
-				$lock_file = $this->rewrite_lock_file;
-			} elseif ( $type === 'wpconfig' ) {
-				$lock_file = $this->wpconfig_lock_file;
-			} else {
-				return false;
-			}
-
-			if ( file_exists( $lock_file ) ) {
-
-				$pid = @file_get_contents( $lock_file );
-
-				if ( @posix_getsid( $pid ) !== false ) {
-
-					return false; //file is locked for writing
-
-				}
-
-			}
-
-			@file_put_contents( $lock_file, getmypid() );
-
-			return true; //file lock was achieved
-
-		}
-
-		/**
-		 * Release the lock
-		 *
-		 * @param string $type type of file lock, htaccess or wpconfig
-		 *
-		 * @return bool true if released, false otherwise
-		 */
-		private function release_file_lock( $type ) {
-
-			if ( $type === 'htaccess' ) {
-				$lock_file = $this->rewrite_lock_file;
-			} elseif ( $type === 'wpconfig' ) {
-				$lock_file = $this->wpconfig_lock_file;
-			} else {
-				return false;
-			}
-
-			if ( ! file_exists( $lock_file ) || @unlink( $lock_file ) ) {
-				return true;
-			}
-
-			return false;
-
-		}
-
-		/**
-		 * Sorts given arrays py priority key
-		 * 
-		 * @param  string $a value a
-		 * @param  string $b value b
-		 * 
-		 * @return int    -1 if a less than b, 0 if they're equal or 1 if a is greater
-		 */
-		private function priority_sort( $a, $b ) {
-
-			if( $a['priority'] == $b['priority'] ) {
-				return 0;
-			}
-
-			return $a['priority'] > $b['priority'] ? 1 : -1;
 
 		}
 
