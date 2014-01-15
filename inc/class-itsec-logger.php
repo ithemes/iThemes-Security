@@ -2,7 +2,7 @@
 
 if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
-	class ITSEC_Logger {
+	final class ITSEC_Logger {
 
 		private static $instance = NULL; //instantiated instance of this plugin
 
