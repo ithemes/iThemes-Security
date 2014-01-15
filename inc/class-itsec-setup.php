@@ -192,6 +192,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 				INDEX `log_type` USING HASH (`log_type`),
 				INDEX `log_priority` USING BTREE (`log_priority`),
 				INDEX `log_date` USING BTREE (`log_date`),
+				INDEX `log_date_gmt` USING BTREE (`log_date_gmt`),
 				INDEX `log_host` USING HASH (`log_host`),
 				INDEX `log_username` USING HASH (`log_username`),
 				INDEX `log_user` USING HASH (`log_user`),
@@ -211,9 +212,27 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 				PRIMARY KEY (`lockout_id`),
 				INDEX `lockout_type` USING HASH (`lockout_type`) comment '',
 				INDEX `lockout_start` USING BTREE (`lockout_start`) comment '',
+				INDEX `lockout_start_gmt` USING BTREE (`lockout_start_gmt`) comment '',
 				INDEX `lockout_expire` USING BTREE (`lockout_expire`) comment '',
+				INDEX `lockout_expire_gmt` USING BTREE (`lockout_expire_gmt`) comment '',
 				INDEX `lockout_host` USING HASH (`lockout_host`) comment '',
 				INDEX `lockout_user` USING HASH (`lockout_user`) comment ''
+				) " . $charset_collate . ";";
+
+			//set up temp table	
+			$tables .= "CREATE TABLE " . $wpdb->base_prefix . "itsec_temp (
+				`temp_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+				`temp_type` varchar(20) NOT NULL,
+				`temp_date` datetime NOT NULL,
+				`temp_date_gmt` datetime NOT NULL,
+				`temp_host` varchar(20),
+				`temp_user` bigint(20) UNSIGNED,
+				PRIMARY KEY (`temp_id`),
+				INDEX `temp_type` USING HASH (`temp_type`) comment '',
+				INDEX `temp_date` USING BTREE (`temp_date`) comment '',
+				INDEX `temp_date_gmt` USING BTREE (`temp_date_gmt`) comment '',
+				INDEX `temp_host` USING HASH (`temp_host`) comment '',
+				INDEX `temp_user` USING HASH (`temp_user`) comment ''
 				) " . $charset_collate . ";";
 			
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -288,6 +307,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 
 			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "itsec_log`;" );
 			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "itsec_lockouts`;" );
+			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "itsec_temp`;" );
 
 			if ( function_exists( 'apc_store' ) ) {
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
