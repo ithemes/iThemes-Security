@@ -153,75 +153,144 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			//Tell which host was locked out
 			if ( $host !== false ) {
 
+				$host_text = sprintf( '%s, <a href="http://ip-adress.com/ip_tracer/%s"><strong>%s</strong></a>, ', __( 'host', 'ithemes-security' ), sanitize_text_field( $host ), sanitize_text_field( $host ) );
+
 				$host_expiration_text = __( 'The host has been locked out ', 'ithemes-security' );
 
 				if ( $host_expiration === false ) {
-					$host_expiration_text .= __( 'permanently', 'ithemes-security' );
-				} else {
-					$host_expiration_text .= sprintf( '%s %s', __( 'until', 'ithemes-security' ), sanitize_text_field( $host_expiration ) );
-				}
 
-				$host_text = sprintf( '%s, <a href="http://ip-adress.com/ip_tracer/%s">%s</a>, ', __( 'host', 'ithemes-security' ), sanitize_text_field( $host ), sanitize_text_field( $host ) );
+					$host_expiration_text .= '<strong>' . __( 'permanently', 'ithemes-security' ) . '</strong>';
+					$release_text = sprintf( 
+						'%s <a href="%s">%s</a>.',
+						__( 'To release the host lockout you can remove the host from the', 'ithemes-security' ),
+						get_Admin_url( '', 'admin.php?page=toplevel_page_itsec-ban_users' ),
+						__( 'host list', 'ithemes-security' )
+					);
+
+				} else {
+					
+					$host_expiration_text .= sprintf( '<strong>%s %s</strong>', __( 'until', 'ithemes-security' ), sanitize_text_field( $host_expiration ) );
+					$release_text = sprintf( 
+						'%s <a href="%s">%s</a>.',
+						__( 'To release the lockout please visit', 'ithemes-security' ),
+						get_Admin_url( '', 'admin.php?page=toplevel_page_itsec-ban_users' ),
+						__( 'the admin area', 'ithemes-security' )
+					);
+
+				}
 
 			} else {
 
 				$host_expiration_text = '';
 				$host_text = '';
+				$release_text = '';
 
 			}
 
-			
-
 			$user_object = get_userdata( $user ); //try to get and actual user object
 
-			//Tell them which user was locked out
+			//Tell them which user was locked out and setup the expiration copy
 			if ( $user_object !== false ) {
 
 				if ( $host_text === '' ) {
 
-					$user_expiration_text = sprintf( '%s %s.', __( 'The user has been locked out until', 'ithemes-security' ), sanitize_text_field( $user_expiration ) );
+					$user_expiration_text = sprintf( '%s <strong>%s %s</strong>.', __( 'The user has been locked out', 'ithemes-security' ), __( 'until', 'ithemes-security' ), sanitize_text_field( $user_expiration ) );
 
-					$user_text = sprintf( '%s, %s, ', __( 'user', 'ithemes-security' ), $user_object->user_login );
+					$user_text = sprintf( '%s, <strong>%s</strong>, ', __( 'user', 'ithemes-security' ), $user_object->user_login );
+
+					$release_text = sprintf( 
+						'%s <a href="%s">%s</a>.',
+						__( 'To release the lockout please visit', 'ithemes-security' ),
+						get_Admin_url( '', 'admin.php?page=toplevel_page_itsec-ban_users' ),
+						__( 'the lockouts page', 'ithemes-security' )
+					);
 
 				} else {
 
-					$user_expiration_text = sprintf( '%s %s.', __( 'and the user has been locked out until', 'ithemes-security' ), sanitize_text_field( $user_expiration ) );
+					$user_expiration_text = sprintf( '%s <strong>%s %s</strong>.', __( 'and the user has been locked out', 'ithemes-security' ), __( 'until', 'ithemes-security' ), sanitize_text_field( $user_expiration ) );
 					$plural_text = __( 'have', 'ithemes-security' );
-					$user_text = sprintf( '%s, %s, ', __( 'and a user', 'ithemes-security' ), $user_object->user_login );
+					$user_text = sprintf( '%s, <strong>%s</strong>, ', __( 'and a user', 'ithemes-security' ), $user_object->user_login );
+
+					if ( $host_expiration === false ) {
+
+						$release_text .= sprintf( 
+							'%s <a href="%s">%s</a>.',
+							__( 'To release the user lockout please visit', 'ithemes-security' ),
+							get_Admin_url( '', 'admin.php?page=toplevel_page_itsec-ban_users' ),
+							__( 'the lockouts page', 'ithemes-security' )
+						);
+
+					} else {
+
+						$release_text = sprintf( 
+							'%s <a href="%s">%s</a>.',
+							__( 'To release the lockouts please visit', 'ithemes-security' ),
+							get_Admin_url( '', 'admin.php?page=toplevel_page_itsec-ban_users' ),
+							__( 'the lockouts page', 'ithemes-security' )
+						);
+
+					}
+
 				}
 
 			} else {
+
 				$user_expiration_text = '.';
 				$user_text = '';
+				$release_text = '';
+
 			}
 
+			//Put the copy all together
 			$body = sprintf( 
-				'%s %s %s %s %s %s %s %s. %s %s', 
+				'<p>%s,</p><p>%s %s %s %s %s <a href="%s">%s</a> %s <strong>%s</strong>.</p><p>%s %s</p><p>%s</p><p><em>*%s <a href="%s">%s</a>.</em></p>', 
+				__( 'Dear Site Admin', 'ithemes-security' ),
 				__( 'A', 'ithemes-security' ), 
 				$host_text, 
 				$user_text,
 				$plural_text,
 				__( ' been locked out of the WordPress site at', 'ithemes-security' ),
 				get_option( 'siteurl' ),
+				get_option( 'siteurl' ),
 				__( 'due to', 'ithemes-security' ),
 				sanitize_text_field( $reason ),
 				$host_expiration_text,
 				$user_expiration_text,
-				__( '', 'ithemes-security' )
+				$release_text,
+				__( 'This email was generated automatically by iThemes Security. To change your email preferences please visit', 'ithemes-security' ),
+				get_Admin_url( '', 'admin.php?page=toplevel_page_itsec-global' ),
+				__( 'the plugin settings', 'ithemes-security' )
 			);
 
-			die( $body );
-
+			//Setup the remainder of the email
 			$recipients = $this->settings['notification_email'];
 			$subject = '[' . get_option( 'siteurl' ) . '] ' . __( 'Site Lockout Notification', 'ithemes-security' );
-			$headers = 'From: ' . get_bloginfo( 'name' )  . ' <' . $toEmail . '>' . "\r\n\\";
+			$headers = 'From: ' . get_bloginfo( 'name' )  . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
 
+			//Use HTML Content type
+			add_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
+
+			//Send emails to all recipients
 			foreach ( $recipients as $recipient ) {
 
-
+				if ( is_email( trim( $recipient ) ) ) {
+					wp_mail( trim( $recipient ), $subject, $body, $headers );
+				}
 
 			}
 
+			//Remove HTML Content type
+			remove_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
+
+		}
+
+		/**
+		 * Set HTML content type for email
+		 *
+		 * @return string html content type
+		 */
+		function set_html_content_type() {
+			return 'text/html';
 		}
 
 		/**
