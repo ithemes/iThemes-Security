@@ -143,7 +143,7 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 			}
 
-			return $the_ip;
+			return esc_sql( $the_ip );
 
 		}
 
