@@ -45,7 +45,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		 * 
 		 * @return void
 		 */
-		public function lockout( $type, $reason, $host = null, $user = null ) {
+		private function lockout( $type, $reason, $host = null, $user = null ) {
 
 			global $wpdb, $itsec_lib;
 
