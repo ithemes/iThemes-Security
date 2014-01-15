@@ -142,7 +142,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			global $wpdb;
 			
-			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` < '" . date( 'Y-m-d H:i:s', $this->current_time - ( ( $this->settings['blacklist_period'] + 1 ) * 24 * 60 * 60 ) . "';" );
+			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire` < '" . date( 'Y-m-d H:i:s', $this->current_time - ( ( $this->settings['blacklist_period'] + 1 ) * 24 * 60 * 60 ) ). "';" );
 			
 		}
 
