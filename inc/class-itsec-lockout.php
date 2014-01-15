@@ -140,10 +140,6 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			
 		}
 
-		private function blacklist_host() {
-
-		}
-
 		private function send_lockout_email( $host, $user, $reason ) {
 
 		}
