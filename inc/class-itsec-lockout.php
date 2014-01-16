@@ -63,17 +63,25 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		}
 
-		public function do_lockout( $module, $host = null, $user = null ) {
+		/**
+		 * Executes lockout and logging for modules
+		 *
+		 * @param string     $module string name of the calling module
+		 * @param string $user username of user
+		 *
+		 * @return void
+		 */
+		public function do_lockout( $module, $user = null ) {
 
-			global $wpdb;
+			global $wpdb, $itsec_lib;
 
 			$lock_host = null;
 			$lock_user = null;
 			$options   = $this->lockout_modules[$module];
 
-			//die( var_dump( $options ) );
+			if ( isset( $options['host'] ) ) {
 
-			if ( $host !== null && isset( $options['host'] ) ) {
+				$host = $itsec_lib->get_ip();
 
 				$wpdb->insert(
 					$wpdb->base_prefix . 'itsec_temp',
@@ -97,21 +105,27 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			if ( $user !== null && isset( $options['user'] ) ) {
 
-				$wpdb->insert(
-					$wpdb->base_prefix . 'itsec_temp',
-					array(
-						'temp_type'     => $options['type'],
-						'temp_date'     => date( 'Y-m-d H:i:s', $this->current_time ),
-						'temp_date_gmt' => date( 'Y-m-d H:i:s', $this->current_time_gmt ),
-						'temp_user'     => intval( $user ),
-					)
-				);
+				$user_id = username_exists( sanitize_text_field( $user ) );
 
-				$user_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - ( $options['period'] * 60 ) ) . "' AND `temp_user`='" . esc_sql( $user ) . "';" );
+					if ( $user_id !== null ) {
 
-				if ( $user_count >= $options['user'] ) {
+					$wpdb->insert(
+						$wpdb->base_prefix . 'itsec_temp',
+						array(
+							'temp_type'     => $options['type'],
+							'temp_date'     => date( 'Y-m-d H:i:s', $this->current_time ),
+							'temp_date_gmt' => date( 'Y-m-d H:i:s', $this->current_time_gmt ),
+							'temp_user'     => intval( $user_id ),
+						)
+					);
 
-					$lock_user = $user;
+					$user_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - ( $options['period'] * 60 ) ) . "' AND `temp_user`='" . esc_sql( $user_id ) . "';" );
+
+					if ( $user_count >= $options['user'] ) {
+
+						$lock_user = $user;
+
+					}
 
 				}
 
