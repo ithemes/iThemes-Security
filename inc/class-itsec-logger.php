@@ -6,7 +6,12 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 		private static $instance = null; //instantiated instance of this plugin
 
+		private
+			$logger_modules;
+
 		function __construct() {
+
+			add_action( 'plugins_loaded', array( $this, 'register_modules' ) );
 
 		}
 
@@ -15,6 +20,17 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 		}
 
 		public function purge_logs() {
+
+		}
+
+		/**
+		 * Register modules that will use the logger service
+		 *
+		 * @return void
+		 */
+		public function register_modules() {
+
+			$this->logger_modules = apply_filters( 'itsec_logger_modules', $this->logger_modules );
 
 		}
 
