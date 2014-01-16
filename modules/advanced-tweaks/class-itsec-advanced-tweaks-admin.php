@@ -382,6 +382,10 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 
 			add_settings_section( 'advanced_tweaks_wordpress', __( 'Configure WordPress Tweaks', 'ithemes-security' ), array( $this, 'wordpress_tweaks_intro' ), 'security_page_toplevel_page_itsec-advanced_tweaks' );
 
+			if ( is_multisite() ) {
+				add_settings_section( 'advanced_tweaks_wordpress_multisite', __( 'Configure Multisite Tweaks', 'ithemes-security' ), array( $this, 'wordpress_multisite_tweaks_intro' ), 'security_page_toplevel_page_itsec-advanced_tweaks' );
+			}
+
 			//Add settings fields
 			add_settings_field( 'itsec_advanced_tweaks[enabled]', __( 'Advanced Security Tweaks', 'ithemes-security' ), array( $this, 'advanced_tweaks_enabled' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_enabled' );
 
@@ -407,12 +411,6 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 
 			add_settings_field( 'itsec_advanced_tweaks[edituri_header]', __( 'EditURI Header', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_edituri_header' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
 
-			add_settings_field( 'itsec_advanced_tweaks[theme_updates]', __( 'Theme Update Notifications', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_theme_updates' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
-
-			add_settings_field( 'itsec_advanced_tweaks[plugin_updates]', __( 'Plugin Update Notifications', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_plugin_updates' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
-
-			add_settings_field( 'itsec_advanced_tweaks[core_updates]', __( 'Core Update Notifications', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_core_updates' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
-
 			add_settings_field( 'itsec_advanced_tweaks[comment_spam]', __( 'Comment Spam', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_comment_spam' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
 
 			add_settings_field( 'itsec_advanced_tweaks[random_version]', __( 'Display Random Version', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_random_version' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
@@ -426,6 +424,13 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 				add_settings_field( 'itsec_advanced_tweaks[safe_jquery]', __( 'Replace jQuery With a Safe Version', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_safe_jquery' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
 
 			}
+
+			add_settings_field( 'itsec_advanced_tweaks[theme_updates]', __( 'Theme Update Notifications', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_theme_updates' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress_multisite' );
+
+			add_settings_field( 'itsec_advanced_tweaks[plugin_updates]', __( 'Plugin Update Notifications', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_plugin_updates' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress_multisite' );
+
+			add_settings_field( 'itsec_advanced_tweaks[core_updates]', __( 'Core Update Notifications', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_core_updates' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress_multisite' );
+
 
 			//Register the settings field for the entire module
 			register_setting( 'security_page_toplevel_page_itsec-advanced_tweaks', 'itsec_advanced_tweaks', array( $this, 'sanitize_module_input' ) );
@@ -446,6 +451,11 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 		public function wordpress_tweaks_intro() {
 
 			echo '<h2 class="settings-section-header">' . __( 'WordPress Tweaks', 'ithemes-security' ) . '</h2>';
+		}
+		
+		public function wordpress_multisite_tweaks_intro() {
+
+			echo '<h2 class="settings-section-header">' . __( 'Multisite Tweaks', 'ithemes-security' ) . '</h2>';
 		}
 
 		/**

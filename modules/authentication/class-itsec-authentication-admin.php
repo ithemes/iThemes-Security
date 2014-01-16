@@ -225,7 +225,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			add_settings_section( 'authentication_other', __( 'Other Authentication Tweaks', 'ithemes-security' ), array( $this, 'other_header' ), 'security_page_toplevel_page_itsec-authentication' );
 
 			//Brute Force Protection Fields
-			add_settings_field( 'itsec_authentication[brute_force-enabled]', __( 'Enable Brute Force Protection', 'ithemes-security' ), array( $this, 'brute_force_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_brute_force-enabled' );
+			add_settings_field( 'itsec_authentication[brute_force-enabled]', __( 'Brute Force Protection', 'ithemes-security' ), array( $this, 'brute_force_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_brute_force-enabled' );
 
 			add_settings_field( 'itsec_authentication[brute_force-max_attempts_host]', __( 'Max Login Attempts Per Host', 'ithemes-security' ), array( $this, 'brute_force_max_attempts_host' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_brute_force-settings' );
 
@@ -237,30 +237,30 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			if ( username_exists( 'admin' ) ) {
 
-				add_settings_field( 'itsec_authentication[admin_user-username]', __( 'Change Admin Username', 'ithemes-security' ), array( $this, 'admin_user_username' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_admin_user' );
+				add_settings_field( 'itsec_authentication[admin_user-username]', __( 'Admin Username', 'ithemes-security' ), array( $this, 'admin_user_username' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_admin_user' );
 
 			}
 
 			if ( $itsec_lib->user_id_exists( 1 ) ) {
 
-				add_settings_field( 'itsec_authentication[admin_user-userid]', __( 'Change User ID 1', 'ithemes-security' ), array( $this, 'admin_user_userid' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_admin_user' );
+				add_settings_field( 'itsec_authentication[admin_user-userid]', __( 'User ID 1', 'ithemes-security' ), array( $this, 'admin_user_userid' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_admin_user' );
 
 			}
 
 			//Strong Passwords Fields
-			add_settings_field( 'itsec_authentication[strong_passwords-enabled]', __( 'Enable Strong Passwords', 'ithemes-security' ), array( $this, 'strong_passwords_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_strong_passwords-enabled' );
+			add_settings_field( 'itsec_authentication[strong_passwords-enabled]', __( 'Strong Passwords', 'ithemes-security' ), array( $this, 'strong_passwords_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_strong_passwords-enabled' );
 
-			add_settings_field( 'itsec_authentication[strong_passwords-roll]', __( 'Select Roll for Strong Passwords', 'ithemes-security' ), array( $this, 'strong_passwords_role' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_strong_passwords-settings' );
+			add_settings_field( 'itsec_authentication[strong_passwords-roll]', __( 'Select Role for Strong Passwords', 'ithemes-security' ), array( $this, 'strong_passwords_role' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_strong_passwords-settings' );
 
 			//Hide Backend Fields
-			add_settings_field( 'itsec_authentication[hide_backend-enabled]', __( 'Enable Hide Backend', 'ithemes-security' ), array( $this, 'hide_backend_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_hide_backend-enabled' );
+			add_settings_field( 'itsec_authentication[hide_backend-enabled]', __( 'Hide Backend', 'ithemes-security' ), array( $this, 'hide_backend_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_hide_backend-enabled' );
 
 			add_settings_field( 'itsec_authentication[hide_backend-slug]', __( 'Login Slug', 'ithemes-security' ), array( $this, 'hide_backend_slug' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_hide_backend-settings' );
 
 			add_settings_field( 'itsec_authentication[hide_backend-register]', __( 'Register Slug', 'ithemes-security' ), array( $this, 'hide_backend_register' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_hide_backend-settings' );
 
 			//Away Mode Fields
-			add_settings_field( 'itsec_authentication[away_mode-enabled]', __( 'Enable Away Mode', 'ithemes-security' ), array( $this, 'away_mode_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_away_mode-enabled' );
+			add_settings_field( 'itsec_authentication[away_mode-enabled]', __( 'Away Mode', 'ithemes-security' ), array( $this, 'away_mode_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_away_mode-enabled' );
 
 			add_settings_field( 'itsec_authentication[away_mode-type]', __( 'Type of Restriction', 'ithemes-security' ), array( $this, 'away_mode_type' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_away_mode-settings' );
 
@@ -272,7 +272,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			add_settings_field( 'itsec_authentication[away_mode-end_time]', __( 'End Time', 'ithemes-security' ), array( $this, 'away_mode_end_time' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_away_mode-settings' );
 
-			add_settings_field( 'itsec_authentication[other-login_errors]', __( 'Disable Login Error Messages', 'ithemes-security' ), array( $this, 'other_login_errors' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_other' );
+			add_settings_field( 'itsec_authentication[other-login_errors]', __( 'Login Error Messages', 'ithemes-security' ), array( $this, 'other_login_errors' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_other' );
 
 			//Other Settings
 
@@ -350,7 +350,9 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				$currdate = date( 'g:i a \o\n l F jS, Y', current_time( 'timestamp' ) );
 			}
 
-			$content .= '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is %s. If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'ithemes-security' ), '<a href="options-general.php">', '</a>', '<strong style="color: #f00; font-size: 150%;"><em>' . $currdate . '</em></strong>', '<a href="options-general.php">', '</a>' ) . '</p>';
+			$content .= '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is:', 'ithemes-security'), '<a href="options-general.php">', '</a>' );
+			$content .= '<div class="current-time-date">' . $currdate . '</div>';
+			$content .= '<p>' .sprintf( __( 'If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'ithemes-security' ), '<a href="options-general.php">', '</a>' ) . '</p>';
 
 			echo $content;
 
@@ -407,7 +409,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			}
 
 			$content = '<input type="checkbox" id="itsec_authentication_brute_force_enabled" name="itsec_authentication[brute_force-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_authentication_brute_force_enabled"> ' . __( 'Check this box to enable brute force protection.', 'ithemes-security' ) . '</label>';
+			$content .= '<label for="itsec_authentication_brute_force_enabled"> ' . __( 'Enable brute force protection.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -428,8 +430,9 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				$max_attempts_host = 5;
 			}
 
-			$content = '<input name="itsec_authentication[brute_force-max_attempts_host]" id="itsec_authentication_brute_force_max_attempts_host" value="' . $max_attempts_host . '" type="text"> ' . __( 'attempts', 'ithemes-security' ) . '<br />';
-			$content .= '<label for="itsec_authentication_brute_force_max_attempts_host"> ' . __( 'The number of login attempts a user has before their host or computer is locked out of the system.', 'ithemes-security' ) . '</label>';
+			$content = '<input class="small-text" name="itsec_authentication[brute_force-max_attempts_host]" id="itsec_authentication_brute_force_max_attempts_host" value="' . $max_attempts_host . '" type="text"> ';
+			$content .= '<label for="itsec_authentication_brute_force_max_attempts_host"> ' . __( 'Attempts', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their host or computer is locked out of the system.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -450,8 +453,9 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				$max_attempts_user = 10;
 			}
 
-			$content = '<input name="itsec_authentication[brute_force-max_attempts_user]" id="itsec_authentication_brute_force_max_attempts_user" value="' . $max_attempts_user . '" type="text"> ' . __( 'attempts', 'ithemes-security' ) . '<br />';
-			$content .= '<label for="itsec_authentication_brute_force_max_attempts_user"> ' . __( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself.', 'ithemes-security' ) . '</label>';
+			$content = '<input class="small-text" name="itsec_authentication[brute_force-max_attempts_user]" id="itsec_authentication_brute_force_max_attempts_user" value="' . $max_attempts_user . '" type="text"> ';
+			$content .= '<label for="itsec_authentication_brute_force_max_attempts_user"> ' . __( 'Attempts', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -472,8 +476,9 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				$check_period = 5;
 			}
 
-			$content = '<input name="itsec_authentication[brute_force-check_period]" id="itsec_authentication_brute_force_check_period" value="' . $check_period . '" type="text"> ' . __( 'minutes', 'ithemes-security' ) . '<br />';
-			$content .= '<label for="itsec_authentication_brute_force_check_period"> ' . __( 'The number of minutes in which bad logins should be remembered.', 'ithemes-security' ) . '</label>';
+			$content = '<input class="small-text" name="itsec_authentication[brute_force-check_period]" id="itsec_authentication_brute_force_check_period" value="' . $check_period . '" type="text"> ';
+			$content .= '<label for="itsec_authentication_brute_force_check_period"> ' . __( 'Minutes', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The number of minutes in which bad logins should be remembered.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -487,9 +492,10 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 * @return void
 		 */
 		public function admin_user_username( $args ) {
-
-			$content = '<input name="itsec_authentication[admin_user-username]" id="itsec_authentication_admin_user_username" value="" type="text"><br />';
-			$content .= '<label for="itsec_authentication_admin_user_username"> ' . __( 'Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', 'ithemes-security' ) . '</label>';
+		
+			$content  = '<input name="itsec_authentication[admin_user-username]" id="itsec_authentication_admin_user_username" value="" type="text"><br>';
+			$content .= '<label for="itsec_authentication_admin_user_username"> ' . __( 'New Admin Username', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -505,7 +511,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		public function admin_user_userid( $args ) {
 
 			$content = '<input type="checkbox" id="itsec_authentication_admin_user_userid" name="itsec_authentication[admin_user-userid]" value="1" />';
-			$content .= '<label for="itsec_authentication_admin_user_userid"> ' . __( 'Check this box to change the id of the user with id 1.', 'ithemes-security' ) . '</label>';
+			$content .= '<label for="itsec_authentication_admin_user_userid"> ' . __( 'Change the ID of the user with ID 1.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -527,7 +533,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			}
 
 			$content = '<input type="checkbox" id="itsec_authentication_strong_passwords_enabled" name="itsec_authentication[strong_passwords-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_authentication_strong_passwords_enabled"> ' . __( 'Check this box to enable strong password enforcement.', 'ithemes-security' ) . '</label>';
+			$content .= '<label for="itsec_authentication_strong_passwords_enabled"> ' . __( 'Enable strong password enforcement.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -548,15 +554,17 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				$roll = 'administrator';
 			}
 
-			$content = '<select name="itsec_authentication[strong_passwords-roll]" id="itsec_authentication_strong_passwords_roll">';
+			$content  = '<select name="itsec_authentication[strong_passwords-roll]" id="itsec_authentication_strong_passwords_roll">';
 			$content .= '<option value="administrator" ' . selected( $roll, 'administrator', false ) . '>' . translate_user_role( 'Administrator' ) . '</option>';
 			$content .= '<option value="editor" ' . selected( $roll, 'editor', false ) . '>' . translate_user_role( 'Editor' ) . '</option>';
 			$content .= '<option value="author" ' . selected( $roll, 'author', false ) . '>' . translate_user_role( 'Author' ) . '</option>';
 			$content .= '<option value="contributor" ' . selected( $roll, 'contributor', false ) . '>' . translate_user_role( 'Contributor' ) . '</option>';
 			$content .= '<option value="subscriber" ' . selected( $roll, 'subscriber', false ) . '>' . translate_user_role( 'Subscriber' ) . '</option>';
-			$content .= '</select>';
-			$content .= '<label for="itsec_authentication_strong_passwords_roll"> ' . __( 'Minimum role at which a user must choose a strong password. For more information on WordPress roles and capabilities please see', 'ithemes-security' ) . ' <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p></label>';
-			$content .= '<p class="warningtext">' . __( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', 'ithemes-security' ) . '</p>';
+			$content .= '</select><br>';
+			$content .= '<label for="itsec_authentication_strong_passwords_roll"> ' . __( 'Minimum role at which a user must choose a strong password.') . '</label>';
+
+			$content .= '<p class="description"> ' . __('For more information on WordPress roles and capabilities please see', 'ithemes-security' ) . ' <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>';
+			$content .= '<p class="warningtext description">' . __( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -586,7 +594,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				}
 
 				$content = '<input type="checkbox" id="itsec_authentication_hide_backend_enabled" name="itsec_authentication[hide_backend-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-				$content .= '<label for="itsec_authentication_hide_backend_enabled"> ' . __( 'Check this box to enable the hide backend feature.', 'ithemes-security' ) . '</label>';
+				$content .= '<label for="itsec_authentication_hide_backend_enabled"> ' . __( 'Enable the hide backend feature.', 'ithemes-security' ) . '</label>';
 
 			}
 
@@ -610,8 +618,8 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			} else {
 
 				$content = '<input name="itsec_authentication[hide_backend-slug]" id="itsec_authentication_strong_passwords_slug" value="' . sanitize_title( $this->settings['hide_backend-slug'] ) . '" type="text"><br />';
-				$content .= '<em><span style="color: #666666;"><strong>' . __( 'Login URL:', 'ithemes-security' ) . '</strong> ' . trailingslashit( get_option( 'siteurl' ) ) . '</span><span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-slug'] ) . '</span></em>';
-				$content .= '<p>' . __( 'The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'ithemes-security' ) . '</p>';
+				$content .= '<label for="itsec_authentication_strong_passwords_slug">' . __( 'Login URL:', 'ithemes-security' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-slug'] ) . '</span></label>';
+				$content .= '<p class="description">' . __( 'The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'ithemes-security' ) . '</p>';
 
 			}
 
@@ -635,7 +643,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			} else {
 
 				$content = '<input name="itsec_authentication[hide_backend-register]" id="itsec_authentication_strong_passwords_register" value="' . ( $this->settings['hide_backend-register'] !== 'wp-register.php' ? sanitize_title( $this->settings['hide_backend-register'] ) : 'wp-register.php' ) . '" type="text"><br />';
-				$content .= '<em><span style="color: #666666;"><strong>' . __( 'Registration URL:', 'ithemes-security' ) . '</strong> ' . trailingslashit( get_option( 'siteurl' ) ) . '</span><span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-register'] ) . '</span></em>';
+				$content .= '<label for="itsec_authentication_strong_passwords_register">' . __( 'Registration URL:', 'ithemes-security' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-register'] ) . '</span></label>';
 
 			}
 
@@ -660,7 +668,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			}
 
 			$content = '<input type="checkbox" id="itsec_authentication_away_mode_enabled" name="itsec_authentication[away_mode-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_authentication_away_mode_enabled"> ' . __( 'Check this box to enable away mode', 'ithemes-security' ) . '</label>';
+			$content .= '<label for="itsec_authentication_away_mode_enabled"> ' . __( 'Enable away mode', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -685,7 +693,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			}
 
 			//Date Field
-			$content = '<input class="end_date_field" type="text" id="itsec_authentication_away_mode_end_date" name="itsec_authentication[end][date]" value="' . date( 'm/d/y', $end ) . '"/>';
+			$content = '<input class="end_date_field" type="text" id="itsec_authentication_away_mode_end_date" name="itsec_authentication[end][date]" value="' . date( 'm/d/y', $end ) . '"/><br>';
 			$content .= '<label class="end_date_field" for="itsec_authentication_away_mode_end_date"> ' . __( 'Set the date at which the admin dashboard should become available', 'ithemes-security' ) . '</label>';
 
 			echo $content;
@@ -733,7 +741,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$content .= '<select name="itsec_authentication[end][sel]" id="itsec_authentication">';
 			$content .= '<option value="am" ' . selected( date( 'a', $end ), 'am', false ) . '>' . __( 'am', 'ithemes-security' ) . '</option>';
 			$content .= '<option value="pm" ' . selected( date( 'a', $end ), 'pm', false ) . '>' . __( 'pm', 'ithemes-security' ) . '</option>';
-			$content .= '</select>';
+			$content .= '</select><br>';
 			$content .= '<label for="itsec_authentication_away_mod_end_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
@@ -759,7 +767,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			}
 
 			//Date Field
-			$content = '<input class="start_date_field" type="text" id="itsec_authentication_away_mode_start_date" name="itsec_authentication[start][date]" value="' . date( 'm/d/y', $start ) . '"/>';
+			$content = '<input class="start_date_field" type="text" id="itsec_authentication_away_mode_start_date" name="itsec_authentication[start][date]" value="' . date( 'm/d/y', $start ) . '"/><br>';
 			$content .= '<label class="start_date_field" for="itsec_authentication_away_mode_start_date"> ' . __( 'Set the date at which the admin dashboard should become unavailable', 'ithemes-security' ) . '</label>';
 
 			echo $content;
@@ -807,7 +815,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$content .= '<select name="itsec_authentication[start][sel]" id="itsec_authentication_away_mod_start_time">';
 			$content .= '<option value="am" ' . selected( date( 'a', $start ), 'am', false ) . '>' . __( 'am', 'ithemes-security' ) . '</option>';
 			$content .= '<option value="pm" ' . selected( date( 'a', $start ), 'pm', false ) . '>' . __( 'pm', 'ithemes-security' ) . '</option>';
-			$content .= '</select>';
+			$content .= '</select><br>';
 			$content .= '<label for="itsec_authentication_away_mod_start_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
@@ -826,8 +834,8 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$content = '<select name="itsec_authentication[away_mode-type]" id="itsec_authentication_away_mode_type">';
 			$content .= '<option value="1" ' . selected( $this->settings['away_mode-type'], 1, false ) . '>' . __( 'Daily', 'ithemes-security' ) . '</option>';
 			$content .= '<option value="2" ' . selected( $this->settings['away_mode-type'], 2, false ) . '>' . __( 'One Time', 'ithemes-security' ) . '</option>';
-			$content .= '</select>';
-			$content .= '<label for="itsec_authentication_away_mode_type"> ' . __( 'Check this box to enable away mode', 'ithemes-security' ) . '</label>';
+			$content .= '</select><br>';
+			$content .= '<label for="itsec_authentication_away_mode_type"> ' . __( 'Select the type of restriction you would like to enable', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -849,7 +857,8 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			}
 
 			$content = '<input type="checkbox" id="itsec_authentication_other_login_errors" name="itsec_authentication[other-login_errors]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_authentication_other_login_errors"> ' . __( 'Prevents error messages from being displayed to a user upon a failed login attempt.', 'ithemes-security' ) . '</label>';
+			$content .= '<label for="itsec_authentication_other_login_errors"> ' . __( 'Disable login error messages', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'Prevents error messages from being displayed to a user upon a failed login attempt.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 

@@ -119,7 +119,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$emails = '';
 			}
 
-			$content = '<textarea name="itsec_global[notification_email]" id="itsec_global_notification_email" rows="5" >' . $emails . '</textarea><br />';
+			$content = '<input type="text" class="regular-text" id="itsec_global_notification_email" name="itsec_global[notification_email]" value="' . $emails . '" /><br>';
 			$content .= '<label for="itsec_global_notification_email"> ' . __( 'The email address all security notifications will be sent to.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
@@ -138,10 +138,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			if ( isset( $this->settings['lockout_message'] ) ) {
 				$lockout_message = sanitize_text_field( $this->settings['lockout_message'] );
 			} else {
-				$lockout_message = __( 'error', 'ithemes-security' );
+				$lockout_message = __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
 			}
 
-			$content = '<textarea name="itsec_global[lockout_message]" id="itsec_global_lockout_message" rows="5" >' . $lockout_message . '</textarea><br />';
+			$content = '<textarea class="widefat" name="itsec_global[lockout_message]" id="itsec_global_lockout_message" rows="5" >' . $lockout_message . '</textarea><br />';
 			$content .= '<label for="itsec_global_lockout_message"> ' . __( 'The message to display to a user when they have been locked out.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
@@ -164,7 +164,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			}
 
 			$content = '<input type="checkbox" id="itsec_authentication_blacklist" name="itsec_authentication[blacklist]" value="1" ' . checked( 1, $blacklist, false ) . '/>';
-			$content .= '<label for="itsec_authentication_blacklist"> ' . __( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', 'ithemes-security' ) . '</label>';
+			$content .= '<label for="itsec_authentication_blacklist"> ' . __( 'Enable Blacklist Repeat Offender', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -185,8 +186,9 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$blacklist_count = 3;
 			}
 
-			$content = '<input name="itsec_authentication[blacklist_count]" id="itsec_authentication_blacklist_count" value="' . $blacklist_count . '" type="text"> ' . __( 'lockouts', 'ithemes-security' ) . '<br />';
-			$content .= '<label for="itsec_authentication_blacklist_count"> ' . __( 'The number of lockouts per IP before the host is banned permanently from this site.', 'ithemes-security' ) . '</label>';
+			$content = '<input class="small-text" name="itsec_authentication[blacklist_count]" id="itsec_authentication_blacklist_count" value="' . $blacklist_count . '" type="text">';
+			$content .= '<label for="itsec_authentication_blacklist_count"> ' . __( 'Lockouts', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The number of lockouts per IP before the host is banned permanently from this site.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -207,8 +209,9 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$blacklist_period = 7;
 			}
 
-			$content = '<input name="itsec_authentication[blacklist_period]" id="itsec_authentication_blacklist_period" value="' . $blacklist_period . '" type="text"> ' . __( 'days', 'ithemes-security' ) . '<br />';
-			$content .= '<label for="itsec_authentication_blacklist_period"> ' . __( 'How many days should a lockout be remembered to meet the blacklist count above.', 'ithemes-security' ) . '</label>';
+			$content = '<input class="small-text" name="itsec_authentication[blacklist_period]" id="itsec_authentication_blacklist_period" value="' . $blacklist_period . '" type="text">';
+			$content .= '<label for="itsec_authentication_blacklist_period"> ' . __( 'Days', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'How many days should a lockout be remembered to meet the blacklist count above.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -229,8 +232,9 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$lockout_period = 15;
 			}
 
-			$content = '<input name="itsec_authentication[lockout_period]" id="itsec_authentication_lockout_period" value="' . $lockout_period . '" type="text"> ' . __( 'minutes', 'ithemes-security' ) . '<br />';
-			$content .= '<label for="itsec_authentication_lockout_period"> ' . __( 'The length of time a host or user will be banned from this site after hitting the limit of bad logins.', 'ithemes-security' ) . '</label>';
+			$content = '<input class="small-text" name="itsec_authentication[lockout_period]" id="itsec_authentication_lockout_period" value="' . $lockout_period . '" type="text">';
+			$content .= '<label for="itsec_authentication_lockout_period"> ' . __( 'Minutes', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The length of time a host or user will be banned from this site after hitting the limit of bad logins.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -251,8 +255,9 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$email_notifications = 1;
 			}
 
-			$content = '<input type="checkbox" id="itsec_authentication_email_notifications" name="itsec_authentication[email_notifications]" value="1" ' . checked( 1, $email_notifications, false ) . '/>';
-			$content .= sprintf( '<label for="itsec_authentication_email_notifications">%s<a href="admin.php?page=toplevel_page_itsec-global">%s</a>%s</label>', __( 'Enabling this feature will trigger an email to be sent to the ', 'ithemes-security' ), __( 'notifications email address', 'ithemes-security' ), __( ' whenever a host or user is locked out of the system.', 'ithemes-security' ) );
+			$content  = '<input type="checkbox" id="itsec_authentication_email_notifications" name="itsec_authentication[email_notifications]" value="1" ' . checked( 1, $email_notifications, false ) . '/>';
+			$content .= '<label for="itsec_authentication_email_notifications">' . __( 'Enable Email Lockout Notifications', 'ithemes-security' ) . '</label>';
+			$content .= sprintf( '<p class="description">%s<a href="admin.php?page=toplevel_page_itsec-global">%s</a>%s</p>', __( 'This feature will trigger an email to be sent to the ', 'ithemes-security' ), __( 'notifications email address', 'ithemes-security' ), __( ' whenever a host or user is locked out of the system.', 'ithemes-security' ) );
 
 			echo $content;
 
