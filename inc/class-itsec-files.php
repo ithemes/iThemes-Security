@@ -6,11 +6,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 		private static $instance = null; //instantiated instance of this plugin
 
-		private
-			$rewrite_rules,
-			$wpconfig_rules,
-			$rewrite_lock_file,
-			$wpconfig_lock_file;
+		private $rewrite_rules, $wpconfig_rules, $rewrite_lock_file, $wpconfig_lock_file;
 
 		/**
 		 * Create and manage wp_config.php or .htaccess rewrites
@@ -18,10 +14,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 		 */
 		function __construct() {
 
-			add_action( 'plugins_loaded', array(
-				$this,
-				'file_writer_init'
-			) );
+			add_action( 'plugins_loaded', array( $this, 'file_writer_init' ) );
 
 		}
 
@@ -35,10 +28,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			$out_values    = array();
 			$rewrite_rules = $this->rewrite_rules; //only get the htaccess portion
 
-			uasort( $rewrite_rules, array(
-				$this,
-				'priority_sort'
-			) ); //sort by priority
+			uasort( $rewrite_rules, array( $this, 'priority_sort' ) ); //sort by priority
 
 			foreach ( $rewrite_rules as $key => $value ) {
 

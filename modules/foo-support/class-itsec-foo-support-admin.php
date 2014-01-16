@@ -13,31 +13,18 @@ if ( ! class_exists( 'ITSEC_Foo_Support_Admin' ) ) {
 
 		private static $instance = null;
 
-		private
-			$support_email;
+		private $support_email;
 
 		private function __construct() {
 
 			$this->support_email = 'support.itsec@fooplugins.com';
 
-			add_action( 'itsec_add_admin_meta_boxes', array(
-				$this,
-				'add_admin_meta_boxes'
-			) );
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 
-			add_filter( 'foolic_validation_include_css-itsec', array(
-				$this,
-				'include_foolic_css'
-			) );
-			add_filter( 'foolic_validation_input_type-itsec', array(
-				$this,
-				'change_foolic_input_type'
-			) );
+			add_filter( 'foolic_validation_include_css-itsec', array( $this, 'include_foolic_css' ) );
+			add_filter( 'foolic_validation_input_type-itsec', array( $this, 'change_foolic_input_type' ) );
 			new foolic_validation_v1_1( 'http://fooplugins.com/api/ithemes-security/check', 'itsec' );
-			add_action( 'wp_ajax_' . 'itsec_support', array(
-				$this,
-				'ajax_submit_ticket'
-			) );
+			add_action( 'wp_ajax_' . 'itsec_support', array( $this, 'ajax_submit_ticket' ) );
 
 		}
 
@@ -51,17 +38,7 @@ if ( ! class_exists( 'ITSEC_Foo_Support_Admin' ) ) {
 			foreach ( $available_pages as $page ) {
 
 				//add metaboxes
-				add_meta_box(
-					'itsec_foo_support',
-					__( 'Need Help?', 'ithemes-security' ),
-					array(
-						$this,
-						'metabox_sideboar_foo_support'
-					),
-					$page,
-					'priority_side',
-					'core'
-				);
+				add_meta_box( 'itsec_foo_support', __( 'Need Help?', 'ithemes-security' ), array( $this, 'metabox_sideboar_foo_support' ), $page, 'priority_side', 'core' );
 
 			}
 

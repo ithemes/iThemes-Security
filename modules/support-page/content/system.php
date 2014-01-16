@@ -76,8 +76,7 @@ $htaccess = $itsec_lib->get_htaccess();
 		if ( is_array( $mysqlinfo ) )
 			$sql_mode = $mysqlinfo[0]->Value;
 		if ( empty( $sql_mode ) )
-			$sql_mode = __( 'Not Set', 'ithemes-security' );
-		else $sql_mode = __( 'Off', 'ithemes-security' );
+			$sql_mode = __( 'Not Set', 'ithemes-security' ); else $sql_mode = __( 'Off', 'ithemes-security' );
 		?>
 		<li><?php _e( 'SQL Mode', 'ithemes-security' ); ?>: <strong><?php echo $sql_mode; ?></strong></li>
 	</ul>

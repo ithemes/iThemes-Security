@@ -6,8 +6,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks' ) ) {
 
 		private static $instance = null;
 
-		private
-			$settings;
+		private $settings;
 
 		private function __construct() {
 
@@ -33,15 +32,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks' ) ) {
 				//ban extra-long urls if turned on
 				if ( isset( $this->settings['long_url_strings'] ) && $this->settings['long_url_strings'] == true && ! is_admin() ) {
 
-					if (
-						! strpos( $_SERVER['REQUEST_URI'], 'infinity=scrolling&action=infinite_scroll' ) &&
-						(
-							strlen( $_SERVER['REQUEST_URI'] ) > 255 ||
-							strpos( $_SERVER['REQUEST_URI'], 'eval(' ) ||
-							strpos( $_SERVER['REQUEST_URI'], 'CONCAT' ) ||
-							strpos( $_SERVER['REQUEST_URI'], 'UNION+SELECT' ) ||
-							strpos( $_SERVER['REQUEST_URI'], 'base64' )
-						)
+					if ( ! strpos( $_SERVER['REQUEST_URI'], 'infinity=scrolling&action=infinite_scroll' ) && ( strlen( $_SERVER['REQUEST_URI'] ) > 255 || strpos( $_SERVER['REQUEST_URI'], 'eval(' ) || strpos( $_SERVER['REQUEST_URI'], 'CONCAT' ) || strpos( $_SERVER['REQUEST_URI'], 'UNION+SELECT' ) || strpos( $_SERVER['REQUEST_URI'], 'base64' ) )
 
 					) {
 						@header( 'HTTP/1.1 414 Request-URI Too Long' );
@@ -57,34 +48,22 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks' ) ) {
 
 				//display random number for wordpress version if turned on
 				if ( isset( $this->settings['random_version'] ) && $this->settings['random_version'] == true ) {
-					add_action( 'plugins_loaded', array(
-						$this,
-						'random_version'
-					) );
+					add_action( 'plugins_loaded', array( $this, 'random_version' ) );
 				}
 
 				//remove theme update notifications if turned on
 				if ( isset( $this->settings['theme_updates'] ) && $this->settings['theme_updates'] == true ) {
-					add_action( 'plugins_loaded', array(
-						$this,
-						'theme_updates'
-					) );
+					add_action( 'plugins_loaded', array( $this, 'theme_updates' ) );
 				}
 
 				//remove plugin update notifications if turned on
 				if ( isset( $this->settings['plugin_updates'] ) && $this->settings['plugin_updates'] == true ) {
-					add_action( 'plugins_loaded', array(
-						$this,
-						'public_updates'
-					) );
+					add_action( 'plugins_loaded', array( $this, 'public_updates' ) );
 				}
 
 				//remove core update notifications if turned on
 				if ( isset( $this->settings['core_updates'] ) && $this->settings['core_updates'] == true ) {
-					add_action( 'plugins_loaded', array(
-						$this,
-						'core_updates'
-					) );
+					add_action( 'plugins_loaded', array( $this, 'core_updates' ) );
 				}
 
 				//Disable XML-RPC
@@ -95,16 +74,10 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks' ) ) {
 			}
 
 			//Execute jQuery check
-			add_action( 'wp_print_scripts', array(
-				$this,
-				'get_jquery_version'
-			) );
+			add_action( 'wp_print_scripts', array( $this, 'get_jquery_version' ) );
 
 			if ( isset( $this->settings['safe_jquery'] ) && $this->settings['safe_jquery'] == true ) {
-				add_action( 'wp_enqueue_scripts', array(
-					$this,
-					'current_jquery'
-				) );
+				add_action( 'wp_enqueue_scripts', array( $this, 'current_jquery' ) );
 			}
 
 		}
@@ -114,10 +87,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks' ) ) {
 			wp_deregister_script( 'jquery' );
 			wp_deregister_script( 'jquery-core' );
 
-			wp_register_script( 'jquery', false, array(
-				'jquery-core',
-				'jquery-migrate'
-			), '1.10.2' );
+			wp_register_script( 'jquery', false, array( 'jquery-core', 'jquery-migrate' ), '1.10.2' );
 			wp_register_script( 'jquery-core', '/wp-includes/js/jquery/jquery.js', false, '1.10.2' );
 
 			wp_enqueue_script( 'jquery' );
@@ -194,14 +164,8 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks' ) ) {
 			if ( ! current_user_can( 'manage_options' ) ) {
 
 				$wp_version = $newVersion;
-				add_filter( 'script_loader_src', array(
-					$this,
-					'remove_script_version'
-				), 15, 1 );
-				add_filter( 'style_loader_src', array(
-					$this,
-					'remove_script_version'
-				), 15, 1 );
+				add_filter( 'script_loader_src', array( $this, 'remove_script_version' ), 15, 1 );
+				add_filter( 'style_loader_src', array( $this, 'remove_script_version' ), 15, 1 );
 
 			}
 

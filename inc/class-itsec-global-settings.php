@@ -6,10 +6,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 		private static $instance = null;
 
-		private
-			$settings,
-			$core,
-			$page;
+		private $settings, $core, $page;
 
 		private function __construct( $core ) {
 
@@ -18,29 +15,14 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$this->core     = $core;
 			$this->settings = get_site_option( 'itsec_global' );
 
-			add_action( 'itsec_add_admin_meta_boxes', array(
-				$this,
-				'add_admin_meta_boxes'
-			) ); //add meta boxes to admin page
-			add_action( 'admin_init', array(
-				$this,
-				'initialize_admin'
-			) ); //initialize admin area
-			add_filter( 'itsec_add_admin_sub_pages', array(
-				$this,
-				'add_sub_page'
-			) ); //add to admin menu
-			add_filter( 'itsec_add_admin_tabs', array(
-				$this,
-				'add_admin_tab'
-			) ); //add tab to menu
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
-				add_action( 'network_admin_edit_itsec_global', array(
-					$this,
-					'save_network_options'
-				) ); //save multisite options
+				add_action( 'network_admin_edit_itsec_global', array( $this, 'save_network_options' ) ); //save multisite options
 			}
 
 		}
@@ -56,17 +38,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			$this->page = $available_pages[0] . '-global';
 
-			$available_pages[] = add_submenu_page(
-				'itsec',
-				__( 'Global Settings', 'ithemes-security' ),
-				__( 'Global Settings', 'ithemes-security' ),
-				$itsec_globals['plugin_access_lvl'],
-				$available_pages[0] . '-global',
-				array(
-					$this->core,
-					'render_page'
-				)
-			);
+			$available_pages[] = add_submenu_page( 'itsec', __( 'Global Settings', 'ithemes-security' ), __( 'Global Settings', 'ithemes-security' ), $itsec_globals['plugin_access_lvl'], $available_pages[0] . '-global', array( $this->core, 'render_page' ) );
 
 			return $available_pages;
 
@@ -87,29 +59,9 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 */
 		public function add_admin_meta_boxes( $available_pages ) {
 
-			add_meta_box(
-				'global_description',
-				__( 'Description', 'ithemes-security' ),
-				array(
-					$this,
-					'add_module_intro'
-				),
-				'security_page_toplevel_page_itsec-global',
-				'normal',
-				'core'
-			);
+			add_meta_box( 'global_description', __( 'Description', 'ithemes-security' ), array( $this, 'add_module_intro' ), 'security_page_toplevel_page_itsec-global', 'normal', 'core' );
 
-			add_meta_box(
-				'global_options',
-				__( 'Configure Global Settings', 'ithemes-security' ),
-				array(
-					$this,
-					'metabox_advanced_settings'
-				),
-				'security_page_toplevel_page_itsec-global',
-				'advanced',
-				'core'
-			);
+			add_meta_box( 'global_options', __( 'Configure Global Settings', 'ithemes-security' ), array( $this, 'metabox_advanced_settings' ), 'security_page_toplevel_page_itsec-global', 'advanced', 'core' );
 
 		}
 
@@ -123,103 +75,25 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			global $itsec_lib;
 
 			//Add Settings sections
-			add_settings_section(
-				'global',
-				__( 'Global Settings', 'ithemes-security' ),
-				array(
-					$this,
-					'empty_callback_function'
-				),
-				'security_page_toplevel_page_itsec-global'
-			);
+			add_settings_section( 'global', __( 'Global Settings', 'ithemes-security' ), array( $this, 'empty_callback_function' ), 'security_page_toplevel_page_itsec-global' );
 
 			//Settings Fields
-			add_settings_field(
-				'itsec_global[notification_email]',
-				__( 'Notification Email', 'ithemes-security' ),
-				array(
-					$this,
-					'notification_email'
-				),
-				'security_page_toplevel_page_itsec-global',
-				'global'
-			);
+			add_settings_field( 'itsec_global[notification_email]', __( 'Notification Email', 'ithemes-security' ), array( $this, 'notification_email' ), 'security_page_toplevel_page_itsec-global', 'global' );
 
-			add_settings_field(
-				'itsec_global[lockout_message]',
-				__( 'Lockout Message', 'ithemes-security' ),
-				array(
-					$this,
-					'lockout_message'
-				),
-				'security_page_toplevel_page_itsec-global',
-				'global'
-			);
+			add_settings_field( 'itsec_global[lockout_message]', __( 'Lockout Message', 'ithemes-security' ), array( $this, 'lockout_message' ), 'security_page_toplevel_page_itsec-global', 'global' );
 
-			add_settings_field(
-				'itsec_authentication[blacklist]',
-				__( 'Blacklist Repeat Offender', 'ithemes-security' ),
-				array(
-					$this,
-					'blacklist'
-				),
-				'security_page_toplevel_page_itsec-global',
-				'global'
-			);
+			add_settings_field( 'itsec_authentication[blacklist]', __( 'Blacklist Repeat Offender', 'ithemes-security' ), array( $this, 'blacklist' ), 'security_page_toplevel_page_itsec-global', 'global' );
 
-			add_settings_field(
-				'itsec_authentication[blacklist_count]',
-				__( 'Blacklist Threshold', 'ithemes-security' ),
-				array(
-					$this,
-					'blacklist_count'
-				),
-				'security_page_toplevel_page_itsec-global',
-				'global'
-			);
+			add_settings_field( 'itsec_authentication[blacklist_count]', __( 'Blacklist Threshold', 'ithemes-security' ), array( $this, 'blacklist_count' ), 'security_page_toplevel_page_itsec-global', 'global' );
 
-			add_settings_field(
-				'itsec_authentication[blacklist_period]',
-				__( 'Blacklist Lookback Period', 'ithemes-security' ),
-				array(
-					$this,
-					'blacklist_period'
-				),
-				'security_page_toplevel_page_itsec-global',
-				'global'
-			);
+			add_settings_field( 'itsec_authentication[blacklist_period]', __( 'Blacklist Lookback Period', 'ithemes-security' ), array( $this, 'blacklist_period' ), 'security_page_toplevel_page_itsec-global', 'global' );
 
-			add_settings_field(
-				'itsec_authentication[lockout_period]',
-				__( 'Lockout Period', 'ithemes-security' ),
-				array(
-					$this,
-					'lockout_period'
-				),
-				'security_page_toplevel_page_itsec-global',
-				'global'
-			);
+			add_settings_field( 'itsec_authentication[lockout_period]', __( 'Lockout Period', 'ithemes-security' ), array( $this, 'lockout_period' ), 'security_page_toplevel_page_itsec-global', 'global' );
 
-			add_settings_field(
-				'itsec_authentication[email_notifications]',
-				__( 'Email Lockout Notifications', 'ithemes-security' ),
-				array(
-					$this,
-					'email_notifications'
-				),
-				'security_page_toplevel_page_itsec-global',
-				'global'
-			);
+			add_settings_field( 'itsec_authentication[email_notifications]', __( 'Email Lockout Notifications', 'ithemes-security' ), array( $this, 'email_notifications' ), 'security_page_toplevel_page_itsec-global', 'global' );
 
 			//Register the settings field for the entire module
-			register_setting(
-				'security_page_toplevel_page_itsec-global',
-				'itsec_global',
-				array(
-					$this,
-					'sanitize_module_input'
-				)
-			);
+			register_setting( 'security_page_toplevel_page_itsec-global', 'itsec_global', array( $this, 'sanitize_module_input' ) );
 
 		}
 
@@ -468,12 +342,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$input['email_notifications'] = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
 			$input['lockout_period']      = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
 
-			add_settings_error(
-				'itsec_admin_notices',
-				esc_attr( 'settings_updated' ),
-				$message,
-				$type
-			);
+			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
 			return $input;
 
@@ -497,10 +366,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			update_site_option( 'itsec_authentication', $settings ); //we must manually save network options
 
 			//send them back to the away mode options page
-			wp_redirect( add_query_arg( array(
-				'page'    => 'toplevel_page_itsec-authentication',
-				'updated' => 'true'
-			), network_admin_url( 'admin.php' ) ) );
+			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_itsec-authentication', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
 
 		}

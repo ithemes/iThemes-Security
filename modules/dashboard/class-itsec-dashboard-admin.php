@@ -11,9 +11,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 		private static $instance = null;
 
-		private
-			$feed,
-			$paypal_id;
+		private $feed, $paypal_id;
 
 		private function __construct() {
 
@@ -21,21 +19,12 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$this->feed      = 'http://ithemes.com/blog/feed/'; //Feed location for sidebar
 
 			//add sharing reminder
-			add_action( 'admin_init', array(
-				$this,
-				'share_reminder'
-			) );
+			add_action( 'admin_init', array( $this, 'share_reminder' ) );
 
 			//Add admin CSS
-			add_action( 'itsec_admin_init', array(
-				$this,
-				'register_admin_css'
-			) );
+			add_action( 'itsec_admin_init', array( $this, 'register_admin_css' ) );
 
-			add_action( 'itsec_add_admin_meta_boxes', array(
-				$this,
-				'add_admin_meta_boxes'
-			) );
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 
 		}
 
@@ -49,17 +38,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			foreach ( $available_pages as $page ) {
 
 				//add metaboxes
-				add_meta_box(
-					'itsec_status_feed',
-					__( 'Security Status Feed', 'ithemes-security' ),
-					array(
-						$this,
-						'metabox_status_feed'
-					),
-					$page,
-					'priority_side',
-					'core'
-				);
+				add_meta_box( 'itsec_status_feed', __( 'Security Status Feed', 'ithemes-security' ), array( $this, 'metabox_status_feed' ), $page, 'priority_side', 'core' );
 
 				/*
 								add_meta_box(
@@ -92,17 +71,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 			}
 
-			add_meta_box(
-				'itsec_status',
-				__( 'Security Status', 'ithemes-security' ),
-				array(
-					$this,
-					'metabox_normal_status'
-				),
-				'toplevel_page_itsec',
-				'normal',
-				'core'
-			);
+			add_meta_box( 'itsec_status', __( 'Security Status', 'ithemes-security' ), array( $this, 'metabox_normal_status' ), 'toplevel_page_itsec', 'normal', 'core' );
 
 		}
 
@@ -117,10 +86,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 			wp_register_style( 'itsec_admin_dashboard', $itsec_globals['plugin_url'] . 'modules/dashboard/css/dashboard.css' );
 
-			add_action( $itsec_globals['plugin_url'] . 'enqueue_admin_styles', array(
-				$this,
-				'enqueue_admin_css'
-			) );
+			add_action( $itsec_globals['plugin_url'] . 'enqueue_admin_styles', array( $this, 'enqueue_admin_css' ) );
 
 		}
 
@@ -159,20 +125,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 						global $plugname, $plughook, $plugopts;
 
-						printf( '<div class="updated"><p>%s %s %s</p> <p><input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_lets_rate=yes&_wpnonce=%s\';">  <input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_lets_tweet=yes&_wpnonce=%s\';">  <input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_share_nag=off&_wpnonce=%s\';"></p></div>',
-							__( 'It looks like you\'ve been enjoying', 'ithemes-security' ),
-							$plugname,
-							__( 'for at least 30 days. Would you please consider telling your friends about it?', 'ithemes-security' ),
-							__( 'Rate it 5★\'s', 'ithemes-security' ),
-							$plughook,
-							wp_create_nonce( $plughook . '-reminder' ),
-							__( 'Tell Your Followers', 'ithemes-security' ),
-							$plughook,
-							wp_create_nonce( $plughook . '-reminder' ),
-							__( 'Don\'t Bug Me Again', 'ithemes-security' ),
-							$plughook,
-							wp_create_nonce( $plughook . '-reminder' )
-						);
+						printf( '<div class="updated"><p>%s %s %s</p> <p><input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_lets_rate=yes&_wpnonce=%s\';">  <input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_lets_tweet=yes&_wpnonce=%s\';">  <input type="button" class="button " value="%s" onclick="document.location.href=\'?%s_share_nag=off&_wpnonce=%s\';"></p></div>', __( 'It looks like you\'ve been enjoying', 'ithemes-security' ), $plugname, __( 'for at least 30 days. Would you please consider telling your friends about it?', 'ithemes-security' ), __( 'Rate it 5★\'s', 'ithemes-security' ), $plughook, wp_create_nonce( $plughook . '-reminder' ), __( 'Tell Your Followers', 'ithemes-security' ), $plughook, wp_create_nonce( $plughook . '-reminder' ), __( 'Don\'t Bug Me Again', 'ithemes-security' ), $plughook, wp_create_nonce( $plughook . '-reminder' ) );
 
 					}
 
@@ -381,14 +334,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 			global $itsec_globals;
 
-			$statuses = array(
-				'safe-high'   => array(),
-				'high'        => array(),
-				'safe-medium' => array(),
-				'medium'      => array(),
-				'safe-low'    => array(),
-				'low'         => array(),
-			);
+			$statuses = array( 'safe-high' => array(), 'high' => array(), 'safe-medium' => array(), 'medium' => array(), 'safe-low' => array(), 'low' => array(), );
 
 			$statuses = apply_filters( 'itsec_add_dashboard_status', $statuses );
 

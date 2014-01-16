@@ -21,38 +21,17 @@ if ( ! class_exists( 'foolic_validation_v1_1' ) ) {
 
 			if ( is_admin() ) {
 				//output the needed css and js
-				add_action( 'admin_enqueue_scripts', array(
-					&$this,
-					'include_css'
-				) );
-				add_action( 'admin_footer', array(
-					&$this,
-					'include_js'
-				) );
+				add_action( 'admin_enqueue_scripts', array( &$this, 'include_css' ) );
+				add_action( 'admin_footer', array( &$this, 'include_js' ) );
 
 				//wire up the ajax callbacks
-				add_action( 'wp_ajax_foolic_validate_license-' . $this->plugin_slug, array(
-					$this,
-					'ajax_validate_license'
-				) );
-				add_action( 'wp_ajax_foolic_license_set_validity-' . $this->plugin_slug, array(
-					$this,
-					'ajax_license_set_validity'
-				) );
-				add_action( 'wp_ajax_foolic_license_store_error-' . $this->plugin_slug, array(
-					$this,
-					'ajax_license_store_error'
-				) );
-				add_action( 'wp_ajax_foolic_license_clear_key-' . $this->plugin_slug, array(
-					$this,
-					'ajax_license_clear_key'
-				) );
+				add_action( 'wp_ajax_foolic_validate_license-' . $this->plugin_slug, array( $this, 'ajax_validate_license' ) );
+				add_action( 'wp_ajax_foolic_license_set_validity-' . $this->plugin_slug, array( $this, 'ajax_license_set_validity' ) );
+				add_action( 'wp_ajax_foolic_license_store_error-' . $this->plugin_slug, array( $this, 'ajax_license_store_error' ) );
+				add_action( 'wp_ajax_foolic_license_clear_key-' . $this->plugin_slug, array( $this, 'ajax_license_clear_key' ) );
 
 				//output the validation HTML
-				add_filter( 'foolic_get_validation_data-' . $this->plugin_slug, array(
-					$this,
-					'get_validation_data'
-				) );
+				add_filter( 'foolic_get_validation_data-' . $this->plugin_slug, array( $this, 'get_validation_data' ) );
 			}
 		}
 
@@ -84,17 +63,7 @@ if ( ! class_exists( 'foolic_validation_v1_1' ) ) {
 				$message = '<div style="display:none" class="foolic-message foolic-message-' . $this->plugin_slug . '"></div>';
 			}
 
-			return array(
-				'slug'    => $this->plugin_slug,
-				'license' => $license,
-				'valid'   => $valid,
-				'expires' => $expires,
-				'input'   => $input,
-				'button'  => $button,
-				'nonce'   => $nonce,
-				'message' => $message,
-				'html'    => '<div class="foolic-validation-' . $this->plugin_slug . '">' . $input . $button . $nonce . $message . '</div>'
-			);
+			return array( 'slug' => $this->plugin_slug, 'license' => $license, 'valid' => $valid, 'expires' => $expires, 'input' => $input, 'button' => $button, 'nonce' => $nonce, 'message' => $message, 'html' => '<div class="foolic-validation-' . $this->plugin_slug . '">' . $input . $button . $nonce . $message . '</div>' );
 		}
 
 		function include_css( $hook_suffix ) {
@@ -322,12 +291,10 @@ if ( ! class_exists( 'foolic_validation_v1_1' ) ) {
 
 					if ( is_wp_error( $response_raw ) ) {
 						$error = $response_raw->get_error_message();
-						$this->output_json_error( __( 'An error occurred while trying to validate your license key', $this->plugin_slug ),
-							$error );
+						$this->output_json_error( __( 'An error occurred while trying to validate your license key', $this->plugin_slug ), $error );
 						die;
 					} else if ( wp_remote_retrieve_response_code( $response_raw ) != 200 ) {
-						$this->output_json_error( __( 'An error occurred while trying to validate your license key', $this->plugin_slug ),
-							sprintf( __( 'The response code of [%s] was not expected', $this->plugin_slug ), wp_remote_retrieve_response_code( $response_raw ) ) );
+						$this->output_json_error( __( 'An error occurred while trying to validate your license key', $this->plugin_slug ), sprintf( __( 'The response code of [%s] was not expected', $this->plugin_slug ), wp_remote_retrieve_response_code( $response_raw ) ) );
 					} else {
 
 						$response = $response_raw['body'];
@@ -339,26 +306,16 @@ if ( ! class_exists( 'foolic_validation_v1_1' ) ) {
 					}
 
 				} else {
-					$this->output_json_error( __( 'The validation request was invalid', $this->plugin_slug ),
-						__( 'The validation NONCE could not be validated!', $this->plugin_slug ) );
+					$this->output_json_error( __( 'The validation request was invalid', $this->plugin_slug ), __( 'The validation NONCE could not be validated!', $this->plugin_slug ) );
 				}
 			} catch ( Exception $e ) {
-				$this->output_json_error( __( 'An unexpected error occurred', $this->plugin_slug ),
-					$e->getMessage() );
+				$this->output_json_error( __( 'An unexpected error occurred', $this->plugin_slug ), $e->getMessage() );
 			}
 		}
 
 		function output_json_error( $error, $message ) {
 
-			$details = array(
-				'response'           => array(
-					'valid'   => false,
-					'message' => $error,
-					'color'   => '#ff0000',
-					'error'   => true
-				),
-				'validation_message' => $message
-			);
+			$details = array( 'response' => array( 'valid' => false, 'message' => $error, 'color' => '#ff0000', 'error' => true ), 'validation_message' => $message );
 
 			header( 'Content-type: application/json' );
 			echo json_encode( $details );
@@ -369,15 +326,7 @@ if ( ! class_exists( 'foolic_validation_v1_1' ) ) {
 
 			global $wp_version;
 
-			return array(
-				'body'       => array(
-					'action'  => $action,
-					'license' => $license,
-					'site'    => home_url()
-				),
-				'timeout'    => 45,
-				'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url()
-			);
+			return array( 'body' => array( 'action' => $action, 'license' => $license, 'site' => home_url() ), 'timeout' => 45, 'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url() );
 		}
 
 	}

@@ -6,8 +6,7 @@ if ( ! class_exists( 'ITSEC_SSL' ) ) {
 
 		private static $instance = null;
 
-		private
-			$settings;
+		private $settings;
 
 		private function __construct() {
 
@@ -15,10 +14,7 @@ if ( ! class_exists( 'ITSEC_SSL' ) ) {
 
 			//Don't redirect any SSL if SSL is turned off.
 			if ( isset( $this->settings['frontend'] ) && $this->settings['frontend'] >= 1 ) {
-				add_action( 'template_redirect', array(
-					$this,
-					'ssl_redirect'
-				) );
+				add_action( 'template_redirect', array( $this, 'ssl_redirect' ) );
 			}
 
 		}

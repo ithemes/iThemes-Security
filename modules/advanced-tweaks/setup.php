@@ -63,28 +63,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Setup' ) ) {
 					$file_editor = false;
 				}
 
-				$defaults = array(
-					'enabled'                  => $enabled,
-					'protect_files'            => false,
-					'directory_browsing'       => false,
-					'request_methods'          => false,
-					'suspicious_query_strings' => false,
-					'non_english_characters'   => false,
-					'long_url_strings'         => false,
-					'write_permissions'        => false,
-					'generator_tag'            => false,
-					'wlwmanifest_header'       => false,
-					'edituri_header'           => false,
-					'theme_updates'            => false,
-					'plugin_updates'           => false,
-					'core_updates'             => false,
-					'comment_spam'             => false,
-					'random_version'           => false,
-					'file_editor'              => $file_editor,
-					'disable_xmlrpc'           => false,
-					'uploads_php'              => false,
-					'safe_jquery'              => false,
-				);
+				$defaults = array( 'enabled' => $enabled, 'protect_files' => false, 'directory_browsing' => false, 'request_methods' => false, 'suspicious_query_strings' => false, 'non_english_characters' => false, 'long_url_strings' => false, 'write_permissions' => false, 'generator_tag' => false, 'wlwmanifest_header' => false, 'edituri_header' => false, 'theme_updates' => false, 'plugin_updates' => false, 'core_updates' => false, 'comment_spam' => false, 'random_version' => false, 'file_editor' => $file_editor, 'disable_xmlrpc' => false, 'uploads_php' => false, 'safe_jquery' => false, );
 
 				add_site_option( 'itsec_advanced_tweaks', $defaults );
 

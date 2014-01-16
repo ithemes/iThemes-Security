@@ -6,11 +6,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		private static $instance = null; //instantiated instance of this plugin
 
-		private
-			$settings,
-			$current_time,
-			$current_time_gmt,
-			$lockout_modules;
+		private $settings, $current_time, $current_time_gmt, $lockout_modules;
 
 		function __construct() {
 
@@ -25,21 +21,12 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 				wp_schedule_event( time(), 'daily', 'itsec_purge_lockouts' );
 			}
 
-			add_action( 'itsec_purge_lockouts', array(
-				$this,
-				'purge_lockouts'
-			) );
+			add_action( 'itsec_purge_lockouts', array( $this, 'purge_lockouts' ) );
 
 			//Check for host lockouts
-			add_action( 'init', array(
-				$this,
-				'check_lockout'
-			) );
+			add_action( 'init', array( $this, 'check_lockout' ) );
 
-			add_action( 'plugins_loaded', array(
-				$this,
-				'register_modules'
-			) );
+			add_action( 'plugins_loaded', array( $this, 'register_modules' ) );
 
 		}
 
@@ -81,6 +68,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		}
 
 		public function do_lockout( $host = null, $user = null ) {
+
+			die( var_dump( $this->lockout_modules ) );
 
 		}
 
@@ -147,15 +136,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 					$host_expiration = $expiration;
 
-					$wpdb->insert( $wpdb->base_prefix . 'itsec_lockouts', array(
-						'lockout_type'       => $type,
-						'lockout_start'      => date( 'Y-m-d H:i:s', $this->current_time ),
-						'lockout_start_gmt'  => date( 'Y-m-d H:i:s', $this->current_time_gmt ),
-						'lockout_expire'     => $expiration,
-						'lockout_expire_gmt' => $expiration_gmt,
-						'lockout_host'       => sanitize_text_field( $host ),
-						'lockout_user'       => '',
-					) );
+					$wpdb->insert( $wpdb->base_prefix . 'itsec_lockouts', array( 'lockout_type' => $type, 'lockout_start' => date( 'Y-m-d H:i:s', $this->current_time ), 'lockout_start_gmt' => date( 'Y-m-d H:i:s', $this->current_time_gmt ), 'lockout_expire' => $expiration, 'lockout_expire_gmt' => $expiration_gmt, 'lockout_host' => sanitize_text_field( $host ), 'lockout_user' => '', ) );
 
 				}
 
@@ -163,15 +144,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 					$user_expiration = $expiration;
 
-					$wpdb->insert( $wpdb->base_prefix . 'itsec_lockouts', array(
-						'lockout_type'       => $type,
-						'lockout_start'      => date( 'Y-m-d H:i:s', $this->current_time ),
-						'lockout_start_gmt'  => date( 'Y-m-d H:i:s', $this->current_time_gmt ),
-						'lockout_expire'     => $expiration,
-						'lockout_expire_gmt' => $expiration_gmt,
-						'lockout_host'       => '',
-						'lockout_user'       => intval( $user ),
-					) );
+					$wpdb->insert( $wpdb->base_prefix . 'itsec_lockouts', array( 'lockout_type' => $type, 'lockout_start' => date( 'Y-m-d H:i:s', $this->current_time ), 'lockout_start_gmt' => date( 'Y-m-d H:i:s', $this->current_time_gmt ), 'lockout_expire' => $expiration, 'lockout_expire_gmt' => $expiration_gmt, 'lockout_host' => '', 'lockout_user' => intval( $user ), ) );
 
 				}
 
@@ -298,10 +271,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			$headers    = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>' . "\r\n";
 
 			//Use HTML Content type
-			add_filter( 'wp_mail_content_type', array(
-				$this,
-				'set_html_content_type'
-			) );
+			add_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
 
 			//Send emails to all recipients
 			foreach ( $recipients as $recipient ) {
@@ -313,10 +283,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			}
 
 			//Remove HTML Content type
-			remove_filter( 'wp_mail_content_type', array(
-				$this,
-				'set_html_content_type'
-			) );
+			remove_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
 
 		}
 
@@ -328,6 +295,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		function set_html_content_type() {
 
 			return 'text/html';
+
 		}
 
 		/**

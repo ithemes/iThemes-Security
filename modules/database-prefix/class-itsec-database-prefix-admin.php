@@ -6,10 +6,7 @@ if ( ! class_exists( 'ITSEC_Database_Prefix_Admin' ) ) {
 
 		private static $instance = null;
 
-		private
-			$settings,
-			$core,
-			$page;
+		private $settings, $core, $page;
 
 		private function __construct( $core ) {
 
@@ -23,26 +20,11 @@ if ( ! class_exists( 'ITSEC_Database_Prefix_Admin' ) ) {
 				$this->settings = false;
 			}
 
-			add_action( 'admin_init', array(
-				$this,
-				'initialize_admin'
-			) ); //initialize admin area
-			add_action( 'itsec_add_admin_meta_boxes', array(
-				$this,
-				'add_admin_meta_boxes'
-			) ); //add meta boxes to admin page
-			add_filter( 'itsec_add_admin_sub_pages', array(
-				$this,
-				'add_sub_page'
-			) ); //add to admin menu
-			add_filter( 'itsec_add_admin_tabs', array(
-				$this,
-				'add_admin_tab'
-			) ); //add tab to menu
-			add_filter( 'itsec_add_dashboard_status', array(
-				$this,
-				'dashboard_status'
-			) ); //add information for plugin status
+			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
 		}
 
@@ -57,17 +39,7 @@ if ( ! class_exists( 'ITSEC_Database_Prefix_Admin' ) ) {
 
 			$this->page = $available_pages[0] . '-database_prefix';
 
-			$available_pages[] = add_submenu_page(
-				'itsec',
-				__( 'Database Prefix', 'ithemes-security' ),
-				__( 'Database Prefix', 'ithemes-security' ),
-				$itsec_globals['plugin_access_lvl'],
-				$available_pages[0] . '-database_prefix',
-				array(
-					$this->core,
-					'render_page'
-				)
-			);
+			$available_pages[] = add_submenu_page( 'itsec', __( 'Database Prefix', 'ithemes-security' ), __( 'Database Prefix', 'ithemes-security' ), $itsec_globals['plugin_access_lvl'], $available_pages[0] . '-database_prefix', array( $this->core, 'render_page' ) );
 
 			return $available_pages;
 
@@ -89,29 +61,9 @@ if ( ! class_exists( 'ITSEC_Database_Prefix_Admin' ) ) {
 		public function add_admin_meta_boxes() {
 
 			//add metaboxes
-			add_meta_box(
-				'database_prefix_description',
-				__( 'Description', 'ithemes-security' ),
-				array(
-					$this,
-					'add_module_intro'
-				),
-				'security_page_toplevel_page_itsec-database_prefix',
-				'normal',
-				'core'
-			);
+			add_meta_box( 'database_prefix_description', __( 'Description', 'ithemes-security' ), array( $this, 'add_module_intro' ), 'security_page_toplevel_page_itsec-database_prefix', 'normal', 'core' );
 
-			add_meta_box(
-				'database_prefix_options',
-				__( 'Change Database Prefix', 'ithemes-security' ),
-				array(
-					$this,
-					'metabox_advanced_settings'
-				),
-				'security_page_toplevel_page_itsec-database_prefix',
-				'advanced',
-				'core'
-			);
+			add_meta_box( 'database_prefix_options', __( 'Change Database Prefix', 'ithemes-security' ), array( $this, 'metabox_advanced_settings' ), 'security_page_toplevel_page_itsec-database_prefix', 'advanced', 'core' );
 
 		}
 
@@ -127,18 +79,12 @@ if ( ! class_exists( 'ITSEC_Database_Prefix_Admin' ) ) {
 			if ( $this->settings !== true ) {
 
 				$status_array = 'safe-medium';
-				$status       = array(
-					'text' => sprintf( '%s wp_.', __( 'Your database table prefix is not using', 'ithemes-security' ) ),
-					'link' => $link,
-				);
+				$status       = array( 'text' => sprintf( '%s wp_.', __( 'Your database table prefix is not using', 'ithemes-security' ) ), 'link' => $link, );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array(
-					'text' => sprintf( '%s wp_.', __( 'Your database table prefix should not be', 'ithemes-security' ) ),
-					'link' => $link,
-				);
+				$status       = array( 'text' => sprintf( '%s wp_.', __( 'Your database table prefix should not be', 'ithemes-security' ) ), 'link' => $link, );
 
 			}
 
@@ -341,18 +287,7 @@ if ( ! class_exists( 'ITSEC_Database_Prefix_Admin' ) ) {
 
 			}
 
-			$rules[] = array(
-				'type'  => 'wpconfig',
-				'name'  => 'Database Prefix',
-				'rules' =>
-					array(
-						array(
-							'type'        => 'replace',
-							'search_text' => 'table_prefix',
-							'rule'        => "\$table_prefix = '" . $newPrefix . "';",
-						),
-					),
-			);
+			$rules[] = array( 'type' => 'wpconfig', 'name' => 'Database Prefix', 'rules' => array( array( 'type' => 'replace', 'search_text' => 'table_prefix', 'rule' => "\$table_prefix = '" . $newPrefix . "';", ), ), );
 
 			$itsec_files->set_wpconfig( $rules );
 
@@ -365,12 +300,7 @@ if ( ! class_exists( 'ITSEC_Database_Prefix_Admin' ) ) {
 
 			$this->settings = $newPrefix; //this tells the form field that all went well.
 
-			add_settings_error(
-				'itsec_admin_notices',
-				esc_attr( 'settings_updated' ),
-				$message,
-				$type
-			);
+			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
 		}
 

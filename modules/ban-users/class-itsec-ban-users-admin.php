@@ -6,52 +6,25 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 		private static $instance = null;
 
-		private
-			$settings,
-			$core,
-			$page;
+		private $settings, $core, $page;
 
 		private function __construct( $core ) {
 
 			$this->core     = $core;
 			$this->settings = get_site_option( 'itsec_ban_users' );
 
-			add_filter( 'itsec_file_rules', array(
-				$this,
-				'build_rewrite_rules'
-			) );
+			add_filter( 'itsec_file_rules', array( $this, 'build_rewrite_rules' ) );
 
-			add_action( 'itsec_add_admin_meta_boxes', array(
-				$this,
-				'add_admin_meta_boxes'
-			) ); //add meta boxes to admin page
-			add_action( 'admin_init', array(
-				$this,
-				'initialize_admin'
-			) ); //initialize admin area
-			add_action( 'admin_enqueue_scripts', array(
-				$this,
-				'admin_script'
-			) ); //enqueue scripts for admin page
-			add_filter( 'itsec_add_admin_sub_pages', array(
-				$this,
-				'add_sub_page'
-			) ); //add to admin menu
-			add_filter( 'itsec_add_admin_tabs', array(
-				$this,
-				'add_admin_tab'
-			) ); //add tab to menu
-			add_filter( 'itsec_add_dashboard_status', array(
-				$this,
-				'dashboard_status'
-			) ); //add information for plugin status
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
-				add_action( 'network_admin_edit_itsec_ban_users', array(
-					$this,
-					'save_network_options'
-				) ); //save multisite options
+				add_action( 'network_admin_edit_itsec_ban_users', array( $this, 'save_network_options' ) ); //save multisite options
 			}
 
 		}
@@ -67,17 +40,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 			$this->page = $available_pages[0] . '-ban_users';
 
-			$available_pages[] = add_submenu_page(
-				'itsec',
-				__( 'Ban Users', 'ithemes-security' ),
-				__( 'Ban Users', 'ithemes-security' ),
-				$itsec_globals['plugin_access_lvl'],
-				$available_pages[0] . '-ban_users',
-				array(
-					$this->core,
-					'render_page'
-				)
-			);
+			$available_pages[] = add_submenu_page( 'itsec', __( 'Ban Users', 'ithemes-security' ), __( 'Ban Users', 'ithemes-security' ), $itsec_globals['plugin_access_lvl'], $available_pages[0] . '-ban_users', array( $this->core, 'render_page' ) );
 
 			return $available_pages;
 
@@ -99,29 +62,9 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 		public function add_admin_meta_boxes( $available_pages ) {
 
 			// Add Metaboxes
-			add_meta_box(
-				'ban_users_description',
-				__( 'Description', 'ithemes-security' ),
-				array(
-					$this,
-					'add_module_intro'
-				),
-				'security_page_toplevel_page_itsec-ban_users',
-				'normal',
-				'core'
-			);
+			add_meta_box( 'ban_users_description', __( 'Description', 'ithemes-security' ), array( $this, 'add_module_intro' ), 'security_page_toplevel_page_itsec-ban_users', 'normal', 'core' );
 
-			add_meta_box(
-				'ban_users_options',
-				__( 'Configure Banned User Settings', 'ithemes-security' ),
-				array(
-					$this,
-					'metabox_advanced_settings'
-				),
-				'security_page_toplevel_page_itsec-ban_users',
-				'advanced',
-				'core'
-			);
+			add_meta_box( 'ban_users_options', __( 'Configure Banned User Settings', 'ithemes-security' ), array( $this, 'metabox_advanced_settings' ), 'security_page_toplevel_page_itsec-ban_users', 'advanced', 'core' );
 
 		}
 
@@ -154,18 +97,12 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			if ( $this->settings['enabled'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array(
-					'text' => __( 'You are blocking known bad hosts and agents with the ban users tool.', 'ithemes-security' ),
-					'link' => $link,
-				);
+				$status       = array( 'text' => __( 'You are blocking known bad hosts and agents with the ban users tool.', 'ithemes-security' ), 'link' => $link, );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array(
-					'text' => __( 'You are not blocking any users that are known to be a problem. Consider turning on the Ban Users feature.', 'ithemes-security' ),
-					'link' => $link,
-				);
+				$status       = array( 'text' => __( 'You are not blocking any users that are known to be a problem. Consider turning on the Ban Users feature.', 'ithemes-security' ), 'link' => $link, );
 
 			}
 
@@ -183,107 +120,31 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 		public function initialize_admin() {
 
 			//default blacklist section
-			add_settings_section(
-				'ban_users_default',
-				__( 'Default Blacklist', 'ithemes-security' ),
-				array(
-					$this,
-					'empty_callback_function'
-				),
-				'security_page_toplevel_page_itsec-ban_users'
-			);
+			add_settings_section( 'ban_users_default', __( 'Default Blacklist', 'ithemes-security' ), array( $this, 'empty_callback_function' ), 'security_page_toplevel_page_itsec-ban_users' );
 
 			//Enabled section
-			add_settings_section(
-				'ban_users_enabled',
-				__( 'Configure Ban Users', 'ithemes-security' ),
-				array(
-					$this,
-					'empty_callback_function'
-				),
-				'security_page_toplevel_page_itsec-ban_users'
-			);
+			add_settings_section( 'ban_users_enabled', __( 'Configure Ban Users', 'ithemes-security' ), array( $this, 'empty_callback_function' ), 'security_page_toplevel_page_itsec-ban_users' );
 
 			//primary settings section
-			add_settings_section(
-				'ban_users_settings',
-				__( 'Configure Ban Users', 'ithemes-security' ),
-				array(
-					$this,
-					'empty_callback_function'
-				),
-				'security_page_toplevel_page_itsec-ban_users'
-			);
+			add_settings_section( 'ban_users_settings', __( 'Configure Ban Users', 'ithemes-security' ), array( $this, 'empty_callback_function' ), 'security_page_toplevel_page_itsec-ban_users' );
 
 			//default list field
-			add_settings_field(
-				'itsec_ban_users[default]',
-				__( 'Default Blacklist', 'ithemes-security' ),
-				array(
-					$this,
-					'ban_users_default'
-				),
-				'security_page_toplevel_page_itsec-ban_users',
-				'ban_users_default'
-			);
+			add_settings_field( 'itsec_ban_users[default]', __( 'Default Blacklist', 'ithemes-security' ), array( $this, 'ban_users_default' ), 'security_page_toplevel_page_itsec-ban_users', 'ban_users_default' );
 
 			//enabled field
-			add_settings_field(
-				'itsec_ban_users[enabled]',
-				__( 'Ban Users', 'ithemes-security' ),
-				array(
-					$this,
-					'ban_users_enabled'
-				),
-				'security_page_toplevel_page_itsec-ban_users',
-				'ban_users_enabled'
-			);
+			add_settings_field( 'itsec_ban_users[enabled]', __( 'Ban Users', 'ithemes-security' ), array( $this, 'ban_users_enabled' ), 'security_page_toplevel_page_itsec-ban_users', 'ban_users_enabled' );
 
 			//host list field
-			add_settings_field(
-				'itsec_ban_users[host_list]',
-				__( 'Ban Hosts', 'ithemes-security' ),
-				array(
-					$this,
-					'ban_users_host_list'
-				),
-				'security_page_toplevel_page_itsec-ban_users',
-				'ban_users_settings'
-			);
+			add_settings_field( 'itsec_ban_users[host_list]', __( 'Ban Hosts', 'ithemes-security' ), array( $this, 'ban_users_host_list' ), 'security_page_toplevel_page_itsec-ban_users', 'ban_users_settings' );
 
 			//agent _list field
-			add_settings_field(
-				'itsec_ban_users[agent_list]',
-				__( 'Ban User Agents', 'ithemes-security' ),
-				array(
-					$this,
-					'ban_users_agent_list'
-				),
-				'security_page_toplevel_page_itsec-ban_users',
-				'ban_users_settings'
-			);
+			add_settings_field( 'itsec_ban_users[agent_list]', __( 'Ban User Agents', 'ithemes-security' ), array( $this, 'ban_users_agent_list' ), 'security_page_toplevel_page_itsec-ban_users', 'ban_users_settings' );
 
 			//agent _list field
-			add_settings_field(
-				'itsec_ban_users[white_list]',
-				__( 'Whitelist Users', 'ithemes-security' ),
-				array(
-					$this,
-					'ban_users_white_list'
-				),
-				'security_page_toplevel_page_itsec-ban_users',
-				'ban_users_settings'
-			);
+			add_settings_field( 'itsec_ban_users[white_list]', __( 'Whitelist Users', 'ithemes-security' ), array( $this, 'ban_users_white_list' ), 'security_page_toplevel_page_itsec-ban_users', 'ban_users_settings' );
 
 			//Register the settings field for the entire module
-			register_setting(
-				'security_page_toplevel_page_itsec-ban_users',
-				'itsec_ban_users',
-				array(
-					$this,
-					'sanitize_module_input'
-				)
-			);
+			register_setting( 'security_page_toplevel_page_itsec-ban_users', 'itsec_ban_users', array( $this, 'sanitize_module_input' ) );
 
 		}
 
@@ -655,12 +516,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			}
 
 			//create a proper array for writing
-			$rules_array[] = array(
-				'type'     => 'htaccess',
-				'priority' => 1,
-				'name'     => 'Ban Users',
-				'rules'    => $rules,
-			);
+			$rules_array[] = array( 'type' => 'htaccess', 'priority' => 1, 'name' => 'Ban Users', 'rules' => $rules, );
 
 			return $rules_array;
 
@@ -840,12 +696,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 			}
 
-			add_settings_error(
-				'itsec_admin_notices',
-				esc_attr( 'settings_updated' ),
-				$message,
-				$type
-			);
+			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
 			return $input;
 
@@ -863,10 +714,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			update_site_option( 'itsec_ban_users', $settings ); //we must manually save network options
 
 			//send them back to the away mode options page
-			wp_redirect( add_query_arg( array(
-				'page'    => 'toplevel_page_itsec-away_mode',
-				'updated' => 'true'
-			), network_admin_url( 'admin.php' ) ) );
+			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_itsec-away_mode', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
 
 		}

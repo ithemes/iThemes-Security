@@ -22,8 +22,7 @@ if ( ! class_exists( 'Ithemes_ITSEC' ) ) {
 		private static $instance = null; //instantiated instance of this plugin
 
 		public //see documentation upon instantiation 
-			$core,
-			$itsec_globals;
+			$core, $itsec_globals;
 
 		/**
 		 * Default plugin execution used for settings defaults and loading components
@@ -37,21 +36,13 @@ if ( ! class_exists( 'Ithemes_ITSEC' ) ) {
 			$upload_dir = wp_upload_dir(); //get the full upload directory array so we can grab the base directory.
 
 			//Set plugin defaults
-			$itsec_globals = array(
-				'plugin_build'      => 4001,
-				//plugin build number - used to trigger updates
-				'plugin_access_lvl' => 'manage_options',
-				//Access level required to access plugin options
-				'plugin_name'       => __( 'iThemes Security', 'ithemes-security' ),
-				//the name of the plugin
-				'plugin_file'       => __FILE__,
-				//the main plugin file
-				'plugin_dir'        => plugin_dir_path( __FILE__ ),
-				//the path of the plugin directory
-				'plugin_url'        => plugin_dir_url( __FILE__ ),
-				//the URL of the plugin directory
-				'upload_dir'        => $upload_dir['basedir'],
-				// the upload directory for the WordPress installation
+			$itsec_globals = array( 'plugin_build'      => 4001, //plugin build number - used to trigger updates
+									'plugin_access_lvl' => 'manage_options', //Access level required to access plugin options
+									'plugin_name'       => __( 'iThemes Security', 'ithemes-security' ), //the name of the plugin
+									'plugin_file'       => __FILE__, //the main plugin file
+									'plugin_dir'        => plugin_dir_path( __FILE__ ), //the path of the plugin directory
+									'plugin_url'        => plugin_dir_url( __FILE__ ), //the URL of the plugin directory
+									'upload_dir'        => $upload_dir['basedir'], // the upload directory for the WordPress installation
 			);
 
 			//load core functionality for admin use

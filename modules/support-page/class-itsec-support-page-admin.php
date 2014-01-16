@@ -6,26 +6,15 @@ if ( ! class_exists( 'ITSEC_Support_Page_Admin' ) ) {
 
 		private static $instance = null;
 
-		private
-			$core,
-			$page;
+		private $core, $page;
 
 		private function __construct( $core ) {
 
 			$this->core = $core;
 
-			add_action( 'itsec_add_admin_meta_boxes', array(
-				$this,
-				'add_admin_meta_boxes'
-			) ); //add meta boxes to admin page
-			add_filter( 'itsec_add_admin_sub_pages', array(
-				$this,
-				'add_sub_page'
-			) ); //add to admin menu
-			add_filter( 'itsec_add_admin_tabs', array(
-				$this,
-				'add_admin_tab'
-			) ); //add tab to menu
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 
 		}
 
@@ -40,17 +29,7 @@ if ( ! class_exists( 'ITSEC_Support_Page_Admin' ) ) {
 
 			$this->page = $available_pages[0] . '-support';
 
-			$available_pages[] = add_submenu_page(
-				'itsec',
-				__( 'Support', 'ithemes-security' ),
-				__( 'Support', 'ithemes-security' ),
-				$itsec_globals['plugin_access_lvl'],
-				$available_pages[0] . '-support',
-				array(
-					$this->core,
-					'render_page'
-				)
-			);
+			$available_pages[] = add_submenu_page( 'itsec', __( 'Support', 'ithemes-security' ), __( 'Support', 'ithemes-security' ), $itsec_globals['plugin_access_lvl'], $available_pages[0] . '-support', array( $this->core, 'render_page' ) );
 
 			return $available_pages;
 
@@ -70,29 +49,9 @@ if ( ! class_exists( 'ITSEC_Support_Page_Admin' ) ) {
 		 */
 		public function add_admin_meta_boxes() {
 
-			add_meta_box(
-				'itsec_system_info_description',
-				__( 'Description', 'ithemes-security' ),
-				array(
-					$this,
-					'add_support_intro'
-				),
-				'security_page_toplevel_page_itsec-support',
-				'normal',
-				'core'
-			);
+			add_meta_box( 'itsec_system_info_description', __( 'Description', 'ithemes-security' ), array( $this, 'add_support_intro' ), 'security_page_toplevel_page_itsec-support', 'normal', 'core' );
 
-			add_meta_box(
-				'itsec_system_info',
-				__( 'System Information', 'ithemes-security' ),
-				array(
-					$this,
-					'metabox_normal_system'
-				),
-				'security_page_toplevel_page_itsec-support',
-				'normal',
-				'core'
-			);
+			add_meta_box( 'itsec_system_info', __( 'System Information', 'ithemes-security' ), array( $this, 'metabox_normal_system' ), 'security_page_toplevel_page_itsec-support', 'normal', 'core' );
 
 		}
 

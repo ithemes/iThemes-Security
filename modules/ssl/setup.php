@@ -71,11 +71,7 @@ if ( ! class_exists( 'ITSEC_SSL_Setup' ) ) {
 					$admin = false;
 				}
 
-				$defaults = array(
-					'frontend' => 0,
-					'admin'    => $admin,
-					'login'    => $login,
-				);
+				$defaults = array( 'frontend' => 0, 'admin' => $admin, 'login' => $login, );
 
 				add_site_option( 'itsec_ssl', $defaults );
 

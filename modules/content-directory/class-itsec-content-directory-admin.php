@@ -6,10 +6,7 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 
 		private static $instance = null;
 
-		private
-			$settings,
-			$core,
-			$page;
+		private $settings, $core, $page;
 
 		private function __construct( $core ) {
 
@@ -21,26 +18,11 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 				$this->settings = false;
 			}
 
-			add_action( 'admin_init', array(
-				$this,
-				'initialize_admin'
-			) ); //initialize admin area
-			add_action( 'itsec_add_admin_meta_boxes', array(
-				$this,
-				'add_admin_meta_boxes'
-			) ); //add meta boxes to admin page
-			add_filter( 'itsec_add_admin_sub_pages', array(
-				$this,
-				'add_sub_page'
-			) ); //add to admin menu
-			add_filter( 'itsec_add_admin_tabs', array(
-				$this,
-				'add_admin_tab'
-			) ); //add tab to menu
-			add_filter( 'itsec_add_dashboard_status', array(
-				$this,
-				'dashboard_status'
-			) ); //add information for plugin status
+			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
 
 		}
 
@@ -55,17 +37,7 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 
 			$this->page = $available_pages[0] . '-content_directory';
 
-			$available_pages[] = add_submenu_page(
-				'itsec',
-				__( 'Content Directory', 'ithemes-security' ),
-				__( 'Content Directory', 'ithemes-security' ),
-				$itsec_globals['plugin_access_lvl'],
-				$available_pages[0] . '-content_directory',
-				array(
-					$this->core,
-					'render_page'
-				)
-			);
+			$available_pages[] = add_submenu_page( 'itsec', __( 'Content Directory', 'ithemes-security' ), __( 'Content Directory', 'ithemes-security' ), $itsec_globals['plugin_access_lvl'], $available_pages[0] . '-content_directory', array( $this->core, 'render_page' ) );
 
 			return $available_pages;
 
@@ -89,29 +61,9 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 			if ( ! $this->settings === true ) {
 
 				//add metaboxes
-				add_meta_box(
-					'content_directory_description',
-					__( 'Description', 'ithemes-security' ),
-					array(
-						$this,
-						'add_module_intro'
-					),
-					'security_page_toplevel_page_itsec-content_directory',
-					'normal',
-					'core'
-				);
+				add_meta_box( 'content_directory_description', __( 'Description', 'ithemes-security' ), array( $this, 'add_module_intro' ), 'security_page_toplevel_page_itsec-content_directory', 'normal', 'core' );
 
-				add_meta_box(
-					'content_directory_options',
-					__( 'Change Content Directory', 'ithemes-security' ),
-					array(
-						$this,
-						'metabox_advanced_settings'
-					),
-					'security_page_toplevel_page_itsec-content_directory',
-					'advanced',
-					'core'
-				);
+				add_meta_box( 'content_directory_options', __( 'Change Content Directory', 'ithemes-security' ), array( $this, 'metabox_advanced_settings' ), 'security_page_toplevel_page_itsec-content_directory', 'advanced', 'core' );
 
 			}
 
@@ -129,18 +81,12 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 			if ( $this->settings === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array(
-					'text' => __( 'You have renamed the wp-content directory of your site.', 'ithemes-security' ),
-					'link' => $link,
-				);
+				$status       = array( 'text' => __( 'You have renamed the wp-content directory of your site.', 'ithemes-security' ), 'link' => $link, );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array(
-					'text' => __( 'You should rename the wp-content directory of your site.', 'ithemes-security' ),
-					'link' => $link,
-				);
+				$status       = array( 'text' => __( 'You should rename the wp-content directory of your site.', 'ithemes-security' ), 'link' => $link, );
 
 			}
 
@@ -262,29 +208,13 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 
 			$new_dir = trailingslashit( ABSPATH ) . $input;
 
-			$rules[] = array(
-				'type'        => 'add',
-				'search_text' => '//Do not delete these. Doing so WILL break your site.',
-				'rule'        => "//Do not delete these. Doing so WILL break your site.",
-			);
+			$rules[] = array( 'type' => 'add', 'search_text' => '//Do not delete these. Doing so WILL break your site.', 'rule' => "//Do not delete these. Doing so WILL break your site.", );
 
-			$rules[] = array(
-				'type'        => 'add',
-				'search_text' => 'WP_CONTENT_URL',
-				'rule'        => "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $input . "' );",
-			);
+			$rules[] = array( 'type' => 'add', 'search_text' => 'WP_CONTENT_URL', 'rule' => "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $input . "' );", );
 
-			$rules[] = array(
-				'type'        => 'add',
-				'search_text' => 'WP_CONTENT_DIR',
-				'rule'        => "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
-			);
+			$rules[] = array( 'type' => 'add', 'search_text' => 'WP_CONTENT_DIR', 'rule' => "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );", );
 
-			$rules_array[] = array(
-				'type'  => 'wpconfig',
-				'name'  => 'Content Directory',
-				'rules' => $rules,
-			);
+			$rules_array[] = array( 'type' => 'wpconfig', 'name' => 'Content Directory', 'rules' => $rules, );
 
 			return $rules_array;
 
@@ -343,12 +273,7 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 
 			$this->settings = true; //this tells the form field that all went well.
 
-			add_settings_error(
-				'itsec_admin_notices',
-				esc_attr( 'settings_updated' ),
-				$message,
-				$type
-			);
+			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
 		}
 

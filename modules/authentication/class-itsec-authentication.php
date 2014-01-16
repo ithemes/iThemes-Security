@@ -6,9 +6,7 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 
 		private static $instance = null;
 
-		private
-			$settings,
-			$away_file;
+		private $settings, $away_file;
 
 		private function __construct() {
 
@@ -19,74 +17,38 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 
 			//execute login limits
 			if ( $this->settings['brute_force-enabled'] === true ) {
-				add_filter( 'authenticate', array(
-					$this,
-					'execute_brute_force_no_password'
-				), 30, 3 );
+				add_filter( 'authenticate', array( $this, 'execute_brute_force_no_password' ), 30, 3 );
 				//add_action( 'wp_login_failed', array( $this, 'execute_brute_force' ), 1, 1 );
-				add_filter( 'itsec_lockout_modules', array(
-					$this,
-					'register_lockout'
-				) );
+				add_filter( 'itsec_lockout_modules', array( $this, 'register_lockout' ) );
 			}
 
 			//require strong passwords if turned on
 			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] === true ) {
-				add_action( 'user_profile_update_errors', array(
-					$this,
-					'enforce_strong_password'
-				), 0, 3 );
+				add_action( 'user_profile_update_errors', array( $this, 'enforce_strong_password' ), 0, 3 );
 
 				if ( isset( $_GET['action'] ) && ( $_GET['action'] == 'rp' || $_GET['action'] == 'resetpass' ) && isset( $_GET['login'] ) ) {
-					add_action( 'login_head', array(
-						$this,
-						'enforce_strong_password'
-					) );
+					add_action( 'login_head', array( $this, 'enforce_strong_password' ) );
 				}
 
-				add_action( 'admin_enqueue_scripts', array(
-					$this,
-					'login_script_js'
-				) );
-				add_action( 'login_enqueue_scripts', array(
-					$this,
-					'login_script_js'
-				) );
+				add_action( 'admin_enqueue_scripts', array( $this, 'login_script_js' ) );
+				add_action( 'login_enqueue_scripts', array( $this, 'login_script_js' ) );
 
 			}
 
 			//Execute away mode functions on admin init
 			if ( isset( $this->settings['away_mode-enabled'] ) && $this->settings['away_mode-enabled'] === true ) {
-				add_action( 'admin_init', array(
-					$this,
-					'execute_away_mode'
-				) );
+				add_action( 'admin_init', array( $this, 'execute_away_mode' ) );
 			}
 
 			//Execute module functions on frontend init
 			if ( $this->settings['hide_backend-enabled'] === true ) {
 
-				add_action( 'init', array(
-					$this,
-					'execute_hide_backend'
-				) );
-				add_action( 'login_init', array(
-					$this,
-					'execute_hide_backend_login'
-				) );
+				add_action( 'init', array( $this, 'execute_hide_backend' ) );
+				add_action( 'login_init', array( $this, 'execute_hide_backend_login' ) );
 
-				add_filter( 'body_class', array(
-					$this,
-					'remove_admin_bar'
-				) );
-				add_filter( 'wp_redirect', array(
-					$this,
-					'filter_login_url'
-				), 10, 2 );
-				add_filter( 'site_url', array(
-					$this,
-					'filter_login_url'
-				), 10, 2 );
+				add_filter( 'body_class', array( $this, 'remove_admin_bar' ) );
+				add_filter( 'wp_redirect', array( $this, 'filter_login_url' ), 10, 2 );
+				add_filter( 'site_url', array( $this, 'filter_login_url' ), 10, 2 );
 
 				remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
 
@@ -94,10 +56,7 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 
 			//Process remove login errors
 			if ( $this->settings['other-login_errors'] === true ) {
-				add_filter( 'login_errors', array(
-					$this,
-					'empty_return_function'
-				) );
+				add_filter( 'login_errors', array( $this, 'empty_return_function' ) );
 			}
 
 		}
@@ -111,11 +70,7 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 		 */
 		public function register_lockout( $lockout_modules ) {
 
-			$lockout_modules[] = array(
-				'type'   => 'brute_force',
-				'reason' => __( 'too many bad login attempts', 'ithemes-security' ),
-				'host'   => $this->settings['brute_force-max_attempts_host'],
-				'user'   => $this->settings['brute_force-max_attempts_user'],
+			$lockout_modules[] = array( 'type' => 'brute_force', 'reason' => __( 'too many bad login attempts', 'ithemes-security' ), 'host' => $this->settings['brute_force-max_attempts_host'], 'user' => $this->settings['brute_force-max_attempts_user'],
 
 			);
 
@@ -271,34 +226,10 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 			$minRole = $this->settings['strong_passwords-roll'];
 
 			//all the standard roles and level equivalents
-			$availableRoles = array(
-				'administrator' => '8',
-				'editor'        => '5',
-				'author'        => '2',
-				'contributor'   => '1',
-				'subscriber'    => '0'
-			);
+			$availableRoles = array( 'administrator' => '8', 'editor' => '5', 'author' => '2', 'contributor' => '1', 'subscriber' => '0' );
 
 			//roles and subroles
-			$rollists = array(
-				'administrator' => array(
-					'subscriber',
-					'author',
-					'contributor',
-					'editor'
-				),
-				'editor'        => array(
-					'subscriber',
-					'author',
-					'contributor'
-				),
-				'author'        => array(
-					'subscriber',
-					'contributor'
-				),
-				'contributor'   => array( 'subscriber' ),
-				'subscriber'    => array(),
-			);
+			$rollists = array( 'administrator' => array( 'subscriber', 'author', 'contributor', 'editor' ), 'editor' => array( 'subscriber', 'author', 'contributor' ), 'author' => array( 'subscriber', 'contributor' ), 'contributor' => array( 'subscriber' ), 'subscriber' => array(), );
 
 			$password_meets_requirements = false;
 			$args                        = func_get_args();
