@@ -353,7 +353,6 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$content .= '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is:', 'ithemes-security'), '<a href="options-general.php">', '</a>' );
 			$content .= '<div class="current-time-date">' . $currdate . '</div>';
 			$content .= '<p>' .sprintf( __( 'If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'ithemes-security' ), '<a href="options-general.php">', '</a>' ) . '</p>';
-			//$content .= '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is %s If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'ithemes-security' ), '<a href="options-general.php">', '</a>', '<div class="current-time-date">' . $currdate . '</div>', '<a href="options-general.php">', '</a>' ) . '</p>';
 
 			echo $content;
 
