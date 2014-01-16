@@ -18,7 +18,7 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 			//execute login limits
 			if ( $this->settings['brute_force-enabled'] === true ) {
 				add_filter( 'authenticate', array( $this, 'execute_brute_force_no_password' ), 30, 3 );
-				//add_action( 'wp_login_failed', array( $this, 'execute_brute_force' ), 1, 1 );
+				add_action( 'wp_login_failed', array( $this, 'execute_brute_force' ), 1, 1 );
 				add_filter( 'itsec_lockout_modules', array( $this, 'register_lockout' ) );
 			}
 
@@ -82,15 +82,39 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 
 		}
 
+		/**
+		 * Sends to lockout class when username and password are filled out and wrong
+		 *
+		 * @param string $username the username attempted
+		 */
+		public function execute_brute_force( $username ) {
+
+			global $itsec_lockout;
+
+			$itsec_lockout->do_lockout( 'brute_force', sanitize_text_field( $username ) );
+
+		}
+
+		/**
+		 * Sends to lockout class when login form isn't completely filled out
+		 *
+		 * @param object $user     user or wordpress error
+		 * @param string $username username attempted
+		 * @param string $password password attempted
+		 *
+		 * @return user object or WordPress error
+		 */
 		public function execute_brute_force_no_password( $user, $username = '', $password = '' ) {
 
-			if ( is_a( $user, 'WP_User' ) ) {
-				return $user;
-			}
+			global $itsec_lockout;
 
 			if ( isset( $_POST['wp-submit'] ) && ( empty( $username ) || empty( $password ) ) ) {
 
+				$itsec_lockout->do_lockout( 'brute_force', sanitize_text_field( $username ) );
+
 			}
+
+			return $user;
 
 		}
 
