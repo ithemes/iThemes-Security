@@ -57,19 +57,60 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			if ( $host_check !== null ) {
 
-				wp_clear_auth_cookie();
-				@header( 'HTTP/1.0 418 I\'m a teapot' );
-				@header( 'Cache-Control: no-cache, must-revalidate' );
-				@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
-				die( $this->settings['lockout_message'] );
+				$this->execute_lock();
 
 			}
 
 		}
 
-		public function do_lockout( $host = null, $user = null ) {
+		public function do_lockout( $module, $host = null, $user = null ) {
 
-			die( var_dump( $this->lockout_modules ) );
+			$lock_host = null;
+			$lock_user = null;
+			$options   = $this->lockout_modules[$module];
+
+			//die( var_dump( $options ) );
+
+			if ( $host !== null && isset( $options['host'] ) ) {
+
+				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - $options['period'] ) . "' AND `temp_host`='" . esc_sql( $host ) . "';" );
+
+				if ( ( $host_count - 1 ) >= $options['host'] ) {
+
+					$lock_host = $host;
+
+				}
+
+			}
+
+			if ( $user !== null && isset( $options['user'] ) ) {
+
+				$user_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - $options['period'] ) . "' AND `temp_user`='" . esc_sql( $user ) . "';" );
+
+				if ( ( $user_count - 1 ) >= $options['user'] ) {
+
+					$lock_user = $user;
+
+				}
+
+			}
+
+			$this->lockout( $options['type'], $options['reason'], $lock_host, $lock_user );
+
+		}
+
+		/**
+		 * Executes lockout (locks user out)
+		 *
+		 * @return void
+		 */
+		private function execute_lock() {
+
+			wp_clear_auth_cookie();
+			@header( 'HTTP/1.0 418 I\'m a teapot' );
+			@header( 'Cache-Control: no-cache, must-revalidate' );
+			@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
+			die( $this->settings['lockout_message'] );
 
 		}
 
@@ -153,6 +194,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			if ( $this->settings['email_notifications'] === true ) { //send email notifications
 				$this->send_lockout_email( $good_host, $good_user, $host_expiration, $user_expiration, $reason );
 			}
+
+			$this->execute_lock();
 
 		}
 
