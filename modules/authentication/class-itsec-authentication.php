@@ -75,6 +75,7 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 				'reason' => __( 'too many bad login attempts', 'ithemes-security' ),
 				'host'   => $this->settings['brute_force-max_attempts_host'],
 				'user'   => $this->settings['brute_force-max_attempts_user'],
+				'period' => $this->settings['brute_force-check_period']
 			);
 
 			return $lockout_modules;
