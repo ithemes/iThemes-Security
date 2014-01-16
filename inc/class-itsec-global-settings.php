@@ -4,7 +4,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 	class ITSEC_Global_Settings {
 
-		private static $instance = NULL;
+		private static $instance = null;
 
 		private
 			$settings,
@@ -15,17 +15,32 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			global $itsec_globals;
 
-			$this->core      = $core;
-			$this->settings  = get_site_option( 'itsec_global' );
+			$this->core     = $core;
+			$this->settings = get_site_option( 'itsec_global' );
 
-			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
-			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+			add_action( 'itsec_add_admin_meta_boxes', array(
+				$this,
+				'add_admin_meta_boxes'
+			) ); //add meta boxes to admin page
+			add_action( 'admin_init', array(
+				$this,
+				'initialize_admin'
+			) ); //initialize admin area
+			add_filter( 'itsec_add_admin_sub_pages', array(
+				$this,
+				'add_sub_page'
+			) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array(
+				$this,
+				'add_admin_tab'
+			) ); //add tab to menu
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
-				add_action( 'network_admin_edit_itsec_global', array( $this, 'save_network_options' ) ); //save multisite options
+				add_action( 'network_admin_edit_itsec_global', array(
+					$this,
+					'save_network_options'
+				) ); //save multisite options
 			}
 
 		}
@@ -47,7 +62,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				__( 'Global Settings', 'ithemes-security' ),
 				$itsec_globals['plugin_access_lvl'],
 				$available_pages[0] . '-global',
-				array( $this->core, 'render_page' )
+				array(
+					$this->core,
+					'render_page'
+				)
 			);
 
 			return $available_pages;
@@ -72,7 +90,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			add_meta_box(
 				'global_description',
 				__( 'Description', 'ithemes-security' ),
-				array( $this, 'add_module_intro' ),
+				array(
+					$this,
+					'add_module_intro'
+				),
 				'security_page_toplevel_page_itsec-global',
 				'normal',
 				'core'
@@ -81,7 +102,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			add_meta_box(
 				'global_options',
 				__( 'Configure Global Settings', 'ithemes-security' ),
-				array( $this, 'metabox_advanced_settings' ),
+				array(
+					$this,
+					'metabox_advanced_settings'
+				),
 				'security_page_toplevel_page_itsec-global',
 				'advanced',
 				'core'
@@ -102,7 +126,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			add_settings_section(
 				'global',
 				__( 'Global Settings', 'ithemes-security' ),
-				array( $this, 'empty_callback_function' ),
+				array(
+					$this,
+					'empty_callback_function'
+				),
 				'security_page_toplevel_page_itsec-global'
 			);
 
@@ -110,7 +137,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			add_settings_field(
 				'itsec_global[notification_email]',
 				__( 'Notification Email', 'ithemes-security' ),
-				array( $this, 'notification_email' ),
+				array(
+					$this,
+					'notification_email'
+				),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -118,7 +148,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			add_settings_field(
 				'itsec_global[lockout_message]',
 				__( 'Lockout Message', 'ithemes-security' ),
-				array( $this, 'lockout_message' ),
+				array(
+					$this,
+					'lockout_message'
+				),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -126,7 +159,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			add_settings_field(
 				'itsec_authentication[blacklist]',
 				__( 'Blacklist Repeat Offender', 'ithemes-security' ),
-				array( $this, 'blacklist' ),
+				array(
+					$this,
+					'blacklist'
+				),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -134,7 +170,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			add_settings_field(
 				'itsec_authentication[blacklist_count]',
 				__( 'Blacklist Threshold', 'ithemes-security' ),
-				array( $this, 'blacklist_count' ),
+				array(
+					$this,
+					'blacklist_count'
+				),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -142,7 +181,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			add_settings_field(
 				'itsec_authentication[blacklist_period]',
 				__( 'Blacklist Lookback Period', 'ithemes-security' ),
-				array( $this, 'blacklist_period' ),
+				array(
+					$this,
+					'blacklist_period'
+				),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -150,7 +192,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			add_settings_field(
 				'itsec_authentication[lockout_period]',
 				__( 'Lockout Period', 'ithemes-security' ),
-				array( $this, 'lockout_period' ),
+				array(
+					$this,
+					'lockout_period'
+				),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -158,7 +203,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			add_settings_field(
 				'itsec_authentication[email_notifications]',
 				__( 'Email Lockout Notifications', 'ithemes-security' ),
-				array( $this, 'email_notifications' ),
+				array(
+					$this,
+					'email_notifications'
+				),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -167,7 +215,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			register_setting(
 				'security_page_toplevel_page_itsec-global',
 				'itsec_global',
-				array( $this, 'sanitize_module_input' )
+				array(
+					$this,
+					'sanitize_module_input'
+				)
 			);
 
 		}
@@ -175,7 +226,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		/**
 		 * Empty callback function
 		 */
-		public function empty_callback_function() {}
+		public function empty_callback_function() {
+		}
 
 		/**
 		 * echos Admin User Username Field
@@ -254,7 +306,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		public function blacklist_count( $args ) {
 
 			if ( isset( $this->settings['blacklist_count'] ) ) {
-				$blacklist_count = absint( $this->settings['blacklist_count'] ); 
+				$blacklist_count = absint( $this->settings['blacklist_count'] );
 			} else {
 				$blacklist_count = 3;
 			}
@@ -276,7 +328,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		public function blacklist_period( $args ) {
 
 			if ( isset( $this->settings['blacklist_period'] ) ) {
-				$blacklist_period = absint( $this->settings['blacklist_period'] ); 
+				$blacklist_period = absint( $this->settings['blacklist_period'] );
 			} else {
 				$blacklist_period = 7;
 			}
@@ -298,7 +350,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		public function lockout_period( $args ) {
 
 			if ( isset( $this->settings['lockout_period'] ) ) {
-				$lockout_period = absint( $this->settings['lockout_period'] ); 
+				$lockout_period = absint( $this->settings['lockout_period'] );
 			} else {
 				$lockout_period = 15;
 			}
@@ -389,7 +441,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			if ( isset( $input['notification_email'] ) ) {
 
 				$bad_emails = array();
-				$emails = explode( PHP_EOL, $input['notification_email'] );
+				$emails     = explode( PHP_EOL, $input['notification_email'] );
 
 				foreach ( $emails as $email ) {
 
@@ -402,19 +454,19 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				if ( sizeof( $bad_emails ) > 0 ) {
 
 					$bad_addresses = implode( ', ', $bad_emails );
-					$type = 'error';
-					$message = __( 'The following email address(es) do not appear to be valid: ', 'ithemes-security' ) . $bad_addresses;
+					$type          = 'error';
+					$message       = __( 'The following email address(es) do not appear to be valid: ', 'ithemes-security' ) . $bad_addresses;
 				}
 
 				$input['notification_email'] = $emails;
 			}
 
-			$input['lockout_message'] = isset( $input['lockout_message'] ) ? sanitize_text_field( $input['lockout_message'] ): '';
-			$input['blacklist'] = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
-			$input['blacklist_count'] = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
-			$input['blacklist_period'] = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
+			$input['lockout_message']     = isset( $input['lockout_message'] ) ? sanitize_text_field( $input['lockout_message'] ) : '';
+			$input['blacklist']           = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
+			$input['blacklist_count']     = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
+			$input['blacklist_period']    = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
 			$input['email_notifications'] = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
-			$input['lockout_period'] = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
+			$input['lockout_period']      = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
 
 			add_settings_error(
 				'itsec_admin_notices',
@@ -434,18 +486,21 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['notification_email'] = isset( $_POST['itsec_authentication']['notification_email'] ) ? sanitize_text_field( $_POST['itsec_authentication']['notification_email'] ): '';
-			$settings['lockout_message'] = isset( $_POST['itsec_authentication']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['lockout_message'] ): '';
-			$settings['blacklist'] = ( isset( $_POST['itsec_authentication']['blacklist'] ) && intval( $_POST['itsec_authentication']['blacklist'] == 1 ) ? true : false );
-			$settings['blacklist_count'] = isset( $_POST['itsec_authentication']['blacklist_count'] ) ? absint( $_POST['itsec_authentication']['blacklist_count'] ) : 3;
-			$settings['blacklist_period'] = isset( $_POST['itsec_authentication']['blacklist_period'] ) ? absint( $_POST['itsec_authentication']['blacklist_period'] ) : 7;
-			$settings['lockout_period'] = isset( $_POST['itsec_authentication']['lockout_period'] ) ? absint( $_POST['itsec_authentication']['lockout_period'] ) : 15;
+			$settings['notification_email']  = isset( $_POST['itsec_authentication']['notification_email'] ) ? sanitize_text_field( $_POST['itsec_authentication']['notification_email'] ) : '';
+			$settings['lockout_message']     = isset( $_POST['itsec_authentication']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['lockout_message'] ) : '';
+			$settings['blacklist']           = ( isset( $_POST['itsec_authentication']['blacklist'] ) && intval( $_POST['itsec_authentication']['blacklist'] == 1 ) ? true : false );
+			$settings['blacklist_count']     = isset( $_POST['itsec_authentication']['blacklist_count'] ) ? absint( $_POST['itsec_authentication']['blacklist_count'] ) : 3;
+			$settings['blacklist_period']    = isset( $_POST['itsec_authentication']['blacklist_period'] ) ? absint( $_POST['itsec_authentication']['blacklist_period'] ) : 7;
+			$settings['lockout_period']      = isset( $_POST['itsec_authentication']['lockout_period'] ) ? absint( $_POST['itsec_authentication']['lockout_period'] ) : 15;
 			$settings['email_notifications'] = ( isset( $_POST['itsec_authentication']['email_notifications'] ) && intval( $_POST['itsec_authentication']['email_notifications'] == 1 ) ? true : false );
 
 			update_site_option( 'itsec_authentication', $settings ); //we must manually save network options
 
 			//send them back to the away mode options page
-			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_itsec-authentication', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
+			wp_redirect( add_query_arg( array(
+				'page'    => 'toplevel_page_itsec-authentication',
+				'updated' => 'true'
+			), network_admin_url( 'admin.php' ) ) );
 			exit();
 
 		}
@@ -459,7 +514,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 */
 		public static function start( $core ) {
 
-			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
+			if ( ! isset( self::$instance ) || self::$instance === null ) {
 				self::$instance = new self( $core );
 			}
 

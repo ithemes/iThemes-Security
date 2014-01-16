@@ -4,7 +4,7 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 	final class ITSEC_Logger {
 
-		private static $instance = NULL; //instantiated instance of this plugin
+		private static $instance = null; //instantiated instance of this plugin
 
 		function __construct() {
 
@@ -19,7 +19,7 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 		}
 
 		public function save_logs() {
-			
+
 		}
 
 		/**
@@ -29,7 +29,7 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 		 */
 		public static function start() {
 
-			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
+			if ( ! isset( self::$instance ) || self::$instance === null ) {
 				self::$instance = new self();
 			}
 

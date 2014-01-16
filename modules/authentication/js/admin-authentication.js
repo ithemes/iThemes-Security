@@ -2,7 +2,7 @@ jQuery( document ).ready( function () {
 
 	jQuery( "#itsec_authentication_away_mode_end_date, #itsec_authentication_away_mode_start_date" ).datepicker();
 
-	jQuery( "#itsec_authentication_away_mode_enabled" ).change( function() {
+	jQuery( "#itsec_authentication_away_mode_enabled" ).change(function () {
 
 		if ( jQuery( "#itsec_authentication_away_mode_enabled" ).is( ':checked' ) ) {
 
@@ -16,7 +16,7 @@ jQuery( document ).ready( function () {
 
 	} ).change();
 
-	jQuery( "#itsec_authentication_brute_force_enabled" ).change( function() {
+	jQuery( "#itsec_authentication_brute_force_enabled" ).change(function () {
 
 		if ( jQuery( "#itsec_authentication_brute_force_enabled" ).is( ':checked' ) ) {
 
@@ -30,7 +30,7 @@ jQuery( document ).ready( function () {
 
 	} ).change();
 
-	jQuery( "#itsec_authentication_strong_passwords_enabled" ).change( function() {
+	jQuery( "#itsec_authentication_strong_passwords_enabled" ).change(function () {
 
 		if ( jQuery( "#itsec_authentication_strong_passwords_enabled" ).is( ':checked' ) ) {
 
@@ -44,7 +44,7 @@ jQuery( document ).ready( function () {
 
 	} ).change();
 
-	jQuery( "#itsec_authentication_hide_backend_enabled" ).change( function() {
+	jQuery( "#itsec_authentication_hide_backend_enabled" ).change(function () {
 
 		if ( jQuery( "#itsec_authentication_hide_backend_enabled" ).is( ':checked' ) ) {
 
@@ -62,7 +62,7 @@ jQuery( document ).ready( function () {
 		jQuery( "#authentication_hide_backend-settings" ).hide();
 	}
 
-	jQuery( "#itsec_authentication_away_mode_type" ).change( function() {
+	jQuery( "#itsec_authentication_away_mode_type" ).change(function () {
 
 		if ( jQuery( "#itsec_authentication_away_mode_type" ).val() == "2" ) {
 

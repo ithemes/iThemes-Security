@@ -4,7 +4,7 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 	final class ITSEC_Lib {
 
-		private static $instance = NULL; //instantiated instance of this plugin
+		private static $instance = null; //instantiated instance of this plugin
 
 		/**
 		 * Loads core functionality across both admin and frontend.
@@ -22,30 +22,31 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		 *
 		 * Modified from function at http://stackoverflow.com/questions/4931721/getting-list-ips-from-cidr-notation-in-php
 		 * as it was far more elegant than my own solution
-		 * 
+		 *
 		 * @param  string $cidr cidr notation to convert
+		 *
 		 * @return array        range of ips returned
 		 */
 		public function cidr_to_range( $cidr ) {
-			
+
 			$range = array();
 
 			if ( strpos( $cidr, '/' ) ) {
 
-	  			$cidr = explode( '/', $cidr );
+				$cidr = explode( '/', $cidr );
 
-	  			$range[] = long2ip( ( ip2long( $cidr[0] ) ) & ( (-1 << ( 32 - (int) $cidr[1] ) ) ) );
-	  			$range[] = long2ip( ( ip2long( $cidr[0] ) ) + pow( 2, ( 32 - (int) $cidr[1] ) ) - 1 );
+				$range[] = long2ip( ( ip2long( $cidr[0] ) ) & ( ( - 1 << ( 32 - (int)$cidr[1] ) ) ) );
+				$range[] = long2ip( ( ip2long( $cidr[0] ) ) + pow( 2, ( 32 - (int)$cidr[1] ) ) - 1 );
 
-	  		} else { //if not a range just return the original ip
+			} else { //if not a range just return the original ip
 
-	  			$range[] = $cidr;
+				$range[] = $cidr;
 
-	  		}
+			}
 
-	  		return $range;
+			return $range;
 
-	  	}
+		}
 
 		/**
 		 * Gets location of wp-config.php
@@ -74,13 +75,14 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		 *
 		 * Returns primary domain name (without subdomains) of given URL
 		 *
-		 * @param string $address address to filter
-		 * @param boolean $apache[true] does this require an apache style wildcard
+		 * @param string  $address address to filter
+		 * @param boolean $apache  [true] does this require an apache style wildcard
+		 *
 		 * @return string domain name
 		 *
-		 **/		
+		 **/
 		public function get_domain( $address, $apache = true ) {
-		
+
 			preg_match( "/^(http:\/\/)?([^\/]+)/i", $address, $matches );
 
 			$host = $matches[2];
@@ -103,8 +105,8 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 			// is a completely different, unrelated domain in this configuration.
 			if ( is_multisite() && function_exists( 'domain_mapping_warning' ) ) {
 				return $wc;
-			} elseif( isset( $matches[0] ) ) {
-				return $wc . $matches[0] ;
+			} elseif ( isset( $matches[0] ) ) {
+				return $wc . $matches[0];
 			} else {
 				return false;
 			}
@@ -130,7 +132,7 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 			}
 
-		}	
+		}
 
 		/**
 		 * Returns the actual IP address of the user
@@ -198,13 +200,13 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 		/**
 		 * Determine whether the server supports SSL (shared cert not supported
-		 * 
+		 *
 		 * @return bool true if ssl is supported or false
 		 */
 		public function get_ssl() {
 
-			$timeout = 5; //timeout for the request
-			$url = str_replace( 'http://', 'https://', get_bloginfo( 'url' ) );
+			$timeout    = 5; //timeout for the request
+			$url        = str_replace( 'http://', 'https://', get_bloginfo( 'url' ) );
 			$site_title = trim( get_bloginfo() );
 
 			$request = curl_init();
@@ -216,15 +218,15 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 			curl_setopt( $request, CURLOPT_RETURNTRANSFER, 1 );
 			curl_setopt( $request, CURLOPT_CONNECTTIMEOUT, $timeout );
 
-			$data = curl_exec( $request );	
-	
+			$data = curl_exec( $request );
+
 			$header_size = curl_getinfo( $request, CURLINFO_HEADER_SIZE );
-			$http_code = intval( curl_getinfo( $request, CURLINFO_HTTP_CODE ) );
-			$body = substr( $data, $header_size );
+			$http_code   = intval( curl_getinfo( $request, CURLINFO_HTTP_CODE ) );
+			$body        = substr( $data, $header_size );
 
 			preg_match( '/<title>(.+)<\/title>/', $body, $matches );
 
-			if( $http_code === 200 && isset( $matches[1] ) && trim( $matches[1] ) == $site_title ) {
+			if ( $http_code === 200 && isset( $matches[1] ) && trim( $matches[1] ) == $site_title ) {
 				return true;
 			} else {
 				return false;
@@ -234,9 +236,9 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 		/**
 		 * Converts IP with * wildcards to one with a netmask instead
-		 * 
+		 *
 		 * @param  string $ip ip to convert
-		 * 
+		 *
 		 * @return string     the converted ip
 		 */
 		public function ip_wild_to_mask( $ip ) {
@@ -264,7 +266,7 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 				return $converted_host;
 
-			} 
+			}
 
 			return $ip;
 
@@ -277,13 +279,16 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		 */
 		public function is_login_page() {
 
-			return in_array( $GLOBALS['pagenow'], array( 'wp-login.php', 'wp-register.php' ) );
+			return in_array( $GLOBALS['pagenow'], array(
+				'wp-login.php',
+				'wp-register.php'
+			) );
 
-		}	
+		}
 
 		/**
 		 * Checks if the jquery version saved is vulnerable to http://bugs.jquery.com/ticket/9521
-		 * 
+		 *
 		 * @return bool true if known safe or false
 		 */
 		public function safe_jquery_version() {
@@ -324,27 +329,28 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		 * Checks to see if WordPress user with given id exists
 		 *
 		 * @param int $id user id of user to check
+		 *
 		 * @return bool true if user exists otherwise false
 		 *
 		 **/
 		public function user_id_exists( $user_id ) {
-		
+
 			global $wpdb;
-			
+
 			//return false if username is null
 			if ( $user_id == '' ) {
 				return false;
 			}
-			
+
 			//queary the user table to see if the user is there
 			$userid = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM `" . $wpdb->users . "` WHERE ID='%s';", sanitize_text_field( $user_id ) ) );
-			
+
 			if ( $userid == $user_id ) {
 				return true;
 			} else {
 				return false;
 			}
-			
+
 		}
 
 		/**
@@ -357,13 +363,13 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		public function validates_ip_address( $ip ) {
 
 			//validate list
-			$ip = trim( filter_var( $ip, FILTER_SANITIZE_STRING ) );
-			$ip_parts      = explode( '.', $ip );
-			$error_handler = NULL;
+			$ip             = trim( filter_var( $ip, FILTER_SANITIZE_STRING ) );
+			$ip_parts       = explode( '.', $ip );
+			$error_handler  = null;
 			$is_ip          = 0;
 			$part_count     = 1;
 			$good_ip        = true;
-			$found_wildcard     = false;
+			$found_wildcard = false;
 
 			foreach ( $ip_parts as $part ) {
 
@@ -453,7 +459,7 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 			}
 
-			if ( ( strpos( $ip, '/' ) !== false && ip2long( trim( substr( $ip, 0, strpos( $ip, '/' ) ) ) ) === false )  || ( strpos( $ip, '/' ) === false && ip2long( trim( str_replace( '*', '0', $ip ) ) ) === false ) ) { //invalid ip
+			if ( ( strpos( $ip, '/' ) !== false && ip2long( trim( substr( $ip, 0, strpos( $ip, '/' ) ) ) ) === false ) || ( strpos( $ip, '/' ) === false && ip2long( trim( str_replace( '*', '0', $ip ) ) ) === false ) ) { //invalid ip
 
 				return false;
 
@@ -461,7 +467,7 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 			return true; //ip is valid
 
-		}		
+		}
 
 		/**
 		 * Start the global library instance
@@ -470,7 +476,7 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		 */
 		public static function start() {
 
-			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
+			if ( ! isset( self::$instance ) || self::$instance === null ) {
 				self::$instance = new self();
 			}
 

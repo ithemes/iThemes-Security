@@ -4,7 +4,7 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 
 	class ITSEC_Content_Directory_Admin {
 
-		private static $instance = NULL;
+		private static $instance = null;
 
 		private
 			$settings,
@@ -21,11 +21,26 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 				$this->settings = false;
 			}
 
-			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
-			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
-			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			add_action( 'admin_init', array(
+				$this,
+				'initialize_admin'
+			) ); //initialize admin area
+			add_action( 'itsec_add_admin_meta_boxes', array(
+				$this,
+				'add_admin_meta_boxes'
+			) ); //add meta boxes to admin page
+			add_filter( 'itsec_add_admin_sub_pages', array(
+				$this,
+				'add_sub_page'
+			) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array(
+				$this,
+				'add_admin_tab'
+			) ); //add tab to menu
+			add_filter( 'itsec_add_dashboard_status', array(
+				$this,
+				'dashboard_status'
+			) ); //add information for plugin status
 
 		}
 
@@ -46,7 +61,10 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 				__( 'Content Directory', 'ithemes-security' ),
 				$itsec_globals['plugin_access_lvl'],
 				$available_pages[0] . '-content_directory',
-				array( $this->core, 'render_page' )
+				array(
+					$this->core,
+					'render_page'
+				)
 			);
 
 			return $available_pages;
@@ -74,16 +92,22 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 				add_meta_box(
 					'content_directory_description',
 					__( 'Description', 'ithemes-security' ),
-					array( $this, 'add_module_intro' ),
+					array(
+						$this,
+						'add_module_intro'
+					),
 					'security_page_toplevel_page_itsec-content_directory',
 					'normal',
 					'core'
 				);
-				
+
 				add_meta_box(
 					'content_directory_options',
 					__( 'Change Content Directory', 'ithemes-security' ),
-					array( $this, 'metabox_advanced_settings' ),
+					array(
+						$this,
+						'metabox_advanced_settings'
+					),
 					'security_page_toplevel_page_itsec-content_directory',
 					'advanced',
 					'core'
@@ -156,32 +180,32 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 		 */
 		public function add_module_intro( $screen ) {
 
-				if ( $this->settings !== true ) {
+			if ( $this->settings !== true ) {
 
-					$content = '<p>' . __( 'By default WordPress puts all your content including images, plugins, themes, uploads, and more in a directory called "wp-content". This makes it easy to scan for vulnerable files on your WordPress installation as an attacker already knows where the vulnerable files will be at. As there are many plugins and themes with security vulnerabilities moving this folder can make it harder for an attacker to find problems with your site as scans of your site\'s file system will not produce any results.', 'ithemes-security' ) . '</p>';
-					$content .= '<p>' . __( 'Please note that changing the name of your wp-content directory on a site that already has images and other content referencing it will break your site. For that reason I highly recommend you do not try this on anything but a fresh WordPress install. In addition, this tool will not allow further changes to your wp-content folder once it has already been renamed in order to avoid accidently breaking a site later on. This includes uninstalling this plugin which will not revert the changes made by this page.', 'ithemes-security' ) . '</p>';
-					$content .= '<p>' . __( 'Finally, changing the name of the wp-content directory may in fact break plugins and themes that have "hard-coded" it into their design rather than call it dynamically.', 'ithemes-security' ) . '</p>';
-					$content .= sprintf( '<div class="itsec-warning-message"><span>%s: </span>%s</div>', __( 'WARNING', 'ithemes-security' ), __( 'Backup your WordPress installation before using this tool. Renaming your <code>wp-content</code> directory will break links on a site with existing content.', 'ithemes-security' ) );
+				$content = '<p>' . __( 'By default WordPress puts all your content including images, plugins, themes, uploads, and more in a directory called "wp-content". This makes it easy to scan for vulnerable files on your WordPress installation as an attacker already knows where the vulnerable files will be at. As there are many plugins and themes with security vulnerabilities moving this folder can make it harder for an attacker to find problems with your site as scans of your site\'s file system will not produce any results.', 'ithemes-security' ) . '</p>';
+				$content .= '<p>' . __( 'Please note that changing the name of your wp-content directory on a site that already has images and other content referencing it will break your site. For that reason I highly recommend you do not try this on anything but a fresh WordPress install. In addition, this tool will not allow further changes to your wp-content folder once it has already been renamed in order to avoid accidently breaking a site later on. This includes uninstalling this plugin which will not revert the changes made by this page.', 'ithemes-security' ) . '</p>';
+				$content .= '<p>' . __( 'Finally, changing the name of the wp-content directory may in fact break plugins and themes that have "hard-coded" it into their design rather than call it dynamically.', 'ithemes-security' ) . '</p>';
+				$content .= sprintf( '<div class="itsec-warning-message"><span>%s: </span>%s</div>', __( 'WARNING', 'ithemes-security' ), __( 'Backup your WordPress installation before using this tool. Renaming your <code>wp-content</code> directory will break links on a site with existing content.', 'ithemes-security' ) );
+
+			} else {
+
+				if ( isset( $_POST['itsec_one_time_save'] ) ) {
+
+					$dir_name = sanitize_file_name( $_POST['name'] );
 
 				} else {
 
-					if ( isset( $_POST['itsec_one_time_save'] ) ) {
-
-						$dir_name = sanitize_file_name( $_POST['name'] );
-
-					} else {
-
-						$dir_name = substr( WP_CONTENT_DIR, strrpos( WP_CONTENT_DIR, '/' ) + 1 );
-					}
-
-					$content = '<p>' . __( 'Congratulations! You have already renamed your "wp-content" directory.', 'ithemes-security' ) . '</p>';
-					$content .= '<p>' . __( 'Your current content directory is: ', 'ithemes-security' );
-					$content .= '<strong>' . $dir_name . '</strong></p>';
-					$content .= '<p>' . __( 'No further actions are available on this page.', 'ithemes-security' ) . '</p>';
-
+					$dir_name = substr( WP_CONTENT_DIR, strrpos( WP_CONTENT_DIR, '/' ) + 1 );
 				}
 
-				echo $content;
+				$content = '<p>' . __( 'Congratulations! You have already renamed your "wp-content" directory.', 'ithemes-security' ) . '</p>';
+				$content .= '<p>' . __( 'Your current content directory is: ', 'ithemes-security' );
+				$content .= '<strong>' . $dir_name . '</strong></p>';
+				$content .= '<p>' . __( 'No further actions are available on this page.', 'ithemes-security' ) . '</p>';
+
+			}
+
+			echo $content;
 
 		}
 
@@ -212,7 +236,8 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 						</tr>
 					</table>
 					<p class="submit">
-						<input type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'ithemes-security' ); ?>"/>
+						<input type="submit" class="button-primary"
+							   value="<?php _e( 'Save Changes', 'ithemes-security' ); ?>"/>
 					</p>
 				</form>
 			<?php
@@ -223,8 +248,9 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 
 		/**
 		 * Build wp-config.php rules
-		 * 
-		 * @param  array $input  options to build rules from
+		 *
+		 * @param  array $input options to build rules from
+		 *
 		 * @return array         rules to write
 		 */
 		public function build_wpconfig_rules( $rules_array, $input = null ) {
@@ -237,27 +263,27 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 			$new_dir = trailingslashit( ABSPATH ) . $input;
 
 			$rules[] = array(
-				'type'			=> 'add',
-				'search_text'	=> '//Do not delete these. Doing so WILL break your site.',   
-				'rule'			=> "//Do not delete these. Doing so WILL break your site.",
+				'type'        => 'add',
+				'search_text' => '//Do not delete these. Doing so WILL break your site.',
+				'rule'        => "//Do not delete these. Doing so WILL break your site.",
 			);
 
 			$rules[] = array(
-				'type'			=> 'add',
-				'search_text'	=> 'WP_CONTENT_URL',    
-				'rule'			=> "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $input . "' );",
+				'type'        => 'add',
+				'search_text' => 'WP_CONTENT_URL',
+				'rule'        => "define( 'WP_CONTENT_URL', '" . trailingslashit( get_option( 'siteurl' ) ) . $input . "' );",
 			);
 
 			$rules[] = array(
-				'type'			=> 'add',
-				'search_text'	=> 'WP_CONTENT_DIR',     
-				'rule'			=> "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
+				'type'        => 'add',
+				'search_text' => 'WP_CONTENT_DIR',
+				'rule'        => "define( 'WP_CONTENT_DIR', '" . $new_dir . "' );",
 			);
 
 			$rules_array[] = array(
-				'type'	=> 'wpconfig',
-				'name'	=> 'Content Directory',
-				'rules'	=> $rules,
+				'type'  => 'wpconfig',
+				'name'  => 'Content Directory',
+				'rules' => $rules,
 			);
 
 			return $rules_array;
@@ -335,7 +361,7 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 		 */
 		public static function start( $core ) {
 
-			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
+			if ( ! isset( self::$instance ) || self::$instance === null ) {
 				self::$instance = new self( $core );
 			}
 

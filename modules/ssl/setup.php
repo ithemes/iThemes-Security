@@ -40,7 +40,7 @@ if ( ! class_exists( 'ITSEC_SSL_Setup' ) ) {
 		 */
 		function execute_activate() {
 
-			$options = get_site_option( 'itsec_ssl' );
+			$options  = get_site_option( 'itsec_ssl' );
 			$initials = get_site_option( 'itsec_initials' );
 
 			if ( defined( 'FORCE_SSL_LOGIN' ) && FORCE_SSL_LOGIN === true ) {
@@ -72,9 +72,9 @@ if ( ! class_exists( 'ITSEC_SSL_Setup' ) ) {
 				}
 
 				$defaults = array(
-					'frontend'	=> 0,
-					'admin'		=> $admin,
-					'login'		=> $login,
+					'frontend' => 0,
+					'admin'    => $admin,
+					'login'    => $login,
 				);
 
 				add_site_option( 'itsec_ssl', $defaults );
@@ -107,7 +107,7 @@ if ( ! class_exists( 'ITSEC_SSL_Setup' ) ) {
 			$this->execute_deactivate();
 
 			delete_site_option( 'itsec_ssl' );
-			
+
 			delete_metadata( 'post', null, 'itsec_enable_ssl', null, true );
 
 		}

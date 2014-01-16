@@ -1,34 +1,34 @@
 #ithemes_publicize {
-	border-color: #0000ff;
-	border-width: 2px;
-	font-weight: bold;
+	border-color : #0000ff;
+	border-width : 2px;
+	font-weight  : bold;
 }
 
 #ithemes_publicize h3 {
-	color:  #0000ff;
+	color : #0000ff;
 }
 
 #ithemes_publicize form {
-	margin:  7px auto 0 auto;
-	text-align: center;
+	margin     : 7px auto 0 auto;
+	text-align : center;
 }
 
 div.inside ul li.twitter {
-	list-style-image: url( '../img/twitter.png' );
+	list-style-image : url('../img/twitter.png');
 }
 
 div.inside ul li.facebook {
-	list-style-image: url( '../img/facebook.png' );
+	list-style-image : url('../img/facebook.png');
 }
 
 div.inside ul li.google {
-	list-style-image: url( '../img/google.png' );
+	list-style-image : url('../img/google.png');
 }
 
 div.inside ul li.subscribe {
-	list-style-image: url( '../img/subscribe.png' );
+	list-style-image : url('../img/subscribe.png');
 }
 
 div.inside ul li.ithemes {
-	list-style-image: url( '../img/ithemes-small.png' );
+	list-style-image : url('../img/ithemes-small.png');
 }

@@ -1,93 +1,103 @@
 div.inside ul {
-	margin-left: 20px;
+	margin-left : 20px;
 }
 
 div.inside ul li {
-	list-style: disc;
-	line-height:16px;
+	list-style  : disc;
+	line-height : 16px;
 }
 
 .form-table th,
 .form-table td label {
-	font-weight: 600;
+	font-weight : 600;
 }
 
 #poststuff h2.settings-section-header {
-	padding: 1em 0;
-	border-top: 1px solid #efefef;
+	padding    : 1em 0;
+	border-top : 1px solid #efefef;
 }
-
 
 /***************************************
 	Move sidebar to left
 ****************************************/
 
 #poststuff #post-body.columns-2 {
-	margin-right: 0;
-	margin-left: 350px;
-}
-#post-body.columns-2 #postbox-container-1 {
-	float: left;
-	margin-left: -350px;
-	width: 100%;
-	max-width: 330px;
-}
-#post-body.columns-2 #postbox-container-2 {
-	float: right;
-	width: 100%;
-}
-#poststuff h2.nav-tab-wrapper {
-	margin-top: 0;
-	padding-bottom: 0;
-	padding-left: 10px;
+	margin-right : 0;
+	margin-left  : 350px;
 }
 
+#post-body.columns-2 #postbox-container-1 {
+	float       : left;
+	margin-left : -350px;
+	width       : 100%;
+	max-width   : 330px;
+}
+
+#post-body.columns-2 #postbox-container-2 {
+	float : right;
+	width : 100%;
+}
+
+#poststuff h2.nav-tab-wrapper {
+	margin-top     : 0;
+	padding-bottom : 0;
+	padding-left   : 10px;
+}
 
 /***************************************
 	Dashboard Security Status List
 ****************************************/
 
 #itsec_status ul {
-	list-style-position: inside;
-	margin: 1em 0;
-	border: 1px solid #ebebeb;
-	padding: 0;
+	list-style-position : inside;
+	margin              : 1em 0;
+	border              : 1px solid #ebebeb;
+	padding             : 0;
 }
+
 #itsec_status ul li {
-	padding: .5em 1em;
-	margin: 0;
-	border-bottom: 1px solid #ebebeb;
-	overflow:hidden;
+	padding       : .5em 1em;
+	margin        : 0;
+	border-bottom : 1px solid #ebebeb;
+	overflow      : hidden;
 }
+
 #itsec_status ul li:last-child {
-	border-bottom: none;
+	border-bottom : none;
 }
+
 #itsec_status ul.completed li {
-	border-left: 5px solid #c9c9c9;
+	border-left : 5px solid #c9c9c9;
 }
+
 #itsec_status ul.high-priority li {
-	border-left: 5px solid #ffd4d4;
+	border-left : 5px solid #ffd4d4;
 }
+
 #itsec_status ul.medium-priority li {
-	border-left: 5px solid #d9f4ff;
+	border-left : 5px solid #d9f4ff;
 }
+
 #itsec_status ul.low-priority li {
-	border-left: 5px solid #d9f4ff;
+	border-left : 5px solid #d9f4ff;
 }
+
 #itsec_status ul li p {
-	float:left;
-	width: 75%;
-	margin: 0;
-	padding: .3em 0;
+	float   : left;
+	width   : 75%;
+	margin  : 0;
+	padding : .3em 0;
 }
+
 #itsec_status ul li .itsec_status_action {
-	float:right;
-	width: 20%;
-	margin-left: 5%;
-	text-align: right;
+	float       : right;
+	width       : 20%;
+	margin-left : 5%;
+	text-align  : right;
 }
+
 #itsec_status ul li .button-primary {
-	vertical-align: middle;
+	vertical-align : middle;
 }
 
 /***************************************
@@ -95,96 +105,103 @@ div.inside ul li {
 ****************************************/
 
 #itsec_status_feed .inside {
-	padding: 0;
-	margin: 0;
+	padding : 0;
+	margin  : 0;
 }
 
 #itsec_status_feed .itsec-status-feed-item {
-	padding: .25em 1em;
-	overflow:hidden;
-	padding-left: 45px;
+	padding      : .25em 1em;
+	overflow     : hidden;
+	padding-left : 45px;
 }
 
 #itsec_status_feed .itsec-status-feed-item.intro {
-	background: #fff9ec;
-	border-bottom: 1px solid #e2d6a7;
-	padding-left: 1em;
+	background    : #fff9ec;
+	border-bottom : 1px solid #e2d6a7;
+	padding-left  : 1em;
 }
 
-
 #itsec_status_feed .itsec-status-feed-item.completed {
-	background: #fafafa url(../img/check16.png) 15px 18px no-repeat;
-	border-bottom: 1px solid #c9c9c9;
-	padding-left: 45px;
+	background    : #fafafa url(../img/check16.png) 15px 18px no-repeat;
+	border-bottom : 1px solid #c9c9c9;
+	padding-left  : 45px;
 }
 
 #itsec_status_feed .itsec-status-feed-item.high-priority {
-	background: #ffd4d4 url(../img/flag16-red.png) 15px 18px no-repeat;
-	border-bottom: 1px solid #ca8383;
+	background    : #ffd4d4 url(../img/flag16-red.png) 15px 18px no-repeat;
+	border-bottom : 1px solid #ca8383;
 }
 
 #itsec_status_feed .itsec-status-feed-item.medium-priority {
-	background: #d9f4ff url(../img/flag16-blue.png) 15px 18px no-repeat;
-	border-bottom: 1px solid #95cfe6;
+	background    : #d9f4ff url(../img/flag16-blue.png) 15px 18px no-repeat;
+	border-bottom : 1px solid #95cfe6;
 }
 
 #itsec_status_feed .itsec-status-feed-item.notice {
-	background: #ffffcb url(../img/alert16.png) 15px 18px no-repeat;
-	border-bottom: 1px solid #d4d49d;
+	background    : #ffffcb url(../img/alert16.png) 15px 18px no-repeat;
+	border-bottom : 1px solid #d4d49d;
 }
 
 #itsec_status_feed .itsec-status-feed-item.ithemes-message {
-	background: #e5f7cf url(../img/ithemes16.png) 15px 18px no-repeat;
-	border-bottom: 1px solid #97a981;
+	background    : #e5f7cf url(../img/ithemes16.png) 15px 18px no-repeat;
+	border-bottom : 1px solid #97a981;
 }
 
-#itsec_status_feed .itsec-status-feed-item.closing{padding:0;}
+#itsec_status_feed .itsec-status-feed-item.closing {
+	padding : 0;
+}
+
 #itsec_status_feed .itsec-status-feed-item.closing p {
-	background: url(../img/bb-ad.jpg) center center no-repeat;
-	width: 100%;
-	height: 250px;
-	padding: 0;
+	background : url(../img/bb-ad.jpg) center center no-repeat;
+	width      : 100%;
+	height     : 250px;
+	padding    : 0;
 }
-
 
 #itsec_status_feed .itsec-status-feed-actions {
-	margin: .75em 0 0 0;
-	overflow:hidden;
+	margin   : .75em 0 0 0;
+	overflow : hidden;
 }
 
 #itsec_status_feed .itsec-status-feed-actions p {
-	float:right;
-	margin: 0 0 .5em 0;
+	float  : right;
+	margin : 0 0 .5em 0;
 }
 
 #itsec_status_feed .itsec-status-feed-actions p.itsec-why {
-	float:left;
-	margin-top: .5em;
+	float      : left;
+	margin-top : .5em;
 }
 
 #itsec_status_feed .itsec-status-feed-actions .itsec-why-explained {
-	clear:both;
-	display: block;
-	overflow:hidden;
-	padding: 1em;
-	margin-bottom: 1em;
-	background: #fff;
-	border: 1px solid #95cfe6;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
+	clear                 : both;
+	display               : block;
+	overflow              : hidden;
+	padding               : 1em;
+	margin-bottom         : 1em;
+	background            : #fff;
+	border                : 1px solid #95cfe6;
+	-webkit-border-radius : 3px;
+	-moz-border-radius    : 3px;
+	border-radius         : 3px;
 }
 
-#itsec_status_feed .urgent .itsec-why a{color: #9c3e3e;}
-#itsec_status_feed .recommended .itsec-why a{color: #1b789e;}
+#itsec_status_feed .urgent .itsec-why a {
+	color : #9c3e3e;
+}
+
+#itsec_status_feed .recommended .itsec-why a {
+	color : #1b789e;
+}
 
 #itsec_status_feed .itsec-status-feed-item.completed .itsec-status-feed-completed-message {
-	float:left;
-	width: 75%;
+	float : left;
+	width : 75%;
 }
+
 #itsec_status_feed .itsec-status-feed-item.completed .itsec-status-feed-actions {
-	float:right;
-	width: 25%;
+	float : right;
+	width : 25%;
 }
 
 /***************************************
@@ -192,18 +209,18 @@ div.inside ul li {
 ****************************************/
 
 .itsec-warning-message {
-	display: block;
-	clear:both;
-	font-size: 1.125em;
-	margin: 1.5em 0;
-	padding: 1em;
-	border-left: 4px solid #ca8383;
-	background: #ffd4d4;
-	color: #9c3e3e;
+	display     : block;
+	clear       : both;
+	font-size   : 1.125em;
+	margin      : 1.5em 0;
+	padding     : 1em;
+	border-left : 4px solid #ca8383;
+	background  : #ffd4d4;
+	color       : #9c3e3e;
 }
 
 .itsec-warning-message span {
-	font-weight: bold;
+	font-weight : bold;
 }
 
 /***************************************
@@ -211,29 +228,29 @@ div.inside ul li {
 ****************************************/
 
 .inside .itsec-support {
-	margin: 0;
+	margin : 0;
 }
 
 .inside .itsec-support li {
-	list-style: none;
+	list-style : none;
 }
 
 .inside .itsec-support li h4 {
-	background: #ebebeb;
-	padding: 1em;
-	margin-bottom: 0;
+	background    : #ebebeb;
+	padding       : 1em;
+	margin-bottom : 0;
 }
 
 .inside .itsec-support li ul {
-	border: 1px solid #ebebeb;
-	margin: 0;
+	border : 1px solid #ebebeb;
+	margin : 0;
 }
 
 .inside .itsec-support li li {
-	padding: .5em 1em .5em 2em;
-	margin: 0;
+	padding : .5em 1em .5em 2em;
+	margin  : 0;
 }
 
 .inside .itsec-support li li:nth-child(2n+1) {
-	background: #fafafa;
+	background : #fafafa;
 }

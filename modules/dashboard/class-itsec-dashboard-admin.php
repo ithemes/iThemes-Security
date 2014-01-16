@@ -9,7 +9,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 	class ITSEC_Dashboard_Admin {
 
-		private static $instance = NULL;
+		private static $instance = null;
 
 		private
 			$feed,
@@ -18,15 +18,24 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 		private function __construct() {
 
 			$this->paypal_id = 'V647NGJSBC882'; //Donation ID for paypal
-			$this->feed        = 'http://ithemes.com/blog/feed/'; //Feed location for sidebar
+			$this->feed      = 'http://ithemes.com/blog/feed/'; //Feed location for sidebar
 
 			//add sharing reminder
-			add_action( 'admin_init', array( $this, 'share_reminder' ) );
+			add_action( 'admin_init', array(
+				$this,
+				'share_reminder'
+			) );
 
 			//Add admin CSS
-			add_action( 'itsec_admin_init', array( $this, 'register_admin_css' ) );
+			add_action( 'itsec_admin_init', array(
+				$this,
+				'register_admin_css'
+			) );
 
-			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
+			add_action( 'itsec_add_admin_meta_boxes', array(
+				$this,
+				'add_admin_meta_boxes'
+			) );
 
 		}
 
@@ -43,47 +52,53 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 				add_meta_box(
 					'itsec_status_feed',
 					__( 'Security Status Feed', 'ithemes-security' ),
-					array( $this, 'metabox_status_feed' ),
+					array(
+						$this,
+						'metabox_status_feed'
+					),
 					$page,
 					'priority_side',
 					'core'
 				);
 
-/*
-				add_meta_box(
-					'ithemes_publicize',
-					__( 'Support iThemes Security', 'ithemes-security' ),
-					array( $this, 'metabox_sidebar_publicize' ),
-					$page,
-					'side',
-					'core'
-				);
+				/*
+								add_meta_box(
+									'ithemes_publicize',
+									__( 'Support iThemes Security', 'ithemes-security' ),
+									array( $this, 'metabox_sidebar_publicize' ),
+									$page,
+									'side',
+									'core'
+								);
 
-				add_meta_box(
-					'ithemes_contact_info',
-					__( 'iThemes on the Web', 'ithemes-security' ),
-					array( $this, 'metabox_sidebar_contact' ),
-					$page,
-					'side',
-					'core'
-				);
+								add_meta_box(
+									'ithemes_contact_info',
+									__( 'iThemes on the Web', 'ithemes-security' ),
+									array( $this, 'metabox_sidebar_contact' ),
+									$page,
+									'side',
+									'core'
+								);
 
-				add_meta_box(
-					'ithemes_latest',
-					__( 'The Latest from iThemes', 'ithemes-security' ),
-					array( $this, 'metabox_sidebar_latest' ),
-					$page,
-					'side',
-					'core'
-				);
-*/
+								add_meta_box(
+									'ithemes_latest',
+									__( 'The Latest from iThemes', 'ithemes-security' ),
+									array( $this, 'metabox_sidebar_latest' ),
+									$page,
+									'side',
+									'core'
+								);
+				*/
 
 			}
 
 			add_meta_box(
 				'itsec_status',
 				__( 'Security Status', 'ithemes-security' ),
-				array( $this, 'metabox_normal_status' ),
+				array(
+					$this,
+					'metabox_normal_status'
+				),
 				'toplevel_page_itsec',
 				'normal',
 				'core'
@@ -102,7 +117,10 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 			wp_register_style( 'itsec_admin_dashboard', $itsec_globals['plugin_url'] . 'modules/dashboard/css/dashboard.css' );
 
-			add_action( $itsec_globals['plugin_url'] . 'enqueue_admin_styles', array( $this, 'enqueue_admin_css' ) );
+			add_action( $itsec_globals['plugin_url'] . 'enqueue_admin_styles', array(
+				$this,
+				'enqueue_admin_css'
+			) );
 
 		}
 
@@ -254,7 +272,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 					foreach ( $feeditems as $item ) {
 
-						$url = preg_replace( '/#.*/', '', esc_url( $item->get_permalink(), $protocolls = NULL, 'display' ) );
+						$url = preg_replace( '/#.*/', '', esc_url( $item->get_permalink(), $protocolls = null, 'display' ) );
 
 						$content .= '<li class="ithemes"><a class="rsswidget" href="' . $url . '" target="_blank">' . esc_html( $item->get_title() ) . '</a></li>';
 
@@ -271,7 +289,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			echo $content;
 
 		}
-		
+
 		/**
 		 * Display the Security Status feed
 		 *
@@ -280,82 +298,77 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 		public function metabox_status_feed() {
 
 			// Intro Text
-			$content  =		'<div class="itsec-status-feed-item intro">';
-			$content .=			'<p>';
-			$content .= 		__('We\'ve analyzed your site and determined that these simple changes will have the biggest impact in keeping your site safe and secure. Do these things first, then use the tabs to explore more advanced features.', 'ithemes-security' );
-			$content .=			'</p>';
-			$content .=		'</div>';
-			
-			
-			
+			$content = '<div class="itsec-status-feed-item intro">';
+			$content .= '<p>';
+			$content .= __( 'We\'ve analyzed your site and determined that these simple changes will have the biggest impact in keeping your site safe and secure. Do these things first, then use the tabs to explore more advanced features.', 'ithemes-security' );
+			$content .= '</p>';
+			$content .= '</div>';
+
 			// Begin Feed Items 
-			$content .= 	'<div class="itsec-status-feed-item completed">';
-			$content .=			'<div class="itsec-status-feed-completed-message">';
-			$content .=				'<p>User ID 1 changed!</p>';
-			$content .=			'</div>';
-			$content .=			'<div class="itsec-status-feed-actions">';
-			$content .=				'<p><input class="button-secondary" name="submit" type="submit" value="Undo"></p>';
-			$content .=			'</div>';
-			$content .=		'</div>';
-			
-			$content .= 	'<div class="itsec-status-feed-item completed">';
-			$content .=			'<div class="itsec-status-feed-completed-message">';
-			$content .=				'<p>Admin Username Changed!</p>';
-			$content .=			'</div>';
-			$content .=			'<div class="itsec-status-feed-actions">';
-			$content .=				'<p><input class="button-secondary" name="submit" type="submit" value="Undo"></p>';
-			$content .=			'</div>';
-			$content .=		'</div>';
-			
-			$content .=		'<div class="itsec-status-feed-item medium-priority">';
-			$content .=			'<p>You should hide the WordPress admin area.</p>';
-			$content .=			'<div class="itsec-status-feed-actions">';
-			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
-			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
-			$content .=			'</div>';
-			$content .=		'</div>';
-			
-			$content .=		'<div class="itsec-status-feed-item medium-priority">';
-			$content .=			'<p>You shouldn\'t let non-administrators see all available updates.</p>';
-			$content .=			'<div class="itsec-status-feed-actions">';
-			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
-			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
-			$content .=			'</div>';
-			$content .=		'</div>';
-			
-			$content .=		'<div class="itsec-status-feed-item notice">';
-			$content .=			'<p>Your site had 116 instances of 404 errors last week. This could be evidence of an attempted attack. Check your logs.</p>';
-			$content .=			'<div class="itsec-status-feed-actions">';
-			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
-			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
-			$content .=			'</div>';
-			$content .=		'</div>';
-			
-			$content .= 	'<div class="itsec-status-feed-item high-priority">';
-			$content .=			'<p>Change username "admin" to something else.</p>';
-			$content .=			'<div class="itsec-status-feed-actions">';
-			$content .=				'<p class="itsec-why"><a href="#">Why Change This?</a></p>';
-			$content .=				'<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
-			$content .=			'</div>';
-			$content .=		'</div>';
-			
-			$content .= 	'<div class="itsec-status-feed-item ithemes-message">';
-			$content .=			'<p>A friendly message from iThemes directing you to a blog post or new feature or something of the like.</p>';
-			$content .=			'<div class="itsec-status-feed-actions">';
-			$content .=				'<p><a class="button-primary">Check it out!</a></p>';
-			$content .=			'</div>';
-			$content .=		'</div>';
-			
-			
+			$content .= '<div class="itsec-status-feed-item completed">';
+			$content .= '<div class="itsec-status-feed-completed-message">';
+			$content .= '<p>User ID 1 changed!</p>';
+			$content .= '</div>';
+			$content .= '<div class="itsec-status-feed-actions">';
+			$content .= '<p><input class="button-secondary" name="submit" type="submit" value="Undo"></p>';
+			$content .= '</div>';
+			$content .= '</div>';
+
+			$content .= '<div class="itsec-status-feed-item completed">';
+			$content .= '<div class="itsec-status-feed-completed-message">';
+			$content .= '<p>Admin Username Changed!</p>';
+			$content .= '</div>';
+			$content .= '<div class="itsec-status-feed-actions">';
+			$content .= '<p><input class="button-secondary" name="submit" type="submit" value="Undo"></p>';
+			$content .= '</div>';
+			$content .= '</div>';
+
+			$content .= '<div class="itsec-status-feed-item medium-priority">';
+			$content .= '<p>You should hide the WordPress admin area.</p>';
+			$content .= '<div class="itsec-status-feed-actions">';
+			$content .= '<p class="itsec-why"><a href="#">Why Change This?</a></p>';
+			$content .= '<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
+			$content .= '</div>';
+			$content .= '</div>';
+
+			$content .= '<div class="itsec-status-feed-item medium-priority">';
+			$content .= '<p>You shouldn\'t let non-administrators see all available updates.</p>';
+			$content .= '<div class="itsec-status-feed-actions">';
+			$content .= '<p class="itsec-why"><a href="#">Why Change This?</a></p>';
+			$content .= '<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
+			$content .= '</div>';
+			$content .= '</div>';
+
+			$content .= '<div class="itsec-status-feed-item notice">';
+			$content .= '<p>Your site had 116 instances of 404 errors last week. This could be evidence of an attempted attack. Check your logs.</p>';
+			$content .= '<div class="itsec-status-feed-actions">';
+			$content .= '<p class="itsec-why"><a href="#">Why Change This?</a></p>';
+			$content .= '<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
+			$content .= '</div>';
+			$content .= '</div>';
+
+			$content .= '<div class="itsec-status-feed-item high-priority">';
+			$content .= '<p>Change username "admin" to something else.</p>';
+			$content .= '<div class="itsec-status-feed-actions">';
+			$content .= '<p class="itsec-why"><a href="#">Why Change This?</a></p>';
+			$content .= '<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
+			$content .= '</div>';
+			$content .= '</div>';
+
+			$content .= '<div class="itsec-status-feed-item ithemes-message">';
+			$content .= '<p>A friendly message from iThemes directing you to a blog post or new feature or something of the like.</p>';
+			$content .= '<div class="itsec-status-feed-actions">';
+			$content .= '<p><a class="button-primary">Check it out!</a></p>';
+			$content .= '</div>';
+			$content .= '</div>';
+
 			// Bottom Interchangeable Ad
-			$content .=		'<div class="itsec-status-feed-item closing">';
-			$content .=			'<p>';
+			$content .= '<div class="itsec-status-feed-item closing">';
+			$content .= '<p>';
 			//$content .= 		;
-			$content .=			'</p>';
-			$content .=		'</div>';
-			
-			
-				
+			$content .= '</p>';
+			$content .= '</div>';
+
 			echo $content;
 		}
 
@@ -369,12 +382,12 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			global $itsec_globals;
 
 			$statuses = array(
-				'safe-high' => array(),
-				'high' => array(),
+				'safe-high'   => array(),
+				'high'        => array(),
 				'safe-medium' => array(),
-				'medium' => array(),
-				'safe-low' => array(),
-				'low' => array(),
+				'medium'      => array(),
+				'safe-low'    => array(),
+				'low'         => array(),
 			);
 
 			$statuses = apply_filters( 'itsec_add_dashboard_status', $statuses );
@@ -492,7 +505,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 		 */
 		public static function start() {
 
-			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
+			if ( ! isset( self::$instance ) || self::$instance === null ) {
 				self::$instance = new self();
 			}
 

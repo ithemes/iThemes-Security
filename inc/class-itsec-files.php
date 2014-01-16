@@ -4,9 +4,9 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 	final class ITSEC_Files {
 
-		private static $instance = NULL; //instantiated instance of this plugin
+		private static $instance = null; //instantiated instance of this plugin
 
-		private 
+		private
 			$rewrite_rules,
 			$wpconfig_rules,
 			$rewrite_lock_file,
@@ -18,21 +18,27 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 		 */
 		function __construct() {
 
-			add_action( 'plugins_loaded', array( $this, 'file_writer_init' ) );
+			add_action( 'plugins_loaded', array(
+				$this,
+				'file_writer_init'
+			) );
 
 		}
 
 		/**
 		 * Builds server appropriate rewrite rules
-		 * 
+		 *
 		 * @return array|bool The rewrite rules to use or false if there are none
 		 */
 		private function build_rewrites() {
 
-			$out_values = array();
+			$out_values    = array();
 			$rewrite_rules = $this->rewrite_rules; //only get the htaccess portion
 
-			uasort( $rewrite_rules, array( $this, 'priority_sort' ) ); //sort by priority
+			uasort( $rewrite_rules, array(
+				$this,
+				'priority_sort'
+			) ); //sort by priority
 
 			foreach ( $rewrite_rules as $key => $value ) {
 
@@ -40,7 +46,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 					$out_values[] = "\t# BEGIN " . $value['name']; //add section header
 
-					foreach( $value['rules'] as $rule ) {
+					foreach ( $value['rules'] as $rule ) {
 						$out_values[] = "\t\t" . $rule; //write all the rules
 					}
 
@@ -60,14 +66,14 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 		/**
 		 * Delete htaccess rules when plugin is deactivated
-		 * 
+		 *
 		 * @return bool true on success of false
 		 */
 		private function delete_rewrites() {
 
 			global $itsec_lib, $wp_filesystem;
 
-			$rule_open = '# BEGIN iThemes Security';
+			$rule_open  = '# BEGIN iThemes Security';
 			$rule_close = '# END iThemes Security';
 
 			$url = wp_nonce_url( 'options.php?page=itsec_creds', 'itsec_write_wpconfig' );
@@ -89,7 +95,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			$htaccess_file = $itsec_lib->get_htaccess();
 
 			//Make sure we can write to the file
-			$perms = substr( sprintf( '%o', fileperms( $htaccess_file ) ), -4 );
+			$perms = substr( sprintf( '%o', fileperms( $htaccess_file ) ), - 4 );
 
 			if ( $perms == '0444' ) {
 				@chmod( $htaccess_file, 0644 );
@@ -150,7 +156,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 		/**
 		 * Execute activation functions
-		 * 
+		 *
 		 * @return void
 		 */
 		public function do_activate() {
@@ -162,7 +168,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 		/**
 		 * Execute deactivation functions
-		 * 
+		 *
 		 * @return void
 		 */
 		public function do_deactivate() {
@@ -174,18 +180,18 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 		/**
 		 * Initialize file writer and rules arrays
-		 * 
+		 *
 		 * @return void
 		 */
 		public function file_writer_init() {
 
 			global $itsec_lib;
 
-			$all_rules = array(); //initialize rules array
-			$this->rewrite_rules = array(); //rewrite rules that will need to be written
+			$all_rules            = array(); //initialize rules array
+			$this->rewrite_rules  = array(); //rewrite rules that will need to be written
 			$this->wpconfig_rules = array(); //wp-config rules that will need to be written
-			
-			$this->rewrite_lock_file = trailingslashit( ABSPATH ) . 'itsec_rewrites.lock';
+
+			$this->rewrite_lock_file  = trailingslashit( ABSPATH ) . 'itsec_rewrites.lock';
 			$this->wpconfig_lock_file = trailingslashit( ABSPATH ) . 'itsec_config.lock';
 
 			$all_rules = apply_filters( 'itsec_file_rules', $all_rules );
@@ -247,19 +253,19 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 		/**
 		 * Sorts given arrays py priority key
-		 * 
+		 *
 		 * @param  string $a value a
 		 * @param  string $b value b
-		 * 
+		 *
 		 * @return int    -1 if a less than b, 0 if they're equal or 1 if a is greater
 		 */
 		private function priority_sort( $a, $b ) {
 
-			if( $a['priority'] == $b['priority'] ) {
+			if ( $a['priority'] == $b['priority'] ) {
 				return 0;
 			}
 
-			return $a['priority'] > $b['priority'] ? 1 : -1;
+			return $a['priority'] > $b['priority'] ? 1 : - 1;
 
 		}
 
@@ -294,8 +300,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 		 * @return bool       true on success, false on failure
 		 */
 		public function save_rewrites() {
-			
-			if ( $this->get__file_lock( 'htaccess') ) {
+
+			if ( $this->get__file_lock( 'htaccess' ) ) {
 
 				$success = $this->write_rewrites(); //save the return value for success/error flag
 
@@ -305,7 +311,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 			}
 
-			$this->release_file_lock( 'htaccess');
+			$this->release_file_lock( 'htaccess' );
 
 			return $success;
 
@@ -313,7 +319,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 		/**
 		 * Saves all wpconfig rules to wp-config.php
-		 * 
+		 *
 		 * @return bool       true on success, false on failure
 		 */
 		public function save_wpconfig() {
@@ -321,8 +327,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			$success = $this->write_wpconfig(); //save the return value for success/error flag
 
 			return $success;
-			
-			if ( $this->get__file_lock( 'wpconfig') ) {
+
+			if ( $this->get__file_lock( 'wpconfig' ) ) {
 
 				$success = $this->write_wpconfig(); //save the return value for success/error flag
 
@@ -332,7 +338,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 			}
 
-			$this->release_file_lock( 'wpconfig');
+			$this->release_file_lock( 'wpconfig' );
 
 			return $success;
 
@@ -340,7 +346,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 		/**
 		 * Sets rewrite rules (if updated after initialization)
-		 * 
+		 *
 		 * @param rules $rules array of rules to add or replace
 		 */
 		public function set_rewrites( $rules ) {
@@ -357,10 +363,10 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 						if ( sizeof( $this->rewrite_rules ) > 0 ) {
 
 							foreach ( $this->rewrite_rules as $key => $rewrite_rule ) {
-								
+
 								if ( $rule['name'] == $rewrite_rule['name'] ) {
 
-									$found = true;
+									$found                     = true;
 									$this->rewrite_rules[$key] = $rule;
 
 								}
@@ -393,7 +399,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 		/**
 		 * Sets wp-config.php rules (if updated after initialization)
-		 * 
+		 *
 		 * @param rules $rules array of rules to add or replace
 		 */
 		public function set_wpconfig( $rules ) {
@@ -410,10 +416,10 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 						if ( sizeof( $this->rewrite_rules ) > 0 ) {
 
 							foreach ( $this->wpconfig_rules as $key => $wpconfig_rule ) {
-								
+
 								if ( $rule['name'] == $wpconfig_rule['name'] ) {
 
-									$found = true;
+									$found                      = true;
 									$this->wpconfig_rules[$key] = $rule;
 
 								}
@@ -461,7 +467,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 			}
 
-			$rule_open = '# BEGIN iThemes Security';
+			$rule_open  = '# BEGIN iThemes Security';
 			$rule_close = '# END iThemes Security';
 
 			$url = wp_nonce_url( 'options.php?page=itsec_creds', 'itsec_write_wpconfig' );
@@ -483,7 +489,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			$htaccess_file = $itsec_lib->get_htaccess();
 
 			//Make sure we can write to the file
-			$perms = substr( sprintf( '%o', fileperms( $htaccess_file ) ), -4 );
+			$perms = substr( sprintf( '%o', fileperms( $htaccess_file ) ), - 4 );
 
 			if ( $perms == '0444' ) {
 				@chmod( $htaccess_file, 0644 );
@@ -573,6 +579,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 				// our credentials were no good, ask the user for them again
 				request_filesystem_credentials( $url, $method, true, false, $form_fields );
+
 				return false;
 
 			}
@@ -580,7 +587,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			$config_file = $itsec_lib->get_config();
 
 			//Make sure we can write to the file
-			$perms = substr( sprintf( '%o', fileperms( $config_file ) ), -4 );
+			$perms = substr( sprintf( '%o', fileperms( $config_file ) ), - 4 );
 
 			if ( $perms == '0444' ) {
 				@chmod( $config_file, 0644 );
@@ -596,10 +603,10 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 				} else { //write out what we need to.
 
-					$rules_to_write = ''; //String of rules to insert into wp-config
+					$rules_to_write  = ''; //String of rules to insert into wp-config
 					$rule_to_replace = ''; //String containing a rule to be replaced
 					$rules_to_delete = false; //assume we're not deleting anything to start
-					$replace = false; //assume we're note replacing anything to start with
+					$replace         = false; //assume we're note replacing anything to start with
 
 					//build the rules we need to write, replace or delete
 					foreach ( $this->wpconfig_rules as $section_rule ) {
@@ -656,7 +663,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 							}
 
 							if ( $delete_count < $delete_total ) {
-							
+
 								foreach ( $rules_to_delete as $rule ) {
 
 									if ( strpos( $line, $rule['search_text'] ) !== false ) {
@@ -667,13 +674,13 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 										$count = 1;
 										while ( strlen( trim( $config_array[$line_number + $count] ) ) < 1 ) {
 											unset( $config_array[$line_number + 1] );
-											$count++;
+											$count ++;
 
 										}
 
-										$delete_count++;
+										$delete_count ++;
 
-									}	
+									}
 
 								}
 
@@ -721,7 +728,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 		 */
 		public static function start() {
 
-			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
+			if ( ! isset( self::$instance ) || self::$instance === null ) {
 				self::$instance = new self();
 			}
 

@@ -9,7 +9,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 	final class ITSEC_Core {
 
-		private static $instance = NULL; //instantiated instance of this plugin
+		private static $instance = null; //instantiated instance of this plugin
 
 		public
 			$admin_tabs,
@@ -61,9 +61,18 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//require plugin setup information
 			require_once( $itsec_globals['plugin_dir'] . 'inc/class-itsec-setup.php' );
-			register_activation_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Setup', 'on_activate' ) );
-			register_deactivation_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Setup', 'on_deactivate' ) );
-			register_uninstall_hook( $itsec_globals['plugin_file'], array( 'ITSEC_Setup', 'on_uninstall' ) );
+			register_activation_hook( $itsec_globals['plugin_file'], array(
+				'ITSEC_Setup',
+				'on_activate'
+			) );
+			register_deactivation_hook( $itsec_globals['plugin_file'], array(
+				'ITSEC_Setup',
+				'on_deactivate'
+			) );
+			register_uninstall_hook( $itsec_globals['plugin_file'], array(
+				'ITSEC_Setup',
+				'on_uninstall'
+			) );
 
 			//Determine if we need to run upgrade scripts
 			$plugin_data = get_option( 'itsec_data' );
@@ -78,7 +87,10 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			}
 
 			//save plugin information
-			add_action( 'itsec_set_plugin_data', array( $this, 'save_plugin_data' ) );
+			add_action( 'itsec_set_plugin_data', array(
+				$this,
+				'save_plugin_data'
+			) );
 
 		}
 
@@ -111,16 +123,16 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 		/**
 		 * Creates admin tabs
-		 * 
+		 *
 		 * @param  string $current current tab id
-		 * 
+		 *
 		 * @return void
 		 */
-		public function admin_tabs( $current = NULL ) {
+		public function admin_tabs( $current = null ) {
 
 			global $itsec_globals;
 
-			if ( $current == NULL ) {
+			if ( $current == null ) {
 				$current = 'itsec';
 			}
 
@@ -154,14 +166,26 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 */
 		public function build_admin() {
 
-			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+			add_action( 'admin_notices', array(
+				$this,
+				'admin_notices'
+			) );
 
-			add_action( 'admin_init', array( $this, 'execute_admin_init' ) );
+			add_action( 'admin_init', array(
+				$this,
+				'execute_admin_init'
+			) );
 
 			if ( is_multisite() ) { //must be network admin in multisite
-				add_action( 'network_admin_menu', array( $this, 'setup_primary_admin' ) );
+				add_action( 'network_admin_menu', array(
+					$this,
+					'setup_primary_admin'
+				) );
 			} else {
-				add_action( 'admin_menu', array( $this, 'setup_primary_admin' ) );
+				add_action( 'admin_menu', array(
+					$this,
+					'setup_primary_admin'
+				) );
 			}
 
 		}
@@ -198,7 +222,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			if ( ! isset( $wp_settings_sections ) || ! isset( $wp_settings_sections[$page] ) )
 				return;
 
-			foreach ( (array) $wp_settings_sections[$page] as $section ) {
+			foreach ( (array)$wp_settings_sections[$page] as $section ) {
 				if ( $section['title'] && $show_title === true )
 					echo "<h4>{$section['title']}</h4>\n";
 
@@ -286,7 +310,10 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			do_action( 'itsec_add_admin_meta_boxes', $this->page_hooks );
 
 			//Set two columns for all plugins using this framework
-			add_screen_option( 'layout_columns', array( 'max' => 2, 'default' => 2 ) );
+			add_screen_option( 'layout_columns', array(
+				'max'     => 2,
+				'default' => 2
+			) );
 
 			//Enqueue common scripts and try to keep it simple
 			wp_enqueue_script( 'common' );
@@ -313,7 +340,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			?>
 
 			<div class="wrap">
-	
+
 				<h2><?php echo $itsec_globals['plugin_name'] . ' - ' . get_admin_page_title(); ?></h2>
 
 				<?php
@@ -323,11 +350,12 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 				<div id="poststuff">
 
-					<div id="post-body" class="metabox-holder columns-<?php echo 1 == get_current_screen()->get_columns() ? '1' : '2'; ?>">
+					<div id="post-body"
+						 class="metabox-holder columns-<?php echo 1 == get_current_screen()->get_columns() ? '1' : '2'; ?>">
 
 						<div id="postbox-container-1" class="postbox-container">
-							<?php do_meta_boxes( $screen, 'priority_side', NULL ); ?>
-							<?php do_meta_boxes( $screen, 'side', NULL ); ?>
+							<?php do_meta_boxes( $screen, 'priority_side', null ); ?>
+							<?php do_meta_boxes( $screen, 'side', null ); ?>
 						</div>
 
 						<div id="postbox-container-2" class="postbox-container">
@@ -339,9 +367,9 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 							}
 							?>
 							<?php do_action( 'itsec_page_top', $screen ); ?>
-							<?php do_meta_boxes( $screen, 'normal', NULL ); ?>
+							<?php do_meta_boxes( $screen, 'normal', null ); ?>
 							<?php do_action( 'itsec_page_middle', $screen ); ?>
-							<?php do_meta_boxes( $screen, 'advanced', NULL ); ?>
+							<?php do_meta_boxes( $screen, 'advanced', null ); ?>
 							<?php do_action( 'itsec_page_bottom', $screen ); ?>
 						</div>
 
@@ -404,7 +432,10 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				__( 'Security', 'ithemes-security' ),
 				$itsec_globals['plugin_access_lvl'],
 				'itsec',
-				array( $this, 'render_page' ),
+				array(
+					$this,
+					'render_page'
+				),
 				plugin_dir_url( $itsec_globals['plugin_file'] ) . 'img/shield-small.png'
 			);
 
@@ -421,9 +452,18 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			foreach ( $this->page_hooks as $page_hook ) {
 
-				add_action( 'load-' . $page_hook, array( $this, 'page_actions' ) ); //Load page structure
-				add_action( 'admin_footer-' . $page_hook, array( $this, 'admin_footer_scripts' ) ); //Load postbox startup script to footer
-				add_action( 'admin_print_styles-' . $page_hook, array( $this, 'enqueue_admin_styles' ) ); //Load admin styles
+				add_action( 'load-' . $page_hook, array(
+					$this,
+					'page_actions'
+				) ); //Load page structure
+				add_action( 'admin_footer-' . $page_hook, array(
+					$this,
+					'admin_footer_scripts'
+				) ); //Load postbox startup script to footer
+				add_action( 'admin_print_styles-' . $page_hook, array(
+					$this,
+					'enqueue_admin_styles'
+				) ); //Load admin styles
 
 			}
 
@@ -462,7 +502,10 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			}
 
 			//register appropriate message actions
-			add_action( 'admin_notices', array( $this, 'dispmessage' ) );
+			add_action( 'admin_notices', array(
+				$this,
+				'dispmessage'
+			) );
 
 		}
 
@@ -473,7 +516,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 */
 		public static function start() {
 
-			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
+			if ( ! isset( self::$instance ) || self::$instance === null ) {
 				self::$instance = new self();
 			}
 

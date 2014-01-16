@@ -42,7 +42,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Setup' ) ) {
 
 			global $itsec_files;
 
-			$options = get_site_option( 'itsec_advanced_tweaks' );
+			$options  = get_site_option( 'itsec_advanced_tweaks' );
 			$initials = get_site_option( 'itsec_initials' );
 
 			if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
@@ -56,41 +56,41 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Setup' ) ) {
 			if ( $options === false ) {
 
 				if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
-					$enabled = true;
+					$enabled     = true;
 					$file_editor = true;
 				} else {
-					$enabled = false;
+					$enabled     = false;
 					$file_editor = false;
 				}
 
 				$defaults = array(
-					'enabled'					=> $enabled,
-					'protect_files'				=> false,
-					'directory_browsing'		=> false,
-					'request_methods'			=> false,
-					'suspicious_query_strings'	=> false,
-					'non_english_characters'	=> false,
-					'long_url_strings'			=> false,
-					'write_permissions'			=> false,
-					'generator_tag'				=> false,
-					'wlwmanifest_header'		=> false,
-					'edituri_header'			=> false,
-					'theme_updates'				=> false,
-					'plugin_updates'			=> false,
-					'core_updates'				=> false,
-					'comment_spam'				=> false,
-					'random_version'			=> false,
-					'file_editor'				=> $file_editor,
-					'disable_xmlrpc'			=> false,
-					'uploads_php'				=> false,
-					'safe_jquery'				=> false,
+					'enabled'                  => $enabled,
+					'protect_files'            => false,
+					'directory_browsing'       => false,
+					'request_methods'          => false,
+					'suspicious_query_strings' => false,
+					'non_english_characters'   => false,
+					'long_url_strings'         => false,
+					'write_permissions'        => false,
+					'generator_tag'            => false,
+					'wlwmanifest_header'       => false,
+					'edituri_header'           => false,
+					'theme_updates'            => false,
+					'plugin_updates'           => false,
+					'core_updates'             => false,
+					'comment_spam'             => false,
+					'random_version'           => false,
+					'file_editor'              => $file_editor,
+					'disable_xmlrpc'           => false,
+					'uploads_php'              => false,
+					'safe_jquery'              => false,
 				);
 
 				add_site_option( 'itsec_advanced_tweaks', $defaults );
 
 			}
 
-			$config_rules = ITSEC_Advanced_Tweaks_Admin::build_wpconfig_rules( array() );
+			$config_rules  = ITSEC_Advanced_Tweaks_Admin::build_wpconfig_rules( array() );
 			$rewrite_rules = ITSEC_Advanced_Tweaks_Admin::build_rewrite_rules( array() );
 
 			$itsec_files->set_wpconfig( $config_rules );
@@ -112,8 +112,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Setup' ) ) {
 
 			//Reset recommended file permissions
 			@chmod( $itsec_lib->get_htaccess(), '0644' );
-			@chmod( $itsec_lib->get_config(),  '0644' );
-				
+			@chmod( $itsec_lib->get_config(), '0644' );
 
 		}
 

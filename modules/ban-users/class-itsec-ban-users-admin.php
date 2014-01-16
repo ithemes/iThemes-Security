@@ -4,7 +4,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 	class ITSEC_Ban_Users_Admin {
 
-		private static $instance = NULL;
+		private static $instance = null;
 
 		private
 			$settings,
@@ -16,18 +16,42 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			$this->core     = $core;
 			$this->settings = get_site_option( 'itsec_ban_users' );
 
-			add_filter( 'itsec_file_rules', array( $this, 'build_rewrite_rules' ) );
+			add_filter( 'itsec_file_rules', array(
+				$this,
+				'build_rewrite_rules'
+			) );
 
-			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
-			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
-			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
-			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			add_action( 'itsec_add_admin_meta_boxes', array(
+				$this,
+				'add_admin_meta_boxes'
+			) ); //add meta boxes to admin page
+			add_action( 'admin_init', array(
+				$this,
+				'initialize_admin'
+			) ); //initialize admin area
+			add_action( 'admin_enqueue_scripts', array(
+				$this,
+				'admin_script'
+			) ); //enqueue scripts for admin page
+			add_filter( 'itsec_add_admin_sub_pages', array(
+				$this,
+				'add_sub_page'
+			) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array(
+				$this,
+				'add_admin_tab'
+			) ); //add tab to menu
+			add_filter( 'itsec_add_dashboard_status', array(
+				$this,
+				'dashboard_status'
+			) ); //add information for plugin status
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
-				add_action( 'network_admin_edit_itsec_ban_users', array( $this, 'save_network_options' ) ); //save multisite options
+				add_action( 'network_admin_edit_itsec_ban_users', array(
+					$this,
+					'save_network_options'
+				) ); //save multisite options
 			}
 
 		}
@@ -49,7 +73,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 				__( 'Ban Users', 'ithemes-security' ),
 				$itsec_globals['plugin_access_lvl'],
 				$available_pages[0] . '-ban_users',
-				array( $this->core, 'render_page' )
+				array(
+					$this->core,
+					'render_page'
+				)
 			);
 
 			return $available_pages;
@@ -75,16 +102,22 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			add_meta_box(
 				'ban_users_description',
 				__( 'Description', 'ithemes-security' ),
-				array( $this, 'add_module_intro' ),
+				array(
+					$this,
+					'add_module_intro'
+				),
 				'security_page_toplevel_page_itsec-ban_users',
 				'normal',
 				'core'
 			);
-			
+
 			add_meta_box(
 				'ban_users_options',
 				__( 'Configure Banned User Settings', 'ithemes-security' ),
-				array( $this, 'metabox_advanced_settings' ),
+				array(
+					$this,
+					'metabox_advanced_settings'
+				),
 				'security_page_toplevel_page_itsec-ban_users',
 				'advanced',
 				'core'
@@ -153,7 +186,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			add_settings_section(
 				'ban_users_default',
 				__( 'Default Blacklist', 'ithemes-security' ),
-				array( $this, 'empty_callback_function' ),
+				array(
+					$this,
+					'empty_callback_function'
+				),
 				'security_page_toplevel_page_itsec-ban_users'
 			);
 
@@ -161,7 +197,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			add_settings_section(
 				'ban_users_enabled',
 				__( 'Configure Ban Users', 'ithemes-security' ),
-				array( $this, 'empty_callback_function' ),
+				array(
+					$this,
+					'empty_callback_function'
+				),
 				'security_page_toplevel_page_itsec-ban_users'
 			);
 
@@ -169,7 +208,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			add_settings_section(
 				'ban_users_settings',
 				__( 'Configure Ban Users', 'ithemes-security' ),
-				array( $this, 'empty_callback_function' ),
+				array(
+					$this,
+					'empty_callback_function'
+				),
 				'security_page_toplevel_page_itsec-ban_users'
 			);
 
@@ -177,7 +219,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			add_settings_field(
 				'itsec_ban_users[default]',
 				__( 'Default Blacklist', 'ithemes-security' ),
-				array( $this, 'ban_users_default' ),
+				array(
+					$this,
+					'ban_users_default'
+				),
 				'security_page_toplevel_page_itsec-ban_users',
 				'ban_users_default'
 			);
@@ -186,7 +231,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			add_settings_field(
 				'itsec_ban_users[enabled]',
 				__( 'Ban Users', 'ithemes-security' ),
-				array( $this, 'ban_users_enabled' ),
+				array(
+					$this,
+					'ban_users_enabled'
+				),
 				'security_page_toplevel_page_itsec-ban_users',
 				'ban_users_enabled'
 			);
@@ -195,7 +243,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			add_settings_field(
 				'itsec_ban_users[host_list]',
 				__( 'Ban Hosts', 'ithemes-security' ),
-				array( $this, 'ban_users_host_list' ),
+				array(
+					$this,
+					'ban_users_host_list'
+				),
 				'security_page_toplevel_page_itsec-ban_users',
 				'ban_users_settings'
 			);
@@ -204,7 +255,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			add_settings_field(
 				'itsec_ban_users[agent_list]',
 				__( 'Ban User Agents', 'ithemes-security' ),
-				array( $this, 'ban_users_agent_list' ),
+				array(
+					$this,
+					'ban_users_agent_list'
+				),
 				'security_page_toplevel_page_itsec-ban_users',
 				'ban_users_settings'
 			);
@@ -213,7 +267,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			add_settings_field(
 				'itsec_ban_users[white_list]',
 				__( 'Whitelist Users', 'ithemes-security' ),
-				array( $this, 'ban_users_white_list' ),
+				array(
+					$this,
+					'ban_users_white_list'
+				),
 				'security_page_toplevel_page_itsec-ban_users',
 				'ban_users_settings'
 			);
@@ -222,7 +279,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			register_setting(
 				'security_page_toplevel_page_itsec-ban_users',
 				'itsec_ban_users',
-				array( $this, 'sanitize_module_input' )
+				array(
+					$this,
+					'sanitize_module_input'
+				)
 			);
 
 		}
@@ -230,7 +290,8 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 		/**
 		 * Empty callback function
 		 */
-		public function empty_callback_function() {}
+		public function empty_callback_function() {
+		}
 
 		/**
 		 * echos Enabled Field
@@ -388,9 +449,9 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 		 */
 		public function add_module_intro( $screen ) {
 
-				$content = '<p>' . __( 'This feature allows you to ban hosts and user agents from your site completely using individual or groups of IP addresses as well as user agents without having to manage any configuration of your server. Any IP or user agent found in the lists below will not be allowed any access to your site.', 'ithemes-security' ) . '</p>';
+			$content = '<p>' . __( 'This feature allows you to ban hosts and user agents from your site completely using individual or groups of IP addresses as well as user agents without having to manage any configuration of your server. Any IP or user agent found in the lists below will not be allowed any access to your site.', 'ithemes-security' ) . '</p>';
 
-				echo $content;
+			echo $content;
 
 		}
 
@@ -472,10 +533,10 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 					foreach ( $raw_host_list as $host ) {
 
-						$host_rule = ''; //initialze converted host
+						$host_rule      = ''; //initialze converted host
 						$converted_host = $itsec_lib->ip_wild_to_mask( $host );
 
-						if( ! ITSEC_Ban_Users_Admin::is_ip_whitelisted( $converted_host, $raw_white_list, $current ) ) {
+						if ( ! ITSEC_Ban_Users_Admin::is_ip_whitelisted( $converted_host, $raw_white_list, $current ) ) {
 
 							if ( $server_type === 'nginx' ) { //NGINX rules
 								$host_rule = "\tdeny " . $converted_host;
@@ -504,7 +565,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 					foreach ( $raw_agent_list as $agent ) {
 
-						if ( strlen( trim( $agent ) ) > 1 ) { 
+						if ( strlen( trim( $agent ) ) > 1 ) {
 
 							//if it isn't the last rule make sure we add an or
 							if ( $count < sizeof( $agent ) ) {
@@ -595,19 +656,19 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 			//create a proper array for writing
 			$rules_array[] = array(
-				'type'		=> 'htaccess',
-				'priority'	=> 1,
-				'name'		=> 'Ban Users',
-				'rules'		=> $rules,
+				'type'     => 'htaccess',
+				'priority' => 1,
+				'name'     => 'Ban Users',
+				'rules'    => $rules,
 			);
 
 			return $rules_array;
 
 		}
 
-		public static function insert_ip( $ip, $ban_list = null, $white_list = null) {
+		public static function insert_ip( $ip, $ban_list = null, $white_list = null ) {
 
-			$settings = get_site_option('itsec_ban_users');
+			$settings = get_site_option( 'itsec_ban_users' );
 
 			if ( $ban_list !== null ) {
 
@@ -620,7 +681,6 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 				$white_list = $settings['white_list'];
 
 			}
-			
 
 		}
 
@@ -663,7 +723,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 				$white_listed_addresses = array();
 			}
 
-			$bad_white_listed_ips  = array();
+			$bad_white_listed_ips = array();
 			$raw_white_listed_ips = array();
 
 			foreach ( $white_listed_addresses as $index => $address ) {
@@ -717,7 +777,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 				$addresses = array();
 			}
 
-			$bad_ips  = array();
+			$bad_ips = array();
 			$raw_ips = array();
 
 			foreach ( $addresses as $index => $address ) {
@@ -744,12 +804,12 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 				$input['enabled'] = false; //disable ban users list
 
-				$type    = 'error';
+				$type = 'error';
 
 				if ( $no_errors === true ) {
 					$message .= sprintf( '%s<br /><br />', __( 'Note that the ban users feature has been disabled until the following errors are corrected:', 'ithemes-security' ) );
 				}
-				
+
 				foreach ( $bad_ips as $bad_ip ) {
 					$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address in the ban users box.', 'ithemes-security' ) );
 				}
@@ -776,7 +836,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 					$type    = 'error';
 					$message = __( 'iThemes Security could not write the required rewrite rules. You will have to enter them manually.', 'ithemes-security' );
 
-				} 
+				}
 
 			}
 
@@ -803,18 +863,21 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 			update_site_option( 'itsec_ban_users', $settings ); //we must manually save network options
 
 			//send them back to the away mode options page
-			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_itsec-away_mode', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
+			wp_redirect( add_query_arg( array(
+				'page'    => 'toplevel_page_itsec-away_mode',
+				'updated' => 'true'
+			), network_admin_url( 'admin.php' ) ) );
 			exit();
 
 		}
 
 		/**
 		 * Determines whether a given IP address is whitelisted
-		 * 
-		 * @param  string  $ip_to_check  ip to check
-		 * @param  array   $white_ips    ip list to compare to if not yet saved to options
-		 * @param  boolean $current      whether to whitelist the current ip or not (due to saving, etc)
-		 *  
+		 *
+		 * @param  string  $ip_to_check ip to check
+		 * @param  array   $white_ips   ip list to compare to if not yet saved to options
+		 * @param  boolean $current     whether to whitelist the current ip or not (due to saving, etc)
+		 *
 		 * @return boolean               true if whitelisted or false
 		 */
 		public static function is_ip_whitelisted( $ip_to_check, $white_ips = null, $current = false ) {
@@ -838,9 +901,9 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 				$converted_white_ip = $itsec_lib->ip_wild_to_mask( $white_ip );
 
 				$check_range = $itsec_lib->cidr_to_range( $converted_white_ip );
-				$ip_range = $itsec_lib->cidr_to_range( $ip_to_check );
+				$ip_range    = $itsec_lib->cidr_to_range( $ip_to_check );
 
-				if( sizeof( $check_range ) === 2 ) { //range to check
+				if ( sizeof( $check_range ) === 2 ) { //range to check
 
 					$check_min = ip2long( $check_range[0] );
 					$check_max = ip2long( $check_range[1] );
@@ -854,7 +917,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 							return true;
 						}
 
-					} else { 
+					} else {
 
 						$ip = ip2long( $ip_range[0] );
 
@@ -868,7 +931,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 
 					$check = ip2long( $check_range[0] );
 
-					if ( sizeof( $ip_range ) === 2  ) {
+					if ( sizeof( $ip_range ) === 2 ) {
 
 						$ip_min = ip2long( $ip_range[0] );
 						$ip_max = ip2long( $ip_range[1] );
@@ -877,7 +940,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 							return true;
 						}
 
-					} else { 
+					} else {
 
 						$ip = ip2long( $ip_range[0] );
 
@@ -904,7 +967,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 		 */
 		public static function start( $core ) {
 
-			if ( ! isset( self::$instance ) || self::$instance === NULL ) {
+			if ( ! isset( self::$instance ) || self::$instance === null ) {
 				self::$instance = new self( $core );
 			}
 

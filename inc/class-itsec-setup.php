@@ -152,13 +152,13 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 			if ( $options === false ) {
 
 				$defaults = array(
-					'notification_email'	=> array( get_option( 'admin_email' ) ),
-					'lockout_message'		=> __( 'error', 'ithemes-security' ),
-					'blacklist'				=> true,
-					'blacklist_count'		=> 3,
-					'blacklist_period'		=> 7,
-					'email_notifications'	=> true,
-					'lockout_period'		=> 15,
+					'notification_email'  => array( get_option( 'admin_email' ) ),
+					'lockout_message'     => __( 'error', 'ithemes-security' ),
+					'blacklist'           => true,
+					'blacklist_count'     => 3,
+					'blacklist_period'    => 7,
+					'email_notifications' => true,
+					'lockout_period'      => 15,
 				);
 
 				add_site_option( 'itsec_global', $defaults );
@@ -167,11 +167,11 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 
 			$charset_collate = '';
 
-			if ( ! empty($wpdb->charset) ) {
+			if ( ! empty( $wpdb->charset ) ) {
 				$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
 			}
 
-			if ( ! empty($wpdb->collate) ) {
+			if ( ! empty( $wpdb->collate ) ) {
 				$charset_collate .= " COLLATE $wpdb->collate";
 			}
 
@@ -234,7 +234,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 				INDEX `temp_host` USING HASH (`temp_host`) comment '',
 				INDEX `temp_user` USING HASH (`temp_user`) comment ''
 				) " . $charset_collate . ";";
-			
+
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			@dbDelta( $tables );
 
