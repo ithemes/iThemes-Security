@@ -13,8 +13,18 @@ div.inside ul li {
 }
 
 #poststuff h2.settings-section-header {
-	padding    : 1em 0;
-	border-top : 1px solid #efefef;
+	padding    : 1em 0 0 0;
+}
+
+.current-time-date {
+	display:inline-block;
+	font-size: 1.25em;
+	background: #efefef;
+	padding: .75em 1em;
+}
+
+.ui-datepicker {
+	display:none;
 }
 
 /***************************************
