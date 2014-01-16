@@ -6,7 +6,11 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		private static $instance = null; //instantiated instance of this plugin
 
-		private $settings, $current_time, $current_time_gmt, $lockout_modules;
+		private
+			$settings,
+			$current_time,
+			$current_time_gmt,
+			$lockout_modules;
 
 		function __construct() {
 
