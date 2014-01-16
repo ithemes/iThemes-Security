@@ -6,7 +6,12 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 		private static $instance = null;
 
-		private $settings, $core, $module, $away_file, $page;
+		private
+			$settings,
+			$core,
+			$module,
+			$away_file,
+			$page;
 
 		private function __construct( $core, $module ) {
 
@@ -63,9 +68,23 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function add_admin_meta_boxes( $available_pages ) {
 
-			add_meta_box( 'authentication_description', __( 'Description', 'ithemes-security' ), array( $this, 'add_module_intro' ), 'security_page_toplevel_page_itsec-authentication', 'normal', 'core' );
+			add_meta_box(
+				'authentication_description',
+				__( 'Description', 'ithemes-security' ),
+				array( $this, 'add_module_intro' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'normal',
+				'core'
+			);
 
-			add_meta_box( 'authentication_options', __( 'Configure Authentication Security', 'ithemes-security' ), array( $this, 'metabox_advanced_settings' ), 'security_page_toplevel_page_itsec-authentication', 'advanced', 'core' );
+			add_meta_box(
+				'authentication_options',
+				__( 'Configure Authentication Security', 'ithemes-security' ),
+				array( $this, 'metabox_advanced_settings' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'advanced',
+				'core'
+			);
 
 		}
 
@@ -200,84 +219,251 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			global $itsec_lib;
 
 			//Add Settings sections
-			add_settings_section( 'authentication_brute_force-enabled', __( 'Enable Brute Force Protection', 'ithemes-security' ), array( $this, 'brute_force_header' ), 'security_page_toplevel_page_itsec-authentication' );
+			add_settings_section(
+				'authentication_brute_force-enabled',
+				__( 'Enable Brute Force Protection', 'ithemes-security' ),
+				array( $this, 'brute_force_header' ),
+				'security_page_toplevel_page_itsec-authentication'
+			);
 
-			add_settings_section( 'authentication_brute_force-settings', __( 'Brute Force Protection Settings', 'ithemes-security' ), array( $this, 'empty_callback_function' ), 'security_page_toplevel_page_itsec-authentication' );
+			add_settings_section(
+				'authentication_brute_force-settings',
+				__( 'Brute Force Protection Settings', 'ithemes-security' ),
+				array( $this, 'empty_callback_function' ),
+				'security_page_toplevel_page_itsec-authentication'
+			);
 
 			if ( $itsec_lib->user_id_exists( 1 ) || username_exists( 'admin' ) ) {
 
-				add_settings_section( 'authentication_admin_user', __( 'Secure Admin User', 'ithemes-security' ), array( $this, 'admin_user_header' ), 'security_page_toplevel_page_itsec-authentication' );
+				add_settings_section(
+					'authentication_admin_user',
+					__( 'Secure Admin User',
+						'ithemes-security' ),
+					array( $this, 'admin_user_header' ),
+					'security_page_toplevel_page_itsec-authentication'
+				);
 
 			}
 
-			add_settings_section( 'authentication_strong_passwords-enabled', __( 'Enforce Strong Passwords', 'ithemes-security' ), array( $this, 'strong_passwords_header' ), 'security_page_toplevel_page_itsec-authentication' );
+			add_settings_section(
+				'authentication_strong_passwords-enabled',
+				__( 'Enforce Strong Passwords', 'ithemes-security' ),
+				array( $this, 'strong_passwords_header' ),
+				'security_page_toplevel_page_itsec-authentication'
+			);
 
-			add_settings_section( 'authentication_strong_passwords-settings', __( 'Enforce Strong Passwords', 'ithemes-security' ), array( $this, 'empty_callback_function' ), 'security_page_toplevel_page_itsec-authentication' );
+			add_settings_section(
+				'authentication_strong_passwords-settings',
+				__( 'Enforce Strong Passwords', 'ithemes-security' ),
+				array( $this, 'empty_callback_function' ),
+				'security_page_toplevel_page_itsec-authentication'
+			);
 
-			add_settings_section( 'authentication_hide_backend-enabled', __( 'Hide Login and Admin', 'ithemes-security' ), array( $this, 'hide_backend_header' ), 'security_page_toplevel_page_itsec-authentication' );
+			add_settings_section(
+				'authentication_hide_backend-enabled',
+				__( 'Hide Login and Admin', 'ithemes-security' ),
+				array( $this, 'hide_backend_header' ),
+				'security_page_toplevel_page_itsec-authentication'
+			);
 
-			add_settings_section( 'authentication_hide_backend-settings', __( 'Hide Login and Admin', 'ithemes-security' ), array( $this, 'empty_callback_function' ), 'security_page_toplevel_page_itsec-authentication' );
+			add_settings_section(
+				'authentication_hide_backend-settings',
+				__( 'Hide Login and Admin', 'ithemes-security' ),
+				array( $this, 'empty_callback_function' ),
+				'security_page_toplevel_page_itsec-authentication'
+			);
 
-			add_settings_section( 'authentication_away_mode-enabled', __( 'Away Mode', 'ithemes-security' ), array( $this, 'away_mode_header' ), 'security_page_toplevel_page_itsec-authentication' );
+			add_settings_section(
+				'authentication_away_mode-enabled',
+				__( 'Away Mode', 'ithemes-security' ),
+				array( $this, 'away_mode_header' ),
+				'security_page_toplevel_page_itsec-authentication'
+			);
 
-			add_settings_section( 'authentication_away_mode-settings', __( 'Away Mode', 'ithemes-security' ), array( $this, 'empty_callback_function' ), 'security_page_toplevel_page_itsec-authentication' );
+			add_settings_section(
+				'authentication_away_mode-settings',
+				__( 'Away Mode', 'ithemes-security' ),
+				array( $this, 'empty_callback_function' ),
+				'security_page_toplevel_page_itsec-authentication'
+			);
 
-			add_settings_section( 'authentication_other', __( 'Other Authentication Tweaks', 'ithemes-security' ), array( $this, 'other_header' ), 'security_page_toplevel_page_itsec-authentication' );
+			add_settings_section(
+				'authentication_other',
+				__( 'Other Authentication Tweaks', 'ithemes-security' ),
+				array( $this, 'other_header' ),
+				'security_page_toplevel_page_itsec-authentication'
+			);
 
 			//Brute Force Protection Fields
-			add_settings_field( 'itsec_authentication[brute_force-enabled]', __( 'Brute Force Protection', 'ithemes-security' ), array( $this, 'brute_force_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_brute_force-enabled' );
+			add_settings_field(
+				'itsec_authentication[brute_force-enabled]',
+				__( 'Brute Force Protection', 'ithemes-security' ),
+				array( $this, 'brute_force_enabled' ),
+				'security_page_toplevel_page_itsec-authentication', 'authentication_brute_force-enabled'
+			);
 
-			add_settings_field( 'itsec_authentication[brute_force-max_attempts_host]', __( 'Max Login Attempts Per Host', 'ithemes-security' ), array( $this, 'brute_force_max_attempts_host' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_brute_force-settings' );
+			add_settings_field(
+				'itsec_authentication[brute_force-max_attempts_host]',
+				__( 'Max Login Attempts Per Host', 'ithemes-security' ),
+				array( $this, 'brute_force_max_attempts_host' ),
+				'security_page_toplevel_page_itsec-authentication', 'authentication_brute_force-settings'
+			);
 
-			add_settings_field( 'itsec_authentication[brute_force-max_attempts_user]', __( 'Max Login Attempts Per User', 'ithemes-security' ), array( $this, 'brute_force_max_attempts_user' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_brute_force-settings' );
+			add_settings_field(
+				'itsec_authentication[brute_force-max_attempts_user]',
+				__( 'Max Login Attempts Per User', 'ithemes-security' ),
+				array( $this, 'brute_force_max_attempts_user' ),
+				'security_page_toplevel_page_itsec-authentication', 'authentication_brute_force-settings'
+			);
 
-			add_settings_field( 'itsec_authentication[brute_force-check_period]', __( 'Minutes to Remember Bad Login (check period)', 'ithemes-security' ), array( $this, 'brute_force_check_period' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_brute_force-settings' );
+			add_settings_field(
+				'itsec_authentication[brute_force-check_period]',
+				__( 'Minutes to Remember Bad Login (check period)', 'ithemes-security' ),
+				array( $this, 'brute_force_check_period' ),
+				'security_page_toplevel_page_itsec-authentication', 'authentication_brute_force-settings'
+			);
 
 			//Admin User Fields
 
 			if ( username_exists( 'admin' ) ) {
 
-				add_settings_field( 'itsec_authentication[admin_user-username]', __( 'Admin Username', 'ithemes-security' ), array( $this, 'admin_user_username' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_admin_user' );
+				add_settings_field(
+					'itsec_authentication[admin_user-username]',
+					__( 'Admin Username', 'ithemes-security' ),
+					array( $this, 'admin_user_username' ),
+					'security_page_toplevel_page_itsec-authentication',
+					'authentication_admin_user'
+				);
+
+			} else {
+
+				add_settings_field(
+					'itsec_authentication[admin_user-username]',
+					__( 'Admin Username', 'ithemes-security' ),
+					array( $this, 'admin_user_username' ),
+					'security_page_toplevel_page_itsec-authentication',
+					'authentication_admin_user'
+				);
 
 			}
 
 			if ( $itsec_lib->user_id_exists( 1 ) ) {
 
-				add_settings_field( 'itsec_authentication[admin_user-userid]', __( 'User ID 1', 'ithemes-security' ), array( $this, 'admin_user_userid' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_admin_user' );
+				add_settings_field(
+
+					'itsec_authentication[admin_user-userid]',
+					__( 'User ID 1', 'ithemes-security' ),
+					array( $this, 'admin_user_userid' ),
+					'security_page_toplevel_page_itsec-authentication',
+					'authentication_admin_user'
+				);
 
 			}
 
 			//Strong Passwords Fields
-			add_settings_field( 'itsec_authentication[strong_passwords-enabled]', __( 'Strong Passwords', 'ithemes-security' ), array( $this, 'strong_passwords_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_strong_passwords-enabled' );
+			add_settings_field(
+				'itsec_authentication[strong_passwords-enabled]',
+				__( 'Strong Passwords', 'ithemes-security' ),
+				array( $this, 'strong_passwords_enabled' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_strong_passwords-enabled'
+			);
 
-			add_settings_field( 'itsec_authentication[strong_passwords-roll]', __( 'Select Role for Strong Passwords', 'ithemes-security' ), array( $this, 'strong_passwords_role' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_strong_passwords-settings' );
+			add_settings_field(
+				'itsec_authentication[strong_passwords-roll]',
+				__( 'Select Role for Strong Passwords', 'ithemes-security' ),
+				array( $this, 'strong_passwords_role' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_strong_passwords-settings'
+			);
 
 			//Hide Backend Fields
-			add_settings_field( 'itsec_authentication[hide_backend-enabled]', __( 'Hide Backend', 'ithemes-security' ), array( $this, 'hide_backend_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_hide_backend-enabled' );
+			add_settings_field(
+				'itsec_authentication[hide_backend-enabled]',
+				__( 'Hide Backend', 'ithemes-security' ),
+				array( $this, 'hide_backend_enabled' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_hide_backend-enabled'
+			);
 
-			add_settings_field( 'itsec_authentication[hide_backend-slug]', __( 'Login Slug', 'ithemes-security' ), array( $this, 'hide_backend_slug' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_hide_backend-settings' );
+			add_settings_field(
+				'itsec_authentication[hide_backend-slug]',
+				__( 'Login Slug', 'ithemes-security' ),
+				array( $this, 'hide_backend_slug' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_hide_backend-settings'
+			);
 
-			add_settings_field( 'itsec_authentication[hide_backend-register]', __( 'Register Slug', 'ithemes-security' ), array( $this, 'hide_backend_register' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_hide_backend-settings' );
+			add_settings_field(
+				'itsec_authentication[hide_backend-register]',
+				__( 'Register Slug', 'ithemes-security' ),
+				array( $this, 'hide_backend_register' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_hide_backend-settings'
+			);
 
 			//Away Mode Fields
-			add_settings_field( 'itsec_authentication[away_mode-enabled]', __( 'Away Mode', 'ithemes-security' ), array( $this, 'away_mode_enabled' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_away_mode-enabled' );
+			add_settings_field(
+				'itsec_authentication[away_mode-enabled]',
+				__( 'Away Mode', 'ithemes-security' ),
+				array( $this, 'away_mode_enabled' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_away_mode-enabled'
+			);
 
-			add_settings_field( 'itsec_authentication[away_mode-type]', __( 'Type of Restriction', 'ithemes-security' ), array( $this, 'away_mode_type' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_away_mode-settings' );
+			add_settings_field(
+				'itsec_authentication[away_mode-type]',
+				__( 'Type of Restriction', 'ithemes-security' ),
+				array( $this, 'away_mode_type' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_away_mode-settings'
+			);
 
-			add_settings_field( 'itsec_authentication[away_mode-start_date]', __( 'Start Date', 'ithemes-security' ), array( $this, 'away_mode_start_date' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_away_mode-settings' );
+			add_settings_field(
+				'itsec_authentication[away_mode-start_date]', __( 'Start Date', 'ithemes-security' ),
+				array( $this, 'away_mode_start_date' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_away_mode-settings'
+			);
 
-			add_settings_field( 'itsec_authentication[away_mode-start_time]', __( 'Start Time', 'ithemes-security' ), array( $this, 'away_mode_start_time' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_away_mode-settings' );
+			add_settings_field(
+				'itsec_authentication[away_mode-start_time]', __( 'Start Time', 'ithemes-security' ),
+				array( $this, 'away_mode_start_time' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_away_mode-settings'
+			);
 
-			add_settings_field( 'itsec_authentication[away_mode-end_date]', __( 'End Date', 'ithemes-security' ), array( $this, 'away_mode_end_date' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_away_mode-settings' );
+			add_settings_field(
+				'itsec_authentication[away_mode-end_date]',
+				__( 'End Date', 'ithemes-security' ),
+				array( $this, 'away_mode_end_date' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_away_mode-settings'
+			);
 
-			add_settings_field( 'itsec_authentication[away_mode-end_time]', __( 'End Time', 'ithemes-security' ), array( $this, 'away_mode_end_time' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_away_mode-settings' );
-
-			add_settings_field( 'itsec_authentication[other-login_errors]', __( 'Login Error Messages', 'ithemes-security' ), array( $this, 'other_login_errors' ), 'security_page_toplevel_page_itsec-authentication', 'authentication_other' );
+			add_settings_field(
+				'itsec_authentication[away_mode-end_time]',
+				__( 'End Time', 'ithemes-security' ),
+				array( $this, 'away_mode_end_time' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_away_mode-settings'
+			);
 
 			//Other Settings
+			add_settings_field(
+				'itsec_authentication[other-login_errors]',
+				__( 'Login Error Messages', 'ithemes-security' ),
+				array( $this, 'other_login_errors' ),
+				'security_page_toplevel_page_itsec-authentication',
+				'authentication_other'
+			);
 
 			//Register the settings field for the entire module
-			register_setting( 'security_page_toplevel_page_itsec-authentication', 'itsec_authentication', array( $this, 'sanitize_module_input' ) );
+			register_setting(
+				'security_page_toplevel_page_itsec-authentication',
+				'itsec_authentication',
+				array( $this, 'sanitize_module_input' )
+			);
 
 		}
 
@@ -350,9 +536,9 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				$currdate = date( 'g:i a \o\n l F jS, Y', current_time( 'timestamp' ) );
 			}
 
-			$content .= '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is:', 'ithemes-security'), '<a href="options-general.php">', '</a>' );
+			$content .= '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is:', 'ithemes-security' ), '<a href="options-general.php">', '</a>' );
 			$content .= '<div class="current-time-date">' . $currdate . '</div>';
-			$content .= '<p>' .sprintf( __( 'If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'ithemes-security' ), '<a href="options-general.php">', '</a>' ) . '</p>';
+			$content .= '<p>' . sprintf( __( 'If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'ithemes-security' ), '<a href="options-general.php">', '</a>' ) . '</p>';
 
 			echo $content;
 
@@ -492,8 +678,8 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 * @return void
 		 */
 		public function admin_user_username( $args ) {
-		
-			$content  = '<input name="itsec_authentication[admin_user-username]" id="itsec_authentication_admin_user_username" value="" type="text"><br>';
+
+			$content = '<input name="itsec_authentication[admin_user-username]" id="itsec_authentication_admin_user_username" value="" type="text"><br>';
 			$content .= '<label for="itsec_authentication_admin_user_username"> ' . __( 'New Admin Username', 'ithemes-security' ) . '</label>';
 			$content .= '<p class="description"> ' . __( 'Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', 'ithemes-security' ) . '</p>';
 
@@ -554,16 +740,16 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				$roll = 'administrator';
 			}
 
-			$content  = '<select name="itsec_authentication[strong_passwords-roll]" id="itsec_authentication_strong_passwords_roll">';
+			$content = '<select name="itsec_authentication[strong_passwords-roll]" id="itsec_authentication_strong_passwords_roll">';
 			$content .= '<option value="administrator" ' . selected( $roll, 'administrator', false ) . '>' . translate_user_role( 'Administrator' ) . '</option>';
 			$content .= '<option value="editor" ' . selected( $roll, 'editor', false ) . '>' . translate_user_role( 'Editor' ) . '</option>';
 			$content .= '<option value="author" ' . selected( $roll, 'author', false ) . '>' . translate_user_role( 'Author' ) . '</option>';
 			$content .= '<option value="contributor" ' . selected( $roll, 'contributor', false ) . '>' . translate_user_role( 'Contributor' ) . '</option>';
 			$content .= '<option value="subscriber" ' . selected( $roll, 'subscriber', false ) . '>' . translate_user_role( 'Subscriber' ) . '</option>';
 			$content .= '</select><br>';
-			$content .= '<label for="itsec_authentication_strong_passwords_roll"> ' . __( 'Minimum role at which a user must choose a strong password.') . '</label>';
+			$content .= '<label for="itsec_authentication_strong_passwords_roll"> ' . __( 'Minimum role at which a user must choose a strong password.' ) . '</label>';
 
-			$content .= '<p class="description"> ' . __('For more information on WordPress roles and capabilities please see', 'ithemes-security' ) . ' <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>';
+			$content .= '<p class="description"> ' . __( 'For more information on WordPress roles and capabilities please see', 'ithemes-security' ) . ' <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>';
 			$content .= '<p class="warningtext description">' . __( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
