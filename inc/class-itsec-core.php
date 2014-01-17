@@ -11,7 +11,10 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 		private static $instance = null; //instantiated instance of this plugin
 
-		public $admin_tabs, $page_hooks, $plugin;
+		public
+			$admin_tabs,
+			$page_hooks,
+			$plugin;
 
 		/**
 		 * Loads core functionality across both admin and frontend.
@@ -22,9 +25,12 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 */
 		private function __construct() {
 
-			global $itsec_globals, $itsec_lib, $itsec_files, $itsec_logger, $itsec_lockout;
+			global $itsec_globals, $itsec_lib, $itsec_files, $itsec_logger, $itsec_lockout, $itsec_current_time, $itsec_current_time_gmt;
 
 			@ini_set( 'auto_detect_line_endings', true ); //Make certain we're using proper line endings
+
+			$itsec_current_time     = current_time( 'timestamp' );
+			$itsec_current_time_gmt = current_time( 'timestamp', 1 );
 
 			//load utility functions
 			require_once( $itsec_globals['plugin_dir'] . 'inc/class-itsec-lib.php' );
