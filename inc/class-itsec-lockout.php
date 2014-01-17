@@ -12,7 +12,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		function __construct() {
 
-			$this->settings         = get_site_option( 'itsec_global' );
+			$this->settings = get_site_option( 'itsec_global' );
 
 			$this->lockout_modules = array(); //array to hold information on modules using this feature
 
