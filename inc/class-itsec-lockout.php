@@ -95,10 +95,10 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 				$host_count = $wpdb->get_var(
 					$wpdb->prepare(
-						"SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '%s' AND `temp_host`='%s';"
-					),
-					date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $options['period'] * 60 ) ),
-					$host
+						"SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '%s' AND `temp_host`='%s';",
+						date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $options['period'] * 60 ) ),
+						$host
+					)
 				);
 
 				if ( $host_count >= $options['host'] ) {
@@ -127,10 +127,10 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 					$user_count = $wpdb->get_var(
 						$wpdb->prepare(
-							"SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '%s' AND `temp_user`=%s;"
-						),
-						date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $options['period'] * 60 ) ),
-						$user_id
+							"SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '%s' AND `temp_user`=%s;",
+							date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $options['period'] * 60 ) ),
+							$user_id
+						)
 					);
 
 					if ( $user_count >= $options['user'] ) {
@@ -176,7 +176,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		 */
 		private function lockout( $type, $reason, $host = null, $user = null ) {
 
-			global $wpdb, $itsec_lib, $itsec_current_time_gmt, $itsec_current_time;
+			global $wpdb, $itsec_lib, $itsec_logger, $itsec_current_time_gmt, $itsec_current_time;
 
 			$host_expiration = null;
 			$user_expiration = null;
@@ -207,10 +207,10 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 				$host_count = $wpdb->get_var(
 					$wpdb->prepare(
-						"SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '%s' AND `lockout_host`='%s';"
-					),
-					date( 'Y-m-d H:i:s', $itsec_current_time_gmt + $blacklist_period ),
-					$host
+						"SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '%s' AND `lockout_host`='%s';",
+						date( 'Y-m-d H:i:s', $itsec_current_time_gmt + $blacklist_period ),
+						$host
+					)
 				);
 
 				if ( $host_count >= $this->settings['blacklist_count'] ) {
@@ -248,6 +248,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 						)
 					);
 
+					$itsec_logger->log_event( $type, 10, array('expire' => $expiration, 'expire_gmt' => $expiration_gmt ), sanitize_text_field( $host ) );
+
 				}
 
 				if ( $good_user !== false ) { //blacklist host and temp lockout user
@@ -266,6 +268,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 							'lockout_user'       => intval( $user ),
 						)
 					);
+
+					$itsec_logger->log_event( $type, 10, array( 'expire' => $expiration, 'expire_gmt' => $expiration_gmt ), '', '', intval( $user ) );
 
 				}
 
