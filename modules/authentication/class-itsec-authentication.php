@@ -19,6 +19,7 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 			if ( $this->settings['brute_force-enabled'] === true ) {
 				add_filter( 'authenticate', array( $this, 'execute_brute_force_no_password' ), 30, 3 );
 				add_action( 'wp_login_failed', array( $this, 'execute_brute_force' ), 1, 1 );
+				add_action( 'wp_login', array( $this, 'execute_brute_force_login_successful' ), 10, 2 );
 				add_filter( 'itsec_lockout_modules', array( $this, 'register_lockout' ) );
 				add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
 			}
@@ -92,12 +93,12 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 		 */
 		public function register_logger( $logger_modules ) {
 
-			$lockout_modules['brute_force'] = array(
-				'type'   => 'brute_force',
-				'nice_name' => __( 'Brute Force', 'ithemes=security' ),
+			$logger_modules['brute_force'] = array(
+				'type'      => 'brute_force',
+				'function' => __( 'Invalid Login Attempt', 'ithemes=security' ),
 			);
 
-			return $lockout_modules;
+			return $logger_modules;
 
 		}
 
@@ -108,11 +109,27 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 		 */
 		public function execute_brute_force( $username ) {
 
-			global $itsec_lockout;
+			global $itsec_lib, $itsec_lockout, $itsec_logger;
 
-			$itsec_lockout->do_lockout( 'brute_force', sanitize_text_field( $username ) );
+			if ( isset( $_POST['log'] ) && $_POST['log'] != '' && isset( $_POST['pwd'] ) && $_POST['pwd'] != '' ) {
+
+				$user_id = username_exists( sanitize_text_field( $username ) );
+
+				$itsec_logger->log_event( 'brute_force', 5, array(), $itsec_lib->get_ip(), sanitize_text_field( $username ), intval( $user_id ) );
+
+				$itsec_lockout->do_lockout( 'brute_force', sanitize_text_field( $username ) );
+
+			}
 
 		}
+
+	public function execute_brute_force_login_successful( $username, $user ) {
+
+		global $itsec_lockout;
+
+		$itsec_lockout->check_lockout( $user );
+
+	}
 
 		/**
 		 * Sends to lockout class when login form isn't completely filled out
@@ -125,9 +142,13 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 		 */
 		public function execute_brute_force_no_password( $user, $username = '', $password = '' ) {
 
-			global $itsec_lockout;
+			global $itsec_lib, $itsec_lockout, $itsec_logger;
 
 			if ( isset( $_POST['wp-submit'] ) && ( empty( $username ) || empty( $password ) ) ) {
+
+				$user_id = username_exists( sanitize_text_field( $username ) );
+
+				$itsec_logger->log_event( 'brute_force', 5, array(), $itsec_lib->get_ip(), sanitize_text_field( $username ), intval( $user_id ) );
 
 				$itsec_lockout->do_lockout( 'brute_force', sanitize_text_field( $username ) );
 
