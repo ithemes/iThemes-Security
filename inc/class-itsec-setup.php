@@ -179,7 +179,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 				`log_user` bigint(20) UNSIGNED,
 				`log_url` varchar(255),
 				`log_referrer` varchar(255),
-				`log_data` longtext,
+				`log_data` longtext NOT NULL DEFAULT '',
 				PRIMARY KEY (`log_id`),
 				INDEX `log_type` USING HASH (`log_type`),
 				INDEX `log_priority` USING BTREE (`log_priority`),
