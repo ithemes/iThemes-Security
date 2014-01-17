@@ -229,8 +229,6 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 				INDEX `temp_user` USING HASH (`temp_user`) comment ''
 				) " . $charset_collate . ";";
 
-
-
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			@dbDelta( $tables );
 
