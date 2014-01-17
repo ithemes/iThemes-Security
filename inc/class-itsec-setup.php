@@ -151,7 +151,16 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 
 			if ( $options === false ) {
 
-				$defaults = array( 'notification_email' => array( get_option( 'admin_email' ) ), 'lockout_message' => __( 'error', 'ithemes-security' ), 'blacklist' => true, 'blacklist_count' => 3, 'blacklist_period' => 7, 'email_notifications' => true, 'lockout_period' => 15, );
+				$defaults = array(
+					'notification_email' => array( get_option( 'admin_email' ) ),
+					'lockout_message' => __( 'error', 'ithemes-security' ),
+					'user_lockout_message' => __( 'You have been locked out due to too many login attempts.', 'ithemes-security' ),
+					'blacklist' => true,
+					'blacklist_count' => 3,
+					'blacklist_period' => 7,
+					'email_notifications' => true,
+					'lockout_period' => 15,
+				);
 
 				add_site_option( 'itsec_global', $defaults );
 

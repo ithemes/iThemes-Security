@@ -114,8 +114,16 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			add_settings_field(
 				'itsec_global[lockout_message]',
-				__( 'Lockout Message', 'ithemes-security' ),
+				__( 'Host Lockout Message', 'ithemes-security' ),
 				array( $this, 'lockout_message' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
+			add_settings_field(
+				'itsec_global[user_lockout_message]',
+				__( 'User Lockout Message', 'ithemes-security' ),
+				array( $this, 'user_lockout_message' ),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -210,11 +218,33 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			if ( isset( $this->settings['lockout_message'] ) ) {
 				$lockout_message = sanitize_text_field( $this->settings['lockout_message'] );
 			} else {
-				$lockout_message = __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
+				$lockout_message = __( 'error', 'ithemes-security' );
 			}
 
 			$content = '<textarea class="widefat" name="itsec_global[lockout_message]" id="itsec_global_lockout_message" rows="5" >' . $lockout_message . '</textarea><br />';
-			$content .= '<label for="itsec_global_lockout_message"> ' . __( 'The message to display to a user when they have been locked out.', 'ithemes-security' ) . '</label>';
+			$content .= '<label for="itsec_global_lockout_message"> ' . __( 'The message to display when a computer (host) has been locked out.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Admin User Username Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function user_lockout_message( $args ) {
+
+			if ( isset( $this->settings['user_lockout_message'] ) ) {
+				$user_lockout_message = sanitize_text_field( $this->settings['user_lockout_message'] );
+			} else {
+				$user_lockout_message = __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
+			}
+
+			$content = '<textarea class="widefat" name="itsec_global[user_lockout_message]" id="itsec_global_user_lockout_message" rows="5" >' . $user_lockout_message . '</textarea><br />';
+			$content .= '<label for="itsec_global_user_lockout_message"> ' . __( 'The message to display to a user when their account has been locked out.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -413,6 +443,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			}
 
 			$input['lockout_message']     = isset( $input['lockout_message'] ) ? sanitize_text_field( $input['lockout_message'] ) : '';
+			$input['user_lockout_message']     = isset( $input['user_lockout_message'] ) ? sanitize_text_field( $input['user_lockout_message'] ) : '';
 			$input['blacklist']           = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
 			$input['blacklist_count']     = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
 			$input['blacklist_period']    = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
@@ -433,7 +464,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		public function save_network_options() {
 
 			$settings['notification_email']  = isset( $_POST['itsec_authentication']['notification_email'] ) ? sanitize_text_field( $_POST['itsec_authentication']['notification_email'] ) : '';
-			$settings['lockout_message']     = isset( $_POST['itsec_authentication']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['lockout_message'] ) : '';
+			$settings['lockout_message']     = isset( $_POST['itsec_authentication']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['lockout_message'] ) : __( 'error', 'ithemes-security' );
+			$settings['user_lockout_message']     = isset( $_POST['itsec_authentication']['user_lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['user_lockout_message'] ) : __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
 			$settings['blacklist']           = ( isset( $_POST['itsec_authentication']['blacklist'] ) && intval( $_POST['itsec_authentication']['blacklist'] == 1 ) ? true : false );
 			$settings['blacklist_count']     = isset( $_POST['itsec_authentication']['blacklist_count'] ) ? absint( $_POST['itsec_authentication']['blacklist_count'] ) : 3;
 			$settings['blacklist_period']    = isset( $_POST['itsec_authentication']['blacklist_period'] ) ? absint( $_POST['itsec_authentication']['blacklist_period'] ) : 7;

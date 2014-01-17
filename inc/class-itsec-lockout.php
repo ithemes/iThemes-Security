@@ -456,7 +456,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			//check to see if it's the logout screen
 			if ( isset($_GET['reauth']) && 1 == $_GET['reauth'] ) {
-				return '<div id="login_error">' . __( 'Custom logged out Message.' ) . '</div>' . PHP_EOL;
+				return '<div id="login_error">' . $this->settings['user_lockout_message'] . '</div>' . PHP_EOL;
 			}
 
 		}
