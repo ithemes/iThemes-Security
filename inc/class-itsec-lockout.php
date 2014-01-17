@@ -8,15 +8,11 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		private
 			$settings,
-			$current_time,
-			$current_time_gmt,
 			$lockout_modules;
 
 		function __construct() {
 
 			$this->settings         = get_site_option( 'itsec_global' );
-			$this->current_time     = current_time( 'timestamp' );
-			$this->current_time_gmt = current_time( 'timestamp', 1 );
 
 			$this->lockout_modules = array(); //array to hold information on modules using this feature
 
@@ -43,15 +39,15 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		 */
 		public function check_lockout( $user = null ) {
 
-			global $wpdb, $itsec_lib;
+			global $wpdb, $itsec_lib, $itsec_current_time_gmt;
 
 			$host = $itsec_lib->get_ip();
 
-			$host_check = $wpdb->get_var( "SELECT `lockout_host` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt ) . "' AND `lockout_host`='" . $host . "';" );
+			$host_check = $wpdb->get_var( "SELECT `lockout_host` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt ) . "' AND `lockout_host`='" . $host . "';" );
 
 			if ( $user !== null && $itsec_lib->user_id_exists( intval( $user ) ) === true ) {
 
-				$user_check = $wpdb->get_var( "SELECT `lockout_user` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt ) . "' AND `lockout_user`=" . intval( $user ) . ";" );
+				$user_check = $wpdb->get_var( "SELECT `lockout_user` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt ) . "' AND `lockout_user`=" . intval( $user ) . ";" );
 
 			} else {
 
@@ -77,7 +73,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		 */
 		public function do_lockout( $module, $user = null ) {
 
-			global $wpdb, $itsec_lib;
+			global $wpdb, $itsec_lib, $itsec_current_time_gmt, $itsec_current_time;
 
 			$lock_host = null;
 			$lock_user = null;
@@ -91,13 +87,13 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 					$wpdb->base_prefix . 'itsec_temp',
 					array(
 						'temp_type'     => $options['type'],
-						'temp_date'     => date( 'Y-m-d H:i:s', $this->current_time ),
-						'temp_date_gmt' => date( 'Y-m-d H:i:s', $this->current_time_gmt ),
+						'temp_date'     => date( 'Y-m-d H:i:s', $itsec_current_time ),
+						'temp_date_gmt' => date( 'Y-m-d H:i:s', $itsec_current_time_gmt ),
 						'temp_host'     => sanitize_text_field( $host ),
 					)
 				);
 
-				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - ( $options['period'] * 60 ) ) . "' AND `temp_host`='" . esc_sql( $host ) . "';" );
+				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $options['period'] * 60 ) ) . "' AND `temp_host`='" . esc_sql( $host ) . "';" );
 
 				if ( $host_count >= $options['host'] ) {
 
@@ -117,13 +113,13 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 						$wpdb->base_prefix . 'itsec_temp',
 						array(
 							'temp_type'     => $options['type'],
-							'temp_date'     => date( 'Y-m-d H:i:s', $this->current_time ),
-							'temp_date_gmt' => date( 'Y-m-d H:i:s', $this->current_time_gmt ),
+							'temp_date'     => date( 'Y-m-d H:i:s', $itsec_current_time ),
+							'temp_date_gmt' => date( 'Y-m-d H:i:s', $itsec_current_time_gmt ),
 							'temp_user'     => intval( $user_id ),
 						)
 					);
 
-					$user_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - ( $options['period'] * 60 ) ) . "' AND `temp_user`='" . esc_sql( $user_id ) . "';" );
+					$user_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $options['period'] * 60 ) ) . "' AND `temp_user`='" . esc_sql( $user_id ) . "';" );
 
 					if ( $user_count >= $options['user'] ) {
 
@@ -168,7 +164,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		 */
 		private function lockout( $type, $reason, $host = null, $user = null ) {
 
-			global $wpdb, $itsec_lib;
+			global $wpdb, $itsec_lib, $itsec_current_time_gmt, $itsec_current_time;
 
 			$host_expiration = null;
 			$user_expiration = null;
@@ -197,7 +193,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 				$blacklist_period = isset( $this->settings['blacklist_period'] ) ? $this->settings['blacklist_period'] * 24 * 60 * 60 : 604800;
 
-				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $this->current_time_gmt + $blacklist_period ) . "' AND `lockout_host`='" . esc_sql( $host ) . "';" );
+				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt + $blacklist_period ) . "' AND `lockout_host`='" . esc_sql( $host ) . "';" );
 
 				if ( $host_count >= $this->settings['blacklist_count'] ) {
 
@@ -215,8 +211,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			if ( $good_host !== false || $good_user !== false ) {
 
 				$exp_seconds    = ( intval( $this->settings['lockout_period'] ) * 60 );
-				$expiration     = date( 'Y-m-d H:i:s', $this->current_time + $exp_seconds );
-				$expiration_gmt = date( 'Y-m-d H:i:s', $this->current_time_gmt + $exp_seconds );
+				$expiration     = date( 'Y-m-d H:i:s', $itsec_current_time + $exp_seconds );
+				$expiration_gmt = date( 'Y-m-d H:i:s', $itsec_current_time_gmt + $exp_seconds );
 
 				if ( $good_host !== false && $blacklist_host === false ) { //temp lockout host
 
@@ -226,8 +222,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 						$wpdb->base_prefix . 'itsec_lockouts',
 						array(
 							'lockout_type'      => $type,
-							'lockout_start'     => date( 'Y-m-d H:i:s', $this->current_time ),
-							'lockout_start_gmt' => date( 'Y-m-d H:i:s', $this->current_time_gmt ),
+							'lockout_start'     => date( 'Y-m-d H:i:s', $itsec_current_time ),
+							'lockout_start_gmt' => date( 'Y-m-d H:i:s', $itsec_current_time_gmt ),
 							'lockout_expire'    => $expiration, 'lockout_expire_gmt' => $expiration_gmt,
 							'lockout_host'      => sanitize_text_field( $host ),
 							'lockout_user'      => '',
@@ -244,8 +240,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 						$wpdb->base_prefix . 'itsec_lockouts',
 						array(
 							'lockout_type'       => $type,
-							'lockout_start'      => date( 'Y-m-d H:i:s', $this->current_time ),
-							'lockout_start_gmt'  => date( 'Y-m-d H:i:s', $this->current_time_gmt ),
+							'lockout_start'      => date( 'Y-m-d H:i:s', $itsec_current_time ),
+							'lockout_start_gmt'  => date( 'Y-m-d H:i:s', $itsec_current_time_gmt ),
 							'lockout_expire'     => $expiration,
 							'lockout_expire_gmt' => $expiration_gmt,
 							'lockout_host'       => '',
@@ -272,10 +268,10 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		 */
 		public function purge_lockouts() {
 
-			global $wpdb;
+			global $wpdb, $itsec_current_time_gmt;
 
-			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` < '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - ( ( $this->settings['blacklist_period'] + 1 ) * 24 * 60 * 60 ) ) . "';" );
-			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` < '" . date( 'Y-m-d H:i:s', $this->current_time_gmt - 86400 ) . "';" );
+			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` < '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( ( $this->settings['blacklist_period'] + 1 ) * 24 * 60 * 60 ) ) . "';" );
+			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` < '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt - 86400 ) . "';" );
 
 		}
 
