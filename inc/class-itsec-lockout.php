@@ -26,7 +26,11 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			//Check for host lockouts
 			add_action( 'init', array( $this, 'check_lockout' ) );
 
+			//Register all plugin modules
 			add_action( 'plugins_loaded', array( $this, 'register_modules' ) );
+
+			//Set an error message on improper logout
+			add_action( 'login_head', array( $this, 'set_lockout_error' ) );
 
 		}
 
@@ -43,12 +47,12 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			if ( $user !== false && $user !== '' ) {
 
-				$user_id = $user->ID;
+				$user_id    = $user->ID;
 				$host_check = null;
 
 			} else {
 
-				$user = wp_get_current_user();
+				$user    = wp_get_current_user();
 				$user_id = $user->ID;
 
 				$host_check = $wpdb->get_var( "SELECT `lockout_host` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt ) . "' AND `lockout_host`='" . $host . "';" );
@@ -78,8 +82,8 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		/**
 		 * Executes lockout and logging for modules
 		 *
-		 * @param string     $module string name of the calling module
-		 * @param string $user username of user
+		 * @param string $module string name of the calling module
+		 * @param string $user   username of user
 		 *
 		 * @return void
 		 */
@@ -125,7 +129,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 				$user_id = username_exists( sanitize_text_field( $user ) );
 
-					if ( $user_id !== null ) {
+				if ( $user_id !== null ) {
 
 					$wpdb->insert(
 						$wpdb->base_prefix . 'itsec_temp',
@@ -147,7 +151,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 					if ( $user_count >= $options['user'] ) {
 
-						$lock_user = $user;
+						$lock_user = $user_id;
 
 					}
 
@@ -155,7 +159,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			}
 
-			if( $lock_host !== null || $lock_user !== null ) {
+			if ( $lock_host !== null || $lock_user !== null ) {
 				$this->lockout( $options['type'], $options['reason'], $lock_host, $lock_user );
 			}
 
@@ -165,22 +169,23 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		 * Executes lockout (locks user out)
 		 *
 		 * @param boolean $user if we're locking out a user or not
+		 *
 		 * @return void
 		 */
 		private function execute_lock( $user = false ) {
 
+			wp_logout();
+			@header( 'HTTP/1.0 418 I\'m a teapot' );
+			@header( 'Cache-Control: no-cache, must-revalidate' );
+			@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
+
 			if ( $user === false ) { //lockout the host entirely
 
-				wp_logout();
-				@header( 'HTTP/1.0 418 I\'m a teapot' );
-				@header( 'Cache-Control: no-cache, must-revalidate' );
-				@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
 				die( $this->settings['lockout_message'] );
 
 			} else { //just lockout the user
 
-				add_filter( 'login_message', array( $this, 'set_lockout_error' ) );
-				wp_logout();
+				die( $this->settings['user_lockout_message'] );
 
 			}
 
@@ -189,10 +194,10 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		/**
 		 * Locks out given user or host
 		 *
-		 * @param  string $type   The type of lockout (for user reference)
-		 * @param  string $reason Reason for lockout, for notifications
-		 * @param  string $host   Host to lock out
-		 * @param  int    $user   user id to lockout
+		 * @param  string $type       The type of lockout (for user reference)
+		 * @param  string $reason     Reason for lockout, for notifications
+		 * @param  string $host       Host to lock out
+		 * @param  int    $user       user id to lockout
 		 *
 		 * @return void
 		 */
@@ -270,7 +275,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 						)
 					);
 
-					$itsec_logger->log_event( $type, 10, array('expires' => $expiration, 'expires_gmt' => $expiration_gmt ), sanitize_text_field( $host ) );
+					$itsec_logger->log_event( $type, 10, array( 'expires' => $expiration, 'expires_gmt' => $expiration_gmt ), sanitize_text_field( $host ) );
 
 				}
 
@@ -299,7 +304,11 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 					$this->send_lockout_email( $good_host, $good_user, $host_expiration, $user_expiration, $reason );
 				}
 
-				$this->execute_lock();
+				if ( $good_host !== false ) {
+					$this->execute_lock();
+				} else {
+					$this->execute_lock( true );
+				}
 
 			}
 
@@ -449,13 +458,13 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 		/**
 		 * Sets an error message when a user has been forcibly logged out due to lockout
-		 * 
+		 *
 		 * @return string
 		 */
 		public function set_lockout_error() {
 
 			//check to see if it's the logout screen
-			if ( isset($_GET['reauth']) && 1 == $_GET['reauth'] ) {
+			if ( isset($_GET['itsec']) && $_GET['itsec'] == true ) {
 				return '<div id="login_error">' . $this->settings['user_lockout_message'] . '</div>' . PHP_EOL;
 			}
 
