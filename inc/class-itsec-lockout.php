@@ -248,7 +248,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 						)
 					);
 
-					$itsec_logger->log_event( $type, 10, array('expire' => $expiration, 'expire_gmt' => $expiration_gmt ), sanitize_text_field( $host ) );
+					$itsec_logger->log_event( $type, 10, array('expires' => $expiration, 'expires_gmt' => $expiration_gmt ), sanitize_text_field( $host ) );
 
 				}
 
@@ -269,7 +269,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 						)
 					);
 
-					$itsec_logger->log_event( $type, 10, array( 'expire' => $expiration, 'expire_gmt' => $expiration_gmt ), '', '', intval( $user ) );
+					$itsec_logger->log_event( $type, 10, array( 'expires' => $expiration, 'expires_gmt' => $expiration_gmt ), '', '', intval( $user ) );
 
 				}
 
