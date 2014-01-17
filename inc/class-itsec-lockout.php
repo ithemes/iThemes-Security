@@ -93,7 +93,13 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 					)
 				);
 
-				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $options['period'] * 60 ) ) . "' AND `temp_host`='" . esc_sql( $host ) . "';" );
+				$host_count = $wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '%s' AND `temp_host`='%s';"
+					),
+					date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $options['period'] * 60 ) ),
+					$host
+				);
 
 				if ( $host_count >= $options['host'] ) {
 
@@ -119,7 +125,13 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 						)
 					);
 
-					$user_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $options['period'] * 60 ) ) . "' AND `temp_user`='" . esc_sql( $user_id ) . "';" );
+					$user_count = $wpdb->get_var(
+						$wpdb->prepare(
+							"SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_temp` WHERE `temp_date_gmt` > '%s' AND `temp_user`=%s;"
+						),
+						date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $options['period'] * 60 ) ),
+						$user_id
+					);
 
 					if ( $user_count >= $options['user'] ) {
 
@@ -193,7 +205,13 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 				$blacklist_period = isset( $this->settings['blacklist_period'] ) ? $this->settings['blacklist_period'] * 24 * 60 * 60 : 604800;
 
-				$host_count = $wpdb->get_var( "SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt + $blacklist_period ) . "' AND `lockout_host`='" . esc_sql( $host ) . "';" );
+				$host_count = $wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT COUNT(*) FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '%s' AND `lockout_host`='%s';"
+					),
+					date( 'Y-m-d H:i:s', $itsec_current_time_gmt + $blacklist_period ),
+					$host
+				);
 
 				if ( $host_count >= $this->settings['blacklist_count'] ) {
 
