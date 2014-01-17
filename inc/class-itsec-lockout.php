@@ -33,21 +33,31 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		/**
 		 * Checks if the host or user is locked out and executes lockout
 		 *
-		 * @param  int $user the user id to check
-		 *
 		 * @return void
 		 */
-		public function check_lockout( $user = null ) {
+		public function check_lockout( $user = false ) {
 
 			global $wpdb, $itsec_lib, $itsec_current_time_gmt;
 
 			$host = $itsec_lib->get_ip();
 
-			$host_check = $wpdb->get_var( "SELECT `lockout_host` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt ) . "' AND `lockout_host`='" . $host . "';" );
+			if ( $user !== false && $user !== '' ) {
 
-			if ( $user !== null && $itsec_lib->user_id_exists( intval( $user ) ) === true ) {
+				$user_id = $user->ID;
+				$host_check = null;
 
-				$user_check = $wpdb->get_var( "SELECT `lockout_user` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt ) . "' AND `lockout_user`=" . intval( $user ) . ";" );
+			} else {
+
+				$user = wp_get_current_user();
+				$user_id = $user->ID;
+
+				$host_check = $wpdb->get_var( "SELECT `lockout_host` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt ) . "' AND `lockout_host`='" . $host . "';" );
+
+			}
+
+			if ( $user_id !== 0 ) {
+
+				$user_check = $wpdb->get_var( "SELECT `lockout_user` FROM `" . $wpdb->base_prefix . "itsec_lockouts` WHERE `lockout_expire_gmt` > '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt ) . "' AND `lockout_user`=" . $user_id . ";" );
 
 			} else {
 
@@ -56,9 +66,11 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			}
 
 			if ( $host_check !== null ) {
-
 				$this->execute_lock();
+			}
 
+			if ( $user_check !== false && $user_check !== null ) {
+				$this->execute_lock( true );
 			}
 
 		}
@@ -152,15 +164,25 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		/**
 		 * Executes lockout (locks user out)
 		 *
+		 * @param boolean $user if we're locking out a user or not
 		 * @return void
 		 */
-		private function execute_lock() {
+		private function execute_lock( $user = false ) {
 
-			wp_clear_auth_cookie();
-			@header( 'HTTP/1.0 418 I\'m a teapot' );
-			@header( 'Cache-Control: no-cache, must-revalidate' );
-			@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
-			die( $this->settings['lockout_message'] );
+			if ( $user === false ) { //lockout the host entirely
+
+				wp_logout();
+				@header( 'HTTP/1.0 418 I\'m a teapot' );
+				@header( 'Cache-Control: no-cache, must-revalidate' );
+				@header( 'Expires: Thu, 22 Jun 1978 00:28:00 GMT' );
+				die( $this->settings['lockout_message'] );
+
+			} else { //just lockout the user
+
+				add_filter( 'login_message', array( $this, 'set_lockout_error' ) );
+				wp_logout();
+
+			}
 
 		}
 
@@ -419,9 +441,23 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		 *
 		 * @return string html content type
 		 */
-		function set_html_content_type() {
+		public function set_html_content_type() {
 
 			return 'text/html';
+
+		}
+
+		/**
+		 * Sets an error message when a user has been forcibly logged out due to lockout
+		 * 
+		 * @return string
+		 */
+		public function set_lockout_error() {
+
+			//check to see if it's the logout screen
+			if ( isset($_GET['reauth']) && 1 == $_GET['reauth'] ) {
+				return '<div id="login_error">' . __( 'Custom logged out Message.' ) . '</div>' . PHP_EOL;
+			}
 
 		}
 
