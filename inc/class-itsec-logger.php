@@ -24,30 +24,36 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 			global $wpdb, $itsec_current_time_gmt, $itsec_current_time;
 
-			$saved_data = array();
+			$sanitized_data = array(); //array of sanitized data
 
-			$options = $this->logger_modules[$module];
+			if ( isset( $this->logger_modules[$module] ) ) {
 
-			foreach ( $data as $key => $value ) {
+				$options = $this->logger_modules[$module];
 
-				$saved_data[esc_sql( $key )] = esc_sql( $value );
+				//Loop to sanitize each piece of data
+				foreach ( $data as $key => $value ) {
+
+					$sanitized_data[esc_sql( $key )] = esc_sql( $value );
+				}
+
+				$wpdb->insert(
+					$wpdb->base_prefix . 'itsec_log',
+					array(
+						'log_type'     => $options['type'],
+						'log_priority' => intval( $priority ),
+						'log_function' => $options['function'],
+						'log_date'     => date( 'Y-m-d H:i:s', $itsec_current_time ),
+						'log_date_gmt' => date( 'Y-m-d H:i:s', $itsec_current_time_gmt ),
+						'log_host'     => sanitize_text_field( $host ),
+						'log_username' => sanitize_text_field( $username ),
+						'log_user'     => intval( $user ),
+						'log_url'      => esc_sql( $url ),
+						'log_referrer' => esc_sql( $referrer ),
+						'log_data'     => serialize( $sanitized_data ),
+					)
+				);
+
 			}
-
-			$wpdb->insert(
-				$wpdb->base_prefix . 'itsec_log',
-				array(
-					'log_type'     => $options['type'],
-					'log_priority' => intval( $priority ),
-					'log_date'     => date( 'Y-m-d H:i:s', $itsec_current_time ),
-					'log_date_gmt' => date( 'Y-m-d H:i:s', $itsec_current_time_gmt ),
-					'log_host'     => sanitize_text_field( $host ),
-					'log_username' => sanitize_text_field( $username ),
-					'log_user'     => intval( $user ),
-					'log_url'      => esc_sql( $url ),
-					'log_referrer' => esc_sql( $referrer ),
-					'log_data'     => serialize( $saved_data ),
-				)
-			);
 
 		}
 
