@@ -208,7 +208,7 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 				$header = 'log_type,log_priority,log_function,log_date,log_date_gmt,log_host,log_username,log_user,log_url,log_referrer,log_data' . PHP_EOL;
 
-				error_log( $header, 3, $this->log_file );
+				@error_log( $header, 3, $this->log_file );
 
 			}
 
