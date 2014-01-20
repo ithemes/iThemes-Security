@@ -117,10 +117,6 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 				$this->rotate_log();
 			}
 
-			$this->settings['last_purged'] = $itsec_current_time_gmt;
-
-			update_site_option( 'itsec_global', $this->settings );
-
 		}
 
 		/**
