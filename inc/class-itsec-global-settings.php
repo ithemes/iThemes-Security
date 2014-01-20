@@ -129,7 +129,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			);
 
 			add_settings_field(
-				'itsec_authentication[blacklist]',
+				'itsec_global[blacklist]',
 				__( 'Blacklist Repeat Offender', 'ithemes-security' ),
 				array( $this, 'blacklist' ),
 				'security_page_toplevel_page_itsec-global',
@@ -137,7 +137,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			);
 
 			add_settings_field(
-				'itsec_authentication[blacklist_count]',
+				'itsec_global[blacklist_count]',
 				__( 'Blacklist Threshold', 'ithemes-security' ),
 				array( $this, 'blacklist_count' ),
 				'security_page_toplevel_page_itsec-global',
@@ -145,7 +145,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			);
 
 			add_settings_field(
-				'itsec_authentication[blacklist_period]',
+				'itsec_global[blacklist_period]',
 				__( 'Blacklist Lookback Period', 'ithemes-security' ),
 				array( $this, 'blacklist_period' ),
 				'security_page_toplevel_page_itsec-global',
@@ -153,7 +153,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			);
 
 			add_settings_field(
-				'itsec_authentication[lockout_period]',
+				'itsec_global[lockout_period]',
 				__( 'Lockout Period', 'ithemes-security' ),
 				array( $this, 'lockout_period' ),
 				'security_page_toplevel_page_itsec-global',
@@ -161,7 +161,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			);
 
 			add_settings_field(
-				'itsec_authentication[email_notifications]',
+				'itsec_global[email_notifications]',
 				__( 'Email Lockout Notifications', 'ithemes-security' ),
 				array( $this, 'email_notifications' ),
 				'security_page_toplevel_page_itsec-global',
@@ -169,7 +169,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			);
 
 			add_settings_field(
-				'itsec_authentication[log_type]',
+				'itsec_global[log_type]',
 				__( 'Log Type', 'ithemes-security' ),
 				array( $this, 'log_type' ),
 				'security_page_toplevel_page_itsec-global',
@@ -177,9 +177,17 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			);
 
 			add_settings_field(
-				'itsec_authentication[log_rotation]',
+				'itsec_global[log_rotation]',
 				__( 'Days to Keep/Rotate Logs', 'ithemes-security' ),
 				array( $this, 'log_rotation' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
+			add_settings_field(
+				'itsec_global[log_location]',
+				__( 'Path to Log Files', 'ithemes-security' ),
+				array( $this, 'log_location' ),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -281,8 +289,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$blacklist = 1;
 			}
 
-			$content = '<input type="checkbox" id="itsec_authentication_blacklist" name="itsec_authentication[blacklist]" value="1" ' . checked( 1, $blacklist, false ) . '/>';
-			$content .= '<label for="itsec_authentication_blacklist"> ' . __( 'Enable Blacklist Repeat Offender', 'ithemes-security' ) . '</label>';
+			$content = '<input type="checkbox" id="itsec_global_blacklist" name="itsec_global[blacklist]" value="1" ' . checked( 1, $blacklist, false ) . '/>';
+			$content .= '<label for="itsec_global_blacklist"> ' . __( 'Enable Blacklist Repeat Offender', 'ithemes-security' ) . '</label>';
 			$content .= '<p class="description"> ' . __( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
@@ -304,8 +312,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$blacklist_count = 3;
 			}
 
-			$content = '<input class="small-text" name="itsec_authentication[blacklist_count]" id="itsec_authentication_blacklist_count" value="' . $blacklist_count . '" type="text">';
-			$content .= '<label for="itsec_authentication_blacklist_count"> ' . __( 'Lockouts', 'ithemes-security' ) . '</label>';
+			$content = '<input class="small-text" name="itsec_global[blacklist_count]" id="itsec_global_blacklist_count" value="' . $blacklist_count . '" type="text">';
+			$content .= '<label for="itsec_global_blacklist_count"> ' . __( 'Lockouts', 'ithemes-security' ) . '</label>';
 			$content .= '<p class="description"> ' . __( 'The number of lockouts per IP before the host is banned permanently from this site.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
@@ -327,8 +335,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$blacklist_period = 7;
 			}
 
-			$content = '<input class="small-text" name="itsec_authentication[blacklist_period]" id="itsec_authentication_blacklist_period" value="' . $blacklist_period . '" type="text">';
-			$content .= '<label for="itsec_authentication_blacklist_period"> ' . __( 'Days', 'ithemes-security' ) . '</label>';
+			$content = '<input class="small-text" name="itsec_global[blacklist_period]" id="itsec_global_blacklist_period" value="' . $blacklist_period . '" type="text">';
+			$content .= '<label for="itsec_global_blacklist_period"> ' . __( 'Days', 'ithemes-security' ) . '</label>';
 			$content .= '<p class="description"> ' . __( 'How many days should a lockout be remembered to meet the blacklist count above.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
@@ -350,8 +358,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$lockout_period = 15;
 			}
 
-			$content = '<input class="small-text" name="itsec_authentication[lockout_period]" id="itsec_authentication_lockout_period" value="' . $lockout_period . '" type="text">';
-			$content .= '<label for="itsec_authentication_lockout_period"> ' . __( 'Minutes', 'ithemes-security' ) . '</label>';
+			$content = '<input class="small-text" name="itsec_global[lockout_period]" id="itsec_global_lockout_period" value="' . $lockout_period . '" type="text">';
+			$content .= '<label for="itsec_global_lockout_period"> ' . __( 'Minutes', 'ithemes-security' ) . '</label>';
 			$content .= '<p class="description"> ' . __( 'The length of time a host or user will be banned from this site after hitting the limit of bad logins.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
@@ -373,8 +381,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$email_notifications = 1;
 			}
 
-			$content = '<input type="checkbox" id="itsec_authentication_email_notifications" name="itsec_authentication[email_notifications]" value="1" ' . checked( 1, $email_notifications, false ) . '/>';
-			$content .= '<label for="itsec_authentication_email_notifications">' . __( 'Enable Email Lockout Notifications', 'ithemes-security' ) . '</label>';
+			$content = '<input type="checkbox" id="itsec_global_email_notifications" name="itsec_global[email_notifications]" value="1" ' . checked( 1, $email_notifications, false ) . '/>';
+			$content .= '<label for="itsec_global_email_notifications">' . __( 'Enable Email Lockout Notifications', 'ithemes-security' ) . '</label>';
 			$content .= sprintf( '<p class="description">%s<a href="admin.php?page=toplevel_page_itsec-global">%s</a>%s</p>', __( 'This feature will trigger an email to be sent to the ', 'ithemes-security' ), __( 'notifications email address', 'ithemes-security' ), __( ' whenever a host or user is locked out of the system.', 'ithemes-security' ) );
 
 			echo $content;
@@ -396,8 +404,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$log_rotation = 30;
 			}
 
-			$content = '<input class="small-text" name="itsec_authentication[log_rotation]" id="itsec_authentication_log_rotation" value="' . $log_rotation . '" type="text">';
-			$content .= '<label for="itsec_authentication_log_rotation"> ' . __( 'Days', 'ithemes-security' ) . '</label>';
+			$content = '<input class="small-text" name="itsec_global[log_rotation]" id="itsec_global_log_rotation" value="' . $log_rotation . '" type="text">';
+			$content .= '<label for="itsec_global_log_rotation"> ' . __( 'Days', 'ithemes-security' ) . '</label>';
 			$content .= '<p class="description"> ' . __( 'The number of days database logs should be kept or until file logs are rotated. Letting log files get too big can slow performance.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
@@ -419,14 +427,39 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$log_type = 0;
 			}
 
-			echo '<select id="itsec_authentication_log_type" name="itsec_authentication[log_type]">';
+			echo '<select id="itsec_global_log_type" name="itsec_global[log_type]">';
 
 			echo '<option value="0" ' . selected( $log_type, '0' ) . '>' . __( 'Database Only', 'ithemes-security' ) . '</option>';
 			echo '<option value="1" ' . selected( $log_type, '1' ) . '>' . __( 'File Only', 'ithemes-security' ) . '</option>';
 			echo '<option value="2" ' . selected( $log_type, '2' ) . '>' . __( 'Both', 'ithemes-security' ) . '</option>';
 			echo '</select>';
-			echo '<label for="itsec_authentication_log_type"> ' . __( 'How should event logs be kept', 'ithemes-security' ) . '</label>';
+			echo '<label for="itsec_global_log_type"> ' . __( 'How should event logs be kept', 'ithemes-security' ) . '</label>';
 			echo '<p class="description">' . __( 'iThemes Security can log events in multiple ways. Each with its own advantages and disadvantages. Database Only puts all events in the database with your posts and other WordPress data. This makes it easy to retrieve and process in the plugin but can be slower especially if the database table gets very large. File Only is very fast but the plugin does not process the logs itself as that would take far more resources. Finally, you can log both if you so desire. For most users or smaller sites Database Only should be fine. If you have a very large site or a log processing software then File Only might be a better option. Of course you can also do both if you so desire.' ) . '</p>';
+
+		}
+
+		/**
+		 * echos Log Location Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function log_location( $args ) {
+
+			global $itsec_globals;
+
+			if ( isset( $this->settings['log_location'] ) ) {
+				$log_location = sanitize_text_field( $this->settings['log_location'] );
+			} else {
+				$log_location = $itsec_globals['ithemes_log_dir'];
+			}
+
+			$content = '<input class="large-text" name="itsec_global[log_location]" id="itsec_global_log_location" value="' . $log_location . '" type="text">';
+			$content .= '<label for="itsec_global_log_location"> ' . __( 'The path on your machine where log files should be stored.', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'This path must be writable by your website. For added security it is recommended you do not include it in your website root folder.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
 
 		}
 
@@ -481,6 +514,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
+			global $itsec_globals, $itsec_lib;
+
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'ithemes-security' );
 
@@ -515,7 +550,24 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$input['email_notifications']  = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
 			$input['lockout_period']       = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
 			$input['log_rotation']         = isset( $input['log_rotation'] ) ? absint( $input['log_rotation'] ) : 30;
-			$input['log_type']             = isset( $input['log_type'] ) ? intval( $input['log_type'] ) : 0;
+
+			$input['log_location'] = isset( $input['log_location'] ) ? sanitize_text_field( $input['log_location'] ) : $itsec_globals['ithemes_log_dir'];
+
+			if ( $input['log_location'] != $itsec_globals['ithemes_log_dir'] ) {
+				$good_path = $itsec_lib->validate_path( $input['log_location'] );
+			} else {
+				$good_path = true;
+			}
+
+			if ( $good_path !== true ) {
+
+				$type              = 'error';
+				$message           = __( 'The file path entered does not appear to be valid. Please ensure it exists and that WordPress can write to it. ', 'ithemes-security' );
+				$input['log_type'] = 0;
+
+			} else {
+				$input['log_type'] = isset( $input['log_type'] ) ? intval( $input['log_type'] ) : 0;
+			}
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -530,18 +582,19 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['notification_email']   = isset( $_POST['itsec_authentication']['notification_email'] ) ? sanitize_text_field( $_POST['itsec_authentication']['notification_email'] ) : '';
-			$settings['lockout_message']      = isset( $_POST['itsec_authentication']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['lockout_message'] ) : __( 'error', 'ithemes-security' );
-			$settings['user_lockout_message'] = isset( $_POST['itsec_authentication']['user_lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['user_lockout_message'] ) : __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
-			$settings['blacklist']            = ( isset( $_POST['itsec_authentication']['blacklist'] ) && intval( $_POST['itsec_authentication']['blacklist'] == 1 ) ? true : false );
-			$settings['blacklist_count']      = isset( $_POST['itsec_authentication']['blacklist_count'] ) ? absint( $_POST['itsec_authentication']['blacklist_count'] ) : 3;
-			$settings['blacklist_period']     = isset( $_POST['itsec_authentication']['blacklist_period'] ) ? absint( $_POST['itsec_authentication']['blacklist_period'] ) : 7;
-			$settings['lockout_period']       = isset( $_POST['itsec_authentication']['lockout_period'] ) ? absint( $_POST['itsec_authentication']['lockout_period'] ) : 15;
-			$settings['email_notifications']  = ( isset( $_POST['itsec_authentication']['email_notifications'] ) && intval( $_POST['itsec_authentication']['email_notifications'] == 1 ) ? true : false );
-			$settings['log_rotation']         = isset( $_POST['itsec_authentication']['log_rotation'] ) ? absint( $_POST['itsec_authentication']['log_rotation'] ) : 30;
-			$settings['log_type']             = isset( $_POST['itsec_authentication']['log_type'] ) ? intval( $_POST['itsec_authentication']['log_type'] ) : 0;
+			$settings['notification_email']   = isset( $_POST['itsec_global']['notification_email'] ) ? sanitize_text_field( $_POST['itsec_global']['notification_email'] ) : '';
+			$settings['lockout_message']      = isset( $_POST['itsec_global']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_global']['lockout_message'] ) : __( 'error', 'ithemes-security' );
+			$settings['user_lockout_message'] = isset( $_POST['itsec_global']['user_lockout_message'] ) ? sanitize_text_field( $_POST['itsec_global']['user_lockout_message'] ) : __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
+			$settings['blacklist']            = ( isset( $_POST['itsec_global']['blacklist'] ) && intval( $_POST['itsec_global']['blacklist'] == 1 ) ? true : false );
+			$settings['blacklist_count']      = isset( $_POST['itsec_global']['blacklist_count'] ) ? absint( $_POST['itsec_global']['blacklist_count'] ) : 3;
+			$settings['blacklist_period']     = isset( $_POST['itsec_global']['blacklist_period'] ) ? absint( $_POST['itsec_global']['blacklist_period'] ) : 7;
+			$settings['lockout_period']       = isset( $_POST['itsec_global']['lockout_period'] ) ? absint( $_POST['itsec_global']['lockout_period'] ) : 15;
+			$settings['email_notifications']  = ( isset( $_POST['itsec_global']['email_notifications'] ) && intval( $_POST['itsec_global']['email_notifications'] == 1 ) ? true : false );
+			$settings['log_rotation']         = isset( $_POST['itsec_global']['log_rotation'] ) ? absint( $_POST['itsec_global']['log_rotation'] ) : 30;
+			$settings['log_type']             = isset( $_POST['itsec_global']['log_type'] ) ? intval( $_POST['itsec_global']['log_type'] ) : 0;
+			$input['log_location'] = sanitize_text_field( $input['log_location'] );
 
-			update_site_option( 'itsec_authentication', $settings ); //we must manually save network options
+			update_site_option( 'itsec_global', $settings ); //we must manually save network options
 
 			//send them back to the away mode options page
 			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_itsec-authentication', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
