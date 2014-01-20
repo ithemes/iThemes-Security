@@ -15,11 +15,11 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 			global $itsec_globals;
 
+			$this->settings = get_site_option( 'itsec_global' );
+
 			$this->log_file = $itsec_globals['ithemes_log_dir'] . '/event-log.log';
 
-			$this->start_log();
-
-			$this->settings = get_site_option( 'itsec_global' );
+			$this->start_log(); //create a log file if we don't have one
 
 			$this->logger_modules = array(); //array to hold information on modules using this feature
 
@@ -34,6 +34,20 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 		}
 
+		/**
+		 * Logs events sent by other modules or systems
+		 *
+		 * @param string $module   the module requesting the log entry
+		 * @param int    $priority the priority of the log entry (1-10)
+		 * @param array  $data     extra data to log (non-indexed data would be good here)
+		 * @param string $host     the remote host triggering the event
+		 * @param string $username the username triggering the event
+		 * @param string $user     the user id triggering the event
+		 * @param string $url      the url triggering the event
+		 * @param string $referrer the referrer to the url (if applicable)
+		 *
+		 * @return void
+		 */
 		public function log_event( $module, $priority = 5, $data = array(), $host = '', $username = '', $user = '', $url = '', $referrer = '' ) {
 
 			global $wpdb, $itsec_current_time_gmt, $itsec_current_time;
@@ -98,6 +112,11 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 		}
 
+		/**
+		 * Purges database logs and rotates file logs (when needed)
+		 *
+		 * @return void
+		 */
 		public function purge_logs() {
 
 			global $wpdb, $itsec_current_time_gmt;
@@ -152,7 +171,7 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 				if ( preg_match( '/^' . $base_name . '\.?([0-9]*)$/', $fInfo->getFilename(), $matches ) ) {
 
-					$num       = $matches[1];
+					$num      = $matches[1];
 					$old_file = $fInfo->getFilename();
 
 					if ( $num == '' ) {
@@ -178,9 +197,14 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 		}
 
+		/**
+		 * Creates a new log file and adds header information (if needed)
+		 *
+		 * @return void
+		 */
 		private function start_log() {
 
-			if ( file_exists( $this->log_file ) !== true ) {
+			if ( file_exists( $this->log_file ) !== true ) { //only if current log file doesn't exist
 
 				$header = 'log_type,log_priority,log_function,log_date,log_date_gmt,log_host,log_username,log_user,log_url,log_referrer,log_data' . PHP_EOL;
 
