@@ -6,7 +6,10 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 		private static $instance = null;
 
-		private $settings, $core, $page;
+		private
+			$settings,
+			$core,
+			$page;
 
 		private function __construct( $core ) {
 
