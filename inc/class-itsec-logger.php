@@ -178,10 +178,6 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 		}
 
-		public function save_logs() {
-
-		}
-
 		private function start_log() {
 
 			if ( file_exists( $this->log_file ) !== true ) {
