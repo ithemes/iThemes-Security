@@ -128,9 +128,17 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 		 */
 		function activate_execute( $updating = false ) {
 
-			global $itsec_setup_action, $itsec_files, $wpdb;
+			global $itsec_globals, $itsec_setup_action, $itsec_files, $wpdb;
 
 			$itsec_setup_action = 'activate';
+
+			if ( ! is_dir( $itsec_globals['ithemes_dir'] ) ) {
+				@mkdir( $itsec_globals['ithemes_dir'] );
+			}
+
+			if ( ! is_dir( $itsec_globals['ithemes_log_dir'] ) ) {
+				@mkdir( $itsec_globals['ithemes_log_dir'] );
+			}
 
 			//if this is multisite make sure they're network activating or die
 			if ( defined( 'ITSEC_DO_ACTIVATION' ) && ITSEC_DO_ACTIVATION == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
@@ -162,6 +170,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 					'lockout_period'       => 15,
 					'log_rotation'         => 30,
 					'log_type'             => 0,
+					'log_location'         => $itsec_globals['ithemes_log_dir'],
 				);
 
 				add_site_option( 'itsec_global', $defaults );
@@ -295,7 +304,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 		 **/
 		function uninstall_execute() {
 
-			global $itsec_setup_action, $itsec_files, $wpdb;
+			global $itsec_globals, $itsec_setup_action, $itsec_files, $wpdb;
 
 			$itsec_setup_action = 'uninstall';
 
@@ -314,9 +323,32 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "itsec_lockouts`;" );
 			$wpdb->query( "DROP TABLE IF EXISTS `" . $wpdb->base_prefix . "itsec_temp`;" );
 
+			if ( is_dir( $itsec_globals['ithemes_dir'] ) ) {
+				$this->recursive_delete( $itsec_globals['ithemes_dir'] );
+			}
+
 			if ( function_exists( 'apc_store' ) ) {
 				apc_clear_cache(); //Let's clear APC (if it exists) when big stuff is saved.
 			}
+
+		}
+
+		private function recursive_delete( $path ) {
+
+			foreach ( scandir( $path ) as $item ) {
+
+				if ( $item != '.' && $item != '..' ) {
+
+					if ( is_dir( $path . '/' . $item ) ) {
+						$this->recursive_delete( $path . '/' . $item );
+					}
+
+				}
+
+				@unlink( $path . '/' . $item );
+			}
+
+			@rmdir( $path );
 
 		}
 
