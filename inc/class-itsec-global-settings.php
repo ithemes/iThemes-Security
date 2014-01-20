@@ -10,8 +10,6 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 		private function __construct( $core ) {
 
-			global $itsec_globals;
-
 			$this->core     = $core;
 			$this->settings = get_site_option( 'itsec_global' );
 
