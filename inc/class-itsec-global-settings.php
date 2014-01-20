@@ -168,6 +168,14 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				'global'
 			);
 
+			add_settings_field(
+				'itsec_authentication[log_rotation]',
+				__( 'Days to Keep/Rotate Logs', 'ithemes-security' ),
+				array( $this, 'log_rotation' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_itsec-global',
@@ -366,6 +374,29 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		}
 
 		/**
+		 * echos Log Rotation Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function log_rotation( $args ) {
+
+			if ( isset( $this->settings['log_rotation'] ) ) {
+				$log_rotation = absint( $this->settings['log_rotation'] );
+			} else {
+				$log_rotation = 30;
+			}
+
+			$content = '<input class="small-text" name="itsec_authentication[log_rotation]" id="itsec_authentication_log_rotation" value="' . $log_rotation . '" type="text">';
+			$content .= '<label for="itsec_authentication_log_rotation"> ' . __( 'Days', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The number of days database logs should be kept or until file logs are rotated. Letting log files get too big can slow performance.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * Build and echo the away mode description
 		 *
 		 * @return void
@@ -449,6 +480,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$input['blacklist_period']    = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
 			$input['email_notifications'] = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
 			$input['lockout_period']      = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
+			$input['log_rotation']      = isset( $input['log_rotation'] ) ? absint( $input['log_rotation'] ) : 30;
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -471,6 +503,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$settings['blacklist_period']    = isset( $_POST['itsec_authentication']['blacklist_period'] ) ? absint( $_POST['itsec_authentication']['blacklist_period'] ) : 7;
 			$settings['lockout_period']      = isset( $_POST['itsec_authentication']['lockout_period'] ) ? absint( $_POST['itsec_authentication']['lockout_period'] ) : 15;
 			$settings['email_notifications'] = ( isset( $_POST['itsec_authentication']['email_notifications'] ) && intval( $_POST['itsec_authentication']['email_notifications'] == 1 ) ? true : false );
+			$settings['log_rotation']      = isset( $_POST['itsec_authentication']['log_rotation'] ) ? absint( $_POST['itsec_authentication']['log_rotation'] ) : 30;
 
 			update_site_option( 'itsec_authentication', $settings ); //we must manually save network options
 
