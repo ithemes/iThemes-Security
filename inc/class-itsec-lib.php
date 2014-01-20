@@ -321,60 +321,6 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		}
 
 		/**
-		 * Validates a file path
-		 *
-		 * Taken from http://stackoverflow.com/questions/4049856/replace-phps-realpath/4050444#4050444 as a replacement for PHP's realpath
-		 *
-		 * @param string The original path, can be relative etc.
-		 *
-		 * @return string The resolved path, it might not exist.
-		 */
-		public function truepath( $path ) {
-
-			// whether $path is unix or not
-			$unipath = strlen( $path ) == 0 || $path{0} != '/';
-
-			// attempts to detect if path is relative in which case, add cwd
-			if ( strpos( $path, ':' ) === false && $unipath )
-				$path = getcwd() . DIRECTORY_SEPARATOR . $path;
-
-			// resolve path parts (single dot, double dot and double delimiters)
-			$path      = str_replace( array( '/', '\\' ), DIRECTORY_SEPARATOR, $path );
-			$parts     = array_filter( explode( DIRECTORY_SEPARATOR, $path ), 'strlen' );
-			$absolutes = array();
-
-			foreach ( $parts as $part ) {
-
-				if ( '.' == $part )
-
-					continue;
-
-				if ( '..' == $part ) {
-
-					array_pop( $absolutes );
-
-				} else {
-
-					$absolutes[] = $part;
-
-				}
-
-			}
-
-			$path = implode( DIRECTORY_SEPARATOR, $absolutes );
-
-			// resolve any symlinks
-			if ( file_exists( $path ) && linkinfo( $path ) > 0 )
-				$path = readlink( $path );
-			
-			// put initial separator that could have been lost
-			$path = ! $unipath ? '/' . $path : $path;
-
-			return $path;
-
-		}
-
-		/**
 		 * Checks if user exists
 		 *
 		 * Checks to see if WordPress user with given id exists
@@ -517,6 +463,63 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 			}
 
 			return true; //ip is valid
+
+		}
+
+		/**
+		 * Validates a file path
+		 *
+		 * Adapted from http://stackoverflow.com/questions/4049856/replace-phps-realpath/4050444#4050444 as a replacement for PHP's realpath
+		 *
+		 * @param string The original path, can be relative etc.
+		 *
+		 * @return bool true if the path is valid and writeable else false
+		 */
+		public function validate_path( $path ) {
+
+			// whether $path is unix or not
+			$unipath = strlen( $path ) == 0 || $path{0} != '/';
+
+			// attempts to detect if path is relative in which case, add cwd
+			if ( strpos( $path, ':' ) === false && $unipath )
+				$path = getcwd() . DIRECTORY_SEPARATOR . $path;
+
+			// resolve path parts (single dot, double dot and double delimiters)
+			$path      = str_replace( array( '/', '\\' ), DIRECTORY_SEPARATOR, $path );
+			$parts     = array_filter( explode( DIRECTORY_SEPARATOR, $path ), 'strlen' );
+			$absolutes = array();
+
+			foreach ( $parts as $part ) {
+
+				if ( '.' == $part )
+
+					continue;
+
+				if ( '..' == $part ) {
+
+					array_pop( $absolutes );
+
+				} else {
+
+					$absolutes[] = $part;
+
+				}
+
+			}
+
+			$path = implode( DIRECTORY_SEPARATOR, $absolutes );
+
+			// resolve any symlinks
+			if ( file_exists( $path ) && linkinfo( $path ) > 0 )
+				$path = readlink( $path );
+
+			// put initial separator that could have been lost
+			$path = ! $unipath ? '/' . $path : $path;
+
+			$test = @touch( $path . '/test.txt' );
+			@unlink( $path . '/test.txt' );
+
+			return $test;
 
 		}
 
