@@ -43,6 +43,8 @@ if ( ! class_exists( 'Ithemes_ITSEC' ) ) {
 									'plugin_dir'        => plugin_dir_path( __FILE__ ), //the path of the plugin directory
 									'plugin_url'        => plugin_dir_url( __FILE__ ), //the URL of the plugin directory
 									'upload_dir'        => $upload_dir['basedir'], // the upload directory for the WordPress installation
+									'ithemes_dir'       => $upload_dir['basedir'] . '/ithemes-security', //folder for saving iThemes Security files
+									'ithemes_log_dir'   => $upload_dir['basedir'] . '/ithemes-security/logs', //folder for saving iThemes Security logs
 			);
 
 			//load core functionality for admin use
