@@ -7,11 +7,13 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 		private static $instance = null; //instantiated instance of this plugin
 
 		private
+			$core,
 			$log_file,
 			$logger_modules,
+			$page,
 			$settings;
 
-		function __construct() {
+		function __construct( $core ) {
 
 			global $itsec_globals;
 
@@ -32,6 +34,98 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 			add_action( 'itsec_purge_logs', array( $this, 'purge_logs' ) );
 
+			//Setup admin log tab
+
+			$this->core = $core;
+
+			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
+			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
+			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
+
+		}
+
+		/**
+		 * Add meta boxes to primary options pages
+		 *
+		 * @param array $available_pages array of available page_hooks
+		 */
+		public function add_admin_meta_boxes( $available_pages ) {
+
+			add_meta_box(
+				'global_description',
+				__( 'Description', 'ithemes-security' ),
+				array( $this, 'add_module_intro' ),
+				'security_page_toplevel_page_itsec-logs',
+				'normal',
+				'core'
+			);
+
+			add_meta_box(
+				'global_options',
+				__( 'Configure Global Settings', 'ithemes-security' ),
+				array( $this, 'metabox_logs' ),
+				'security_page_toplevel_page_itsec-logs',
+				'advanced',
+				'core'
+			);
+
+		}
+
+		/**
+		 * Add a tab in the admin area
+		 *
+		 * @param array $tabs array of tab names we're adding to
+		 *
+		 * @return mixed
+		 */
+		public function add_admin_tab( $tabs ) {
+
+			$tabs[$this->page] = __( 'Logs', 'ithemes-security' );
+
+			return $tabs;
+
+		}
+
+		/**
+		 * Build and echo the away mode description
+		 *
+		 * @return void
+		 */
+		public function add_module_intro( $screen ) {
+
+			$content = '<p>' . __( 'The settings below are used throughout the iThemes Security system.', 'ithemes-security' ) . '</p>';
+			echo $content;
+
+		}
+
+		/**
+		 * Register subpage for logs
+		 *
+		 * @param array $available_pages array of ITSEC settings pages
+		 */
+		public function add_sub_page( $available_pages ) {
+
+			global $itsec_globals;
+
+			$this->page = $available_pages[0] . '-logs';
+
+			$available_pages[] = add_submenu_page(
+				'itsec',
+				__( 'Logs', 'ithemes-security' ),
+				__( 'Logs', 'ithemes-security' ),
+				$itsec_globals['plugin_access_lvl'],
+
+				$available_pages[0] . '-logs', array( $this->core, 'render_page' )
+			);
+
+			return $available_pages;
+
+		}
+
+		/**
+		 * Empty callback function
+		 */
+		public function empty_callback_function() {
 		}
 
 		/**
@@ -109,6 +203,17 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 				}
 
 			}
+
+		}
+
+		/**
+		 * Render the settings metabox
+		 *
+		 * @return void
+		 */
+		public function metabox_logs() {
+
+			echo "This will be the logs and stuff.";
 
 		}
 
@@ -217,12 +322,14 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 		/**
 		 * Start the global library instance
 		 *
+		 * @param Ithemes_ITSEC_Core $core Instance of core plugin class
+		 *
 		 * @return ITSEC_Logger         The instance of the ITSEC_Logger class
 		 */
-		public static function start() {
+		public static function start( $core ) {
 
 			if ( ! isset( self::$instance ) || self::$instance === null ) {
-				self::$instance = new self();
+				self::$instance = new self( $core );
 			}
 
 			return self::$instance;
