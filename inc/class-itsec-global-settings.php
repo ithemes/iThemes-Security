@@ -176,7 +176,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			add_settings_field(
 				'itsec_global[log_rotation]',
-				__( 'Days to Keep/Rotate Logs', 'ithemes-security' ),
+				__( 'Days to Keep Database Logs', 'ithemes-security' ),
 				array( $this, 'log_rotation' ),
 				'security_page_toplevel_page_itsec-global',
 				'global'
@@ -404,7 +404,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			$content = '<input class="small-text" name="itsec_global[log_rotation]" id="itsec_global_log_rotation" value="' . $log_rotation . '" type="text">';
 			$content .= '<label for="itsec_global_log_rotation"> ' . __( 'Days', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'The number of days database logs should be kept or until file logs are rotated. Letting log files get too big can slow performance.', 'ithemes-security' ) . '</p>';
+			$content .= '<p class="description"> ' . __( 'The number of days database logs should be kept. File logs will be kept indefinitely but will be rotated once the file hits 10MB.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
