@@ -18,6 +18,13 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 			add_action( 'plugins_loaded', array( $this, 'register_modules' ) );
 
+			//Run database cleanup daily with cron
+			if ( ! wp_next_scheduled( 'itsec_purge_logs' ) ) {
+				wp_schedule_event( time(), 'daily', 'itsec_purge_logs' );
+			}
+
+			add_action( 'itsec_purge_logs', array( $this, 'purge_logs' ) );
+
 		}
 
 		public function log_event( $module, $priority = 5, $data = array(), $host = '', $username = '', $user = '', $url = '', $referrer = '' ) {
