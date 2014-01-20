@@ -17,13 +17,7 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 			$this->log_file = $itsec_globals['ithemes_log_dir'] . '/event-log.log';
 
-			if ( file_exists( $this->log_file ) !== true ) {
-
-				$header = 'log_type,log_priority,log_function,log_date,log_date_gmt,log_host,log_username,log_user,log_url,log_referrer,log_data' . PHP_EOL;
-
-				error_log( $header, 3, $this->log_file );
-
-			}
+			$this->start_log();
 
 			$this->settings = get_site_option( 'itsec_global' );
 
@@ -42,7 +36,7 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 		public function log_event( $module, $priority = 5, $data = array(), $host = '', $username = '', $user = '', $url = '', $referrer = '' ) {
 
-			global $wpdb, $itsec_globals, $itsec_current_time_gmt, $itsec_current_time;
+			global $wpdb, $itsec_current_time_gmt, $itsec_current_time;
 
 			$sanitized_data = array(); //array of sanitized data
 
@@ -60,7 +54,7 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 					$file_data .= esc_sql( $key ) . '=' . esq_sql( $value );
 				}
 
-				if( $this->settings['log_type'] === 0 || $this->settings['log_type'] == 2 ) {
+				if ( $this->settings['log_type'] === 0 || $this->settings['log_type'] == 2 ) {
 
 					$wpdb->insert(
 						$wpdb->base_prefix . 'itsec_log',
@@ -81,7 +75,7 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 				}
 
-				if( $this->settings['log_type'] === 1 || $this->settings['log_type'] == 2 ) {
+				if ( $this->settings['log_type'] === 1 || $this->settings['log_type'] == 2 ) {
 
 					$message =
 						$options['type'] . ',' .
@@ -109,7 +103,7 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 			global $wpdb, $itsec_current_time_gmt;
 
 			//Clean up the database log first
-			if( $this->settings['log_type'] === 0 || $this->settings['log_type'] == 2 ) {
+			if ( $this->settings['log_type'] === 0 || $this->settings['log_type'] == 2 ) {
 
 				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_log` WHERE `log_date_gmt` < '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $this->settings['log_rotation'] * 24 * 60 * 60 ) ) . "';" );
 
@@ -117,6 +111,10 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 				$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_log`;" );
 
+			}
+
+			if ( ( @file_exists( $this->log_file ) && @filesize( $this->log_file ) >= 10485760 ) ) {
+				$this->rotate_log();
 			}
 
 			$this->settings['last_purged'] = $itsec_current_time_gmt;
@@ -136,7 +134,67 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 		}
 
+		/**
+		 * Rotates the event-log.log file when called
+		 *
+		 * Adapted from http://www.phpclasses.org/browse/file/49471.html
+		 *
+		 * @return void
+		 */
+		private function rotate_log() {
+
+			// rotate
+			$path_info      = pathinfo( $this->log_file );
+			$base_directory = $path_info['dirname'];
+			$base_name      = $path_info['basename'];
+			$num_map        = array();
+
+			foreach ( new DirectoryIterator( $base_directory ) as $fInfo ) {
+
+				if ( $fInfo->isDot() || ! $fInfo->isFile() )
+					continue;
+
+				if ( preg_match( '/^' . $base_name . '\.?([0-9]*)$/', $fInfo->getFilename(), $matches ) ) {
+
+					$num       = $matches[1];
+					$old_file = $fInfo->getFilename();
+
+					if ( $num == '' ) {
+						$num = - 1;
+					}
+
+					$num_map[$num] = $old_file;
+
+				}
+
+			}
+
+			krsort( $num_map );
+
+			foreach ( $num_map as $num => $old_file ) {
+
+				$new_file = $num + 1;
+				@rename( $base_directory . DIRECTORY_SEPARATOR . $old_file, $this->log_file . '.' . $new_file );
+
+			}
+
+			$this->start_log();
+
+		}
+
 		public function save_logs() {
+
+		}
+
+		private function start_log() {
+
+			if ( file_exists( $this->log_file ) !== true ) {
+
+				$header = 'log_type,log_priority,log_function,log_date,log_date_gmt,log_host,log_username,log_user,log_url,log_referrer,log_data' . PHP_EOL;
+
+				error_log( $header, 3, $this->log_file );
+
+			}
 
 		}
 
