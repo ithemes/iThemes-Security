@@ -66,6 +66,10 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 		public function purge_logs() {
 
+			global $wpdb, $itsec_current_time_gmt;
+
+			$wpdb->query( "DELETE FROM `" . $wpdb->base_prefix . "itsec_log` WHERE `log_date_gmt` < '" . date( 'Y-m-d H:i:s', $itsec_current_time_gmt - ( $this->settings['log_rotation'] * 24 * 60 * 60 ) ) . "';" );
+
 		}
 
 		/**
