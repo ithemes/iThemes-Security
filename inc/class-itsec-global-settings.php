@@ -169,6 +169,14 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			);
 
 			add_settings_field(
+				'itsec_authentication[log_type]',
+				__( 'Log Type', 'ithemes-security' ),
+				array( $this, 'log_type' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
+			add_settings_field(
 				'itsec_authentication[log_rotation]',
 				__( 'Days to Keep/Rotate Logs', 'ithemes-security' ),
 				array( $this, 'log_rotation' ),
@@ -397,6 +405,32 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		}
 
 		/**
+		 * echos Log type Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function log_type( $args ) {
+
+			if ( isset( $this->settings['log_type'] ) ) {
+				$log_type = $this->settings['log_type'];
+			} else {
+				$log_type = 0;
+			}
+
+			echo '<select id="itsec_authentication_log_type" name="itsec_authentication[log_type]">';
+
+			echo '<option value="0" ' . selected( $log_type, '0' ) . '>' . __( 'Database Only', 'ithemes-security' ) . '</option>';
+			echo '<option value="1" ' . selected( $log_type, '1' ) . '>' . __( 'File Only', 'ithemes-security' ) . '</option>';
+			echo '<option value="2" ' . selected( $log_type, '2' ) . '>' . __( 'Both', 'ithemes-security' ) . '</option>';
+			echo '</select>';
+			echo '<label for="itsec_authentication_log_type"> ' . __( 'How should event logs be kept', 'ithemes-security' ) . '</label>';
+			echo '<p class="description">' . __( 'iThemes Security can log events in multiple ways. Each with its own advantages and disadvantages. Database Only puts all events in the database with your posts and other WordPress data. This makes it easy to retrieve and process in the plugin but can be slower especially if the database table gets very large. File Only is very fast but the plugin does not process the logs itself as that would take far more resources. Finally, you can log both if you so desire. For most users or smaller sites Database Only should be fine. If you have a very large site or a log processing software then File Only might be a better option. Of course you can also do both if you so desire.' ) . '</p>';
+
+		}
+
+		/**
 		 * Build and echo the away mode description
 		 *
 		 * @return void
@@ -473,14 +507,15 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$input['notification_email'] = $emails;
 			}
 
-			$input['lockout_message']     = isset( $input['lockout_message'] ) ? sanitize_text_field( $input['lockout_message'] ) : '';
-			$input['user_lockout_message']     = isset( $input['user_lockout_message'] ) ? sanitize_text_field( $input['user_lockout_message'] ) : '';
-			$input['blacklist']           = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
-			$input['blacklist_count']     = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
-			$input['blacklist_period']    = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
-			$input['email_notifications'] = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
-			$input['lockout_period']      = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
-			$input['log_rotation']      = isset( $input['log_rotation'] ) ? absint( $input['log_rotation'] ) : 30;
+			$input['lockout_message']      = isset( $input['lockout_message'] ) ? sanitize_text_field( $input['lockout_message'] ) : '';
+			$input['user_lockout_message'] = isset( $input['user_lockout_message'] ) ? sanitize_text_field( $input['user_lockout_message'] ) : '';
+			$input['blacklist']            = ( isset( $input['blacklist'] ) && intval( $input['blacklist'] == 1 ) ? true : false );
+			$input['blacklist_count']      = isset( $input['blacklist_count'] ) ? absint( $input['blacklist_count'] ) : 3;
+			$input['blacklist_period']     = isset( $input['blacklist_period'] ) ? absint( $input['blacklist_period'] ) : 7;
+			$input['email_notifications']  = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
+			$input['lockout_period']       = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
+			$input['log_rotation']         = isset( $input['log_rotation'] ) ? absint( $input['log_rotation'] ) : 30;
+			$input['log_type']             = isset( $input['log_type'] ) ? intval( $input['log_type'] ) : 0;
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -495,15 +530,16 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['notification_email']  = isset( $_POST['itsec_authentication']['notification_email'] ) ? sanitize_text_field( $_POST['itsec_authentication']['notification_email'] ) : '';
-			$settings['lockout_message']     = isset( $_POST['itsec_authentication']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['lockout_message'] ) : __( 'error', 'ithemes-security' );
-			$settings['user_lockout_message']     = isset( $_POST['itsec_authentication']['user_lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['user_lockout_message'] ) : __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
-			$settings['blacklist']           = ( isset( $_POST['itsec_authentication']['blacklist'] ) && intval( $_POST['itsec_authentication']['blacklist'] == 1 ) ? true : false );
-			$settings['blacklist_count']     = isset( $_POST['itsec_authentication']['blacklist_count'] ) ? absint( $_POST['itsec_authentication']['blacklist_count'] ) : 3;
-			$settings['blacklist_period']    = isset( $_POST['itsec_authentication']['blacklist_period'] ) ? absint( $_POST['itsec_authentication']['blacklist_period'] ) : 7;
-			$settings['lockout_period']      = isset( $_POST['itsec_authentication']['lockout_period'] ) ? absint( $_POST['itsec_authentication']['lockout_period'] ) : 15;
-			$settings['email_notifications'] = ( isset( $_POST['itsec_authentication']['email_notifications'] ) && intval( $_POST['itsec_authentication']['email_notifications'] == 1 ) ? true : false );
-			$settings['log_rotation']      = isset( $_POST['itsec_authentication']['log_rotation'] ) ? absint( $_POST['itsec_authentication']['log_rotation'] ) : 30;
+			$settings['notification_email']   = isset( $_POST['itsec_authentication']['notification_email'] ) ? sanitize_text_field( $_POST['itsec_authentication']['notification_email'] ) : '';
+			$settings['lockout_message']      = isset( $_POST['itsec_authentication']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['lockout_message'] ) : __( 'error', 'ithemes-security' );
+			$settings['user_lockout_message'] = isset( $_POST['itsec_authentication']['user_lockout_message'] ) ? sanitize_text_field( $_POST['itsec_authentication']['user_lockout_message'] ) : __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
+			$settings['blacklist']            = ( isset( $_POST['itsec_authentication']['blacklist'] ) && intval( $_POST['itsec_authentication']['blacklist'] == 1 ) ? true : false );
+			$settings['blacklist_count']      = isset( $_POST['itsec_authentication']['blacklist_count'] ) ? absint( $_POST['itsec_authentication']['blacklist_count'] ) : 3;
+			$settings['blacklist_period']     = isset( $_POST['itsec_authentication']['blacklist_period'] ) ? absint( $_POST['itsec_authentication']['blacklist_period'] ) : 7;
+			$settings['lockout_period']       = isset( $_POST['itsec_authentication']['lockout_period'] ) ? absint( $_POST['itsec_authentication']['lockout_period'] ) : 15;
+			$settings['email_notifications']  = ( isset( $_POST['itsec_authentication']['email_notifications'] ) && intval( $_POST['itsec_authentication']['email_notifications'] == 1 ) ? true : false );
+			$settings['log_rotation']         = isset( $_POST['itsec_authentication']['log_rotation'] ) ? absint( $_POST['itsec_authentication']['log_rotation'] ) : 30;
+			$settings['log_type']             = isset( $_POST['itsec_authentication']['log_type'] ) ? intval( $_POST['itsec_authentication']['log_type'] ) : 0;
 
 			update_site_option( 'itsec_authentication', $settings ); //we must manually save network options
 

@@ -161,6 +161,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 					'email_notifications'  => true,
 					'lockout_period'       => 15,
 					'log_rotation'         => 30,
+					'log_type'             => 0,
 				);
 
 				add_site_option( 'itsec_global', $defaults );
