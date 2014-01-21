@@ -1,10 +1,10 @@
 <?php
 /**
- * Dispatches setup processes from individual modules
+ * Plugin activation, upgrade, deactivation and uninstall
  *
- * @version 1.0
+ * @package iThemes-Security
+ * @since 4.0
  */
-
 if ( ! class_exists( 'ITSEC_Setup' ) ) {
 
 	class ITSEC_Setup {

@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Handles lockouts for modules and core
+ *
+ * @package iThemes-Security
+ * @since 4.0
+ */
 if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 	final class ITSEC_Lockout {

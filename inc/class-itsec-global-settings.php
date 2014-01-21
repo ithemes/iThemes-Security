@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Plugin-wide settings for logs, email and more
+ *
+ * @package iThemes-Security
+ * @since 4.0
+ */
 if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 	class ITSEC_Global_Settings {

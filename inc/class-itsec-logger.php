@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Handles the writing, maintenance and display of log files
+ *
+ * @package iThemes-Security
+ * @since 4.0
+ */
 if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 	final class ITSEC_Logger {

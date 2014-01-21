@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Writes to core files including wp-config.php, htaccess and nginx.conf
+ *
+ * @package iThemes-Security
+ * @since 4.0
+ */
 if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 	final class ITSEC_Files {

@@ -1,10 +1,10 @@
 <?php
 /**
- * Core functionality primarily for adding consistent dashboard functionality
+ * Core functionality and shared data for iThemes Security.
  *
- * @version 1.0
+ * @package iThemes-Security
+ * @since 4.0
  */
-
 if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 	final class ITSEC_Core {

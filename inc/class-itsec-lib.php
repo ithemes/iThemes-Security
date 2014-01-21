@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Miscelaneous plugin-wide functions
+ *
+ * @package iThemes-Security
+ * @since 4.0
+ */
 if ( ! class_exists( 'ITSEC_Lib' ) ) {
 
 	final class ITSEC_Lib {
