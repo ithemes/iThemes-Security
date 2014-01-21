@@ -197,6 +197,85 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 		}
 
 		/**
+		 * Determines whether a given IP address is whitelisted
+		 *
+		 * @param  string  $ip_to_check ip to check
+		 *
+		 * @return boolean               true if whitelisted or false
+		 */
+		private function is_ip_whitelisted( $ip_to_check ) {
+
+			global $itsec_lib;
+
+			$white_list = $this->settings['lockout_white_list'];
+
+			if ( $current === true ) {
+				$white_ips[] = $itsec_lib->get_ip(); //add current user ip to whitelist to check automatically
+			}
+
+			foreach ( $white_ips as $white_ip ) {
+
+				$converted_white_ip = $itsec_lib->ip_wild_to_mask( $white_ip );
+
+				$check_range = $itsec_lib->cidr_to_range( $converted_white_ip );
+				$ip_range    = $itsec_lib->cidr_to_range( $ip_to_check );
+
+				if ( sizeof( $check_range ) === 2 ) { //range to check
+
+					$check_min = ip2long( $check_range[0] );
+					$check_max = ip2long( $check_range[1] );
+
+					if ( sizeof( $ip_range ) === 2 ) {
+
+						$ip_min = ip2long( $ip_range[0] );
+						$ip_max = ip2long( $ip_range[1] );
+
+						if ( ( $check_min < $ip_min && $ip_min < $check_max ) || ( $check_min < $ip_max && $ip_max < $check_max ) ) {
+							return true;
+						}
+
+					} else {
+
+						$ip = ip2long( $ip_range[0] );
+
+						if ( $check_min < $ip && $ip < $check_max ) {
+							return true;
+						}
+
+					}
+
+				} else { //single ip to check
+
+					$check = ip2long( $check_range[0] );
+
+					if ( sizeof( $ip_range ) === 2 ) {
+
+						$ip_min = ip2long( $ip_range[0] );
+						$ip_max = ip2long( $ip_range[1] );
+
+						if ( $ip_min < $check && $check < $ip_max ) {
+							return true;
+						}
+
+					} else {
+
+						$ip = ip2long( $ip_range[0] );
+
+						if ( $check == $ip ) {
+							return true;
+						}
+
+					}
+
+				}
+
+			}
+
+			return false;
+
+		}
+
+		/**
 		 * Locks out given user or host
 		 *
 		 * @param  string $type       The type of lockout (for user reference)
@@ -260,9 +339,20 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			//We have temp bans to perform
 			if ( $good_host !== false || $good_user !== false ) {
 
-				$exp_seconds    = ( intval( $this->settings['lockout_period'] ) * 60 );
-				$expiration     = date( 'Y-m-d H:i:s', $itsec_current_time + $exp_seconds );
-				$expiration_gmt = date( 'Y-m-d H:i:s', $itsec_current_time_gmt + $exp_seconds );
+				if ( $this->is_ip_whitelisted( sanitize_text_field( $host ) ) ) {
+
+					$whitelisted = true;
+					$expiration     = date( 'Y-m-d H:i:s', 1 );
+					$expiration_gmt = date( 'Y-m-d H:i:s', 1 );
+
+				} else {
+
+					$whitelisted = true;
+					$exp_seconds    = ( intval( $this->settings['lockout_period'] ) * 60 );
+					$expiration     = date( 'Y-m-d H:i:s', $itsec_current_time + $exp_seconds );
+					$expiration_gmt = date( 'Y-m-d H:i:s', $itsec_current_time_gmt + $exp_seconds );
+
+				}
 
 				if ( $good_host !== false && $blacklist_host === false ) { //temp lockout host
 
@@ -301,18 +391,26 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 						)
 					);
 
-					$itsec_logger->log_event( $type, 10, array( 'expires' => $expiration, 'expires_gmt' => $expiration_gmt ), '', '', intval( $user ) );
+					if ( $whitelisted === false ) {
+						$itsec_logger->log_event( $type, 10, array( 'expires' => $expiration, 'expires_gmt' => $expiration_gmt ), '', '', intval( $user ) );
+					} else {
+						$itsec_logger->log_event( $type, 10, array( __( 'White Listed', 'ithemes-security' ) ), '', '', intval( $user ) );
+					}
 
 				}
 
-				if ( $this->settings['email_notifications'] === true ) { //send email notifications
-					$this->send_lockout_email( $good_host, $good_user, $host_expiration, $user_expiration, $reason );
-				}
+				if ( $whitelisted === false ) {
 
-				if ( $good_host !== false ) {
-					$this->execute_lock();
-				} else {
-					$this->execute_lock( true );
+					if ( $this->settings['email_notifications'] === true ) { //send email notifications
+						$this->send_lockout_email( $good_host, $good_user, $host_expiration, $user_expiration, $reason );
+					}
+
+					if ( $good_host !== false ) {
+						$this->execute_lock();
+					} else {
+						$this->execute_lock( true );
+					}
+
 				}
 
 			}
