@@ -39,7 +39,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		/**
 		 * Add meta boxes to primary options pages
 		 *
-		 * @param array $available_pages array of available page_hooks
+		 * @return void
 		 */
 		public function add_admin_meta_boxes() {
 
