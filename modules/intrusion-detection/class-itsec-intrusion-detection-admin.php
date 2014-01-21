@@ -135,6 +135,12 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		}
 
 		/**
+		 * Empty callback function
+		 */
+		public function empty_callback_function() {
+		}
+
+		/**
 		 * echos Enable 404 Detection Field
 		 *
 		 * @param  array $args field arguments
@@ -183,7 +189,14 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 				'security_page_toplevel_page_itsec-intrusion_detection'
 			);
 
-			//Brute Force Protection Fields
+			add_settings_section(
+				'intrusion_detection_four_oh_four-settings',
+				__( '404 Detection Settings', 'ithemes-security' ),
+				array( $this, 'empty_callback_function' ),
+				'security_page_toplevel_page_itsec-intrusion_detection'
+			);
+
+			//404 Detection Fields
 			add_settings_field(
 				'itsec_intrusion_detection[four_oh_four-enabled]',
 				__( '404 Detection', 'ithemes-security' ),
