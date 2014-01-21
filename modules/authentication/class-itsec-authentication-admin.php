@@ -63,11 +63,16 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'core'
 			);
 
-			$itsec_logger->add_meta_box(
-				'authentication',
-				__( 'Invalid Login Attempts', 'ithemes-security' ),
-				array( $this, 'logs_metabox' )
-			);
+			//Don't attempt to display logs if brute force isn't enabled
+			if ( isset( $this->settings['brute_force-enabled'] ) && $this->settings['brute_force-enabled'] === true ) {
+
+				$itsec_logger->add_meta_box(
+					'authentication',
+					__( 'Invalid Login Attempts', 'ithemes-security' ),
+					array( $this, 'logs_metabox' )
+				);
+
+			}
 
 		}
 
