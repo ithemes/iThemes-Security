@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
+if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
-	class ITSEC_Files_Admin {
+	class ITSEC_Intrusion_Detection_Admin {
 
 		private static $instance = null;
 
@@ -14,7 +14,7 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 		private function __construct( $core ) {
 
 			$this->core      = $core;
-			$this->settings  = get_site_option( 'itsec_files' );
+			$this->settings  = get_site_option( 'itsec_intrusion_detection' );
 
 			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
@@ -25,7 +25,7 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
-				add_action( 'network_admin_edit_itsec_authentication', array( $this, 'save_network_options' ) ); //save multisite options
+				add_action( 'network_admin_edit_itsec_intrusion_detection', array( $this, 'save_network_options' ) ); //save multisite options
 			}
 
 		}
@@ -38,19 +38,19 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 		public function add_admin_meta_boxes() {
 
 			add_meta_box(
-				'files_description',
+				'intrusion_detection_description',
 				__( 'Description', 'ithemes-security' ),
 				array( $this, 'add_module_intro' ),
-				'security_page_toplevel_page_itsec-files',
+				'security_page_toplevel_page_itsec-intrusion_detection',
 				'normal',
 				'core'
 			);
 
 			add_meta_box(
-				'files_options',
-				__( 'Configure File Security', 'ithemes-security' ),
+				'intrusion_detection_options',
+				__( 'Configure Intrusion Detection', 'ithemes-security' ),
 				array( $this, 'metabox_advanced_settings' ),
-				'security_page_toplevel_page_itsec-files',
+				'security_page_toplevel_page_itsec-intrusion_detection',
 				'advanced',
 				'core'
 			);
@@ -66,7 +66,7 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 		 */
 		public function add_admin_tab( $tabs ) {
 
-			$tabs[$this->page] = __( 'Files', 'ithemes-security' );
+			$tabs[$this->page] = __( 'Intrusion Detection', 'ithemes-security' );
 
 			return $tabs;
 
@@ -94,14 +94,14 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 
 			global $itsec_globals;
 
-			$this->page = $available_pages[0] . '-files';
+			$this->page = $available_pages[0] . '-intrusion_detection';
 
 			$available_pages[] = add_submenu_page(
 				'itsec',
-				__( 'Files', 'ithemes-security' ),
-				__( 'Files', 'ithemes-security' ),
+				__( 'Intrusion Detection', 'ithemes-security' ),
+				__( 'Intrusion Detection', 'ithemes-security' ),
 				$itsec_globals['plugin_access_lvl'],
-				$available_pages[0] . '-files',
+				$available_pages[0] . '-intrusion_detection',
 				array( $this->core, 'render_page' )
 			);
 
@@ -143,18 +143,18 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 
 			//set appropriate action for multisite or standard site
 			if ( is_multisite() ) {
-				$action = 'edit.php?action=itsec_files';
+				$action = 'edit.php?action=itsec_intrusion_detection';
 			} else {
 				$action = 'options.php';
 			}
 
 			printf( '<form name="%s" method="post" action="%s">', get_current_screen()->id, $action );
 
-			$this->core->do_settings_sections( 'security_page_toplevel_page_itsec-files', false );
+			$this->core->do_settings_sections( 'security_page_toplevel_page_itsec-intrusion_detection', false );
 
 			echo '<p>' . PHP_EOL;
 
-			settings_fields( 'security_page_toplevel_page_itsec-files' );
+			settings_fields( 'security_page_toplevel_page_itsec-intrusion_detection' );
 
 			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'ithemes-security' ) . '" />' . PHP_EOL;
 
@@ -183,11 +183,11 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 		}
 
 		/**
-		 * Start the Files Admin Module
+		 * Start the Intrusion Detection Admin Module
 		 *
 		 * @param Ithemes_ITSEC_Core   $core   Instance of core plugin class
 		 *
-		 * @return ITSEC_Files_Admin                The instance of the ITSEC_Files_Admin class
+		 * @return ITSEC_Intrusion_Detection_Admin                The instance of the ITSEC_Intrusion_Detection_Admin class
 		 */
 		public static function start( $core ) {
 

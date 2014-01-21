@@ -1,8 +1,8 @@
 <?php
 
-if ( ! class_exists( 'ITSEC_Files_Setup' ) ) {
+if ( ! class_exists( 'ITSEC_Intrusion_Detection_Setup' ) ) {
 
-	class ITSEC_Files_Setup {
+	class ITSEC_Intrusion_Detection_Setup {
 
 		function __construct() {
 
@@ -40,7 +40,7 @@ if ( ! class_exists( 'ITSEC_Files_Setup' ) ) {
 		 */
 		function execute_activate() {
 
-			$options = get_site_option( 'itsec_files' );
+			$options = get_site_option( 'itsec_intrusion_detection' );
 
 			if ( $options === false ) {
 
@@ -48,7 +48,7 @@ if ( ! class_exists( 'ITSEC_Files_Setup' ) ) {
 
 				);
 
-				add_site_option( 'itsec_files', $defaults );
+				add_site_option( 'itsec_intrusion_detection', $defaults );
 
 			}
 
@@ -71,7 +71,7 @@ if ( ! class_exists( 'ITSEC_Files_Setup' ) ) {
 
 			$this->execute_deactivate();
 
-			delete_site_option( 'itsec_files' );
+			delete_site_option( 'itsec_intrusion_detection' );
 
 		}
 
@@ -88,4 +88,4 @@ if ( ! class_exists( 'ITSEC_Files_Setup' ) ) {
 
 }
 
-new ITSEC_Files_Setup();
+new ITSEC_Intrusion_Detection_Setup();
