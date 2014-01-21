@@ -86,6 +86,23 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		}
 
 		/**
+		 * Add Files Admin Javascript
+		 *
+		 * @return void
+		 */
+		public function admin_script() {
+
+			global $itsec_globals;
+
+			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-intrusion_detection' ) !== false ) {
+
+				wp_enqueue_script( 'itsec_intrusion_detection_js', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/js/admin-intrusion-detection.js', 'jquery', $itsec_globals['plugin_build'] );
+
+			}
+
+		}
+
+		/**
 		 * Register subpage for Away Mode
 		 *
 		 * @param array $available_pages array of ITSEC settings pages
@@ -106,15 +123,6 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			);
 
 			return $available_pages;
-
-		}
-
-		/**
-		 * Add Files Admin Javascript
-		 *
-		 * @return void
-		 */
-		public function admin_script() {
 
 		}
 
