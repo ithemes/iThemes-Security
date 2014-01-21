@@ -8,7 +8,8 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 
 		private
 			$settings,
-			$core;
+			$core,
+			$page;
 
 		private function __construct( $core ) {
 
@@ -36,6 +37,24 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 		 */
 		public function add_admin_meta_boxes() {
 
+			add_meta_box(
+				'files_description',
+				__( 'Description', 'ithemes-security' ),
+				array( $this, 'add_module_intro' ),
+				'security_page_toplevel_page_itsec-files',
+				'normal',
+				'core'
+			);
+
+			add_meta_box(
+				'files_options',
+				__( 'Configure File Security', 'ithemes-security' ),
+				array( $this, 'metabox_advanced_settings' ),
+				'security_page_toplevel_page_itsec-files',
+				'advanced',
+				'core'
+			);
+
 		}
 
 		/**
@@ -47,6 +66,23 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 		 */
 		public function add_admin_tab( $tabs ) {
 
+			$tabs[$this->page] = __( 'Files', 'ithemes-security' );
+
+			return $tabs;
+
+		}
+
+		/**
+		 * Build and echo the away mode description
+		 *
+		 * @return void
+		 */
+		public function add_module_intro( $screen ) {
+
+			$content = '<p>' . __( 'The following settings help protect your site by detecting changes and other attempts to compromise the files in your WordPress system.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
 		}
 
 		/**
@@ -55,6 +91,22 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 		 * @param array $available_pages array of ITSEC settings pages
 		 */
 		public function add_sub_page( $available_pages ) {
+
+			global $itsec_globals;
+
+			$this->page = $available_pages[0] . '-files';
+
+			$available_pages[] = add_submenu_page(
+				'itsec',
+				__( 'Files', 'ithemes-security' ),
+				__( 'Files', 'ithemes-security' ),
+				$itsec_globals['plugin_access_lvl'],
+				$available_pages[0] . '-files',
+				array( $this->core, 'render_page' )
+			);
+
+			return $available_pages;
+
 		}
 
 		/**
@@ -80,6 +132,36 @@ if ( ! class_exists( 'ITSEC_Files_Admin' ) ) {
 		 * @return void
 		 */
 		public function initialize_admin() {
+		}
+
+		/**
+		 * Render the settings metabox
+		 *
+		 * @return void
+		 */
+		public function metabox_advanced_settings() {
+
+			//set appropriate action for multisite or standard site
+			if ( is_multisite() ) {
+				$action = 'edit.php?action=itsec_files';
+			} else {
+				$action = 'options.php';
+			}
+
+			printf( '<form name="%s" method="post" action="%s">', get_current_screen()->id, $action );
+
+			$this->core->do_settings_sections( 'security_page_toplevel_page_itsec-files', false );
+
+			echo '<p>' . PHP_EOL;
+
+			settings_fields( 'security_page_toplevel_page_itsec-files' );
+
+			echo '<input class="button-primary" name="submit" type="submit" value="' . __( 'Save Changes', 'ithemes-security' ) . '" />' . PHP_EOL;
+
+			echo '</p>' . PHP_EOL;
+
+			echo '</form>';
+
 		}
 
 		/**
