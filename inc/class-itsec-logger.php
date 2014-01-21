@@ -129,6 +129,27 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 		}
 
 		/**
+		 * Gets events from the logs for a specified module
+		 *
+		 * @param string $module module or type of events to fetch
+		 *
+		 * @return bool|mixed false on error, null if no events or array of events
+		 */
+		public function get_events( $module ) {
+
+			global $wpdb;
+
+			if ( isset( $module ) !== true || strlen( $module ) < 1 ) {
+				return false;
+			}
+
+			$items = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "itsec_log` WHERE `log_type` = '" . esc_sql( $module ) . "';", ARRAY_A );
+
+			return $items;
+
+		}
+
+		/**
 		 * Logs events sent by other modules or systems
 		 *
 		 * @param string $module   the module requesting the log entry
