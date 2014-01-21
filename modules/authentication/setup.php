@@ -75,21 +75,6 @@ if ( ! class_exists( 'ITSEC_Authentication_Setup' ) ) {
 		 * @return void
 		 */
 		function execute_deactivate() {
-
-			global $itsec_lib;
-
-			$data = get_site_option( 'itsec_data' );
-
-			//reset .htaccess permissions to what they were when we started
-			if ( isset( $data['htaccess_perms'] ) && file_exists( $itsec_lib->get_htaccess() ) ) {
-				@chmod( $itsec_lib->get_htaccess(), $data['htaccess_perms'] );
-			}
-
-			//reset config persmissions to what they were when we started
-			if ( isset( $data['config_perms'] ) && file_exists( $itsec_lib->get_config() ) ) {
-				@chmod( $itsec_lib->get_config(), $data['config_perms'] );
-			}
-
 		}
 
 		/**
