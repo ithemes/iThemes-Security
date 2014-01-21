@@ -1064,7 +1064,9 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function logs_metabox_invalid_logins() {
 
-			$log_display = new ITSEC_Logger_Tables();
+			require( dirname( __FILE__ ) . '/class-itsec-authentication-log-table.php' );
+
+			$log_display = new ITSEC_Authentication_Log_Table();
 			$log_display->prepare_items();
 			$log_display->display();
 
