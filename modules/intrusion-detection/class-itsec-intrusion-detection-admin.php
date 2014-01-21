@@ -66,7 +66,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 */
 		public function add_admin_tab( $tabs ) {
 
-			$tabs[$this->page] = __( 'Intrusion Detection', 'ithemes-security' );
+			$tabs[$this->page] = __( 'Detect', 'ithemes-security' );
 
 			return $tabs;
 
