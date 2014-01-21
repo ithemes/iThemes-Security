@@ -110,14 +110,14 @@ if ( ! class_exists( 'ITSEC_Authentication_Log_Table' ) ) {
 		 */
 		public function prepare_items() {
 
-			global $itsec_lib;
+			global $itsec_logger;
 
 			$columns               = $this->get_columns();
 			$hidden                = array();
 			$sortable              = $this->get_sortable_columns();
 			$this->_column_headers = array( $columns, $hidden, $sortable );
 
-			$items = $itsec_lib->get_events( 'brute_force' );
+			$items = $itsec_logger->get_events( 'brute_force' );
 
 			$table_data = array();
 

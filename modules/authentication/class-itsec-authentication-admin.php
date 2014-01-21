@@ -65,7 +65,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'log_authentication',
 				__( 'Invalid Login Attempts', 'ithemes-security' ),
 				array( $this, 'logs_metabox_invalid_logins' ),
-				'security_page_toplevel_page_itsec-logs',
+				'security_page_toplevel_page_itsec-authentication',
 				'advanced',
 				'core'
 			);
