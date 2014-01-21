@@ -34,38 +34,6 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		}
 
 		/**
-		 * Register subpage for Away Mode
-		 *
-		 * @param array $available_pages array of ITSEC settings pages
-		 */
-		public function add_sub_page( $available_pages ) {
-
-			global $itsec_globals;
-
-			$this->page = $available_pages[0] . '-global';
-
-			$available_pages[] = add_submenu_page(
-				'itsec',
-				__( 'Global Settings', 'ithemes-security' ),
-				__( 'Global Settings', 'ithemes-security' ),
-				$itsec_globals['plugin_access_lvl'],
-
-				$available_pages[0] . '-global', array( $this->core, 'render_page' )
-			);
-
-			return $available_pages;
-
-		}
-
-		public function add_admin_tab( $tabs ) {
-
-			$tabs[$this->page] = __( 'Global', 'ithemes-security' );
-
-			return $tabs;
-
-		}
-
-		/**
 		 * Add meta boxes to primary options pages
 		 *
 		 * @param array $available_pages array of available page_hooks
@@ -90,6 +58,155 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				'core'
 			);
 
+		}
+
+		/**
+		 * Adds tab to plugin administration area
+		 *
+		 * @param array $tabs array of tabs
+		 *
+		 * @return mixed array of tabs
+		 */
+		public function add_admin_tab( $tabs ) {
+
+			$tabs[$this->page] = __( 'Global', 'ithemes-security' );
+
+			return $tabs;
+
+		}
+
+		/**
+		 * Build and echo the away mode description
+		 *
+		 * @return void
+		 */
+		public function add_module_intro( $screen ) {
+
+			$content = '<p>' . __( 'The settings below are used throughout the iThemes Security system.', 'ithemes-security' ) . '</p>';
+			echo $content;
+
+		}
+
+		/**
+		 * Register subpage for Away Mode
+		 *
+		 * @param array $available_pages array of ITSEC settings pages
+		 */
+		public function add_sub_page( $available_pages ) {
+
+			global $itsec_globals;
+
+			$this->page = $available_pages[0] . '-global';
+
+			$available_pages[] = add_submenu_page(
+				'itsec',
+				__( 'Global Settings', 'ithemes-security' ),
+				__( 'Global Settings', 'ithemes-security' ),
+				$itsec_globals['plugin_access_lvl'],
+
+				$available_pages[0] . '-global', array( $this->core, 'render_page' )
+			);
+
+			return $available_pages;
+
+		}
+
+		/**
+		 * echos Blacklist Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function blacklist( $args ) {
+
+			if ( isset( $this->settings['blacklist'] ) && $this->settings['blacklist'] === false ) {
+				$blacklist = 0;
+			} else {
+				$blacklist = 1;
+			}
+
+			$content = '<input type="checkbox" id="itsec_global_blacklist" name="itsec_global[blacklist]" value="1" ' . checked( 1, $blacklist, false ) . '/>';
+			$content .= '<label for="itsec_global_blacklist"> ' . __( 'Enable Blacklist Repeat Offender', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Blacklist Threshold Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function blacklist_count( $args ) {
+
+			if ( isset( $this->settings['blacklist_count'] ) ) {
+				$blacklist_count = absint( $this->settings['blacklist_count'] );
+			} else {
+				$blacklist_count = 3;
+			}
+
+			$content = '<input class="small-text" name="itsec_global[blacklist_count]" id="itsec_global_blacklist_count" value="' . $blacklist_count . '" type="text">';
+			$content .= '<label for="itsec_global_blacklist_count"> ' . __( 'Lockouts', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The number of lockouts per IP before the host is banned permanently from this site.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Blacklist Lookback Period Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function blacklist_period( $args ) {
+
+			if ( isset( $this->settings['blacklist_period'] ) ) {
+				$blacklist_period = absint( $this->settings['blacklist_period'] );
+			} else {
+				$blacklist_period = 7;
+			}
+
+			$content = '<input class="small-text" name="itsec_global[blacklist_period]" id="itsec_global_blacklist_period" value="' . $blacklist_period . '" type="text">';
+			$content .= '<label for="itsec_global_blacklist_period"> ' . __( 'Days', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'How many days should a lockout be remembered to meet the blacklist count above.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Lockout Email Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function email_notifications( $args ) {
+
+			if ( isset( $this->settings['email_notifications'] ) && $this->settings['email_notifications'] === false ) {
+				$email_notifications = 0;
+			} else {
+				$email_notifications = 1;
+			}
+
+			$content = '<input type="checkbox" id="itsec_global_email_notifications" name="itsec_global[email_notifications]" value="1" ' . checked( 1, $email_notifications, false ) . '/>';
+			$content .= '<label for="itsec_global_email_notifications">' . __( 'Enable Email Lockout Notifications', 'ithemes-security' ) . '</label>';
+			$content .= sprintf( '<p class="description">%s<a href="admin.php?page=toplevel_page_itsec-global">%s</a>%s</p>', __( 'This feature will trigger an email to be sent to the ', 'ithemes-security' ), __( 'notifications email address', 'ithemes-security' ), __( ' whenever a host or user is locked out of the system.', 'ithemes-security' ) );
+
+			echo $content;
+
+		}
+
+		/**
+		 * Empty callback function
+		 */
+		public function empty_callback_function() {
 		}
 
 		/**
@@ -167,6 +284,14 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			);
 
 			add_settings_field(
+				'itsec_global[lockout_whitelist]',
+				__( 'Lockout White List', 'ithemes-security' ),
+				array( $this, 'lockout_whitelist' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
+			add_settings_field(
 				'itsec_global[email_notifications]',
 				__( 'Email Lockout Notifications', 'ithemes-security' ),
 				array( $this, 'email_notifications' ),
@@ -208,35 +333,6 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		}
 
 		/**
-		 * Empty callback function
-		 */
-		public function empty_callback_function() {
-		}
-
-		/**
-		 * echos Admin User Username Field
-		 *
-		 * @param  array $args field arguements
-		 *
-		 * @return void
-		 */
-		public function notification_email( $args ) {
-
-			if ( isset( $this->settings['notification_email'] ) && is_array( $this->settings['notification_email'] ) ) {
-				$emails = implode( PHP_EOL, $this->settings['notification_email'] );
-				$emails = sanitize_text_field( $emails );
-			} else {
-				$emails = '';
-			}
-
-			$content = '<input type="text" class="regular-text" id="itsec_global_notification_email" name="itsec_global[notification_email]" value="' . $emails . '" /><br>';
-			$content .= '<label for="itsec_global_notification_email"> ' . __( 'The email address all security notifications will be sent to.', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
 		 * echos Admin User Username Field
 		 *
 		 * @param  array $args field arguements
@@ -253,97 +349,6 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			$content = '<textarea class="widefat" name="itsec_global[lockout_message]" id="itsec_global_lockout_message" rows="5" >' . $lockout_message . '</textarea><br />';
 			$content .= '<label for="itsec_global_lockout_message"> ' . __( 'The message to display when a computer (host) has been locked out.', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Admin User Username Field
-		 *
-		 * @param  array $args field arguements
-		 *
-		 * @return void
-		 */
-		public function user_lockout_message( $args ) {
-
-			if ( isset( $this->settings['user_lockout_message'] ) ) {
-				$user_lockout_message = sanitize_text_field( $this->settings['user_lockout_message'] );
-			} else {
-				$user_lockout_message = __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
-			}
-
-			$content = '<textarea class="widefat" name="itsec_global[user_lockout_message]" id="itsec_global_user_lockout_message" rows="5" >' . $user_lockout_message . '</textarea><br />';
-			$content .= '<label for="itsec_global_user_lockout_message"> ' . __( 'The message to display to a user when their account has been locked out.', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Blacklist Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function blacklist( $args ) {
-
-			if ( isset( $this->settings['blacklist'] ) && $this->settings['blacklist'] === false ) {
-				$blacklist = 0;
-			} else {
-				$blacklist = 1;
-			}
-
-			$content = '<input type="checkbox" id="itsec_global_blacklist" name="itsec_global[blacklist]" value="1" ' . checked( 1, $blacklist, false ) . '/>';
-			$content .= '<label for="itsec_global_blacklist"> ' . __( 'Enable Blacklist Repeat Offender', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'If this box is checked the IP address of the offending computer will be added to the "Ban Users" blacklist after reaching the number of lockouts listed below.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Blacklist Threshold Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function blacklist_count( $args ) {
-
-			if ( isset( $this->settings['blacklist_count'] ) ) {
-				$blacklist_count = absint( $this->settings['blacklist_count'] );
-			} else {
-				$blacklist_count = 3;
-			}
-
-			$content = '<input class="small-text" name="itsec_global[blacklist_count]" id="itsec_global_blacklist_count" value="' . $blacklist_count . '" type="text">';
-			$content .= '<label for="itsec_global_blacklist_count"> ' . __( 'Lockouts', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'The number of lockouts per IP before the host is banned permanently from this site.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Blacklist Lookback Period Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function blacklist_period( $args ) {
-
-			if ( isset( $this->settings['blacklist_period'] ) ) {
-				$blacklist_period = absint( $this->settings['blacklist_period'] );
-			} else {
-				$blacklist_period = 7;
-			}
-
-			$content = '<input class="small-text" name="itsec_global[blacklist_period]" id="itsec_global_blacklist_period" value="' . $blacklist_period . '" type="text">';
-			$content .= '<label for="itsec_global_blacklist_period"> ' . __( 'Days', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'How many days should a lockout be remembered to meet the blacklist count above.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -373,23 +378,25 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		}
 
 		/**
-		 * echos Lockout Email Field
+		 * echos Log Location Field
 		 *
 		 * @param  array $args field arguments
 		 *
 		 * @return void
 		 */
-		public function email_notifications( $args ) {
+		public function log_location( $args ) {
 
-			if ( isset( $this->settings['email_notifications'] ) && $this->settings['email_notifications'] === false ) {
-				$email_notifications = 0;
+			global $itsec_globals;
+
+			if ( isset( $this->settings['log_location'] ) ) {
+				$log_location = sanitize_text_field( $this->settings['log_location'] );
 			} else {
-				$email_notifications = 1;
+				$log_location = $itsec_globals['ithemes_log_dir'];
 			}
 
-			$content = '<input type="checkbox" id="itsec_global_email_notifications" name="itsec_global[email_notifications]" value="1" ' . checked( 1, $email_notifications, false ) . '/>';
-			$content .= '<label for="itsec_global_email_notifications">' . __( 'Enable Email Lockout Notifications', 'ithemes-security' ) . '</label>';
-			$content .= sprintf( '<p class="description">%s<a href="admin.php?page=toplevel_page_itsec-global">%s</a>%s</p>', __( 'This feature will trigger an email to be sent to the ', 'ithemes-security' ), __( 'notifications email address', 'ithemes-security' ), __( ' whenever a host or user is locked out of the system.', 'ithemes-security' ) );
+			$content = '<input class="large-text" name="itsec_global[log_location]" id="itsec_global_log_location" value="' . $log_location . '" type="text">';
+			$content .= '<label for="itsec_global_log_location"> ' . __( 'The path on your machine where log files should be stored.', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'This path must be writable by your website. For added security it is recommended you do not include it in your website root folder.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -445,43 +452,6 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		}
 
 		/**
-		 * echos Log Location Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function log_location( $args ) {
-
-			global $itsec_globals;
-
-			if ( isset( $this->settings['log_location'] ) ) {
-				$log_location = sanitize_text_field( $this->settings['log_location'] );
-			} else {
-				$log_location = $itsec_globals['ithemes_log_dir'];
-			}
-
-			$content = '<input class="large-text" name="itsec_global[log_location]" id="itsec_global_log_location" value="' . $log_location . '" type="text">';
-			$content .= '<label for="itsec_global_log_location"> ' . __( 'The path on your machine where log files should be stored.', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'This path must be writable by your website. For added security it is recommended you do not include it in your website root folder.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * Build and echo the away mode description
-		 *
-		 * @return void
-		 */
-		public function add_module_intro( $screen ) {
-
-			$content = '<p>' . __( 'The settings below are used throughout the iThemes Security system.', 'ithemes-security' ) . '</p>';
-			echo $content;
-
-		}
-
-		/**
 		 * Render the settings metabox
 		 *
 		 * @return void
@@ -508,6 +478,29 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			echo '</p>' . PHP_EOL;
 
 			echo '</form>';
+
+		}
+
+		/**
+		 * echos Admin User Username Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function notification_email( $args ) {
+
+			if ( isset( $this->settings['notification_email'] ) && is_array( $this->settings['notification_email'] ) ) {
+				$emails = implode( PHP_EOL, $this->settings['notification_email'] );
+				$emails = sanitize_text_field( $emails );
+			} else {
+				$emails = '';
+			}
+
+			$content = '<input type="text" class="regular-text" id="itsec_global_notification_email" name="itsec_global[notification_email]" value="' . $emails . '" /><br>';
+			$content .= '<label for="itsec_global_notification_email"> ' . __( 'The email address all security notifications will be sent to.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
 
 		}
 
@@ -605,6 +598,28 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			//send them back to the away mode options page
 			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_itsec-authentication', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
+
+		}
+
+		/**
+		 * echos Admin User Username Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function user_lockout_message( $args ) {
+
+			if ( isset( $this->settings['user_lockout_message'] ) ) {
+				$user_lockout_message = sanitize_text_field( $this->settings['user_lockout_message'] );
+			} else {
+				$user_lockout_message = __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
+			}
+
+			$content = '<textarea class="widefat" name="itsec_global[user_lockout_message]" id="itsec_global_user_lockout_message" rows="5" >' . $user_lockout_message . '</textarea><br />';
+			$content .= '<label for="itsec_global_user_lockout_message"> ' . __( 'The message to display to a user when their account has been locked out.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
 
 		}
 
