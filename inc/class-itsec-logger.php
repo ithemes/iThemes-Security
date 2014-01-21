@@ -42,6 +42,10 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 
+			if ( is_admin() ) {
+				require_once( $itsec_globals['plugin_dir'] . 'inc/lib/class-itsec-wp-list-table.php' );
+			}
+
 		}
 
 		/**
