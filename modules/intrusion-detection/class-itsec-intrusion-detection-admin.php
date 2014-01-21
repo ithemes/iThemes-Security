@@ -135,6 +135,27 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		}
 
 		/**
+		 * echos Enable 404 Detection Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function four_oh_four_enabled( $args ) {
+
+			if ( isset( $this->settings['four_oh_four-enabled'] ) && $this->settings['four_oh_four-enabled'] === true ) {
+				$enabled = 1;
+			} else {
+				$enabled = 0;
+			}
+
+			$content = '<input type="checkbox" id="itsec_intrusion_detection_four_oh_four_enabled" name="itsec_intrusion_detection[four_oh_four-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_intrusion_detection_four_oh_four_enabled"> ' . __( 'Enable 404 detection.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
 		/**
 		 * Echo the 404 Detection Header
 		 */
@@ -146,11 +167,38 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			echo $content;
 
 		}
+
+		/**
 		 * Execute admin initializations
 		 *
 		 * @return void
 		 */
 		public function initialize_admin() {
+
+			//Add Settings sections
+			add_settings_section(
+				'intrusion_detection_four_oh_four-enabled',
+				__( 'Enable 404 Detection', 'ithemes-security' ),
+				array( $this, 'four_oh_four_header' ),
+				'security_page_toplevel_page_itsec-intrusion_detection'
+			);
+
+			//Brute Force Protection Fields
+			add_settings_field(
+				'itsec_intrusion_detection[four_oh_four-enabled]',
+				__( '404 Detection', 'ithemes-security' ),
+				array( $this, 'four_oh_four_enabled' ),
+				'security_page_toplevel_page_itsec-intrusion_detection',
+				'intrusion_detection_four_oh_four-enabled'
+			);
+
+			//Register the settings field for the entire module
+			register_setting(
+				'security_page_toplevel_page_itsec-intrusion_detection',
+				'itsec_intrusion_detection',
+				array( $this, 'sanitize_module_input' )
+			);
+
 		}
 
 		/**
@@ -191,6 +239,17 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 * @return Array         Sanitized array
 		 */
 		public function sanitize_module_input( $input ) {
+
+			$type    = 'updated';
+			$message = __( 'Settings Updated', 'ithemes-security' );
+
+			//process brute force settings
+			$input['four_oh_four-enabled']           = ( isset( $input['four_oh_four-enabled'] ) && intval( $input['four_oh_four-enabled'] == 1 ) ? true : false );
+
+			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
+
+			return $input;
+
 		}
 
 		/**
@@ -199,6 +258,9 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 * @return void
 		 */
 		public function save_network_options() {
+
+			$settings['four_oh_four-enabled']           = ( isset( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] == 1 ) ? true : false );
+
 		}
 
 		/**
