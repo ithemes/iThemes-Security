@@ -141,6 +141,29 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		}
 
 		/**
+		 * echos Check Period Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function four_oh_four_check_period( $args ) {
+
+			if ( isset( $this->settings['four_oh_four-check_period'] ) ) {
+				$check_period = absint( $this->settings['four_oh_four-check_period'] );
+			} else {
+				$check_period = 5;
+			}
+
+			$content = '<input class="small-text" name="itsec_intrusion_detection[four_oh_four-check_period]" id="itsec_intrusion_detection_four_oh_four_check_period" value="' . $check_period . '" type="text"> ';
+			$content .= '<label for="itsec_intrusion_detection_four_oh_four_check_period"> ' . __( 'Minutes', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The number of minutes in which 404 errors should be remembered and counted towards lockouts.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * echos Enable 404 Detection Field
 		 *
 		 * @param  array $args field arguments
@@ -205,6 +228,14 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 				'intrusion_detection_four_oh_four-enabled'
 			);
 
+			add_settings_field(
+				'itsec_intrusion_detection[four_oh_four-check_period]',
+				__( 'Check Period', 'ithemes-security' ),
+				array( $this, 'four_oh_four_check_period' ),
+				'security_page_toplevel_page_itsec-intrusion_detection',
+				'intrusion_detection_four_oh_four-settings'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_itsec-intrusion_detection',
@@ -258,6 +289,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			//process brute force settings
 			$input['four_oh_four-enabled']           = ( isset( $input['four_oh_four-enabled'] ) && intval( $input['four_oh_four-enabled'] == 1 ) ? true : false );
+			$input['four_oh_four-check_period']      = isset( $input['four_oh_four-check_period'] ) ? absint( $input['four_oh_four-check_period'] ) : 5;
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -273,6 +305,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		public function save_network_options() {
 
 			$settings['four_oh_four-enabled']           = ( isset( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] == 1 ) ? true : false );
+			$settings['four_oh_four-check_period']      = isset( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) : 5;
 
 		}
 

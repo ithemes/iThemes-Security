@@ -45,7 +45,8 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Setup' ) ) {
 			if ( $options === false ) {
 
 				$defaults = array(
-					'four_oh_four-enabled' => false,
+					'four_oh_four-enabled'      => false,
+					'four_oh_four-check_period' => 5,
 				);
 
 				add_site_option( 'itsec_intrusion_detection', $defaults );
