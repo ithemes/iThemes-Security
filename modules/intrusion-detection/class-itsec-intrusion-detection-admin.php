@@ -105,7 +105,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-intrusion_detection' ) !== false ) {
 
 				wp_enqueue_script( 'itsec_intrusion_detection_js', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/js/admin-intrusion-detection.js', 'jquery', $itsec_globals['plugin_build'] );
-				wp_enqueue_script( 'itsec_intrusion_detection_jquery_filetree', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/js/jquery.filetree.js', 'jquery', $itsec_globals['plugin_build'] );
+				wp_enqueue_script( 'itsec_intrusion_detection_jquery_filetree', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/filetree/jqueryFileTree.js', 'jquery', $itsec_globals['plugin_build'] );
 
 			}
 

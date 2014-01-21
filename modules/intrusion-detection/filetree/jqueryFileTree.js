@@ -17,9 +17,9 @@
 //           loadMessage    - Message to display while initial tree loads (can be HTML)
 //
 // TERMS OF USE
-//
+// 
 // This plugin is dual-licensed under the GNU General Public License and the MIT License and
-// is copyright 2008 A Beautiful Site, LLC.
+// is copyright 2008 A Beautiful Site, LLC. 
 //
 if(jQuery) (function($){
 

@@ -14,4 +14,8 @@ jQuery( document ).ready( function () {
 
 	} ).change();
 
+	jQuery( '.filetree' ).fileTree({root: '../', script: 'filetree/jqueryFileTree.php'}, function(file) {
+		console.log(file);
+	});
+
 } );
