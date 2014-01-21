@@ -41,7 +41,9 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 *
 		 * @param array $available_pages array of available page_hooks
 		 */
-		public function add_admin_meta_boxes( $available_pages ) {
+		public function add_admin_meta_boxes() {
+
+			global $itsec_logger;
 
 			add_meta_box(
 				'authentication_description',
@@ -61,13 +63,10 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'core'
 			);
 
-			add_meta_box(
-				'log_authentication',
+			$itsec_logger->add_meta_box(
+				'authentication',
 				__( 'Invalid Login Attempts', 'ithemes-security' ),
-				array( $this, 'logs_metabox_invalid_logins' ),
-				'security_page_toplevel_page_itsec-authentication',
-				'advanced',
-				'core'
+				array( $this, 'logs_metabox_invalid_logins' )
 			);
 
 		}

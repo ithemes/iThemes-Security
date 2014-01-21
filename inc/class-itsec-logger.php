@@ -3,7 +3,7 @@
  * Handles the writing, maintenance and display of log files
  *
  * @package iThemes-Security
- * @since 4.0
+ * @since   4.0
  */
 if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
@@ -44,6 +44,30 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 			$this->core = $core;
 
 			require_once( $itsec_globals['plugin_dir'] . 'inc/lib/class-itsec-wp-list-table.php' ); //used for generating log tables
+
+		}
+
+		/**
+		 * Adds a log meta box only if logging is active. Overrides WP Core add_meta_box
+		 *
+		 * @param string $module   the module requesting the metabox
+		 * @param string $title    the title of the metabox
+		 * @param array  $callback the function to call back
+		 */
+		public function add_meta_box( $module, $title, $callback ) {
+
+			if ( $this->settings['log_type'] === 0 || $this->settings['log_type'] == 2 ) {
+
+				add_meta_box(
+					'log-' . sanitize_text_field( $module ),
+					$title,
+					$callback,
+					'security_page_toplevel_page_itsec-' . sanitize_text_field( $module ),
+					'normal',
+					'core'
+				);
+
+			}
 
 		}
 
