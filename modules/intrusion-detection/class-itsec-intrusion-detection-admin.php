@@ -135,6 +135,17 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		}
 
 		/**
+		/**
+		 * Echo the 404 Detection Header
+		 */
+		public function four_oh_four_header() {
+
+			$content = '<h2 class="settings-section-header">' . __( '404 Detection', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( '404 detection looks at a user who is hitting a large number of non-existent pages, that is they are getting a large number of 404 errors. It assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly (you can set the thresholds for this below). This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site as all errors will be logged in the "View Logs" page. You can set threshholds for this feature below.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
 		 * Execute admin initializations
 		 *
 		 * @return void
