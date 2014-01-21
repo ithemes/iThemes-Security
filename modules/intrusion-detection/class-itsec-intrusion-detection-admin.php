@@ -230,7 +230,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			add_settings_field(
 				'itsec_intrusion_detection[four_oh_four-check_period]',
-				__( 'Check Period', 'ithemes-security' ),
+				__( 'Minutes to Remember 404 Error (Check Period)', 'ithemes-security' ),
 				array( $this, 'four_oh_four_check_period' ),
 				'security_page_toplevel_page_itsec-intrusion_detection',
 				'intrusion_detection_four_oh_four-settings'
