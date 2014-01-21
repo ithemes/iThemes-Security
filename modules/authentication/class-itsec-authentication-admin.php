@@ -37,31 +37,6 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		}
 
 		/**
-		 * Register subpage for Away Mode
-		 *
-		 * @param array $available_pages array of ITSEC settings pages
-		 */
-		public function add_sub_page( $available_pages ) {
-
-			global $itsec_globals;
-
-			$this->page = $available_pages[0] . '-authentication';
-
-			$available_pages[] = add_submenu_page( 'itsec', __( 'Authentication', 'ithemes-security' ), __( 'Authentication', 'ithemes-security' ), $itsec_globals['plugin_access_lvl'], $available_pages[0] . '-authentication', array( $this->core, 'render_page' ) );
-
-			return $available_pages;
-
-		}
-
-		public function add_admin_tab( $tabs ) {
-
-			$tabs[$this->page] = __( 'Auth', 'ithemes-security' );
-
-			return $tabs;
-
-		}
-
-		/**
 		 * Add meta boxes to primary options pages
 		 *
 		 * @param array $available_pages array of available page_hooks
@@ -86,6 +61,61 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'core'
 			);
 
+			add_meta_box(
+				'log_authentication',
+				__( 'Invalid Login Attempts', 'ithemes-security' ),
+				array( $this, 'logs_metabox_invalid_logins' ),
+				'security_page_toplevel_page_itsec-logs',
+				'advanced',
+				'core'
+			);
+
+		}
+
+		/**
+		 * Adds tab to plugin administration area
+		 *
+		 * @param array $tabs array of tabs
+		 *
+		 * @return mixed array of tabs
+		 */
+		public function add_admin_tab( $tabs ) {
+
+			$tabs[$this->page] = __( 'Auth', 'ithemes-security' );
+
+			return $tabs;
+
+		}
+
+		/**
+		 * Build and echo the away mode description
+		 *
+		 * @return void
+		 */
+		public function add_module_intro( $screen ) {
+
+			$content = '<p>' . __( 'The below settings control who and how users can log in to the WordPress Dashboard. Turning on settings below can greatly increase the security of your WordPress website by preventing many of the common attacks that go after weaknesses in the standard login system.', 'ithemes-security' ) . '</p>';
+			$content .= '<p>' . __( 'Please keep in mind the following settings are designed to work primarily with the standard login system. If you have any plugins or a theme that has changed anything already please test your site after turning on the below settings to verify there are no conflicts.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * Register subpage for Away Mode
+		 *
+		 * @param array $available_pages array of ITSEC settings pages
+		 */
+		public function add_sub_page( $available_pages ) {
+
+			global $itsec_globals;
+
+			$this->page = $available_pages[0] . '-authentication';
+
+			$available_pages[] = add_submenu_page( 'itsec', __( 'Authentication', 'ithemes-security' ), __( 'Authentication', 'ithemes-security' ), $itsec_globals['plugin_access_lvl'], $available_pages[0] . '-authentication', array( $this->core, 'render_page' ) );
+
+			return $available_pages;
+
 		}
 
 		/**
@@ -102,6 +132,467 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				wp_enqueue_script( 'itsec_authentication_js', $itsec_globals['plugin_url'] . 'modules/authentication/js/admin-authentication.js', 'jquery', $itsec_globals['plugin_build'] );
 				wp_enqueue_script( 'jquery-ui-datepicker' );
 				wp_enqueue_style( 'jquery-style', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css' );
+
+			}
+
+		}
+
+		/**
+		 * Echo the Admin User Header
+		 */
+		public function admin_user_header() {
+
+			$content = '<h2 class="settings-section-header">' . __( 'Secure Admin User', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( 'This feature will improve the security of your WordPress installation by removing common user attributes that can be used to target your site.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Admin User UserID Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function admin_user_userid( $args ) {
+
+			$content = '<input type="checkbox" id="itsec_authentication_admin_user_userid" name="itsec_authentication[admin_user-userid]" value="1" />';
+			$content .= '<label for="itsec_authentication_admin_user_userid"> ' . __( 'Change the ID of the user with ID 1.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Admin User Username Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function admin_user_username( $args ) {
+
+			$content = '<input name="itsec_authentication[admin_user-username]" id="itsec_authentication_admin_user_username" value="" type="text"><br>';
+			$content .= '<label for="itsec_authentication_admin_user_username"> ' . __( 'New Admin Username', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Enable Away Mode Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function away_mode_enabled( $args ) {
+
+			//disable the option if away mode is in the past
+			if ( isset( $this->settings['away_mode-enabled'] ) && $this->settings['away_mode-enabled'] === true && ( $this->settings['away_mode-type'] == 1 || ( $this->settings['away_mode-end'] > current_time( 'timestamp' ) || $this->settings['away_mode-type'] === 2 ) ) ) {
+				$enabled = 1;
+			} else {
+				$enabled = 0;
+			}
+
+			$content = '<input type="checkbox" id="itsec_authentication_away_mode_enabled" name="itsec_authentication[away_mode-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_authentication_away_mode_enabled"> ' . __( 'Enable away mode', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos End date field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function away_mode_end_date( $args ) {
+
+			$current = current_time( 'timestamp' ); //The current time
+
+			//if saved date is in the past update it to something in the future
+			if ( isset( $this->settings['end'] ) && isset( $this->settings['away_mode-enabled'] ) && $current < $this->settings['away_mode-end'] ) {
+				$end = $this->settings['away_mode-end'];
+			} else {
+				$end = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
+			}
+
+			//Date Field
+			$content = '<input class="end_date_field" type="text" id="itsec_authentication_away_mode_end_date" name="itsec_authentication[end][date]" value="' . date( 'm/d/y', $end ) . '"/><br>';
+			$content .= '<label class="end_date_field" for="itsec_authentication_away_mode_end_date"> ' . __( 'Set the date at which the admin dashboard should become available', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos End time field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function away_mode_end_time( $args ) {
+
+			$current = current_time( 'timestamp' ); //The current time
+
+			//if saved date is in the past update it to something in the future
+			if ( isset( $this->settings['away_mode-end'] ) && isset( $this->settings['away_mode-enabled'] ) && $current < $this->settings['away_mode-end'] ) {
+				$end = $this->settings['away_mode-end'];
+			} else {
+				$end = strtotime( date( 'n/j/y 6:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
+			}
+
+			//Hour Field
+			$content = '<select name="itsec_authentication[end][hour]" id="itsec_authentication_away_mod_end_time">';
+
+			for ( $i = 1; $i <= 12; $i ++ ) {
+				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $end ), $i, false ) . '>' . $i . '</option>';
+			}
+
+			$content .= '</select>';
+
+			//Minute Field
+			$content .= '<select name="itsec_authentication[end][minute]" id="itsec_authentication_away_mod_end_time">';
+
+			for ( $i = 0; $i <= 59; $i ++ ) {
+
+				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'i', $end ), sprintf( '%02d', $i ), false ) . '>' . sprintf( '%02d', $i ) . '</option>';
+			}
+
+			$content .= '</select>';
+
+			//AM/PM Field
+			$content .= '<select name="itsec_authentication[end][sel]" id="itsec_authentication">';
+			$content .= '<option value="am" ' . selected( date( 'a', $end ), 'am', false ) . '>' . __( 'am', 'ithemes-security' ) . '</option>';
+			$content .= '<option value="pm" ' . selected( date( 'a', $end ), 'pm', false ) . '>' . __( 'pm', 'ithemes-security' ) . '</option>';
+			$content .= '</select><br>';
+			$content .= '<label for="itsec_authentication_away_mod_end_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * Echo The Away Mode Header
+		 */
+		public function away_mode_header() {
+
+			$content = '<h2 class="settings-section-header">' . __( 'Configure Away Mode', 'ithemes-security' ) . '</h2>';
+
+			$content .= '<p>' . __( 'As most sites are only updated at certain times of the day it is not always necessary to provide access to the WordPress dashboard 24 hours a day, 7 days a week. The options below will allow you to disable access to the WordPress Dashboard for the specified period. In addition to limiting exposure to attackers this could also be useful to disable site access based on a schedule for classroom or other reasons.', 'ithemes-security' ) . '</p>';
+
+			if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) {
+				$currdate = date_i18n( 'l, d F Y' . ' ' . get_option( 'time_format' ), current_time( 'timestamp' ) );
+			} else {
+				$currdate = date( 'g:i a \o\n l F jS, Y', current_time( 'timestamp' ) );
+			}
+
+			$content .= '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is:', 'ithemes-security' ), '<a href="options-general.php">', '</a>' );
+			$content .= '<div class="current-time-date">' . $currdate . '</div>';
+			$content .= '<p>' . sprintf( __( 'If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'ithemes-security' ), '<a href="options-general.php">', '</a>' ) . '</p>';
+
+			echo $content;
+
+			//set information explaining away mode is enabled
+			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 && ( $this->settings['type'] === 1 || ( $this->settings['end'] > current_time( 'timestamp' ) ) ) ) {
+
+				$content = '<hr />';
+
+				$content .= sprintf( '<p><strong>%s</strong></p>', __( 'Away mode is currently enabled.', 'ithemes-security' ) );
+
+				//Create the appropriate notification based on daily or one time use
+				if ( $this->settings['type'] === 1 ) {
+
+					$content .= sprintf( '<p>' . __( 'The dashboard of this website will become unavailable %s%s%s from %s%s%s until %s%s%s.', 'ithemes-security' ) . '</p>', '<strong>', __( 'every day', 'ithemes-security' ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['end'] ), '</strong>' );
+
+				} else {
+
+					$content .= sprintf( '<p>' . __( 'The dashboard of this website will become unavailable from %s%s%s on %s%s%s until %s%s%s on %s%s%s.', 'ithemes-security' ) . '</p>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'date_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['end'] ), '</strong>', '<strong>', date_i18n( get_option( 'date_format' ), $this->settings['end'] ), '</strong>' );
+
+				}
+
+				$content .= '<p>' . __( 'You will not be able to log into this website when the site is unavailable.', 'ithemes-security' ) . '</p>';
+
+				echo $content;
+			}
+
+		}
+
+		/**
+		 * echos Start date field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function away_mode_start_date( $args ) {
+
+			$current = current_time( 'timestamp' ); //The current time
+
+			//if saved date is in the past update it to something in the future
+			if ( isset( $this->settings['away_mode-start'] ) && isset( $this->settings['away_mode-enabled'] ) && $current < $this->settings['away_mode-end'] ) {
+				$start = $this->settings['away_mode-start'];
+			} else {
+				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
+			}
+
+			//Date Field
+			$content = '<input class="start_date_field" type="text" id="itsec_authentication_away_mode_start_date" name="itsec_authentication[start][date]" value="' . date( 'm/d/y', $start ) . '"/><br>';
+			$content .= '<label class="start_date_field" for="itsec_authentication_away_mode_start_date"> ' . __( 'Set the date at which the admin dashboard should become unavailable', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Start time field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function away_mode_start_time( $args ) {
+
+			$current = current_time( 'timestamp' ); //The current time
+
+			//if saved date is in the past update it to something in the future
+			if ( isset( $this->settings['away_mode-start'] ) && isset( $this->settings['away_mode-enabled'] ) && $current < $this->settings['away_mode-end'] ) {
+				$start = $this->settings['away_mode-start'];
+			} else {
+				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
+			}
+
+			//Hour Field
+			$content = '<select name="itsec_authentication[start][hour]" id="itsec_authentication_away_mod_start_time">';
+
+			for ( $i = 1; $i <= 12; $i ++ ) {
+				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $start ), $i, false ) . '>' . $i . '</option>';
+			}
+
+			$content .= '</select>';
+
+			//Minute Field
+			$content .= '<select name="itsec_authentication[start][minute]" id="itsec_authentication_away_mod_start_time">';
+
+			for ( $i = 0; $i <= 59; $i ++ ) {
+
+				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'i', $start ), sprintf( '%02d', $i ), false ) . '>' . sprintf( '%02d', $i ) . '</option>';
+			}
+
+			$content .= '</select>';
+
+			//AM/PM Field
+			$content .= '<select name="itsec_authentication[start][sel]" id="itsec_authentication_away_mod_start_time">';
+			$content .= '<option value="am" ' . selected( date( 'a', $start ), 'am', false ) . '>' . __( 'am', 'ithemes-security' ) . '</option>';
+			$content .= '<option value="pm" ' . selected( date( 'a', $start ), 'pm', false ) . '>' . __( 'pm', 'ithemes-security' ) . '</option>';
+			$content .= '</select><br>';
+			$content .= '<label for="itsec_authentication_away_mod_start_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos type Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function away_mode_type( $args ) {
+
+			$content = '<select name="itsec_authentication[away_mode-type]" id="itsec_authentication_away_mode_type">';
+			$content .= '<option value="1" ' . selected( $this->settings['away_mode-type'], 1, false ) . '>' . __( 'Daily', 'ithemes-security' ) . '</option>';
+			$content .= '<option value="2" ' . selected( $this->settings['away_mode-type'], 2, false ) . '>' . __( 'One Time', 'ithemes-security' ) . '</option>';
+			$content .= '</select><br>';
+			$content .= '<label for="itsec_authentication_away_mode_type"> ' . __( 'Select the type of restriction you would like to enable', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Check Period Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function brute_force_check_period( $args ) {
+
+			if ( isset( $this->settings['brute_force-check_period'] ) ) {
+				$check_period = absint( $this->settings['brute_force-check_period'] );
+			} else {
+				$check_period = 5;
+			}
+
+			$content = '<input class="small-text" name="itsec_authentication[brute_force-check_period]" id="itsec_authentication_brute_force_check_period" value="' . $check_period . '" type="text"> ';
+			$content .= '<label for="itsec_authentication_brute_force_check_period"> ' . __( 'Minutes', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The number of minutes in which bad logins should be remembered.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Enable Brute Force Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function brute_force_enabled( $args ) {
+
+			if ( isset( $this->settings['brute_force-enabled'] ) && $this->settings['brute_force-enabled'] === true ) {
+				$enabled = 1;
+			} else {
+				$enabled = 0;
+			}
+
+			$content = '<input type="checkbox" id="itsec_authentication_brute_force_enabled" name="itsec_authentication[brute_force-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_authentication_brute_force_enabled"> ' . __( 'Enable brute force protection.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * Echo the Brute Force Header
+		 */
+		public function brute_force_header() {
+
+			$content = '<h2 class="settings-section-header">' . __( 'Brute Force Protection', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( 'If one had unlimited time and wanted to try an unlimited number of password combinations to get into your site they eventually would, right? This method of attach, known as a brute force attack, is something that WordPress is acutely susceptible by default as the system doesn\t care how many attempts a user makes to login. It will always let you try again. Enabling login limits will ban the host user from attempting to login again after the specified bad login threshold has been reached.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Max Attempts per host  Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function brute_force_max_attempts_host( $args ) {
+
+			if ( isset( $this->settings['brute_force-max_attempts_host'] ) ) {
+				$max_attempts_host = absint( $this->settings['brute_force-max_attempts_host'] );
+			} else {
+				$max_attempts_host = 5;
+			}
+
+			$content = '<input class="small-text" name="itsec_authentication[brute_force-max_attempts_host]" id="itsec_authentication_brute_force_max_attempts_host" value="' . $max_attempts_host . '" type="text"> ';
+			$content .= '<label for="itsec_authentication_brute_force_max_attempts_host"> ' . __( 'Attempts', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their host or computer is locked out of the system.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Max Attempts per user  Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function brute_force_max_attempts_user( $args ) {
+
+			if ( isset( $this->settings['brute_force-max_attempts_user'] ) ) {
+				$max_attempts_user = absint( $this->settings['brute_force-max_attempts_user'] );
+			} else {
+				$max_attempts_user = 10;
+			}
+
+			$content = '<input class="small-text" name="itsec_authentication[brute_force-max_attempts_user]" id="itsec_authentication_brute_force_max_attempts_user" value="' . $max_attempts_user . '" type="text"> ';
+			$content .= '<label for="itsec_authentication_brute_force_max_attempts_user"> ' . __( 'Attempts', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * Changes Admin User
+		 *
+		 * Changes the username and id of the 1st user
+		 *
+		 * @param string $username the username to change if changing at the same time
+		 * @param bool   $id       whether to change the id as well
+		 *
+		 * @return bool success or failure
+		 *
+		 **/
+		private function change_admin_user( $username = null, $id = false ) {
+
+			global $wpdb;
+
+			//sanitize the username
+			$new_user = sanitize_text_field( $username );
+
+			//Get the full user object
+			$user_object = get_user_by( 'id', '1' );
+
+			if ( $username !== null && validate_username( $new_user ) && username_exists( $new_user ) === null ) { //there is a valid username to change
+
+				if ( $id === true ) { //we're changing the id too so we'll set the username
+
+					$user_login = $new_user;
+
+				} else { // we're only changing the username
+
+					//query main user table
+					$wpdb->query( "UPDATE `" . $wpdb->users . "` SET user_login = '" . esc_sql( $new_user ) . "' WHERE user_login='admin';" );
+
+					if ( is_multisite() ) { //process sitemeta if we're in a multi-site situation
+
+						$oldAdmins = $wpdb->get_var( "SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key = 'site_admins'" );
+						$newAdmins = str_replace( '5:"admin"', strlen( $new_user ) . ':"' . esc_sql( $new_user ) . '"', $oldAdmins );
+						$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . esc_sql( $newAdmins ) . "' WHERE meta_key = 'site_admins'" );
+
+					}
+
+					wp_clear_auth_cookie();
+
+					return true;
+
+				}
+
+			} elseif ( $username !== null ) { //username didn't validate
+
+				return false;
+
+			} else { //only changing the id
+
+				$user_login = $user_object->user_login;
+
+			}
+
+			if ( $id === true ) { //change the user id
+
+				$wpdb->query( "DELETE FROM `" . $wpdb->users . "` WHERE ID = 1;" );
+
+				$wpdb->insert( $wpdb->users, array( 'user_login' => $user_login, 'user_pass' => $user_object->user_pass, 'user_nicename' => $user_object->user_nicename, 'user_email' => $user_object->user_email, 'user_url' => $user_object->user_url, 'user_registered' => $user_object->user_registered, 'user_activation_key' => $user_object->user_activation_key, 'user_status' => $user_object->user_status, 'display_name' => $user_object->display_name ) );
+
+				$new_user = $wpdb->insert_id;
+
+				$wpdb->query( "UPDATE `" . $wpdb->posts . "` SET post_author = '" . $new_user . "' WHERE post_author = 1;" );
+				$wpdb->query( "UPDATE `" . $wpdb->usermeta . "` SET user_id = '" . $new_user . "' WHERE user_id = 1;" );
+				$wpdb->query( "UPDATE `" . $wpdb->comments . "` SET user_id = '" . $new_user . "' WHERE user_id = 1;" );
+				$wpdb->query( "UPDATE `" . $wpdb->links . "` SET link_owner = '" . $new_user . "' WHERE link_owner = 1;" );
+
+				wp_clear_auth_cookie();
+
+				return true;
 
 			}
 
@@ -206,6 +697,105 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			array_push( $statuses[$status_array], $status );
 
 			return $statuses;
+
+		}
+
+		/**
+		 * Empty callback function
+		 */
+		public function empty_callback_function() {
+		}
+
+		/**
+		 * echos Hide Backend  Enabled Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function hide_backend_enabled( $args ) {
+
+			if ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) {
+
+				$adminurl = is_multisite() ? admin_url() . 'network/' : admin_url();
+
+				$content = sprintf( '<p class="noPermalinks">%s <a href="%soptions-permalink.php">%s</a> %s</p>', __( 'You must turn on', 'ithemes-security' ), $adminurl, __( 'WordPress permalinks', 'ithemes-security' ), __( 'to use this feature.', 'ithemes-security' ) );
+
+			} else {
+
+				if ( isset( $this->settings['hide_backend-enabled'] ) && $this->settings['hide_backend-enabled'] === true ) {
+					$enabled = 1;
+				} else {
+					$enabled = 0;
+				}
+
+				$content = '<input type="checkbox" id="itsec_authentication_hide_backend_enabled" name="itsec_authentication[hide_backend-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+				$content .= '<label for="itsec_authentication_hide_backend_enabled"> ' . __( 'Enable the hide backend feature.', 'ithemes-security' ) . '</label>';
+
+			}
+
+			echo $content;
+
+		}
+
+		/**
+		 * Echo the Hide Backend Header
+		 */
+		public function hide_backend_header() {
+
+			$content = '<h2 class="settings-section-header">' . __( 'Hide the Login Page', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( 'Hides the login and admin pages making them harder to find by automated attacks and making them easier for users unfamiliar with the WordPress platform.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Hide Backend Slug  Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function hide_backend_slug( $args ) {
+
+			if ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) {
+
+				$content = '';
+
+			} else {
+
+				$content = '<input name="itsec_authentication[hide_backend-slug]" id="itsec_authentication_strong_passwords_slug" value="' . sanitize_title( $this->settings['hide_backend-slug'] ) . '" type="text"><br />';
+				$content .= '<label for="itsec_authentication_strong_passwords_slug">' . __( 'Login URL:', 'ithemes-security' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-slug'] ) . '</span></label>';
+				$content .= '<p class="description">' . __( 'The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'ithemes-security' ) . '</p>';
+
+			}
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Register Slug  Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function hide_backend_register( $args ) {
+
+			if ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) {
+
+				$content = '';
+
+			} else {
+
+				$content = '<input name="itsec_authentication[hide_backend-register]" id="itsec_authentication_strong_passwords_register" value="' . ( $this->settings['hide_backend-register'] !== 'wp-register.php' ? sanitize_title( $this->settings['hide_backend-register'] ) : 'wp-register.php' ) . '" type="text"><br />';
+				$content .= '<label for="itsec_authentication_strong_passwords_register">' . __( 'Registration URL:', 'ithemes-security' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-register'] ) . '</span></label>';
+
+			}
+
+			echo $content;
 
 		}
 
@@ -468,599 +1058,15 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		}
 
 		/**
-		 * Empty callback function
-		 */
-		public function empty_callback_function() {
-		}
-
-		/**
-		 * Echo the Brute Force Header
-		 */
-		public function brute_force_header() {
-
-			$content = '<h2 class="settings-section-header">' . __( 'Brute Force Protection', 'ithemes-security' ) . '</h2>';
-			$content .= '<p>' . __( 'If one had unlimited time and wanted to try an unlimited number of password combinations to get into your site they eventually would, right? This method of attach, known as a brute force attack, is something that WordPress is acutely susceptible by default as the system doesn\t care how many attempts a user makes to login. It will always let you try again. Enabling login limits will ban the host user from attempting to login again after the specified bad login threshold has been reached.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * Echo the Admin User Header
-		 */
-		public function admin_user_header() {
-
-			$content = '<h2 class="settings-section-header">' . __( 'Secure Admin User', 'ithemes-security' ) . '</h2>';
-			$content .= '<p>' . __( 'This feature will improve the security of your WordPress installation by removing common user attributes that can be used to target your site.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * Echo the Strong Passwords Header
-		 */
-		public function strong_passwords_header() {
-
-			$content = '<h2 class="settings-section-header">' . __( 'Enforce Strong Passwords', 'ithemes-security' ) . '</h2>';
-			$content .= '<p>' . __( 'Force users to use strong passwords as rated by the WordPress password meter.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * Echo the Hide Backend Header
-		 */
-		public function hide_backend_header() {
-
-			$content = '<h2 class="settings-section-header">' . __( 'Hide the Login Page', 'ithemes-security' ) . '</h2>';
-			$content .= '<p>' . __( 'Hides the login and admin pages making them harder to find by automated attacks and making them easier for users unfamiliar with the WordPress platform.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * Echo The Away Mode Header
-		 */
-		public function away_mode_header() {
-
-			$content = '<h2 class="settings-section-header">' . __( 'Configure Away Mode', 'ithemes-security' ) . '</h2>';
-
-			$content .= '<p>' . __( 'As most sites are only updated at certain times of the day it is not always necessary to provide access to the WordPress dashboard 24 hours a day, 7 days a week. The options below will allow you to disable access to the WordPress Dashboard for the specified period. In addition to limiting exposure to attackers this could also be useful to disable site access based on a schedule for classroom or other reasons.', 'ithemes-security' ) . '</p>';
-
-			if ( preg_match( "/^(G|H)(:| \\h)/", get_option( 'time_format' ) ) ) {
-				$currdate = date_i18n( 'l, d F Y' . ' ' . get_option( 'time_format' ), current_time( 'timestamp' ) );
-			} else {
-				$currdate = date( 'g:i a \o\n l F jS, Y', current_time( 'timestamp' ) );
-			}
-
-			$content .= '<p>' . sprintf( __( 'Please note that according to your %sWordPress timezone settings%s your current time is:', 'ithemes-security' ), '<a href="options-general.php">', '</a>' );
-			$content .= '<div class="current-time-date">' . $currdate . '</div>';
-			$content .= '<p>' . sprintf( __( 'If this is incorrect please correct it on the %sWordPress general settings page%s by setting the appropriate time zone. Failure to set the correct timezone may result in unintended lockouts.', 'ithemes-security' ), '<a href="options-general.php">', '</a>' ) . '</p>';
-
-			echo $content;
-
-			//set information explaining away mode is enabled
-			if ( isset( $this->settings['enabled'] ) && $this->settings['enabled'] === 1 && ( $this->settings['type'] === 1 || ( $this->settings['end'] > current_time( 'timestamp' ) ) ) ) {
-
-				$content = '<hr />';
-
-				$content .= sprintf( '<p><strong>%s</strong></p>', __( 'Away mode is currently enabled.', 'ithemes-security' ) );
-
-				//Create the appropriate notification based on daily or one time use
-				if ( $this->settings['type'] === 1 ) {
-
-					$content .= sprintf( '<p>' . __( 'The dashboard of this website will become unavailable %s%s%s from %s%s%s until %s%s%s.', 'ithemes-security' ) . '</p>', '<strong>', __( 'every day', 'ithemes-security' ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['end'] ), '</strong>' );
-
-				} else {
-
-					$content .= sprintf( '<p>' . __( 'The dashboard of this website will become unavailable from %s%s%s on %s%s%s until %s%s%s on %s%s%s.', 'ithemes-security' ) . '</p>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'date_format' ), $this->settings['start'] ), '</strong>', '<strong>', date_i18n( get_option( 'time_format' ), $this->settings['end'] ), '</strong>', '<strong>', date_i18n( get_option( 'date_format' ), $this->settings['end'] ), '</strong>' );
-
-				}
-
-				$content .= '<p>' . __( 'You will not be able to log into this website when the site is unavailable.', 'ithemes-security' ) . '</p>';
-
-				echo $content;
-			}
-
-		}
-
-		/**
-		 * Echo the "Other" Header
-		 */
-		public function other_header() {
-
-			$content = '<h2 class="settings-section-header">' . __( 'Other Authentication Tweaks', 'ithemes-security' ) . '</h2>';
-			$content .= '<p>' . __( 'Miscellaneous tweaks that can make it harder for an attacker to log into your WordPress website.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Enable Brute Force Field
-		 *
-		 * @param  array $args field arguments
+		 * Render the settings metabox
 		 *
 		 * @return void
 		 */
-		public function brute_force_enabled( $args ) {
-
-			if ( isset( $this->settings['brute_force-enabled'] ) && $this->settings['brute_force-enabled'] === true ) {
-				$enabled = 1;
-			} else {
-				$enabled = 0;
-			}
-
-			$content = '<input type="checkbox" id="itsec_authentication_brute_force_enabled" name="itsec_authentication[brute_force-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_authentication_brute_force_enabled"> ' . __( 'Enable brute force protection.', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Max Attempts per host  Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function brute_force_max_attempts_host( $args ) {
-
-			if ( isset( $this->settings['brute_force-max_attempts_host'] ) ) {
-				$max_attempts_host = absint( $this->settings['brute_force-max_attempts_host'] );
-			} else {
-				$max_attempts_host = 5;
-			}
-
-			$content = '<input class="small-text" name="itsec_authentication[brute_force-max_attempts_host]" id="itsec_authentication_brute_force_max_attempts_host" value="' . $max_attempts_host . '" type="text"> ';
-			$content .= '<label for="itsec_authentication_brute_force_max_attempts_host"> ' . __( 'Attempts', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their host or computer is locked out of the system.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Max Attempts per user  Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function brute_force_max_attempts_user( $args ) {
-
-			if ( isset( $this->settings['brute_force-max_attempts_user'] ) ) {
-				$max_attempts_user = absint( $this->settings['brute_force-max_attempts_user'] );
-			} else {
-				$max_attempts_user = 10;
-			}
-
-			$content = '<input class="small-text" name="itsec_authentication[brute_force-max_attempts_user]" id="itsec_authentication_brute_force_max_attempts_user" value="' . $max_attempts_user . '" type="text"> ';
-			$content .= '<label for="itsec_authentication_brute_force_max_attempts_user"> ' . __( 'Attempts', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Check Period Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function brute_force_check_period( $args ) {
-
-			if ( isset( $this->settings['brute_force-check_period'] ) ) {
-				$check_period = absint( $this->settings['brute_force-check_period'] );
-			} else {
-				$check_period = 5;
-			}
-
-			$content = '<input class="small-text" name="itsec_authentication[brute_force-check_period]" id="itsec_authentication_brute_force_check_period" value="' . $check_period . '" type="text"> ';
-			$content .= '<label for="itsec_authentication_brute_force_check_period"> ' . __( 'Minutes', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'The number of minutes in which bad logins should be remembered.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Admin User Username Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function admin_user_username( $args ) {
-
-			$content = '<input name="itsec_authentication[admin_user-username]" id="itsec_authentication_admin_user_username" value="" type="text"><br>';
-			$content .= '<label for="itsec_authentication_admin_user_username"> ' . __( 'New Admin Username', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'Enter a new username to replace "admin." Please note that if you are logged in as admin you will have to log in again.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Admin User UserID Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function admin_user_userid( $args ) {
-
-			$content = '<input type="checkbox" id="itsec_authentication_admin_user_userid" name="itsec_authentication[admin_user-userid]" value="1" />';
-			$content .= '<label for="itsec_authentication_admin_user_userid"> ' . __( 'Change the ID of the user with ID 1.', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Enable Strong Passwords Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function strong_passwords_enabled( $args ) {
-
-			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] === true ) {
-				$enabled = 1;
-			} else {
-				$enabled = 0;
-			}
-
-			$content = '<input type="checkbox" id="itsec_authentication_strong_passwords_enabled" name="itsec_authentication[strong_passwords-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_authentication_strong_passwords_enabled"> ' . __( 'Enable strong password enforcement.', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Strong Passwords Role Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function strong_passwords_role( $args ) {
-
-			if ( isset( $this->settings['strong_passwords-roll'] ) ) {
-				$roll = $this->settings['strong_passwords-roll'];
-			} else {
-				$roll = 'administrator';
-			}
-
-			$content = '<select name="itsec_authentication[strong_passwords-roll]" id="itsec_authentication_strong_passwords_roll">';
-			$content .= '<option value="administrator" ' . selected( $roll, 'administrator', false ) . '>' . translate_user_role( 'Administrator' ) . '</option>';
-			$content .= '<option value="editor" ' . selected( $roll, 'editor', false ) . '>' . translate_user_role( 'Editor' ) . '</option>';
-			$content .= '<option value="author" ' . selected( $roll, 'author', false ) . '>' . translate_user_role( 'Author' ) . '</option>';
-			$content .= '<option value="contributor" ' . selected( $roll, 'contributor', false ) . '>' . translate_user_role( 'Contributor' ) . '</option>';
-			$content .= '<option value="subscriber" ' . selected( $roll, 'subscriber', false ) . '>' . translate_user_role( 'Subscriber' ) . '</option>';
-			$content .= '</select><br>';
-			$content .= '<label for="itsec_authentication_strong_passwords_roll"> ' . __( 'Minimum role at which a user must choose a strong password.' ) . '</label>';
-
-			$content .= '<p class="description"> ' . __( 'For more information on WordPress roles and capabilities please see', 'ithemes-security' ) . ' <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>';
-			$content .= '<p class="warningtext description">' . __( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Hide Backend  Enabled Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function hide_backend_enabled( $args ) {
-
-			if ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) {
-
-				$adminurl = is_multisite() ? admin_url() . 'network/' : admin_url();
-
-				$content = sprintf( '<p class="noPermalinks">%s <a href="%soptions-permalink.php">%s</a> %s</p>', __( 'You must turn on', 'ithemes-security' ), $adminurl, __( 'WordPress permalinks', 'ithemes-security' ), __( 'to use this feature.', 'ithemes-security' ) );
-
-			} else {
-
-				if ( isset( $this->settings['hide_backend-enabled'] ) && $this->settings['hide_backend-enabled'] === true ) {
-					$enabled = 1;
-				} else {
-					$enabled = 0;
-				}
-
-				$content = '<input type="checkbox" id="itsec_authentication_hide_backend_enabled" name="itsec_authentication[hide_backend-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-				$content .= '<label for="itsec_authentication_hide_backend_enabled"> ' . __( 'Enable the hide backend feature.', 'ithemes-security' ) . '</label>';
-
-			}
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Hide Backend Slug  Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function hide_backend_slug( $args ) {
-
-			if ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) {
-
-				$content = '';
-
-			} else {
-
-				$content = '<input name="itsec_authentication[hide_backend-slug]" id="itsec_authentication_strong_passwords_slug" value="' . sanitize_title( $this->settings['hide_backend-slug'] ) . '" type="text"><br />';
-				$content .= '<label for="itsec_authentication_strong_passwords_slug">' . __( 'Login URL:', 'ithemes-security' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-slug'] ) . '</span></label>';
-				$content .= '<p class="description">' . __( 'The login url slug cannot be "login," "admin," "dashboard," or "wp-login.php" as these are use by default in WordPress.', 'ithemes-security' ) . '</p>';
-
-			}
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Register Slug  Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function hide_backend_register( $args ) {
-
-			if ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) {
-
-				$content = '';
-
-			} else {
-
-				$content = '<input name="itsec_authentication[hide_backend-register]" id="itsec_authentication_strong_passwords_register" value="' . ( $this->settings['hide_backend-register'] !== 'wp-register.php' ? sanitize_title( $this->settings['hide_backend-register'] ) : 'wp-register.php' ) . '" type="text"><br />';
-				$content .= '<label for="itsec_authentication_strong_passwords_register">' . __( 'Registration URL:', 'ithemes-security' ) . trailingslashit( get_option( 'siteurl' ) ) . '<span style="color: #4AA02C">' . sanitize_title( $this->settings['hide_backend-register'] ) . '</span></label>';
-
-			}
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Enable Away Mode Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function away_mode_enabled( $args ) {
-
-			//disable the option if away mode is in the past
-			if ( isset( $this->settings['away_mode-enabled'] ) && $this->settings['away_mode-enabled'] === true && ( $this->settings['away_mode-type'] == 1 || ( $this->settings['away_mode-end'] > current_time( 'timestamp' ) || $this->settings['away_mode-type'] === 2 ) ) ) {
-				$enabled = 1;
-			} else {
-				$enabled = 0;
-			}
-
-			$content = '<input type="checkbox" id="itsec_authentication_away_mode_enabled" name="itsec_authentication[away_mode-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_authentication_away_mode_enabled"> ' . __( 'Enable away mode', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos End date field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function away_mode_end_date( $args ) {
-
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['end'] ) && isset( $this->settings['away_mode-enabled'] ) && $current < $this->settings['away_mode-end'] ) {
-				$end = $this->settings['away_mode-end'];
-			} else {
-				$end = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
-			}
-
-			//Date Field
-			$content = '<input class="end_date_field" type="text" id="itsec_authentication_away_mode_end_date" name="itsec_authentication[end][date]" value="' . date( 'm/d/y', $end ) . '"/><br>';
-			$content .= '<label class="end_date_field" for="itsec_authentication_away_mode_end_date"> ' . __( 'Set the date at which the admin dashboard should become available', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos End time field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function away_mode_end_time( $args ) {
-
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['away_mode-end'] ) && isset( $this->settings['away_mode-enabled'] ) && $current < $this->settings['away_mode-end'] ) {
-				$end = $this->settings['away_mode-end'];
-			} else {
-				$end = strtotime( date( 'n/j/y 6:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 * 2 ) ) ) );
-			}
-
-			//Hour Field
-			$content = '<select name="itsec_authentication[end][hour]" id="itsec_authentication_away_mod_end_time">';
-
-			for ( $i = 1; $i <= 12; $i ++ ) {
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $end ), $i, false ) . '>' . $i . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//Minute Field
-			$content .= '<select name="itsec_authentication[end][minute]" id="itsec_authentication_away_mod_end_time">';
-
-			for ( $i = 0; $i <= 59; $i ++ ) {
-
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'i', $end ), sprintf( '%02d', $i ), false ) . '>' . sprintf( '%02d', $i ) . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//AM/PM Field
-			$content .= '<select name="itsec_authentication[end][sel]" id="itsec_authentication">';
-			$content .= '<option value="am" ' . selected( date( 'a', $end ), 'am', false ) . '>' . __( 'am', 'ithemes-security' ) . '</option>';
-			$content .= '<option value="pm" ' . selected( date( 'a', $end ), 'pm', false ) . '>' . __( 'pm', 'ithemes-security' ) . '</option>';
-			$content .= '</select><br>';
-			$content .= '<label for="itsec_authentication_away_mod_end_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Start date field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function away_mode_start_date( $args ) {
-
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['away_mode-start'] ) && isset( $this->settings['away_mode-enabled'] ) && $current < $this->settings['away_mode-end'] ) {
-				$start = $this->settings['away_mode-start'];
-			} else {
-				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
-			}
-
-			//Date Field
-			$content = '<input class="start_date_field" type="text" id="itsec_authentication_away_mode_start_date" name="itsec_authentication[start][date]" value="' . date( 'm/d/y', $start ) . '"/><br>';
-			$content .= '<label class="start_date_field" for="itsec_authentication_away_mode_start_date"> ' . __( 'Set the date at which the admin dashboard should become unavailable', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Start time field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function away_mode_start_time( $args ) {
-
-			$current = current_time( 'timestamp' ); //The current time
-
-			//if saved date is in the past update it to something in the future
-			if ( isset( $this->settings['away_mode-start'] ) && isset( $this->settings['away_mode-enabled'] ) && $current < $this->settings['away_mode-end'] ) {
-				$start = $this->settings['away_mode-start'];
-			} else {
-				$start = strtotime( date( 'n/j/y 12:00 \a\m', ( current_time( 'timestamp' ) + ( 86400 ) ) ) );
-			}
-
-			//Hour Field
-			$content = '<select name="itsec_authentication[start][hour]" id="itsec_authentication_away_mod_start_time">';
-
-			for ( $i = 1; $i <= 12; $i ++ ) {
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'g', $start ), $i, false ) . '>' . $i . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//Minute Field
-			$content .= '<select name="itsec_authentication[start][minute]" id="itsec_authentication_away_mod_start_time">';
-
-			for ( $i = 0; $i <= 59; $i ++ ) {
-
-				$content .= '<option value="' . sprintf( '%02d', $i ) . '" ' . selected( date( 'i', $start ), sprintf( '%02d', $i ), false ) . '>' . sprintf( '%02d', $i ) . '</option>';
-			}
-
-			$content .= '</select>';
-
-			//AM/PM Field
-			$content .= '<select name="itsec_authentication[start][sel]" id="itsec_authentication_away_mod_start_time">';
-			$content .= '<option value="am" ' . selected( date( 'a', $start ), 'am', false ) . '>' . __( 'am', 'ithemes-security' ) . '</option>';
-			$content .= '<option value="pm" ' . selected( date( 'a', $start ), 'pm', false ) . '>' . __( 'pm', 'ithemes-security' ) . '</option>';
-			$content .= '</select><br>';
-			$content .= '<label for="itsec_authentication_away_mod_start_time"> ' . __( 'Set the time at which the admin dashboard should become available again.', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos type Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function away_mode_type( $args ) {
-
-			$content = '<select name="itsec_authentication[away_mode-type]" id="itsec_authentication_away_mode_type">';
-			$content .= '<option value="1" ' . selected( $this->settings['away_mode-type'], 1, false ) . '>' . __( 'Daily', 'ithemes-security' ) . '</option>';
-			$content .= '<option value="2" ' . selected( $this->settings['away_mode-type'], 2, false ) . '>' . __( 'One Time', 'ithemes-security' ) . '</option>';
-			$content .= '</select><br>';
-			$content .= '<label for="itsec_authentication_away_mode_type"> ' . __( 'Select the type of restriction you would like to enable', 'ithemes-security' ) . '</label>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * echos Disable Login Errors Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function other_login_errors( $args ) {
-
-			if ( isset( $this->settings['other-login_errors'] ) && $this->settings['other-login_errors'] === true ) {
-				$enabled = 1;
-			} else {
-				$enabled = 0;
-			}
-
-			$content = '<input type="checkbox" id="itsec_authentication_other_login_errors" name="itsec_authentication[other-login_errors]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_authentication_other_login_errors"> ' . __( 'Disable login error messages', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'Prevents error messages from being displayed to a user upon a failed login attempt.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
-		}
-
-		/**
-		 * Build and echo the away mode description
-		 *
-		 * @return void
-		 */
-		public function add_module_intro( $screen ) {
-
-			$content = '<p>' . __( 'The below settings control who and how users can log in to the WordPress Dashboard. Turning on settings below can greatly increase the security of your WordPress website by preventing many of the common attacks that go after weaknesses in the standard login system.', 'ithemes-security' ) . '</p>';
-			$content .= '<p>' . __( 'Please keep in mind the following settings are designed to work primarily with the standard login system. If you have any plugins or a theme that has changed anything already please test your site after turning on the below settings to verify there are no conflicts.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
+		public function logs_metabox_invalid_logins() {
+
+			$log_display = new ITSEC_Logger_Tables();
+			$log_display->prepare_items();
+			$log_display->display();
 
 		}
 
@@ -1095,102 +1101,37 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		}
 
 		/**
-		 * Generate a pseudo-random key
-		 *
-		 * @return string pseudo-random key
+		 * Echo the "Other" Header
 		 */
-		private function generate_key() {
+		public function other_header() {
 
-			//Generate a random key to use
-			$avail = 'ABCDEFGHIJKLMNOFQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-			$key   = '';
+			$content = '<h2 class="settings-section-header">' . __( 'Other Authentication Tweaks', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( 'Miscellaneous tweaks that can make it harder for an attacker to log into your WordPress website.', 'ithemes-security' ) . '</p>';
 
-			//length of hey
-			$key_length = rand( 20, 30 );
-
-			//generate remaning characters
-			for ( $i = 0; $i < $key_length; $i ++ ) {
-				$key .= $avail[rand( 0, 61 )];
-			}
-
-			return esc_sql( $key );
+			echo $content;
 
 		}
 
 		/**
-		 * Changes Admin User
+		 * echos Disable Login Errors Field
 		 *
-		 * Changes the username and id of the 1st user
+		 * @param  array $args field arguments
 		 *
-		 * @param string $username the username to change if changing at the same time
-		 * @param bool   $id       whether to change the id as well
-		 *
-		 * @return bool success or failure
-		 *
-		 **/
-		function change_admin_user( $username = null, $id = false ) {
+		 * @return void
+		 */
+		public function other_login_errors( $args ) {
 
-			global $wpdb;
-
-			//sanitize the username
-			$new_user = sanitize_text_field( $username );
-
-			//Get the full user object
-			$user_object = get_user_by( 'id', '1' );
-
-			if ( $username !== null && validate_username( $new_user ) && username_exists( $new_user ) === null ) { //there is a valid username to change
-
-				if ( $id === true ) { //we're changing the id too so we'll set the username
-
-					$user_login = $new_user;
-
-				} else { // we're only changing the username
-
-					//query main user table
-					$wpdb->query( "UPDATE `" . $wpdb->users . "` SET user_login = '" . esc_sql( $new_user ) . "' WHERE user_login='admin';" );
-
-					if ( is_multisite() ) { //process sitemeta if we're in a multi-site situation
-
-						$oldAdmins = $wpdb->get_var( "SELECT meta_value FROM `" . $wpdb->sitemeta . "` WHERE meta_key = 'site_admins'" );
-						$newAdmins = str_replace( '5:"admin"', strlen( $new_user ) . ':"' . esc_sql( $new_user ) . '"', $oldAdmins );
-						$wpdb->query( "UPDATE `" . $wpdb->sitemeta . "` SET meta_value = '" . esc_sql( $newAdmins ) . "' WHERE meta_key = 'site_admins'" );
-
-					}
-
-					wp_clear_auth_cookie();
-
-					return true;
-
-				}
-
-			} elseif ( $username !== null ) { //username didn't validate
-
-				return false;
-
-			} else { //only changing the id
-
-				$user_login = $user_object->user_login;
-
+			if ( isset( $this->settings['other-login_errors'] ) && $this->settings['other-login_errors'] === true ) {
+				$enabled = 1;
+			} else {
+				$enabled = 0;
 			}
 
-			if ( $id === true ) { //change the user id
+			$content = '<input type="checkbox" id="itsec_authentication_other_login_errors" name="itsec_authentication[other-login_errors]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_authentication_other_login_errors"> ' . __( 'Disable login error messages', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'Prevents error messages from being displayed to a user upon a failed login attempt.', 'ithemes-security' ) . '</p>';
 
-				$wpdb->query( "DELETE FROM `" . $wpdb->users . "` WHERE ID = 1;" );
-
-				$wpdb->insert( $wpdb->users, array( 'user_login' => $user_login, 'user_pass' => $user_object->user_pass, 'user_nicename' => $user_object->user_nicename, 'user_email' => $user_object->user_email, 'user_url' => $user_object->user_url, 'user_registered' => $user_object->user_registered, 'user_activation_key' => $user_object->user_activation_key, 'user_status' => $user_object->user_status, 'display_name' => $user_object->display_name ) );
-
-				$new_user = $wpdb->insert_id;
-
-				$wpdb->query( "UPDATE `" . $wpdb->posts . "` SET post_author = '" . $new_user . "' WHERE post_author = 1;" );
-				$wpdb->query( "UPDATE `" . $wpdb->usermeta . "` SET user_id = '" . $new_user . "' WHERE user_id = 1;" );
-				$wpdb->query( "UPDATE `" . $wpdb->comments . "` SET user_id = '" . $new_user . "' WHERE user_id = 1;" );
-				$wpdb->query( "UPDATE `" . $wpdb->links . "` SET link_owner = '" . $new_user . "' WHERE link_owner = 1;" );
-
-				wp_clear_auth_cookie();
-
-				return true;
-
-			}
+			echo $content;
 
 		}
 
@@ -1320,7 +1261,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			}
 
 			if ( $input['hide_backend-register'] != 'wp-register.php' && $input['hide_backend-enabled'] === true ) {
-				add_rewrite_rule( $input['hide_backend-register'] . '/?$', $input['hide_backend-slug'] . '?action=register', 'top' ); //Login rewrite rule				
+				add_rewrite_rule( $input['hide_backend-register'] . '/?$', $input['hide_backend-slug'] . '?action=register', 'top' ); //Login rewrite rule
 			}
 
 			//process other settings
@@ -1367,6 +1308,71 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			//send them back to the away mode options page
 			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_itsec-authentication', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
+
+		}
+
+		/**
+		 * echos Enable Strong Passwords Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function strong_passwords_enabled( $args ) {
+
+			if ( isset( $this->settings['strong_passwords-enabled'] ) && $this->settings['strong_passwords-enabled'] === true ) {
+				$enabled = 1;
+			} else {
+				$enabled = 0;
+			}
+
+			$content = '<input type="checkbox" id="itsec_authentication_strong_passwords_enabled" name="itsec_authentication[strong_passwords-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_authentication_strong_passwords_enabled"> ' . __( 'Enable strong password enforcement.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * Echo the Strong Passwords Header
+		 */
+		public function strong_passwords_header() {
+
+			$content = '<h2 class="settings-section-header">' . __( 'Enforce Strong Passwords', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( 'Force users to use strong passwords as rated by the WordPress password meter.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Strong Passwords Role Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function strong_passwords_role( $args ) {
+
+			if ( isset( $this->settings['strong_passwords-roll'] ) ) {
+				$roll = $this->settings['strong_passwords-roll'];
+			} else {
+				$roll = 'administrator';
+			}
+
+			$content = '<select name="itsec_authentication[strong_passwords-roll]" id="itsec_authentication_strong_passwords_roll">';
+			$content .= '<option value="administrator" ' . selected( $roll, 'administrator', false ) . '>' . translate_user_role( 'Administrator' ) . '</option>';
+			$content .= '<option value="editor" ' . selected( $roll, 'editor', false ) . '>' . translate_user_role( 'Editor' ) . '</option>';
+			$content .= '<option value="author" ' . selected( $roll, 'author', false ) . '>' . translate_user_role( 'Author' ) . '</option>';
+			$content .= '<option value="contributor" ' . selected( $roll, 'contributor', false ) . '>' . translate_user_role( 'Contributor' ) . '</option>';
+			$content .= '<option value="subscriber" ' . selected( $roll, 'subscriber', false ) . '>' . translate_user_role( 'Subscriber' ) . '</option>';
+			$content .= '</select><br>';
+			$content .= '<label for="itsec_authentication_strong_passwords_roll"> ' . __( 'Minimum role at which a user must choose a strong password.' ) . '</label>';
+
+			$content .= '<p class="description"> ' . __( 'For more information on WordPress roles and capabilities please see', 'ithemes-security' ) . ' <a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank">http://codex.wordpress.org/Roles_and_Capabilities</a>.</p>';
+			$content .= '<p class="warningtext description">' . __( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
 
 		}
 
