@@ -3,7 +3,7 @@
  * Plugin activation, upgrade, deactivation and uninstall
  *
  * @package iThemes-Security
- * @since 4.0
+ * @since   4.0
  */
 if ( ! class_exists( 'ITSEC_Setup' ) ) {
 
@@ -168,6 +168,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 					'blacklist_period'     => 7,
 					'email_notifications'  => true,
 					'lockout_period'       => 15,
+					'lockout_white_list'   => array(),
 					'log_rotation'         => 30,
 					'log_type'             => 0,
 					'log_location'         => $itsec_globals['ithemes_log_dir'],

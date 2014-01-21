@@ -3,7 +3,7 @@
  * Plugin-wide settings for logs, email and more
  *
  * @package iThemes-Security
- * @since 4.0
+ * @since   4.0
  */
 if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
@@ -284,9 +284,9 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			);
 
 			add_settings_field(
-				'itsec_global[lockout_whitelist]',
+				'itsec_global[lockout_white_list]',
 				__( 'Lockout White List', 'ithemes-security' ),
-				array( $this, 'lockout_whitelist' ),
+				array( $this, 'lockout_white_list' ),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -372,6 +372,42 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$content = '<input class="small-text" name="itsec_global[lockout_period]" id="itsec_global_lockout_period" value="' . $lockout_period . '" type="text">';
 			$content .= '<label for="itsec_global_lockout_period"> ' . __( 'Minutes', 'ithemes-security' ) . '</label>';
 			$content .= '<p class="description"> ' . __( 'The length of time a host or user will be banned from this site after hitting the limit of bad logins.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Lockout White List Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function lockout_white_list( $args ) {
+
+			$white_list = '';
+
+			//Convert and show the agent list
+			if ( isset( $this->settings['lockout_white_list'] ) && is_array( $this->settings['lockout_white_list'] ) && sizeof( $this->settings['lockout_white_list'] ) >= 1 ) {
+
+				$white_list = implode( PHP_EOL, $this->settings['lockout_white_list'] );
+
+			} elseif ( isset( $this->settings['lockout_white_list'] ) && ! is_array( $this->settings['lockout_white_list'] ) && strlen( $this->settings['lockout_white_list'] ) > 1 ) {
+
+				$white_list = $this->settings['lockout_white_list'];
+
+			}
+
+			$content = '<textarea id="itsec_global_lockout_white_list" name="itsec_global[lockout_white_list]" rows="10" cols="50">' . $white_list . '</textarea>';
+			$content .= '<p>' . __( 'Use the guidelines below to enter hosts that will not be locked out from your site. This will keep you from locking yourself out of any features if you should trigger a lockout. Please note this does not override away mode and will only prevent a temporary ban. Should a permanent ban be triggered you will still be added to the "Ban Users" list unless the IP address is also white listed in that section.', 'ithemes-security' ) . '</p>';
+			$content .= '<ul>';
+			$content .= '<li>' . __( 'You may white list users by individual IP address or IP address range.', 'ithemes-security' ) . '</li>';
+			$content .= '<li>' . __( 'Individual IP addesses must be in IPV4 standard format (i.e. ###.###.###.### or ###.###.###.###/##). Wildcards (*) or a netmask is allowed to specify a range of ip addresses.', 'ithemes-security' ) . '</li>';
+			$content .= '<li>' . __( 'If using a wildcard (*) you must start with the right-most number in the ip field. For example ###.###.###.* and ###.###.*.* are permitted but ###.###.*.### is not.', 'ithemes-security' ) . '</li>';
+			$content .= '<li><a href="http://ip-lookup.net/domain-lookup.php" target="_blank">' . __( 'Lookup IP Address.', 'ithemes-security' ) . '</a></li>';
+			$content .= '<li>' . __( 'Enter only 1 IP address or 1 IP address range per line.', 'ithemes-security' ) . '</li>';
+			$content .= '</ul>';
 
 			echo $content;
 
@@ -515,9 +551,6 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			global $itsec_globals, $itsec_lib;
 
-			$type    = 'updated';
-			$message = __( 'Settings Updated', 'ithemes-security' );
-
 			if ( isset( $input['notification_email'] ) ) {
 
 				$bad_emails = array();
@@ -551,6 +584,56 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$input['log_rotation']         = isset( $input['log_rotation'] ) ? absint( $input['log_rotation'] ) : 30;
 
 			$input['log_location'] = isset( $input['log_location'] ) ? sanitize_text_field( $input['log_location'] ) : $itsec_globals['ithemes_log_dir'];
+
+			//Process white list
+			if ( isset( $input['lockout_white_list'] ) && ! is_array( $input['lockout_white_list'] ) ) {
+				$white_listed_addresses = explode( PHP_EOL, $input['lockout_white_list'] );
+			} else {
+				$white_listed_addresses = array();
+			}
+
+			$bad_white_listed_ips = array();
+			$raw_white_listed_ips = array();
+
+			foreach ( $white_listed_addresses as $index => $address ) {
+
+				if ( strlen( trim( $address ) ) > 0 ) {
+
+					if ( $itsec_lib->validates_ip_address( $address ) === false ) {
+
+						$bad_white_listed_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
+
+					}
+
+					$raw_white_listed_ips[] = filter_var( $address, FILTER_SANITIZE_STRING );
+
+				} else {
+					unset( $white_listed_addresses[$index] );
+				}
+
+			}
+
+			$raw_white_listed_ips = array_unique( $raw_white_listed_ips );
+
+			if ( sizeof( $bad_white_listed_ips ) > 0 ) {
+
+				$type    = 'error';
+				$message = '';
+
+				$message .= sprintf( '%s<br /><br />', __( 'There is a problem with an IP address in the white list:', 'ithemes-security' ) );
+
+				foreach ( $bad_white_listed_ips as $bad_ip ) {
+					$message .= sprintf( '%s %s<br />', $bad_ip, __( 'is not a valid address in the white list users box.', 'ithemes-security' ) );
+				}
+
+			} else {
+
+				$type    = 'updated';
+				$message = __( 'Settings Updated', 'ithemes-security' );
+
+			}
+
+			$input['lockout_white_list'] = $raw_white_listed_ips;
 
 			if ( $input['log_location'] != $itsec_globals['ithemes_log_dir'] ) {
 				$good_path = $itsec_lib->validate_path( $input['log_location'] );
@@ -591,7 +674,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$settings['email_notifications']  = ( isset( $_POST['itsec_global']['email_notifications'] ) && intval( $_POST['itsec_global']['email_notifications'] == 1 ) ? true : false );
 			$settings['log_rotation']         = isset( $_POST['itsec_global']['log_rotation'] ) ? absint( $_POST['itsec_global']['log_rotation'] ) : 30;
 			$settings['log_type']             = isset( $_POST['itsec_global']['log_type'] ) ? intval( $_POST['itsec_global']['log_type'] ) : 0;
-			$input['log_location'] = sanitize_text_field( $input['log_location'] );
+			$settings['log_location']         = sanitize_text_field( $_POST['itsec_global']['log_location'] );
 
 			update_site_option( 'itsec_global', $settings ); //we must manually save network options
 
