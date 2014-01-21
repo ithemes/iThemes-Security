@@ -7,14 +7,22 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		private static $instance = null;
 
 		private
+			$default_white_list,
 			$settings,
 			$core,
 			$page;
 
 		private function __construct( $core ) {
 
-			$this->core      = $core;
-			$this->settings  = get_site_option( 'itsec_intrusion_detection' );
+			$this->core     = $core;
+			$this->settings = get_site_option( 'itsec_intrusion_detection' );
+
+			$this->default_white_list = array(
+				'/favicon.ico',
+				'/robots.txt',
+				'/apple-touch-icon.png',
+				'/apple-touch-icon-precomposed.png',
+			);
 
 			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area
@@ -222,6 +230,28 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		}
 
 		/**
+		 * echos 404 white list field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function four_oh_four_white_list( $args ) {
+
+			if ( isset( $this->settings['four_oh_four-white_list'] ) && is_array( $this->settings['four_oh_four-white_list'] ) ) {
+				$white_list = implode( PHP_EOL, $this->settings['four_oh_four-white_list'] );
+			} else {
+				$white_list = implode( PHP_EOL, $this->default_white_list );
+			}
+
+			$content = '<textarea id="itsec_intrusion_detection_four_oh_four_white_list" name="itsec_intrusion_detection[four_oh_four-white_list]" rows="10" cols="50">' . $white_list . '</textarea>';
+			$content .= '<p>' . __( 'Use the whitelist above to prevent recording common 404 errors. If you know a common file on your site is missing and you do not want it to count towards a lockout record it here. You must list the full path beginning with the "/"', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * Execute admin initializations
 		 *
 		 * @return void
@@ -264,6 +294,14 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 				'itsec_intrusion_detection[four_oh_four-error_threshold]',
 				__( 'Error Threshold', 'ithemes-security' ),
 				array( $this, 'four_oh_four_error_threshold' ),
+				'security_page_toplevel_page_itsec-intrusion_detection',
+				'intrusion_detection_four_oh_four-settings'
+			);
+
+			add_settings_field(
+				'itsec_intrusion_detection[four_oh_four-white_list]',
+				__( '404 File/Folder White List', 'ithemes-security' ),
+				array( $this, 'four_oh_four_white_list' ),
 				'security_page_toplevel_page_itsec-intrusion_detection',
 				'intrusion_detection_four_oh_four-settings'
 			);
@@ -320,9 +358,36 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			$message = __( 'Settings Updated', 'ithemes-security' );
 
 			//process brute force settings
-			$input['four_oh_four-enabled']           = ( isset( $input['four_oh_four-enabled'] ) && intval( $input['four_oh_four-enabled'] == 1 ) ? true : false );
-			$input['four_oh_four-check_period']      = isset( $input['four_oh_four-check_period'] ) ? absint( $input['four_oh_four-check_period'] ) : 5;
-			$input['four_oh_four-error_threshold']      = isset( $input['four_oh_four-error_threshold'] ) ? absint( $input['four_oh_four-error_threshold'] ) : 20;
+			$input['four_oh_four-enabled']         = ( isset( $input['four_oh_four-enabled'] ) && intval( $input['four_oh_four-enabled'] == 1 ) ? true : false );
+			$input['four_oh_four-check_period']    = isset( $input['four_oh_four-check_period'] ) ? absint( $input['four_oh_four-check_period'] ) : 5;
+			$input['four_oh_four-error_threshold'] = isset( $input['four_oh_four-error_threshold'] ) ? absint( $input['four_oh_four-error_threshold'] ) : 20;
+
+			if ( isset ( $input['four_oh_four-white_list'] ) ) {
+
+				$raw_paths  = explode( PHP_EOL, $input['four_oh_four-white_list'] );
+				$good_paths = array();
+
+				foreach ( $raw_paths as $path ) {
+
+					$path = sanitize_text_field( trim( $path ) );
+
+					if ( $path[0] != '/' ) {
+						$path = '/' . $path;
+					}
+
+					if ( strlen( $path ) > 1 ) {
+						$good_paths[] = $path;
+					}
+
+				}
+
+				$input['four_oh_four-white_list'] = $good_paths;
+
+			} else {
+
+				$input['four_oh_four-white_list'] = array();
+
+			}
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -337,16 +402,16 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['four_oh_four-enabled']           = ( isset( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] == 1 ) ? true : false );
-			$settings['four_oh_four-check_period']      = isset( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) : 5;
-			$settings['four_oh_four-error_threshold']      = isset( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) : 20;
+			$settings['four_oh_four-enabled']         = ( isset( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] == 1 ) ? true : false );
+			$settings['four_oh_four-check_period']    = isset( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) : 5;
+			$settings['four_oh_four-error_threshold'] = isset( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) : 20;
 
 		}
 
 		/**
 		 * Start the Intrusion Detection Admin Module
 		 *
-		 * @param Ithemes_ITSEC_Core   $core   Instance of core plugin class
+		 * @param Ithemes_ITSEC_Core $core Instance of core plugin class
 		 *
 		 * @return ITSEC_Intrusion_Detection_Admin                The instance of the ITSEC_Intrusion_Detection_Admin class
 		 */

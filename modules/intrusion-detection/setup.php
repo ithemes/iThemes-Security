@@ -45,9 +45,15 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Setup' ) ) {
 			if ( $options === false ) {
 
 				$defaults = array(
-					'four_oh_four-enabled'      => false,
-					'four_oh_four-check_period' => 5,
+					'four_oh_four-enabled'         => false,
+					'four_oh_four-check_period'    => 5,
 					'four_oh_four-error_threshold' => 20,
+					'four_oh_four-white_list'      => array(
+						'/favicon.ico',
+						'/robots.txt',
+						'/apple-touch-icon.png',
+						'/apple-touch-icon-precomposed.png',
+					),
 				);
 
 				add_site_option( 'itsec_intrusion_detection', $defaults );
