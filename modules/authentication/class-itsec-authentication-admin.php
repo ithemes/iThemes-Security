@@ -66,7 +66,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$itsec_logger->add_meta_box(
 				'authentication',
 				__( 'Invalid Login Attempts', 'ithemes-security' ),
-				array( $this, 'logs_metabox_invalid_logins' )
+				array( $this, 'logs_metabox' )
 			);
 
 		}
@@ -1061,13 +1061,17 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 *
 		 * @return void
 		 */
-		public function logs_metabox_invalid_logins() {
+		public function logs_metabox() {
 
 			require( dirname( __FILE__ ) . '/class-itsec-authentication-log-table.php' );
+
+			echo __( 'Below is the log of all the invalid login attempts in the WordPress Database. To adjust logging options visit the global settings page.', 'ithemes-security' );
 
 			$log_display = new ITSEC_Authentication_Log_Table();
 			$log_display->prepare_items();
 			$log_display->display();
+
+
 
 		}
 
