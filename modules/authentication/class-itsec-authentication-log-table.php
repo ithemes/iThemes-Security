@@ -110,14 +110,14 @@ if ( ! class_exists( 'ITSEC_Authentication_Log_Table' ) ) {
 		 */
 		public function prepare_items() {
 
-			global $wpdb;
+			global $itsec_lib;
 
 			$columns               = $this->get_columns();
 			$hidden                = array();
 			$sortable              = $this->get_sortable_columns();
 			$this->_column_headers = array( $columns, $hidden, $sortable );
 
-			$items = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "itsec_log` WHERE `log_type` = 'brute_force';", ARRAY_A );
+			$items = $itsec_lib->get_events( 'brute_force' );
 
 			$table_data = array();
 
