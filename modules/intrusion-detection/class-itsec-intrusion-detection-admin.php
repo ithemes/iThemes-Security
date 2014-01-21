@@ -186,6 +186,29 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		}
 
 		/**
+		 * echos Error Threshold Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function four_oh_four_error_threshold( $args ) {
+
+			if ( isset( $this->settings['four_oh_four-error_threshold'] ) ) {
+				$error_threshold = absint( $this->settings['four_oh_four-error_threshold'] );
+			} else {
+				$error_threshold = 20;
+			}
+
+			$content = '<input class="small-text" name="itsec_intrusion_detection[four_oh_four-error_threshold]" id="itsec_intrusion_detection_four_oh_four_error_threshold" value="' . $error_threshold . '" type="text"> ';
+			$content .= '<label for="itsec_intrusion_detection_four_oh_four_error_threshold"> ' . __( 'Errors', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The numbers of errors (within the check period time frame) that will trigger a lockout. Set to zero (0) to record 404 errors without locking out users. This can be useful for troubleshooting content or other errors. The default is 20.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * Echo the 404 Detection Header
 		 */
 		public function four_oh_four_header() {
@@ -232,6 +255,14 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 				'itsec_intrusion_detection[four_oh_four-check_period]',
 				__( 'Minutes to Remember 404 Error (Check Period)', 'ithemes-security' ),
 				array( $this, 'four_oh_four_check_period' ),
+				'security_page_toplevel_page_itsec-intrusion_detection',
+				'intrusion_detection_four_oh_four-settings'
+			);
+
+			add_settings_field(
+				'itsec_intrusion_detection[four_oh_four-error_threshold]',
+				__( 'Error Threshold', 'ithemes-security' ),
+				array( $this, 'four_oh_four_error_threshold' ),
 				'security_page_toplevel_page_itsec-intrusion_detection',
 				'intrusion_detection_four_oh_four-settings'
 			);
@@ -290,6 +321,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			//process brute force settings
 			$input['four_oh_four-enabled']           = ( isset( $input['four_oh_four-enabled'] ) && intval( $input['four_oh_four-enabled'] == 1 ) ? true : false );
 			$input['four_oh_four-check_period']      = isset( $input['four_oh_four-check_period'] ) ? absint( $input['four_oh_four-check_period'] ) : 5;
+			$input['four_oh_four-error_threshold']      = isset( $input['four_oh_four-error_threshold'] ) ? absint( $input['four_oh_four-error_threshold'] ) : 20;
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -306,6 +338,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			$settings['four_oh_four-enabled']           = ( isset( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] == 1 ) ? true : false );
 			$settings['four_oh_four-check_period']      = isset( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) : 5;
+			$settings['four_oh_four-error_threshold']      = isset( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) : 20;
 
 		}
 

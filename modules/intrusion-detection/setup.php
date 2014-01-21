@@ -47,6 +47,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Setup' ) ) {
 				$defaults = array(
 					'four_oh_four-enabled'      => false,
 					'four_oh_four-check_period' => 5,
+					'four_oh_four-error_threshold' => 20,
 				);
 
 				add_site_option( 'itsec_intrusion_detection', $defaults );
