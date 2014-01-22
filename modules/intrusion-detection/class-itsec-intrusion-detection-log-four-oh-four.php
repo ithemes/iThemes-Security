@@ -68,12 +68,13 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Log_Four_Oh_Four' ) ) {
 		 * Define uri column
 		 *
 		 * @param array $item array of row data
+		 *
 		 * @return string formatted output
 		 *
 		 **/
 		function column_uri( $item ) {
 
-			return $item['uri'];
+			return '<a href="' . $_SERVER['REQUEST_URI'] . '&itsec_404_details_uri=' . urldecode( $item['uri'] ) . '">' . $item['uri'] . '</a>';
 
 		}
 
