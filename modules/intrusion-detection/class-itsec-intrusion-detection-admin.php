@@ -157,6 +157,20 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			$link = 'admin.php?page=toplevel_page_itsec-intrusion_detection';
 
+			if ( $this->settings['four_oh_four-enabled'] === true ) {
+
+				$status_array = 'safe-medium';
+				$status       = array( 'text' => __( 'Your site is protecting against bots looking for known vulnerabilities.', 'ithemes-security' ), 'link' => $link, );
+
+			} else {
+
+				$status_array = 'medium';
+				$status       = array( 'text' => __( 'Your website is not protecting against bots looking for known vulnerabilities. Consider turning on 404 protection.', 'ithemes-security' ), 'link' => $link, );
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
 			return $statuses;
 
 		}
