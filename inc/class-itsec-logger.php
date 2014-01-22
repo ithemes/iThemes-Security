@@ -75,10 +75,11 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 		 * Gets events from the logs for a specified module
 		 *
 		 * @param string $module module or type of events to fetch
+		 * @param array  $params array of extra query parameters
 		 *
 		 * @return bool|mixed false on error, null if no events or array of events
 		 */
-		public function get_events( $module ) {
+		public function get_events( $module, $params = array() ) {
 
 			global $wpdb;
 
@@ -86,7 +87,23 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 				return false;
 			}
 
-			$items = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "itsec_log` WHERE `log_type` = '" . esc_sql( $module ) . "';", ARRAY_A );
+			$param_search = '';
+
+			if ( sizeof( $params ) > 0 ) {
+
+				foreach ( $params as $field => $value ) {
+
+					if ( gettype( $value ) != 'integer') {
+						$param_search .= " AND `" . esc_sql( $field ) . "`='" . esc_sql( $value ) . "'";
+					} else {
+						$param_search .= " AND `" . esc_sql( $field ) . "`=" . esc_sql( $value ) . "";
+					}
+
+				}
+
+			}
+
+			$items = $wpdb->get_results( "SELECT * FROM `" . $wpdb->base_prefix . "itsec_log` WHERE `log_type` = '" . esc_sql( $module ) . "'" . $param_search . ";", ARRAY_A );
 
 			return $items;
 
