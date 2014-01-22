@@ -95,7 +95,7 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 
 			$logger_modules['brute_force'] = array(
 				'type'      => 'brute_force',
-				'function' => __( 'Invalid Login Attempt', 'ithemes=security' ),
+				'function' => __( 'Invalid Login Attempt', 'ithemes-security' ),
 			);
 
 			return $logger_modules;
