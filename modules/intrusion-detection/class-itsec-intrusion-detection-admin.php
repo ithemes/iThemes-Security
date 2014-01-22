@@ -45,6 +45,8 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 */
 		public function add_admin_meta_boxes() {
 
+			global $itsec_logger;
+
 			add_meta_box(
 				'intrusion_detection_description',
 				__( 'Description', 'ithemes-security' ),
