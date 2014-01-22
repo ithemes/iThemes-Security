@@ -14,6 +14,10 @@ jQuery( document ).ready( function () {
 
 	} ).change();
 
+	if ( jQuery( 'p.noPermalinks' ).length ) {
+		jQuery( "#intrusion_detection_four_oh_four-settings" ).hide();
+	}
+
 	jQuery( '.filetree' ).fileTree({root: '../', script: 'filetree/jqueryFileTree.php'}, function(file) {
 		console.log(file);
 	});
