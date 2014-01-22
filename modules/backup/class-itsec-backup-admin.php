@@ -135,15 +135,15 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 			$link = 'admin.php?page=toplevel_page_itsec-backup';
 
-			if ( $this->settings['four_oh_four-enabled'] === true ) {
+			if ( $this->settings['enabled'] === true ) {
 
 				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'Your site is protecting against bots looking for known vulnerabilities.', 'ithemes-security' ), 'link' => $link, );
+				$status       = array( 'text' => __( 'Your site is performing scheduled database backups.', 'ithemes-security' ), 'link' => $link, );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array( 'text' => __( 'Your website is not protecting against bots looking for known vulnerabilities. Consider turning on 404 protection.', 'ithemes-security' ), 'link' => $link, );
+				$status       = array( 'text' => __( 'Your site is not performing scheduled database backups.', 'ithemes-security' ), 'link' => $link, );
 
 			}
 
@@ -157,29 +157,6 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		 * Empty callback function
 		 */
 		public function empty_callback_function() {
-		}
-
-		/**
-		 * echos Check Period Field
-		 *
-		 * @param  array $args field arguments
-		 *
-		 * @return void
-		 */
-		public function four_oh_four_check_period( $args ) {
-
-			if ( isset( $this->settings['four_oh_four-check_period'] ) ) {
-				$check_period = absint( $this->settings['four_oh_four-check_period'] );
-			} else {
-				$check_period = 5;
-			}
-
-			$content = '<input class="small-text" name="itsec_backup[four_oh_four-check_period]" id="itsec_backup_four_oh_four_check_period" value="' . $check_period . '" type="text"> ';
-			$content .= '<label for="itsec_backup_four_oh_four_check_period"> ' . __( 'Minutes', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'The number of minutes in which 404 errors should be remembered and counted towards lockouts.', 'ithemes-security' ) . '</p>';
-
-			echo $content;
-
 		}
 
 		/**
@@ -287,7 +264,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			$message = __( 'Settings Updated', 'ithemes-security' );
 
 			//process brute force settings
-			$input['enabled']         = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
+			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -302,7 +279,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['enabled']         = ( isset( $_POST['itsec_backup']['enabled'] ) && intval( $_POST['itsec_backup']['enabled'] == 1 ) ? true : false );
+			$settings['enabled'] = ( isset( $_POST['itsec_backup']['enabled'] ) && intval( $_POST['itsec_backup']['enabled'] == 1 ) ? true : false );
 
 		}
 
