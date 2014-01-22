@@ -81,12 +81,12 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 		public function metabox_normal_status() {
 
 			$statuses = array(
-				'safe-high' => array(),
-				'high' => array(),
+				'safe-high'   => array(),
+				'high'        => array(),
 				'safe-medium' => array(),
-				'medium' => array(),
-				'safe-low' => array(),
-				'low' => array(),
+				'medium'      => array(),
+				'safe-low'    => array(),
+				'low'         => array(),
 			);
 
 			$statuses = apply_filters( 'itsec_add_dashboard_status', $statuses );
@@ -441,10 +441,6 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			}
 
 		}
-
-
-
-
 
 		/**
 		 * Start the ITSEC Dashboard module
