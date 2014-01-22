@@ -16,7 +16,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Log_Table' ) ) {
 				array(
 					'singular' => 'itsec_authentication_log_item',
 					'plural'   => 'itsec_authentication_log_items',
-					'ajax'     => false
+					'ajax'     => true
 				)
 			);
 
