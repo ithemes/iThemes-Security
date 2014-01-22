@@ -259,11 +259,24 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 */
 		public function four_oh_four_logs_metabox() {
 
-			require( dirname( __FILE__ ) . '/class-itsec-intrusion-detection-log-four-oh-four.php' );
+			if ( isset( $_GET['itsec_404_details_uri'] ) ) {
 
-			echo __( 'Below is the log of all the 404 errors on your WordPress site. To adjust logging options visit the global settings page.', 'ithemes-security' );
+				require( dirname( __FILE__ ) . '/class-itsec-intrusion-detection-log-four-oh-four-detail.php' );
 
-			$log_display = new ITSEC_Intrusion_Detection_Log_Four_Oh_Four();
+				echo __( 'Below is the log of all the 404 errors on your WordPress site. To adjust logging options visit the global settings page.', 'ithemes-security' );
+
+				$log_display = new ITSEC_Intrusion_Detection_Log_Four_Oh_Four();
+
+			} else {
+
+				require( dirname( __FILE__ ) . '/class-itsec-intrusion-detection-log-four-oh-four.php' );
+
+				echo __( 'Below is the log of all the 404 errors on your WordPress site. To adjust logging options visit the global settings page.', 'ithemes-security' );
+
+				$log_display = new ITSEC_Intrusion_Detection_Log_Four_Oh_Four();
+
+			}
+
 			$log_display->prepare_items();
 			$log_display->display();
 
