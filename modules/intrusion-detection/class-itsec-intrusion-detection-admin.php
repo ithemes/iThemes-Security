@@ -63,6 +63,17 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 				'core'
 			);
 
+			//Don't attempt to display logs if brute force isn't enabled
+			if ( isset( $this->settings['four_oh_four-enabled'] ) && $this->settings['four_oh_four-enabled'] === true ) {
+
+				$itsec_logger->add_meta_box(
+					'intrusion_detection',
+					__( '404 Errors Found', 'ithemes-security' ),
+					array( $this, 'four_oh_four_logs_metabox' )
+				);
+
+			}
+
 		}
 
 		/**
@@ -236,6 +247,25 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			$content .= '<p>' . __( '404 detection looks at a user who is hitting a large number of non-existent pages, that is they are getting a large number of 404 errors. It assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly (you can set the thresholds for this below). This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site as all errors will be logged in the "View Logs" page. You can set threshholds for this feature below.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
+
+		}
+
+		/**
+		 * Render the settings metabox
+		 *
+		 * @return void
+		 */
+		public function four_oh_four_logs_metabox() {
+
+			require( dirname( __FILE__ ) . '/class-itsec-intrusion-detection-log-four-oh-four.php' );
+
+			echo __( 'Below is the log of all the 404 errors on your WordPress site. To adjust logging options visit the global settings page.', 'ithemes-security' );
+
+			$log_display = new ITSEC_Intrusion_Detection_Log_Four_Oh_Four();
+			$log_display->prepare_items();
+			$log_display->display();
+
+
 
 		}
 

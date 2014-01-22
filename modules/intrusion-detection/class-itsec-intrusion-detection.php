@@ -33,7 +33,9 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 					$itsec_logger->log_event(
 						'four_oh_four',
 						3,
-						array(),
+						array(
+							'query_string' => esc_sql( $uri[1] ),
+						),
 						$itsec_lib->get_ip(),
 						'',
 						'',
