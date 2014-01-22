@@ -6,7 +6,12 @@ if ( ! class_exists( 'ITSEC_SSL_Admin' ) ) {
 
 		private static $instance = null;
 
-		private $settings, $core, $module, $page, $ssl_support, $has_ssl;
+		private
+			$settings,
+			$core,
+			$module,
+			$page,
+			$has_ssl;
 
 		private function __construct( $core, $module ) {
 
