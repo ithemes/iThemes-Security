@@ -132,16 +132,32 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 
 			$itsec_setup_action = 'activate';
 
+			//make sure directories are present and they are not remotely accessible
 			if ( ! is_dir( $itsec_globals['ithemes_dir'] ) ) {
+
 				@mkdir( $itsec_globals['ithemes_dir'] );
+				$handle = @fopen( $itsec_globals['ithemes_dir'] . '/.htaccess', 'w+' );
+				@fwrite( $handle, 'Deny from all' );
+				@fclose( $handle );
+
 			}
 
 			if ( ! is_dir( $itsec_globals['ithemes_log_dir'] ) ) {
+
 				@mkdir( $itsec_globals['ithemes_log_dir'] );
+				$handle = @fopen( $itsec_globals['ithemes_log_dir'] . '/.htaccess', 'w+' );
+				@fwrite( $handle, 'Deny from all' );
+				@fclose( $handle );
+
 			}
 
 			if ( ! is_dir( $itsec_globals['ithemes_backup_dir'] ) ) {
+
 				@mkdir( $itsec_globals['ithemes_backup_dir'] );
+				$handle = @fopen( $itsec_globals['ithemes_backup_dir'] . '/.htaccess', 'w+' );
+				@fwrite( $handle, 'Deny from all' );
+				@fclose( $handle );
+
 			}
 
 			//if this is multisite make sure they're network activating or die
