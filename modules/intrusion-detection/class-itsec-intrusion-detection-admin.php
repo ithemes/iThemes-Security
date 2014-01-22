@@ -154,6 +154,11 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 * @return void
 		 */
 		public function dashboard_status( $statuses ) {
+
+			$link = 'admin.php?page=toplevel_page_itsec-intrusion_detection';
+
+			return $statuses;
+
 		}
 
 		/**
@@ -263,7 +268,12 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 				require( dirname( __FILE__ ) . '/class-itsec-intrusion-detection-log-four-oh-four-detail.php' );
 
-				echo __( 'Below is the log of all the 404 errors on your WordPress site. To adjust logging options visit the global settings page.', 'ithemes-security' );
+				printf( '%s <strong>%s</strong>. <a href="%s">%s</a>',
+					__( ' Below is the detailed error report for', 'ithemes-security' ),
+					sanitize_text_field( $_GET['itsec_404_details_uri'] ),
+					'admin.php?page=toplevel_page_itsec-intrusion_detection',
+					__( 'Click here to return to the 404 summary', 'ithemes-security' )
+				);
 
 				$log_display = new ITSEC_Intrusion_Detection_Log_Four_Oh_Four();
 
@@ -271,7 +281,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 				require( dirname( __FILE__ ) . '/class-itsec-intrusion-detection-log-four-oh-four.php' );
 
-				echo __( 'Below is the log of all the 404 errors on your WordPress site. To adjust logging options visit the global settings page.', 'ithemes-security' );
+				echo __( 'Below is a summary log of all the 404 errors on your WordPress site. To get details on a particular item click the title. To adjust logging options visit the global settings page.', 'ithemes-security' );
 
 				$log_display = new ITSEC_Intrusion_Detection_Log_Four_Oh_Four();
 
