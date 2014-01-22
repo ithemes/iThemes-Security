@@ -123,7 +123,7 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 					$sanitized_data[esc_sql( $key )] = esc_sql( $value );
 
-					$file_data .= esc_sql( $key ) . '=' . esq_sql( $value );
+					$file_data .= esc_sql( $key ) . '=' . esc_sql( $value );
 				}
 
 				if ( $this->settings['log_type'] === 0 || $this->settings['log_type'] == 2 ) {
