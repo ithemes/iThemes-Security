@@ -22,7 +22,28 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 
 		public function check_404() {
 
+			global $itsec_lib, $itsec_logger, $itsec_lockout;
+
 			if ( $this->settings['four_oh_four-enabled'] === true && is_404() ) {
+
+				$uri = explode( '?', $_SERVER['REQUEST_URI'] );
+
+				if ( in_array( $uri[0], $this->settings['four_oh_four-white_list'] ) === false ) {
+
+					$itsec_logger->log_event(
+						'four_oh_four',
+						3,
+						array(),
+						$itsec_lib->get_ip(),
+						'',
+						'',
+						esc_sql( $uri[0] ),
+						isset( $_SERVER['HTTP_REFERER'] ) ? esq_sql( $_SERVER['HTTP_REFERER'] ) : ''
+					);
+
+					$itsec_lockout->do_lockout( 'four_oh_four' );
+
+				}
 
 			}
 
