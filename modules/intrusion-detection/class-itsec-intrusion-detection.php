@@ -15,6 +15,19 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 
 			add_filter( 'itsec_lockout_modules', array( $this, 'register_lockout' ) );
 			add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
+
+			add_action( 'wp_head', array( $this,'check_404' ) );
+
+		}
+
+		public function check_404() {
+
+			if ( $this->settings['four_oh_four-enabled'] === true && is_404() ) {
+
+			}
+
+		}
+
 		/**
 		 * Register 404 detection for lockout
 		 *
