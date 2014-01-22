@@ -51,29 +51,6 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Log_Four_Oh_Four' ) ) {
 		}
 
 		/**
-		 * Define host column
-		 *
-		 * @param array $item array of row data
-		 *
-		 * @return string formatted output
-		 *
-		 **/
-		function column_host( $item ) {
-
-			$r = array();
-			if ( ! is_array( $item['host'] ) ) {
-				$item['host'] = array( $item['host'] );
-			}
-			foreach ( $item['host'] as $host ) {
-				$r[] = '<a href="http://ip-adress.com/ip_tracer/' . filter_var( $host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) . '" target="_blank">' . filter_var( $host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) . '</a>';
-			}
-			$return = implode( '<br />', $r );
-
-			return $return;
-
-		}
-
-		/**
 		 * Define count column
 		 *
 		 * @param array $item array of row data
@@ -112,7 +89,6 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Log_Four_Oh_Four' ) ) {
 				'count'      => __( 'Count', 'ithemes-security' ),
 				'first_time' => __( 'First Recorded', 'ithemes-security' ),
 				'last_time'  => __( 'Last Recorded', 'ithemes-security' ),
-				'host'       => __( 'Hosts', 'ithemes-security' ),
 			);
 
 		}
@@ -164,16 +140,11 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Log_Four_Oh_Four' ) ) {
 					$table_data[$item['log_url']]['first_time'] = strtotime( $table_data[$item['log_url']]['first_time'] ) < strtotime( $item['log_date'] ) ? $table_data[$item['log_url']]['first_time'] : $item['log_date'];
 					$table_data[$item['log_url']]['uri'] = $item['log_url'];
 
-					if ( ! in_array( $item['log_host'], $table_data[$item['log_url']]['host'] ) ) {
-						$table_data[$item['log_url']]['host'][] = $item['log_host'];
-					}
-
 				} else {
 
 					$table_data[$item['log_url']]['count'] = 1;
 					$table_data[$item['log_url']]['last_time'] = $item['log_date'];
 					$table_data[$item['log_url']]['first_time'] = $item['log_date'];
-					$table_data[$item['log_url']]['host'] = array( $item['log_host'] );
 					$table_data[$item['log_url']]['uri'] = $item['log_url'];
 
 				}
