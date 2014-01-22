@@ -136,17 +136,17 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Log_Four_Oh_Four' ) ) {
 
 				if ( isset( $table_data[$item['log_url']] ) ) {
 
-					$table_data[$item['log_url']]['count'] = $table_data[$item['log_url']]['count'] + 1;
-					$table_data[$item['log_url']]['last_time'] = strtotime( $table_data[$item['log_url']]['last_time'] ) > strtotime( $item['log_date'] ) ? $table_data[$item['log_url']]['last_time'] : $item['log_date'];
-					$table_data[$item['log_url']]['first_time'] = strtotime( $table_data[$item['log_url']]['first_time'] ) < strtotime( $item['log_date'] ) ? $table_data[$item['log_url']]['first_time'] : $item['log_date'];
-					$table_data[$item['log_url']]['uri'] = $item['log_url'];
+					$table_data[$item['log_url']]['count']      = $table_data[$item['log_url']]['count'] + 1;
+					$table_data[$item['log_url']]['last_time']  = strtotime( $table_data[$item['log_url']]['last_time'] ) > strtotime( $item['log_date'] ) ? $table_data[$item['log_url']]['last_time'] : sanitize_text_field( $item['log_date'] );
+					$table_data[$item['log_url']]['first_time'] = strtotime( $table_data[$item['log_url']]['first_time'] ) < strtotime( $item['log_date'] ) ? $table_data[$item['log_url']]['first_time'] : sanitize_text_field( $item['log_date'] );
+					$table_data[$item['log_url']]['uri']        = sanitize_text_field( $item['log_url'] );
 
 				} else {
 
-					$table_data[$item['log_url']]['count'] = 1;
-					$table_data[$item['log_url']]['last_time'] = $item['log_date'];
-					$table_data[$item['log_url']]['first_time'] = $item['log_date'];
-					$table_data[$item['log_url']]['uri'] = $item['log_url'];
+					$table_data[$item['log_url']]['count']      = 1;
+					$table_data[$item['log_url']]['last_time']  = sanitize_text_field( $item['log_date'] );
+					$table_data[$item['log_url']]['first_time'] = sanitize_text_field( $item['log_date'] );
+					$table_data[$item['log_url']]['uri']        = sanitize_text_field( $item['log_url'] );
 
 				}
 
