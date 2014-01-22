@@ -100,7 +100,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 			$lock_user = null;
 			$options   = $this->lockout_modules[$module];
 
-			if ( isset( $options['host'] ) ) {
+			if ( isset( $options['host'] ) && $options['host'] > 0 ) {
 
 				$host = $itsec_lib->get_ip();
 
@@ -130,7 +130,7 @@ if ( ! class_exists( 'ITSEC_Lockout' ) ) {
 
 			}
 
-			if ( $user !== null && isset( $options['user'] ) ) {
+			if ( $user !== null && isset( $options['user'] ) && $options['user'] > 0 ) {
 
 				$user_id = username_exists( sanitize_text_field( $user ) );
 
