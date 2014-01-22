@@ -125,9 +125,9 @@ if ( ! class_exists( 'ITSEC_Authentication_Log_Table' ) ) {
 
 			foreach ( $items as $item ) { //loop through and group 404s
 
-				$table_data[$count]['time'] = $item['log_date'];
-				$table_data[$count]['host'] = $item['log_host'];
-				$table_data[$count]['user'] = $item['log_username'];
+				$table_data[$count]['time'] = sanitize_text_field( $item['log_date'] );
+				$table_data[$count]['host'] = sanitize_text_field( $item['log_host'] );
+				$table_data[$count]['user'] = sanitize_text_field( $item['log_username'] );
 
 				$count ++;
 
