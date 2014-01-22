@@ -140,6 +140,10 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 				@mkdir( $itsec_globals['ithemes_log_dir'] );
 			}
 
+			if ( ! is_dir( $itsec_globals['ithemes_backup_dir'] ) ) {
+				@mkdir( $itsec_globals['ithemes_backup_dir'] );
+			}
+
 			//if this is multisite make sure they're network activating or die
 			if ( defined( 'ITSEC_DO_ACTIVATION' ) && ITSEC_DO_ACTIVATION == true && is_multisite() && ! strpos( $_SERVER['REQUEST_URI'], 'wp-admin/network/plugins.php' ) ) {
 
