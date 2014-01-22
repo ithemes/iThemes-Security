@@ -496,7 +496,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			$content = '<input class="small-text" name="itsec_authentication[brute_force-max_attempts_host]" id="itsec_authentication_brute_force_max_attempts_host" value="' . $max_attempts_host . '" type="text"> ';
 			$content .= '<label for="itsec_authentication_brute_force_max_attempts_host"> ' . __( 'Attempts', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their host or computer is locked out of the system.', 'ithemes-security' ) . '</p>';
+			$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their host or computer is locked out of the system. Set to 0 to record bad login attempts without locking out the host.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -519,7 +519,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			$content = '<input class="small-text" name="itsec_authentication[brute_force-max_attempts_user]" id="itsec_authentication_brute_force_max_attempts_user" value="' . $max_attempts_user . '" type="text"> ';
 			$content .= '<label for="itsec_authentication_brute_force_max_attempts_user"> ' . __( 'Attempts', 'ithemes-security' ) . '</label>';
-			$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself.', 'ithemes-security' ) . '</p>';
+			$content .= '<p class="description"> ' . __( 'The number of login attempts a user has before their username is locked out of the system. Note that this is different from hosts in case an attacker is using multiple computers. In addition, if they are using your login name you could be locked out yourself. Set to zero to log bad login attempts per user without ever locking the user out (this is not recommended)', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
