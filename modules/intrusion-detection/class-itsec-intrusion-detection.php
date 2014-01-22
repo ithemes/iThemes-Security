@@ -11,7 +11,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 
 		private function __construct() {
 
-			$this->settings  = get_site_option( 'itsec_intrusion-detection' );
+			$this->settings  = get_site_option( 'itsec_intrusion_detection' );
 
 			add_filter( 'itsec_lockout_modules', array( $this, 'register_lockout' ) );
 			add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
