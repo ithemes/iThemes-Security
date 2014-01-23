@@ -134,15 +134,21 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 			$link = 'admin.php?page=toplevel_page_itsec-backup';
 
-			if ( $this->settings['enabled'] === true ) {
+			if ( class_exists( 'backupbuddy_api0' ) && sizeof( backupbuddy_api0::getSchedules() ) >= 1 ) {
 
-				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'Your site is performing scheduled database backups.', 'ithemes-security' ), 'link' => $link, );
+				$status_array = 'medium';
+				$status       = array( 'text' => __( 'Your site is performing scheduled database and file backups.', 'ithemes-security' ), 'link' => $link, );
+
+
+			} elseif ( $this->settings['enabled'] === true ) {
+
+				$status_array = 'medium';
+				$status       = array( 'text' => __( 'Your site is performing scheduled database backups but is not backing up files. Consider purchasing or scheduling BackupBuddy to protect your investment.', 'ithemes-security' ), 'link' => $link, );
 
 			} else {
 
-				$status_array = 'medium';
-				$status       = array( 'text' => __( 'Your site is not performing scheduled database backups.', 'ithemes-security' ), 'link' => $link, );
+				$status_array = 'high';
+				$status       = array( 'text' => __( 'Your site is not performing any scheduled backups.', 'ithemes-security' ), 'link' => $link, );
 
 			}
 
