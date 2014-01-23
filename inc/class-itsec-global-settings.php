@@ -127,8 +127,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$emails = '';
 			}
 
-			$content = '<input type="text" class="regular-text" id="itsec_global_backup_email" name="itsec_global[backup_email]" value="' . $emails . '" /><br>';
-			$content .= '<label for="itsec_global_backup_email"> ' . __( 'The email address all database backups will be sent to.', 'ithemes-security' ) . '</label>';
+			$content = '<textarea id="itsec_global_backup_email" name="itsec_global[backup_email]">' . $emails . '</textarea><br>';
+			$content .= '<label for="itsec_global_backup_email"> ' . __( 'The email address(es) all database backups will be sent to. One address per line.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -564,8 +564,8 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				$emails = '';
 			}
 
-			$content = '<input type="text" class="regular-text" id="itsec_global_notification_email" name="itsec_global[notification_email]" value="' . $emails . '" /><br>';
-			$content .= '<label for="itsec_global_notification_email"> ' . __( 'The email address all security notifications will be sent to.', 'ithemes-security' ) . '</label>';
+			$content = '<textarea id="itsec_global_notification_email" name="itsec_global[notification_email]">' . $emails . '</textarea><br>';
+			$content .= '<label for="itsec_global_notification_email"> ' . __( 'The email address(es) all security notifications will be sent to. One address per line.', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
