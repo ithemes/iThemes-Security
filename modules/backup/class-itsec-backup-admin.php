@@ -212,12 +212,43 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				'backup-enabled'
 			);
 
+			add_settings_field(
+				'itsec_backup[interval]',
+				__( 'Backup Interval', 'ithemes-security' ),
+				array( $this, 'interval' ),
+				'security_page_toplevel_page_itsec-backup',
+				'backup-settings'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_itsec-backup',
 				'itsec_backup',
 				array( $this, 'sanitize_module_input' )
 			);
+
+		}
+
+		/**
+		 * echos Backup Interval Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function interval( $args ) {
+
+			if ( isset( $this->settings['interval'] ) ) {
+				$interval = absint( $this->settings['interval'] );
+			} else {
+				$interval = 3;
+			}
+
+			$content = '<input class="small-text" name="itsec_backup[interval]" id="itsec_backup_interval" value="' . $interval . '" type="text"> ';
+			$content .= '<label for="itsec_backup_interval"> ' . __( 'Days', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'The number of days between database backups.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
 
 		}
 
@@ -263,8 +294,8 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'ithemes-security' );
 
-			//process brute force settings
 			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
+			$input['interval']      = isset( $input['interval'] ) ? absint( $input['interval'] ) : 3;
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -280,6 +311,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		public function save_network_options() {
 
 			$settings['enabled'] = ( isset( $_POST['itsec_backup']['enabled'] ) && intval( $_POST['itsec_backup']['enabled'] == 1 ) ? true : false );
+			$settings['interval'] = isset( $_POST['itsec_backup']['interval'] ) ? absint( $_POST['itsec_backup']['interval'] ) : 3;
 
 		}
 
