@@ -112,6 +112,29 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		}
 
 		/**
+		 * echos Backup email Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function backup_email( $args ) {
+
+			if ( isset( $this->settings['backup_email'] ) && is_array( $this->settings['backup_email'] ) ) {
+				$emails = implode( PHP_EOL, $this->settings['backup_email'] );
+				$emails = sanitize_text_field( $emails );
+			} else {
+				$emails = '';
+			}
+
+			$content = '<input type="text" class="regular-text" id="itsec_global_backup_email" name="itsec_global[backup_email]" value="' . $emails . '" /><br>';
+			$content .= '<label for="itsec_global_backup_email"> ' . __( 'The email address all database backups will be sent to.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * echos Blacklist Field
 		 *
 		 * @param  array $args field arguments
@@ -231,6 +254,14 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				'itsec_global[notification_email]',
 				__( 'Notification Email', 'ithemes-security' ),
 				array( $this, 'notification_email' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
+			add_settings_field(
+				'itsec_global[backup_email]',
+				__( 'Backup Email', 'ithemes-security' ),
+				array( $this, 'backup_email' ),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -551,6 +582,29 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 			global $itsec_globals, $itsec_lib;
 
+			if ( isset( $input['backup_email'] ) ) {
+
+				$bad_emails = array();
+				$emails     = explode( PHP_EOL, $input['backup_email'] );
+
+				foreach ( $emails as $email ) {
+
+					if ( is_email( trim( $email ) ) === false ) {
+						$bad_emails[] = $email;
+					}
+
+				}
+
+				if ( sizeof( $bad_emails ) > 0 ) {
+
+					$bad_addresses = implode( ', ', $bad_emails );
+					$type          = 'error';
+					$message       = __( 'The following backup email address(es) do not appear to be valid: ', 'ithemes-security' ) . $bad_addresses;
+				}
+
+				$input['backup_email'] = $emails;
+			}
+
 			if ( isset( $input['notification_email'] ) ) {
 
 				$bad_emails = array();
@@ -568,7 +622,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 					$bad_addresses = implode( ', ', $bad_emails );
 					$type          = 'error';
-					$message       = __( 'The following email address(es) do not appear to be valid: ', 'ithemes-security' ) . $bad_addresses;
+					$message       = __( 'The following notification email address(es) do not appear to be valid: ', 'ithemes-security' ) . $bad_addresses;
 				}
 
 				$input['notification_email'] = $emails;
@@ -664,6 +718,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 */
 		public function save_network_options() {
 
+			$settings['backup_email']   = isset( $_POST['itsec_global']['backup_email'] ) ? sanitize_text_field( $_POST['itsec_global']['backup_email'] ) : '';
 			$settings['notification_email']   = isset( $_POST['itsec_global']['notification_email'] ) ? sanitize_text_field( $_POST['itsec_global']['notification_email'] ) : '';
 			$settings['lockout_message']      = isset( $_POST['itsec_global']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_global']['lockout_message'] ) : __( 'error', 'ithemes-security' );
 			$settings['user_lockout_message'] = isset( $_POST['itsec_global']['user_lockout_message'] ) ? sanitize_text_field( $_POST['itsec_global']['user_lockout_message'] ) : __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
