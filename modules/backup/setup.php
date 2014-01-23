@@ -47,6 +47,7 @@ if ( ! class_exists( 'ITSEC_Backup_Setup' ) ) {
 				$defaults = array(
 					'enabled'  => false,
 					'interval' => 3,
+					'method'   => 3,
 				);
 
 				add_site_option( 'itsec_backup', $defaults );

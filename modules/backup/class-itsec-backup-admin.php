@@ -219,6 +219,14 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				'backup-settings'
 			);
 
+			add_settings_field(
+				'itsec_backup[method]',
+				__( 'Backup Method', 'ithemes-security' ),
+				array( $this, 'method' ),
+				'security_page_toplevel_page_itsec-backup',
+				'backup-settings'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_itsec-backup',
@@ -282,6 +290,32 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		}
 
 		/**
+		 * echos method Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function method( $args ) {
+
+			if ( isset( $this->settings['method'] ) ) {
+				$method = $this->settings['method'];
+			} else {
+				$method = 0;
+			}
+
+			echo '<select id="itsec_backup_method" name="itsec_backup[method]">';
+
+			echo '<option value="0" ' . selected( $method, '0' ) . '>' . __( 'Save Locally and Email', 'ithemes-security' ) . '</option>';
+			echo '<option value="1" ' . selected( $method, '1' ) . '>' . __( 'Email Only', 'ithemes-security' ) . '</option>';
+			echo '<option value="2" ' . selected( $method, '2' ) . '>' . __( 'Save Locally Only', 'ithemes-security' ) . '</option>';
+			echo '</select><br />';
+			echo '<label for="itsec_backup_method"> ' . __( 'Backup Save Method', 'ithemes-security' ) . '</label>';
+			echo '<p class="description">' . __( 'Select what iThemes Security should do with your backup file. You can have it emailed to you, saved locally or both.' ) . '</p>';
+
+		}
+
+		/**
 		 * Sanitize and validate input
 		 *
 		 * @param  Array $input array of input fields
@@ -295,6 +329,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
 			$input['interval']      = isset( $input['interval'] ) ? absint( $input['interval'] ) : 3;
+			$input['method'] = isset( $input['method'] ) ? intval( $input['method'] ) : 0;
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -311,6 +346,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 			$settings['enabled'] = ( isset( $_POST['itsec_backup']['enabled'] ) && intval( $_POST['itsec_backup']['enabled'] == 1 ) ? true : false );
 			$settings['interval'] = isset( $_POST['itsec_backup']['interval'] ) ? absint( $_POST['itsec_backup']['interval'] ) : 3;
+			$settings['method'] = isset( $_POST['itsec_backup']['method'] ) ? intval( $_POST['itsec_backup']['method'] ) : 0;
 
 		}
 
