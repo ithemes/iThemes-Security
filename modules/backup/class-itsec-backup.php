@@ -11,7 +11,21 @@ if ( ! class_exists( 'ITSEC_Backup' ) ) {
 
 		private function __construct() {
 
+			global $itsec_globals;
+
 			$this->settings  = get_site_option( 'itsec_backup' );
+
+			if ( $this->settings['enabled'] === true && ( ( $itsec_globals->itsec_current_time - $this->settings['interval'] * 24 * 60 * 60 ) ) > $this->settings['last_run'] ) {
+
+				$this->do_backup();
+
+			}
+
+		}
+
+		private function do_backup() {
+
+			
 
 		}
 
