@@ -40,6 +40,8 @@ if ( ! class_exists( 'ITSEC_Backup_Setup' ) ) {
 		 */
 		function execute_activate() {
 
+			global $itsec_globals;
+
 			$options = get_site_option( 'itsec_backup' );
 
 			if ( $options === false ) {
@@ -48,6 +50,7 @@ if ( ! class_exists( 'ITSEC_Backup_Setup' ) ) {
 					'enabled'  => false,
 					'interval' => 3,
 					'method'   => 3,
+					'location' => $itsec_globals['ithemes_backup_dir'],
 				);
 
 				add_site_option( 'itsec_backup', $defaults );

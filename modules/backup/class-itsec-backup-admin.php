@@ -227,6 +227,14 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				'backup-settings'
 			);
 
+			add_settings_field(
+				'itsec_backup[location]',
+				__( 'Backup Location', 'ithemes-security' ),
+				array( $this, 'location' ),
+				'security_page_toplevel_page_itsec-backup',
+				'backup-settings'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_itsec-backup',
@@ -254,6 +262,31 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			$content = '<input class="small-text" name="itsec_backup[interval]" id="itsec_backup_interval" value="' . $interval . '" type="text"> ';
 			$content .= '<label for="itsec_backup_interval"> ' . __( 'Days', 'ithemes-security' ) . '</label>';
 			$content .= '<p class="description"> ' . __( 'The number of days between database backups.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Backup Location Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function location( $args ) {
+
+			global $itsec_globals;
+
+			if ( isset( $this->settings['location'] ) ) {
+				$location = sanitize_text_field( $this->settings['location'] );
+			} else {
+				$location = $itsec_globals['ithemes_backup_dir'];
+			}
+
+			$content = '<input class="large-text" name="itsec_backup[location]" id="itsec_backup_location" value="' . $location . '" type="text">';
+			$content .= '<label for="itsec_backup_location"> ' . __( 'The path on your machine where backup files should be stored.', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'This path must be writable by your website. For added security it is recommended you do not include it in your website root folder.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -327,9 +360,24 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'ithemes-security' );
 
-			$input['enabled'] = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
-			$input['interval']      = isset( $input['interval'] ) ? absint( $input['interval'] ) : 3;
-			$input['method'] = isset( $input['method'] ) ? intval( $input['method'] ) : 0;
+			$input['enabled']  = ( isset( $input['enabled'] ) && intval( $input['enabled'] == 1 ) ? true : false );
+			$input['interval'] = isset( $input['interval'] ) ? absint( $input['interval'] ) : 3;
+			$input['method']   = isset( $input['method'] ) ? intval( $input['method'] ) : 0;
+			$input['location'] = isset( $input['location'] ) ? sanitize_text_field( $input['location'] ) : $itsec_globals['location'];
+
+			if ( $input['location'] != $itsec_globals['ithemes_backup_dir'] ) {
+				$good_path = $itsec_lib->validate_path( $input['location'] );
+			} else {
+				$good_path = true;
+			}
+
+			if ( $good_path !== true ) {
+
+				$type            = 'error';
+				$message         = __( 'The file path entered does not appear to be valid. Please ensure it exists and that WordPress can write to it. ', 'ithemes-security' );
+				$input['method'] = 2;
+
+			}
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -344,9 +392,10 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['enabled'] = ( isset( $_POST['itsec_backup']['enabled'] ) && intval( $_POST['itsec_backup']['enabled'] == 1 ) ? true : false );
+			$settings['enabled']  = ( isset( $_POST['itsec_backup']['enabled'] ) && intval( $_POST['itsec_backup']['enabled'] == 1 ) ? true : false );
 			$settings['interval'] = isset( $_POST['itsec_backup']['interval'] ) ? absint( $_POST['itsec_backup']['interval'] ) : 3;
-			$settings['method'] = isset( $_POST['itsec_backup']['method'] ) ? intval( $_POST['itsec_backup']['method'] ) : 0;
+			$settings['method']   = isset( $_POST['itsec_backup']['method'] ) ? intval( $_POST['itsec_backup']['method'] ) : 0;
+			$settings['location'] = sanitize_text_field( $_POST['itsec_backup']['location'] );
 
 		}
 
