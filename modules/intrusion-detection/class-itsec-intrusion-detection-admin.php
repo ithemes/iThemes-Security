@@ -202,6 +202,30 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		}
 
 		/**
+		 * echos Email File Change Notifications Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function file_change_email( $args ) {
+
+			if ( isset( $this->settings['file_change-email'] ) && $this->settings['file_change-email'] === false ) {
+				$email = 0;
+			} else {
+				$email = 1;
+			}
+
+			$content = '<input type="checkbox" id="itsec_intrusion_detection_file_change_email" name="itsec_intrusion_detection[file_change-email]" value="1" ' . checked( 1, $email, false ) . '/>';
+			$content .= '<label for="itsec_intrusion_detection_file_change_email"> ' . __( 'Email file change notifications.', 'ithemes-security' ) . '</label>';
+			$content .= '<p>' . __( 'If checked a notification will be sent to all emails set to receive notifications on the global settings page.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+
+		/**
 		 * echos Enable File Change Detection Field
 		 *
 		 * @param  array $args field arguments
@@ -545,6 +569,14 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 				'intrusion_detection_file_change-settings'
 			);
 
+			add_settings_field(
+				'itsec_intrusion_detection[file_change-email]',
+				__( 'Email File Change Notifications', 'ithemes-security' ),
+				array( $this, 'file_change_email' ),
+				'security_page_toplevel_page_itsec-intrusion_detection',
+				'intrusion_detection_file_change-settings'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_itsec-intrusion_detection',
@@ -631,6 +663,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			//File Change Detection Fields
 			$input['file_change-enabled']         = ( isset( $input['file_change-enabled'] ) && intval( $input['file_change-enabled'] == 1 ) ? true : false );
 			$input['file_change-method']         = ( isset( $input['file_change-method'] ) && intval( $input['file_change-method'] == 1 ) ? true : false );
+			$input['file_change-email']         = ( isset( $input['file_change-email'] ) && intval( $input['file_change-email'] == 1 ) ? true : false );
 
 			$file_list = explode( PHP_EOL, $input['file_change-list'] );
 
@@ -673,13 +706,15 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			$settings['four_oh_four-error_threshold'] = isset( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) : 20;
 			$settings['file_change-enabled']         = ( isset( $_POST['itsec_intrusion_detection']['file_change-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['file_change-enabled'] == 1 ) ? true : false );
 			$settings['file_change-method']         = ( isset( $_POST['itsec_intrusion_detection']['file_change-method'] ) && intval( $_POST['itsec_intrusion_detection']['file_change-method'] == 1 ) ? true : false );
+			$settings['four_oh_four-email']         = ( isset( $_POST['itsec_intrusion_detection']['four_oh_four-email'] ) && intval( $_POST['itsec_intrusion_detection']['four_oh_four-email'] == 1 ) ? true : false );
 
 		}
 
 		/**
 		 * Start the Intrusion Detection Admin Module
 		 *
-		 * @param Ithemes_ITSEC_Core $core Instance of core plugin class
+		 * @param Ithemes_ITSEC_Core        $core Instance of core plugin class
+		 * @param ITSEC_Intrusion_Detection $core Instance of plugin module class
 		 *
 		 * @return ITSEC_Intrusion_Detection_Admin                The instance of the ITSEC_Intrusion_Detection_Admin class
 		 */

@@ -62,6 +62,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Setup' ) ) {
 						'.jpeg',
 						'.png',
 					),
+					'file_change-email'            => true,
 				);
 
 				add_site_option( 'itsec_intrusion_detection', $defaults );
