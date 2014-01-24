@@ -246,6 +246,31 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		}
 
 		/**
+		 * echos method Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function file_change_method( $args ) {
+
+			if ( isset( $this->settings['file_change-method'] ) ) {
+				$method = $this->settings['file_change-method'];
+			} else {
+				$method = 1;
+			}
+
+			echo '<select id="itsec_intrusion_detection_file_change_method" name="itsec_intrusion_detection[file_change-method]">';
+
+			echo '<option value="1" ' . selected( $method, '1' ) . '>' . __( 'Exclude Selected', 'ithemes-security' ) . '</option>';
+			echo '<option value="0" ' . selected( $method, '0' ) . '>' . __( 'Include Selected', 'ithemes-security' ) . '</option>';
+			echo '</select><br />';
+			echo '<label for="itsec_intrusion_detection_file_change_method"> ' . __( 'Include/Exclude Files', 'ithemes-security' ) . '</label>';
+			echo '<p class="description">' . __( 'Select what iThemes Security should exclude files and folders selected or whether the scan should only include files and folders selected.' ) . '</p>';
+
+		}
+
+		/**
 		 * echos Check Period Field
 		 *
 		 * @param  array $args field arguments
@@ -473,8 +498,16 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			);
 
 			add_settings_field(
-				'itsec_intrusion_detection[file_change-list]',
+				'itsec_intrusion_detection[file_change-method]',
 				__( 'Include/Exclude Files and Folders', 'ithemes-security' ),
+				array( $this, 'file_change_method' ),
+				'security_page_toplevel_page_itsec-intrusion_detection',
+				'intrusion_detection_file_change-settings'
+			);
+
+			add_settings_field(
+				'itsec_intrusion_detection[file_change-list]',
+				__( 'Files and Folders List', 'ithemes-security' ),
 				array( $this, 'file_change_list' ),
 				'security_page_toplevel_page_itsec-intrusion_detection',
 				'intrusion_detection_file_change-settings'
@@ -565,6 +598,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			//File Change Detection Fields
 			$input['file_change-enabled']         = ( isset( $input['file_change-enabled'] ) && intval( $input['file_change-enabled'] == 1 ) ? true : false );
+			$input['file_change-method']         = ( isset( $input['file_change-method'] ) && intval( $input['file_change-method'] == 1 ) ? true : false );
 
 			$file_list = explode( PHP_EOL, $input['file_change-list'] );
 
@@ -593,6 +627,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			$settings['four_oh_four-check_period']    = isset( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) : 5;
 			$settings['four_oh_four-error_threshold'] = isset( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) : 20;
 			$settings['file_change-enabled']         = ( isset( $_POST['itsec_intrusion_detection']['file_change-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['file_change-enabled'] == 1 ) ? true : false );
+			$settings['file_change-method']         = ( isset( $_POST['itsec_intrusion_detection']['file_change-method'] ) && intval( $_POST['itsec_intrusion_detection']['file_change-method'] == 1 ) ? true : false );
 
 		}
 
