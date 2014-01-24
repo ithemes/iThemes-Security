@@ -216,6 +216,20 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 			global $itsec_globals, $wpdb;
 
+			$ignored_tables = array(
+				'commentmeta',
+				'comments',
+				'links',
+				'options',
+				'postmeta',
+				'posts',
+				'term_relationships',
+				'term_taxonomy',
+				'terms',
+				'usermeta',
+				'users'
+			);
+
 			$tables = $wpdb->get_results( 'SHOW TABLES', ARRAY_N );
 
 			$content = '<select multiple="multiple" name="itsec_backup[exclude][]" id="itsec_backup_exclude">';
@@ -224,13 +238,17 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 				$short_table = substr( $table[0], strlen( $wpdb->prefix ) );
 
-				if ( isset( $this->settings['exclude'] ) && in_array( $short_table, $this->settings['exclude'] ) ) {
-					$selected = ' selected';
-				} else {
-					$selected = '';
-				}
+					if ( in_array( $short_table, $ignored_tables ) === false ) {
 
-				$content .= '<option value="' . $short_table . '"' . $selected . '>' . $table[0] . '</option>';
+					if ( isset( $this->settings['exclude'] ) && in_array( $short_table, $this->settings['exclude'] ) ) {
+						$selected = ' selected';
+					} else {
+						$selected = '';
+					}
+
+					$content .= '<option value="' . $short_table . '"' . $selected . '>' . $table[0] . '</option>';
+
+				}
 
 			}
 
