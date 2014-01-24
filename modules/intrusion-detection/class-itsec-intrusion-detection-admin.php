@@ -10,11 +10,13 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			$default_white_list,
 			$settings,
 			$core,
+			$module,
 			$page;
 
-		private function __construct( $core ) {
+		private function __construct( $core, $module ) {
 
 			$this->core     = $core;
+			$this->module   = $module;
 			$this->settings = get_site_option( 'itsec_intrusion_detection' );
 
 			$this->default_white_list = array(
@@ -681,10 +683,10 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 *
 		 * @return ITSEC_Intrusion_Detection_Admin                The instance of the ITSEC_Intrusion_Detection_Admin class
 		 */
-		public static function start( $core ) {
+		public static function start( $core, $module ) {
 
 			if ( ! isset( self::$instance ) || self::$instance === null ) {
-				self::$instance = new self( $core );
+				self::$instance = new self( $core, $module );
 			}
 
 			return self::$instance;
