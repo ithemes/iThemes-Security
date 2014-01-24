@@ -52,6 +52,104 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 		}
 
 		/**
+		 * Check file list
+		 *
+		 * Checks if given file should be included in file check based on exclude/include options
+		 *
+		 * @param string $file path of file to check from site root
+		 * @return bool true if file should be checked false if not
+		 *
+		 **/
+		private function check_file ( $file ) {
+			
+			//get file list from last check
+			$file_list = get_site_option( 'itsec_local_file_list' );
+			
+			//assume not a directory and not checked
+			$flag = false;
+			
+			//if list is empty return true
+			if ( trim( $file_list ) != '' ) {
+			
+				$file_list = explode( PHP_EOL, $file_list );
+				
+			} else {
+			
+				//if empty include list we include nothing. If empty exclude list we include everything
+				if ( $this->settings['file_change-method'] === true ) {
+			
+					return true;
+					
+				} else {
+				
+					return false;
+					
+				}
+				
+			}
+			
+			//compare file to list
+			
+			foreach ( $file_list as $item ) {
+
+				$item = trim ( $item );
+			
+				//$file is a directory
+				if ( is_dir( ABSPATH . $file ) ) {
+					
+					if ( strcmp( $file, $item ) === 0 ) {
+						$flag = true;		
+					}
+				
+				} else { //$file is a file
+				
+					if ( strpos( $item , '.' ) === 0 ) { //list item is a file extension
+					
+						if ( strcmp( '.' . end ( explode( '.' , $file ) ), $item ) == 0 ) {
+							$flag = true;
+						 }
+				
+					} else { //list item is a single file
+
+						if ( strcmp( $item, $file ) == 0 ) {
+							$flag = true;
+						}
+				
+					}
+					
+				}
+				
+			}
+			
+			if ( $this->settings['file_change-method'] === true ) {
+			
+				if ( $flag == true ) { //if exclude reverse
+					return false;
+				} else {
+					return true;
+				}
+			
+			} else { //return flag 
+			
+				if ( is_dir( ABSPATH . $file ) ) {
+					
+					if ( $flag == true ) { //if exclude reverse
+						return false;
+					} else {
+						return true;
+					}
+					
+				} else {
+				
+					return $flag;
+					
+				}
+				
+			}
+		
+		}
+
+		/**
 		 * Register 404 detection for lockout
 		 *
 		 * @param  array $lockout_modules array of lockout modules
