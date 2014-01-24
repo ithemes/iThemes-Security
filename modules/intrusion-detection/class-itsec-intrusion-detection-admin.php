@@ -113,12 +113,12 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 */
 		public function admin_script() {
 
-			global $itsec_globals;
+			global $itsec_globals, $itsec_lib;
 
 			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-intrusion_detection' ) !== false ) {
 
 				wp_enqueue_script( 'itsec_intrusion_detection_js', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/js/admin-intrusion-detection.js', 'jquery', $itsec_globals['plugin_build'] );
-				wp_enqueue_script( 'itsec_intrusion_detection_jquery_filetree', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/filetree/jqueryFileTree.js', 'jquery', $itsec_globals['plugin_build'] );
+				wp_localize_script( 'itsec_intrusion_detection_js', 'itsec_mem_limit', array( 'mem_limit' => $itsec_lib->get_memory_limit(), 'text' => __( 'Warning: Your server has less than 128MB of RAM dedicated to PHP. If you have many files in your installation or a lot of active plugins activating this feature may result in your site becoming disabled with a memory error. See the plugin homepage for more information.', 'ithemes-security' ) ) );
 
 			}
 
@@ -179,6 +179,28 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 * Empty callback function
 		 */
 		public function empty_callback_function() {
+		}
+
+		/**
+		 * echos Enable File Change Detection Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function file_change_enabled( $args ) {
+
+			if ( isset( $this->settings['file_change-enabled'] ) && $this->settings['file_change-enabled'] === true ) {
+				$enabled = 1;
+			} else {
+				$enabled = 0;
+			}
+
+			$content = '<input type="checkbox" id="itsec_intrusion_detection_file_change_enabled" name="itsec_intrusion_detection[file_change-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
+			$content .= '<label for="itsec_intrusion_detection_file_change_enabled"> ' . __( 'Enable File Change detection.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
 		}
 
 		/**
@@ -399,6 +421,15 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 				'intrusion_detection_four_oh_four-settings'
 			);
 
+			//File Change Detection Fields
+			add_settings_field(
+				'itsec_intrusion_detection[file_change-enabled]',
+				__( '404 Detection', 'ithemes-security' ),
+				array( $this, 'file_change_enabled' ),
+				'security_page_toplevel_page_itsec-intrusion_detection',
+				'intrusion_detection_file_change-enabled'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_itsec-intrusion_detection',
@@ -482,6 +513,9 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			}
 
+			//File Change Detection Fields
+			$input['file_change-enabled']         = ( isset( $input['file_change-enabled'] ) && intval( $input['file_change-enabled'] == 1 ) ? true : false );
+
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
 			return $input;
@@ -498,6 +532,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			$settings['four_oh_four-enabled']         = ( isset( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] == 1 ) ? true : false );
 			$settings['four_oh_four-check_period']    = isset( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) : 5;
 			$settings['four_oh_four-error_threshold'] = isset( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) : 20;
+			$settings['file_change-enabled']         = ( isset( $_POST['itsec_intrusion_detection']['file_change-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['file_change-enabled'] == 1 ) ? true : false );
 
 		}
 

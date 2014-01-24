@@ -54,6 +54,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Setup' ) ) {
 						'/apple-touch-icon.png',
 						'/apple-touch-icon-precomposed.png',
 					),
+					'file_change-enabled'          => true,
 				);
 
 				add_site_option( 'itsec_intrusion_detection', $defaults );
