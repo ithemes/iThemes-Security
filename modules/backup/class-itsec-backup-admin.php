@@ -447,7 +447,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 			}
 
-			$input['zip']  = ( isset( $input['zip'] ) && intval( $input['zip'] == 0 ) ? false : true );
+			$input['zip']  = ( isset( $input['zip'] ) && intval( $input['zip'] == 1 ) ? true : false );
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -467,7 +467,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			$settings['method']   = isset( $_POST['itsec_backup']['method'] ) ? intval( $_POST['itsec_backup']['method'] ) : 0;
 			$settings['location'] = sanitize_text_field( $_POST['itsec_backup']['location'] );
 			$settings['last_run'] = isset( $this->settings['last_run'] ) ? $this->settings['last_run'] : 0;
-			$settings['zip']  = ( isset( $_POST['itsec_backup']['zip'] ) && intval( $_POST['itsec_backup']['zip'] == 0 ) ? false : true );
+			$settings['zip']  = ( isset( $_POST['itsec_backup']['zip'] ) && intval( $_POST['itsec_backup']['zip'] == 1 ) ? true : false );
 
 		}
 
