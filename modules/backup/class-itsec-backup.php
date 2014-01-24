@@ -23,13 +23,20 @@ if ( ! class_exists( 'ITSEC_Backup' ) ) {
 
 		}
 
-		public function do_backup() {
+		/**
+		 * Public function to get lock and call backup
+		 * 
+		 * @param  boolean $one_time whether this is a one time backup
+		 * 
+		 * @return mixed false on error or nothing
+		 */
+		public function do_backup( $one_time = false ) {
 
 			global $itsec_files;
 
 			if ( $itsec_files->get_file_lock( 'backup' ) ) {
 
-				$this->execute_backup();
+				$this->execute_backup( $one_time );
 				$itsec_files->release_file_lock( 'backup' );
 
 			} else {
@@ -153,16 +160,20 @@ if ( ! class_exists( 'ITSEC_Backup' ) ) {
 
 				//Remove HTML Content type
 				remove_filter( 'wp_mail_content_type', array( $this, 'set_html_content_type' ) );
-
-				$this->settings['last_run'] = $itsec_current_time_gmt;
-
-				update_site_option( 'itsec_backup', $this->settings );
 			
 			}
 
 			if ( $this->settings['method'] !== 1 && $one_time === false ) {
 
 				@unlink( $itsec_globals['ithemes_backup_dir'] . '/' . $file . $fileext );
+
+			}
+
+			if ( $one_time === false ) {
+
+				$this->settings['last_run'] = $itsec_current_time_gmt;
+
+				update_site_option( 'itsec_backup', $this->settings );
 
 			}
 				

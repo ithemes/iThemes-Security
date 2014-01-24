@@ -8,11 +8,13 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 		private
 			$core,
+			$module,
 			$settings;
 
-		private function __construct( $core ) {
+		private function __construct( $core, $module ) {
 
 			$this->core     = $core;
+			$this->module   = $module;
 			$this->settings = get_site_option( 'itsec_backup' );
 
 			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
@@ -21,6 +23,10 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+
+			if ( isset( $_POST['itsec_backup'] ) && $_POST['itsec_backup'] == 'one_time_backup' ) {
+				add_action( 'admin_init', array( $this, 'one_time_backup' ) );
+			}
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
@@ -42,6 +48,15 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				array( $this, 'add_module_intro' ),
 				'security_page_toplevel_page_itsec-backup',
 				'normal',
+				'core'
+			);
+
+			add_meta_box(
+				'backup_one_time',
+				__( 'Make a Database Backup', 'ithemes-security' ),
+				array( $this, 'metabox_one_time' ),
+				'security_page_toplevel_page_itsec-backup',
+				'advanced',
 				'core'
 			);
 
@@ -393,6 +408,23 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		}
 
 		/**
+		 * Display the form for one-time database backups
+		 * 
+		 * @return void
+		 */
+		public function metabox_one_time() {
+
+			$content = '<form method="post" action="">';
+			$content .= wp_nonce_field( 'itsec_do_backup','wp_nonce' );
+			$content .= '<input type="hidden" name="itsec_backup" value="one_time_backup" />';
+			$content .= '<p>' . __( 'Press the button below to create a backup of your WordPress database. If you have "Send Backups By Email" selected in automated backups you will receive an email containing the backup file.', 'ithemes-security' ) . '</p>';
+			$content .= '<p class="submit"><input type="submit" class="button-primary" value="' . __( 'Create Database Backup', 'ithemes_security' ) . '" /></p>';
+			$content .= '</form>';
+
+			echo $content;
+		}
+
+		/**
 		 * echos method Field
 		 *
 		 * @param  array $args field arguements
@@ -415,6 +447,16 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			echo '</select><br />';
 			echo '<label for="itsec_backup_method"> ' . __( 'Backup Save Method', 'ithemes-security' ) . '</label>';
 			echo '<p class="description">' . __( 'Select what iThemes Security should do with your backup file. You can have it emailed to you, saved locally or both.' ) . '</p>';
+
+		}
+
+		public function one_time_backup() {
+
+			if ( ! wp_verify_nonce( $_POST['wp_nonce'], 'itsec_do_backup' ) ) {
+				die( 'Security error!' );
+			}
+
+			$this->module->do_backup( true );
 
 		}
 
@@ -504,13 +546,14 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		 * Start the Intrusion Detection Admin Module
 		 *
 		 * @param Ithemes_ITSEC_Core $core Instance of core plugin class
+		 * @param ITSEC_Backup $module Instance of backup module class
 		 *
 		 * @return ITSEC_Backup_Admin                The instance of the ITSEC_Backup_Admin class
 		 */
-		public static function start( $core ) {
+		public static function start( $core, $module ) {
 
 			if ( ! isset( self::$instance ) || self::$instance === null ) {
-				self::$instance = new self( $core );
+				self::$instance = new self( $core, $module );
 			}
 
 			return self::$instance;
