@@ -174,6 +174,17 @@ if ( ! class_exists( 'ITSEC_Lib' ) ) {
 		}
 
 		/**
+		 * Gets PHP Memory Limit
+		 * 
+		 * @return int php memory limit in megabytes
+		 */
+		public function get_memory_limit() {
+
+			 return (int) ini_get( 'memory_limit' );
+
+		}
+
+		/**
 		 * Returns the server type of the plugin user.
 		 *
 		 * @return string|bool server type the user is using of false if undetectable.
