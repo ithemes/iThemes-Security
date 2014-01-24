@@ -241,6 +241,14 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				'backup-settings'
 			);
 
+			add_settings_field(
+				'itsec_backup[zip]',
+				__( 'Compress Backup Files', 'ithemes-security' ),
+				array( $this, 'zip' ),
+				'security_page_toplevel_page_itsec-backup',
+				'backup-settings'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_itsec-backup',
@@ -363,6 +371,8 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
+			global $itsec_globals;
+
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'ithemes-security' );
 
@@ -370,6 +380,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			$input['interval'] = isset( $input['interval'] ) ? absint( $input['interval'] ) : 3;
 			$input['method']   = isset( $input['method'] ) ? intval( $input['method'] ) : 0;
 			$input['location'] = isset( $input['location'] ) ? sanitize_text_field( $input['location'] ) : $itsec_globals['location'];
+			$input['last_run'] = isset( $this->settings['last_run'] ) ? $this->settings['last_run'] : 0;
 
 			if ( $input['location'] != $itsec_globals['ithemes_backup_dir'] ) {
 				$good_path = $itsec_lib->validate_path( $input['location'] );
@@ -384,6 +395,8 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				$input['method'] = 2;
 
 			}
+
+			$input['zip']  = ( isset( $input['zip'] ) && intval( $input['zip'] == 0 ) ? false : true );
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -402,6 +415,30 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			$settings['interval'] = isset( $_POST['itsec_backup']['interval'] ) ? absint( $_POST['itsec_backup']['interval'] ) : 3;
 			$settings['method']   = isset( $_POST['itsec_backup']['method'] ) ? intval( $_POST['itsec_backup']['method'] ) : 0;
 			$settings['location'] = sanitize_text_field( $_POST['itsec_backup']['location'] );
+			$settings['last_run'] = isset( $this->settings['last_run'] ) ? $this->settings['last_run'] : 0;
+			$settings['zip']  = ( isset( $_POST['itsec_backup']['zip'] ) && intval( $_POST['itsec_backup']['zip'] == 0 ) ? false : true );
+
+		}
+
+		/**
+		 * echos Zip Backups Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function zip( $args ) {
+
+			if ( isset( $this->settings['zip'] ) && $this->settings['zip'] === false ) {
+				$zip = 0;
+			} else {
+				$zip = 1;
+			}
+
+			$content = '<input type="checkbox" id="itsec_backup_zip" name="itsec_backup[zip]" value="1" ' . checked( 1, $zip, false ) . '/>';
+			$content .= '<label for="itsec_backup_zip"> ' . __( 'Zip Database Backups. You may need to turn this off if you are having problems with backups.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
 
 		}
 
