@@ -69,6 +69,12 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Setup' ) ) {
 
 			}
 
+			$file_list = get_site_option( 'itsec_local_file_list' );
+
+			if ( $file_list === false ) {
+				add_site_option( 'itsec_local_file_list', array() );
+			}
+
 		}
 
 		/**
@@ -89,6 +95,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Setup' ) ) {
 			$this->execute_deactivate();
 
 			delete_site_option( 'itsec_intrusion_detection' );
+			delete_site_option( 'itsec_local_file_list' );
 
 		}
 
