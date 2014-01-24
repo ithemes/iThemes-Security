@@ -53,6 +53,11 @@ if ( ! class_exists( 'ITSEC_Backup_Setup' ) ) {
 					'location' => $itsec_globals['ithemes_backup_dir'],
 					'last_run' => 0,
 					'zip'      => 1,
+					'exclude'  => array(
+						'itsec_log',
+						'itsec_temp',
+						'itsec_lockouts',
+					),
 				);
 
 				add_site_option( 'itsec_backup', $defaults );

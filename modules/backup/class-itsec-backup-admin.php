@@ -98,6 +98,9 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				wp_enqueue_script( 'itsec_backup_js', $itsec_globals['plugin_url'] . 'modules/backup/js/admin-backup.js', 'jquery', $itsec_globals['plugin_build'] );
 				wp_enqueue_script( 'jquery_multiselect', $itsec_globals['plugin_url'] . 'modules/backup/js/jquery.multi-select.js', 'jquery', $itsec_globals['plugin_build'] );
 
+				wp_register_style( 'itsec_backup_styles', $itsec_globals['plugin_url'] . 'modules/backup/css/multi-select.css' ); //add multi-select css
+				wp_enqueue_style( 'itsec_backup_styles' );
+
 			}
 
 		}
@@ -188,6 +191,43 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		}
 
 		/**
+		 * echos Exclude tables Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function exclude( $args ) {
+
+			global $itsec_globals, $wpdb;
+
+			$tables = $wpdb->get_results( 'SHOW TABLES', ARRAY_N );
+
+			$content = '<select multiple="multiple" name="itsec_backup[exclude][]" id="itsec_backup_exclude">';
+
+			foreach ( $tables as $table ) {
+
+				$short_table = substr( $table[0], strlen( $wpdb->prefix ) );
+
+				if ( isset( $this->settings['exclude'] ) && in_array( $short_table, $this->settings['exclude'] ) ) {
+					$selected = ' selected';
+				} else {
+					$selected = '';
+				}
+
+				$content .= '<option value="' . $short_table . '"' . $selected . '>' . $table[0] . '</option>';
+
+			}
+
+			$content .= '</select>';
+			$content .= '<label for="itsec_backup_exclude"> ' . __( 'Tables with data that does not need to be backed up.', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description"> ' . __( 'Some plugins (such as iThemes Security) can create log files in your database. While these logs might be handy for some functions they can also take up a lot of room and, in some cases, even make backing your database up almost impossible. Select log tables below to exclude their data from the backup. Note the table itself will still be backed up but the data in the table will not be.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * Execute admin initializations
 		 *
 		 * @return void
@@ -246,6 +286,14 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				'itsec_backup[zip]',
 				__( 'Compress Backup Files', 'ithemes-security' ),
 				array( $this, 'zip' ),
+				'security_page_toplevel_page_itsec-backup',
+				'backup-settings'
+			);
+
+			add_settings_field(
+				'itsec_backup[exclude]',
+				__( 'Exclude Tables', 'ithemes-security' ),
+				array( $this, 'exclude' ),
 				'security_page_toplevel_page_itsec-backup',
 				'backup-settings'
 			);
@@ -382,6 +430,8 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			$input['method']   = isset( $input['method'] ) ? intval( $input['method'] ) : 0;
 			$input['location'] = isset( $input['location'] ) ? sanitize_text_field( $input['location'] ) : $itsec_globals['location'];
 			$input['last_run'] = isset( $this->settings['last_run'] ) ? $this->settings['last_run'] : 0;
+
+
 
 			if ( $input['location'] != $itsec_globals['ithemes_backup_dir'] ) {
 				$good_path = $itsec_lib->validate_path( $input['location'] );

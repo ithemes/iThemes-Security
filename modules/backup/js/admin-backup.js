@@ -14,4 +14,6 @@ jQuery( document ).ready( function () {
 
 	} ).change();
 
+	jQuery( '#itsec_backup_exclude' ).multiSelect();
+
 } );
