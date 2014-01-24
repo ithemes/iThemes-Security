@@ -16,7 +16,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			$rewrite_rules, 
 			$wpconfig_rules, 
 			$rewrite_lock_file, 
-			$wpconfig_lock_file;
+			$wpconfig_lock_file,
+			$file_change_lock_file;
 
 		/**
 		 * Create and manage wp_config.php or .htaccess rewrites
@@ -193,7 +194,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 			$this->rewrite_lock_file  = trailingslashit( ABSPATH ) . 'itsec_rewrites.lock';
 			$this->wpconfig_lock_file = trailingslashit( ABSPATH ) . 'itsec_config.lock';
-			$this->wpconfig_lock_file = trailingslashit( ABSPATH ) . 'itsec_backup.lock';
+			$this->backup_lock_file = trailingslashit( ABSPATH ) . 'itsec_backup.lock';
+			$this->file_change_lock_file = trailingslashit( ABSPATH ) . 'itsec_file_change.lock';
 
 			$all_rules = apply_filters( 'itsec_file_rules', $all_rules );
 
@@ -236,6 +238,9 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 					break;
 				case 'backup':
 					$lock_file = $this->backup_lock_file;
+					break;
+				case 'file_change':
+					$lock_file = $this->file_change_lock_file;
 					break;
 				default;
 					return false;
@@ -297,6 +302,9 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 					break;
 				case 'backup':
 					$lock_file = $this->backup_lock_file;
+					break;
+				case 'file_change':
+					$lock_file = $this->file_change_lock_file;
 					break;
 				default;
 					return false;
