@@ -34,7 +34,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 						'four_oh_four',
 						3,
 						array(
-							'query_string' => esc_sql( $uri[1] ),
+							'query_string' => isset( $uri[1] ) ? esc_sql( $uri[1] ) : '',
 						),
 						$itsec_lib->get_ip(),
 						'',
