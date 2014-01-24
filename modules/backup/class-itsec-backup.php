@@ -15,6 +15,8 @@ if ( ! class_exists( 'ITSEC_Backup' ) ) {
 
 			$this->settings  = get_site_option( 'itsec_backup' );
 
+			add_filter( 'itsec_logger_modules', array( $this, 'register_logger' ) );
+
 			if ( $this->settings['enabled'] === true && ! class_exists( 'pb_backupbuddy' ) && ( ( $itsec_current_time_gmt - $this->settings['interval'] * 24 * 60 * 60 ) ) > $this->settings['last_run'] ) {
 
 				add_action( 'init', array( $this, 'do_backup' ) );
@@ -179,6 +181,24 @@ if ( ! class_exists( 'ITSEC_Backup' ) ) {
 
 			$itsec_logger->log_event( 'backup', 3, array( 'status' => 'complete' ) );
 				
+		}
+
+		/**
+		 * Register backups for logger
+		 *
+		 * @param  array $logger_modules array of logger modules
+		 *
+		 * @return array                   array of logger modules
+		 */
+		public function register_logger( $logger_modules ) {
+
+			$logger_modules['backup'] = array(
+				'type'      => 'backup',
+				'function' => __( 'Database BAckup Executed', 'ithemes-security' ),
+			);
+
+			return $logger_modules;
+
 		}
 
 		/**
