@@ -236,6 +236,13 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 			//Add Settings sections
 			add_settings_section(
+				'backup-settings-2',
+				__( 'Configure Database Backups', 'ithemes-security' ),
+				array( $this, 'empty_callback_function' ),
+				'security_page_toplevel_page_itsec-backup'
+			);
+
+			add_settings_section(
 				'backup-enabled',
 				__( 'Enable Database Backups', 'ithemes-security' ),
 				array( $this, 'empty_callback_function' ),
@@ -244,7 +251,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 			add_settings_section(
 				'backup-settings',
-				__( '404 Detection Settings', 'ithemes-security' ),
+				__( 'Backup Schedule Settings', 'ithemes-security' ),
 				array( $this, 'empty_callback_function' ),
 				'security_page_toplevel_page_itsec-backup'
 			);
@@ -271,7 +278,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				__( 'Backup Method', 'ithemes-security' ),
 				array( $this, 'method' ),
 				'security_page_toplevel_page_itsec-backup',
-				'backup-settings'
+				'backup-settings-2'
 			);
 
 			add_settings_field(
@@ -279,7 +286,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				__( 'Backup Location', 'ithemes-security' ),
 				array( $this, 'location' ),
 				'security_page_toplevel_page_itsec-backup',
-				'backup-settings'
+				'backup-settings-2'
 			);
 
 			add_settings_field(
@@ -287,7 +294,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				__( 'Compress Backup Files', 'ithemes-security' ),
 				array( $this, 'zip' ),
 				'security_page_toplevel_page_itsec-backup',
-				'backup-settings'
+				'backup-settings-2'
 			);
 
 			add_settings_field(
@@ -295,7 +302,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				__( 'Exclude Tables', 'ithemes-security' ),
 				array( $this, 'exclude' ),
 				'security_page_toplevel_page_itsec-backup',
-				'backup-settings'
+				'backup-settings-2'
 			);
 
 			//Register the settings field for the entire module
