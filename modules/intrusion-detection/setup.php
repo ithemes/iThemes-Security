@@ -57,6 +57,11 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Setup' ) ) {
 					'file_change-enabled'          => true,
 					'file_change-list'             => array();
 					'file_change-method'           => true;
+					'file_change-types'            => array(
+						'.jpg',
+						'.jpeg',
+						'.png',
+					),
 				);
 
 				add_site_option( 'itsec_intrusion_detection', $defaults );

@@ -271,6 +271,28 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		}
 
 		/**
+		 * echos file change types Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function file_change_types( $args ) {
+
+			if ( isset( $this->settings['file_change-types'] ) && is_array( $this->settings['file_change-types'] ) ) {
+				$types = implode( PHP_EOL, $this->settings['file_change-types'] );
+			} else {
+				$types = implode( PHP_EOL, array( '.jpg', '.jpeg', '.png' ) );
+			}
+
+			$content = '<textarea id="itsec_intrusion_detection_file_change_types" name="itsec_intrusion_detection[file_change-types]" wrap="off" cols="20" rows="10">' . $types . '</textarea><br />';
+			$content .= '<label for="itsec_intrusion_detection_file_change_types"> ' . __( 'File types listed here will not be checked for changes. While it is possible to change files such as images it is quite rare and nearly all known WordPress attacks exploit php, js and other text files.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * echos Check Period Field
 		 *
 		 * @param  array $args field arguments
@@ -513,6 +535,14 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 				'intrusion_detection_file_change-settings'
 			);
 
+			add_settings_field(
+				'itsec_intrusion_detection[file_change-types]',
+				__( 'Ignore File Types', 'ithemes-security' ),
+				array( $this, 'file_change_types' ),
+				'security_page_toplevel_page_itsec-intrusion_detection',
+				'intrusion_detection_file_change-settings'
+			);
+
 			//Register the settings field for the entire module
 			register_setting(
 				'security_page_toplevel_page_itsec-intrusion_detection',
@@ -609,6 +639,19 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			}
 
 			$input['file_change-list'] = $good_files;
+
+			$file_types = explode( PHP_EOL, $input['file_change-types'] );
+
+			$good_types = array();
+
+			foreach ( $file_types as $type ) {
+
+				$good_type = sanitize_text_field( '.' . str_replace( '.', '', $type ) );
+
+				$good_types[] = sanitize_text_field( $good_type );
+			}
+
+			$input['file_change-types'] = $good_types;
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
