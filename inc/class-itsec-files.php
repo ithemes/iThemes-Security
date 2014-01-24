@@ -11,7 +11,12 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 		private static $instance = null; //instantiated instance of this plugin
 
-		private $rewrite_rules, $wpconfig_rules, $rewrite_lock_file, $wpconfig_lock_file;
+		private 
+			$backup_lock_file,
+			$rewrite_rules, 
+			$wpconfig_rules, 
+			$rewrite_lock_file, 
+			$wpconfig_lock_file;
 
 		/**
 		 * Create and manage wp_config.php or .htaccess rewrites
@@ -188,6 +193,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 			$this->rewrite_lock_file  = trailingslashit( ABSPATH ) . 'itsec_rewrites.lock';
 			$this->wpconfig_lock_file = trailingslashit( ABSPATH ) . 'itsec_config.lock';
+			$this->wpconfig_lock_file = trailingslashit( ABSPATH ) . 'itsec_backup.lock';
 
 			$all_rules = apply_filters( 'itsec_file_rules', $all_rules );
 
@@ -214,18 +220,26 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 		/**
 		 * Attempt to get a lock for atomic operations
 		 *
-		 * @param string $type type of file lock, htaccess or wpconfig
+		 * @param string $type type of file lock, htaccess, backup or wpconfig
 		 *
 		 * @return bool true if lock was achieved, else false
 		 */
-		private function get__file_lock( $type ) {
+		public function get_file_lock( $type ) {
 
-			if ( $type === 'htaccess' ) {
-				$lock_file = $this->rewrite_lock_file;
-			} elseif ( $type === 'wpconfig' ) {
-				$lock_file = $this->wpconfig_lock_file;
-			} else {
-				return false;
+			switch ( $type ) {
+
+				case 'htaccess':
+					$lock_file = $this->rewrite_lock_file;
+					break;
+				case 'wpconfig':
+					$lock_file = $this->wpconfig_lock_file;
+					break;
+				case 'backup':
+					$lock_file = $this->backup_lock_file;
+					break;
+				default;
+					return false;
+
 			}
 
 			if ( file_exists( $lock_file ) ) {
@@ -267,18 +281,26 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 		/**
 		 * Release the lock
 		 *
-		 * @param string $type type of file lock, htaccess or wpconfig
+		 * @param string $type type of file lock, htaccess , backup or wpconfig
 		 *
 		 * @return bool true if released, false otherwise
 		 */
-		private function release_file_lock( $type ) {
+		public function release_file_lock( $type ) {
 
-			if ( $type === 'htaccess' ) {
-				$lock_file = $this->rewrite_lock_file;
-			} elseif ( $type === 'wpconfig' ) {
-				$lock_file = $this->wpconfig_lock_file;
-			} else {
-				return false;
+			switch ( $type ) {
+
+				case 'htaccess':
+					$lock_file = $this->rewrite_lock_file;
+					break;
+				case 'wpconfig':
+					$lock_file = $this->wpconfig_lock_file;
+					break;
+				case 'backup':
+					$lock_file = $this->backup_lock_file;
+					break;
+				default;
+					return false;
+
 			}
 
 			if ( ! file_exists( $lock_file ) || @unlink( $lock_file ) ) {
@@ -296,7 +318,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 		 */
 		public function save_rewrites() {
 
-			if ( $this->get__file_lock( 'htaccess' ) ) {
+			if ( $this->get_file_lock( 'htaccess' ) ) {
 
 				$success = $this->write_rewrites(); //save the return value for success/error flag
 
@@ -323,7 +345,7 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 
 			return $success;
 
-			if ( $this->get__file_lock( 'wpconfig' ) ) {
+			if ( $this->get_file_lock( 'wpconfig' ) ) {
 
 				$success = $this->write_wpconfig(); //save the return value for success/error flag
 
