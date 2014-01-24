@@ -127,21 +127,13 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 
 			global $wpdb, $itsec_current_time_gmt, $itsec_current_time;
 
-			$sanitized_data = array(); //array of sanitized data
-
 			if ( isset( $this->logger_modules[$module] ) ) {
 
 				$options = $this->logger_modules[$module];
 
-				$file_data = '';
+				$file_data = $this->sanitize_array( $data, true );
 
-				//Loop to sanitize each piece of data
-				foreach ( $data as $key => $value ) {
-
-					$sanitized_data[esc_sql( $key )] = esc_sql( $value );
-
-					$file_data .= esc_sql( $key ) . '=' . esc_sql( $value );
-				}
+				$sanitized_data = $this->sanitize_array( $data ); //array of sanitized data
 
 				if ( $this->settings['log_type'] === 0 || $this->settings['log_type'] == 2 ) {
 
@@ -269,6 +261,47 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 			}
 
 			$this->start_log();
+
+		}
+
+		/**
+		 * Sanitizes strings in a given array recursively
+		 * 
+		 * @param  array $array     array to sanitize
+		 * @param  bool  $to_string true if output should be string or false for array output
+		 * @return mixe             sanitized array or string
+		 */
+		private function sanitize_array( $array, $to_string = false ) {
+
+			$sanitized_array = array();
+			$string = '';
+
+			//Loop to sanitize each piece of data
+			foreach ( $array as $key => $value ) {
+
+				if ( is_array( $value ) ) {
+
+					if ( $to_string === false ) {
+						$sanitized_array[esc_sql( $key )] = $this->sanitize_array( $value );
+					} else {
+						$string .= esc_sql( $key ) . '=' . $this->sanitize_array( $value, true );
+					}
+
+				} else {
+
+					$sanitized_array[esc_sql( $key )] = esc_sql( $value );
+
+					$string .= esc_sql( $key ) . '=' . esc_sql( $value );
+
+				}
+
+			}
+
+			if ( $to_string === false ) {
+				return $sanitized_array;
+			} else {
+				return $string;
+			}
 
 		}
 
