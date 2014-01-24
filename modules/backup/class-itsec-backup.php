@@ -54,7 +54,7 @@ if ( ! class_exists( 'ITSEC_Backup' ) ) {
 		 */
 		private function execute_backup( $one_time = false ) {
 
-			global $wpdb, $itsec_globals, $itsec_current_time_gmt, $itsec_current_time;
+			global $wpdb, $itsec_globals, $itsec_logger, $itsec_current_time_gmt, $itsec_current_time;
 				
 			//get all of the tables
 			$tables = $wpdb->get_results( 'SHOW TABLES', ARRAY_N );
@@ -176,6 +176,8 @@ if ( ! class_exists( 'ITSEC_Backup' ) ) {
 				update_site_option( 'itsec_backup', $this->settings );
 
 			}
+
+			$itsec_logger->log_event( 'backup', 3, array( 'status' => 'complete' ) );
 				
 		}
 
