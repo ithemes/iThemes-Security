@@ -1,0 +1,52 @@
+.jquery_file_tree {
+	height: 200px;
+	width: 300px;
+	overflow: auto;
+	border: 1px solid #DFDFDF;
+	background-color: #F9F9F9;
+	padding: 3px;
+}
+
+.file_chooser {
+	float: left;
+	width: 310px;
+}
+
+.list_field {
+	margin-left: 320px;	
+	height: 200px;
+	width: 300px;
+}
+
+.list_field textarea {
+	width: 300px;
+	height: 200px;
+	overflow: auto;
+	padding: 3px;
+}
+
+.itsec_treeselect_control {
+	visibility: hidden;
+	margin-left: 10px;
+	position: absolute;
+	right: 4px;
+	top: 4px;
+}
+
+.itsec_treeselect_control img {
+	margin-right: 4px;
+	margin-left: 4px;
+	margin-top: 2px;
+	float: right;
+	cursor: pointer;
+}
+
+UL.jqueryFileTree A {
+	padding: 4px;
+	padding-left: 26px;
+	padding-right: 6px;
+}
+
+UL.jqueryFileTree LI {
+	position: relative;
+}

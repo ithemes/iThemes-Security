@@ -118,7 +118,25 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-intrusion_detection' ) !== false ) {
 
 				wp_enqueue_script( 'itsec_intrusion_detection_js', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/js/admin-intrusion-detection.js', 'jquery', $itsec_globals['plugin_build'] );
-				wp_localize_script( 'itsec_intrusion_detection_js', 'itsec_mem_limit', array( 'mem_limit' => $itsec_lib->get_memory_limit(), 'text' => __( 'Warning: Your server has less than 128MB of RAM dedicated to PHP. If you have many files in your installation or a lot of active plugins activating this feature may result in your site becoming disabled with a memory error. See the plugin homepage for more information.', 'ithemes-security' ) ) );
+				wp_localize_script( 
+					'itsec_intrusion_detection_js', 
+					'itsec_intrusion_detection', 
+					array( 
+						'mem_limit' => $itsec_lib->get_memory_limit(), 
+						'text'      => __( 'Warning: Your server has less than 128MB of RAM dedicated to PHP. If you have many files in your installation or a lot of active plugins activating this feature may result in your site becoming disabled with a memory error. See the plugin homepage for more information.', 'ithemes-security' ),
+						'plug_path'   => $itsec_globals['plugin_url'],
+						'ABSPATH' => ABSPATH,
+					) 
+				);
+
+				wp_enqueue_script( 'itsec_jquery_filetree_script', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/filetree/jqueryFileTree.js', 'jquery', '1.01' );
+
+				wp_register_style( 'itsec_jquery_filetree_style', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/filetree/jQueryFileTree.css' ); //add multi-select css
+				wp_enqueue_style( 'itsec_jquery_filetree_style' );
+
+				wp_register_style( 'itsec_intrusion_detection_css', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/css/admin-intrusion-detection.css' ); //add multi-select css
+				wp_enqueue_style( 'itsec_intrusion_detection_css' );
+
 
 			}
 
@@ -198,6 +216,30 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			$content = '<input type="checkbox" id="itsec_intrusion_detection_file_change_enabled" name="itsec_intrusion_detection[file_change-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
 			$content .= '<label for="itsec_intrusion_detection_file_change_enabled"> ' . __( 'Enable File Change detection.', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
+		 * echos Enable File Change List Field
+		 *
+		 * @param  array $args field arguments
+		 *
+		 * @return void
+		 */
+		public function file_change_list( $args ) {
+
+			if ( isset( $this->settings['file_change-list'] ) && is_array( $this->settings['file_change-list'] ) ) {
+				$list = implode( PHP_EOL, $this->settings['file_change-list'] );
+			} else {
+				$list = '';
+			}
+
+			$content = '<div class="file_chooser"><div class="jquery_file_tree"></div></div>';
+			$content .= '<div class="list_field">';
+			$content .= '<textarea id="itsec_intrusion_detection_file_change_list" name="itsec_intrusion_detection[file_change-list]" wrap="off">' . $list . '</textarea>';
+			$content .= '</div>';
 
 			echo $content;
 
@@ -424,10 +466,18 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			//File Change Detection Fields
 			add_settings_field(
 				'itsec_intrusion_detection[file_change-enabled]',
-				__( '404 Detection', 'ithemes-security' ),
+				__( 'Enable File Change Detection', 'ithemes-security' ),
 				array( $this, 'file_change_enabled' ),
 				'security_page_toplevel_page_itsec-intrusion_detection',
 				'intrusion_detection_file_change-enabled'
+			);
+
+			add_settings_field(
+				'itsec_intrusion_detection[file_change-list]',
+				__( 'Include/Exclude Files and Folders', 'ithemes-security' ),
+				array( $this, 'file_change_list' ),
+				'security_page_toplevel_page_itsec-intrusion_detection',
+				'intrusion_detection_file_change-settings'
 			);
 
 			//Register the settings field for the entire module
@@ -515,6 +565,16 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			//File Change Detection Fields
 			$input['file_change-enabled']         = ( isset( $input['file_change-enabled'] ) && intval( $input['file_change-enabled'] == 1 ) ? true : false );
+
+			$file_list = explode( PHP_EOL, $input['file_change-list'] );
+
+			$good_files = array();
+
+			foreach ( $file_list as $file ) {
+				$good_files[] = sanitize_text_field( $file );
+			}
+
+			$input['file_change-list'] = $good_files;
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
