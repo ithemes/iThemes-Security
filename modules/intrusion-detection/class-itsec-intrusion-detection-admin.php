@@ -352,6 +352,20 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 				'security_page_toplevel_page_itsec-intrusion_detection'
 			);
 
+			add_settings_section(
+				'intrusion_detection_file_change-enabled',
+				__( 'File Change Detection', 'ithemes-security' ),
+				array( $this, 'four_oh_four_header' ),
+				'security_page_toplevel_page_itsec-intrusion_detection'
+			);
+
+			add_settings_section(
+				'intrusion_detection_file_change-settings',
+				__( 'File Change Detection Settings', 'ithemes-security' ),
+				array( $this, 'empty_callback_function' ),
+				'security_page_toplevel_page_itsec-intrusion_detection'
+			);
+
 			//404 Detection Fields
 			add_settings_field(
 				'itsec_intrusion_detection[four_oh_four-enabled]',
