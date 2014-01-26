@@ -72,6 +72,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 				$itsec_logger->add_meta_box(
 					'intrusion_detection',
+					'four_oh_four',
 					__( '404 Errors Found', 'ithemes-security' ),
 					array( $this, 'four_oh_four_logs_metabox' )
 				);
