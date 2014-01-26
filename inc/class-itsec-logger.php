@@ -51,15 +51,16 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 		 * Adds a log meta box only if logging is active. Overrides WP Core add_meta_box
 		 *
 		 * @param string $module   the module requesting the metabox
+		 * @param string $submodule name of submodule
 		 * @param string $title    the title of the metabox
 		 * @param array  $callback the function to call back
 		 */
-		public function add_meta_box( $module, $title, $callback ) {
+		public function add_meta_box( $module, $submodule, $title, $callback ) {
 
 			if ( $this->settings['log_type'] === 0 || $this->settings['log_type'] == 2 ) {
 
 				add_meta_box(
-					'log-' . sanitize_text_field( $module ),
+					'log-' . sanitize_text_field( $module ) . '-' . sanitize_text_field ( $submodule ),
 					$title,
 					$callback,
 					'security_page_toplevel_page_itsec-' . sanitize_text_field( $module ),
