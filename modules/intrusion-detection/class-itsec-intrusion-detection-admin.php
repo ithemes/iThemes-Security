@@ -121,15 +121,15 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-intrusion_detection' ) !== false ) {
 
 				wp_enqueue_script( 'itsec_intrusion_detection_js', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/js/admin-intrusion-detection.js', 'jquery', $itsec_globals['plugin_build'] );
-				wp_localize_script( 
-					'itsec_intrusion_detection_js', 
-					'itsec_intrusion_detection', 
-					array( 
-						'mem_limit' => $itsec_lib->get_memory_limit(), 
+				wp_localize_script(
+					'itsec_intrusion_detection_js',
+					'itsec_intrusion_detection',
+					array(
+						'mem_limit' => $itsec_lib->get_memory_limit(),
 						'text'      => __( 'Warning: Your server has less than 128MB of RAM dedicated to PHP. If you have many files in your installation or a lot of active plugins activating this feature may result in your site becoming disabled with a memory error. See the plugin homepage for more information.', 'ithemes-security' ),
-						'plug_path'   => $itsec_globals['plugin_url'],
-						'ABSPATH' => ABSPATH,
-					) 
+						'plug_path' => $itsec_globals['plugin_url'],
+						'ABSPATH'   => ABSPATH,
+					)
 				);
 
 				wp_enqueue_script( 'itsec_jquery_filetree_script', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/filetree/jqueryFileTree.js', 'jquery', '1.01' );
@@ -139,7 +139,6 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 				wp_register_style( 'itsec_intrusion_detection_css', $itsec_globals['plugin_url'] . 'modules/intrusion-detection/css/admin-intrusion-detection.css' ); //add multi-select css
 				wp_enqueue_style( 'itsec_intrusion_detection_css' );
-
 
 			}
 
@@ -224,7 +223,6 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			echo $content;
 
 		}
-
 
 		/**
 		 * echos Enable File Change Detection Field
@@ -421,10 +419,10 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 				require( dirname( __FILE__ ) . '/class-itsec-intrusion-detection-log-four-oh-four-detail.php' );
 
 				printf( '%s <strong>%s</strong>. <a href="%s">%s</a>',
-					__( ' Below is the detailed error report for', 'ithemes-security' ),
-					sanitize_text_field( $_GET['itsec_404_details_uri'] ),
-					'admin.php?page=toplevel_page_itsec-intrusion_detection',
-					__( 'Click here to return to the 404 summary', 'ithemes-security' )
+				        __( ' Below is the detailed error report for', 'ithemes-security' ),
+				        sanitize_text_field( $_GET['itsec_404_details_uri'] ),
+				        'admin.php?page=toplevel_page_itsec-intrusion_detection',
+				        __( 'Click here to return to the 404 summary', 'ithemes-security' )
 				);
 
 				$log_display = new ITSEC_Intrusion_Detection_Log_Four_Oh_Four();
@@ -441,8 +439,6 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			$log_display->prepare_items();
 			$log_display->display();
-
-
 
 		}
 
@@ -664,9 +660,9 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			}
 
 			//File Change Detection Fields
-			$input['file_change-enabled']         = ( isset( $input['file_change-enabled'] ) && intval( $input['file_change-enabled'] == 1 ) ? true : false );
-			$input['file_change-method']         = ( isset( $input['file_change-method'] ) && intval( $input['file_change-method'] == 1 ) ? true : false );
-			$input['file_change-email']         = ( isset( $input['file_change-email'] ) && intval( $input['file_change-email'] == 1 ) ? true : false );
+			$input['file_change-enabled'] = ( isset( $input['file_change-enabled'] ) && intval( $input['file_change-enabled'] == 1 ) ? true : false );
+			$input['file_change-method']  = ( isset( $input['file_change-method'] ) && intval( $input['file_change-method'] == 1 ) ? true : false );
+			$input['file_change-email']   = ( isset( $input['file_change-email'] ) && intval( $input['file_change-email'] == 1 ) ? true : false );
 
 			$file_list = explode( PHP_EOL, $input['file_change-list'] );
 
@@ -709,9 +705,9 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			$settings['four_oh_four-enabled']         = ( isset( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['four_oh_four-enabled'] == 1 ) ? true : false );
 			$settings['four_oh_four-check_period']    = isset( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-check_period'] ) : 5;
 			$settings['four_oh_four-error_threshold'] = isset( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) ? absint( $_POST['itsec_intrusion_detection']['four_oh_four-error_threshold'] ) : 20;
-			$settings['file_change-enabled']         = ( isset( $_POST['itsec_intrusion_detection']['file_change-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['file_change-enabled'] == 1 ) ? true : false );
-			$settings['file_change-method']         = ( isset( $_POST['itsec_intrusion_detection']['file_change-method'] ) && intval( $_POST['itsec_intrusion_detection']['file_change-method'] == 1 ) ? true : false );
-			$settings['four_oh_four-email']         = ( isset( $_POST['itsec_intrusion_detection']['four_oh_four-email'] ) && intval( $_POST['itsec_intrusion_detection']['four_oh_four-email'] == 1 ) ? true : false );
+			$settings['file_change-enabled']          = ( isset( $_POST['itsec_intrusion_detection']['file_change-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['file_change-enabled'] == 1 ) ? true : false );
+			$settings['file_change-method']           = ( isset( $_POST['itsec_intrusion_detection']['file_change-method'] ) && intval( $_POST['itsec_intrusion_detection']['file_change-method'] == 1 ) ? true : false );
+			$settings['four_oh_four-email']           = ( isset( $_POST['itsec_intrusion_detection']['four_oh_four-email'] ) && intval( $_POST['itsec_intrusion_detection']['four_oh_four-email'] == 1 ) ? true : false );
 
 		}
 
