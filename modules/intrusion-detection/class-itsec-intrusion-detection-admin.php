@@ -625,6 +625,8 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
+			global $itsec_current_time;
+
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'ithemes-security' );
 
@@ -687,6 +689,8 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			}
 
 			$input['file_change-types'] = $good_types;
+
+			$input['file_change-last_run'] = strtotime( date( 'F jS, Y', $itsec_current_time ) );
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 

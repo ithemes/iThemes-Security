@@ -11,6 +11,8 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 
 		private function __construct() {
 
+			global $itsec_current_time;
+
 			$this->settings  = get_site_option( 'itsec_intrusion_detection' );
 
 			add_filter( 'itsec_lockout_modules', array( $this, 'register_lockout' ) );
@@ -18,7 +20,9 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 
 			add_action( 'wp_head', array( $this,'check_404' ) );
 
-			add_action( 'init', array( $this, 'execute_file_check' ) );
+			if ( isset( $this->settings['file_change-enabled'] ) && $this->settings['file_change-enabled'] === true && ( $itsec_current_time - 86400 ) > $this->settings['file_change-last_run'] ) {
+				add_action( 'init', array( $this, 'execute_file_check' ) );
+			}
 
 		}
 
@@ -62,7 +66,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 		 **/
 		public function execute_file_check( $auto = true ) {
 
-			global $itsec_files, $itsec_logger;
+			global $itsec_files, $itsec_logger, $itsec_current_time;
 
 			if ( $itsec_files->get_file_lock( 'file_change' ) ) { //make sure it isn't already running
 
@@ -118,6 +122,10 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 				);
 
 				update_site_option( 'itsec_local_file_list', $current_files );
+
+				$this->settings['file_change-last_run'] = $itsec_current_time;
+
+				update_site_option( 'itsec_intrusion_detection' , $this->settings );
 
 				//get new max memory
 				$check_memory = @memory_get_peak_usage();
