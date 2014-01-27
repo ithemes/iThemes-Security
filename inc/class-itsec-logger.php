@@ -15,7 +15,6 @@ if ( ! class_exists( 'ITSEC_Logger' ) ) {
 			$core,
 			$log_file,
 			$logger_modules,
-			$page,
 			$settings;
 
 		function __construct( $core ) {

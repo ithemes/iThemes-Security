@@ -186,8 +186,6 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 		 */
 		public function file_writer_init() {
 
-			global $itsec_lib;
-
 			$all_rules            = array(); //initialize rules array
 			$this->rewrite_rules  = array(); //rewrite rules that will need to be written
 			$this->wpconfig_rules = array(); //wp-config rules that will need to be written

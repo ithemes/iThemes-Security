@@ -121,8 +121,6 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 */
 		public function admin_tabs( $current = null ) {
 
-			global $itsec_globals;
-
 			if ( $current == null ) {
 				$current = 'itsec';
 			}
