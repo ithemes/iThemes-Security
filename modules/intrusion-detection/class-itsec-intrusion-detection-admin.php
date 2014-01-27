@@ -229,8 +229,8 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			}
 
 			$content = '<input type="checkbox" id="itsec_intrusion_detection_file_change_email" name="itsec_intrusion_detection[file_change-email]" value="1" ' . checked( 1, $email, false ) . '/>';
-			$content .= '<label for="itsec_intrusion_detection_file_change_email"> ' . __( 'Email file change notifications.', 'ithemes-security' ) . '</label>';
-			$content .= '<p>' . __( 'If checked a notification will be sent to all emails set to receive notifications on the global settings page.', 'ithemes-security' ) . '</p>';
+			$content .= '<label for="itsec_intrusion_detection_file_change_email"> ' . __( 'Email file change notifications', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'Notifications will be sent to all emails set to receive notifications on the global settings page.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -252,7 +252,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			}
 
 			$content = '<input type="checkbox" id="itsec_intrusion_detection_file_change_enabled" name="itsec_intrusion_detection[file_change-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_intrusion_detection_file_change_enabled"> ' . __( 'Enable File Change detection.', 'ithemes-security' ) . '</label>';
+			$content .= '<label for="itsec_intrusion_detection_file_change_enabled"> ' . __( 'Enable File Change detection', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -446,7 +446,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 				}
 
 				$content = '<input type="checkbox" id="itsec_intrusion_detection_four_oh_four_enabled" name="itsec_intrusion_detection[four_oh_four-enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-				$content .= '<label for="itsec_intrusion_detection_four_oh_four_enabled"> ' . __( 'Enable 404 detection.', 'ithemes-security' ) . '</label>';
+				$content .= '<label for="itsec_intrusion_detection_four_oh_four_enabled"> ' . __( 'Enable 404 detection', 'ithemes-security' ) . '</label>';
 
 			}
 
@@ -484,6 +484,18 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			$content = '<h2 class="settings-section-header">' . __( '404 Detection', 'ithemes-security' ) . '</h2>';
 			$content .= '<p>' . __( '404 detection looks at a user who is hitting a large number of non-existent pages, that is they are getting a large number of 404 errors. It assumes that a user who hits a lot of 404 errors in a short period of time is scanning for something (presumably a vulnerability) and locks them out accordingly (you can set the thresholds for this below). This also gives the added benefit of helping you find hidden problems causing 404 errors on unseen parts of your site as all errors will be logged in the "View Logs" page. You can set threshholds for this feature below.', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
+		
+		/**
+		 * Echo the File Change Detection Header
+		 */
+		public function file_change_header() {
+
+			$content = '<h2 class="settings-section-header">' . __( 'File Change Detection', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( '', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -540,7 +552,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			}
 
 			$content = '<textarea id="itsec_intrusion_detection_four_oh_four_white_list" name="itsec_intrusion_detection[four_oh_four-white_list]" rows="10" cols="50">' . $white_list . '</textarea>';
-			$content .= '<p>' . __( 'Use the whitelist above to prevent recording common 404 errors. If you know a common file on your site is missing and you do not want it to count towards a lockout record it here. You must list the full path beginning with the "/"', 'ithemes-security' ) . '</p>';
+			$content .= '<p class="description">' . __( 'Use the whitelist above to prevent recording common 404 errors. If you know a common file on your site is missing and you do not want it to count towards a lockout record it here. You must list the full path beginning with the "/"', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -571,7 +583,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			add_settings_section(
 				'intrusion_detection_file_change-enabled',
 				__( 'File Change Detection', 'ithemes-security' ),
-				array( $this, 'four_oh_four_header' ),
+				array( $this, 'file_change_header' ),
 				'security_page_toplevel_page_itsec-intrusion_detection'
 			);
 
@@ -618,7 +630,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			//File Change Detection Fields
 			add_settings_field(
 				'itsec_intrusion_detection[file_change-enabled]',
-				__( 'Enable File Change Detection', 'ithemes-security' ),
+				__( 'File Change Detection', 'ithemes-security' ),
 				array( $this, 'file_change_enabled' ),
 				'security_page_toplevel_page_itsec-intrusion_detection',
 				'intrusion_detection_file_change-enabled'
