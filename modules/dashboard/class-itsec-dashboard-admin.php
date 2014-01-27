@@ -193,6 +193,13 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 		 * @return void
 		 */
 		public function metabox_status_feed() {
+		
+			$statuses = array(
+				'high'        => array(),
+				'medium'      => array(),
+			);
+
+			$statuses = apply_filters( 'itsec_add_dashboard_status', $statuses );
 
 			// Intro Text
 			$content = '<div class="itsec-status-feed-item intro">';
@@ -200,8 +207,56 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .= __( 'We\'ve analyzed your site and determined that these simple changes will have the biggest impact in keeping your site safe and secure. Do these things first, then use the tabs to explore more advanced features.', 'ithemes-security' );
 			$content .= '</p>';
 			$content .= '</div>';
-
+			
 			// Begin Feed Items
+			if ( isset( $statuses['high'][0] ) || isset( $statuses['medium'][0] ) ) {
+
+				$status_count = 0;
+
+				if ( isset( $statuses['high'] ) ) {
+
+					foreach ( $statuses['high'] as $status ) {
+
+						$status_count++;
+
+						if ( $status_count <= 5 ) {
+							$content .= '<div class="itsec-status-feed-item high-priority">';
+							$content .= '<p>' . $status['text'] . '</p>';
+							$content .= '<div class="itsec-status-feed-actions">';
+							$content .= '<p class="itsec-why"><a href="#">' . __('Why Change This?', 'ithemes-security' ) . '</a></p>';
+							$content .= '<p><a class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
+							$content .= '</div>';
+							$content .= '</div>';
+						}
+
+					}
+
+				}
+
+				if ( isset( $statuses['medium'] ) ) {
+
+					foreach ( $statuses['medium'] as $status ) {
+
+						$status_count++;
+
+						if ( $status_count <= 5 ) {
+							$content .= '<div class="itsec-status-feed-item medium-priority">';
+							$content .= '<p>' . $status['text'] . '</p>';
+							$content .= '<div class="itsec-status-feed-actions">';
+							$content .= '<p class="itsec-why"><a href="#">' . __('Why Change This?', 'ithemes-security' ) . '</a></p>';
+							$content .= '<p><a class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
+							$content .= '</div>';
+							$content .= '</div>';
+						}
+
+					}
+
+				}
+
+			}
+
+			// Commented section here to show markup for item after completion
+			/* 
 			$content .= '<div class="itsec-status-feed-item completed">';
 			$content .= '<div class="itsec-status-feed-completed-message">';
 			$content .= '<p>User ID 1 changed!</p>';
@@ -210,42 +265,11 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .= '<p><input class="button-secondary" name="submit" type="submit" value="Undo"></p>';
 			$content .= '</div>';
 			$content .= '</div>';
-
-			$content .= '<div class="itsec-status-feed-item completed">';
-			$content .= '<div class="itsec-status-feed-completed-message">';
-			$content .= '<p>Admin Username Changed!</p>';
-			$content .= '</div>';
-			$content .= '<div class="itsec-status-feed-actions">';
-			$content .= '<p><input class="button-secondary" name="submit" type="submit" value="Undo"></p>';
-			$content .= '</div>';
-			$content .= '</div>';
-
-			$content .= '<div class="itsec-status-feed-item medium-priority">';
-			$content .= '<p>You should hide the WordPress admin area.</p>';
-			$content .= '<div class="itsec-status-feed-actions">';
-			$content .= '<p class="itsec-why"><a href="#">Why Change This?</a></p>';
-			$content .= '<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
-			$content .= '</div>';
-			$content .= '</div>';
-
-			$content .= '<div class="itsec-status-feed-item medium-priority">';
-			$content .= '<p>You shouldn\'t let non-administrators see all available updates.</p>';
-			$content .= '<div class="itsec-status-feed-actions">';
-			$content .= '<p class="itsec-why"><a href="#">Why Change This?</a></p>';
-			$content .= '<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
-			$content .= '</div>';
-			$content .= '</div>';
-
+			*/
+			
+			// These two sections left here to show markup for notices and ithemes-messages
 			$content .= '<div class="itsec-status-feed-item notice">';
 			$content .= '<p>Your site had 116 instances of 404 errors last week. This could be evidence of an attempted attack. Check your logs.</p>';
-			$content .= '<div class="itsec-status-feed-actions">';
-			$content .= '<p class="itsec-why"><a href="#">Why Change This?</a></p>';
-			$content .= '<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
-			$content .= '</div>';
-			$content .= '</div>';
-
-			$content .= '<div class="itsec-status-feed-item high-priority">';
-			$content .= '<p>Change username "admin" to something else.</p>';
 			$content .= '<div class="itsec-status-feed-actions">';
 			$content .= '<p class="itsec-why"><a href="#">Why Change This?</a></p>';
 			$content .= '<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
@@ -258,8 +282,9 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .= '<p><a class="button-primary">Check it out!</a></p>';
 			$content .= '</div>';
 			$content .= '</div>';
-
-			// Bottom Interchangeable Ad
+			
+			
+			// Bottom Interchangeable Ad - left here as reminder to figure out a way to do this ad
 			$content .= '<div class="itsec-status-feed-item closing">';
 			$content .= '<p>';
 			//$content .= 		;
