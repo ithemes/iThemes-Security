@@ -79,6 +79,18 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			}
 
+			//Don't attempt to display file change logs if brute force isn't enabled
+			if ( isset( $this->settings['file_change-enabled'] ) && $this->settings['file_change-enabled'] === true ) {
+
+				$itsec_logger->add_meta_box(
+					'intrusion_detection',
+					'file_change',
+					__( 'File Change History', 'ithemes-security' ),
+					array( $this, 'file_change_logs_metabox' )
+				);
+
+			}
+
 		}
 
 		/**
@@ -267,6 +279,76 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			$content .= '</div>';
 
 			echo $content;
+
+		}
+
+		/**
+		 * Render the file change log metabox
+		 *
+		 * @return void
+		 */
+		public function file_change_logs_metabox() {
+
+			if ( isset( $_GET['itsec_file_change_details_id'] ) ) {
+
+				global $itsec_logger;
+
+				$event = $itsec_logger->get_events( 'file_change', array( 'log_id' => intval( $_GET['itsec_file_change_details_id'] ) ) );
+
+				$data = maybe_unserialize( $event[0]['log_data'] );
+
+				printf( '<p>%s <strong>%s</strong>.</p><p><a href="%s">%s</a></p>',
+				        __( ' Below is the detailed error report for', 'ithemes-security' ),
+				        sanitize_text_field( $event[0]['log_date'] ),
+				        'admin.php?page=toplevel_page_itsec-intrusion_detection',
+				        __( 'Click here to return to the file change summary', 'ithemes-security' )
+				);
+
+				printf( '<p><strong>%s:</strong> %d<br /><strong>%s:</strong> %d<br /><strong>%s:</strong> %d<br /><strong>%s:</strong> %d %s<br /></p>',
+				        __( 'Files Added', 'ithemes-security' ),
+				        isset( $data['added'] ) ? sizeof( $data['added'] ) : 0,
+				        __( 'Files Deleted', 'ithemes-security' ),
+				        isset( $data['removed'] ) ? sizeof( $data['removed'] ) : 0,
+				        __( 'Files Changed', 'ithemes-security' ),
+				        isset( $data['changed'] ) ? sizeof( $data['changed'] ) : 0,
+				        __( 'Memory Used', 'ithemes-security' ),
+				        isset( $data['memory'] ) ? sizeof( $data['memory'] ) : 0,
+				        __( 'MB', 'ithemes-security' )
+				);
+
+				require( dirname( __FILE__ ) . '/class-itsec-intrusion-detection-log-file-change-added.php' );
+
+				$added_display = new ITSEC_Intrusion_Detection_Log_File_Change_Added();
+
+				$added_display->prepare_data_items( $data );
+				$added_display->display();
+
+				require( dirname( __FILE__ ) . '/class-itsec-intrusion-detection-log-file-change-removed.php' );
+
+				$removed_display = new ITSEC_Intrusion_Detection_Log_File_Change_Removed();
+
+				$removed_display->prepare_data_items( $data );
+				$removed_display->display();
+
+				require( dirname( __FILE__ ) . '/class-itsec-intrusion-detection-log-file-change-changed.php' );
+
+				$changed_display = new ITSEC_Intrusion_Detection_Log_File_Change_Changed();
+
+				$changed_display->prepare_data_items( $data );
+				$changed_display->display();
+
+			} else {
+
+				require( dirname( __FILE__ ) . '/class-itsec-intrusion-detection-log-file-change.php' );
+
+				echo __( 'Below is a summary log of all the file changes recorded for your WordPress site. To get details on a particular item click the title. To adjust logging options visit the global settings page.', 'ithemes-security' );
+
+				$log_display = new ITSEC_Intrusion_Detection_Log_File_Change();
+
+				$log_display->prepare_items();
+				$log_display->display();
+
+			}
 
 		}
 
