@@ -488,6 +488,18 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			echo $content;
 
 		}
+		
+		/**
+		 * Echo the File Change Detection Header
+		 */
+		public function file_change_header() {
+
+			$content = '<h2 class="settings-section-header">' . __( 'File Change Detection', 'ithemes-security' ) . '</h2>';
+			$content .= '<p>' . __( '', 'ithemes-security' ) . '</p>';
+
+			echo $content;
+
+		}
 
 		/**
 		 * Render the settings metabox
@@ -571,7 +583,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			add_settings_section(
 				'intrusion_detection_file_change-enabled',
 				__( 'File Change Detection', 'ithemes-security' ),
-				array( $this, 'four_oh_four_header' ),
+				array( $this, 'file_change_header' ),
 				'security_page_toplevel_page_itsec-intrusion_detection'
 			);
 
