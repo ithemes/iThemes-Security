@@ -199,7 +199,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			}
 
 			$content = '<input type="checkbox" id="itsec_backup_enabled" name="itsec_backup[enabled]" value="1" ' . checked( 1, $enabled, false ) . '/>';
-			$content .= '<label for="itsec_backup_enabled"> ' . __( 'Enable Scheduled Database Backups.', 'ithemes-security' ) . '</label>';
+			$content .= '<label for="itsec_backup_enabled"> ' . __( 'Enable Scheduled Database Backups', 'ithemes-security' ) . '</label>';
 
 			echo $content;
 
@@ -232,7 +232,8 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 			$tables = $wpdb->get_results( 'SHOW TABLES', ARRAY_N );
 
-			$content = '<select multiple="multiple" name="itsec_backup[exclude][]" id="itsec_backup_exclude">';
+			$content = '<label for="itsec_backup_exclude"> ' . __( 'Tables with data that does not need to be backed up', 'ithemes-security' ) . '</label>';
+			$content .= '<select multiple="multiple" name="itsec_backup[exclude][]" id="itsec_backup_exclude">';
 
 			foreach ( $tables as $table ) {
 
@@ -253,7 +254,6 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			}
 
 			$content .= '</select>';
-			$content .= '<label for="itsec_backup_exclude"> ' . __( 'Tables with data that does not need to be backed up.', 'ithemes-security' ) . '</label>';
 			$content .= '<p class="description"> ' . __( 'Some plugins (such as iThemes Security) can create log files in your database. While these logs might be handy for some functions they can also take up a lot of room and, in some cases, even make backing your database up almost impossible. Select log tables below to exclude their data from the backup. Note the table itself will still be backed up but the data in the table will not be.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
@@ -292,7 +292,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			//404 Detection Fields
 			add_settings_field(
 				'itsec_backup[enabled]',
-				__( 'Enable Scheduled Database Backups', 'ithemes-security' ),
+				__( 'Schedule Database Backups', 'ithemes-security' ),
 				array( $this, 'enabled' ),
 				'security_page_toplevel_page_itsec-backup',
 				'backup-enabled'
@@ -554,8 +554,8 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			}
 
 			$content = '<input type="checkbox" id="itsec_backup_zip" name="itsec_backup[zip]" value="1" ' . checked( 1, $zip, false ) . '/>';
-			$content .= '<label for="itsec_backup_zip"> ' . __( 'Zip Database Backups. You may need to turn this off if you are having problems with backups.', 'ithemes-security' ) . '</label>';
-
+			$content .= '<label for="itsec_backup_zip"> ' . __( 'Zip Database Backups', 'ithemes-security' ) . '</label>';
+			$content .= '<p class="description">' . __( 'You may need to turn this off if you are having problems with backups.', 'ithemes-security' ) . '</p>';
 			echo $content;
 
 		}

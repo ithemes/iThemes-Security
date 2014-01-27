@@ -1,6 +1,8 @@
 .ms-container{
   background: transparent url('../img/switch.png') no-repeat 50% 50%;
   width: 370px;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 .ms-container:after{
@@ -41,6 +43,7 @@
   height: 200px;
   padding: 0;
   overflow-y: auto;
+  margin-left: 0;
 }
 
 .ms-container .ms-list.ms-focus{
