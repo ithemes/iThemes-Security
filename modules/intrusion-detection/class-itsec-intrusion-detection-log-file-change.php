@@ -162,21 +162,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Log_File_Change' ) ) {
 
 			usort( $table_data, array( $this, 'sortrows' ) );
 
-			$per_page     = 20; //20 items per page
-			$current_page = $this->get_pagenum();
-			$total_items  = count( $table_data );
-
-			$table_data = array_slice( $table_data, ( ( $current_page - 1 ) * $per_page ), $per_page );
-
 			$this->items = $table_data;
-
-			$this->set_pagination_args(
-				array(
-					'total_items' => $total_items,
-					'per_page'    => $per_page,
-					'total_pages' => ceil( $total_items / $per_page )
-				)
-			);
 
 		}
 
