@@ -230,7 +230,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			$content = '<input type="checkbox" id="itsec_intrusion_detection_file_change_email" name="itsec_intrusion_detection[file_change-email]" value="1" ' . checked( 1, $email, false ) . '/>';
 			$content .= '<label for="itsec_intrusion_detection_file_change_email"> ' . __( 'Email file change notifications', 'ithemes-security' ) . '</label>';
-			$content .= '<p>' . __( 'If checked a notification will be sent to all emails set to receive notifications on the global settings page.', 'ithemes-security' ) . '</p>';
+			$content .= '<p class="description">' . __( 'Notifications will be sent to all emails set to receive notifications on the global settings page.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
@@ -552,7 +552,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			}
 
 			$content = '<textarea id="itsec_intrusion_detection_four_oh_four_white_list" name="itsec_intrusion_detection[four_oh_four-white_list]" rows="10" cols="50">' . $white_list . '</textarea>';
-			$content .= '<p>' . __( 'Use the whitelist above to prevent recording common 404 errors. If you know a common file on your site is missing and you do not want it to count towards a lockout record it here. You must list the full path beginning with the "/"', 'ithemes-security' ) . '</p>';
+			$content .= '<p class="description">' . __( 'Use the whitelist above to prevent recording common 404 errors. If you know a common file on your site is missing and you do not want it to count towards a lockout record it here. You must list the full path beginning with the "/"', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
