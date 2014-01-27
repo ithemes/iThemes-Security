@@ -20,6 +20,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 
 			add_action( 'wp_head', array( $this, 'check_404' ) );
 
+			add_action( 'init', array( $this, 'execute_file_check' ) );
 			if ( isset( $this->settings['file_change-enabled'] ) && $this->settings['file_change-enabled'] === true && isset( $this->settings['file_change-last_run'] ) && ( $itsec_current_time - 86400 ) > $this->settings['file_change-last_run'] ) {
 				add_action( 'init', array( $this, 'execute_file_check' ) );
 			} elseif ( isset( $this->settings['file_change-last_run'] ) === false ) {
@@ -403,9 +404,17 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 
 						$absname = ABSPATH . $relname;
 
-						if ( $this->is_checkable_file( $relname ) == true ) { //make sure the user wants this file scanned
+						if ( is_dir( $absname ) && filetype( $absname ) == 'dir' ) {
+							$is_dir = true;
+							$check_name = trailingslashit( $relname );
+						} else {
+							$is_dir = false;
+							$check_name = $relname;
+						}
 
-							if ( is_dir( $absname ) && filetype( $absname ) == 'dir' ) { //if directory scan it
+						if ( $this->is_checkable_file( $check_name ) === true ) { //make sure the user wants this file scanned
+
+							if ( $is_dir === true ) { //if directory scan it
 
 								$data = array_merge( $data, $this->scan_files( $relname . '/' ) );
 
