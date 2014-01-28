@@ -834,7 +834,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				add_settings_section(
 					'authentication_admin_user',
 					__( 'Secure Admin User',
-						'ithemes-security' ),
+					    'ithemes-security' ),
 					array( $this, 'admin_user_header' ),
 					'security_page_toplevel_page_itsec-authentication'
 				);
@@ -1077,8 +1077,6 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$log_display = new ITSEC_Authentication_Log_Table();
 			$log_display->prepare_items();
 			$log_display->display();
-
-
 
 		}
 
@@ -1332,15 +1330,23 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			$link = 'admin.php?page=toplevel_page_itsec-authentication';
 
-			if ( $this->settings['strong_passwords-enabled'] === 1 && $this->settings['strong_passwords-roll'] == 'subscriber' ) {
+			if ( $this->settings['strong_passwords-enabled'] === true && $this->settings['strong_passwords-roll'] == 'subscriber' ) {
 
 				$status_array = 'safe-high';
-				$status       = array( 'text' => __( 'You are enforcing strong passwords for all users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
+				$status = array(
+					'text' => __( 'You are enforcing strong passwords for all users.', 'ithemes-security' ),
+				);
 
 			} elseif ( $this->settings['strong_passwords-enabled'] !== true ) {
 
 				$status_array = 'high';
-				$status       = array( 'text' => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
+				$status = array(
+					'text'    => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ),
+					'link'    => $link . '#strong_passwords',
+					'option'  => 'itsec_authentication',
+					'setting' => 'strong_passwords-enabled',
+					'value'   => 1
+				);
 
 			}
 

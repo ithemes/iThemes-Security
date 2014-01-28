@@ -11,10 +11,16 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 		private static $instance = null;
 
+		private
+			$sidebar_items;
+
 		private function __construct() {
 
 			//Add admin CSS
 			add_action( 'itsec_admin_init', array( $this, 'register_admin_css' ) );
+
+			//Add admin JS
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 
 			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
 
@@ -49,6 +55,23 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 				'normal',
 				'core'
 			);
+
+		}
+
+		/**
+		 * Add Dashboard Javascript
+		 *
+		 * @return void
+		 */
+		public function admin_script() {
+
+			global $itsec_globals;
+
+			if ( strpos( get_current_screen()->id, 'itsec' ) !== false ) {
+
+				wp_enqueue_script( 'itsec_dashboard_js', $itsec_globals['plugin_url'] . 'modules/dashboard/js/admin-dashboard.js', 'jquery', $itsec_globals['plugin_build'] );
+
+			}
 
 		}
 
@@ -193,13 +216,13 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 		 * @return void
 		 */
 		public function metabox_status_feed() {
-		
-			$statuses = array(
+
+			$this->sidebar_items = array(
 				'high'        => array(),
 				'medium'      => array(),
 			);
 
-			$statuses = apply_filters( 'itsec_add_sidebar_status', $statuses );
+			$this->sidebar_items = apply_filters( 'itsec_add_sidebar_status', $this->sidebar_items );
 
 			// Intro Text
 			$content = '<div class="itsec-status-feed-item intro">';
@@ -209,22 +232,22 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .= '</div>';
 			
 			// Begin Feed Items
-			if ( isset( $statuses['high'][0] ) || isset( $statuses['medium'][0] ) ) {
+			if ( isset( $this->sidebar_items['high'][0] ) || isset( $this->sidebar_items['medium'][0] ) ) {
 
 				$status_count = 0;
 
-				if ( isset( $statuses['high'] ) ) {
+				if ( isset( $this->sidebar_items['high'] ) ) {
 
-					foreach ( $statuses['high'] as $status ) {
+					foreach ( $this->sidebar_items['high'] as $item ) {
 
 						$status_count++;
 
 						if ( $status_count <= 5 ) {
 							$content .= '<div class="itsec-status-feed-item high-priority">';
-							$content .= '<p>' . $status['text'] . '</p>';
+							$content .= '<p>' . $item['text'] . '</p>';
 							$content .= '<div class="itsec-status-feed-actions">';
 							$content .= '<p class="itsec-why"><a href="#">' . __('Why Change This?', 'ithemes-security' ) . '</a></p>';
-							$content .= '<p><a href="' . $status['link'] . '" class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
+							$content .= '<p><a href="' . $item['link'] . '" class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
 							$content .= '</div>';
 							$content .= '</div>';
 						}
@@ -233,18 +256,18 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 				}
 
-				if ( isset( $statuses['medium'] ) ) {
+				if ( isset( $this->sidebar_items['medium'] ) ) {
 
-					foreach ( $statuses['medium'] as $status ) {
+					foreach ( $this->sidebar_items['medium'] as $item ) {
 
 						$status_count++;
 
 						if ( $status_count <= 5 ) {
 							$content .= '<div class="itsec-status-feed-item medium-priority">';
-							$content .= '<p>' . $status['text'] . '</p>';
+							$content .= '<p>' . $item['text'] . '</p>';
 							$content .= '<div class="itsec-status-feed-actions">';
 							$content .= '<p class="itsec-why"><a href="#">' . __('Why Change This?', 'ithemes-security' ) . '</a></p>';
-							$content .= '<p><a href="' . $status['link'] . '" class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
+							$content .= '<p><a href="' . $item['link'] . '" class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
 							$content .= '</div>';
 							$content .= '</div>';
 						}
