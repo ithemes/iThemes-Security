@@ -21,10 +21,14 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 			add_action( 'wp_head', array( $this, 'check_404' ) );
 
 			if ( isset( $this->settings['file_change-enabled'] ) && $this->settings['file_change-enabled'] === true && isset( $this->settings['file_change-last_run'] ) && ( $itsec_current_time - 86400 ) > $this->settings['file_change-last_run'] ) {
+
 				add_action( 'init', array( $this, 'execute_file_check' ) );
+
 			} elseif ( isset( $this->settings['file_change-last_run'] ) === false ) {
+
 				$this->settings['file_change-last_run'] = 0;
 				update_site_option( 'itsec_intrusion_detection', $this->settings );
+
 			}
 
 		}
