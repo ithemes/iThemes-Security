@@ -16,13 +16,10 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 		private function __construct() {
 
-			//Add admin CSS
 			add_action( 'itsec_admin_init', array( $this, 'register_admin_css' ) );
-
-			//Add admin JS
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
-
 			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) );
+			add_action( 'wp_ajax_itsec_sidebar', array( $this, 'save_ajax_options' ) );
 
 		}
 
@@ -70,6 +67,8 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			if ( strpos( get_current_screen()->id, 'itsec' ) !== false ) {
 
 				wp_enqueue_script( 'itsec_dashboard_js', $itsec_globals['plugin_url'] . 'modules/dashboard/js/admin-dashboard.js', 'jquery', $itsec_globals['plugin_build'] );
+				wp_localize_script( 'itsec_dashboard_js', 'ajax_object',
+				                    array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'we_value' => 1234 ) );
 
 			}
 
@@ -247,7 +246,9 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 							$content .= '<p>' . $item['text'] . '</p>';
 							$content .= '<div class="itsec-status-feed-actions">';
 							$content .= '<p class="itsec-why"><a href="#">' . __('Why Change This?', 'ithemes-security' ) . '</a></p>';
-							$content .= '<p><a href="' . $item['link'] . '" class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
+							$content .= '<form class="itsec_ajax_form" method="post" action="">';
+							$content .= '<p><input class="button-primary" name="submit" type="submit" value="' . __( 'Fix This', 'ithemes-security' ) . '"></p>';
+							$content .= '</form>';
 							$content .= '</div>';
 							$content .= '</div>';
 						}
@@ -329,6 +330,15 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			wp_register_style( 'itsec_admin_dashboard', $itsec_globals['plugin_url'] . 'modules/dashboard/css/dashboard.css' );
 
 			add_action( $itsec_globals['plugin_url'] . 'enqueue_admin_styles', array( $this, 'enqueue_admin_css' ) );
+
+		}
+
+		public function save_ajax_options() {
+
+			$whatever = intval( $_POST['whatever'] );
+			$whatever += 10;
+			echo $whatever;
+			die();
 
 		}
 
