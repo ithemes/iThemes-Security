@@ -100,6 +100,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-advanced_tweaks' ) !== false ) {
 
 				wp_enqueue_script( 'itsec_advanced_tweaks_js', $itsec_globals['plugin_url'] . 'modules/advanced-tweaks/js/admin-advanced-tweaks.js', 'jquery', $itsec_globals['plugin_build'] );
+				wp_enqueue_script( 'jquery_geturlvar', $itsec_globals['plugin_url'] . 'inc/js/jquery-geturlvar.js', array( 'jquery', 'itsec_advanced_tweaks_js' ), $itsec_globals['plugin_build'] );
 
 			}
 
