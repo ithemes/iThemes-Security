@@ -90,8 +90,8 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Setup' ) ) {
 			$itsec_files->set_wpconfig( $config_rules );
 
 			//Reset recommended file permissions
-			@chmod( $itsec_lib->get_htaccess(), '0644' );
-			@chmod( $itsec_lib->get_config(), '0644' );
+			@chmod( $itsec_lib->get_htaccess(), '644' );
+			@chmod( $itsec_lib->get_config(), '644' );
 
 		}
 

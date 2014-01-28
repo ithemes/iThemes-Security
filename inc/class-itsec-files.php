@@ -98,8 +98,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			//Make sure we can write to the file
 			$perms = substr( sprintf( '%o', fileperms( $htaccess_file ) ), - 4 );
 
-			if ( $perms == '0444' ) {
-				@chmod( $htaccess_file, 0644 );
+			if ( $perms == '444' ) {
+				@chmod( $htaccess_file, 644 );
 			}
 
 			//make sure the file exists and create it if it doesn't
@@ -147,8 +147,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			}
 
 			//reset file permissions if we changed them
-			if ( $perms == '0444' ) {
-				@chmod( $htaccess_file, 0444 );
+			if ( $perms == '444' ) {
+				@chmod( $htaccess_file, 444 );
 			}
 
 			return true;
@@ -514,8 +514,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			//Make sure we can write to the file
 			$perms = substr( sprintf( '%o', fileperms( $htaccess_file ) ), - 4 );
 
-			if ( $perms == '0444' ) {
-				@chmod( $htaccess_file, 0644 );
+			if ( $perms == '444' ) {
+				@chmod( $htaccess_file, 644 );
 			}
 
 			//make sure the file exists and create it if it doesn't
@@ -572,8 +572,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			}
 
 			//reset file permissions if we changed them
-			if ( $perms == '0444' ) {
-				@chmod( $htaccess_file, 0444 );
+			if ( $perms == '444' ) {
+				@chmod( $htaccess_file, 444 );
 			}
 
 			return true;
@@ -612,8 +612,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			//Make sure we can write to the file
 			$perms = substr( sprintf( '%o', fileperms( $config_file ) ), - 4 );
 
-			if ( $perms == '0444' ) {
-				@chmod( $config_file, 0644 );
+			if ( $perms == '444' ) {
+				@chmod( $config_file, 644 );
 			}
 
 			if ( $wp_filesystem->exists( $config_file ) ) { //check wp-config.php exists where we think it should
@@ -736,8 +736,8 @@ if ( ! class_exists( 'ITSEC_Files' ) ) {
 			}
 
 			//reset file permissions if we changed them
-			if ( $perms == '0444' ) {
-				@chmod( $config_file, 0444 );
+			if ( $perms == '444' ) {
+				@chmod( $config_file, 444 );
 			}
 
 			return true;
