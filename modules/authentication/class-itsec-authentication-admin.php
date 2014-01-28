@@ -28,6 +28,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			add_filter( 'itsec_add_sidebar_status', array( $this, 'sidebar_status' ) ); //add information for plugin sidebar status
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
@@ -614,7 +615,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			if ( $this->settings['strong_passwords-enabled'] === 1 && $this->settings['strong_passwords-roll'] == 'subscriber' ) {
 
-				$status_array = 'safe-medium';
+				$status_array = 'safe-high';
 				$status = array( 'text' => __( 'You are enforcing strong passwords for all users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
 
 			} elseif ( $this->settings['strong_passwords-enabled'] === true ) {
@@ -624,7 +625,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			} else {
 
-				$status_array = 'medium';
+				$status_array = 'high';
 				$status = array( 'text' => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
 
 			}
@@ -1319,6 +1320,47 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			//send them back to the away mode options page
 			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_itsec-authentication', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
+
+		}
+
+		/**
+		 * Sets the status in the plugin sidebar
+		 *
+		 * @return array $statuses array of sidebar statuses
+		 */
+		public function sidebar_status( $statuses ) {
+
+			$link = 'admin.php?page=toplevel_page_itsec-authentication';
+
+			if ( $this->settings['strong_passwords-enabled'] === 1 && $this->settings['strong_passwords-roll'] == 'subscriber' ) {
+
+				$status_array = 'safe-high';
+				$status       = array( 'text' => __( 'You are enforcing strong passwords for all users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
+
+			} elseif ( $this->settings['strong_passwords-enabled'] !== true ) {
+
+				$status_array = 'high';
+				$status       = array( 'text' => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			if ( $this->settings['brute_force-enabled'] === true ) {
+
+				$status_array = 'safe-high';
+				$status       = array( 'text' => __( 'Your login area is protected from brute force attacks.', 'ithemes-security' ), 'link' => $link . '#brute_force', );
+
+			} else {
+
+				$status_array = 'high';
+				$status       = array( 'text' => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ), 'link' => $link . '#brute_force', );
+
+			}
+
+			array_push( $statuses[$status_array], $status );
+
+			return $statuses;
 
 		}
 
