@@ -24,11 +24,6 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 
 				add_action( 'init', array( $this, 'execute_file_check' ) );
 
-			} elseif ( isset( $this->settings['file_change-last_run'] ) === false ) {
-
-				$this->settings['file_change-last_run'] = 0;
-				update_site_option( 'itsec_intrusion_detection', $this->settings );
-
 			}
 
 		}
@@ -408,10 +403,10 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection' ) ) {
 						$absname = ABSPATH . $relname;
 
 						if ( is_dir( $absname ) && filetype( $absname ) == 'dir' ) {
-							$is_dir = true;
+							$is_dir     = true;
 							$check_name = trailingslashit( $relname );
 						} else {
-							$is_dir = false;
+							$is_dir     = false;
 							$check_name = $relname;
 						}
 
