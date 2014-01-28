@@ -94,17 +94,17 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 
 			global $itsec_lib;
 
-			$link = 'admin.php?page=toplevel_page_itsec-advanced_tweaks';
+			$link       = 'admin.php?page=toplevel_page_itsec-advanced_tweaks&itsec_action=fix_error';
 
 			if ( $this->settings['protect_files'] === true ) {
 
 				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'You are protecting common WordPress files from access.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'You are protecting common WordPress files from access.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_protect_files', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array( 'text' => __( 'You are not protecting common WordPress files from access. Click here to protect WordPress files.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'You are not protecting common WordPress files from access. Click here to protect WordPress files.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_protect_files', );
 
 			}
 
@@ -113,12 +113,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['directory_browsing'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'You have successfully disabled directory browsing on your site.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'You have successfully disabled directory browsing on your site.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_directory_browsing', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'You have not disabled directory browsing on your site. Click here to prevent a user from seeing every file present in your WordPress site.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'You have not disabled directory browsing on your site. Click here to prevent a user from seeing every file present in your WordPress site.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_directory_browsing', );
 
 			}
 
@@ -127,12 +127,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['request_methods'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'You are blocking HTTP request methods you do not need.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'You are blocking HTTP request methods you do not need.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_request_methods', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'You are not blocking HTTP request methods you do not need. Click here to block extra HTTP request methods that WordPress should not normally need.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'You are not blocking HTTP request methods you do not need. Click here to block extra HTTP request methods that WordPress should not normally need.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_request_methods', );
 
 			}
 
@@ -141,12 +141,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['suspicious_query_strings'] === true ) {
 
 				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'Your WordPress site is blocking suspicious looking information in the URL.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress site is blocking suspicious looking information in the URL.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_suspicious_query_strings', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array( 'text' => __( 'Your WordPress site is not blocking suspicious looking information in the URL. Click here to block users from trying to execute code that they should not be able to execute.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress site is not blocking suspicious looking information in the URL. Click here to block users from trying to execute code that they should not be able to execute.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_suspicious_query_strings', );
 
 			}
 
@@ -155,12 +155,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['non_english_characters'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Your WordPress site is blocking non-english characters in the URL.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress site is blocking non-english characters in the URL.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_non_english_characters', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Your WordPress site is not blocking non-english characters in the URL. Click here to fix this.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress site is not blocking non-english characters in the URL. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_non_english_characters', );
 
 			}
 
@@ -169,12 +169,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['long_url_strings'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Your installation does not accept long URLs.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your installation does not accept long URLs.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_long_url_strings', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities. Click here to fix this.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your installation accepts long (over 255 character) URLS. This can lead to vulnerabilities. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_long_url_strings', );
 
 			}
 
@@ -183,12 +183,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['write_permissions'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Wp-config.php and .htacess are not writeable.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Wp-config.php and .htacess are not writeable.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_write_permissions', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Wp-config.php and .htacess are writeable. This can lead to vulnerabilities. Click here to fix this.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Wp-config.php and .htacess are writeable. This can lead to vulnerabilities. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_write_permissions', );
 
 			}
 
@@ -197,12 +197,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['generator_tag'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Your WordPress installation is not publishing its version number to the world.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is not publishing its version number to the world.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_generator_tag', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Your WordPress installation is publishing its version number to the world. Click here to fix this.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is publishing its version number to the world. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_generator_tag', );
 
 			}
 
@@ -211,12 +211,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['wlwmanifest_header'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Your WordPress installation is not publishing the Windows Live Writer header.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is not publishing the Windows Live Writer header.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_wlwmanifest_header', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Your WordPress installation is publishing the Windows Live Writer header. Click here to fix this.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is publishing the Windows Live Writer header. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_wlwmanifest_header', );
 
 			}
 
@@ -225,12 +225,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['edituri_header'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Your WordPress installation is not publishing the really simple discovery header.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is not publishing the really simple discovery header.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_edituri_header', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Your WordPress installation is publishing the really simple discovery header. Click here to fix this.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is publishing the really simple discovery header. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_edituri_header', );
 
 			}
 
@@ -239,12 +239,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['theme_updates'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update themes about theme updates.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update themes about theme updates.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_theme_updates', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Your WordPress installation is telling users who cannot update themes about theme updates. Click here to fix this.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is telling users who cannot update themes about theme updates. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_theme_updates', );
 
 			}
 
@@ -253,12 +253,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['plugin_updates'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update plugins about plugin updates.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update plugins about plugin updates.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_plugin_updates', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Your WordPress installation is telling users who cannot update plugins about plugin updates. Click here to fix this.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is telling users who cannot update plugins about plugin updates. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_plugin_updates', );
 
 			}
 
@@ -267,12 +267,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['core_updates'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update WordPress core about WordPress core updates.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is not telling users who cannot update WordPress core about WordPress core updates.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_core_updates', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Your WordPress installation is telling users who cannot update WordPress core about WordPress core updates. Click here to fix this.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is telling users who cannot update WordPress core about WordPress core updates. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_core_updates', );
 
 			}
 
@@ -281,12 +281,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['comment_spam'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Your WordPress installation is not allowing users without a user agent to post comments.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is not allowing users without a user agent to post comments.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_comment_spam', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Your WordPress installation is allowing users without a user agent to post comments. Fix this to reduce comment spam.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress installation is allowing users without a user agent to post comments. Fix this to reduce comment spam.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_comment_spam', );
 
 			}
 
@@ -295,12 +295,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['random_version'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Version information is obscured to all non admin users.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Version information is obscured to all non admin users.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_random_version', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Users may still be able to get version information from various plugins and themes. Click here to fix this.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Users may still be able to get version information from various plugins and themes. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_random_version', );
 
 			}
 
@@ -309,12 +309,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'Users cannot edit plugin and themes files directly from within the WordPress Dashboard.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Users cannot edit plugin and themes files directly from within the WordPress Dashboard.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_file_editor', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'Users can edit plugin and themes files directly from within the WordPress Dashboard. Click here to fix this.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Users can edit plugin and themes files directly from within the WordPress Dashboard. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_file_editor', );
 
 			}
 
@@ -323,12 +323,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['disable_xmlrpc'] === true ) {
 
 				$status_array = 'safe-low';
-				$status       = array( 'text' => __( 'XML-RPC is not available on your WordPress installation.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'XML-RPC is not available on your WordPress installation.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_disable_xmlrpc', );
 
 			} else {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'XML-RPC is available on your WordPress installation. Attackers can use this feature to attack your site. Click here to disable access to XML-RPC.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'XML-RPC is available on your WordPress installation. Attackers can use this feature to attack your site. Click here to disable access to XML-RPC.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_disable_xmlrpc', );
 
 			}
 
@@ -337,12 +337,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $this->settings['uploads_php'] === true ) {
 
 				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'Users cannot execute PHP from the uploads folder.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Users cannot execute PHP from the uploads folder.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_uploads_php', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array( 'text' => __( 'Users can execute PHP from the uploads folder. Click here to fix.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Users can execute PHP from the uploads folder. Click here to fix.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_uploads_php', );
 
 			}
 
@@ -351,12 +351,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			if ( $itsec_lib->safe_jquery_version() === true ) {
 
 				$status_array = 'safe-high';
-				$status       = array( 'text' => __( 'The front page of your site is using a safe version of jQuery.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'The front page of your site is using a safe version of jQuery.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_wordpress_safe_jquery', );
 
 			} else {
 
 				$status_array = 'high';
-				$status       = array( 'text' => __( 'The front page of your site is not using a safe version of jQuery or the version of jQuery cannot be determined.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'The front page of your site is not using a safe version of jQuery or the version of jQuery cannot be determined.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_wordpress_safe_jquery', );
 
 			}
 
@@ -376,64 +376,207 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			global $itsec_lib;
 
 			//Add Settings sections
-			add_settings_section( 'advanced_tweaks_enabled', __( 'Enable Advanced Tweaks', 'ithemes-security' ), array( $this, 'empty_callback_function' ), 'security_page_toplevel_page_itsec-advanced_tweaks' );
+			add_settings_section(
+				'advanced_tweaks_enabled',
+				__( 'Enable Advanced Tweaks', 'ithemes-security' ),
+				array( $this, 'empty_callback_function' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks'
+			);
 
-			add_settings_section( 'advanced_tweaks_server', __( 'Configure Server Tweaks', 'ithemes-security' ), array( $this, 'server_tweaks_intro' ), 'security_page_toplevel_page_itsec-advanced_tweaks' );
+			add_settings_section(
+				'advanced_tweaks_server',
+				__( 'Configure Server Tweaks', 'ithemes-security' ),
+				array( $this, 'server_tweaks_intro' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks'
+			);
 
-			add_settings_section( 'advanced_tweaks_wordpress', __( 'Configure WordPress Tweaks', 'ithemes-security' ), array( $this, 'wordpress_tweaks_intro' ), 'security_page_toplevel_page_itsec-advanced_tweaks' );
+			add_settings_section(
+				'advanced_tweaks_wordpress',
+				__( 'Configure WordPress Tweaks', 'ithemes-security' ),
+				array( $this, 'wordpress_tweaks_intro' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks'
+			);
 
 			if ( is_multisite() ) {
-				add_settings_section( 'advanced_tweaks_wordpress_multisite', __( 'Configure Multisite Tweaks', 'ithemes-security' ), array( $this, 'wordpress_multisite_tweaks_intro' ), 'security_page_toplevel_page_itsec-advanced_tweaks' );
+				add_settings_section(
+					'advanced_tweaks_wordpress_multisite',
+					__( 'Configure Multisite Tweaks', 'ithemes-security' ),
+					array( $this, 'wordpress_multisite_tweaks_intro' ),
+					'security_page_toplevel_page_itsec-advanced_tweaks'
+				);
 			}
 
 			//Add settings fields
-			add_settings_field( 'itsec_advanced_tweaks[enabled]', __( 'Advanced Security Tweaks', 'ithemes-security' ), array( $this, 'advanced_tweaks_enabled' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_enabled' );
+			add_settings_field(
+				'itsec_advanced_tweaks[enabled]',
+				__( 'Advanced Security Tweaks', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_enabled' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_enabled'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[protect_files]', __( 'System Files', 'ithemes-security' ), array( $this, 'advanced_tweaks_server_protect_files' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_server' );
+			add_settings_field(
+				'itsec_advanced_tweaks[protect_files]',
+				__( 'System Files', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_server_protect_files' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[directory_browsing]', __( 'Directory Browsing', 'ithemes-security' ), array( $this, 'advanced_tweaks_server_directory_browsing' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_server' );
+			add_settings_field(
+				'itsec_advanced_tweaks[directory_browsing]',
+				__( 'Directory Browsing', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_server_directory_browsing' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[request_methods]', __( 'Request Methods', 'ithemes-security' ), array( $this, 'advanced_tweaks_server_request_methods' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_server' );
+			add_settings_field(
+				'itsec_advanced_tweaks[request_methods]',
+				__( 'Request Methods', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_server_request_methods' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[suspicious_query_strings]', __( 'Suspicious Query Strings', 'ithemes-security' ), array( $this, 'advanced_tweaks_server_suspicious_query_strings' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_server' );
+			add_settings_field(
+				'itsec_advanced_tweaks[suspicious_query_strings]',
+				__( 'Suspicious Query Strings', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_server_suspicious_query_strings' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[non_english_characters]', __( 'Non-English Characters', 'ithemes-security' ), array( $this, 'advanced_tweaks_server_non_english_characters' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_server' );
+			add_settings_field(
+				'itsec_advanced_tweaks[non_english_characters]',
+				__( 'Non-English Characters', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_server_non_english_characters' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[long_url_strings]', __( 'Long URL Strings', 'ithemes-security' ), array( $this, 'advanced_tweaks_server_long_url_strings' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_server' );
+			add_settings_field(
+				'itsec_advanced_tweaks[long_url_strings]',
+				__( 'Long URL Strings', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_server_long_url_strings' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[write_permissions]', __( 'File Writing Permissions', 'ithemes-security' ), array( $this, 'advanced_tweaks_server_write_permissions' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_server' );
+			add_settings_field(
+				'itsec_advanced_tweaks[write_permissions]',
+				__( 'File Writing Permissions', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_server_write_permissions' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[uploads_php]', __( 'Uploads', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_uploads_php' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_server' );
+			add_settings_field(
+				'itsec_advanced_tweaks[uploads_php]',
+				__( 'Uploads', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_wordpress_uploads_php' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_server'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[generator_tag]', __( 'Generator Meta Tag', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_generator_tag' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
+			add_settings_field(
+				'itsec_advanced_tweaks[generator_tag]',
+				__( 'Generator Meta Tag', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_wordpress_generator_tag' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_wordpress'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[wlwmanifest_header]', __( 'Windows Live Writer Header', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_wlwmanifest_header' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
+			add_settings_field(
+				'itsec_advanced_tweaks[wlwmanifest_header]',
+				__( 'Windows Live Writer Header', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_wordpress_wlwmanifest_header' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_wordpress'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[edituri_header]', __( 'EditURI Header', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_edituri_header' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
+			add_settings_field(
+				'itsec_advanced_tweaks[edituri_header]',
+				__( 'EditURI Header', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_wordpress_edituri_header' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_wordpress'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[comment_spam]', __( 'Comment Spam', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_comment_spam' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
+			add_settings_field(
+				'itsec_advanced_tweaks[comment_spam]',
+				__( 'Comment Spam', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_wordpress_comment_spam' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_wordpress'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[random_version]', __( 'Display Random Version', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_random_version' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
+			add_settings_field(
+				'itsec_advanced_tweaks[random_version]',
+				__( 'Display Random Version', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_wordpress_random_version' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_wordpress'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[file_editor]', __( 'File Editor', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_file_editor' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
+			add_settings_field(
+				'itsec_advanced_tweaks[file_editor]',
+				__( 'File Editor', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_wordpress_file_editor' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_wordpress'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[disable_xmlrpc]', __( 'XML-RPC', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_disable_xmlrpc' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
+			add_settings_field(
+				'itsec_advanced_tweaks[disable_xmlrpc]',
+				__( 'XML-RPC', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_wordpress_disable_xmlrpc' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_wordpress'
+			);
 
 			if ( $itsec_lib->safe_jquery_version() !== true || $this->settings['safe_jquery'] === true ) {
 
-				add_settings_field( 'itsec_advanced_tweaks[safe_jquery]', __( 'Replace jQuery With a Safe Version', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_safe_jquery' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress' );
+				add_settings_field(
+					'itsec_advanced_tweaks[safe_jquery]',
+					__( 'Replace jQuery With a Safe Version', 'ithemes-security' ),
+					array( $this, 'advanced_tweaks_wordpress_safe_jquery' ),
+					'security_page_toplevel_page_itsec-advanced_tweaks',
+					'advanced_tweaks_wordpress'
+				);
 
 			}
 
-			add_settings_field( 'itsec_advanced_tweaks[theme_updates]', __( 'Theme Update Notifications', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_theme_updates' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress_multisite' );
+			add_settings_field(
+				'itsec_advanced_tweaks[theme_updates]',
+				__( 'Theme Update Notifications', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_wordpress_theme_updates' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_wordpress_multisite'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[plugin_updates]', __( 'Plugin Update Notifications', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_plugin_updates' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress_multisite' );
+			add_settings_field(
+				'itsec_advanced_tweaks[plugin_updates]',
+				__( 'Plugin Update Notifications', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_wordpress_plugin_updates' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_wordpress_multisite'
+			);
 
-			add_settings_field( 'itsec_advanced_tweaks[core_updates]', __( 'Core Update Notifications', 'ithemes-security' ), array( $this, 'advanced_tweaks_wordpress_core_updates' ), 'security_page_toplevel_page_itsec-advanced_tweaks', 'advanced_tweaks_wordpress_multisite' );
-
+			add_settings_field(
+				'itsec_advanced_tweaks[core_updates]',
+				__( 'Core Update Notifications', 'ithemes-security' ),
+				array( $this, 'advanced_tweaks_wordpress_core_updates' ),
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'advanced_tweaks_wordpress_multisite'
+			);
 
 			//Register the settings field for the entire module
-			register_setting( 'security_page_toplevel_page_itsec-advanced_tweaks', 'itsec_advanced_tweaks', array( $this, 'sanitize_module_input' ) );
+			register_setting(
+				'security_page_toplevel_page_itsec-advanced_tweaks',
+				'itsec_advanced_tweaks',
+				array( $this, 'sanitize_module_input' )
+			);
 
 		}
 
@@ -452,7 +595,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 
 			echo '<h2 class="settings-section-header">' . __( 'WordPress Tweaks', 'ithemes-security' ) . '</h2>';
 		}
-		
+
 		public function wordpress_multisite_tweaks_intro() {
 
 			echo '<h2 class="settings-section-header">' . __( 'Multisite Tweaks', 'ithemes-security' ) . '</h2>';
