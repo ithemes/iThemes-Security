@@ -224,7 +224,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 							$content .= '<p>' . $status['text'] . '</p>';
 							$content .= '<div class="itsec-status-feed-actions">';
 							$content .= '<p class="itsec-why"><a href="#">' . __('Why Change This?', 'ithemes-security' ) . '</a></p>';
-							$content .= '<p><a class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
+							$content .= '<p><a href="' . $status['link'] . '" class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
 							$content .= '</div>';
 							$content .= '</div>';
 						}
@@ -244,7 +244,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 							$content .= '<p>' . $status['text'] . '</p>';
 							$content .= '<div class="itsec-status-feed-actions">';
 							$content .= '<p class="itsec-why"><a href="#">' . __('Why Change This?', 'ithemes-security' ) . '</a></p>';
-							$content .= '<p><a class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
+							$content .= '<p><a href="' . $status['link'] . '" class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
 							$content .= '</div>';
 							$content .= '</div>';
 						}
