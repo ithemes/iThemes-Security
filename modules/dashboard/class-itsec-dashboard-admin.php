@@ -199,7 +199,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 				'medium'      => array(),
 			);
 
-			$statuses = apply_filters( 'itsec_add_dashboard_status', $statuses );
+			$statuses = apply_filters( 'itsec_add_sidebar_status', $statuses );
 
 			// Intro Text
 			$content = '<div class="itsec-status-feed-item intro">';
