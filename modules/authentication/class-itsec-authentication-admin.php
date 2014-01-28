@@ -147,7 +147,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function admin_user_header() {
 
-			$content = '<h2 class="settings-section-header">' . __( 'Secure Admin User', 'ithemes-security' ) . '</h2>';
+			$content = '<h2 id="admin_user" class="settings-section-header">' . __( 'Secure Admin User', 'ithemes-security' ) . '</h2>';
 			$content .= '<p>' . __( 'This feature will improve the security of your WordPress installation by removing common user attributes that can be used to target your site.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
@@ -289,7 +289,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function away_mode_header() {
 
-			$content = '<h2 class="settings-section-header">' . __( 'Configure Away Mode', 'ithemes-security' ) . '</h2>';
+			$content = '<h2 id="away_mode" class="settings-section-header">' . __( 'Configure Away Mode', 'ithemes-security' ) . '</h2>';
 
 			$content .= '<p>' . __( 'As most sites are only updated at certain times of the day it is not always necessary to provide access to the WordPress dashboard 24 hours a day, 7 days a week. The options below will allow you to disable access to the WordPress Dashboard for the specified period. In addition to limiting exposure to attackers this could also be useful to disable site access based on a schedule for classroom or other reasons.', 'ithemes-security' ) . '</p>';
 
@@ -473,7 +473,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function brute_force_header() {
 
-			$content = '<h2 class="settings-section-header">' . __( 'Brute Force Protection', 'ithemes-security' ) . '</h2>';
+			$content = '<h2 id="brute_force" class="settings-section-header">' . __( 'Brute Force Protection', 'ithemes-security' ) . '</h2>';
 			$content .= '<p>' . __( 'If one had unlimited time and wanted to try an unlimited number of password combinations to get into your site they eventually would, right? This method of attach, known as a brute force attack, is something that WordPress is acutely susceptible by default as the system doesn\t care how many attempts a user makes to login. It will always let you try again. Enabling login limits will ban the host user from attempting to login again after the specified bad login threshold has been reached.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
@@ -615,17 +615,17 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( $this->settings['strong_passwords-enabled'] === 1 && $this->settings['strong_passwords-roll'] == 'subscriber' ) {
 
 				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'You are enforcing strong passwords for all users.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'You are enforcing strong passwords for all users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
 
 			} elseif ( $this->settings['strong_passwords-enabled'] === true ) {
 
 				$status_array = 'low';
-				$status       = array( 'text' => __( 'You are enforcing strong passwords, but not for all users.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'You are enforcing strong passwords, but not for all users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array( 'text' => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
 
 			}
 
@@ -634,12 +634,12 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( $this->settings['hide_backend-enabled'] === true ) {
 
 				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'Your WordPress Dashboard is hidden.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress Dashboard is hidden.', 'ithemes-security' ), 'link' => $link . '#hide_backend', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array( 'text' => __( 'Your WordPress Dashboard is using the default addresses. This can make a brute force attack much easier.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress Dashboard is using the default addresses. This can make a brute force attack much easier.', 'ithemes-security' ), 'link' => $link . '#hide_backend', );
 
 			}
 
@@ -648,12 +648,12 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( $this->settings['away_mode-enabled'] === true ) {
 
 				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'Away Mode is enabled and your WordPress Dashboard is not available when you will not be needing it.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Away Mode is enabled and your WordPress Dashboard is not available when you will not be needing it.', 'ithemes-security' ), 'link' => $link . '#away_mode', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array( 'text' => __( 'Your WordPress Dashboard is available 24/7. Do you really update 24 hours a day? Consider using Away Mode.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your WordPress Dashboard is available 24/7. Do you really update 24 hours a day? Consider using Away Mode.', 'ithemes-security' ), 'link' => $link . '#away_mode', );
 
 			}
 
@@ -662,12 +662,12 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( ! username_exists( 'admin' ) ) {
 
 				$status_array = 'safe-high';
-				$status       = array( 'text' => __( 'The <em>admin</em> user has been removed or renamed.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'The <em>admin</em> user has been removed or renamed.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
 
 			} else {
 
 				$status_array = 'high';
-				$status       = array( 'text' => __( 'The <em>admin</em> user still exists.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'The <em>admin</em> user still exists.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
 
 			}
 
@@ -676,12 +676,12 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( ! username_exists( 'admin' ) ) {
 
 				$status_array = 'safe-medium';
-				$status       = array( 'text' => __( 'The user with id 1 has been removed.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'The user with id 1 has been removed.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status       = array( 'text' => __( 'A user with id 1 still exists.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'A user with id 1 still exists.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
 
 			}
 
@@ -690,12 +690,12 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( $this->settings['brute_force-enabled'] === true ) {
 
 				$status_array = 'safe-high';
-				$status       = array( 'text' => __( 'Your login area is protected from brute force attacks.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your login area is protected from brute force attacks.', 'ithemes-security' ), 'link' => $link . '#brute_force', );
 
 			} else {
 
 				$status_array = 'high';
-				$status       = array( 'text' => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ), 'link' => $link, );
+				$status = array( 'text' => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ), 'link' => $link . '#brute_force', );
 
 			}
 
@@ -748,7 +748,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function hide_backend_header() {
 
-			$content = '<h2 class="settings-section-header">' . __( 'Hide the Login Page', 'ithemes-security' ) . '</h2>';
+			$content = '<h2 id="hide_backend" class="settings-section-header">' . __( 'Hide the Login Page', 'ithemes-security' ) . '</h2>';
 			$content .= '<p>' . __( 'Hides the login and admin pages making them harder to find by automated attacks and making them easier for users unfamiliar with the WordPress platform.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
@@ -1116,7 +1116,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function other_header() {
 
-			$content = '<h2 class="settings-section-header">' . __( 'Other Authentication Tweaks', 'ithemes-security' ) . '</h2>';
+			$content = '<h2 id="other" class="settings-section-header">' . __( 'Other Authentication Tweaks', 'ithemes-security' ) . '</h2>';
 			$content .= '<p>' . __( 'Miscellaneous tweaks that can make it harder for an attacker to log into your WordPress website.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
@@ -1349,7 +1349,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function strong_passwords_header() {
 
-			$content = '<h2 class="settings-section-header">' . __( 'Enforce Strong Passwords', 'ithemes-security' ) . '</h2>';
+			$content = '<h2 id="strong_passwords" class="settings-section-header">' . __( 'Enforce Strong Passwords', 'ithemes-security' ) . '</h2>';
 			$content .= '<p>' . __( 'Force users to use strong passwords as rated by the WordPress password meter.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
@@ -1388,7 +1388,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		}
 
 		/**
-		 * Start the System Tweaks Admin Module
+		 * Start the Authentication Admin Module
 		 *
 		 * @param Ithemes_ITSEC_Core   $core   Instance of core plugin class
 		 * @param ITSEC_Authentication $module Instance of the authentication module class
