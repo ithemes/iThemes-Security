@@ -616,17 +616,17 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( $this->settings['strong_passwords-enabled'] === 1 && $this->settings['strong_passwords-roll'] == 'subscriber' ) {
 
 				$status_array = 'safe-high';
-				$status = array( 'text' => __( 'You are enforcing strong passwords for all users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
+				$status       = array( 'text' => __( 'You are enforcing strong passwords for all users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
 
 			} elseif ( $this->settings['strong_passwords-enabled'] === true ) {
 
 				$status_array = 'low';
-				$status = array( 'text' => __( 'You are enforcing strong passwords, but not for all users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
+				$status       = array( 'text' => __( 'You are enforcing strong passwords, but not for all users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
 
 			} else {
 
 				$status_array = 'high';
-				$status = array( 'text' => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
+				$status       = array( 'text' => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ), 'link' => $link . '#strong_passwords', );
 
 			}
 
@@ -635,12 +635,12 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( $this->settings['hide_backend-enabled'] === true ) {
 
 				$status_array = 'safe-medium';
-				$status = array( 'text' => __( 'Your WordPress Dashboard is hidden.', 'ithemes-security' ), 'link' => $link . '#hide_backend', );
+				$status       = array( 'text' => __( 'Your WordPress Dashboard is hidden.', 'ithemes-security' ), 'link' => $link . '#hide_backend', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status = array( 'text' => __( 'Your WordPress Dashboard is using the default addresses. This can make a brute force attack much easier.', 'ithemes-security' ), 'link' => $link . '#hide_backend', );
+				$status       = array( 'text' => __( 'Your WordPress Dashboard is using the default addresses. This can make a brute force attack much easier.', 'ithemes-security' ), 'link' => $link . '#hide_backend', );
 
 			}
 
@@ -649,12 +649,12 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( $this->settings['away_mode-enabled'] === true ) {
 
 				$status_array = 'safe-medium';
-				$status = array( 'text' => __( 'Away Mode is enabled and your WordPress Dashboard is not available when you will not be needing it.', 'ithemes-security' ), 'link' => $link . '#away_mode', );
+				$status       = array( 'text' => __( 'Away Mode is enabled and your WordPress Dashboard is not available when you will not be needing it.', 'ithemes-security' ), 'link' => $link . '#away_mode', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status = array( 'text' => __( 'Your WordPress Dashboard is available 24/7. Do you really update 24 hours a day? Consider using Away Mode.', 'ithemes-security' ), 'link' => $link . '#away_mode', );
+				$status       = array( 'text' => __( 'Your WordPress Dashboard is available 24/7. Do you really update 24 hours a day? Consider using Away Mode.', 'ithemes-security' ), 'link' => $link . '#away_mode', );
 
 			}
 
@@ -663,12 +663,12 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( ! username_exists( 'admin' ) ) {
 
 				$status_array = 'safe-high';
-				$status = array( 'text' => __( 'The <em>admin</em> user has been removed or renamed.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
+				$status       = array( 'text' => __( 'The <em>admin</em> user has been removed or renamed.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
 
 			} else {
 
 				$status_array = 'high';
-				$status = array( 'text' => __( 'The <em>admin</em> user still exists.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
+				$status       = array( 'text' => __( 'The <em>admin</em> user still exists.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
 
 			}
 
@@ -677,12 +677,12 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( ! username_exists( 'admin' ) ) {
 
 				$status_array = 'safe-medium';
-				$status = array( 'text' => __( 'The user with id 1 has been removed.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
+				$status       = array( 'text' => __( 'The user with id 1 has been removed.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
 
 			} else {
 
 				$status_array = 'medium';
-				$status = array( 'text' => __( 'A user with id 1 still exists.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
+				$status       = array( 'text' => __( 'A user with id 1 still exists.', 'ithemes-security' ), 'link' => $link . '#admin_user', );
 
 			}
 
@@ -691,12 +691,12 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( $this->settings['brute_force-enabled'] === true ) {
 
 				$status_array = 'safe-high';
-				$status = array( 'text' => __( 'Your login area is protected from brute force attacks.', 'ithemes-security' ), 'link' => $link . '#brute_force', );
+				$status       = array( 'text' => __( 'Your login area is protected from brute force attacks.', 'ithemes-security' ), 'link' => $link . '#brute_force', );
 
 			} else {
 
 				$status_array = 'high';
-				$status = array( 'text' => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ), 'link' => $link . '#brute_force', );
+				$status       = array( 'text' => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ), 'link' => $link . '#brute_force', );
 
 			}
 
@@ -1333,14 +1333,14 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			if ( $this->settings['strong_passwords-enabled'] === true && $this->settings['strong_passwords-roll'] == 'subscriber' ) {
 
 				$status_array = 'safe-high';
-				$status = array(
+				$status       = array(
 					'text' => __( 'You are enforcing strong passwords for all users.', 'ithemes-security' ),
 				);
 
 			} elseif ( $this->settings['strong_passwords-enabled'] !== true ) {
 
 				$status_array = 'high';
-				$status = array(
+				$status       = array(
 					'text'    => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ),
 					'link'    => $link . '#strong_passwords',
 					'option'  => 'itsec_authentication',
