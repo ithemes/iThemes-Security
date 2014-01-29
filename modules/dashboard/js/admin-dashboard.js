@@ -2,6 +2,8 @@ jQuery( document ).ready( function () {
 
 	jQuery( '.itsec_ajax_form' ).submit( function () {
 
+		var item = this;
+
 		event.preventDefault();
 
 		var data = {
@@ -12,10 +14,16 @@ jQuery( document ).ready( function () {
 			nonce: jQuery( this ).find( '[name=itsec_sidebar_nonce]' ).val()
 		};
 
-		console.log( data );
-
 		jQuery.post( ajax_object.ajax_url, data, function ( response ) {
-			console.log( 'Success' );
+
+			if ( response == true ) {
+
+				jQuery( item ).parents( '.itsec-status-feed-item' ).removeClass( 'incomplete' ).addClass( 'complete' );
+
+			} else {
+				//how to handle failure
+			}
+
 		} );
 
 		return false;
