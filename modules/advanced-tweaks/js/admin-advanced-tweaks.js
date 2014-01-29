@@ -13,7 +13,7 @@ jQuery( document ).ready( function () {
 	} ).change();
 
 	if ( jQuery.getUrlVars()['itsec_action'] !== 'undefinied' && jQuery.getUrlVars()['itsec_action'] == 'fix_error' ) {
-		jQuery( "#itsec_advanced_tweaks_enabled" ).attr( 'checked', true );
+		jQuery( "#itsec_advanced_tweaks_enabled" ).prop( 'checked', true );
 		jQuery( "#advanced_tweaks_server, #advanced_tweaks_wordpress, h2.settings-section-header" ).show();
 	}
 
