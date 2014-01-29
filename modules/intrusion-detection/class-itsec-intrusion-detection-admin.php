@@ -32,6 +32,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			add_filter( 'itsec_add_sidebar_status', array( $this, 'sidebar_status' ) ); //add information for plugin sidebar status
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
@@ -488,7 +489,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			echo $content;
 
 		}
-		
+
 		/**
 		 * Echo the File Change Detection Header
 		 */
@@ -802,6 +803,41 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			$settings['file_change-enabled']          = ( isset( $_POST['itsec_intrusion_detection']['file_change-enabled'] ) && intval( $_POST['itsec_intrusion_detection']['file_change-enabled'] == 1 ) ? true : false );
 			$settings['file_change-method']           = ( isset( $_POST['itsec_intrusion_detection']['file_change-method'] ) && intval( $_POST['itsec_intrusion_detection']['file_change-method'] == 1 ) ? true : false );
 			$settings['four_oh_four-email']           = ( isset( $_POST['itsec_intrusion_detection']['four_oh_four-email'] ) && intval( $_POST['itsec_intrusion_detection']['four_oh_four-email'] == 1 ) ? true : false );
+
+		}
+
+		/**
+		 * Sets the status in the plugin sidebar
+		 *
+		 * @return array $statuses array of sidebar statuses
+		 */
+		public function sidebar_status( $statuses ) {
+
+			if ( ! ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) ) {
+
+				$statuses[] = array(
+					'priority'  => 'medium',
+					'good_text' => __( 'Your site is protecting against bots looking for known vulnerabilities.', 'ithemes-security' ),
+					'bad_text'  => __( 'Your website is not protecting against bots looking for known vulnerabilities.', 'ithemes-security' ),
+					'why_text'  => __( 'Many attackers get into your site by scanning for files with known vulnerabilities. This feature will detect the scan and lock out the attacker.', 'ithemes-security' ),
+					'option'    => 'itsec_intrusion_detection',
+					'setting'   => 'four_oh_four-enabled',
+					'value'     => true,
+					'field_id'  => 'itsec_intrusion_detection_four_oh_four_enabled',
+				);
+
+			}
+
+			if ( $this->settings['four_oh_four-enabled'] === true ) {
+
+				$statuses[] = array(
+					'priority' => 'other',
+					'text'     => __( 'Your site is protecting against bots looking for known vulnerabilities.', 'ithemes-security' ),
+				);
+
+			}
+
+			return $statuses;
 
 		}
 

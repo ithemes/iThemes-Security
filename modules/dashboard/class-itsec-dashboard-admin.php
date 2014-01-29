@@ -230,50 +230,69 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			// Begin Feed Items
 			if ( isset( $this->sidebar_items[0] ) ) {
 
-				$item_content = array();
-				$item_id      = 0;
+				$action_item_content = array();
+				$other_item_content  = array();
+				$item_id             = 0;
+				$action_item_count   = 0;
 
 				foreach ( $this->sidebar_items as $item ) {
 
-					if ( $item_id === 5 ) {
-						break;
+					if ( $item['priority'] === 'high' || $item['priority'] === 'medium' ) {
+
+						if ( $action_item_count === 5 ) {
+							break;
+						}
+
+						$test_setting = get_site_option( $item['option'] );
+
+						if ( $test_setting[$item['setting']] === $item['value'] ) {
+
+							$item_class                                = 'complete';
+							$action_item_content[$item_id]['complete'] = true;
+
+						} else {
+
+							$item_class                                = 'incomplete';
+							$action_item_content[$item_id]['complete'] = false;
+
+						}
+
+						$action_item_content[$item_id]['priority'] = $item['priority'];
+
+						$action_item_content[$item_id]['text'] = '<div class="itsec-status-feed-item ' . $item_class . ' ' . $item['priority'] . '-priority">';
+						$action_item_content[$item_id]['text'] .= '<p class="bad_text">' . $item['bad_text'] . '</p>';
+						$action_item_content[$item_id]['text'] .= '<p class="good_text">' . $item['good_text'] . '</p>';
+						$action_item_content[$item_id]['text'] .= '<div class="itsec-status-feed-actions">';
+						$action_item_content[$item_id]['text'] .= '<p class="itsec-why"><a href="#">' . __( 'Why Change This?', 'ithemes-security' ) . '</a></p>';
+						$action_item_content[$item_id]['text'] .= '<form class="itsec_ajax_form" method="post" action="">';
+						$action_item_content[$item_id]['text'] .= wp_nonce_field( 'itsec_sidebar_ajax', 'itsec_sidebar_nonce', true, false );
+						$action_item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_option" id="itsec_option" value="' . $item['option'] . '">';
+						$action_item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_setting" id="itsec_setting" value="' . $item['setting'] . '">';
+						$action_item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_value" id="itsec_value" value="' . $item['value'] . '">';
+						$action_item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_field_id" id="itsec_field_id" value="' . $item['field_id'] . '">';
+						$action_item_content[$item_id]['text'] .= '<p class="why_text">' . $item['why_text'] . '</p>';
+						$action_item_content[$item_id]['text'] .= '<p><input class="button-primary" name="submit" type="submit" value="' . __( 'Fix This', 'ithemes-security' ) . '"></p>';
+						$action_item_content[$item_id]['text'] .= '</form>';
+						$action_item_content[$item_id]['text'] .= '</div>';
+						$action_item_content[$item_id]['text'] .= '</div>';
+
+						$priority[$item_id] = $item['priority'];
+						$complete[$item_id] = $item['edition'];
+
+						$action_item_count ++;
+
 					}
 
-					$test_setting = get_site_option( $item['option'] );
+					if ( $item['priority'] === 'other' ) {
 
-					if ( $test_setting['setting'] === $item['value'] ) {
-
-						$item_class                         = 'completed';
-						$item_content[$item_id]['complete'] = true;
-
-					} else {
-
-						$item_class                         = 'incomplete';
-						$item_content[$item_id]['complete'] = false;
+						$other_item_content[$item_id]['text'] .= '<div class="itsec-status-feed-item notice">';
+						$other_item_content[$item_id]['text'] .= '<p>' . $item['text'] . '</p>';
+						$other_item_content[$item_id]['text'] .= '<div class="itsec-status-feed-actions">';
+						$other_item_content[$item_id]['text'] .= '<p class="itsec-action"><a href="#">View the log</a></p>';
+						$other_item_content[$item_id]['text'] .= '</div>';
+						$other_item_content[$item_id]['text'] .= '</div>';
 
 					}
-
-					$item_content[$item_id]['priority'] = $item['priority'];
-
-					$item_content[$item_id]['text'] = '<div class="itsec-status-feed-item ' . $item_class . ' ' . $item['priority'] . '-priority">';
-					$item_content[$item_id]['text'] .= '<p class="bad_text">' . $item['bad_text'] . '</p>';
-					$item_content[$item_id]['text'] .= '<p class="good_text">' . $item['good_text'] . '</p>';
-					$item_content[$item_id]['text'] .= '<div class="itsec-status-feed-actions">';
-					$item_content[$item_id]['text'] .= '<p class="itsec-why"><a href="#">' . __( 'Why Change This?', 'ithemes-security' ) . '</a></p>';
-					$item_content[$item_id]['text'] .= '<form class="itsec_ajax_form" method="post" action="">';
-					$item_content[$item_id]['text'] .= wp_nonce_field( 'itsec_sidebar_ajax', 'itsec_sidebar_nonce', true, false );
-					$item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_option" id="itsec_option" value="' . $item['option'] . '">';
-					$item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_setting" id="itsec_setting" value="' . $item['setting'] . '">';
-					$item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_value" id="itsec_value" value="' . $item['value'] . '">';
-					$item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_field_id" id="itsec_field_id" value="' . $item['field_id'] . '">';
-					$item_content[$item_id]['text'] .= '<p class="why_text">' . $item['why_text'] . '</p>';
-					$item_content[$item_id]['text'] .= '<p><input class="button-primary" name="submit" type="submit" value="' . __( 'Fix This', 'ithemes-security' ) . '"></p>';
-					$item_content[$item_id]['text'] .= '</form>';
-					$item_content[$item_id]['text'] .= '</div>';
-					$item_content[$item_id]['text'] .= '</div>';
-
-					$priority[$item_id] = $item['priority'];
-					$complete[$item_id] = $item['edition'];
 
 					$item_id ++;
 
@@ -281,20 +300,13 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 			}
 
-			array_multisort( $complete, SORT_DESC, $priority, SORT_ASC, $item_content );
+			array_multisort( $complete, SORT_DESC, $priority, SORT_ASC, $action_item_content );
 
-			foreach ( $item_content as $item ) {
+			$feed_items = array_merge( $action_item_content, $other_item_content );
+
+			foreach ( $feed_items as $item ) {
 				$content .= $item['text'];
 			}
-
-			// These two sections left here to show markup for notices and ithemes-messages
-			$content .= '<div class="itsec-status-feed-item notice">';
-			$content .= '<p>Your site had 116 instances of 404 errors last week. This could be evidence of an attempted attack. Check your logs.</p>';
-			$content .= '<div class="itsec-status-feed-actions">';
-			$content .= '<p class="itsec-why"><a href="#">Why Change This?</a></p>';
-			$content .= '<p><input class="button-primary" name="submit" type="submit" value="Fix This"></p>';
-			$content .= '</div>';
-			$content .= '</div>';
 
 			$content .= '<div class="itsec-status-feed-item ithemes-message">';
 			$content .= '<p>A friendly message from iThemes directing you to a blog post or new feature or something of the like.</p>';
