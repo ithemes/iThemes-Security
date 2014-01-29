@@ -216,10 +216,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 		 */
 		public function metabox_status_feed() {
 
-			$this->sidebar_items = array(
-				'high'   => array(),
-				'medium' => array(),
-			);
+			$this->sidebar_items = array();
 
 			$this->sidebar_items = apply_filters( 'itsec_add_sidebar_status', $this->sidebar_items );
 
@@ -231,54 +228,30 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .= '</div>';
 
 			// Begin Feed Items
-			if ( isset( $this->sidebar_items['high'][0] ) || isset( $this->sidebar_items['medium'][0] ) ) {
+			if ( isset( $this->sidebar_items[0] ) ) {
 
 				$status_count = 0;
 
-				if ( isset( $this->sidebar_items['high'] ) ) {
+				foreach ( $this->sidebar_items as $item ) {
 
-					foreach ( $this->sidebar_items['high'] as $item ) {
+					$status_count ++;
 
-						$status_count ++;
+					if ( $status_count <= 5 ) {
 
-						if ( $status_count <= 5 ) {
-
-							$content .= '<div class="itsec-status-feed-item high-priority">';
-							$content .= '<p class="bad_text">' . $item['bad_text'] . '</p>';
-							$content .= '<p class="good_text">' . $item['good_text'] . '</p>';
-							$content .= '<div class="itsec-status-feed-actions">';
-							$content .= '<p class="itsec-why"><a href="#">' . __( 'Why Change This?', 'ithemes-security' ) . '</a></p>';
-							$content .= '<form class="itsec_ajax_form" method="post" action="">';
-							$content .= wp_nonce_field( 'itsec_sidebar_ajax', 'itsec_sidebar_ajax' );
-							$content .= '<input type="hidden" name="itsec_option" id="itsec_option" value="' . $item['option'] . '">';
-							$content .= '<input type="hidden" name="itsec_setting" id="itsec_setting" value="' . $item['setting'] . '">';
-							$content .= '<input type="hidden" name="itsec_value" id="itsec_value" value="' . $item['value'] . '">';
-							$content .= '<p><input class="button-primary" name="submit" type="submit" value="' . __( 'Fix This', 'ithemes-security' ) . '"></p>';
-							$content .= '</form>';
-							$content .= '</div>';
-							$content .= '</div>';
-
-						}
-
-					}
-
-				}
-
-				if ( isset( $this->sidebar_items['medium'] ) ) {
-
-					foreach ( $this->sidebar_items['medium'] as $item ) {
-
-						$status_count ++;
-
-						if ( $status_count <= 5 ) {
-							$content .= '<div class="itsec-status-feed-item medium-priority">';
-							$content .= '<p>' . $item['text'] . '</p>';
-							$content .= '<div class="itsec-status-feed-actions">';
-							$content .= '<p class="itsec-why"><a href="#">' . __( 'Why Change This?', 'ithemes-security' ) . '</a></p>';
-							$content .= '<p><a href="' . $item['link'] . '" class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
-							$content .= '</div>';
-							$content .= '</div>';
-						}
+						$content .= '<div class="itsec-status-feed-item high-priority">';
+						$content .= '<p class="bad_text">' . $item['bad_text'] . '</p>';
+						$content .= '<p class="good_text">' . $item['good_text'] . '</p>';
+						$content .= '<div class="itsec-status-feed-actions">';
+						$content .= '<p class="itsec-why"><a href="#">' . __( 'Why Change This?', 'ithemes-security' ) . '</a></p>';
+						$content .= '<form class="itsec_ajax_form" method="post" action="">';
+						$content .= wp_nonce_field( 'itsec_sidebar_ajax', 'itsec_sidebar_nonce', true, false );
+						$content .= '<input type="hidden" name="itsec_option" id="itsec_option" value="' . $item['option'] . '">';
+						$content .= '<input type="hidden" name="itsec_setting" id="itsec_setting" value="' . $item['setting'] . '">';
+						$content .= '<input type="hidden" name="itsec_value" id="itsec_value" value="' . $item['value'] . '">';
+						$content .= '<p><input class="button-primary" name="submit" type="submit" value="' . __( 'Fix This', 'ithemes-security' ) . '"></p>';
+						$content .= '</form>';
+						$content .= '</div>';
+						$content .= '</div>';
 
 					}
 
@@ -340,6 +313,16 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 		}
 
 		public function save_ajax_options() {
+
+			$data = array();
+
+			foreach ( $_POST as $item => $value ) {
+				$data[sanitize_text_field( $item )] = sanitize_text_field( $value );
+			}
+
+			if ( ( isset( $data['action'] ) === false || isset( $data['setting'] ) === false || isset( $data['option'] ) === false || isset( $data['value'] ) === false || isset( $data['nonce'] ) === false ) && wp_verify_nonce( $data['nonce'], 'itsec_sidebar_ajax' ) === false ) {
+				die( false );
+			}
 
 			$whatever = intval( $_POST['whatever'] );
 			$whatever += 10;

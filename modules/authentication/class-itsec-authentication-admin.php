@@ -1328,10 +1328,8 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function sidebar_status( $statuses ) {
 
-			$link = 'admin.php?page=toplevel_page_itsec-authentication';
-
-			$status_array = 'high';
-			$status       = array(
+			$statuses[] = array(
+				'priority' => 'high',
 				'bad_text'  => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ),
 				'good_text' => __( 'You are enforcing strong passwords for at least the administrator accounts.', 'ithemes-security' ),
 				'option'    => 'itsec_authentication',
@@ -1339,18 +1337,14 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'value'     => 1
 			);
 
-			array_push( $statuses[$status_array], $status );
-
-			$status_array = 'high';
-			$status       = array(
+			$statuses[] = array(
+				'priority' => 'high',
 				'good_text' => __( 'Your login area is protected from brute force attacks.', 'ithemes-security' ),
 				'bad_text'  => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ),
 				'option'    => 'itsec_authentication',
 				'setting'   => 'brute_force-enabled',
 				'value'     => 1
 			);
-
-			array_push( $statuses[$status_array], $status );
 
 			return $statuses;
 

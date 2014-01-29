@@ -8,7 +8,8 @@ jQuery( document ).ready( function () {
 			action: 'itsec_sidebar',
 			option: jQuery( this ).find( '[name=itsec_option]' ).val(),
 			setting: jQuery( this ).find( '[name=itsec_setting]' ).val(),
-			value: jQuery( this ).find( '[name=itsec_value]' ).val()
+			value: jQuery( this ).find( '[name=itsec_value]' ).val(),
+			nonce: jQuery( this ).find( '[name=itsec_sidebar_nonce]' ).val()
 		};
 
 		console.log( data );
