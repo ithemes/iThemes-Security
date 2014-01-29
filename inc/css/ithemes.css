@@ -122,6 +122,7 @@ div.inside ul li {
 	padding      : .25em 1em;
 	overflow     : hidden;
 	padding-left : 45px;
+	-webkit-transition: .2s linear all;
 }
 
 #itsec_status_feed .itsec-status-feed-item.intro {
@@ -212,8 +213,9 @@ div.inside ul li {
 
 #itsec_status_feed .itsec-status-feed-item.complete .good_text {
 	float : left;
-	width : 75%;
+	width : 100%;
 	display: block;
+	margin-bottom: 0;
 }
 
 #itsec_status_feed .itsec-status-feed-item.incomplete .good_text,

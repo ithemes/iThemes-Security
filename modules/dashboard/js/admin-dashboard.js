@@ -23,6 +23,7 @@ jQuery( document ).ready( function () {
 
 				jQuery( item ).parents( '.itsec-status-feed-item' ).removeClass( 'incomplete' ).addClass( 'complete' );
 				jQuery( form_element ).prop( 'checked', true );
+				jQuery( item ).remove();
 
 			} else {
 				//how to handle failure
