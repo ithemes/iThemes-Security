@@ -1328,28 +1328,51 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		 */
 		public function sidebar_status( $statuses ) {
 
-			$statuses[] = array(
-				'priority' => 'high',
-				'bad_text'  => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ),
-				'good_text' => __( 'You are enforcing strong passwords for at least the administrator accounts.', 'ithemes-security' ),
-				'why_text' => __( 'Simple passwords are very easy to guess by attackers. By forcing users to use strong passwords you are greatly reducing the chance that an attacker will access your site by guessing the password.', 'ithemes-security' ),
-				'option'    => 'itsec_authentication',
-				'setting'   => 'strong_passwords-enabled',
-				'value'    => true,
-				'field_id' => 'itsec_authentication_strong_passwords_enabled',
+			if ( $this->settings['strong_passwords-enabled'] !== true ) {
 
-			);
+				$statuses[] = array(
+					'priority'  => 'high',
+					'bad_text'  => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ),
+					'good_text' => __( 'You are enforcing strong passwords for at least the administrator accounts.', 'ithemes-security' ),
+					'why_text'  => __( 'Simple passwords are very easy to guess by attackers. By forcing users to use strong passwords you are greatly reducing the chance that an attacker will access your site by guessing the password.', 'ithemes-security' ),
+					'option'    => 'itsec_authentication',
+					'setting'   => 'strong_passwords-enabled',
+					'value'     => true,
+					'field_id'  => 'itsec_authentication_strong_passwords_enabled',
 
-			$statuses[] = array(
-				'priority' => 'high',
-				'good_text' => __( 'Your login area is protected from brute force attacks.', 'ithemes-security' ),
-				'bad_text'  => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ),
-				'why_text' => __( 'If an attacker had an unlimited number of tries to guess your password then that attacker would be able to eventually gain access to your site. This reduces that chance by limiting the number of password guesses an account can make before that attacker is locked out of your site.', 'ithemes-security' ),
-				'option'    => 'itsec_authentication',
-				'setting'   => 'brute_force-enabled',
-				'value'    => true,
-				'field_id' => 'itsec_authentication_brute_force_enabled',
-			);
+				);
+
+			}
+
+			if ( $this->settings['brute_force-enabled'] !== true ) {
+
+				$statuses[] = array(
+					'priority'  => 'high',
+					'good_text' => __( 'Your login area is protected from brute force attacks.', 'ithemes-security' ),
+					'bad_text'  => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ),
+					'why_text'  => __( 'If an attacker had an unlimited number of tries to guess your password then that attacker would be able to eventually gain access to your site. This reduces that chance by limiting the number of password guesses an account can make before that attacker is locked out of your site.', 'ithemes-security' ),
+					'option'    => 'itsec_authentication',
+					'setting'   => 'brute_force-enabled',
+					'value'     => true,
+					'field_id'  => 'itsec_authentication_brute_force_enabled',
+				);
+
+			}
+
+			if ( $this->settings['other-login_errors'] !== true ) {
+
+				$statuses[] = array(
+					'priority'  => 'medium',
+					'good_text' => __( 'Your WordPress installation is not giving away too much information on a failed login.', 'ithemes-security' ),
+					'bad_text'  => __( 'Your WordPress installation is giving away too much information on a failed login.', 'ithemes-security' ),
+					'why_text'  => __( 'Too much information is never a good thing as an attacker may be able to gain insight as to whether or not the login username they are trying is valid.', 'ithemes-security' ),
+					'option'    => 'itsec_authentication',
+					'setting'   => 'other-login_errors',
+					'value'     => true,
+					'field_id'  => 'itsec_authentication_other_login_errors',
+				);
+
+			}
 
 			return $statuses;
 
