@@ -130,12 +130,6 @@ div.inside ul li {
 	padding-left  : 1em;
 }
 
-#itsec_status_feed .itsec-status-feed-item.completed {
-	background    : #fafafa url(../img/check16.png) 15px 18px no-repeat;
-	border-bottom : 1px solid #c9c9c9;
-	padding-left  : 45px;
-}
-
 #itsec_status_feed .itsec-status-feed-item.high-priority {
 	background    : #ffd4d4 url(../img/flag16-red.png) 15px 18px no-repeat;
 	border-bottom : 1px solid #ca8383;
@@ -154,6 +148,12 @@ div.inside ul li {
 #itsec_status_feed .itsec-status-feed-item.ithemes-message {
 	background    : #e5f7cf url(../img/ithemes16.png) 15px 18px no-repeat;
 	border-bottom : 1px solid #97a981;
+}
+
+#itsec_status_feed .itsec-status-feed-item.complete {
+	background    : #fafafa url(../img/check16.png) 15px 18px no-repeat;
+	border-bottom : 1px solid #c9c9c9;
+	padding-left  : 45px;
 }
 
 #itsec_status_feed .itsec-status-feed-item.closing {
@@ -203,12 +203,19 @@ div.inside ul li {
 	color : #1b789e;
 }
 
-#itsec_status_feed .itsec-status-feed-item.completed .itsec-status-feed-completed-message {
+#itsec_status_feed .itsec-status-feed-item.complete .good_text {
 	float : left;
 	width : 75%;
+	display: block;
 }
 
-#itsec_status_feed .itsec-status-feed-item.completed .itsec-status-feed-actions {
+#itsec_status_feed .itsec-status-feed-item.incomplete .good_text,
+#itsec_status_feed .itsec-status-feed-item.complete .bad_text,
+#itsec_status_feed .itsec-status-feed-item.complete .itsec-why {
+	display: none;
+}
+
+#itsec_status_feed .itsec-status-feed-item.complete .itsec-status-feed-actions {
 	float : right;
 	width : 25%;
 }
