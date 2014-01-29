@@ -217,8 +217,8 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 		public function metabox_status_feed() {
 
 			$this->sidebar_items = array(
-				'high'        => array(),
-				'medium'      => array(),
+				'high'   => array(),
+				'medium' => array(),
 			);
 
 			$this->sidebar_items = apply_filters( 'itsec_add_sidebar_status', $this->sidebar_items );
@@ -229,7 +229,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .= __( 'We\'ve analyzed your site and determined that these simple changes will have the biggest impact in keeping your site safe and secure. Do these things first, then use the tabs to explore more advanced features.', 'ithemes-security' );
 			$content .= '</p>';
 			$content .= '</div>';
-			
+
 			// Begin Feed Items
 			if ( isset( $this->sidebar_items['high'][0] ) || isset( $this->sidebar_items['medium'][0] ) ) {
 
@@ -239,18 +239,25 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 					foreach ( $this->sidebar_items['high'] as $item ) {
 
-						$status_count++;
+						$status_count ++;
 
 						if ( $status_count <= 5 ) {
+
 							$content .= '<div class="itsec-status-feed-item high-priority">';
-							$content .= '<p>' . $item['text'] . '</p>';
+							$content .= '<p class="bad_text">' . $item['bad_text'] . '</p>';
+							$content .= '<p class="good_text">' . $item['good_text'] . '</p>';
 							$content .= '<div class="itsec-status-feed-actions">';
-							$content .= '<p class="itsec-why"><a href="#">' . __('Why Change This?', 'ithemes-security' ) . '</a></p>';
+							$content .= '<p class="itsec-why"><a href="#">' . __( 'Why Change This?', 'ithemes-security' ) . '</a></p>';
 							$content .= '<form class="itsec_ajax_form" method="post" action="">';
+							$content .= wp_nonce_field( 'itsec_sidebar_ajax', 'itsec_sidebar_ajax' );
+							$content .= '<input type="hidden" name="itsec_option" id="itsec_option" value="' . $item['option'] . '">';
+							$content .= '<input type="hidden" name="itsec_setting" id="itsec_setting" value="' . $item['setting'] . '">';
+							$content .= '<input type="hidden" name="itsec_value" id="itsec_value" value="' . $item['value'] . '">';
 							$content .= '<p><input class="button-primary" name="submit" type="submit" value="' . __( 'Fix This', 'ithemes-security' ) . '"></p>';
 							$content .= '</form>';
 							$content .= '</div>';
 							$content .= '</div>';
+
 						}
 
 					}
@@ -261,13 +268,13 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 					foreach ( $this->sidebar_items['medium'] as $item ) {
 
-						$status_count++;
+						$status_count ++;
 
 						if ( $status_count <= 5 ) {
 							$content .= '<div class="itsec-status-feed-item medium-priority">';
 							$content .= '<p>' . $item['text'] . '</p>';
 							$content .= '<div class="itsec-status-feed-actions">';
-							$content .= '<p class="itsec-why"><a href="#">' . __('Why Change This?', 'ithemes-security' ) . '</a></p>';
+							$content .= '<p class="itsec-why"><a href="#">' . __( 'Why Change This?', 'ithemes-security' ) . '</a></p>';
 							$content .= '<p><a href="' . $item['link'] . '" class="button-primary">' . __( 'Fix This', 'ithemes-security' ) . '</a></p>';
 							$content .= '</div>';
 							$content .= '</div>';
@@ -290,7 +297,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .= '</div>';
 			$content .= '</div>';
 			*/
-			
+
 			// These two sections left here to show markup for notices and ithemes-messages
 			$content .= '<div class="itsec-status-feed-item notice">';
 			$content .= '<p>Your site had 116 instances of 404 errors last week. This could be evidence of an attempted attack. Check your logs.</p>';
@@ -306,8 +313,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 			$content .= '<p><a class="button-primary">Check it out!</a></p>';
 			$content .= '</div>';
 			$content .= '</div>';
-			
-			
+
 			// Bottom Interchangeable Ad - left here as reminder to figure out a way to do this ad
 			$content .= '<div class="itsec-status-feed-item closing">';
 			$content .= '<p>';

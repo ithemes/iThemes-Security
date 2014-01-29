@@ -6,14 +6,16 @@ jQuery( document ).ready( function () {
 
 		var data = {
 			action: 'itsec_sidebar',
-			whatever: ajax_object.we_value      // We pass php values differently!
+			option: jQuery( this ).find( '[name=itsec_option]' ).val(),
+			setting: jQuery( this ).find( '[name=itsec_setting]' ).val(),
+			value: jQuery( this ).find( '[name=itsec_value]' ).val()
 		};
 
-		console.log( ajax_object.we_value );
+		console.log( data );
 
-		jQuery.post( ajax_object.ajax_url, data, function(response) {
-			alert('Got this from the server: ' + response);
-		});
+		jQuery.post( ajax_object.ajax_url, data, function ( response ) {
+			console.log( 'Success' );
+		} );
 
 		return false;
 

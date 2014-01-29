@@ -1330,39 +1330,25 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 			$link = 'admin.php?page=toplevel_page_itsec-authentication';
 
-			if ( $this->settings['strong_passwords-enabled'] === true && $this->settings['strong_passwords-roll'] == 'subscriber' ) {
-
-				$status_array = 'safe-high';
-				$status       = array(
-					'text' => __( 'You are enforcing strong passwords for all users.', 'ithemes-security' ),
-				);
-
-			} elseif ( $this->settings['strong_passwords-enabled'] !== true ) {
-
-				$status_array = 'high';
-				$status       = array(
-					'text'    => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ),
-					'link'    => $link . '#strong_passwords',
-					'option'  => 'itsec_authentication',
-					'setting' => 'strong_passwords-enabled',
-					'value'   => 1
-				);
-
-			}
+			$status_array = 'high';
+			$status       = array(
+				'bad_text'  => __( 'You are not enforcing strong passwords for any users.', 'ithemes-security' ),
+				'good_text' => __( 'You are enforcing strong passwords for at least the administrator accounts.', 'ithemes-security' ),
+				'option'    => 'itsec_authentication',
+				'setting'   => 'strong_passwords-enabled',
+				'value'     => 1
+			);
 
 			array_push( $statuses[$status_array], $status );
 
-			if ( $this->settings['brute_force-enabled'] === true ) {
-
-				$status_array = 'safe-high';
-				$status       = array( 'text' => __( 'Your login area is protected from brute force attacks.', 'ithemes-security' ), 'link' => $link . '#brute_force', );
-
-			} else {
-
-				$status_array = 'high';
-				$status       = array( 'text' => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ), 'link' => $link . '#brute_force', );
-
-			}
+			$status_array = 'high';
+			$status       = array(
+				'good_text' => __( 'Your login area is protected from brute force attacks.', 'ithemes-security' ),
+				'bad_text'  => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ),
+				'option'    => 'itsec_authentication',
+				'setting'   => 'brute_force-enabled',
+				'value'     => 1
+			);
 
 			array_push( $statuses[$status_array], $status );
 
