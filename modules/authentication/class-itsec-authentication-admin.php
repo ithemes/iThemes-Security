@@ -1334,7 +1334,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'good_text' => __( 'You are enforcing strong passwords for at least the administrator accounts.', 'ithemes-security' ),
 				'option'    => 'itsec_authentication',
 				'setting'   => 'strong_passwords-enabled',
-				'value'     => 1
+				'value'    => true
 			);
 
 			$statuses[] = array(
@@ -1343,7 +1343,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 				'bad_text'  => __( 'Your login area is not protected from brute force attacks.', 'ithemes-security' ),
 				'option'    => 'itsec_authentication',
 				'setting'   => 'brute_force-enabled',
-				'value'     => 1
+				'value'    => true
 			);
 
 			return $statuses;
