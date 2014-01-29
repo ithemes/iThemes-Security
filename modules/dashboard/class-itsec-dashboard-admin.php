@@ -265,6 +265,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 					$item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_option" id="itsec_option" value="' . $item['option'] . '">';
 					$item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_setting" id="itsec_setting" value="' . $item['setting'] . '">';
 					$item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_value" id="itsec_value" value="' . $item['value'] . '">';
+					$item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_field_id" id="itsec_field_id" value="' . $item['field_id'] . '">';
 					$item_content[$item_id]['text'] .= '<p><input class="button-primary" name="submit" type="submit" value="' . __( 'Fix This', 'ithemes-security' ) . '"></p>';
 					$item_content[$item_id]['text'] .= '</form>';
 					$item_content[$item_id]['text'] .= '</div>';
@@ -344,11 +345,11 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 				die( false );
 			}
 
-			$setting[$data['setting']] = $data['value'];
+			$setting[$data['setting']] = ( $data['value'] == 1 ? true : false );
 
 			update_site_option( $data['option'], $setting );
 
-			die( true );
+			die( $data['field_id'] );
 
 		}
 

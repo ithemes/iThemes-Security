@@ -11,14 +11,18 @@ jQuery( document ).ready( function () {
 			option: jQuery( this ).find( '[name=itsec_option]' ).val(),
 			setting: jQuery( this ).find( '[name=itsec_setting]' ).val(),
 			value: jQuery( this ).find( '[name=itsec_value]' ).val(),
-			nonce: jQuery( this ).find( '[name=itsec_sidebar_nonce]' ).val()
+			nonce: jQuery( this ).find( '[name=itsec_sidebar_nonce]' ).val(),
+			field_id: jQuery( this ).find( '[name=itsec_field_id]' ).val()
 		};
 
 		jQuery.post( ajax_object.ajax_url, data, function ( response ) {
 
-			if ( response == true ) {
+			if ( response != false ) {
+
+				var form_element = "#" + response;
 
 				jQuery( item ).parents( '.itsec-status-feed-item' ).removeClass( 'incomplete' ).addClass( 'complete' );
+				jQuery( form_element ).prop( 'checked', true );
 
 			} else {
 				//how to handle failure
