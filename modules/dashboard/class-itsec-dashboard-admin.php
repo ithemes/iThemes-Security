@@ -266,6 +266,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 					$item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_setting" id="itsec_setting" value="' . $item['setting'] . '">';
 					$item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_value" id="itsec_value" value="' . $item['value'] . '">';
 					$item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_field_id" id="itsec_field_id" value="' . $item['field_id'] . '">';
+					$item_content[$item_id]['text'] .= '<p class="why_text">' . $item['why_text'] . '</p>';
 					$item_content[$item_id]['text'] .= '<p><input class="button-primary" name="submit" type="submit" value="' . __( 'Fix This', 'ithemes-security' ) . '"></p>';
 					$item_content[$item_id]['text'] .= '</form>';
 					$item_content[$item_id]['text'] .= '</div>';
