@@ -182,9 +182,9 @@ div.inside ul li {
 	margin-top : .5em;
 }
 
-#itsec_status_feed .itsec-status-feed-actions .itsec-why-explained {
+#itsec_status_feed .itsec-status-feed-actions .why-text {
 	clear                 : both;
-	display               : block;
+	display               : none;
 	overflow              : hidden;
 	padding               : 1em;
 	margin-bottom         : 1em;
@@ -201,6 +201,13 @@ div.inside ul li {
 
 #itsec_status_feed .recommended .itsec-why a {
 	color : #1b789e;
+}
+
+#itsec_status_feed .itsec-status-feed-item.high-priority .why-text {
+	border-color: #ca8383;
+}
+#itsec_status_feed .itsec-status-feed-item.complete .why-text {
+	display: none !important;
 }
 
 #itsec_status_feed .itsec-status-feed-item.complete .good_text {

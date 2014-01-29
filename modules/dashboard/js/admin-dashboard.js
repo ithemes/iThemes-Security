@@ -33,5 +33,12 @@ jQuery( document ).ready( function () {
 		return false;
 
 	} );
+	
+	jQuery( '.itsec-why a' ).on( 'click', function() {
+		event.preventDefault();
+		target = jQuery(this).parent().siblings( '.why-text' );
+		
+		jQuery(target).slideToggle();
+	});
 
 } );

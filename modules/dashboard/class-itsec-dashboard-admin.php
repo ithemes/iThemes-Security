@@ -264,13 +264,13 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 						$action_item_content[$item_id]['text'] .= '<p class="good_text">' . $item['good_text'] . '</p>';
 						$action_item_content[$item_id]['text'] .= '<div class="itsec-status-feed-actions">';
 						$action_item_content[$item_id]['text'] .= '<p class="itsec-why"><a href="#">' . __( 'Why Change This?', 'ithemes-security' ) . '</a></p>';
+						$action_item_content[$item_id]['text'] .= '<p class="why-text">' . $item['why_text'] . '</p>';
 						$action_item_content[$item_id]['text'] .= '<form class="itsec_ajax_form" method="post" action="">';
 						$action_item_content[$item_id]['text'] .= wp_nonce_field( 'itsec_sidebar_ajax', 'itsec_sidebar_nonce', true, false );
 						$action_item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_option" id="itsec_option" value="' . $item['option'] . '">';
 						$action_item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_setting" id="itsec_setting" value="' . $item['setting'] . '">';
 						$action_item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_value" id="itsec_value" value="' . $item['value'] . '">';
 						$action_item_content[$item_id]['text'] .= '<input type="hidden" name="itsec_field_id" id="itsec_field_id" value="' . $item['field_id'] . '">';
-						$action_item_content[$item_id]['text'] .= '<p class="why_text">' . $item['why_text'] . '</p>';
 						$action_item_content[$item_id]['text'] .= '<p><input class="button-primary" name="submit" type="submit" value="' . __( 'Fix This', 'ithemes-security' ) . '"></p>';
 						$action_item_content[$item_id]['text'] .= '</form>';
 						$action_item_content[$item_id]['text'] .= '</div>';
