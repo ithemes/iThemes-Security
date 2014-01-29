@@ -288,7 +288,7 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 						$other_item_content[$item_id]['text'] .= '<div class="itsec-status-feed-item notice">';
 						$other_item_content[$item_id]['text'] .= '<p>' . $item['text'] . '</p>';
 						$other_item_content[$item_id]['text'] .= '<div class="itsec-status-feed-actions">';
-						$other_item_content[$item_id]['text'] .= '<p class="itsec-action"><a href="#">View the log</a></p>';
+						$other_item_content[$item_id]['text'] .= isset( $item['link'] ) ? '<p class="itsec-action"><a href="' . $item['link'] . '">View the log</a></p>' : '';
 						$other_item_content[$item_id]['text'] .= '</div>';
 						$other_item_content[$item_id]['text'] .= '</div>';
 

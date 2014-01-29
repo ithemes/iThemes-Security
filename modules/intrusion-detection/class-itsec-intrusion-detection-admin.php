@@ -813,6 +813,8 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 		 */
 		public function sidebar_status( $statuses ) {
 
+			global $itsec_logger;
+
 			if ( ! ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) ) {
 
 				$statuses[] = array(
@@ -830,9 +832,12 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			if ( $this->settings['four_oh_four-enabled'] === true ) {
 
+				$log_items = $itsec_logger->get_events( 'four_oh_four' );
+
 				$statuses[] = array(
 					'priority' => 'other',
-					'text'     => __( 'Your site is protecting against bots looking for known vulnerabilities.', 'ithemes-security' ),
+					'text' => sprintf( '%s <strong>%d</strong> %s', __( 'iThemes Security has found', 'ithemes-security' ), sizeof( $log_items ), __( '404 errors on your site.', 'ithemes-security' ) ),
+					'link' => 'admin.php?page=toplevel_page_itsec-intrusion_detection',
 				);
 
 			}
