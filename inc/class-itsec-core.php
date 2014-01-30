@@ -88,6 +88,9 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			//Process support plugin nag
 			add_action( 'admin_init', array( $this, 'support_nag' ) );
 
+			//Add tracking script
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+
 		}
 
 		/**
@@ -114,6 +117,23 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		public function admin_notices() {
 
 			settings_errors( 'itsec_admin_notices' );
+
+		}
+
+		/**
+		 * Add Tracking Javascript
+		 *
+		 * @return void
+		 */
+		public function admin_script() {
+
+			global $itsec_globals;
+
+			if ( strpos( get_current_screen()->id, 'itsec' ) !== false ) {
+
+				wp_enqueue_script( 'itsec_tracking', $itsec_globals['plugin_url'] . 'inc/js/tracking.js', 'jquery', $itsec_globals['plugin_build'] );
+
+			}
 
 		}
 

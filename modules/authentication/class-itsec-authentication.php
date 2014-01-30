@@ -94,7 +94,7 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 		public function register_logger( $logger_modules ) {
 
 			$logger_modules['brute_force'] = array(
-				'type'      => 'brute_force',
+				'type'     => 'brute_force',
 				'function' => __( 'Invalid Login Attempt', 'ithemes-security' ),
 			);
 
@@ -123,13 +123,13 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 
 		}
 
-	public function execute_brute_force_login_successful( $username, $user ) {
+		public function execute_brute_force_login_successful( $username, $user ) {
 
-		global $itsec_lockout;
+			global $itsec_lockout;
 
-		$itsec_lockout->check_lockout( $user );
+			$itsec_lockout->check_lockout( $user );
 
-	}
+		}
 
 		/**
 		 * Sends to lockout class when login form isn't completely filled out
@@ -271,10 +271,14 @@ if ( ! class_exists( 'ITSEC_Authentication' ) ) {
 
 			global $itsec_globals;
 
-			wp_enqueue_script( 'itsec_authentication', $itsec_globals['plugin_url'] . 'modules/authentication/js/authentication.js', 'jquery', $itsec_globals['plugin_build'] );
+			if ( $this->settings['strong_passwords-enabled'] === true ) {
 
-			//make sure the text of the warning is translatable
-			wp_localize_script( 'itsec_authentication', 'strong_password_error_text', array( 'text' => __( 'Sorry, but you must enter a strong password.', 'ithemes-security' ) ) );
+				wp_enqueue_script( 'itsec_authentication', $itsec_globals['plugin_url'] . 'modules/authentication/js/authentication.js', 'jquery', $itsec_globals['plugin_build'] );
+
+				//make sure the text of the warning is translatable
+				wp_localize_script( 'itsec_authentication', 'strong_password_error_text', array( 'text' => __( 'Sorry, but you must enter a strong password.', 'ithemes-security' ) ) );
+
+			}
 
 		}
 
