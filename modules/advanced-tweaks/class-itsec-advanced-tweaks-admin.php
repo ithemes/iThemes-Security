@@ -22,6 +22,7 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			add_filter( 'itsec_add_sidebar_status', array( $this, 'sidebar_status' ) ); //add information for plugin sidebar status
 
 			//manually save options on multisite
 			if ( is_multisite() ) {
@@ -979,12 +980,12 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 
 			if ( $this->settings['generator_tag'] === true ) {
 
-				$status_array = 'safe-low';
+				$status_array = 'safe-medium';
 				$status = array( 'text' => __( 'Your WordPress installation is not publishing its version number to the world.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_generator_tag', );
 
 			} else {
 
-				$status_array = 'low';
+				$status_array = 'medium';
 				$status = array( 'text' => __( 'Your WordPress installation is publishing its version number to the world. Click here to fix this.', 'ithemes-security' ), 'link' => $link . '#itsec_advanced_tweaks_server_generator_tag', );
 
 			}
@@ -1522,6 +1523,32 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 		public function server_tweaks_intro() {
 
 			echo '<h2 class="settings-section-header">' . __( 'Server Tweaks', 'ithemes-security' ) . '</h2>';
+		}
+
+		/**
+		 * Sets the status in the plugin sidebar
+		 *
+		 * @return array $statuses array of sidebar statuses
+		 */
+		public function sidebar_status( $statuses ) {
+
+			if ( $this->settings['generator_tag'] !== true ) {
+
+				$statuses[] = array(
+					'priority'  => 'medium',
+					'bad_text'  => __( 'Your WordPress installation is publishing its version number to the world.', 'ithemes-security' ),
+					'good_text' => __( 'Your WordPress installation is not publishing its version number to the world.', 'ithemes-security' ),
+					'why_text'  => __( 'The more information an attacker has about you the easier it is to use that information against you. Knowing the version of your WordPress software can lead to known vulnerabilities if your WordPress version is not kept up to date.', 'ithemes-security' ),
+					'option'    => 'itsec_advanced_tweaks',
+					'setting'   => 'enabled:generator_tag',
+					'value'     => true,
+					'field_id'  => 'itsec_advanced_tweaks_enabled:itsec_advanced_tweaks_server_generator_tag',
+				);
+
+			}
+
+			return $statuses;
+
 		}
 
 		/**
