@@ -19,11 +19,27 @@ jQuery( document ).ready( function () {
 
 			if ( response != false ) {
 
-				var form_element = "#" + response;
-
 				jQuery( item ).parents( '.itsec-status-feed-item' ).removeClass( 'incomplete' ).addClass( 'complete' );
-				jQuery( form_element ).prop( 'checked', true );
 				jQuery( item ).remove();
+
+				if ( response.indexOf( ':' ) === - 1 ) {
+
+					var form_element = "#" + response;
+					jQuery( form_element ).prop( 'checked', true );
+
+				} else {
+
+					var ids = response.split( ':' );
+
+					for ( var id in ids ) {
+
+						var form_element = "#" + ids[id];
+						console.log( form_element );
+						jQuery( form_element ).prop( 'checked', true );
+
+					}
+
+				}
 
 			} else {
 				//how to handle failure
@@ -34,12 +50,14 @@ jQuery( document ).ready( function () {
 		return false;
 
 	} );
-	
-	jQuery( '.itsec-why a' ).on( 'click', function() {
+
+	jQuery( '.itsec-why a' ).on( 'click', function () {
+
 		event.preventDefault();
-		target = jQuery(this).parent().siblings( '.why-text' );
-		
-		jQuery(target).slideToggle();
-	});
+		target = jQuery( this ).parent().siblings( '.why-text' );
+
+		jQuery( target ).slideToggle();
+
+	} );
 
 } );

@@ -340,6 +340,11 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 
 		}
 
+		/**
+		 * Saves settings made by ajax call in sidebar
+		 *
+		 * @return void
+		 */
 		public function save_ajax_options() {
 
 			$data = array();
@@ -358,9 +363,25 @@ if ( ! class_exists( 'ITSEC_Dashboard_Admin' ) ) {
 				die( false );
 			}
 
-			$setting[$data['setting']] = ( $data['value'] == 1 ? true : false );
+			if ( strpos( $data['setting'], ':' ) === false ) {
 
-			update_site_option( $data['option'], $setting );
+				$setting[$data['setting']] = ( $data['value'] == 1 ? true : false );
+
+				update_site_option( $data['option'], $setting );
+
+			} else {
+
+				$items = explode( ':', $data['setting'] );
+
+				foreach ( $items as $item ) {
+
+					$setting[$item] = ( $data['value'] == 1 ? true : false );
+
+				}
+
+				update_site_option( $data['option'], $setting );
+
+			}
 
 			die( $data['field_id'] );
 
