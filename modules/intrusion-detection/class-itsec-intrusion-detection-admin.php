@@ -815,7 +815,7 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			global $itsec_logger;
 
-			if ( ! ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) ) {
+			if ( $this->settings['four_oh_four-enabled'] === false && ! ( ( get_option( 'permalink_structure' ) == '' || get_option( 'permalink_structure' ) == false ) && ! is_multisite() ) ) {
 
 				$statuses[] = array(
 					'priority'  => 'medium',
