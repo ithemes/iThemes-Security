@@ -3,7 +3,7 @@
  * Core functionality and shared data for iThemes Security.
  *
  * @package iThemes-Security
- * @since 4.0
+ * @since   4.0
  */
 if ( ! class_exists( 'ITSEC_Core' ) ) {
 
@@ -86,7 +86,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			add_action( 'itsec_set_plugin_data', array( $this, 'save_plugin_data' ) );
 
 			//Process support plugin nag
-			//add_action( 'admin_init', array( $this, 'support_nag' ) );
+			add_action( 'admin_init', array( $this, 'support_nag' ) );
 
 		}
 
@@ -330,7 +330,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				<div id="poststuff">
 
 					<div id="post-body"
-						 class="metabox-holder columns-<?php echo 1 == get_current_screen()->get_columns() ? '1' : '2'; ?>">
+					     class="metabox-holder columns-<?php echo 1 == get_current_screen()->get_columns() ? '1' : '2'; ?>">
 
 						<div id="postbox-container-1" class="postbox-container">
 							<?php do_meta_boxes( $screen, 'priority_side', null ); ?>
@@ -385,13 +385,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			//update the activated time if we need to in order to tell when the plugin was installed
 			if ( ! isset( $plugin_data['activation_timestamp'] ) ) {
 				$plugin_data['activation_timestamp'] = $itsec_current_time_gmt;
-				$save_data                    = true;
+				$save_data                           = true;
 			}
 
 			//update the activated time if we need to in order to tell when the plugin was installed
 			if ( ! isset( $plugin_data['already_supported'] ) ) {
 				$plugin_data['already_supported'] = false;
-				$save_data                    = true;
+				$save_data                        = true;
 			}
 
 			//update the options table if we have to
@@ -496,45 +496,46 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 				if ( ! function_exists( 'ithemes_plugin_support_notice' ) ) {
 
-					function ithemes_plugin_support_notice(){
+					function ithemes_plugin_support_notice() {
 
-						global $itsec_plugin_name;
-						global $plughook;
-						global $plugopts;
+						global $itsec_globals;
 
 						echo '<div class="updated">
-				       <p>' . __( 'It looks like you\'ve been enjoying', $plughook ) . ' ' . $itsec_plugin_name . ' ' . __( 'for at least 30 days. Would you consider a small donation to help support continued development of the plugin?', 'ithemes-security' ) . '</p> <p><input type="button" class="button " value="' . __( 'Support This Plugin', 'ithemes-security' ) . '" onclick="document.location.href=\'?bit51_lets_donate=yes&_wpnonce=' .  wp_create_nonce('bit51-nag') . '\';">  <input type="button" class="button " value="' . __('Rate it 5★\'s', 'ithemes-security') . '" onclick="document.location.href=\'?bit51_lets_rate=yes&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';">  <input type="button" class="button " value="' . __( 'Tell Your Followers', 'ithemes-security' ) . '" onclick="document.location.href=\'?bit51_lets_tweet=yes&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';">  <input type="button" class="button " value="' . __( 'Don\'t Bug Me Again', 'ithemes-security' ) . '" onclick="document.location.href=\'?bit51_donate_nag=off&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';"></p>
+				       <p>' . __( 'It looks like you\'ve been enjoying', 'ithemes-security' ) . ' ' . $itsec_globals['plugin_name'] . ' ' . __( 'for at least 30 days. Would you consider a small donation to help support continued development of the plugin?', 'ithemes-security' ) . '</p> <p><input type="button" class="button " value="' . __( 'Support This Plugin', 'ithemes-security' ) . '" onclick="document.location.href=\'?itsec_donate=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="button " value="' . __( 'Rate it 5★\'s', 'ithemes-security' ) . '" onclick="document.location.href=\'?itsec_rate=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="button " value="' . __( 'Tell Your Followers', 'ithemes-security' ) . '" onclick="document.location.href=\'?itsec_tweet=yes&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';">  <input type="button" class="button " value="' . __( 'Don\'t Bug Me Again', 'ithemes-security' ) . '" onclick="document.location.href=\'?itsec_no_nag=off&_wpnonce=' . wp_create_nonce( 'itsec-nag' ) . '\';"></p>
 					    </div>';
 
 					}
 
 				}
 
-				add_action( 'admin_notices', 'bit51_plugin_donate_notice' ); //register notification
+				add_action( 'admin_notices', 'ithemes_plugin_support_notice' ); //register notification
 
 			}
 
 			//if they've clicked a button hide the notice
-			if ( ( isset( $_GET['bit51_donate_nag'] ) || isset( $_GET['bit51_lets_rate'] ) || isset( $_GET['bit51_lets_tweet'] ) || isset( $_GET['bit51_lets_donate'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bit51-nag' ) ) {
+			if ( ( isset( $_GET['itsec_no_nag'] ) || isset( $_GET['itsec_rate'] ) || isset( $_GET['itsec_tweet'] ) || isset( $_GET['itsec_donate'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'itsec-nag' ) ) {
 
-				$options = get_option( $this->plugindata );
-				$options['no-nag'] = 1;
-				update_option( $this->plugindata,$options );
-				remove_action( 'admin_notices', 'bit51_plugin_donate_notice' );
+				$options = $itsec_globals['data'];
+
+				$options['already_supported'] = true;
+
+				update_site_option( 'itsec_data', $options );
+
+				remove_action( 'admin_notices', 'ithemes_plugin_support_notice' );
 
 				//take the user to paypal if they've clicked donate
-				if ( isset( $_GET['bit51_lets_donate'] ) ) {
-					wp_redirect( 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=' . $this->paypalcode, '302' );
+				if ( isset( $_GET['itsec_donate'] ) ) {
+					wp_redirect( 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=V647NGJSBC882', '302' );
 				}
 
 				//Go to the WordPress page to let them rate it.
-				if ( isset( $_GET['bit51_lets_rate'] ) ) {
-					wp_redirect( $this->wppage, '302' );
+				if ( isset( $_GET['itsec_rate'] ) ) {
+					wp_redirect( 'http://wordpress.org/plugins/better-wp-security/', '302' );
 				}
 
 				//Compose a Tweet
-				if ( isset( $_GET['bit51_lets_tweet'] ) ) {
-					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $this->pluginname . ' for WordPress by @bit51 and you should too - ' . $this->homepage ) , '302' );
+				if ( isset( $_GET['itsec_tweet'] ) ) {
+					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $this->pluginname . ' for WordPress by @iThemes and you should too - http://bit51.com/software/better-wp-security/' ), '302' );
 				}
 
 			}
