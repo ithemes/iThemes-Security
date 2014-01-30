@@ -161,7 +161,7 @@ if ( ! class_exists( 'ITSEC_Database_Prefix_Admin' ) ) {
 
 			?>
 
-			<form method="post" action="">
+			<form method="post" action="" class="itsec-form">
 				<?php wp_nonce_field( 'ITSEC_admin_save', 'wp_nonce' ); ?>
 				<input type="hidden" name="itsec_one_time_save" value="database_prefix"/>
 

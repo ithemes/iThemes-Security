@@ -165,7 +165,7 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 			if ( $this->settings !== true ) { //only show form if user the content directory hasn't already been changed
 				?>
 
-				<form method="post" action="">
+				<form method="post" action="" class="itsec-form">
 					<?php wp_nonce_field( 'ITSEC_admin_save', 'wp_nonce' ); ?>
 					<input type="hidden" name="itsec_one_time_save" value="content_directory"/>
 					<table class="form-table">

@@ -330,7 +330,7 @@ if ( ! class_exists( 'ITSEC_Ban_Users_Admin' ) ) {
 				$action = 'options.php';
 			}
 
-			printf( '<form name="%s" method="post" action="%s">', get_current_screen()->id, $action );
+			printf( '<form name="%s" method="post" action="%s" class="itsec-form">', get_current_screen()->id, $action );
 
 			$this->core->do_settings_sections( 'security_page_toplevel_page_itsec-ban_users', false );
 
