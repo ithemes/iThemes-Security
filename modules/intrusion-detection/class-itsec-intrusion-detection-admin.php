@@ -773,9 +773,9 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 			$good_types = array();
 
-			foreach ( $file_types as $type ) {
+			foreach ( $file_types as $file_type ) {
 
-				$good_type = sanitize_text_field( '.' . str_replace( '.', '', $type ) );
+				$good_type = sanitize_text_field( '.' . str_replace( '.', '', $file_type ) );
 
 				$good_types[] = sanitize_text_field( $good_type );
 			}

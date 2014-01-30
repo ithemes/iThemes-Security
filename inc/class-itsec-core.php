@@ -80,8 +80,13 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			}
 
+			$itsec_globals['data'] = $plugin_data;
+
 			//save plugin information
 			add_action( 'itsec_set_plugin_data', array( $this, 'save_plugin_data' ) );
+
+			//Process support plugin nag
+			//add_action( 'admin_init', array( $this, 'support_nag' ) );
 
 		}
 
@@ -365,7 +370,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 */
 		public function save_plugin_data() {
 
-			global $itsec_globals, $itsec_lib;
+			global $itsec_globals, $itsec_current_time_gmt;
 
 			$save_data = false; //flag to avoid saving data if we don't have to
 
@@ -378,8 +383,14 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			}
 
 			//update the activated time if we need to in order to tell when the plugin was installed
-			if ( ! isset( $plugin_data['activatestamp'] ) ) {
-				$plugin_data['activatestamp'] = time();
+			if ( ! isset( $plugin_data['activation_timestamp'] ) ) {
+				$plugin_data['activation_timestamp'] = $itsec_current_time_gmt;
+				$save_data                    = true;
+			}
+
+			//update the activated time if we need to in order to tell when the plugin was installed
+			if ( ! isset( $plugin_data['already_supported'] ) ) {
+				$plugin_data['already_supported'] = false;
 				$save_data                    = true;
 			}
 
@@ -458,6 +469,75 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//register appropriate message actions
 			add_action( 'admin_notices', array( $this, 'dispmessage' ) );
+
+		}
+
+		/**
+		 * Display (and hide) support the plugin reminder
+		 *
+		 * @return void
+		 **/
+		function support_nag() {
+
+			global $blog_id, $itsec_globals, $itsec_current_time_gmt;
+
+			if ( is_multisite() && ( $blog_id != 1 || ! current_user_can( 'manage_network_options' ) ) ) { //only display to network admin if in multisite
+				return;
+			}
+
+			$options = $itsec_globals['data'];
+
+			//this is called at a strange point in WP so we need to bring in some data
+			global $itsec_plugin_name;
+			$itsec_plugin_name = $itsec_globals->plugin_name;
+
+			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
+			if ( ( ! isset( $options['already_supported'] ) || $options['already_supported'] === false ) && $options['activation_timestamp'] < ( $itsec_current_time_gmt - 2952000 ) ) {
+
+				if ( ! function_exists( 'ithemes_plugin_support_notice' ) ) {
+
+					function ithemes_plugin_support_notice(){
+
+						global $itsec_plugin_name;
+						global $plughook;
+						global $plugopts;
+
+						echo '<div class="updated">
+				       <p>' . __( 'It looks like you\'ve been enjoying', $plughook ) . ' ' . $itsec_plugin_name . ' ' . __( 'for at least 30 days. Would you consider a small donation to help support continued development of the plugin?', 'ithemes-security' ) . '</p> <p><input type="button" class="button " value="' . __( 'Support This Plugin', 'ithemes-security' ) . '" onclick="document.location.href=\'?bit51_lets_donate=yes&_wpnonce=' .  wp_create_nonce('bit51-nag') . '\';">  <input type="button" class="button " value="' . __('Rate it 5★\'s', 'ithemes-security') . '" onclick="document.location.href=\'?bit51_lets_rate=yes&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';">  <input type="button" class="button " value="' . __( 'Tell Your Followers', 'ithemes-security' ) . '" onclick="document.location.href=\'?bit51_lets_tweet=yes&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';">  <input type="button" class="button " value="' . __( 'Don\'t Bug Me Again', 'ithemes-security' ) . '" onclick="document.location.href=\'?bit51_donate_nag=off&_wpnonce=' .  wp_create_nonce( 'bit51-nag' ) . '\';"></p>
+					    </div>';
+
+					}
+
+				}
+
+				add_action( 'admin_notices', 'bit51_plugin_donate_notice' ); //register notification
+
+			}
+
+			//if they've clicked a button hide the notice
+			if ( ( isset( $_GET['bit51_donate_nag'] ) || isset( $_GET['bit51_lets_rate'] ) || isset( $_GET['bit51_lets_tweet'] ) || isset( $_GET['bit51_lets_donate'] ) ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bit51-nag' ) ) {
+
+				$options = get_option( $this->plugindata );
+				$options['no-nag'] = 1;
+				update_option( $this->plugindata,$options );
+				remove_action( 'admin_notices', 'bit51_plugin_donate_notice' );
+
+				//take the user to paypal if they've clicked donate
+				if ( isset( $_GET['bit51_lets_donate'] ) ) {
+					wp_redirect( 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=' . $this->paypalcode, '302' );
+				}
+
+				//Go to the WordPress page to let them rate it.
+				if ( isset( $_GET['bit51_lets_rate'] ) ) {
+					wp_redirect( $this->wppage, '302' );
+				}
+
+				//Compose a Tweet
+				if ( isset( $_GET['bit51_lets_tweet'] ) ) {
+					wp_redirect( 'http://twitter.com/home?status=' . urlencode( 'I use ' . $this->pluginname . ' for WordPress by @bit51 and you should too - ' . $this->homepage ) , '302' );
+				}
+
+			}
 
 		}
 
