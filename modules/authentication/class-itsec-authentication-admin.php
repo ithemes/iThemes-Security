@@ -750,7 +750,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 		public function hide_backend_header() {
 
 			$content = '<h2 id="hide_backend" class="settings-section-header">' . __( 'Hide the Login Page', 'ithemes-security' ) . '</h2>';
-			$content .= '<p>' . __( 'Hides the login and admin pages making them harder to find by automated attacks and making them easier for users unfamiliar with the WordPress platform.', 'ithemes-security' ) . '</p>';
+			$content .= '<p>' . __( 'Hides the login page (wp-login.php, wp-admin, admin and login) making it harder to find by automated attacks and making it easier for users unfamiliar with the WordPress platform.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
 
