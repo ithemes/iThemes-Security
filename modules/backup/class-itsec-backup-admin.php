@@ -23,6 +23,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+			add_filter( 'itsec_add_sidebar_status', array( $this, 'sidebar_status' ) ); //add information for plugin sidebar status
 
 			if ( isset( $_POST['itsec_backup'] ) && $_POST['itsec_backup'] == 'one_time_backup' ) {
 				add_action( 'admin_init', array( $this, 'one_time_backup' ) );
@@ -214,7 +215,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		 */
 		public function exclude( $args ) {
 
-			global $itsec_globals, $wpdb;
+			global $wpdb;
 
 			$ignored_tables = array(
 				'commentmeta',
@@ -487,7 +488,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		 */
 		public function sanitize_module_input( $input ) {
 
-			global $itsec_globals;
+			global $itsec_globals, $itsec_lib;
 
 			$type    = 'updated';
 			$message = __( 'Settings Updated', 'ithemes-security' );
@@ -535,6 +536,33 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			$settings['location'] = sanitize_text_field( $_POST['itsec_backup']['location'] );
 			$settings['last_run'] = isset( $this->settings['last_run'] ) ? $this->settings['last_run'] : 0;
 			$settings['zip']  = ( isset( $_POST['itsec_backup']['zip'] ) && intval( $_POST['itsec_backup']['zip'] == 1 ) ? true : false );
+
+		}
+
+		/**
+		 * Sets the status in the plugin sidebar
+		 *
+		 * @return array $statuses array of sidebar statuses
+		 */
+		public function sidebar_status( $statuses ) {
+
+			if ( $this->settings['enabled'] !== true && ! ( class_exists( 'backupbuddy_api0' ) && sizeof( backupbuddy_api0::getSchedules() ) < 1 ) ) {
+
+				$statuses[] = array(
+					'priority'  => 'high',
+					'bad_text'  => __( 'You are not scheduling regular backups.', 'ithemes-security' ),
+					'good_text' => __( 'You are backing up data on a regular basis.', 'ithemes-security' ),
+					'why_text'  => __( 'Even the best security can be broken. Make sure you have a good backup should the worst happen. iThemes Security can back up your database so you have a good copy in the event of disaster. Better yet, get a copy of BackupBuddy to backup all of your data.', 'ithemes-security' ),
+					'option'    => 'itsec_backup',
+					'setting'   => 'enabled',
+					'value'     => true,
+					'field_id'  => 'itsec_backup_enabled',
+
+				);
+
+			}
+
+			return $statuses;
 
 		}
 
