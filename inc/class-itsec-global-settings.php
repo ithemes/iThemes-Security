@@ -18,8 +18,12 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 
 		private function __construct( $core ) {
 
+			global $itsec_allow_tracking;
+
 			$this->core     = $core;
 			$this->settings = get_site_option( 'itsec_global' );
+
+			$itsec_allow_tracking = $this->settings['allow_tracking'];
 
 			add_action( 'itsec_add_admin_meta_boxes', array( $this, 'add_admin_meta_boxes' ) ); //add meta boxes to admin page
 			add_action( 'admin_init', array( $this, 'initialize_admin' ) ); //initialize admin area

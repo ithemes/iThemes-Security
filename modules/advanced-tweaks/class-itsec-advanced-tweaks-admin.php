@@ -10,6 +10,8 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 
 		private function __construct( $core ) {
 
+			global $itsec_allow_tracking;
+
 			$this->core     = $core;
 			$this->settings = get_site_option( 'itsec_advanced_tweaks' );
 
@@ -27,6 +29,10 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			//manually save options on multisite
 			if ( is_multisite() ) {
 				add_action( 'network_admin_edit_itsec_advanced_tweaks', array( $this, 'save_network_options' ) ); //save multisite options
+			}
+
+			if ( $itsec_allow_tracking === true ) {
+				add_action( 'admin_enqueue_scripts', array( $this, 'tracking_script' ) );
 			}
 
 		}
@@ -1627,6 +1633,63 @@ if ( ! class_exists( 'ITSEC_Advanced_Tweaks_Admin' ) ) {
 			}
 
 			return $statuses;
+
+		}
+
+		/**
+		 * Adds fields that will be tracked for Google Analytics
+		 */
+		public function tracking_script() {
+
+			$tracking_items = array(
+				'enabled',
+				'protect_files',
+				'directory_browsing',
+				'request_methods',
+				'suspicious_query_strings',
+				'non_english_characters',
+				'long_url_strings',
+				'write_permissions',
+				'uploads_php',
+				'generator_tag',
+				'wlwmanifest_header',
+				'edituri_header',
+				'comment_spam',
+				'random_version',
+				'file_editor',
+				'disable_xmlrpc',
+				'core_updates',
+				'plugin_updates',
+				'theme_updates',
+				'safe_jquery',
+			);
+
+			$tracking_values = array(
+				'enabled'                  => '0:b',
+				'protect_files'            => '0:b',
+				'directory_browsing'       => '0:b',
+				'request_methods'          => '0:b',
+				'suspicious_query_strings' => '0:b',
+				'non_english_characters'   => '0:b',
+				'long_url_strings'         => '0:b',
+				'write_permissions'        => '0:b',
+				'uploads_php'              => '0:b',
+				'generator_tag'            => '0:b',
+				'wlwmanifest_header'       => '0:b',
+				'edituri_header'           => '0:b',
+				'comment_spam'             => '0:b',
+				'random_version'           => '0:b',
+				'file_editor'              => '0:b',
+				'disable_xmlrpc'           => '0:b',
+				'core_updates'             => '0:b',
+				'plugin_updates'           => '0:b',
+				'theme_updates'            => '0:b',
+				'safe_jquery'              => '0:b',
+			);
+
+			wp_localize_script( 'itsec_tracking', 'tracking_items', $tracking_items );
+			wp_localize_script( 'itsec_tracking', 'tracking_values', $tracking_values );
+			wp_localize_script( 'itsec_tracking', 'tracking_section', 'itsec_advanced_tweaks' );
 
 		}
 

@@ -32,6 +32,9 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			$itsec_current_time     = current_time( 'timestamp' );
 			$itsec_current_time_gmt = current_time( 'timestamp', 1 );
 
+			//Add tracking script
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
+
 			//load utility functions
 			require_once( $itsec_globals['plugin_dir'] . 'inc/class-itsec-lib.php' );
 			$itsec_lib = ITSEC_Lib::start();
@@ -87,9 +90,6 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//Process support plugin nag
 			add_action( 'admin_init', array( $this, 'support_nag' ) );
-
-			//Add tracking script
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_script' ) ); //enqueue scripts for admin page
 
 		}
 
