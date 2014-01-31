@@ -1460,7 +1460,6 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 					'strong_passwords-roll',
 					'away_mode-enabled',
 					'hide_backend-enabled',
-					'hide_backend-register',
 					'away_mode-type',
 					'other-login_errors',
 				);
@@ -1471,7 +1470,6 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 					'strong_passwords-roll'    => 'administrator:s',
 					'away_mode-enabled'        => '0:b',
 					'hide_backend-enabled'     => '0:b',
-					'hide_backend-register'    => 'wp-register.php',
 					'away_mode-type'           => '0:b',
 					'other-login_errors'       => '0:b',
 				);
