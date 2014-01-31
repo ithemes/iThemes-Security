@@ -10,6 +10,8 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 
 		private function __construct( $core ) {
 
+			global $itsec_allow_tracking;
+
 			$this->core = $core;
 
 			if ( strpos( WP_CONTENT_DIR, 'wp-content' ) === false || strpos( WP_CONTENT_URL, 'wp-content' ) === false ) {
@@ -23,6 +25,10 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 			add_filter( 'itsec_add_admin_sub_pages', array( $this, 'add_sub_page' ) ); //add to admin menu
 			add_filter( 'itsec_add_admin_tabs', array( $this, 'add_admin_tab' ) ); //add tab to menu
 			add_filter( 'itsec_add_dashboard_status', array( $this, 'dashboard_status' ) ); //add information for plugin status
+
+			if ( $itsec_allow_tracking === true ) {
+				add_action( 'admin_enqueue_scripts', array( $this, 'tracking_script' ) );
+			}
 
 		}
 
@@ -274,6 +280,29 @@ if ( ! class_exists( 'ITSEC_Content_Directory_Admin' ) ) {
 			$this->settings = true; //this tells the form field that all went well.
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
+
+		}
+
+		/**
+		 * Adds fields that will be tracked for Google Analytics
+		 */
+		public function tracking_script() {
+
+			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-content_directory' ) !== false ) {
+
+				$tracking_items = array(
+					'enabled',
+				);
+
+				$tracking_values = array(
+					'enabled' => '1:b',
+				);
+
+				wp_localize_script( 'itsec_tracking', 'tracking_items', $tracking_items );
+				wp_localize_script( 'itsec_tracking', 'tracking_values', $tracking_values );
+				wp_localize_script( 'itsec_tracking', 'tracking_section', 'itsec_content_directory' );
+
+			}
 
 		}
 
