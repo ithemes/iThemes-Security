@@ -193,6 +193,7 @@ if ( ! class_exists( 'ITSEC_Setup' ) ) {
 					'log_rotation'         => 30,
 					'log_type'             => 0,
 					'log_location'         => $itsec_globals['ithemes_log_dir'],
+					'allow_tracking'       => false,
 				);
 
 				add_site_option( 'itsec_global', $defaults );

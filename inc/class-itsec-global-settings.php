@@ -112,6 +112,28 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		}
 
 		/**
+		 * echos allow tracking Field
+		 *
+		 * @param  array $args field arguements
+		 *
+		 * @return void
+		 */
+		public function allow_tracking( $args ) {
+
+			if ( isset( $this->settings['allow_tracking'] ) && $this->settings['allow_tracking'] === true ) {
+				$allow_tracking = 1;
+			} else {
+				$allow_tracking = 0;
+			}
+
+			$content = '<input type="checkbox" id="itsec_global_allow_tracking" name="itsec_global[allow_tracking]" value="1" ' . checked( 1, $allow_tracking, false ) . '/>';
+			$content .= '<label for="itsec_global_allow_tracking">' . __( 'Allow iThemes to track plugin usage via anonymous data. ', 'ithemes-security' ) . '</label>';
+
+			echo $content;
+
+		}
+
+		/**
 		 * echos Backup email Field
 		 *
 		 * @param  array $args field arguements
@@ -350,6 +372,14 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 				'itsec_global[log_location]',
 				__( 'Path to Log Files', 'ithemes-security' ),
 				array( $this, 'log_location' ),
+				'security_page_toplevel_page_itsec-global',
+				'global'
+			);
+
+			add_settings_field(
+				'itsec_global[allow_tracking]',
+				__( 'Allow Data Tracking', 'ithemes-security' ),
+				array( $this, 'allow_tracking' ),
 				'security_page_toplevel_page_itsec-global',
 				'global'
 			);
@@ -636,6 +666,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$input['email_notifications']  = ( isset( $input['email_notifications'] ) && intval( $input['email_notifications'] == 1 ) ? true : false );
 			$input['lockout_period']       = isset( $input['lockout_period'] ) ? absint( $input['lockout_period'] ) : 15;
 			$input['log_rotation']         = isset( $input['log_rotation'] ) ? absint( $input['log_rotation'] ) : 30;
+			$input['allow_tracking']       = ( isset( $input['allow_tracking'] ) && intval( $input['allow_tracking'] == 1 ) ? true : false );
 
 			$input['log_location'] = isset( $input['log_location'] ) ? sanitize_text_field( $input['log_location'] ) : $itsec_globals['ithemes_log_dir'];
 
@@ -718,7 +749,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 		 */
 		public function save_network_options() {
 
-			$settings['backup_email']   = isset( $_POST['itsec_global']['backup_email'] ) ? sanitize_text_field( $_POST['itsec_global']['backup_email'] ) : '';
+			$settings['backup_email']         = isset( $_POST['itsec_global']['backup_email'] ) ? sanitize_text_field( $_POST['itsec_global']['backup_email'] ) : '';
 			$settings['notification_email']   = isset( $_POST['itsec_global']['notification_email'] ) ? sanitize_text_field( $_POST['itsec_global']['notification_email'] ) : '';
 			$settings['lockout_message']      = isset( $_POST['itsec_global']['lockout_message'] ) ? sanitize_text_field( $_POST['itsec_global']['lockout_message'] ) : __( 'error', 'ithemes-security' );
 			$settings['user_lockout_message'] = isset( $_POST['itsec_global']['user_lockout_message'] ) ? sanitize_text_field( $_POST['itsec_global']['user_lockout_message'] ) : __( 'You have been locked out due to too many login attempts.', 'ithemes-security' );
@@ -730,6 +761,7 @@ if ( ! class_exists( 'ITSEC_Global_Settings' ) ) {
 			$settings['log_rotation']         = isset( $_POST['itsec_global']['log_rotation'] ) ? absint( $_POST['itsec_global']['log_rotation'] ) : 30;
 			$settings['log_type']             = isset( $_POST['itsec_global']['log_type'] ) ? intval( $_POST['itsec_global']['log_type'] ) : 0;
 			$settings['log_location']         = sanitize_text_field( $_POST['itsec_global']['log_location'] );
+			$settings['allow_tracking']       = ( isset( $_POST['itsec_global']['allow_tracking'] ) && intval( $_POST['itsec_global']['allow_tracking'] == 1 ) ? true : false );
 
 			update_site_option( 'itsec_global', $settings ); //we must manually save network options
 
