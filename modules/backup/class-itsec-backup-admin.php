@@ -13,6 +13,8 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 		private function __construct( $core, $module ) {
 
+			global $itsec_allow_tracking;
+
 			$this->core     = $core;
 			$this->module   = $module;
 			$this->settings = get_site_option( 'itsec_backup' );
@@ -32,6 +34,10 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			//manually save options on multisite
 			if ( is_multisite() ) {
 				add_action( 'network_admin_edit_itsec_backup', array( $this, 'save_network_options' ) ); //save multisite options
+			}
+
+			if ( $itsec_allow_tracking === true ) {
+				add_action( 'admin_enqueue_scripts', array( $this, 'tracking_script' ) );
 			}
 
 		}
@@ -159,7 +165,6 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 				$status_array = 'medium';
 				$status       = array( 'text' => __( 'Your site is performing scheduled database and file backups.', 'ithemes-security' ), 'link' => $link, );
 
-
 			} elseif ( $this->settings['enabled'] === true ) {
 
 				$status_array = 'medium';
@@ -240,7 +245,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 				$short_table = substr( $table[0], strlen( $wpdb->prefix ) );
 
-					if ( in_array( $short_table, $ignored_tables ) === false ) {
+				if ( in_array( $short_table, $ignored_tables ) === false ) {
 
 					if ( isset( $this->settings['exclude'] ) && in_array( $short_table, $this->settings['exclude'] ) ) {
 						$selected = ' selected';
@@ -428,13 +433,13 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 		/**
 		 * Display the form for one-time database backups
-		 * 
+		 *
 		 * @return void
 		 */
 		public function metabox_one_time() {
 
 			$content = '<form method="post" action="">';
-			$content .= wp_nonce_field( 'itsec_do_backup','wp_nonce' );
+			$content .= wp_nonce_field( 'itsec_do_backup', 'wp_nonce' );
 			$content .= '<input type="hidden" name="itsec_backup" value="one_time_backup" />';
 			$content .= '<p>' . __( 'Press the button below to create a backup of your WordPress database. If you have "Send Backups By Email" selected in automated backups you will receive an email containing the backup file.', 'ithemes-security' ) . '</p>';
 			$content .= '<p class="submit"><input type="submit" class="button-primary" value="' . __( 'Create Database Backup', 'ithemes_security' ) . '" /></p>';
@@ -499,8 +504,6 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			$input['location'] = isset( $input['location'] ) ? sanitize_text_field( $input['location'] ) : $itsec_globals['location'];
 			$input['last_run'] = isset( $this->settings['last_run'] ) ? $this->settings['last_run'] : 0;
 
-
-
 			if ( $input['location'] != $itsec_globals['ithemes_backup_dir'] ) {
 				$good_path = $itsec_lib->validate_path( $input['location'] );
 			} else {
@@ -515,7 +518,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 
 			}
 
-			$input['zip']  = ( isset( $input['zip'] ) && intval( $input['zip'] == 1 ) ? true : false );
+			$input['zip'] = ( isset( $input['zip'] ) && intval( $input['zip'] == 1 ) ? true : false );
 
 			add_settings_error( 'itsec_admin_notices', esc_attr( 'settings_updated' ), $message, $type );
 
@@ -535,7 +538,7 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 			$settings['method']   = isset( $_POST['itsec_backup']['method'] ) ? intval( $_POST['itsec_backup']['method'] ) : 0;
 			$settings['location'] = sanitize_text_field( $_POST['itsec_backup']['location'] );
 			$settings['last_run'] = isset( $this->settings['last_run'] ) ? $this->settings['last_run'] : 0;
-			$settings['zip']  = ( isset( $_POST['itsec_backup']['zip'] ) && intval( $_POST['itsec_backup']['zip'] == 1 ) ? true : false );
+			$settings['zip']      = ( isset( $_POST['itsec_backup']['zip'] ) && intval( $_POST['itsec_backup']['zip'] == 1 ) ? true : false );
 
 		}
 
@@ -567,6 +570,33 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		}
 
 		/**
+		 * Adds fields that will be tracked for Google Analytics
+		 */
+		public function tracking_script() {
+
+			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-backup' ) !== false ) {
+
+				$tracking_items = array(
+					'enabled',
+					'method',
+					'zip',
+				);
+
+				$tracking_values = array(
+					'enabled' => '0:b',
+					'method'  => '3:s',
+					'zip'     => '1:b',
+				);
+
+				wp_localize_script( 'itsec_tracking', 'tracking_items', $tracking_items );
+				wp_localize_script( 'itsec_tracking', 'tracking_values', $tracking_values );
+				wp_localize_script( 'itsec_tracking', 'tracking_section', 'itsec_backup' );
+
+			}
+
+		}
+
+		/**
 		 * echos Zip Backups Field
 		 *
 		 * @param  array $args field arguments
@@ -591,8 +621,8 @@ if ( ! class_exists( 'ITSEC_Backup_Admin' ) ) {
 		/**
 		 * Start the Intrusion Detection Admin Module
 		 *
-		 * @param Ithemes_ITSEC_Core $core Instance of core plugin class
-		 * @param ITSEC_Backup $module Instance of backup module class
+		 * @param Ithemes_ITSEC_Core $core   Instance of core plugin class
+		 * @param ITSEC_Backup       $module Instance of backup module class
 		 *
 		 * @return ITSEC_Backup_Admin                The instance of the ITSEC_Backup_Admin class
 		 */
