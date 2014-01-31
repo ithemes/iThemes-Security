@@ -15,7 +15,7 @@ if ( ! class_exists( 'ITSEC_SSL_Admin' ) ) {
 
 		private function __construct( $core, $module ) {
 
-			global $itsec_lib;
+			global $itsec_lib, $itsec_allow_tracking;
 
 			$this->core     = $core;
 			$this->module   = $module;
@@ -41,6 +41,10 @@ if ( ! class_exists( 'ITSEC_SSL_Admin' ) ) {
 				add_action( 'post_submitbox_misc_actions', array( $this, 'ssl_enable_per_content' ) );
 				add_action( 'save_post', array( $this, 'save_post' ) );
 
+			}
+
+			if ( $itsec_allow_tracking === true ) {
+				add_action( 'admin_enqueue_scripts', array( $this, 'tracking_script' ) );
 			}
 
 		}
@@ -490,6 +494,33 @@ if ( ! class_exists( 'ITSEC_SSL_Admin' ) ) {
 			//send them back to the away mode options page
 			wp_redirect( add_query_arg( array( 'page' => 'toplevel_page_itsec-ssl', 'updated' => 'true' ), network_admin_url( 'admin.php' ) ) );
 			exit();
+
+		}
+
+		/**
+		 * Adds fields that will be tracked for Google Analytics
+		 */
+		public function tracking_script() {
+
+			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-ssl' ) !== false ) {
+
+				$tracking_items = array(
+					'login' => '0:b',
+					'admin'  => '0:b',
+					'frontend'     => '0:s',
+				);
+
+				$tracking_values = array(
+					'login' => '0:b',
+					'admin'  => '0:b',
+					'frontend'     => '0:s',
+				);
+
+				wp_localize_script( 'itsec_tracking', 'tracking_items', $tracking_items );
+				wp_localize_script( 'itsec_tracking', 'tracking_values', $tracking_values );
+				wp_localize_script( 'itsec_tracking', 'tracking_section', 'itsec_ssl' );
+
+			}
 
 		}
 
