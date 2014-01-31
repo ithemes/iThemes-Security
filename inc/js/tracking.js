@@ -1,72 +1,78 @@
-href = location.href;
+if ( typeof tracking_section != 'undefined' ) {
 
-var _gaq = _gaq || [];
-_gaq.push( ['_setAccount', 'UA-47645120-1'] );
+	href = location.href;
 
-(function () {
-	var ga = document.createElement( 'script' );
-	ga.type = 'text/javascript';
-	ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName( 'script' )[0];
-	s.parentNode.insertBefore( ga, s );
-})();
+	var _gaq = _gaq || [];
+	_gaq.push( ['_setAccount', 'UA-47645120-1'] );
 
-jQuery( document ).ready( function () {
+	(function () {
+		var ga = document.createElement( 'script' );
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName( 'script' )[0];
+		s.parentNode.insertBefore( ga, s );
+	})();
 
-	jQuery( '.itsec-form' ).submit( function ( event ) {
+	jQuery( document ).ready( function () {
 
-		event.preventDefault();
+		jQuery( '.itsec-form' ).submit( function ( event ) {
 
-		var section = tracking_section;
-		var timestamp = new Date().getTime();
-		var values = jQuery( this ).serializeArray();
+			event.preventDefault();
 
-		jQuery.each( values, function ( name, value ) {
+			var section = tracking_section;
+			var timestamp = new Date().getTime();
+			var values = jQuery( this ).serializeArray();
 
-			var setting = value.name.substring( value.name.indexOf( '[' ) + 1, value.name.indexOf( ']' ) );
+			jQuery.each( values, function ( name, value ) {
 
-			if ( setting.length > 0 ) {
+				var setting = value.name.substring( value.name.indexOf( '[' ) + 1, value.name.indexOf( ']' ) );
 
-				var index =  tracking_items.indexOf( setting );
+				if ( setting.length > 0 ) {
 
-				if ( index !== - 1 ) {
+					var index = tracking_items.indexOf( setting );
 
-					var value_array = tracking_values[setting].split( ':' );
-					var default_type = value_array[1];
+					if ( index !== - 1 ) {
 
-					if ( default_type == 'b' && value.value == 1 ) {
-						var saved_value = 'true';
-					} else {
-						var saved_value = value.value;
+						var value_array = tracking_values[setting].split( ':' );
+						var default_type = value_array[1];
+
+						if ( default_type == 'b' && value.value == 1 ) {
+							var saved_value = 'true';
+						} else {
+							var saved_value = value.value;
+						}
+
+						tracking_items.splice( index, 1 );
+
+						_gaq.push( ['_trackEvent', section, setting, saved_value, timestamp, true] );
+
 					}
-
-					tracking_items.splice( index, 1 );
-
-					_gaq.push( ['_trackEvent', section, setting, saved_value, timestamp, true] );
 
 				}
 
-			}
+			} );
 
-		} );
+			jQuery.each( tracking_items, function ( item, value ) {
 
-		jQuery.each( tracking_items, function( item, value ) {
+				var value_array = tracking_values[value].split( ':' );
+				var default_value = value_array[0];
+				var default_type = value_array[1];
 
-			var value_array = tracking_values[value].split( ':' );
-			var default_value = value_array[0];
-			var default_type = value_array[1];
+				if ( default_type == 'b' && default_value == 0 ) {
+					var saved_value = 'false';
+				} else if ( default_type == 'b' ) {
+					var saved_value = 'true';
+				} else {
+					var saved_value = default_value;
+				}
 
-			if ( default_type == 'b' && default_value == 0 ) {
-				var saved_value = 'false';
-			} else if ( default_type == 'b' ) {
-				var saved_value = default_value;
-			}
+				_gaq.push( ['_trackEvent', section, value, saved_value, timestamp, true] );
 
-			_gaq.push( ['_trackEvent', section, value   , saved_value, timestamp, true] );
+			} );
 
 		} );
 
 	} );
 
-} );
+}
