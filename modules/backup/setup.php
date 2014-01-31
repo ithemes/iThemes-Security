@@ -52,7 +52,7 @@ if ( ! class_exists( 'ITSEC_Backup_Setup' ) ) {
 					'method'   => 3,
 					'location' => $itsec_globals['ithemes_backup_dir'],
 					'last_run' => 0,
-					'zip'      => 1,
+					'zip'      => true,
 					'exclude'  => array(
 						'itsec_log',
 						'itsec_temp',
