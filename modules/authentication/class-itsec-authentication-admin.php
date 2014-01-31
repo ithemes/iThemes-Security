@@ -15,7 +15,7 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 
 		private function __construct( $core, $module ) {
 
-			global $itsec_globals;
+			global $itsec_globals, $itsec_allow_tracking;
 
 			$this->core      = $core;
 			$this->module    = $module;
@@ -33,6 +33,10 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			//manually save options on multisite
 			if ( is_multisite() ) {
 				add_action( 'network_admin_edit_itsec_authentication', array( $this, 'save_network_options' ) ); //save multisite options
+			}
+
+			if ( $itsec_allow_tracking === true ) {
+				add_action( 'admin_enqueue_scripts', array( $this, 'tracking_script' ) );
 			}
 
 		}
@@ -1440,6 +1444,43 @@ if ( ! class_exists( 'ITSEC_Authentication_Admin' ) ) {
 			$content .= '<p class="warningtext description">' . __( 'Warning: If your site invites public registrations setting the role too low may annoy your members.', 'ithemes-security' ) . '</p>';
 
 			echo $content;
+
+		}
+
+		/**
+		 * Adds fields that will be tracked for Google Analytics
+		 */
+		public function tracking_script() {
+
+			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-authentication' ) !== false ) {
+
+				$tracking_items = array(
+					'brute_force-enabled',
+					'strong_passwords-enabled',
+					'strong_passwords-roll',
+					'away_mode-enabled',
+					'hide_backend-enabled',
+					'hide_backend-register',
+					'away_mode-type',
+					'other-login_errors',
+				);
+
+				$tracking_values = array(
+					'brute_force-enabled'      => '0:b',
+					'strong_passwords-enabled' => '0:b',
+					'strong_passwords-roll'    => 'administrator:s',
+					'away_mode-enabled'        => '0:b',
+					'hide_backend-enabled'     => '0:b',
+					'hide_backend-register'    => 'wp-register.php',
+					'away_mode-type'           => '0:b',
+					'other-login_errors'       => '0:b',
+				);
+
+				wp_localize_script( 'itsec_tracking', 'tracking_items', $tracking_items );
+				wp_localize_script( 'itsec_tracking', 'tracking_values', $tracking_values );
+				wp_localize_script( 'itsec_tracking', 'tracking_section', 'itsec_authentication' );
+
+			}
 
 		}
 
