@@ -43,12 +43,9 @@ jQuery( document ).ready( function () {
 
 					tracking_items.splice( index, 1 );
 
-				} else {
-
+					_gaq.push( ['_trackEvent', section, setting, saved_value, timestamp, true] );
 
 				}
-
-				_gaq.push( ['_trackEvent', section, setting, saved_value, timestamp, true] );
 
 			}
 
