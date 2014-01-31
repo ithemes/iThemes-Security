@@ -15,6 +15,8 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 		private function __construct( $core, $module ) {
 
+			global $itsec_allow_tracking;
+
 			$this->core     = $core;
 			$this->module   = $module;
 			$this->settings = get_site_option( 'itsec_intrusion_detection' );
@@ -37,6 +39,10 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 			//manually save options on multisite
 			if ( is_multisite() ) {
 				add_action( 'network_admin_edit_itsec_intrusion_detection', array( $this, 'save_network_options' ) ); //save multisite options
+			}
+
+			if ( $itsec_allow_tracking === true ) {
+				add_action( 'admin_enqueue_scripts', array( $this, 'tracking_script' ) );
 			}
 
 		}
@@ -836,13 +842,42 @@ if ( ! class_exists( 'ITSEC_Intrusion_Detection_Admin' ) ) {
 
 				$statuses[] = array(
 					'priority' => 'other',
-					'text' => sprintf( '%s <strong>%d</strong> %s', __( 'iThemes Security has found', 'ithemes-security' ), sizeof( $log_items ), __( '404 errors on your site.', 'ithemes-security' ) ),
-					'link' => 'admin.php?page=toplevel_page_itsec-intrusion_detection',
+					'text'     => sprintf( '%s <strong>%d</strong> %s', __( 'iThemes Security has found', 'ithemes-security' ), sizeof( $log_items ), __( '404 errors on your site.', 'ithemes-security' ) ),
+					'link'     => 'admin.php?page=toplevel_page_itsec-intrusion_detection',
 				);
 
 			}
 
 			return $statuses;
+
+		}
+
+		/**
+		 * Adds fields that will be tracked for Google Analytics
+		 */
+		public function tracking_script() {
+
+			if ( strpos( get_current_screen()->id, 'security_page_toplevel_page_itsec-intrusion_detection' ) !== false ) {
+
+				$tracking_items = array(
+					'four_oh_four-enabled',
+					'file_change-enabled',
+					'file_change-method',
+					'file_change-email',
+				);
+
+				$tracking_values = array(
+					'four_oh_four-enabled' => 'o:b',
+					'file_change-enabled'  => 'o:b',
+					'file_change-method'   => '1:b',
+					'file_change-email'    => '1:b',
+				);
+
+				wp_localize_script( 'itsec_tracking', 'tracking_items', $tracking_items );
+				wp_localize_script( 'itsec_tracking', 'tracking_values', $tracking_values );
+				wp_localize_script( 'itsec_tracking', 'tracking_section', 'itsec_intrusion_detection' );
+
+			}
 
 		}
 
