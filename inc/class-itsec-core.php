@@ -509,7 +509,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			//this is called at a strange point in WP so we need to bring in some data
 			global $itsec_plugin_name;
-			$itsec_plugin_name = $itsec_globals->plugin_name;
+			$itsec_plugin_name = $itsec_globals['plugin_name'];
 
 			//display the notifcation if they haven't turned it off and they've been using the plugin at least 30 days
 			if ( ( ! isset( $options['already_supported'] ) || $options['already_supported'] === false ) && $options['activation_timestamp'] < ( $itsec_current_time_gmt - 2952000 ) ) {
