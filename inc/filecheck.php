@@ -87,8 +87,9 @@ if ( ! class_exists( 'bwps_filecheck' ) ) {
 				} else { //$file is a file
 				
 					if ( strpos( $item , '.' ) === 0) { //list item is a file extension
-					
-						if ( strcmp( '.' . end ( explode( '.' , $file ) ), $item ) == 0 ) {
+
+						$fileparts = explode( '.' , $file );
+						if ( strcmp( '.' . end ( $fileparts ), $item ) == 0 ) {
 							$flag = true;
 						 }
 				
