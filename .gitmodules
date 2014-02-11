@@ -1,0 +1,4 @@
+[submodule "modules/clef/inc/wpclef"]
+	path = modules/clef/inc/wpclef
+	url = git@github.com:clef/wordpress.git
+	branch = two-point-oh
